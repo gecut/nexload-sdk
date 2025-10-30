@@ -1,5 +1,5 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: ["@repo/eslint-config/index.js"],
+  extends: ["@nexload-sdk/eslint-config/index.js"],
 };

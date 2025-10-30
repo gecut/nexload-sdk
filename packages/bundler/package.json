@@ -1,0 +1,10 @@
+{
+  "name": "@nexload-sdk/bundler",
+  "version": "0.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "esbuild": "^0.25.11"
+  }
+}
