@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -9,6 +9,9 @@
   },
   "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "lint": "eslint .",
     "build": "node esbuild.config.mjs"

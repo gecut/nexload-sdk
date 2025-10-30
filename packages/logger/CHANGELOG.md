@@ -1,5 +1,11 @@
 # @nexload-sdk/logger
 
+## 1.0.1
+
+### Patch Changes
+
+- c96fe18: publish access
+
 ## 1.0.0
 
 ### Major Changes
