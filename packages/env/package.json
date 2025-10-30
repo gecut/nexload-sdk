@@ -15,6 +15,11 @@
   },
   "license": "MIT",
   "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "publishConfig": {
     "access": "public"
   },
