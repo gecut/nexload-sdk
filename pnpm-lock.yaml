@@ -98,6 +98,9 @@ importers:
 
   packages/logger:
     dependencies:
+      '@nexload-sdk/env':
+        specifier: ^1.0.0
+        version: link:../env
       pino:
         specifier: ^10.0.0
         version: 10.1.0
@@ -108,9 +111,6 @@ importers:
       '@nexload-sdk/bundler':
         specifier: workspace:*
         version: link:../bundler
-      '@nexload-sdk/env':
-        specifier: workspace:*
-        version: link:../env
       '@nexload-sdk/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
