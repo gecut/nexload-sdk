@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 1.0.2
+
+### Patch Changes
+
+- 6e277a1: description
+
 ## 1.0.1
 
 ### Patch Changes

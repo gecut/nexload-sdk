@@ -1,5 +1,13 @@
 # @nexload-sdk/logger
 
+## 1.0.3
+
+### Patch Changes
+
+- 6e277a1: description
+- Updated dependencies [6e277a1]
+  - @nexload-sdk/env@1.0.2
+
 ## 1.0.2
 
 ### Patch Changes
