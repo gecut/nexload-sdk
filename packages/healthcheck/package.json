@@ -1,0 +1,61 @@
+{
+  "name": "@nexload-sdk/healthcheck",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/healthcheck"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "./database": {
+      "types": "./dist/extensions/database/index.d.ts",
+      "default": "./dist/extensions/database/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node esbuild.config.mjs"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "^24.9.1",
+    "eslint": "^9.38.0",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@nexload-sdk/env": "^1.0.2",
+    "@nexload-sdk/logger": "^1.0.3",
+    "filesize": "^11.0.13",
+    "payload": "^3.62.0",
+    "ping": "^1.0.0",
+    "systeminformation": "^5.27.11"
+  }
+}
