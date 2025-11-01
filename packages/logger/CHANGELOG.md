@@ -1,5 +1,13 @@
 # @nexload-sdk/logger
 
+## 1.0.4
+
+### Patch Changes
+
+- 5ce3078: rever
+- Updated dependencies [5ce3078]
+  - @nexload-sdk/env@1.0.3
+
 ## 1.0.3
 
 ### Patch Changes
