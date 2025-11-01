@@ -1,14 +1,42 @@
 {
   "name": "@nexload-sdk/logger",
   "version": "1.0.2",
+  "description": "High-performance, structured, and type-safe logging for JS/TS apps — powered by pino, with pretty output, env-integration, security redaction, and Next.js-friendly wrappers.",
+  "keywords": [
+    "logger",
+    "pino",
+    "typescript",
+    "logging",
+    "structured log",
+    "nextjs",
+    "nodejs",
+    "pretty print",
+    "redact",
+    "performance",
+    "observability"
+  ],
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/logger",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/logger"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.cjs"
     }
   },
-  "license": "MIT",
-  "type": "module",
   "files": [
     "dist",
     "README.md",
