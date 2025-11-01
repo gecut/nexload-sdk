@@ -1,22 +1,19 @@
 {
   "name": "@nexload-sdk/healthcheck",
   "version": "1.0.0",
-  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck",
-  "bugs": {
-    "url": "https://github.com/gecut/nexload-sdk/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gecut/nexload-sdk.git",
-    "directory": "packages/healthcheck"
-  },
-  "author": {
-    "name": "S. MohammadMahdi Zamanian",
-    "url": "https://mm25zamanian.ir",
-    "email": "dev@mm25zamanian.ir"
-  },
-  "license": "MIT",
+  "description": "Lightweight, framework-agnostic health check system for Node.js and Kubernetes.",
   "type": "module",
+  "keywords": [
+    "nodejs",
+    "healthcheck",
+    "kubernetes",
+    "liveness",
+    "readiness",
+    "monitoring",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "GecutWeb",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
