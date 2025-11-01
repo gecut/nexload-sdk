@@ -99,7 +99,7 @@ importers:
   packages/logger:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^1.0.0
+        specifier: ^1.0.2
         version: link:../env
       pino:
         specifier: ^10.0.0
@@ -107,6 +107,37 @@ importers:
       pino-pretty:
         specifier: ^13.1.2
         version: 13.1.2
+    devDependencies:
+      '@nexload-sdk/bundler':
+        specifier: workspace:*
+        version: link:../bundler
+      '@nexload-sdk/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@nexload-sdk/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^24.9.1
+        version: 24.9.1
+      eslint:
+        specifier: ^9.38.0
+        version: 9.38.0
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  packages/pool-fetch:
+    dependencies:
+      '@nexload-sdk/env':
+        specifier: ^1.0.2
+        version: link:../env
+      '@nexload-sdk/logger':
+        specifier: ^1.0.3
+        version: link:../logger
+      undici:
+        specifier: ^7.16.0
+        version: 7.16.0
     devDependencies:
       '@nexload-sdk/bundler':
         specifier: workspace:*
@@ -3149,6 +3180,11 @@ packages:
   /undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
     dev: true
+
+  /undici@7.16.0:
+    resolution: {integrity: sha512-QEg3HPMll0o3t2ourKwOeUAZ159Kn9mx5pnzHRQO8+Wixmh88YdZRiIwat0iNzNNXn0yoEtXJqFpyW7eM8BV7g==}
+    engines: {node: '>=20.18.1'}
+    dev: false
 
   /universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
