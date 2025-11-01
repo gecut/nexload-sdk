@@ -1,0 +1,67 @@
+{
+  "name": "@nexload-sdk/pool-fetch",
+  "version": "1.0.0",
+  "description": "Advanced, resilient, and modular fetch client for Node.js and Next.js with automatic connection pooling (undici powered)",
+  "keywords": [
+    "http",
+    "fetch",
+    "undici",
+    "connection-pool",
+    "nodejs",
+    "nextjs",
+    "ssr",
+    "typescript"
+  ],
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/pool-fetch",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/pool-fetch"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node esbuild.config.mjs"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "^24.9.1",
+    "eslint": "^9.38.0",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@nexload-sdk/env": "^1.0.2",
+    "@nexload-sdk/logger": "^1.0.3",
+    "undici": "^7.16.0"
+  }
+}
