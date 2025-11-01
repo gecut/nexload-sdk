@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/healthcheck",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck",
   "bugs": {
     "url": "https://github.com/gecut/nexload-sdk/issues"
