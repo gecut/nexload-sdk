@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 1.1.0
+
+### Minor Changes
+
+- ff74216: publish
+
 ## 1.0.3
 
 ### Patch Changes
