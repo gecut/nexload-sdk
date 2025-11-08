@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 2.1.0
+
+### Minor Changes
+
+- 5b29b7f: fix
+
 ## 2.0.3
 
 ### Patch Changes
