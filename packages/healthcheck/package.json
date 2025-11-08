@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/healthcheck",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Lightweight, framework-agnostic health check system for Node.js and Kubernetes.",
   "type": "module",
   "keywords": [
@@ -48,8 +48,8 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@nexload-sdk/env": "^2.0.2",
-    "@nexload-sdk/logger": "^2.1.1",
+    "@nexload-sdk/env": "^2.0.3",
+    "@nexload-sdk/logger": "^2.1.3",
     "filesize": "^11.0.13",
     "payload": "^3.63.0",
     "ping": "^1.0.0",

@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 2.0.2
+
+### Patch Changes
+
+- acb2fb3: reinit
+
 ## 2.0.1
 
 ### Patch Changes

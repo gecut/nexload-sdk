@@ -1,5 +1,13 @@
 # @nexload-sdk/logger
 
+## 2.1.3
+
+### Patch Changes
+
+- acb2fb3: reinit
+- Updated dependencies [acb2fb3]
+  - @nexload-sdk/env@2.0.3
+
 ## 2.1.2
 
 ### Patch Changes

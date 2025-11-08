@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/env",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Type-safe, modern, and extensible environment variable manager for JS/TS applications — with built-in validation, composable presets, and advanced logging. Perfect for Next.js, Node.js, and API/CMS stacks.",
   "keywords": [
     "env",

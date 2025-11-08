@@ -3,10 +3,16 @@ import * as child_process from "child_process";
 import { promisify } from "util";
 import { createRequire } from "module";
 import { rm } from "fs/promises";
+import path from "path";
 
-export function createBundler(entryFile = "src/index.ts", outDir = "dist") {
+export function createBundler(
+  entryFile = "src/index.ts",
+  outDir = "dist",
+  baseDir = process.cwd()
+) {
+  const pkgPath = path.join(baseDir, "package.json");
   const _require = createRequire(import.meta.url);
-  const pkg = _require("./package.json");
+  const pkg = _require(pkgPath);
 
   const externals = [
     ...Object.keys(pkg.dependencies || {}),
