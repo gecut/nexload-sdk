@@ -1,5 +1,11 @@
 # @nexload-sdk/env
 
+## 1.0.4
+
+### Patch Changes
+
+- 8c0d1d9: reinit
+
 ## 1.0.3
 
 ### Patch Changes

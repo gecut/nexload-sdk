@@ -1,5 +1,13 @@
 # @nexload-sdk/logger
 
+## 1.0.5
+
+### Patch Changes
+
+- 8c0d1d9: reinit
+- Updated dependencies [8c0d1d9]
+  - @nexload-sdk/env@1.0.4
+
 ## 1.0.4
 
 ### Patch Changes

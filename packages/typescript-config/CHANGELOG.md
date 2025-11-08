@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 1.1.1
+
+### Patch Changes
+
+- 8c0d1d9: reinit
+
 ## 1.1.0
 
 ### Minor Changes

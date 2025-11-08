@@ -1,13 +1,31 @@
 {
   "name": "@nexload-sdk/eslint-config",
-  "version": "1.2.0",
-  "main": "index.js",
+  "version": "1.2.1",
+  "main": "dist/index.js",
   "type": "module",
   "license": "MIT",
   "exports": {
-    "./": "./index.js",
-    "./next": "./next.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./base": {
+      "types": "./dist/base.d.ts",
+      "default": "./dist/base.js"
+    },
+    "./nextjs": {
+      "types": "./dist/nextjs.d.ts",
+      "default": "./dist/nextjs.js"
+    }
   },
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "dependencies": {
     "@eslint/js": "^9.38.0",
     "@next/eslint-plugin-next": "^16.0.1",
@@ -25,5 +43,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "@nexload-sdk/typescript-config": "workspace:*"
   }
 }
