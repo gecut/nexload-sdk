@@ -30,11 +30,7 @@ export default defineConfig([
   },
 
   // Next.js Core Web Vitals
-  {
-    files: ["**/*.{ts,tsx,js,jsx}"],
-    plugins: { "@next/eslint-plugin-next": next },
-    rules: next.configs["core-web-vitals"].rules,
-  },
+  next.configs["core-web-vitals"],
 
   eslintConfigPrettier,
 ]);
