@@ -1,23 +1,40 @@
-import reactHooks from "eslint-plugin-react-hooks";
-import react from "eslint-plugin-react";
-import next from "@next/eslint-plugin-next";
-import { baseConfig } from "./base.js";
+// eslint.config.ts
 import { defineConfig } from "eslint/config";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import next from "@next/eslint-plugin-next";
 import eslintConfigPrettier from "eslint-config-prettier";
+import { baseConfig } from "./base.js";
 
 /**
- * ESLint configuration for Next.js projects.
- * Extends the base configuration and adds React + Next.js specific rules.
+ * Type-safe Flat Config for Next.js + React + Hooks + Prettier
+ * Avoids TypeScript errors with Plugin typings
  */
-export const nextJsConfig = defineConfig([
+export default defineConfig([
+  // Base config
   baseConfig,
-  react.configs.flat,
+
   reactHooks.configs.flat.recommended,
 
-  next.configs["core-web-vitals"],
+  // React & Hooks
+  {
+    files: ["**/*.{ts,tsx,js,jsx}"],
+    plugins: { react },
+    rules: {
+      ...react.configs.recommended.rules, // React recommended
+      "react/react-in-jsx-scope": "off", // Next.js doesn’t require this
+    },
+    settings: {
+      react: { version: "detect" },
+    },
+  },
 
-  // Prettier overrides (must come last)
+  // Next.js Core Web Vitals
+  {
+    files: ["**/*.{ts,tsx,js,jsx}"],
+    plugins: { "@next/eslint-plugin-next": next },
+    rules: next.configs["core-web-vitals"].rules,
+  },
+
   eslintConfigPrettier,
 ]);
-
-export default nextJsConfig;
