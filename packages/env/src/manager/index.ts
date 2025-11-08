@@ -22,7 +22,7 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
       const value = process.env[key];
 
       if (value == undefined) {
-        if (variable.default) {
+        if (variable?.default) {
           this.log(
             "warn", `'${key}' not exists and default:`, variable.default
           );
@@ -35,7 +35,7 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
         continue;
       }
 
-      if (variable.type === "number" && isNaN(Number(value))) {
+      if (variable?.type === "number" && isNaN(Number(value))) {
         this.log(
           "warn", `is '${typeof value}', but must 'number'`
         );
@@ -44,7 +44,7 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
       }
 
       if (
-        variable.type === "boolean"
+        variable?.type === "boolean"
         && value !== "true"
         && value !== "false"
       ) {
@@ -85,15 +85,15 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
 
     const variableOptions = this.variables[key];
     let variable = (process.env[key as string]
-      || variableOptions.default) as EnvReturnType<TVariables[TKey]>;
+      || variableOptions?.default) as EnvReturnType<TVariables[TKey]>;
 
-    if (variableOptions.type === "number")
+    if (variableOptions?.type === "number")
       variable = Number(variable) as EnvReturnType<TVariables[TKey]>;
 
-    if (variableOptions.type === "boolean")
+    if (variableOptions?.type === "boolean")
       variable = (variable === "true") as EnvReturnType<TVariables[TKey]>;
 
-    if (variableOptions.type === "string")
+    if (variableOptions?.type === "string")
       variable = String(variable) as EnvReturnType<TVariables[TKey]>;
 
     this.env.set(
