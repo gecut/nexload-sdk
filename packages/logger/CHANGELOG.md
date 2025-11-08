@@ -1,5 +1,15 @@
 # @nexload-sdk/logger
 
+## 2.1.2
+
+### Patch Changes
+
+- 3998376: ci
+
+  isfhguiudfgsdfs
+  sdlofisldkjfn
+  sdkjfnksdfjn
+
 ## 2.1.1
 
 ### Patch Changes
