@@ -1,5 +1,13 @@
 # @nexload-sdk/logger
 
+## 2.0.1
+
+### Patch Changes
+
+- 43e467a: reinit
+- Updated dependencies [43e467a]
+  - @nexload-sdk/env@2.0.1
+
 ## 2.0.0
 
 ### Major Changes
