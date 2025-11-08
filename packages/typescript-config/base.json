@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "declaration": true,
     "declarationMap": true,
-    "noEmit": true,
+    "noEmit": false,
     "moduleDetection": "force"
   }
 }
