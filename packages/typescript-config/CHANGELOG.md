@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 2.0.0
+
+### Major Changes
+
+- ca080ba: reinit
+
 ## 1.1.1
 
 ### Patch Changes

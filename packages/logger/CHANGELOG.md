@@ -1,5 +1,16 @@
 # @nexload-sdk/logger
 
+## 2.0.0
+
+### Major Changes
+
+- ca080ba: reinit
+
+### Patch Changes
+
+- Updated dependencies [ca080ba]
+  - @nexload-sdk/env@2.0.0
+
 ## 1.0.5
 
 ### Patch Changes

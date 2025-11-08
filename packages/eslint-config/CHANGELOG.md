@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 2.0.0
+
+### Major Changes
+
+- ca080ba: reinit
+
 ## 1.2.1
 
 ### Patch Changes
