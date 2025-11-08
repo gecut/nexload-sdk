@@ -2,21 +2,22 @@ import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import turboPlugin from "eslint-plugin-turbo";
 import tseslint from "typescript-eslint";
-import onlyWarn from "eslint-plugin-only-warn";
 import stylisticPluginTs from "@stylistic/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
+import parser from "@typescript-eslint/parser";
+import { defineConfig } from "eslint/config";
 
 /**
- * @type {import("eslint").FlatConfig.Config[]}
+ * Base ESLint configuration shared across projects.
  */
-export const config = [
+export const baseConfig = defineConfig([
   js.configs.recommended,
   eslintConfigPrettier,
   stylisticPluginTs.configs.recommended,
 
   {
     languageOptions: {
-      parser: "@typescript-eslint/parser",
+      parser,
       parserOptions: {
         project: "./tsconfig.json",
         ecmaVersion: 2023,
@@ -62,12 +63,6 @@ export const config = [
           },
         },
       ],
-    },
-  },
-
-  {
-    plugins: {
-      onlyWarn,
     },
   },
 
@@ -121,8 +116,6 @@ export const config = [
       ],
       "@stylistic/quote-props": ["error", "as-needed"],
       "@stylistic/keyword-spacing": ["error", { before: true, after: true }],
-      "@stylistic/line-comment-position": "off",
-      "@stylistic/lines-around-comment": "off",
       "@stylistic/lines-between-class-members": ["error", "always"],
       "@stylistic/max-len": ["error", { code: 180 }],
       "@stylistic/member-delimiter-style": "error",
@@ -210,4 +203,6 @@ export const config = [
   {
     ignores: ["dist/**", "node_modules/**", "*.mjs", "*.js", "**/importMap.js"],
   },
-];
+]);
+
+export default baseConfig;

@@ -107,6 +107,13 @@ importers:
       typescript-eslint:
         specifier: ^8.46.2
         version: 8.46.2(eslint@9.38.0)(typescript@5.9.3)
+    devDependencies:
+      '@nexload-sdk/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^24.9.1
+        version: 24.9.1
 
   packages/healthcheck:
     dependencies:

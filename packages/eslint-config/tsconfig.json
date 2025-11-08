@@ -1,0 +1,13 @@
+{
+  "extends": "@nexload-sdk/typescript-config/base.json",
+  "include": ["."],
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "declaration": true,
+    "noEmit": false
+  },
+  "exclude": ["node_modules", "dist"]
+}
