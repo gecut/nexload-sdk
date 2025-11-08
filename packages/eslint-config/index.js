@@ -7,10 +7,8 @@ import stylisticPluginTs from "@stylistic/eslint-plugin";
 import importPlugin from "eslint-plugin-import";
 
 /**
- * A shared ESLint configuration for the repository.
- *
- * @type {import("eslint").Linter.Config[]}
- * */
+ * @type {import("eslint").FlatConfig.Config[]}
+ */
 export const config = [
   js.configs.recommended,
   eslintConfigPrettier,
