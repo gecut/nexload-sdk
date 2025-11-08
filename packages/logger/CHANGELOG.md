@@ -1,5 +1,11 @@
 # @nexload-sdk/logger
 
+## 2.1.0
+
+### Minor Changes
+
+- 4ad7e08: fix
+
 ## 2.0.1
 
 ### Patch Changes
