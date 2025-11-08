@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 1.1.0
+
+### Minor Changes
+
+- 1bad29a: fix
+
 ## 1.0.3
 
 ### Patch Changes
