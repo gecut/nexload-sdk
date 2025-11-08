@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 2.1.2
+
+### Patch Changes
+
+- 12bcdb7: fix next
+
 ## 2.1.1
 
 ### Patch Changes
