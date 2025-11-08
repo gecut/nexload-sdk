@@ -1,5 +1,14 @@
 # @nexload-sdk/pool-fetch
 
+## 2.0.2
+
+### Patch Changes
+
+- 5950342: update
+- Updated dependencies [5950342]
+  - @nexload-sdk/logger@2.1.1
+  - @nexload-sdk/env@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

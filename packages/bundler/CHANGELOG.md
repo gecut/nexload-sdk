@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 2.0.2
+
+### Patch Changes
+
+- 5950342: update
+
 ## 2.0.1
 
 ### Patch Changes

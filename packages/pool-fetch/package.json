@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/pool-fetch",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Advanced, resilient, and modular fetch client for Node.js and Next.js with automatic connection pooling (undici powered)",
   "keywords": [
     "http",
@@ -55,13 +55,13 @@
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/node": "^24.9.1",
-    "eslint": "^9.38.0",
+    "@types/node": "^24.10.0",
+    "eslint": "^9.39.1",
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@nexload-sdk/env": "^2.0.1",
-    "@nexload-sdk/logger": "^2.0.1",
+    "@nexload-sdk/env": "^2.0.2",
+    "@nexload-sdk/logger": "^2.1.1",
     "undici": "^7.16.0"
   }
 }

@@ -1,5 +1,13 @@
 # @nexload-sdk/logger
 
+## 2.1.1
+
+### Patch Changes
+
+- 5950342: update
+- Updated dependencies [5950342]
+  - @nexload-sdk/env@2.0.2
+
 ## 2.1.0
 
 ### Minor Changes
