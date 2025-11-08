@@ -5,17 +5,9 @@
   "type": "module",
   "license": "MIT",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./base": {
-      "types": "./dist/base.d.ts",
-      "default": "./dist/base.js"
-    },
-    "./nextjs": {
-      "types": "./dist/nextjs.d.ts",
-      "default": "./dist/nextjs.js"
+    "./*.js": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
     }
   },
   "scripts": {

@@ -1,6 +1,6 @@
 import reactHooks from "eslint-plugin-react-hooks";
-import pluginReact from "eslint-plugin-react";
-import pluginNext from "@next/eslint-plugin-next";
+import react from "eslint-plugin-react";
+import next from "@next/eslint-plugin-next";
 import { baseConfig } from "./base.js";
 import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
@@ -11,17 +11,11 @@ import eslintConfigPrettier from "eslint-config-prettier";
  */
 export const nextJsConfig = defineConfig([
   baseConfig,
-  pluginReact.configs.flat,
-  reactHooks.configs.flat["recommended-latest"],
+  react.configs.flat,
+  reactHooks.configs.flat.recommended,
 
-  // Next.js plugin
-  {
-    plugins: { "@next/next": pluginNext },
-    rules: {
-      ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs["core-web-vitals"].rules,
-    },
-  },
+  next.configs.recommended,
+  next.configs["core-web-vitals"],
 
   // Prettier overrides (must come last)
   eslintConfigPrettier,
