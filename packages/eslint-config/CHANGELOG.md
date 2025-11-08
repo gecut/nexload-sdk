@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 2.1.1
+
+### Patch Changes
+
+- 0dafab7: fix next plugin
+
 ## 2.1.0
 
 ### Minor Changes

@@ -14,7 +14,6 @@ export const nextJsConfig = defineConfig([
   react.configs.flat,
   reactHooks.configs.flat.recommended,
 
-  next.configs.recommended,
   next.configs["core-web-vitals"],
 
   // Prettier overrides (must come last)
