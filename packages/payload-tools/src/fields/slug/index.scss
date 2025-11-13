@@ -1,0 +1,18 @@
+.slug-field-component {
+  .label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(var(--base) / 2);
+  }
+
+  .lock-button {
+    margin: 0;
+    padding-bottom: 0.3125rem;
+  }
+
+  .icon-button{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

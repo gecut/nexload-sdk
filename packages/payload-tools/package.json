@@ -1,0 +1,93 @@
+{
+  "name": "@nexload-sdk/payload-tools",
+  "version": "2.0.3",
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/payload-tools",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/payload-tools"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./editor": {
+      "import": "./dist/editor/index.mjs",
+      "require": "./dist/editor/index.cjs",
+      "types": "./dist/editor/index.d.ts"
+    },
+    "./fields/date": {
+      "import": "./dist/fields/date/index.mjs",
+      "require": "./dist/fields/date/index.cjs",
+      "types": "./dist/fields/date/index.d.ts"
+    },
+    "./fields/date/date-picker": {
+      "import": "./dist/fields/date/date-picker.mjs",
+      "require": "./dist/fields/date/date-picker.cjs",
+      "types": "./dist/fields/date/date-picker.d.ts"
+    },
+    "./fields/date/date-cell": {
+      "import": "./dist/fields/date/date-cell.mjs",
+      "require": "./dist/fields/date/date-cell.cjs",
+      "types": "./dist/fields/date/date-cell.d.ts"
+    },
+    "./fields/slug": {
+      "import": "./dist/fields/slug/index.mjs",
+      "require": "./dist/fields/slug/index.cjs",
+      "types": "./dist/fields/slug/index.d.ts"
+    },
+    "./fields/slug/slug-field": {
+      "import": "./dist/fields/slug/slug-field.mjs",
+      "require": "./dist/fields/slug/slug-field.cjs",
+      "types": "./dist/fields/slug/slug-field.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks/index.mjs",
+      "require": "./dist/hooks/index.cjs",
+      "types": "./dist/hooks/index.d.ts"
+    }
+  },
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node esbuild.config.mjs",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "eslint": "^9.39.1",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@nexload-sdk/logger": "^2.1.3",
+    "@payloadcms/richtext-lexical": "^3.63.0",
+    "@payloadcms/ui": "^3.63.0",
+    "date-fns-jalali": "4.1.0-0",
+    "payload": "^3.63.0",
+    "react": "^19.2.0",
+    "react-day-picker": "^9.11.1"
+  }
+}
