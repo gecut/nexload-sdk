@@ -1,6 +1,42 @@
 {
   "name": "@nexload-sdk/payload-tools",
-  "version": "2.0.3",
+  "description": "A collection of minimal and lightweight utilities, custom fields (like Jalali date picker and slug), editor enhancements, and useful hooks designed to extend and simplify Payload CMS projects within the Nexload SDK.",
+  "version": "0.0.0",
+  "keywords": [
+    "payload",
+    "payloadcms",
+    "cms",
+    "admin panel",
+    "admin UI",
+    "extensions",
+    "plugins",
+    "tools",
+    "utilities",
+    "toolkit",
+    "custom fields",
+    "date field",
+    "date picker",
+    "jalali date",
+    "persian calendar",
+    "shamsi calendar",
+    "slug field",
+    "slug generator",
+    "permalink",
+    "seo",
+    "editor",
+    "richtext",
+    "lexical",
+    "wysiwyg",
+    "hooks",
+    "lifecycle hooks",
+    "nexload",
+    "sdk",
+    "lightweight",
+    "minimal",
+    "react",
+    "typescript",
+    "javascript"
+  ],
   "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/payload-tools",
   "bugs": {
     "url": "https://github.com/gecut/nexload-sdk/issues"
@@ -17,44 +53,44 @@
   },
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./editor": {
+      "types": "./dist/editor/index.d.ts",
       "import": "./dist/editor/index.mjs",
-      "require": "./dist/editor/index.cjs",
-      "types": "./dist/editor/index.d.ts"
+      "require": "./dist/editor/index.cjs"
     },
     "./fields/date": {
+      "types": "./dist/fields/date/index.d.ts",
       "import": "./dist/fields/date/index.mjs",
-      "require": "./dist/fields/date/index.cjs",
-      "types": "./dist/fields/date/index.d.ts"
+      "require": "./dist/fields/date/index.cjs"
     },
     "./fields/date/date-picker": {
+      "types": "./dist/fields/date/date-picker.d.ts",
       "import": "./dist/fields/date/date-picker.mjs",
-      "require": "./dist/fields/date/date-picker.cjs",
-      "types": "./dist/fields/date/date-picker.d.ts"
+      "require": "./dist/fields/date/date-picker.cjs"
     },
     "./fields/date/date-cell": {
+      "types": "./dist/fields/date/date-cell.d.ts",
       "import": "./dist/fields/date/date-cell.mjs",
-      "require": "./dist/fields/date/date-cell.cjs",
-      "types": "./dist/fields/date/date-cell.d.ts"
+      "require": "./dist/fields/date/date-cell.cjs"
     },
     "./fields/slug": {
+      "types": "./dist/fields/slug/index.d.ts",
       "import": "./dist/fields/slug/index.mjs",
-      "require": "./dist/fields/slug/index.cjs",
-      "types": "./dist/fields/slug/index.d.ts"
+      "require": "./dist/fields/slug/index.cjs"
     },
     "./fields/slug/slug-field": {
+      "types": "./dist/fields/slug/slug-field.d.ts",
       "import": "./dist/fields/slug/slug-field.mjs",
-      "require": "./dist/fields/slug/slug-field.cjs",
-      "types": "./dist/fields/slug/slug-field.d.ts"
+      "require": "./dist/fields/slug/slug-field.cjs"
     },
     "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.mjs",
-      "require": "./dist/hooks/index.cjs",
-      "types": "./dist/hooks/index.d.ts"
+      "require": "./dist/hooks/index.cjs"
     }
   },
   "license": "MIT",

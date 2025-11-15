@@ -1,5 +1,6 @@
 import * as esbuild from "esbuild";
 import * as child_process from "child_process";
+import { sassPlugin } from "esbuild-sass-plugin";
 import { promisify } from "util";
 import { createRequire } from "module";
 import { rm } from "fs/promises";
@@ -29,10 +30,11 @@ export function createBundler(
       platform: "node",
       sourcemap: true,
       target: "es2020",
+      plugins: [sassPlugin({ type: "style", })],
       minify: true, // Recommended for production build
       external: externals,
       banner: {
-        js: `// @nexload-sdk/logger v${pkg.version} (build ${new Date().toISOString()})`,
+        js: `// ${pkg.name} v${pkg.version} (build ${new Date().toISOString()})`,
       },
       ...options,
     });
