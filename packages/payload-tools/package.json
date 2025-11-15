@@ -1,7 +1,7 @@
 {
   "name": "@nexload-sdk/payload-tools",
   "description": "A collection of minimal and lightweight utilities, custom fields (like Jalali date picker and slug), editor enhancements, and useful hooks designed to extend and simplify Payload CMS projects within the Nexload SDK.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "keywords": [
     "payload",
     "payloadcms",

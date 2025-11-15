@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 2.0.4
+
+### Patch Changes
+
+- f4532b7: c
+
 ## 2.0.3
 
 ### Patch Changes
