@@ -48,10 +48,10 @@ importers:
   packages/healthcheck:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.0.3
+        specifier: ^2.1.0
         version: link:../env
       '@nexload-sdk/logger':
-        specifier: ^2.1.3
+        specifier: ^2.2.0
         version: link:../logger
       filesize:
         specifier: ^11.0.13
@@ -88,7 +88,7 @@ importers:
   packages/logger:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.0.3
+        specifier: ^2.1.0
         version: link:../env
       pino:
         specifier: ^10.0.0
@@ -119,13 +119,13 @@ importers:
   packages/orpc-client:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.0.3
+        specifier: ^2.1.0
         version: link:../env
       '@nexload-sdk/logger':
-        specifier: ^2.1.3
+        specifier: ^2.2.0
         version: link:../logger
       '@nexload-sdk/pool-fetch':
-        specifier: ^2.0.3
+        specifier: ^2.1.0
         version: link:../pool-fetch
       '@orpc/client':
         specifier: ^1.11.2
@@ -196,7 +196,7 @@ importers:
   packages/payload-hooks:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: ^2.1.3
+        specifier: ^2.2.0
         version: link:../logger
       payload:
         specifier: ^3.64.0
@@ -224,10 +224,10 @@ importers:
   packages/pool-fetch:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.0.3
+        specifier: ^2.1.0
         version: link:../env
       '@nexload-sdk/logger':
-        specifier: ^2.1.3
+        specifier: ^2.2.0
         version: link:../logger
       undici:
         specifier: ^7.16.0

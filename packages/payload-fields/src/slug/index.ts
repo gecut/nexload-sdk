@@ -42,7 +42,7 @@ export const slugField: Slug = (fieldToUse = "title", overrides = {}) => {
       ...(slugOverrides?.admin || {}),
       components: {
         Field: {
-          path: "@nexload-sdk/payload-tools/fields/slug/slug-field#SlugComponent",
+          path: "@nexload-sdk/payload-fields/fields/slug/slug-field#SlugComponent",
           clientProps: {
             fieldToUse,
             checkboxFieldPath: checkBoxField.name,
