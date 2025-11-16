@@ -1,0 +1,44 @@
+{
+  "name": "@nexload-sdk/orpc-client",
+  "version": "0.0.0",
+  "description": "A minimal, high-performance factory for creating optimized oRPC clients, designed for persistent, low-latency, server-to-server communication in cloud-native architectures.",
+  "keywords": [
+    "orpc",
+    "rpc",
+    "client",
+    "nexload",
+    "nexload-sdk",
+    "cloud-native",
+    "microservices",
+    "server-to-server",
+    "undici",
+    "pool-fetch",
+    "performance",
+    "typescript",
+    "type-safe"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "@nexload-sdk/env": "^2.0.3",
+    "@nexload-sdk/logger": "^2.1.3",
+    "@nexload-sdk/pool-fetch": "^2.0.3",
+    "@orpc/client": "^1.11.2",
+    "@orpc/contract": "^1.11.2"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "typescript": "^5.4.5"
+  }
+}
