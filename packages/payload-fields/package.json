@@ -1,9 +1,6 @@
 {
   "name": "@nexload-sdk/payload-fields",
-  "version": "0.1.0",
-  "private": false,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "version": "0.0.0",
   "files": [
     "dist"
   ],
@@ -41,26 +38,22 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "dev": "node ../../tools/bundler/index.js --watch",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@payloadcms/richtext-lexical": "^3.64.0",
     "@payloadcms/ui": "^3.64.0",
     "date-fns-jalali": "4.1.0-0",
-    "react-day-picker": "^9.11.1"
-  },
-  "peerDependencies": {
-    "payload": "^2.0.0",
-    "react": "^18.2.0"
+    "react-day-picker": "^9.11.1",
+    "payload": "^3.64.0",
+    "react": "^19.2.0"
   },
   "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/react": "^18.2.0",
-    "typescript": "^5.4.5",
-    "eslint": "^8.57.0",
-    "payload": "^2.11.0",
-    "react": "^18.2.0"
+    "@types/react": "^19.2.5",
+    "eslint": "^9.39.1",
+    "typescript": "^5.4.5"
   }
 }
