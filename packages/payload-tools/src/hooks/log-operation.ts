@@ -19,7 +19,7 @@ type HookReturnType<T extends HookType> = T extends "beforeChange"
         ? CollectionAfterReadHook
         : never;
 
-const logOperation = <
+export const logOperation = <
   THookType extends HookType,
   TReturn extends HookReturnType<THookType>,
 >(
@@ -28,10 +28,7 @@ const logOperation = <
   const hook: TReturn = ((args: any) => {
     const collectionName = args.collection?.slug || args.collection;
 
-    logger.info(
-      { collection: collectionName },
-      hookType
-    );
+    logger.info({ collection: collectionName }, hookType);
 
     if ("data" in args && args.data) return args.data;
     if ("doc" in args && args.doc) return args.doc;
@@ -41,5 +38,3 @@ const logOperation = <
 
   return hook;
 };
-
-export default logOperation;
