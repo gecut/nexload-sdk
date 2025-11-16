@@ -2,10 +2,21 @@
   "name": "@nexload-sdk/payload-hooks",
   "version": "0.1.0",
   "private": false,
+  "description": "Effortless, type-safe logging for Payload CMS collection operations.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "keywords": [
+    "payload",
+    "payload-cms",
+    "hooks",
+    "logging",
+    "nexload",
+    "sdk"
   ],
   "scripts": {
     "build": "node esbuild.config.mjs",
