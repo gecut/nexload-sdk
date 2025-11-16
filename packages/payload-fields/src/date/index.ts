@@ -14,8 +14,8 @@ export const dateField: Date = (overrides = {
       position: "sidebar",
       ...(overrides?.admin || {}),
       components: {
-        Cell: { path: "@nexload-sdk/payload-fields/fields/date/date-cell#DateCell", },
-        Field: { path: "@nexload-sdk/payload-fields/fields/date/date-picker#DatePicker", },
+        Cell: { path: "@nexload-sdk/payload-fields/date/date-cell#DateCell", },
+        Field: { path: "@nexload-sdk/payload-fields/date/date-picker#DatePicker", },
       },
     },
   };

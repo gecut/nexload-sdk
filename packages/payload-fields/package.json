@@ -31,30 +31,30 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./fields/date": {
-      "types": "./dist/fields/date/index.d.ts",
-      "import": "./dist/fields/date/index.mjs",
-      "require": "./dist/fields/date/index.cjs"
+    "./date": {
+      "types": "./dist/date/index.d.ts",
+      "import": "./dist/date/index.mjs",
+      "require": "./dist/date/index.cjs"
     },
-    "./fields/date/date-picker": {
-      "types": "./dist/fields/date/date-picker.d.ts",
-      "import": "./dist/fields/date/date-picker.mjs",
-      "require": "./dist/fields/date/date-picker.cjs"
+    "./date/date-picker": {
+      "types": "./dist/date/date-picker.d.ts",
+      "import": "./dist/date/date-picker.mjs",
+      "require": "./dist/date/date-picker.cjs"
     },
-    "./fields/date/date-cell": {
-      "types": "./dist/fields/date/date-cell.d.ts",
-      "import": "./dist/fields/date/date-cell.mjs",
-      "require": "./dist/fields/date/date-cell.cjs"
+    "./date/date-cell": {
+      "types": "./dist/date/date-cell.d.ts",
+      "import": "./dist/date/date-cell.mjs",
+      "require": "./dist/date/date-cell.cjs"
     },
-    "./fields/slug": {
-      "types": "./dist/fields/slug/index.d.ts",
-      "import": "./dist/fields/slug/index.mjs",
-      "require": "./dist/fields/slug/index.cjs"
+    "./slug": {
+      "types": "./dist/slug/index.d.ts",
+      "import": "./dist/slug/index.mjs",
+      "require": "./dist/slug/index.cjs"
     },
-    "./fields/slug/slug-field": {
-      "types": "./dist/fields/slug/slug-field.d.ts",
-      "import": "./dist/fields/slug/slug-field.mjs",
-      "require": "./dist/fields/slug/slug-field.cjs"
+    "./slug/slug-field": {
+      "types": "./dist/slug/slug-field.d.ts",
+      "import": "./dist/slug/slug-field.mjs",
+      "require": "./dist/slug/slug-field.cjs"
     }
   },
   "scripts": {
