@@ -18,7 +18,9 @@
     "sdk"
   ],
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "package.json"
   ],
   "exports": {
     ".": {
