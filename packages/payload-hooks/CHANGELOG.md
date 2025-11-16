@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-hooks
 
+## 1.0.1
+
+### Patch Changes
+
+- 6291322: exports
+
 ## 1.0.0
 
 ### Major Changes
