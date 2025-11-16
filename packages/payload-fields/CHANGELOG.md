@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 1.0.2
+
+### Patch Changes
+
+- 3367298: fix export paths
+
 ## 1.0.1
 
 ### Patch Changes
