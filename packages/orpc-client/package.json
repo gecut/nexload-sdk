@@ -17,6 +17,9 @@
     "typescript",
     "type-safe"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "README.md",

@@ -18,6 +18,9 @@
     "nexload",
     "sdk"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "node esbuild.config.mjs",
     "lint": "eslint . --ext .ts,.tsx"
