@@ -1,0 +1,23 @@
+{
+  "name": "@nexload-sdk/payload-hooks",
+  "version": "0.1.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "dev": "node ../../tools/bundler/index.js --watch",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@nexload-sdk/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "typescript": "^5.4.5",
+    "eslint": "^8.57.0",
+    "payload": "^2.11.0"
+  }
+}
