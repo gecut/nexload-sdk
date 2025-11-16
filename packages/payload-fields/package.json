@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/payload-fields",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A collection of powerful, production-ready, and beautifully designed fields for Payload CMS, including an advanced date picker, automatic slug generator, and a feature-rich Lexical editor.",
   "keywords": [
     "payload",

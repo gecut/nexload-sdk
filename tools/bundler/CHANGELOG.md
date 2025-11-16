@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 3.0.0
+
+### Major Changes
+
+- a3a7a72: update
+
 ## 2.0.4
 
 ### Patch Changes

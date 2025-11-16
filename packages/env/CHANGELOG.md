@@ -1,5 +1,11 @@
 # @nexload-sdk/env
 
+## 2.1.0
+
+### Minor Changes
+
+- a3a7a72: update
+
 ## 2.0.3
 
 ### Patch Changes
