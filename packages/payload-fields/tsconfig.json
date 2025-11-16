@@ -1,8 +1,10 @@
 {
-  "extends": "../../tools/typescript-config/react.json",
+  "extends": "@nexload-sdk/typescript-config/react.json",
+  "include": ["."],
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true,
   },
-  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
