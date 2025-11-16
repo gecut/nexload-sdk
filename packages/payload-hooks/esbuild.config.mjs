@@ -1,4 +1,4 @@
-import { createBundler } from '../../tools/bundler/index.js';
+import { createBundler } from '@nexload-sdk/bundler';
 
 const bundler = createBundler();
 
