@@ -1,5 +1,11 @@
 # @nexload-sdk/logger
 
+## 2.3.0
+
+### Minor Changes
+
+- b48c35b: update deps
+
 ## 2.2.0
 
 ### Minor Changes

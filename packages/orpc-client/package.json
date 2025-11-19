@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/orpc-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "A minimal, high-performance factory for creating optimized oRPC clients, designed for persistent, low-latency, server-to-server communication in cloud-native architectures.",
   "keywords": [
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@nexload-sdk/env": "^2.1.0",
-    "@nexload-sdk/logger": "^2.2.0",
+    "@nexload-sdk/logger": "^2.3.0",
     "@nexload-sdk/pool-fetch": "^2.1.0",
     "@orpc/client": "^1.11.3",
     "@orpc/contract": "^1.11.3"

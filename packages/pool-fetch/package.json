@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@nexload-sdk/env": "^2.1.0",
-    "@nexload-sdk/logger": "^2.2.0",
+    "@nexload-sdk/logger": "^2.3.0",
     "undici": "^7.16.0"
   }
 }

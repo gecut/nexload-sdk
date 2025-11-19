@@ -1,5 +1,13 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.2
+
+### Patch Changes
+
+- b48c35b: update deps
+- Updated dependencies [b48c35b]
+  - @nexload-sdk/logger@2.3.0
+
 ## 1.0.1
 
 ### Patch Changes

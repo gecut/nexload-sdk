@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@nexload-sdk/env": "^2.1.0",
-    "@nexload-sdk/logger": "^2.2.0",
+    "@nexload-sdk/logger": "^2.3.0",
     "filesize": "^11.0.13",
     "payload": "^3.64.0",
     "ping": "^1.0.0",
