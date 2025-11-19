@@ -1,6 +1,7 @@
 {
   "name": "@nexload-sdk/orpc-client",
   "version": "1.0.0",
+  "type": "module",
   "description": "A minimal, high-performance factory for creating optimized oRPC clients, designed for persistent, low-latency, server-to-server communication in cloud-native architectures.",
   "keywords": [
     "orpc",
@@ -17,6 +18,14 @@
     "typescript",
     "type-safe"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
