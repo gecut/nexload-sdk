@@ -42,8 +42,8 @@
     "@nexload-sdk/env": "^2.1.0",
     "@nexload-sdk/logger": "^2.2.0",
     "@nexload-sdk/pool-fetch": "^2.1.0",
-    "@orpc/client": "^1.11.2",
-    "@orpc/contract": "^1.11.2"
+    "@orpc/client": "^1.11.3",
+    "@orpc/contract": "^1.11.3"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",

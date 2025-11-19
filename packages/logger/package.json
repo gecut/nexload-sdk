@@ -62,6 +62,7 @@
   "dependencies": {
     "@nexload-sdk/env": "^2.1.0",
     "pino": "^10.0.0",
-    "pino-pretty": "^13.1.2"
+    "pino-pretty": "^13.1.2",
+    "thread-stream": "^3.1.0"
   }
 }
