@@ -1,5 +1,11 @@
 # @nexload-sdk/logger
 
+## 2.4.0
+
+### Minor Changes
+
+- 47fe55a: init
+
 ## 2.3.0
 
 ### Minor Changes
