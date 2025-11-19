@@ -1,5 +1,11 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.1
+
+### Patch Changes
+
+- c4f24ca: init
+
 ## 1.0.0
 
 ### Major Changes
