@@ -16,7 +16,12 @@ export const logger = pino({
             ignore: "pid,hostname",
           },
         }
-      : undefined,
+      : {
+          target: "pino/file",
+          options: {
+            destination: 1,
+          },
+        },
   timestamp: pino.stdTimeFunctions.isoTime,
   formatters: {
     level(label) {
