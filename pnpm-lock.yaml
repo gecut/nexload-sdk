@@ -112,6 +112,9 @@ importers:
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.1
+      colorette:
+        specifier: ^2.0.20
+        version: 2.0.20
       eslint:
         specifier: ^9.39.1
         version: 9.39.1
@@ -3063,7 +3066,6 @@ packages:
 
   /colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
-    dev: false
 
   /colorjs.io@0.5.2:
     resolution: {integrity: sha512-twmVoizEW7ylZSN32OgKdXRmo1qg+wT5/6C3xu5b9QsWzSFAhHLn2xd8ro0diCsKfCj1RdaTP/nrcW+vAoQPIw==}
