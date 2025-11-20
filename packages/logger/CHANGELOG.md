@@ -1,5 +1,16 @@
 # @nexload-sdk/logger
 
+## 2.5.0
+
+### Minor Changes
+
+- 04c5001: fix problems
+
+### Patch Changes
+
+- Updated dependencies [04c5001]
+  - @nexload-sdk/env@2.1.1
+
 ## 2.4.0
 
 ### Minor Changes
