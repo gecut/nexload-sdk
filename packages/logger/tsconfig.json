@@ -4,7 +4,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

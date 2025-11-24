@@ -37,6 +37,12 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "default": "./dist/index.mjs"
+    },
+    "./log-test": {
+      "types": "./dist/log-test.d.ts",
+      "import": "./dist/log-test.mjs",
+      "require": "./dist/log-test.cjs",
+      "default": "./dist/log-test.mjs"
     }
   },
   "files": [
@@ -59,11 +65,5 @@
     "colorette": "^2.0.20",
     "eslint": "^9.39.1",
     "typescript": "5.9.3"
-  },
-  "dependencies": {
-    "@nexload-sdk/env": "^2.1.1",
-    "pino": "^10.0.0",
-    "pino-pretty": "^13.1.2",
-    "thread-stream": "^3.1.0"
   }
 }

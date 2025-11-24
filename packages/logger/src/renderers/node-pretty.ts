@@ -7,15 +7,19 @@ import {
   dim,
   magentaBright,
   greenBright,
+  green,
+  cyanBright,
 } from "colorette";
-import { jsonHumanize } from "./json-humanize";
+import { jsonHumanize } from "@/utils/json-humanize";
+import { LogRendererFunc } from "@/types";
 
 export type LogLevel = "TRACE" | "INFO" | "WARN" | "ERROR" | "FATAL" | "DEBUG";
 
 const levelColors = {
   TRACE: gray,
   DEBUG: magentaBright,
-  INFO: greenBright,
+  INFO: cyanBright,
+  SUCCESS: green,
   WARN: yellow,
   ERROR: redBright,
   FATAL: red,
@@ -24,13 +28,14 @@ const levelColors = {
 export const levelSymbols = {
   TRACE: "›",
   DEBUG: "•",
-  INFO: "✔",
+  INFO: "ℹ",
+  SUCCESS: "✔",
   WARN: "⚠",
   ERROR: "✗",
   FATAL: "✝",
 } as const;
 
-function extrasFromatter(extras: any) {
+const extrasFromatter = (extras: any) => {
   if (
     extras == null ||
     typeof extras !== "object" ||
@@ -39,27 +44,20 @@ function extrasFromatter(extras: any) {
     return [];
 
   return ["\n" + jsonHumanize(extras, 2)];
-}
+};
 
-function levelToSymbol(level: LogLevel) {
+const levelToSymbol = (level: LogLevel) => {
   const symbol = levelSymbols[level];
   const color = levelColors[level];
 
   return color("[" + symbol + "]");
-}
+};
 
-export function prettyLog(line: string) {
+export const nodePrettyRenderer: LogRendererFunc = (line) => {
   const columns =
     typeof process !== "undefined" ? process?.stdout?.columns : 80;
-  let json;
 
-  try {
-    json = JSON.parse(line);
-  } catch {
-    return console.log(line);
-  }
-
-  const { level, time, msg, name, pid, ...extras } = json;
+  const { level, time, message, name, pid, ...extras } = line as any;
 
   const dateTime = new Date(time ?? undefined);
 
@@ -67,9 +65,9 @@ export function prettyLog(line: string) {
   const symbol = levelToSymbol(level as LogLevel);
 
   const nameStr = dim(bold(name.padEnd(6)));
-  const levelStr = levelColor(bold(level.padEnd(5)));
+  const levelStr = levelColor(bold(level.padEnd(7)));
   const timeStr = dim(dateTime.toTimeString().slice(0, 8));
-  let lineStr = `${symbol} ${levelStr} ${nameStr} — ${msg}`;
+  let lineStr = `${symbol} ${levelStr} ${nameStr} — ${message}`;
   const spaceCount = Math.max(1, columns - lineStr.length - timeStr.length);
 
   lineStr = lineStr + " ".repeat(spaceCount) + timeStr;
@@ -92,4 +90,4 @@ export function prettyLog(line: string) {
       console.log(lineStr, ...extrasFromatter(extras));
       break;
   }
-}
+};

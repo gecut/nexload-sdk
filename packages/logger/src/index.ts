@@ -1,6 +1,11 @@
-import { logger } from "./base";
+import { createGlobalLogger } from "./utils/create-global";
 
-export * from "./base";
-export * from "./next-js";
+const logger = createGlobalLogger();
 
+new Promise(async () => {
+  (await import("./log-test")).test(logger);
+});
+
+export * from "./logger";
+export * from "./types";
 export default logger;
