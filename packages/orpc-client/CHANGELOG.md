@@ -1,5 +1,14 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [bb50397]
+  - @nexload-sdk/logger@3.0.0
+  - @nexload-sdk/env@2.1.2
+  - @nexload-sdk/pool-fetch@2.1.1
+
 ## 1.0.2
 
 ### Patch Changes

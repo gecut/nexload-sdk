@@ -1,5 +1,11 @@
 # @nexload-sdk/logger
 
+## 3.0.0
+
+### Major Changes
+
+- bb50397: remake without pino
+
 ## 2.5.0
 
 ### Minor Changes
