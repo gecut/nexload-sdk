@@ -1,20 +1,23 @@
-import { BaseLogger } from "../logger";
+import logger from "@nexload-sdk/logger";
 import { EnvSchema, EnvReturnType } from "./types";
 
-export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
+declare global {
+  var envFirstLogging: boolean;
+}
+
+if (globalThis.envFirstLogging == null) {
+  globalThis.envFirstLogging = false;
+}
+
+export class EnvManager<TVariables extends EnvSchema> {
   protected env = new Map<string, string | number | boolean>();
 
-  constructor (
-    serviceName: string,
-    protected readonly variables: TVariables
-  ) {
-    super(serviceName);
-
+  constructor(protected readonly variables: TVariables) {
     this.validate();
     this.load();
   }
 
-  protected validate () {
+  protected validate() {
     const keys = Object.keys(this.variables);
 
     for (const key of keys) {
@@ -23,56 +26,70 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
 
       if (value == undefined) {
         if (variable?.default) {
-          this.log(
-            "warn", `'${key}' not exists and default:`, variable.default
-          );
+          globalThis.envFirstLogging &&
+            logger.warn(
+              { package: "@nexload-sdk/env", key },
+              `'${key}' not exists and default: ${variable.default}`
+            );
         } else {
-          this.log(
-            "error", `'${key}' not exists and not have defaults`
-          );
+          globalThis.envFirstLogging &&
+            logger.error(
+              { package: "@nexload-sdk/env", key },
+              `'${key}' not exists and not have defaults`
+            );
         }
 
         continue;
       }
 
       if (variable?.type === "number" && isNaN(Number(value))) {
-        this.log(
-          "warn", `is '${typeof value}', but must 'number'`
-        );
+        globalThis.envFirstLogging &&
+          logger.warn(
+            {
+              package: "@nexload-sdk/env",
+              key,
+              value,
+              valueType: typeof value,
+            },
+            `is '${typeof value}', but must 'number'`
+          );
 
         continue;
       }
 
       if (
-        variable?.type === "boolean"
-        && value !== "true"
-        && value !== "false"
+        variable?.type === "boolean" &&
+        value !== "true" &&
+        value !== "false"
       ) {
-        this.log(
-          "warn", `'${key}' should be boolean ('true' or 'false')`
-        );
+        globalThis.envFirstLogging &&
+          logger.warn(
+            {
+              package: "@nexload-sdk/env",
+              key,
+              value,
+              valueType: typeof value,
+            },
+            `is '${typeof value}', but must 'number'`
+          );
 
         continue;
       }
 
-      this.log(
-        "success", `'${key}' successfully loaded`
-      );
+      globalThis.envFirstLogging &&
+        logger.success(
+          { package: "@nexload-sdk/env", key, value, valueType: typeof value },
+          "env successfully loaded"
+        );
     }
   }
 
-  public load () {
+  public load() {
     const keys = Object.keys(this.variables);
 
     for (const key of keys) {
-      this.$(
-        key, false
-      );
+      this.$(key, false);
     }
-
-    this.env.set(
-      "SERVICE_NAME", this.serviceName
-    );
   }
 
   public $<TKey extends keyof TVariables>(
@@ -84,8 +101,8 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
     }
 
     const variableOptions = this.variables[key];
-    let variable = (process.env[key as string]
-      || variableOptions?.default) as EnvReturnType<TVariables[TKey]>;
+    let variable = (process.env[key as string] ||
+      variableOptions?.default) as EnvReturnType<TVariables[TKey]>;
 
     if (variableOptions?.type === "number")
       variable = Number(variable) as EnvReturnType<TVariables[TKey]>;
@@ -96,9 +113,7 @@ export class EnvManager<TVariables extends EnvSchema> extends BaseLogger {
     if (variableOptions?.type === "string")
       variable = String(variable) as EnvReturnType<TVariables[TKey]>;
 
-    this.env.set(
-      String(key), variable
-    );
+    this.env.set(String(key), variable);
 
     return variable;
   }

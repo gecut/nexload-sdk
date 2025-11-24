@@ -12,7 +12,8 @@ export class NexloadLogger {
   constructor(
     public readonly name: string,
     public readonly level: LogLevel,
-    protected readonly renderer: LogRenderer
+    protected readonly renderer: LogRenderer,
+    protected baseObject: object = {}
   ) {
     this.threshold = levelPriorities[level];
     this.name = this.name.toUpperCase();
@@ -22,6 +23,7 @@ export class NexloadLogger {
     if (levelPriorities[level] < this.threshold) return;
 
     const payload: any = {
+      ...this.baseObject,
       ...obj,
       name: this.name,
       level,
@@ -36,6 +38,13 @@ export class NexloadLogger {
     if (isNode()) return this.renderer.node(payload);
 
     return console.log(payload);
+  }
+
+  public child(obj: object = {}): NexloadLogger {
+    return new NexloadLogger(this.name, this.level, this.renderer, {
+      ...this.baseObject,
+      ...obj,
+    });
   }
 
   public trace(obj: object, msg?: string): void {

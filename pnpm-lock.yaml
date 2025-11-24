@@ -42,7 +42,7 @@ importers:
   packages/env:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: 2.5.0
+        specifier: 3.0.0
         version: link:../logger
     devDependencies:
       '@nexload-sdk/bundler':
@@ -70,10 +70,10 @@ importers:
   packages/healthcheck:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.1.0
+        specifier: ^2.1.2
         version: link:../env
       '@nexload-sdk/logger':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../logger
       filesize:
         specifier: ^11.0.13
@@ -134,13 +134,13 @@ importers:
   packages/orpc-client:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.1.0
+        specifier: ^2.1.2
         version: link:../env
       '@nexload-sdk/logger':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../logger
       '@nexload-sdk/pool-fetch':
-        specifier: ^2.1.0
+        specifier: ^2.1.1
         version: link:../pool-fetch
       '@orpc/client':
         specifier: ^1.11.3
@@ -211,7 +211,7 @@ importers:
   packages/payload-hooks:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../logger
       payload:
         specifier: ^3.64.0
@@ -239,10 +239,10 @@ importers:
   packages/pool-fetch:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^2.1.0
+        specifier: ^2.1.2
         version: link:../env
       '@nexload-sdk/logger':
-        specifier: ^2.3.0
+        specifier: ^3.0.0
         version: link:../logger
       undici:
         specifier: ^7.16.0

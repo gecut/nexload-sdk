@@ -1,7 +1,7 @@
 import { EnvManager, merge } from "@nexload-sdk/env";
 import { $NodePreset } from "@nexload-sdk/env/presets";
 import { UndiciHttpClient } from "@nexload-sdk/pool-fetch";
-import { logger } from "@nexload-sdk/logger";
+import logger from "@nexload-sdk/logger";
 import { RPCLink } from "@orpc/client/fetch";
 import { ClientContext, createORPCClient } from "@orpc/client";
 import { AnyContractRouter, ContractRouterClient } from "@orpc/contract";
@@ -22,7 +22,6 @@ class ORPCClient<
     });
 
     this.env = new EnvManager(
-      "orpc-client",
       merge($NodePreset, {
         PAYLOAD_API_URL: { type: "string" },
       })
@@ -38,7 +37,7 @@ class ORPCClient<
     if (this.isProduction && !url) {
       logger.error(
         { class: "ORPCClient", method: "apiUrl" },
-        "PAYLOAD_API_URL is not set in production environment"
+        "'PAYLOAD_API_URL' is not set in production environment"
       );
     }
 

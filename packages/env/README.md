@@ -47,7 +47,7 @@ const variables = {
   JWT_SECRET: { type: 'string' },
 };
 
-const env = new EnvManager('MyService', variables);
+const env = new EnvManager(variables);
 
 // Retrieve env variable (string/number/boolean, type-safe)
 const port = env.$('PORT');        // number | 4000
@@ -107,7 +107,7 @@ const CustomPreset = merge($ApiServicePreset, {
 #### Example Advanced Usage
 
 ```typescript
-const env = new EnvManager('Billing', {
+const env = new EnvManager({
   TAX_RATE: { type: 'number', default: 0.09 },
   ENABLE_FEATURE: { type: 'boolean', default: false },
 });

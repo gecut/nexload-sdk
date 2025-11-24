@@ -7,13 +7,13 @@ import logger from "@nexload-sdk/logger";
  * for all NexLoad SDK network clients.
  */
 export abstract class BaseHttpClient {
-  protected readonly env = new EnvManager(
-    "pool-fetch", merge($NodePreset)
-  );
+  protected readonly env = new EnvManager(merge($NodePreset));
 
-  protected readonly logger: typeof logger = logger.child({ package: "@nexload-sdk/pool-fetch", });
+  protected readonly logger: typeof logger = logger.child({
+    package: "@nexload-sdk/pool-fetch",
+  });
 
-  protected getStatusText (code: number): string {
+  protected getStatusText(code: number): string {
     const map: Record<number, string> = {
       200: "OK",
       201: "Created",
@@ -35,7 +35,7 @@ export abstract class BaseHttpClient {
     return map[code] || "Unknown Status";
   }
 
-  protected convertBody (body?: BodyInit | null): string | Buffer | null {
+  protected convertBody(body?: BodyInit | null): string | Buffer | null {
     if (!body) return null;
 
     if (typeof body === "string") return body;
@@ -51,14 +51,14 @@ export abstract class BaseHttpClient {
     return String(body);
   }
 
-  protected async extractRequestData (
+  protected async extractRequestData(
     input: string | URL | Request,
     init?: RequestInit
   ): Promise<{
-    url: string
-    method: string
-    headers: Record<string, string> | HeadersInit
-    body: BodyInit | null
+    url: string;
+    method: string;
+    headers: Record<string, string> | HeadersInit;
+    body: BodyInit | null;
   }> {
     // Fast path: input is Request
     if (input instanceof Request) {
@@ -67,9 +67,7 @@ export abstract class BaseHttpClient {
       // convert Headers to plain object only once (lazy)
       const headersObj: Record<string, string> = {};
 
-      input.headers.forEach((
-        v, k
-      ) => headersObj[k] = v);
+      input.headers.forEach((v, k) => (headersObj[k] = v));
 
       let body: BodyInit | null = null;
       // Read only if body available and not used — keep try/catch minimal
@@ -86,17 +84,13 @@ export abstract class BaseHttpClient {
         const initHeaders = init.headers as HeadersInit;
         // Merge minimal: if init.headers is an object, spread; if Headers, iterate
         if (initHeaders instanceof Headers) {
-          initHeaders.forEach((
-            v, k
-          ) => headersObj[k] = v);
+          initHeaders.forEach((v, k) => (headersObj[k] = v));
         } else if (typeof initHeaders === "object") {
-          Object.assign(
-            headersObj, initHeaders as Record<string, string>
-          );
+          Object.assign(headersObj, initHeaders as Record<string, string>);
         }
       }
 
-      return { url, method, headers: headersObj, body, };
+      return { url, method, headers: headersObj, body };
     }
 
     // Non-Request path
@@ -105,10 +99,10 @@ export abstract class BaseHttpClient {
     const headers = init?.headers ?? {};
     const body = init?.body ?? null;
 
-    return { url, method, headers, body, };
+    return { url, method, headers, body };
   }
 
-  abstract fetch (
+  abstract fetch(
     input: string | URL | Request,
     init?: RequestInit
   ): Promise<Response>;

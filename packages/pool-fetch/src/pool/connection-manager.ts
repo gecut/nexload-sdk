@@ -7,9 +7,9 @@ import { Pool } from "undici";
  * Pool metadata for lifecycle tracking.
  */
 interface PoolInfo {
-  pool: Pool
-  created: number
-  lastUsed: number
+  pool: Pool;
+  created: number;
+  lastUsed: number;
 }
 
 /**
@@ -29,12 +29,10 @@ export class ConnectionPoolManager {
   private static instance: ConnectionPoolManager;
 
   protected readonly env = new EnvManager(
-    "connection-manager", merge(
-      $NodePreset, {
-        NEXT_DEV_SERVER: { type: "boolean", default: false, },
-        NEXT_RUNTIME: { type: "boolean", default: false, },
-      }
-    )
+    merge($NodePreset, {
+      NEXT_DEV_SERVER: { type: "boolean", default: false },
+      NEXT_RUNTIME: { type: "boolean", default: false },
+    })
   );
 
   protected readonly logger: typeof logger = logger.child({
@@ -73,12 +71,12 @@ export class ConnectionPoolManager {
   // Construction & Singleton
   // ────────────────────────────────────────────────────────────────
 
-  private constructor () {
+  private constructor() {
     if (!this.isNextRuntime()) this.startCleanup();
     this.registerShutdownHandlers();
   }
 
-  public static getInstance (): ConnectionPoolManager {
+  public static getInstance(): ConnectionPoolManager {
     if (!this.instance) this.instance = new ConnectionPoolManager();
     return this.instance;
   }
@@ -87,10 +85,12 @@ export class ConnectionPoolManager {
   // Runtime Detection
   // ────────────────────────────────────────────────────────────────
 
-  private isNextRuntime (): boolean {
-    return Boolean(this.env.$("NEXT_RUNTIME")
-      || (this.env.$("NODE_ENV") === "development"
-        && this.env.$("NEXT_DEV_SERVER")));
+  private isNextRuntime(): boolean {
+    return Boolean(
+      this.env.$("NEXT_RUNTIME") ||
+        (this.env.$("NODE_ENV") === "development" &&
+          this.env.$("NEXT_DEV_SERVER"))
+    );
   }
 
   // ────────────────────────────────────────────────────────────────
@@ -101,7 +101,7 @@ export class ConnectionPoolManager {
    * Returns an active pool for a given URL origin.
    * If it doesn’t exist, creates a new one using shared configuration.
    */
-  public getPool (url: string): Pool {
+  public getPool(url: string): Pool {
     const origin = new URL(url).origin;
     const now = Date.now();
 
@@ -113,16 +113,10 @@ export class ConnectionPoolManager {
     }
 
     // Create and store pool
-    const pool = new Pool(
-      origin, this.CONFIG
-    );
-    this.pools.set(
-      origin, { pool, created: now, lastUsed: now, }
-    );
+    const pool = new Pool(origin, this.CONFIG);
+    this.pools.set(origin, { pool, created: now, lastUsed: now });
 
-    this.logger.debug(
-      { origin, }, "Created new connection pool"
-    );
+    this.logger.debug({ origin }, "Created new connection pool");
     return pool;
   }
 
@@ -130,11 +124,12 @@ export class ConnectionPoolManager {
   // Cleanup Cycle
   // ────────────────────────────────────────────────────────────────
 
-  private startCleanup (): void {
+  private startCleanup(): void {
     if (this.cleanupTimer) return;
 
     this.cleanupTimer = setInterval(
-      () => void this.cleanup(), ConnectionPoolManager.CLEANUP_INTERVAL
+      () => void this.cleanup(),
+      ConnectionPoolManager.CLEANUP_INTERVAL
     );
 
     // Prevent timer from keeping Node process alive unnecessarily
@@ -144,15 +139,13 @@ export class ConnectionPoolManager {
   /**
    * Iterates through all connection pools and closes idle ones.
    */
-  private async cleanup (): Promise<void> {
+  private async cleanup(): Promise<void> {
     const now = Date.now();
 
     // Fast filter pass — precollect to avoid Map mutation during iteration
     const idleOrigins: string[] = [];
 
-    this.pools.forEach((
-      info, origin
-    ) => {
+    this.pools.forEach((info, origin) => {
       if (now - info.lastUsed > ConnectionPoolManager.MAX_IDLE_TIME) {
         idleOrigins.push(origin);
       }
@@ -160,22 +153,20 @@ export class ConnectionPoolManager {
 
     if (idleOrigins.length === 0) return;
 
-    await Promise.allSettled(idleOrigins.map(async (origin) => {
-      const info = this.pools.get(origin);
-      if (!info) return;
+    await Promise.allSettled(
+      idleOrigins.map(async (origin) => {
+        const info = this.pools.get(origin);
+        if (!info) return;
 
-      try {
-        await info.pool.close();
-        this.pools.delete(origin);
-        this.logger.debug(
-          { origin, }, "Cleaned idle pool"
-        );
-      } catch (err) {
-        this.logger.warn(
-          { origin, err, }, "Failed to close pool"
-        );
-      }
-    }));
+        try {
+          await info.pool.close();
+          this.pools.delete(origin);
+          this.logger.debug({ origin }, "Cleaned idle pool");
+        } catch (err) {
+          this.logger.warn({ origin, err }, "Failed to close pool");
+        }
+      })
+    );
   }
 
   // ────────────────────────────────────────────────────────────────
@@ -185,19 +176,15 @@ export class ConnectionPoolManager {
   /**
    * Registers graceful shutdown hooks for process signals.
    */
-  private registerShutdownHandlers (): void {
+  private registerShutdownHandlers(): void {
     if (this.isNextRuntime() || this.listenersRegistered) return;
 
     const shutdown = async (signal: string) => {
-      this.logger.debug(
-        { signal, }, "Graceful shutdown started"
-      );
+      this.logger.debug({ signal }, "Graceful shutdown started");
       try {
         await this.closeAll();
       } catch (err) {
-        this.logger.error(
-          { err, }, "Error during shutdown"
-        );
+        this.logger.error({ err }, "Error during shutdown");
       }
 
       // Avoid exiting on Next.js runtimes
@@ -205,15 +192,9 @@ export class ConnectionPoolManager {
     };
 
     // Use `once` to prevent memory leaks in dev watch mode
-    process.once(
-      "SIGTERM", () => void shutdown("SIGTERM")
-    );
-    process.once(
-      "SIGINT", () => void shutdown("SIGINT")
-    );
-    process.once(
-      "beforeExit", () => this.closeAll().catch(() => null)
-    );
+    process.once("SIGTERM", () => void shutdown("SIGTERM"));
+    process.once("SIGINT", () => void shutdown("SIGINT"));
+    process.once("beforeExit", () => this.closeAll().catch(() => null));
   }
 
   // ────────────────────────────────────────────────────────────────
@@ -224,28 +205,28 @@ export class ConnectionPoolManager {
    * Closes all pools immediately.
    * Used during service shutdown or process exit.
    */
-  public async closeAll (): Promise<void> {
+  public async closeAll(): Promise<void> {
     if (this.cleanupTimer) {
       clearInterval(this.cleanupTimer);
       this.cleanupTimer = null;
     }
 
-    await Promise.allSettled(Array.from(this.pools.values()).map(({ pool, }) => pool.close()));
+    await Promise.allSettled(
+      Array.from(this.pools.values()).map(({ pool }) => pool.close())
+    );
 
     this.pools.clear();
-    this.logger.debug(
-      {}, "All pools closed"
-    );
+    this.logger.debug({}, "All pools closed");
   }
 
   /**
    * Returns lightweight health snapshot for observability.
    */
-  public getHealth (): {
-    status: "healthy" | "warning" | "error"
-    pools: number
-    totalConnections: number
-    oldestPool: number
+  public getHealth(): {
+    status: "healthy" | "warning" | "error";
+    pools: number;
+    totalConnections: number;
+    oldestPool: number;
   } {
     const count = this.pools.size;
     const total = count * this.CONFIG.connections;
@@ -261,6 +242,11 @@ export class ConnectionPoolManager {
     let status: "healthy" | "warning" | "error" = "healthy";
     if (count > 10 || oldest > 3_600_000) status = "warning";
 
-    return { status, pools: count, totalConnections: total, oldestPool: oldest, };
+    return {
+      status,
+      pools: count,
+      totalConnections: total,
+      oldestPool: oldest,
+    };
   }
 }
