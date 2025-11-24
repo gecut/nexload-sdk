@@ -57,6 +57,9 @@
     "build": "node esbuild.config.mjs",
     "prepublishOnly": "pnpm build"
   },
+  "dependencies": {
+    "@nexload-sdk/logger": "2.5.0"
+  },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
