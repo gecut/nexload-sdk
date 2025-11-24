@@ -1,4 +1,7 @@
 {
   "extends": "@nexload-sdk/typescript-config/vite.json",
-  "include": ["src"]
+  "include": ["src"],
+  "compilerOptions": {
+    "moduleResolution": "Bundler"
+  }
 }
