@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@nexload-sdk/logger": "^3.0.0",
-    "payload": "^3.64.0"
+    "payload": "^3.65.0"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",

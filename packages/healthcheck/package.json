@@ -51,7 +51,7 @@
     "@nexload-sdk/env": "^2.1.2",
     "@nexload-sdk/logger": "^3.0.0",
     "filesize": "^11.0.13",
-    "payload": "^3.64.0",
+    "payload": "^3.65.0",
     "ping": "^1.0.0",
     "systeminformation": "^5.27.11"
   }
