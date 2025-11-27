@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 3.0.2
+
+### Patch Changes
+
+- 4cd35f4: update deps
+
 ## 3.0.1
 
 ### Patch Changes

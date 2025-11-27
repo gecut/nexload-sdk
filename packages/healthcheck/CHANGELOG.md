@@ -1,5 +1,11 @@
 # @nexload-sdk/healthcheck
 
+## 2.1.2
+
+### Patch Changes
+
+- 4cd35f4: update deps
+
 ## 2.1.1
 
 ### Patch Changes

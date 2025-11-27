@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 1.0.4
+
+### Patch Changes
+
+- 4cd35f4: update deps
+
 ## 1.0.3
 
 ### Patch Changes
