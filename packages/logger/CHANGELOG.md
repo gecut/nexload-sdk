@@ -1,5 +1,15 @@
 # @nexload-sdk/logger
 
+## 3.1.0
+
+### Minor Changes
+
+- 64ab8e1: update logger and env deps
+
+### Patch Changes
+
+- 0f4ac7d: remove extra tests
+
 ## 3.0.0
 
 ### Major Changes

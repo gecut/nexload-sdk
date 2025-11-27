@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/logger",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "High-performance, structured, and type-safe logging for JS/TS apps — powered by pino, with pretty output, env-integration, security redaction, and Next.js-friendly wrappers.",
   "keywords": [
     "logger",
