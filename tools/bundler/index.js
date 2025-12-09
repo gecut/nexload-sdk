@@ -9,7 +9,8 @@ import path from "path";
 export function createBundler(
   entryFile = "src/index.ts",
   outDir = "dist",
-  baseDir = process.cwd()
+  baseDir = process.cwd(),
+  esbuildOptions = {}
 ) {
   const pkgPath = path.join(baseDir, "package.json");
   const _require = createRequire(import.meta.url);
@@ -36,6 +37,7 @@ export function createBundler(
       banner: {
         js: `// ${pkg.name} v${pkg.version} (build ${new Date().toISOString()})`,
       },
+      ...esbuildOptions,
       ...options,
     });
   }
