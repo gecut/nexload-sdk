@@ -1,0 +1,56 @@
+{
+  "name": "@nexload-sdk/iconcraft",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/iconcraft",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/iconcraft"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node esbuild.config.mjs"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "^24.10.1",
+    "@types/yargs": "^17.0.35",
+    "change-case": "^5.4.4",
+    "colorette": "^2.0.20",
+    "eslint": "^9.39.1",
+    "ora": "^9.0.0",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "prettier": "^3.7.0",
+    "yargs": "^18.0.0"
+  }
+}
