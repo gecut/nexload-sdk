@@ -1,4 +1,3 @@
-
 import { resolve } from "node:path";
 import { mkdir, writeFile, rm, readdir } from "node:fs/promises";
 
@@ -31,6 +30,8 @@ export class FileService {
 
   async list(): Promise<string[]> {
     const outDir = await this.sanitizeOutDir();
-    return await readdir(outDir);
+    const files = await readdir(outDir);
+
+    return files.filter((f) => f.endsWith(".tsx"));
   }
 }
