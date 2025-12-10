@@ -1,5 +1,5 @@
 import { IconCraftEngine } from "../core";
-import { bold, dim } from "colorette";
+import { blueBright, bold, dim } from "colorette";
 import ora from "ora";
 
 export async function syncIcons(outDir?: string) {
@@ -14,7 +14,24 @@ export async function syncIcons(outDir?: string) {
     });
 
     spinner.text = "Syncing Icons";
-    await iconCraft.sync();
+    const { missingFiles, orphanedFiles } = await iconCraft.sync();
+
+    for (const missingFile of missingFiles) {
+      spinner.succeed(
+        [
+          dim("Added"),
+          bold(missingFile.fileName),
+          dim("→"),
+          bold(
+            `${dim("<")}${blueBright(missingFile.componentName)} ${dim("/>")}`
+          ),
+        ].join(" ")
+      );
+    }
+
+    for (const orphanedFile of orphanedFiles) {
+      spinner.succeed([dim("Removed"), bold(orphanedFile)].join(" "));
+    }
 
     spinner.succeed([dim("Synced"), bold("icons")].join(" "));
   } catch (error: any) {

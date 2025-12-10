@@ -1,0 +1,667 @@
+This file provides a complete overview of the `@nexload-sdk/iconcraft` package, including its documentation, configuration, and source code. It is intended to be used as a context for a large language model.
+
+---
+
+## 1. Documentation
+
+### README.md
+
+# @nexload-sdk/iconcraft
+
+<div align="center">
+  <img src="https://img.shields.io/badge/cli-iconcraft-purple?style=flat-square" alt="cli" />
+  <img src="https://img.shields.io/badge/types-typescript-blue?style=flat-square" alt="typescript" />
+  <img src="https://img.shields.io/npm/v/@nexload-sdk/iconcraft?style=flat-square" alt="npm version" />
+  <br><br>
+  <strong>A powerful CLI tool for effortlessly managing and generating type-safe icon components from Iconify in your projects.</strong>
+</div>
+
+---
+
+## Why IconCraft?
+
+In modern web development, using icons from various libraries can be a hassle. You often have to deal with:
+
+-   **Inconsistent APIs:** Different icon libraries have different ways of being used.
+-   **Performance Issues:** Loading entire icon sets can slow down your application.
+-   **Lack of Type Safety:** Using icons as strings can lead to typos and bugs.
+
+IconCraft solves these problems by providing a single, consistent way to manage and use icons in your projects. It allows you to:
+
+-   **Generate Local Components:** Instead of fetching icons from a CDN at runtime, IconCraft generates local, framework-agnostic components that you can bundle with your application. This improves performance and reliability.
+-   **Ensure Type Safety:** IconCraft generates TypeScript files with proper types for your icons, so you can catch errors at compile time, not runtime.
+-   **Sync Your Icons:** IconCraft keeps your local icon set in sync with a meta file, so you can easily add, remove, and update icons without having to manually manage files.
+
+---
+
+## Features
+
+-   📦 **Iconify Powered:** Access over 100,000 icons from 100+ icon sets, including Material Design Icons, Font Awesome, and more.
+-   🚀 **Component Generation:** Automatically generates framework-agnostic icon components that can be used in any project.
+-   🛡️ **Type-Safe:** Generates TypeScript files with proper types for your icons, enabling autocompletion and compile-time error checking.
+-   ⚙️ **Local Sync:** Keeps your local icon set in sync with a meta file, making it easy to manage your icons.
+-   🔥 **Simple Commands:** Easy-to-use commands for adding, removing, listing, and syncing icons.
+-   🧩 **Customizable:** Configure the output directory for your generated icons to fit your project's structure.
+
+---
+
+## Installation
+
+```bash
+pnpm add @nexload-sdk/iconcraft -D
+# or
+yarn add @nexload-sdk/iconcraft -D
+# or
+npm install @nexload-sdk/iconcraft -D
+```
+
+---
+
+## Quick Start
+
+### 1. Add an Icon
+
+To add a new icon, use the `add` command with the Iconify icon name (e.g., `collection:icon-name`).
+
+```bash
+pnpm iconcraft add mdi:home
+```
+
+This will generate an icon component in the default `icons` directory and update the `iconcraft.json` meta file.
+
+### 2. Use the Icon
+
+You can then import and use the generated icon component in your application. The generated components are simple, framework-agnostic functions that return an SVG string.
+
+```typescript
+import { MdiHome } from './icons/mdi-home';
+
+function MyComponent() {
+  return (
+    <div>
+      <h1>Welcome Home</h1>
+      <div dangerouslySetInnerHTML={{ __html: MdiHome() }} />
+    </div>
+  );
+}
+```
+
+---
+
+## Commands
+
+### `add <name>`
+
+Adds a new icon to your project. The `<name>` argument is the full Iconify icon name.
+
+```bash
+pnpm iconcraft add mdi:account-circle
+```
+
+### `remove <name>`
+
+Removes an icon from your project. This will delete the icon component and update the `iconcraft.json` meta file.
+
+```bash
+pnpm iconcraft remove mdi:account-circle
+```
+
+### `list`
+
+Lists all the locally generated icons, as defined in the `iconcraft.json` meta file.
+
+```bash
+pnpm iconcraft list
+```
+
+### `sync`
+
+Syncs the generated icons with the local meta file. This is useful if you have manually deleted icon files or want to regenerate all icons.
+
+```bash
+pnpm iconcraft sync
+```
+
+---
+
+## Options
+
+### `--out-dir <directory>`
+
+You can specify a custom output directory for your icons using the `--out-dir` (or `-o`) option.
+
+```bash
+pnpm iconcraft add mdi:home --out-dir src/components/icons
+```
+
+This will generate the icon component in the `src/components/icons` directory.
+
+---
+
+## Best Practices
+
+-   **Keep your icons in a dedicated directory.** This makes it easy to manage your icons and configure your build tools.
+-   **Use the `sync` command to keep your project clean.** This will ensure that your generated icons are always in sync with your meta file.
+-   **Add the `iconcraft` commands to your `package.json` scripts for easier access.**
+
+```json
+{
+  "scripts": {
+    "icon:add": "iconcraft add",
+    "icon:remove": "iconcraft remove",
+    "icon:list": "iconcraft list",
+    "icon:sync": "iconcraft sync"
+  }
+}
+```
+
+-   **Commit the `iconcraft.json` meta file to your repository.** This will ensure that all developers on your team have the same set of icons.
+
+---
+
+## Contributing
+
+1.  Fork this repo, create a feature branch (`feat/name`)
+2.  Make your changes — ensure all types, tests, and lint pass
+3.  Follow commit message convention: `feat(scope): your description`
+4.  Open a pull request (PR) — BugBot checks and feedback required
+
+---
+
+## License
+
+MIT © GecutWeb Contributors
+
+---
+
+## Branding
+
+Built by [NexLoad SDK](https://github.com/gecut/nexload-sdk) · Scalable, modern, and robust developer tooling for next-generation software.
+
+---
+
+## 2. Configuration
+
+### package.json
+
+This file defines the package's metadata, dependencies, and scripts.
+
+```json
+{
+  "name": "@nexload-sdk/iconcraft",
+  "version": "1.0.1",
+  "bin": "dist/cli.cjs",
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/iconcraft",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/iconcraft"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node esbuild.config.mjs"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "^24.10.1",
+    "@types/yargs": "^17.0.35",
+    "change-case": "^5.4.4",
+    "colorette": "^2.0.20",
+    "eslint": "^9.39.1",
+    "ora": "^9.0.0",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "prettier": "^3.7.0",
+    "yargs": "^18.0.0"
+  }
+}
+```
+
+### tsconfig.json
+
+This file configures the TypeScript compiler.
+
+```json
+{
+  "extends": "@nexload-sdk/typescript-config/base.json",
+  "include": ["."],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### esbuild.config.mjs
+
+This file configures the esbuild bundler.
+
+```javascript
+import { createBundler } from "@nexload-sdk/bundler";
+
+const esbuildBundler = createBundler(["src/index.ts", "src/cli.ts"], "dist", process.cwd(), {
+  banner: {
+    js: "#!/usr/bin/env node",
+  },
+});
+
+esbuildBundler();
+```
+
+---
+
+## 3. Source Code
+
+### src/cli.ts
+
+This file is the entry point for the CLI. It uses `yargs` to parse the command-line arguments and execute the appropriate command.
+
+```typescript
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import { addIcon, listIcons, removeIcon, syncIcons } from "./commands";
+
+yargs(hideBin(process.argv))
+  .scriptName("iconcraft")
+  .usage("$0 <command> [options]")
+  .option("out-dir", {
+    alias: "o",
+    describe: "Custom output directory for generated icons",
+    type: "string",
+    default: "icons",
+  })
+  .command(
+    "add <name>",
+    "Add a new icon to the project",
+    (y) => {
+      return y.positional("name", {
+        describe: "Iconify icon name (e.g. mdi:home)",
+        type: "string",
+      });
+    },
+    async (args) => {
+      await addIcon(args.name, args.outDir);
+    }
+  )
+  .command(
+    "remove <name>",
+    "Remove an icon",
+    (y) => {
+      return y.positional("name", {
+        describe: "Icon name to remove",
+        type: "string",
+      });
+    },
+    async (args) => {
+      await removeIcon(args.name, args.outDir);
+    }
+  )
+  .command(
+    "list",
+    "List all cached/generated icons",
+    () => {},
+    async (args) => {
+      await listIcons(args.outDir);
+    }
+  )
+  .command(
+    "sync",
+    "Sync icons with the meta file",
+    () => {},
+    async (args) => {
+      await syncIcons(args.outDir);
+    }
+  )
+  .demandCommand(1)
+  .help()
+  .strict()
+  .parse();
+```
+
+### src/core/engine.ts
+
+This file contains the core logic of the application. The `IconCraftEngine` class is responsible for adding, removing, listing, and syncing icons.
+
+```typescript
+import { IconCraftOptions, IconMeta } from "../types";
+import {
+  FileService,
+  NameService,
+  IconifyService,
+  ComponentService,
+  MetaService,
+} from "@/services";
+
+export class IconCraftEngine {
+  private fileService: FileService;
+  private nameService: NameService;
+  private iconifyService: IconifyService;
+  private componentService: ComponentService;
+  private metaService: MetaService;
+  private options: IconCraftOptions;
+
+  private constructor(options: IconCraftOptions) {
+    this.options = options;
+    this.fileService = new FileService(this.options.outDir);
+    this.nameService = new NameService();
+    this.iconifyService = new IconifyService();
+    this.componentService = new ComponentService();
+    this.metaService = new MetaService(this.options.outDir);
+  }
+
+  static async build(options: IconCraftOptions) {
+    return new IconCraftEngine(options);
+  }
+
+  async addIcon(name: string): Promise<IconMeta> {
+    const meta = this.nameService.normalize(name);
+    const svg = await this.iconifyService.fetch(meta.collection, meta.icon);
+    const component = await this.componentService.build(
+      meta.componentName,
+      svg
+    );
+    await this.fileService.create(meta.fileName, component);
+    await this.metaService.add(name, meta);
+    return meta;
+  }
+
+  async removeIcon(name: string): Promise<IconMeta | undefined> {
+    const meta = await this.metaService.get(name);
+    if (meta) {
+      await this.fileService.remove(meta.fileName);
+      await this.metaService.remove(name);
+      return meta;
+    }
+  }
+
+  async listIcons() {
+    return this.metaService.getAll();
+  }
+
+  async sync() {
+    const meta = await this.metaService.getAll();
+    const files = await this.fileService.list();
+
+    const metaFileNames = Object.values(meta).map((m) => `${m.fileName}.tsx`);
+    const orphanedFiles = files.filter((f) => !metaFileNames.includes(f));
+
+    for (const file of orphanedFiles) {
+      await this.fileService.remove(file.replace(".tsx", ""));
+    }
+
+    const missingFiles = Object.values(meta).filter(
+      (m) => !files.includes(`${m.fileName}.tsx`)
+    );
+
+    for (const m of missingFiles) {
+      const svg = await this.iconifyService.fetch(m.collection, m.icon);
+      const component = await this.componentService.build(m.componentName, svg);
+      await this.fileService.create(m.fileName, component);
+    }
+
+    return { orphanedFiles, missingFiles };
+  }
+}
+```
+
+### src/services/component.service.ts
+
+This service is responsible for building the icon component. It uses `prettier` to format the component code.
+
+```typescript
+import prettier from "prettier";
+import { SvgToJsx } from "../utils/svg-to-jsx";
+
+export class ComponentService {
+  private svgToJsx: SvgToJsx;
+
+  constructor() {
+    this.svgToJsx = new SvgToJsx();
+  }
+
+  async build(name: string, svg: string): Promise<string> {
+    const jsx = this.svgToJsx.convert(svg);
+    return await prettier.format(
+      `"use client";
+      
+      export default function ${name}(){return (${jsx})}`,
+      { parser: "babel" }
+    );
+  }
+}
+```
+
+### src/services/file.service.ts
+
+This service is responsible for file system operations, such as creating, removing, and listing files.
+
+```typescript
+import { resolve } from "node:path";
+import { mkdir, writeFile, rm, readdir } from "node:fs/promises";
+
+export class FileService {
+  constructor(private outDir: string) {}
+
+  private async sanitizeOutDir(): Promise<string> {
+    const _outDir = resolve(process.cwd(), this.outDir);
+    try {
+      await mkdir(_outDir, { recursive: true });
+    } catch (error: any) {
+      if (error.code !== "EEXIST") {
+        throw error;
+      }
+    }
+    return _outDir;
+  }
+
+  async create(fileName: string, content: string): Promise<void> {
+    const outDir = await this.sanitizeOutDir();
+    const outPath = resolve(outDir, `${fileName}.tsx`);
+    await writeFile(outPath, content, "utf8");
+  }
+
+  async remove(fileName: string): Promise<void> {
+    const outDir = await this.sanitizeOutDir();
+    const outPath = resolve(outDir, `${fileName}.tsx`);
+    await rm(outPath);
+  }
+
+  async list(): Promise<string[]> {
+    const outDir = await this.sanitizeOutDir();
+    const files = await readdir(outDir);
+
+    return files.filter(
+      (file) =>
+        file.endsWith(".tsx") && // select just `.tsx` files
+        !file.startsWith("-") // unselect custom icons
+    );
+  }
+}
+```
+
+### src/services/iconify.service.ts
+
+This service is responsible for fetching icon data from the Iconify API.
+
+```typescript
+export class IconifyService {
+  async fetch(pack: string, name: string): Promise<string> {
+    const url = `https://api.iconify.design/${pack}/${name}.svg`;
+    const res = await fetch(url);
+
+    if (!res.ok) throw new Error(`Icon "${pack}:${name}" not found`);
+
+    return res.text();
+  }
+}
+```
+
+### src/services/meta.service.ts
+
+This service is responsible for managing the `iconcraft.json` meta file.
+
+```typescript
+import { readFile, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { IconMeta, Registry } from "../types";
+
+export class MetaService {
+  private metaFilePath: string;
+
+  constructor(private outDir: string) {
+    this.metaFilePath = resolve(process.cwd(), this.outDir, ".ic-meta.json");
+  }
+
+  private async read(): Promise<Registry> {
+    try {
+      const raw = await readFile(this.metaFilePath, "utf8");
+      return JSON.parse(raw);
+    } catch (error: any) {
+      if (error.code === "ENOENT") {
+        return {};
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  private async write(registry: Registry): Promise<void> {
+    await writeFile(this.metaFilePath, JSON.stringify(registry), "utf8");
+  }
+
+  async add(name: string, meta: IconMeta): Promise<void> {
+    const registry = await this.read();
+    registry[name] = meta;
+    await this.write(registry);
+  }
+
+  async remove(name: string): Promise<void> {
+    const registry = await this.read();
+    delete registry[name];
+    await this.write(registry);
+  }
+
+  async get(name: string): Promise<IconMeta | undefined> {
+    const registry = await this.read();
+    return registry[name];
+  }
+
+  async getAll(): Promise<Registry> {
+    return this.read();
+  }
+}
+```
+
+### src/services/name.service.ts
+
+This service is responsible for normalizing icon names and generating file and component names.
+
+```typescript
+import { kebabCase, pascalCase } from "change-case";
+import { IconMeta } from "../types";
+
+export class NameService {
+  normalize(input?: string): IconMeta {
+    if (!input || !input.includes(":")) {
+      throw new Error("Usage: iconcraft add <collection:name>");
+    }
+
+    const [rawCollection, rawIcon] = input.split(":");
+
+    if (!rawCollection || !rawIcon) {
+      throw new Error("Usage: iconcraft add <collection:name>");
+    }
+
+    const collection = kebabCase(rawCollection).trim();
+    const icon = kebabCase(rawIcon).trim();
+    const fileName = kebabCase(`${collection} ${icon}`);
+    const componentName = pascalCase(`${collection} ${icon} icon`).replaceAll(
+      "_",
+      ""
+    );
+
+    return {
+      collection,
+      icon,
+      fileName,
+      componentName,
+    };
+  }
+}
+```
+
+### src/utils/svg-to-jsx.ts
+
+This utility converts an SVG string to a JSX string.
+
+```typescript
+export class SvgToJsx {
+  convert(svg: string): string {
+    if (!svg) return "";
+
+    return svg
+      .replace(/<\?xml.*?\?>/g, "")
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(/\bclass=/g, "className=")
+      .replace(/([a-z]+)-([a-z]+)=/g, (match, p1, p2) => {
+        if (p1 === "data" || p1 === "aria") return match;
+        return `${p1}${p2.charAt(0).toUpperCase() + p2.slice(1)}=`;
+      })
+      .replace(/style="([^"]*)"/g, (_, styleString) => {
+        const styleObj = styleString
+          .split(";")
+          .filter((s: string) => s.trim())
+          .map((s: string) => {
+            const [key, val] = s.split(":");
+            if (!key || !val) return "";
+            const camelKey = key
+              .trim()
+              .replace(/-([a-z])/g, (g) => g[1]!.toUpperCase());
+            return `${camelKey}: '${val.trim()}'`;
+          })
+          .join(", ");
+
+        return `style={{ ${styleObj} }}`;
+      })
+      .replace(
+        /<(path|rect|circle|polygon|line|polyline|ellipse|stop)([^>]*)(?<!\/)>/g,
+        "<$1$2 />"
+      )
+      .trim();
+  }
+}
+```

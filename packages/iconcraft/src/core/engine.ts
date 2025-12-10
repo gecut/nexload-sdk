@@ -5,6 +5,7 @@ import {
   IconifyService,
   ComponentService,
   MetaService,
+  BarrelService,
 } from "@/services";
 
 export class IconCraftEngine {
@@ -13,6 +14,7 @@ export class IconCraftEngine {
   private iconifyService: IconifyService;
   private componentService: ComponentService;
   private metaService: MetaService;
+  private barrelService: BarrelService;
   private options: IconCraftOptions;
 
   private constructor(options: IconCraftOptions) {
@@ -22,6 +24,7 @@ export class IconCraftEngine {
     this.iconifyService = new IconifyService();
     this.componentService = new ComponentService();
     this.metaService = new MetaService(this.options.outDir);
+    this.barrelService = new BarrelService(this.options.outDir);
   }
 
   static async build(options: IconCraftOptions) {
@@ -29,6 +32,8 @@ export class IconCraftEngine {
   }
 
   async addIcon(name: string): Promise<IconMeta> {
+    await this.sync();
+
     const meta = this.nameService.normalize(name);
     const svg = await this.iconifyService.fetch(meta.collection, meta.icon);
     const component = await this.componentService.build(
@@ -37,19 +42,27 @@ export class IconCraftEngine {
     );
     await this.fileService.create(meta.fileName, component);
     await this.metaService.add(name, meta);
+
+    await this.sync();
+
     return meta;
   }
 
   async removeIcon(name: string): Promise<IconMeta | undefined> {
+    await this.sync();
+
     const meta = await this.metaService.get(name);
     if (meta) {
       await this.fileService.remove(meta.fileName);
       await this.metaService.remove(name);
+      await this.sync();
       return meta;
     }
   }
 
   async listIcons() {
+    await this.sync();
+
     return this.metaService.getAll();
   }
 
@@ -73,6 +86,8 @@ export class IconCraftEngine {
       const component = await this.componentService.build(m.componentName, svg);
       await this.fileService.create(m.fileName, component);
     }
+
+    await this.barrelService.sync(await this.metaService.getAll());
 
     return { orphanedFiles, missingFiles };
   }
