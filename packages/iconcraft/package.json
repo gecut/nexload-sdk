@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/iconcraft",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "bin": "dist/cli.cjs",
   "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/iconcraft",
   "bugs": {

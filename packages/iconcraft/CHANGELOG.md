@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 1.1.0
+
+### Minor Changes
+
+- aa30eae: barrel feature
+
 ## 1.0.1
 
 ### Patch Changes
