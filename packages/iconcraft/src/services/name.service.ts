@@ -1,4 +1,3 @@
-
 import { kebabCase, pascalCase } from "change-case";
 import { IconMeta } from "../types";
 
@@ -17,7 +16,7 @@ export class NameService {
     const collection = kebabCase(rawCollection).trim();
     const icon = kebabCase(rawIcon).trim();
     const fileName = kebabCase(`${collection} ${icon}`);
-    const componentName = pascalCase(`${collection} ${icon} icon`).replaceAll(
+    const componentName = pascalCase(`${collection} ${icon}`).replaceAll(
       "_",
       ""
     );

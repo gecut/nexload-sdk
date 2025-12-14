@@ -1,4 +1,3 @@
-
 import prettier from "prettier";
 import { SvgToJsx } from "../utils/svg-to-jsx";
 
@@ -14,8 +13,8 @@ export class ComponentService {
     return await prettier.format(
       `"use client";
       
-      export default function ${name}(){return (${jsx})}`,
-      { parser: "babel" }
+      export function ${name}({className,...props}:React.SVGProps<SVGSVGElement>){return (${jsx})}`,
+      { parser: "typescript" }
     );
   }
 }
