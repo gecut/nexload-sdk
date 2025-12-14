@@ -1,6 +1,21 @@
 {
   "name": "@nexload-sdk/iconcraft",
-  "version": "1.3.0",
+  "version": "1.4.0",
+  "description": "A powerful CLI tool for effortlessly managing and generating type-safe icon components from Iconify in your projects.",
+  "keywords": [
+    "icon",
+    "iconify",
+    "svg",
+    "component",
+    "generator",
+    "cli",
+    "typescript",
+    "type-safe",
+    "automation",
+    "dev-tools",
+    "nexload",
+    "nexload-sdk"
+  ],
   "bin": "dist/cli.cjs",
   "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/iconcraft",
   "bugs": {

@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 1.4.0
+
+### Minor Changes
+
+- 5bb6429: add props feature and rewrite documents
+
 ## 1.3.0
 
 ### Minor Changes
