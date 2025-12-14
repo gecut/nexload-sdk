@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 1.2.0
+
+### Minor Changes
+
+- 9fddd02: format in barrel and exports
+
 ## 1.1.0
 
 ### Minor Changes
