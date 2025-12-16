@@ -7,10 +7,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7",
-    "eslint": "^9.39.1",
-    "prettier": "^3.7.0",
-    "turbo": "^2.6.1"
+    "@changesets/cli": "^2.29.8",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "turbo": "^2.6.3"
   },
   "packageManager": "pnpm@8.15.6",
   "name": "nexload-sdk"

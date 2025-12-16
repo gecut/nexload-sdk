@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/env",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Type-safe, modern, and extensible environment variable manager for JS/TS applications — with built-in validation, composable presets, and advanced logging. Perfect for Next.js, Node.js, and API/CMS stacks.",
   "keywords": [
     "env",
@@ -58,15 +58,15 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@nexload-sdk/logger": "3.1.1"
+    "@nexload-sdk/logger": "3.1.2"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.0.2",
     "change-case": "^5.4.4",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "typescript": "5.9.3"
   }
 }

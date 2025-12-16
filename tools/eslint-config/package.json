@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/eslint-config",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "main": "dist/index.js",
   "type": "module",
   "license": "MIT",
@@ -19,25 +19,25 @@
     "package.json"
   ],
   "dependencies": {
-    "@eslint/js": "^9.39.1",
-    "@next/eslint-plugin-next": "^16.0.5",
+    "@eslint/js": "^9.39.2",
+    "@next/eslint-plugin-next": "^16.0.10",
     "@stylistic/eslint-plugin": "^5.6.1",
-    "@typescript-eslint/eslint-plugin": "^8.48.0",
-    "@typescript-eslint/parser": "^8.48.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-turbo": "^2.6.1",
+    "eslint-plugin-turbo": "^2.6.3",
     "globals": "^16.5.0",
-    "typescript-eslint": "^8.48.0"
+    "typescript-eslint": "^8.50.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/node": "^24.10.1"
+    "@types/node": "^25.0.2"
   }
 }

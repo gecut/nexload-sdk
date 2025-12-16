@@ -1,5 +1,13 @@
 # @nexload-sdk/env
 
+## 2.2.2
+
+### Patch Changes
+
+- 375efd2: update deps and rebuild
+- Updated dependencies [375efd2]
+  - @nexload-sdk/logger@3.1.2
+
 ## 2.2.1
 
 ### Patch Changes

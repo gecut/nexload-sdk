@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 1.0.6
+
+### Patch Changes
+
+- 375efd2: update deps and rebuild
+
 ## 1.0.5
 
 ### Patch Changes

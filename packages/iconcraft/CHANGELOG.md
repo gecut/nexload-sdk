@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 1.4.2
+
+### Patch Changes
+
+- 375efd2: update deps and rebuild
+
 ## 1.4.1
 
 ### Patch Changes

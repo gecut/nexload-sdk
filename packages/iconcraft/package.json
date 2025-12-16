@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/iconcraft",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A powerful CLI tool for effortlessly managing and generating type-safe icon components from Iconify in your projects.",
   "keywords": [
     "icon",
@@ -57,16 +57,16 @@
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.0.2",
     "@types/yargs": "^17.0.35",
     "change-case": "^5.4.4",
     "colorette": "^2.0.20",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "ora": "^9.0.0",
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "prettier": "^3.7.0",
+    "prettier": "^3.7.4",
     "yargs": "^18.0.0"
   }
 }

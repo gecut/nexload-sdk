@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 3.0.2
+
+### Patch Changes
+
+- 375efd2: update deps and rebuild
+
 ## 3.0.1
 
 ### Patch Changes

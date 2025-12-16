@@ -58,7 +58,7 @@ class ORPCClient<
   protected createOptimizedRPCLink(): RPCLink<TClientContext> {
     return new RPCLink({
       url: this.apiUrl,
-      fetch: this.client.fetch,
+      fetch: this.client.fetch.bind(this.client),
       headers: this.headers,
     });
   }

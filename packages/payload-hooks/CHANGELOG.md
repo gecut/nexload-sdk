@@ -1,5 +1,13 @@
 # @nexload-sdk/payload-hooks
 
+## 1.0.5
+
+### Patch Changes
+
+- 375efd2: update deps and rebuild
+- Updated dependencies [375efd2]
+  - @nexload-sdk/logger@3.1.2
+
 ## 1.0.4
 
 ### Patch Changes

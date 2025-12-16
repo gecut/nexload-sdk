@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/logger",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "High-performance, structured, and type-safe logging for JS/TS apps — powered by pino, with pretty output, env-integration, security redaction, and Next.js-friendly wrappers.",
   "keywords": [
     "logger",
@@ -61,9 +61,9 @@
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.0.2",
     "colorette": "^2.0.20",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "typescript": "5.9.3"
   }
 }

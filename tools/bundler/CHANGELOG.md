@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 3.1.2
+
+### Patch Changes
+
+- 375efd2: update deps and rebuild
+
 ## 3.1.1
 
 ### Patch Changes
