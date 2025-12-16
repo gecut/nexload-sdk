@@ -32,7 +32,7 @@ export function createBundler(
       sourcemap: true,
       target: "es2020",
       plugins: [sassPlugin({ type: "style", })],
-      minify: true, // Recommended for production build
+      minify: false, // Recommended for production build
       external: externals,
       banner: {
         js: `// ${pkg.name} v${pkg.version} (build ${new Date().toISOString()})`,
@@ -55,7 +55,7 @@ export function createBundler(
       esbuilder({
         format: "esm",
         outExtension: { ".js": ".mjs" },
-        target: "es2020",
+        target: "esnext",
       }),
 
       // --- 2. CJS Build (.cjs) ---
