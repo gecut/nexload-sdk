@@ -1,5 +1,11 @@
 # @nexload-sdk/pool-fetch
 
+## 2.1.5
+
+### Patch Changes
+
+- 05ac6ba: fix logging in all methods
+
 ## 2.1.4
 
 ### Patch Changes

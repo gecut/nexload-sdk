@@ -14,6 +14,8 @@ export abstract class BaseHttpClient {
   });
 
   protected getStatusText(code: number): string {
+    this.logger.trace({ code }, "getStatusText");
+
     const map: Record<number, string> = {
       200: "OK",
       201: "Created",
@@ -36,6 +38,8 @@ export abstract class BaseHttpClient {
   }
 
   protected convertBody(body?: BodyInit | null): string | Buffer | null {
+    this.logger.trace({ body }, "convertBody");
+
     if (!body) return null;
 
     if (typeof body === "string") return body;
@@ -60,6 +64,7 @@ export abstract class BaseHttpClient {
     headers: Record<string, string> | HeadersInit;
     body: BodyInit | null;
   }> {
+    this.logger.trace({ input, init }, "extractRequestData");
     // Fast path: input is Request
     if (input instanceof Request) {
       const url = input.url;

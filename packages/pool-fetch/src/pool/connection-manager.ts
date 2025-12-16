@@ -72,6 +72,8 @@ export class ConnectionPoolManager {
   // ────────────────────────────────────────────────────────────────
 
   private constructor() {
+    this.logger.trace({}, "constructor");
+
     if (!this.isNextRuntime()) this.startCleanup();
     this.registerShutdownHandlers();
   }
@@ -86,10 +88,12 @@ export class ConnectionPoolManager {
   // ────────────────────────────────────────────────────────────────
 
   private isNextRuntime(): boolean {
+    this.logger.trace({}, "isNextRuntime");
+
     return Boolean(
       this.env.$("NEXT_RUNTIME") ||
-        (this.env.$("NODE_ENV") === "development" &&
-          this.env.$("NEXT_DEV_SERVER"))
+      (this.env.$("NODE_ENV") === "development" &&
+        this.env.$("NEXT_DEV_SERVER"))
     );
   }
 
@@ -102,6 +106,8 @@ export class ConnectionPoolManager {
    * If it doesn’t exist, creates a new one using shared configuration.
    */
   public getPool(url: string): Pool {
+    this.logger.trace({ url }, "getPool");
+
     const origin = new URL(url).origin;
     const now = Date.now();
 
@@ -125,6 +131,8 @@ export class ConnectionPoolManager {
   // ────────────────────────────────────────────────────────────────
 
   private startCleanup(): void {
+    this.logger.trace({}, "startCleanup");
+
     if (this.cleanupTimer) return;
 
     this.cleanupTimer = setInterval(
@@ -140,6 +148,8 @@ export class ConnectionPoolManager {
    * Iterates through all connection pools and closes idle ones.
    */
   private async cleanup(): Promise<void> {
+    this.logger.trace({}, "cleanup");
+
     const now = Date.now();
 
     // Fast filter pass — precollect to avoid Map mutation during iteration
@@ -177,6 +187,8 @@ export class ConnectionPoolManager {
    * Registers graceful shutdown hooks for process signals.
    */
   private registerShutdownHandlers(): void {
+    this.logger.trace({}, "registerShutdownHandlers");
+
     if (this.isNextRuntime() || this.listenersRegistered) return;
 
     const shutdown = async (signal: string) => {
@@ -206,6 +218,8 @@ export class ConnectionPoolManager {
    * Used during service shutdown or process exit.
    */
   public async closeAll(): Promise<void> {
+    this.logger.trace({}, "closeAll");
+
     if (this.cleanupTimer) {
       clearInterval(this.cleanupTimer);
       this.cleanupTimer = null;
@@ -228,6 +242,8 @@ export class ConnectionPoolManager {
     totalConnections: number;
     oldestPool: number;
   } {
+    this.logger.trace({}, "getHealth");
+
     const count = this.pools.size;
     const total = count * this.CONFIG.connections;
     const now = Date.now();

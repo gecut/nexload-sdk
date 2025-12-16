@@ -19,17 +19,23 @@ export class UndiciHttpClient extends BaseHttpClient {
   private readonly poolManager: ConnectionPoolManager;
 
   // Allow DI of poolManager for testing
-  constructor (poolManager?: ConnectionPoolManager) {
+  constructor(poolManager?: ConnectionPoolManager) {
     super();
     this.poolManager = poolManager ?? ConnectionPoolManager.getInstance();
   }
 
-  public async fetch (
+  public async fetch(
     input: string | URL | Request,
     init?: RequestInit
   ): Promise<Response> {
-    const { url, method, headers, body, } = await this.extractRequestData(
-      input, init
+    this.logger.trace(
+      { package: "@nexload-sdk/pool-fetch", input, init },
+      "fetch"
+    );
+
+    const { url, method, headers, body } = await this.extractRequestData(
+      input,
+      init
     );
 
     // Reuse a single URL instance to avoid repeated parsing
@@ -57,20 +63,19 @@ export class UndiciHttpClient extends BaseHttpClient {
       const arrayBuf = await resStream.arrayBuffer();
 
       // Build Response (Web API)
-      const response = new Response(
-        arrayBuf, {
-          status: statusCode,
-          statusText: this.getStatusText(statusCode),
-          headers: new Headers(resHeaders as HeadersInit),
-        }
-      );
+      const response = new Response(arrayBuf, {
+        status: statusCode,
+        statusText: this.getStatusText(statusCode),
+        headers: new Headers(resHeaders as HeadersInit),
+      });
 
       return response;
     } catch (err) {
       // Detailed but concise error handling
       const errorMessage = err instanceof Error ? err.message : String(err);
       this.logger.debug(
-        { url, method, }, `Undici fetch failed: ${errorMessage}`
+        { url, method },
+        `Undici fetch failed: ${errorMessage}`
       );
 
       // fallback headers
@@ -84,9 +89,7 @@ export class UndiciHttpClient extends BaseHttpClient {
       // Use global fetch as fallback (keeps behavior consistent)
       // Note: keep method and merged headers to preserve intent
       // Avoid awaiting extra work here beyond returning the fetch Promise
-      return fetch(
-        input, { ...init, method, headers: fallbackHeaders, }
-      );
+      return fetch(input, { ...init, method, headers: fallbackHeaders });
     }
   }
 }
