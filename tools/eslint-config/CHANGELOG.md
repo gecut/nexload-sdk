@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 3.0.3
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+
 ## 3.0.2
 
 ### Patch Changes

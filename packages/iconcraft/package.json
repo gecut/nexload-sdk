@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/iconcraft",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A powerful CLI tool for effortlessly managing and generating type-safe icon components from Iconify in your projects.",
   "keywords": [
     "icon",

@@ -1,5 +1,14 @@
 # @nexload-sdk/pool-fetch
 
+## 2.1.3
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+- Updated dependencies [45f667b]
+  - @nexload-sdk/env@2.2.1
+  - @nexload-sdk/logger@3.1.1
+
 ## 2.1.2
 
 ### Patch Changes

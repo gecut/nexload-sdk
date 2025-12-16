@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 3.0.1
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+
 ## 3.0.0
 
 ### Major Changes

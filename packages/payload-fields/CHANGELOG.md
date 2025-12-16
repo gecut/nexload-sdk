@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 1.0.5
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+
 ## 1.0.4
 
 ### Patch Changes

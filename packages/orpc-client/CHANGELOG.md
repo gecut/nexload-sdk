@@ -1,5 +1,15 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.5
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+- Updated dependencies [45f667b]
+  - @nexload-sdk/pool-fetch@2.1.3
+  - @nexload-sdk/env@2.2.1
+  - @nexload-sdk/logger@3.1.1
+
 ## 1.0.4
 
 ### Patch Changes

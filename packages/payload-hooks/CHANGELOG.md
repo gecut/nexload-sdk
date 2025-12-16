@@ -1,5 +1,13 @@
 # @nexload-sdk/payload-hooks
 
+## 1.0.4
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+- Updated dependencies [45f667b]
+  - @nexload-sdk/logger@3.1.1
+
 ## 1.0.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 3.1.1
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+
 ## 3.1.0
 
 ### Minor Changes

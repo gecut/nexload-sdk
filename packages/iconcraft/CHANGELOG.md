@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 1.4.1
+
+### Patch Changes
+
+- 45f667b: rebuild bundler
+
 ## 1.4.0
 
 ### Minor Changes
