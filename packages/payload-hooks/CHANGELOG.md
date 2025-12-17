@@ -1,5 +1,13 @@
 # @nexload-sdk/payload-hooks
 
+## 1.0.6
+
+### Patch Changes
+
+- d50bedc: .
+- Updated dependencies [d50bedc]
+  - @nexload-sdk/logger@3.1.3
+
 ## 1.0.5
 
 ### Patch Changes

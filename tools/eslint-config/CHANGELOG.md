@@ -1,5 +1,11 @@
 # @nexload-sdk/eslint-config
 
+## 3.0.5
+
+### Patch Changes
+
+- d50bedc: .
+
 ## 3.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 1.4.3
+
+### Patch Changes
+
+- d50bedc: .
+
 ## 1.4.2
 
 ### Patch Changes

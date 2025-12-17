@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 3.1.3
+
+### Patch Changes
+
+- d50bedc: .
+
 ## 3.1.2
 
 ### Patch Changes

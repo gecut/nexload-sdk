@@ -1,5 +1,14 @@
 # @nexload-sdk/pool-fetch
 
+## 2.1.6
+
+### Patch Changes
+
+- d50bedc: .
+- Updated dependencies [d50bedc]
+  - @nexload-sdk/logger@3.1.3
+  - @nexload-sdk/env@2.2.3
+
 ## 2.1.5
 
 ### Patch Changes

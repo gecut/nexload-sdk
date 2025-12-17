@@ -1,5 +1,14 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.7
+
+### Patch Changes
+
+- d50bedc: .
+- Updated dependencies [d50bedc]
+  - @nexload-sdk/logger@3.1.3
+  - @nexload-sdk/env@2.2.3
+
 ## 1.0.6
 
 ### Patch Changes
