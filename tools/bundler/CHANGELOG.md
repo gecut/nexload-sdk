@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 3.1.4
+
+### Patch Changes
+
+- fc2047a: fix bundle issues
+
 ## 3.1.3
 
 ### Patch Changes

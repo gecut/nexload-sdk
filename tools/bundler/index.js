@@ -10,7 +10,8 @@ export function createBundler(
   entryFile = "src/index.ts",
   outDir = "dist",
   baseDir = process.cwd(),
-  esbuildOptions = {}
+  esbuildOptions = {},
+  isCJS = true
 ) {
   const pkgPath = path.join(baseDir, "package.json");
   const _require = createRequire(import.meta.url);
@@ -31,7 +32,7 @@ export function createBundler(
       platform: "node",
       sourcemap: true,
       target: "es2020",
-      plugins: [sassPlugin({ type: "style", })],
+      plugins: [sassPlugin({ type: "style" })],
       minify: false, // Recommended for production build
       external: externals,
       banner: {
@@ -50,21 +51,19 @@ export function createBundler(
   async function build() {
     console.log("2. Building JS outputs (CJS & ESM) via esbuild...");
 
-    await Promise.all([
-      // --- 1. ESM Build (.mjs) ---
-      esbuilder({
-        format: "esm",
-        outExtension: { ".js": ".mjs" },
-        target: "esnext",
-      }),
+    esbuilder({
+      format: "esm",
+      outExtension: { ".js": isCJS ? ".mjs" : ".js" },
+      target: "esnext",
+    });
 
-      // --- 2. CJS Build (.cjs) ---
-      esbuilder({
+    if (isCJS) {
+      await esbuilder({
         format: "cjs",
         outExtension: { ".js": ".cjs" },
         target: "node16",
-      }),
-    ]);
+      });
+    }
 
     console.log("3. Generating TypeScript declarations via tsc...");
 

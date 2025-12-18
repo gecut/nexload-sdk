@@ -1,5 +1,11 @@
 # @nexload-sdk/pool-fetch
 
+## 2.1.7
+
+### Patch Changes
+
+- fc2047a: fix bundle issues
+
 ## 2.1.6
 
 ### Patch Changes
