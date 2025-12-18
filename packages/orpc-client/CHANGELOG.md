@@ -1,5 +1,13 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.9
+
+### Patch Changes
+
+- bcb0236: fix exports
+- Updated dependencies [bcb0236]
+  - @nexload-sdk/pool-fetch@2.1.8
+
 ## 1.0.8
 
 ### Patch Changes

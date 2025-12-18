@@ -1,5 +1,11 @@
 # @nexload-sdk/pool-fetch
 
+## 2.1.8
+
+### Patch Changes
+
+- bcb0236: fix exports
+
 ## 2.1.7
 
 ### Patch Changes
