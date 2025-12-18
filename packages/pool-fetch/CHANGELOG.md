@@ -1,5 +1,11 @@
 # @nexload-sdk/pool-fetch
 
+## 2.1.9
+
+### Patch Changes
+
+- b19b577: fix
+
 ## 2.1.8
 
 ### Patch Changes
