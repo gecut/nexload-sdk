@@ -2,7 +2,7 @@ import { EnvManager, merge } from "@nexload-sdk/env";
 import { $NodePreset } from "@nexload-sdk/env/presets";
 import { UndiciHttpClient } from "@nexload-sdk/pool-fetch";
 import logger from "@nexload-sdk/logger";
-import { RPCLink } from "@orpc/client/fetch";
+import { RPCLink, RPCLinkOptions } from "@orpc/client/fetch";
 import { ClientContext, createORPCClient } from "@orpc/client";
 import { AnyContractRouter, ContractRouterClient } from "@orpc/contract";
 
@@ -55,16 +55,23 @@ class ORPCClient<
     };
   }
 
-  protected createOptimizedRPCLink(): RPCLink<TClientContext> {
+  protected createOptimizedRPCLink<T extends ClientContext>(
+    options?: RPCLinkOptions<T>
+  ): RPCLink<TClientContext> {
     return new RPCLink({
-      url: this.apiUrl,
       fetch: this.client.fetch.bind(this.client),
       headers: this.headers,
+
+      ...options,
+
+      url: this.apiUrl,
     });
   }
 
-  public createClient(): ContractRouterClient<TRouter> {
-    return createORPCClient(this.createOptimizedRPCLink());
+  public createClient<T extends ClientContext>(
+    options?: RPCLinkOptions<T>
+  ): ContractRouterClient<TRouter> {
+    return createORPCClient(this.createOptimizedRPCLink(options));
   }
 }
 

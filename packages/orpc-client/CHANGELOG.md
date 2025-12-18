@@ -1,5 +1,11 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.10
+
+### Patch Changes
+
+- 4d6bc96: options to create client
+
 ## 1.0.9
 
 ### Patch Changes
