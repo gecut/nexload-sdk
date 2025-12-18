@@ -1,5 +1,11 @@
 # @nexload-sdk/orpc-client
 
+## 1.0.11
+
+### Patch Changes
+
+- 8e8274c: refactor functionality
+
 ## 1.0.10
 
 ### Patch Changes

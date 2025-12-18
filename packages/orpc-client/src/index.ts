@@ -1,6 +1,5 @@
 import { EnvManager, merge } from "@nexload-sdk/env";
 import { $NodePreset } from "@nexload-sdk/env/presets";
-import { UndiciHttpClient } from "@nexload-sdk/pool-fetch";
 import logger from "@nexload-sdk/logger";
 import { RPCLink, RPCLinkOptions } from "@orpc/client/fetch";
 import { ClientContext, createORPCClient } from "@orpc/client";
@@ -11,7 +10,6 @@ class ORPCClient<
   TClientContext extends ClientContext = Record<never, never>,
 > {
   protected readonly isProduction;
-  protected readonly client;
   protected readonly env;
 
   constructor(public defaultApiUrl: string = "http://localhost:3000") {
@@ -28,7 +26,6 @@ class ORPCClient<
     );
 
     this.isProduction = this.env.$("NODE_ENV") === "production";
-    this.client = new UndiciHttpClient();
   }
 
   protected get apiUrl() {
@@ -55,11 +52,10 @@ class ORPCClient<
     };
   }
 
-  protected createOptimizedRPCLink<T extends ClientContext>(
-    options?: RPCLinkOptions<T>
+  protected createOptimizedRPCLink<T extends TClientContext>(
+    options?: Omit<RPCLinkOptions<T>, "url">
   ): RPCLink<TClientContext> {
     return new RPCLink({
-      fetch: this.client.fetch.bind(this.client),
       headers: this.headers,
 
       ...options,
@@ -68,8 +64,8 @@ class ORPCClient<
     });
   }
 
-  public createClient<T extends ClientContext>(
-    options?: RPCLinkOptions<T>
+  public createClient<T extends TClientContext>(
+    options?: Omit<RPCLinkOptions<T>, "url">
   ): ContractRouterClient<TRouter> {
     return createORPCClient(this.createOptimizedRPCLink(options));
   }
