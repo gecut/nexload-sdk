@@ -5,7 +5,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "cublish": "pnpm build && pnpm install && changeset && git add . && changeset version && changeset publish"
+    "cublish": "pnpm build && pnpm install && changeset && git add . && changeset version && changeset publish && git push --follow-tags"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
