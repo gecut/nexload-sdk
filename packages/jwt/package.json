@@ -1,0 +1,67 @@
+{
+  "name": "@nexload-sdk/jwt",
+  "version": "0.0.0",
+  "description": "A lightweight, policy-driven, and adapter-based JWT factory for creating and verifying tokens in Node.js backend services. Enforces security best practices through a decoupled, testable architecture.",
+  "keywords": [
+    "jwt",
+    "json-web-token",
+    "auth",
+    "authentication",
+    "security",
+    "token",
+    "sdk",
+    "nexload",
+    "typescript",
+    "nodejs",
+    "bun",
+    "factory",
+    "adapter"
+  ],
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/jwt",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/jwt"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "node esbuild.config.mjs"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.0.3",
+    "colorette": "^2.0.20",
+    "eslint": "^9.39.2",
+    "jsonwebtoken": "^9.0.3",
+    "typescript": "5.9.3"
+  }
+}
