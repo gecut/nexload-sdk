@@ -37,7 +37,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "build": "node esbuild.config.mjs"
+    "build": "node esbuild.config.mjs",
+    "memory:inspect": "node scripts/print-memory-source.mjs"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
