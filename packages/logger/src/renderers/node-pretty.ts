@@ -11,9 +11,7 @@ import {
   cyanBright,
 } from "colorette";
 import { jsonHumanize } from "@/utils/json-humanize";
-import { LogRendererFunc } from "@/types";
-
-export type LogLevel = "TRACE" | "INFO" | "WARN" | "ERROR" | "FATAL" | "DEBUG";
+import { LogLevel, LogRendererFunc } from "@/types";
 
 const levelColors = {
   TRACE: gray,

@@ -1,5 +1,5 @@
 import { IconCraftEngine } from "../core";
-import { bold, dim } from "colorette";
+import { bold } from "colorette";
 import ora from "ora";
 
 export async function listIcons(outDir?: string) {
@@ -24,8 +24,9 @@ export async function listIcons(outDir?: string) {
       console.log(`- ${name}`);
     }
   } catch (error: any) {
+    process.exitCode = 1;
     spinner.fail(`Failed: ${error.message}`);
+  } finally {
+    spinner.stop();
   }
-
-  spinner.stop();
 }

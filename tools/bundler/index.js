@@ -51,7 +51,7 @@ export function createBundler(
   async function build() {
     console.log("2. Building JS outputs (CJS & ESM) via esbuild...");
 
-    esbuilder({
+    await esbuilder({
       format: "esm",
       outExtension: { ".js": isCJS ? ".mjs" : ".js" },
       target: "esnext",

@@ -1,10 +1,5 @@
 import * as jwt from "jsonwebtoken";
 import { JwtAdapter } from "../core/adapter";
-import {
-  TokenExpiredError,
-  JsonWebTokenError,
-  NotBeforeError,
-} from "jsonwebtoken";
 
 import {
   JwtExpiredError,
@@ -12,17 +7,39 @@ import {
   JwtMalformedError,
 } from "@/core/errors";
 
+const jwtImpl = ((jwt as unknown as { default?: typeof jwt }).default ??
+  jwt) as typeof jwt;
+
 function mapJwtError(err: unknown): Error {
-  if (err instanceof TokenExpiredError) {
+  if (
+    typeof jwtImpl.TokenExpiredError === "function" &&
+    err instanceof jwtImpl.TokenExpiredError
+  ) {
     return new JwtExpiredError(err.message);
   }
 
-  if (err instanceof NotBeforeError) {
+  if (
+    typeof jwtImpl.NotBeforeError === "function" &&
+    err instanceof jwtImpl.NotBeforeError
+  ) {
     return new JwtInvalidError(err.message);
   }
 
-  if (err instanceof JsonWebTokenError) {
-    return new JwtMalformedError(err.message);
+  if (
+    typeof jwtImpl.JsonWebTokenError === "function" &&
+    err instanceof jwtImpl.JsonWebTokenError
+  ) {
+    const message = err.message.toLowerCase();
+
+    if (
+      message.includes("jwt malformed") ||
+      message.includes("invalid token") ||
+      message.includes("jwt must be provided")
+    ) {
+      return new JwtMalformedError(err.message);
+    }
+
+    return new JwtInvalidError(err.message);
   }
 
   return err instanceof Error ? err : new Error("Unknown JWT error");
@@ -31,11 +48,13 @@ function mapJwtError(err: unknown): Error {
 export const jsonwebtokenAdapter: JwtAdapter = {
   sign(payload, secret, policy) {
     try {
-      return jwt.sign(payload, secret, {
+      const options = {
         expiresIn: policy.expiresIn,
-        issuer: policy.issuer,
-        audience: policy.audience,
-      });
+        ...(policy.issuer ? { issuer: policy.issuer } : {}),
+        ...(policy.audience ? { audience: policy.audience } : {}),
+      };
+
+      return jwtImpl.sign(payload, secret, options);
     } catch (err) {
       throw mapJwtError(err);
     }
@@ -43,10 +62,12 @@ export const jsonwebtokenAdapter: JwtAdapter = {
 
   verify(token, secret, policy) {
     try {
-      return jwt.verify(token, secret, {
-        issuer: policy.issuer,
-        audience: policy.audience,
-      }) as object;
+      const options = {
+        ...(policy.issuer ? { issuer: policy.issuer } : {}),
+        ...(policy.audience ? { audience: policy.audience } : {}),
+      };
+
+      return jwtImpl.verify(token, secret, options) as object;
     } catch (err) {
       throw mapJwtError(err);
     }

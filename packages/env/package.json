@@ -30,6 +30,8 @@
     "url": "https://mm25zamanian.ir",
     "email": "dev@mm25zamanian.ir"
   },
+  "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -42,8 +44,6 @@
       "require": "./dist/presets/index.cjs"
     }
   },
-  "license": "MIT",
-  "type": "module",
   "files": [
     "dist",
     "README.md",
@@ -58,15 +58,15 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@nexload-sdk/logger": "3.1.3"
+    "@nexload-sdk/logger": "^3.1.3"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
-    "@types/node": "^25.0.3",
-    "change-case": "^5.4.4",
-    "eslint": "^9.39.2",
-    "typescript": "5.9.3"
+    "@types/node": "catalog:",
+    "change-case": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   }
 }

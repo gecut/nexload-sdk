@@ -53,15 +53,17 @@
     "lint": "eslint .",
     "build": "node esbuild.config.mjs"
   },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.3"
+  },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.0.3",
-    "colorette": "^2.0.20",
-    "eslint": "^9.39.2",
-    "jsonwebtoken": "^9.0.3",
-    "typescript": "5.9.3"
+    "@types/node": "catalog:",
+    "colorette": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   }
 }

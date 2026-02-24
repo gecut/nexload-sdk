@@ -23,13 +23,14 @@ export class EnvManager<TVariables extends EnvSchema> {
     for (const key of keys) {
       const variable = this.variables[key];
       const value = process.env[key];
+      const hasDefault = this.hasDefault(variable);
 
       if (value == undefined) {
-        if (variable?.default) {
+        if (hasDefault) {
           globalThis.envFirstLogging &&
             logger.warn(
               { package: "@nexload-sdk/env", key },
-              `'${key}' not exists and default: ${variable.default}`
+              `'${key}' not exists and default: ${String(variable.default)}`
             );
         } else {
           globalThis.envFirstLogging &&
@@ -70,7 +71,7 @@ export class EnvManager<TVariables extends EnvSchema> {
               value,
               valueType: typeof value,
             },
-            `is '${typeof value}', but must 'number'`
+            `is '${typeof value}', but must 'boolean'`
           );
 
         continue;
@@ -101,8 +102,34 @@ export class EnvManager<TVariables extends EnvSchema> {
     }
 
     const variableOptions = this.variables[key];
-    let variable = (process.env[key as string] ||
-      variableOptions?.default) as EnvReturnType<TVariables[TKey]>;
+    const envValue = process.env[key as string];
+    const hasDefault = this.hasDefault(variableOptions);
+    let rawValue = (envValue ?? (hasDefault ? variableOptions.default : undefined)) as
+      | string
+      | number
+      | boolean
+      | undefined;
+
+    if (envValue !== undefined) {
+      if (
+        variableOptions?.type === "number" &&
+        Number.isNaN(Number(envValue)) &&
+        hasDefault
+      ) {
+        rawValue = variableOptions.default as string | number | boolean;
+      }
+
+      if (
+        variableOptions?.type === "boolean" &&
+        envValue !== "true" &&
+        envValue !== "false" &&
+        hasDefault
+      ) {
+        rawValue = variableOptions.default as string | number | boolean;
+      }
+    }
+
+    let variable = rawValue as EnvReturnType<TVariables[TKey]>;
 
     if (variableOptions?.type === "number")
       variable = Number(variable) as EnvReturnType<TVariables[TKey]>;
@@ -116,6 +143,13 @@ export class EnvManager<TVariables extends EnvSchema> {
     this.env.set(String(key), variable);
 
     return variable;
+  }
+
+  protected hasDefault(
+    variable?: { default?: unknown } | null
+  ): variable is { default: unknown } {
+    if (variable == null) return false;
+    return Object.prototype.hasOwnProperty.call(variable, "default");
   }
 }
 

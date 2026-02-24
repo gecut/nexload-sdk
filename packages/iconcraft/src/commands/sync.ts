@@ -33,10 +33,11 @@ export async function syncIcons(outDir?: string) {
       spinner.succeed([dim("Removed"), bold(orphanedFile)].join(" "));
     }
 
-    spinner.succeed([dim("Synced"), bold("icons")].join(" "));
+    spinner.succeed([dim("Synced"), bold(outDir || "icons")].join(" "));
   } catch (error: any) {
+    process.exitCode = 1;
     spinner.fail(`Failed: ${error.message}`);
+  } finally {
+    spinner.stop();
   }
-
-  spinner.stop();
 }

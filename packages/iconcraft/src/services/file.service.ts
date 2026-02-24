@@ -34,7 +34,7 @@ export class FileService {
   async remove(fileName: string): Promise<void> {
     const outDir = await this.sanitizeOutDir();
     const outPath = resolve(outDir, `${fileName}.tsx`);
-    await rm(outPath);
+    await rm(outPath, { force: true });
   }
 
   async list(): Promise<string[]> {

@@ -22,8 +22,9 @@ export async function removeIcon(name?: string, outDir?: string) {
 
     spinner.succeed([dim("Removed"), bold(name!)].join(" "));
   } catch (error: any) {
+    process.exitCode = 1;
     spinner.fail(`Failed: ${error.message}`);
+  } finally {
+    spinner.stop();
   }
-
-  spinner.stop();
 }

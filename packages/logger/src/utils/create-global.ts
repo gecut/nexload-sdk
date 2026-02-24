@@ -3,20 +3,34 @@ import { browserPrettyRenderer } from "@/renderers/browser-pretty";
 import { browserPureRenderer } from "@/renderers/browser-pure";
 import { nodePrettyRenderer } from "@/renderers/node-pretty";
 import { nodePureJsonRenderer } from "@/renderers/node-pure-json";
-import { isBrowser, LogLevel, LogRenderer } from "@/types";
+import { isBrowser, levelPriorities, LogLevel, LogRenderer } from "@/types";
+
+const safeLocalStorageGet = (key: string): string | null => {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
 
 const getServiceName = (): string =>
   (isBrowser()
-    ? localStorage.getItem("$SERVICE_NAME")
+    ? safeLocalStorageGet("$SERVICE_NAME")
     : process.env.SERVICE_NAME) || "unknown";
 
-const getLogLevel = (): LogLevel =>
-  ((isBrowser() ? localStorage.getItem("$LOG_LEVEL") : process.env.LOG_LEVEL) ||
-    "WARN") as LogLevel;
+const getLogLevel = (): LogLevel => {
+  const raw = (
+    isBrowser() ? safeLocalStorageGet("$LOG_LEVEL") : process.env.LOG_LEVEL
+  ) ?? "WARN";
+
+  const normalized = raw.toUpperCase() as LogLevel;
+
+  return normalized in levelPriorities ? normalized : "WARN";
+};
 
 const getProduction = () => {
   if (isBrowser()) {
-    return localStorage.getItem("$DEBUG") !== "1";
+    return safeLocalStorageGet("$DEBUG") !== "1";
   }
 
   if (process.env.DEBUG === "true") {

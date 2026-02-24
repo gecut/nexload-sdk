@@ -39,8 +39,9 @@ export async function addIcon(name?: string, outDir?: string) {
       ].join(" ")
     );
   } catch (error: any) {
+    process.exitCode = 1;
     spinner.fail(`Failed: ${error.message}`);
+  } finally {
+    spinner.stop();
   }
-
-  spinner.stop();
 }

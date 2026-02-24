@@ -1,33 +1,80 @@
-# `Turborepo` Vite starter
+# Nexload SDK Monorepo
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+Monorepo for the `@nexload-sdk/*` packages.
 
-## Using this example
+This repository contains reusable Node.js / TypeScript packages for:
 
-Run the following command:
+- environment variable management
+- structured logging
+- health checks
+- JWT helpers
+- Payload CMS utilities
+- HTTP pooling and RPC client helpers
+- internal build/lint/TypeScript tooling
 
-```sh
-npx create-turbo@latest -e with-vite
+## Workspace Layout
+
+- `packages/*`: publishable SDK packages
+- `tools/*`: internal shared tooling packages used by the workspace
+- `apps/web`: small Vite playground/demo app
+- `.changeset`: release metadata for versioning/publishing
+
+## Packages
+
+### Runtime packages (`packages/*`)
+
+- `@nexload-sdk/env`: typed environment variable manager + presets
+- `@nexload-sdk/logger`: lightweight structured logger (Node + browser renderers)
+- `@nexload-sdk/healthcheck`: framework-agnostic liveness/readiness checks
+- `@nexload-sdk/jwt`: policy-driven JWT factory
+- `@nexload-sdk/orpc-client`: small oRPC client factory wrapper
+- `@nexload-sdk/payload-fields`: Payload CMS custom fields + lexical editor preset
+- `@nexload-sdk/payload-hooks`: Payload CMS logging hooks
+- `@nexload-sdk/iconcraft`: CLI to generate local icon components from Iconify
+
+### Tooling packages (`tools/*`)
+
+- `@nexload-sdk/bundler`: shared esbuild + `tsc` bundling helper
+- `@nexload-sdk/eslint-config`: shared flat ESLint configs
+- `@nexload-sdk/typescript-config`: shared tsconfig presets
+
+## Requirements
+
+- Node.js 20+ (recommended)
+- pnpm 10+
+
+The workspace is configured with `pnpm` and `turbo`.
+
+## Getting Started
+
+```bash
+pnpm install
+pnpm build
 ```
 
-## What's inside?
+Common commands:
 
-This Turborepo includes the following packages and apps:
+```bash
+pnpm dev      # turbo run dev
+pnpm build    # turbo run build
+pnpm lint     # turbo run lint
+pnpm format   # prettier on ts/tsx/md
+```
 
-### Apps and Packages
+## Development Notes
 
-- `docs`: a vanilla [vite](https://vitejs.dev) ts app
-- `web`: another vanilla [vite](https://vitejs.dev) ts app
-- `@nexload-sdk/ui`: a stub component & utility library shared by both `web` and `docs` applications
-- `@nexload-sdk/eslint-config`: shared `eslint` configurations
-- `@nexload-sdk/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- Most packages are bundled with the internal `@nexload-sdk/bundler` helper.
+- Package builds usually output CJS + ESM + `.d.ts` files to `dist/`.
+- Releases are managed through Changesets (`.changeset/`).
+- The root script `cublish` is a local convenience release flow (build/install/changesets/publish).
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Documentation
 
-### Utilities
+Each package has its own `README.md` with:
 
-This Turborepo has some additional tools already setup for you:
+- install instructions
+- exported API overview
+- usage examples
+- package-specific caveats
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+See also `AGENTS.md` for repository-specific guidance when working with automated coding agents.

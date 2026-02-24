@@ -12,8 +12,12 @@ export class ComponentService {
     const jsx = this.svgToJsx.convert(svg);
     return await prettier.format(
       `"use client";
-      
-      export function ${name}({className,...props}:React.SVGProps<SVGSVGElement>){return (${jsx})}`,
+
+      import type * as React from "react";
+
+      export function ${name}({ className, ...props }: React.SVGProps<SVGSVGElement>) {
+        return (${jsx});
+      }`,
       { parser: "typescript" }
     );
   }
