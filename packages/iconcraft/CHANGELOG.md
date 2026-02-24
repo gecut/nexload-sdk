@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 2.0.0
+
+### Major Changes
+
+- 8e2ccd3: rebuild all with ai
+
 ## 1.4.3
 
 ### Patch Changes

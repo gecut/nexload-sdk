@@ -1,5 +1,11 @@
 # @nexload-sdk/logger
 
+## 4.0.0
+
+### Major Changes
+
+- 8e2ccd3: rebuild all with ai
+
 ## 3.1.3
 
 ### Patch Changes

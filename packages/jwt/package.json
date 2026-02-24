@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/jwt",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A lightweight, policy-driven, and adapter-based JWT factory for creating and verifying tokens in Node.js backend services. Enforces security best practices through a decoupled, testable architecture.",
   "keywords": [
     "jwt",

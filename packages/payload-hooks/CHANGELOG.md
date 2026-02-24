@@ -1,5 +1,16 @@
 # @nexload-sdk/payload-hooks
 
+## 2.0.0
+
+### Major Changes
+
+- 8e2ccd3: rebuild all with ai
+
+### Patch Changes
+
+- Updated dependencies [8e2ccd3]
+  - @nexload-sdk/logger@4.0.0
+
 ## 1.0.6
 
 ### Patch Changes

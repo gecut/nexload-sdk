@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 2.0.0
+
+### Major Changes
+
+- 8e2ccd3: rebuild all with ai
+
 ## 1.0.6
 
 ### Patch Changes

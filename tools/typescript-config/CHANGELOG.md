@@ -1,5 +1,11 @@
 # @nexload-sdk/typescript-config
 
+## 4.0.0
+
+### Major Changes
+
+- 8e2ccd3: rebuild all with ai
+
 ## 3.0.2
 
 ### Patch Changes

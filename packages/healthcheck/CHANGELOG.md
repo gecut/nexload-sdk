@@ -1,5 +1,17 @@
 # @nexload-sdk/healthcheck
 
+## 3.0.0
+
+### Major Changes
+
+- 8e2ccd3: rebuild all with ai
+
+### Patch Changes
+
+- Updated dependencies [8e2ccd3]
+  - @nexload-sdk/logger@4.0.0
+  - @nexload-sdk/env@3.0.0
+
 ## 2.1.5
 
 ### Patch Changes
