@@ -6,6 +6,33 @@ import { createRequire } from "module";
 import { rm } from "fs/promises";
 import path from "path";
 
+function createSSRStyleModule(cssText, nonce) {
+  const escaped = cssText.replace(/([$`\\])/g, "\\$1");
+
+  if (nonce) {
+    return `\
+const css = \`${escaped}\`;
+if (typeof document !== "undefined" && document.head) {
+  const style = document.createElement("style");
+  style.setAttribute("nonce", ${nonce});
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+}
+export {css};
+`;
+  }
+
+  return `\
+const css = \`${escaped}\`;
+if (typeof document !== "undefined" && document.head) {
+  document.head
+      .appendChild(document.createElement("style"))
+      .appendChild(document.createTextNode(css));
+}
+export {css};
+`;
+}
+
 export function createBundler(
   entryFile = "src/index.ts",
   outDir = "dist",
@@ -32,7 +59,7 @@ export function createBundler(
       platform: "node",
       sourcemap: true,
       target: "es2020",
-      plugins: [sassPlugin({ type: "style" })],
+      plugins: [sassPlugin({ type: createSSRStyleModule })],
       minify: false, // Recommended for production build
       external: externals,
       banner: {
