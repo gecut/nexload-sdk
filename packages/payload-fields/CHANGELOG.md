@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 2.0.1
+
+### Patch Changes
+
+- 3dd0f8c: Rebuild HealthCheck Package
+
 ## 2.0.0
 
 ### Major Changes

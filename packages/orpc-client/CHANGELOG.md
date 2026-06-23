@@ -1,5 +1,14 @@
 # @nexload-sdk/orpc-client
 
+## 2.0.1
+
+### Patch Changes
+
+- 3dd0f8c: Rebuild HealthCheck Package
+- Updated dependencies [3dd0f8c]
+  - @nexload-sdk/env@3.0.1
+  - @nexload-sdk/logger@4.0.1
+
 ## 2.0.0
 
 ### Major Changes

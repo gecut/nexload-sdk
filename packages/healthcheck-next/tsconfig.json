@@ -1,0 +1,11 @@
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "lib": ["ES2022", "DOM"]
+  },
+  "exclude": ["node_modules", "dist", "test"]
+}

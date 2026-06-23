@@ -1,0 +1,11 @@
+# Nexload SDK healthcheck full LLM guide
+
+Rules:
+
+1. Keep root package lightweight and runtime-neutral.
+2. Do not import framework, Payload, or exporter dependencies from root.
+3. Use readiness for dependencies.
+4. Use liveness only for process lifecycle.
+5. Prefer cgroup resource data inside containers.
+6. Keep Prometheus labels low-cardinality.
+7. Do not expose secrets or stack traces in public responses.

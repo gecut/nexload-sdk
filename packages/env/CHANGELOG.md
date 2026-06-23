@@ -1,5 +1,13 @@
 # @nexload-sdk/env
 
+## 3.0.1
+
+### Patch Changes
+
+- 3dd0f8c: Rebuild HealthCheck Package
+- Updated dependencies [3dd0f8c]
+  - @nexload-sdk/logger@4.0.1
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # @nexload-sdk/bundler
 
+## 4.0.1
+
+### Patch Changes
+
+- 3dd0f8c: Rebuild HealthCheck Package
+
 ## 4.0.0
 
 ### Major Changes

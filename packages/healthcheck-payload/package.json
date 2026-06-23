@@ -1,0 +1,58 @@
+{
+  "name": "@nexload-sdk/healthcheck-payload",
+  "version": "2.0.0",
+  "description": "Payload CMS health checks for @nexload-sdk/healthcheck.",
+  "keywords": [
+    "payload",
+    "payloadcms",
+    "healthcheck",
+    "monitoring"
+  ],
+  "author": "GecutWeb",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@nexload-sdk/healthcheck": "workspace:*"
+  },
+  "peerDependencies": {
+    "payload": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "payload": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "payload": "catalog:",
+    "typescript": "catalog:"
+  }
+}

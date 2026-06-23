@@ -1,7 +1,7 @@
 {
   "name": "@nexload-sdk/healthcheck",
-  "version": "3.0.0",
-  "description": "Lightweight, framework-agnostic health check system for Node.js and Kubernetes.",
+  "version": "4.0.0",
+  "description": "Runtime-neutral health orchestration and monitoring report foundation for production services.",
   "keywords": [
     "nodejs",
     "healthcheck",
@@ -20,11 +20,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.cjs"
-    },
-    "./database": {
-      "types": "./dist/extensions/database/index.d.ts",
-      "default": "./dist/extensions/database/index.cjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
     }
   },
   "files": [
@@ -36,17 +34,9 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint src",
     "build": "node esbuild.config.mjs",
-    "memory:inspect": "node scripts/print-memory-source.mjs"
-  },
-  "dependencies": {
-    "@nexload-sdk/env": "^3.0.0",
-    "@nexload-sdk/logger": "^4.0.0",
-    "filesize": "^11.0.13",
-    "payload": "catalog:",
-    "ping": "^1.0.0",
-    "systeminformation": "^5.27.14"
+    "test": "node --test test/*.test.mjs"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",

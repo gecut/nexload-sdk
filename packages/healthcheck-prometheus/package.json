@@ -1,0 +1,50 @@
+{
+  "name": "@nexload-sdk/healthcheck-prometheus",
+  "version": "2.0.0",
+  "description": "Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.",
+  "keywords": [
+    "healthcheck",
+    "prometheus",
+    "openmetrics",
+    "monitoring"
+  ],
+  "author": "GecutWeb",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint src",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@nexload-sdk/healthcheck": "workspace:*"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

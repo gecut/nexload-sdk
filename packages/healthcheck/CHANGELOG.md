@@ -1,5 +1,11 @@
 # @nexload-sdk/healthcheck
 
+## 4.0.0
+
+### Major Changes
+
+- 3dd0f8c: Rebuild HealthCheck Package
+
 ## 3.0.0
 
 ### Major Changes

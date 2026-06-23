@@ -1,0 +1,48 @@
+{
+  "name": "@nexload-sdk/healthcheck-bun",
+  "version": "2.0.0",
+  "description": "Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.",
+  "keywords": [
+    "bun",
+    "healthcheck",
+    "monitoring"
+  ],
+  "author": "GecutWeb",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@nexload-sdk/healthcheck": "workspace:*"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

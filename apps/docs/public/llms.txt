@@ -1,0 +1,5 @@
+# Nexload SDK healthcheck
+
+Use `@nexload-sdk/healthcheck` as the runtime-neutral core. Use separate packages for Node, Bun, Next.js, Prometheus/OpenMetrics, OpenTelemetry transforms, and Payload.
+
+Diagnostics and metrics routes must be protected.
