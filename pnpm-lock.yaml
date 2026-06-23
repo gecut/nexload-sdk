@@ -85,8 +85,8 @@ importers:
   packages/env:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.0.1
+        version: 4.0.1
     devDependencies:
       '@nexload-sdk/bundler':
         specifier: workspace:*
@@ -385,11 +385,11 @@ importers:
   packages/orpc-client:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       '@nexload-sdk/logger':
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.0.1
+        version: 4.0.1
       '@orpc/client':
         specifier: ^1.12.3
         version: 1.12.3
@@ -459,8 +459,8 @@ importers:
   packages/payload-hooks:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.0.1
+        version: 4.0.1
       payload:
         specifier: 'catalog:'
         version: 3.68.5(graphql@16.12.0)(typescript@5.9.3)
@@ -1862,11 +1862,11 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@nexload-sdk/env@3.0.0':
-    resolution: {integrity: sha512-ZIg8MT0NgQ1c6TwTk0YgY1VVRdZvYi7GJlOoVg7x9MMc0OAifc/y3z7dt73dHRElNAB4yC+y1ELDc8qidXzYIA==}
+  '@nexload-sdk/env@3.0.1':
+    resolution: {integrity: sha512-KIhRuSRWTBIqbk7JhG1lge/FY1USjAG+FwwbNzO4mKDgd1cFEm7wQtbwAfBRv2z2yd413PhtJm/hrOu9IVEXuQ==}
 
-  '@nexload-sdk/logger@4.0.0':
-    resolution: {integrity: sha512-HujA6U2OwU5u4GQRHr2QbTRrXqHnQT5kPN+LkJMdm9vL78QfjLkBdORQc9uOnVcFYEigfVMWqQPEM7JFZnUhOQ==}
+  '@nexload-sdk/logger@4.0.1':
+    resolution: {integrity: sha512-BRKBKt6KAhoOJXxYlRnglOEdzL2aTB/ihq9HjP+dC5ozLpHXtPdRMPSlkY232KSsks6ZbfEqj9suB052ZcDQqQ==}
 
   '@next/env@15.5.9':
     resolution: {integrity: sha512-4GlTZ+EJM7WaW2HEZcyU317tIQDjkQIyENDLxYJfSWlfqguN+dHkZgyQTV/7ykvobU7yEH5gKvreNrH4B6QgIg==}
@@ -5519,6 +5519,7 @@ packages:
 
   uuid@10.0.0:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   varint@6.0.0:
@@ -7187,11 +7188,11 @@ snapshots:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
 
-  '@nexload-sdk/env@3.0.0':
+  '@nexload-sdk/env@3.0.1':
     dependencies:
-      '@nexload-sdk/logger': 4.0.0
+      '@nexload-sdk/logger': 4.0.1
 
-  '@nexload-sdk/logger@4.0.0': {}
+  '@nexload-sdk/logger@4.0.1': {}
 
   '@next/env@15.5.9': {}
 
