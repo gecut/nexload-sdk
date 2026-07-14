@@ -30,7 +30,7 @@
       "expected_output": "A correctness and exposure review that distinguishes unknown/unlimited from pressure and preserves evidence safely.",
       "expectations": [
         "Rejects null-as-zero and CPU rounding.",
-        "Uses warnings/source/confidence in diagnosis without exposing unnecessary paths publicly.",
+        "Uses warnings/source/confidence in diagnosis without exposing unnecessary paths publicly, without claiming every warning lowers confidence.",
         "Requires reliable ratios before readiness gating."
       ]
     },

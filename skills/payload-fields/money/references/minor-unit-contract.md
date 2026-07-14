@@ -9,7 +9,7 @@
 - hooks and validation;
 - fixtures, jobs, and integrations.
 
-Only the Admin input and explicit `parseMoneyToMinorUnits(string, currency)` accept major-unit text. Never infer or auto-convert a numeric API value.
+Only the Admin input and explicit `parseMoneyToMinorUnits(string, currency)` accept major-unit text. Never infer or auto-convert a numeric API value. The parser's runtime boundary is a string and calls `.trim()`; passing a number directly throws rather than rescaling it. Double scaling occurs only when a consumer first coerces an already-minor number to text and then misuses the parser.
 
 ## Scaling
 

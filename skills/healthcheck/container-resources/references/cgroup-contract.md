@@ -24,6 +24,6 @@ CPU quota equals quota divided by period. Preserve fractional results such as `5
 
 Snapshot fields include cgroup version, detected/likely hints, source, confidence, and warnings. `detected` or `isContainerLikely` indicates evidence, not certainty that the workload runs inside Docker/Kubernetes.
 
-Permission errors add `permission-denied:<path>` warnings. Missing files are silent and permit fallback. Preserve these distinctions for diagnosis.
+Permission errors add `permission-denied:<path>` warnings. Missing files are silent and permit fallback. Preserve these distinctions for diagnosis. Warnings do not automatically lower confidence: the current detector still reports high confidence when it finds a limiting v1/v2 memory or CPU value, even if another path produced a warning. The final no-cgroup fallback is low confidence.
 
 `nodeRuntimeAdapter` may combine cgroup memory with constrained/process/OS fallbacks. Do not claim the raw cgroup snapshot itself includes all Node process fallbacks.

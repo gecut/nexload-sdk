@@ -14,7 +14,7 @@ Timed-out checks get `CHECK_TIMEOUT`. Timeout status is manager-wide: unhealthy 
 
 ## Retry behavior
 
-`retries.attempts` counts additional attempts. Returned results retry only when their status matches `retryOn`, default unhealthy. Current manager behavior retries thrown, aborted, and timed-out attempts whenever attempts remain, regardless of `retryOn`.
+`retries.attempts` counts additional attempts. Returned results retry only when their status matches `retryOn`, default unhealthy. Current manager behavior can retry thrown and per-attempt timed-out work whenever attempts remain, regardless of `retryOn`. Do not generalize that rule to a parent `AbortSignal`: once the parent signal is aborted, the retry delay rejects and no later attempt begins.
 
 Use low attempt counts. Compute worst-case duration including every timeout and delay. Backoff is base delay, base times attempt for linear, or base times `2^(attempt-1)` for exponential.
 

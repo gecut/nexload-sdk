@@ -37,3 +37,5 @@ Use a fake runtime for deterministic clocks where duration matters. Build before
 - Are error codes stable and messages generic?
 - Does total worst-case latency fit the route budget?
 - Is the check critical only in scopes where failure should change routing/deployment?
+
+When composition crosses into exporter formatting, stop at collector-output invariants and inspect the exporter skill/source before specifying wire behavior. In the current Prometheus implementation, only label keys in its explicit allowlist survive, report metric order is preserved, label keys are sorted, HELP is optional, and TYPE lines are not emitted.

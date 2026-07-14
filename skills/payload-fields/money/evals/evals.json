@@ -30,7 +30,7 @@
       "expected_output": "A data-integrity review restoring exact minor-unit and safe-integer boundaries.",
       "expectations": [
         "Rejects float/unsafe storage and silent rounding.",
-        "Removes implicit or double conversion from server APIs/hooks.",
+        "Removes implicit or double conversion from server APIs/hooks without claiming direct numeric parser input is rescaled.",
         "Requires an explicit audited migration for existing data."
       ]
     },

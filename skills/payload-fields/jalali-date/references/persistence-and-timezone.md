@@ -27,4 +27,4 @@ If display timezone differs from browser timezone, formatted text and time contr
 
 ## Migration
 
-Moving from stored Jalali strings to ISO dates requires an explicit timezone-aware data migration. Formatting-only changes require no persistence migration. Never infer historical timezone silently.
+Moving from stored Jalali strings to ISO dates requires an explicit timezone-aware data migration. Formatting-only changes require no persistence migration. Adding a new nullable field can still require a schema migration or deployment step in the consuming Payload app; inspect its database adapter, migration workflow, and generated schema before claiming otherwise. Never infer historical timezone silently.

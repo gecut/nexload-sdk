@@ -53,7 +53,9 @@
       "expectations": [
         "Recognizes exporter formatting as the primary skill boundary.",
         "Composes with healthcheck-monitoring-exporters.",
-        "Retains stable metric names and bounded-label guidance."
+        "Retains stable metric names and bounded-label guidance.",
+        "Does not claim TYPE output or input-order normalization that the current exporter does not implement.",
+        "Uses an allowed bounded Prometheus label such as dependency rather than an unsupported key."
       ]
     }
   ]

@@ -9,7 +9,8 @@
       "expectations": [
         "Persists ISO/null rather than a Jalali string.",
         "Treats Asia/Tehran as display configuration only.",
-        "Tests day-only local noon and virtual timestamp behavior."
+        "Tests day-only local noon and virtual timestamp behavior.",
+        "Treats schema migration requirements as consuming-app dependent."
       ]
     },
     {
