@@ -29,8 +29,10 @@ const report = {
   metrics: [{
     name: "queue.depth",
     value: 3,
+    unit: "count",
     type: "gauge",
-    labels: { queue: "critical" }
+    observedAt: "2026-01-01T00:00:01.000Z",
+    labels: { queue: "critical", request_id: "request-123" }
   }]
 };
 
@@ -49,6 +51,26 @@ test("creates stable OpenTelemetry resource attributes", () => {
 
 test("exports collector metrics but not check-local metrics", () => {
   const records = toOtelMetricRecords(report);
-  assert.ok(records.some((record) => record.name === "queue.depth" && record.value === 3));
+  assert.ok(records.some((record) => (
+    record.name === "queue.depth"
+    && record.value === 3
+    && record.unit === "count"
+    && record.type === "gauge"
+    && record.observedAt === "2026-01-01T00:00:01.000Z"
+  )));
   assert.ok(!records.some((record) => record.name === "latencyMs"));
+});
+
+test("maps statuses and preserves labels for caller-side cardinality review", () => {
+  const degraded = toOtelMetricRecords({
+    ...report,
+    status: "degraded",
+    checks: [{ ...report.checks[0], status: "unhealthy" }]
+  });
+
+  assert.equal(degraded.find((record) => record.name === "health.status").value, 0.5);
+  assert.equal(degraded.find((record) => record.name === "health.check.status").value, 0);
+  const queue = degraded.find((record) => record.name === "queue.depth");
+  assert.equal(queue.attributes.queue, "critical");
+  assert.equal(queue.attributes.request_id, "request-123");
 });

@@ -45,3 +45,16 @@ test("normalizes Payload query failures", async () => {
   assert.equal(report.checks[0].error.code, "PAYLOAD_QUERY_FAILED");
   assert.equal(report.checks[0].error.message, "Payload query failed.");
 });
+
+test("delegates query timeout normalization to the manager", async () => {
+  const payload = { find: async () => new Promise(() => {}) };
+  const manager = createHealthManager({
+    service: { name: "cms" },
+    checks: [payloadHealthCheck(payload, { collection: "users", timeoutMs: 5 })]
+  });
+
+  const report = await manager.run("readiness");
+  assert.equal(report.status, "unhealthy");
+  assert.equal(report.checks[0].timedOut, true);
+  assert.equal(report.checks[0].error.code, "CHECK_TIMEOUT");
+});
