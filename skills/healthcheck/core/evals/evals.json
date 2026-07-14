@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-core",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add a runtime-neutral health manager with liveness, readiness, startup, and diagnostics scopes, including one collector and safe JSON output.",
+      "expected_output": "A source-aligned manager configuration with explicit scope and exposure decisions plus focused tests.",
+      "expectations": [
+        "Uses one manager and explicit scope lists with justified criticality.",
+        "Keeps collector metrics in report.metrics and serializes probe output without details.",
+        "Runs the core package build, lint, and tests."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "A readiness check times out but product policy says timeout should degrade the instance, while startup timeout must still fail deployment. Design the configuration and tests.",
+      "expected_output": "An explanation of the manager-wide timeout policy limitation and a minimal source-grounded design that preserves startup failure semantics.",
+      "expectations": [
+        "Identifies that unhealthyOnTimeout is a manager default rather than a per-check option.",
+        "Does not claim profiles filter checks or responses.",
+        "Adds assertions for resolved status and aggregate criticality."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a public health JSON endpoint that enables details, causeMessage, and stack traces through manager redaction options.",
+      "expected_output": "A security review that moves exposure control to serialization and keeps the public route minimal.",
+      "expectations": [
+        "Flags manager redaction as deprecated and ineffective.",
+        "Uses serializer defaults that suppress details, error messages, causes, and stacks.",
+        "Requires protected routing for explicit diagnostic opt-ins."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why a non-critical unhealthy diagnostics check produces a degraded report instead of unhealthy, and why its raw metrics do not appear in Prometheus.",
+      "expected_output": "A diagnosis grounded in aggregateStatus and the collector-only exporter boundary.",
+      "expectations": [
+        "Explains critical unhealthy versus non-critical failure aggregation exactly.",
+        "Distinguishes check.metrics from report.metrics.",
+        "Points to the relevant source and focused tests."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Implement a protected Next.js /api/health/diagnostics route with bearer auth and an IP allowlist, using an existing manager.",
+      "expected_output": "A handoff to the Next.js routes and diagnostics security skills, with only the relevant core serializer contract retained.",
+      "expectations": [
+        "Does not treat route protection as a core-manager responsibility.",
+        "Composes with healthcheck-nextjs-routes and healthcheck-diagnostics-security.",
+        "Retains safe serializer guidance without inventing core route APIs."
+      ]
+    }
+  ]
+}

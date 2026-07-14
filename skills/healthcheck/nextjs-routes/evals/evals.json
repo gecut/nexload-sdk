@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-nextjs-routes",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add Next.js App Router liveness, readiness, startup, diagnostics, and Prometheus metrics routes using an existing health manager.",
+      "expected_output": "A route matrix implemented with one server-only manager, correct factory methods, runtime constants, status policies, and tests.",
+      "expectations": [
+        "Exports GET/HEAD for health routes and GET only for metrics.",
+        "Uses explicit scopes, no-store route constants, and one manager singleton.",
+        "Protects diagnostics and metrics or records an explicit internal control."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Readiness should return 503 when degraded, while metrics must remain scrapeable with HTTP 200 and expose report status in headers.",
+      "expected_output": "Strict readiness policy plus fixed metrics transport semantics with focused tests.",
+      "expectations": [
+        "Uses STRICT_READINESS_HTTP_STATUS_POLICY for readiness.",
+        "Keeps metrics HTTP status 200.",
+        "Tests x-health-status and cache headers."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a diagnostics route built with protect {}, includeDetails true, IP CIDRs without trustProxy, and custom cache-control public headers.",
+      "expected_output": "A fail-closed review that rejects construction and restores protected sanitized no-store behavior.",
+      "expectations": [
+        "Rejects empty protection and IP/CIDR without trustProxy.",
+        "Does not treat includeDetails as raw error/stack exposure.",
+        "Prevents custom cache-control override."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why HEAD is slow, why it has no body, and why the Prometheus route returns 200 while the report is unhealthy.",
+      "expected_output": "A source-grounded explanation of manager execution for HEAD and fixed metrics HTTP transport behavior.",
+      "expectations": [
+        "Explains that HEAD still runs the manager/status logic.",
+        "Treats the empty HEAD body as intentional.",
+        "Uses x-health-status for unhealthy metrics state."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Change Prometheus metric normalization, label allowlisting, HELP output, and OpenTelemetry record mapping without changing any Next route.",
+      "expected_output": "A handoff to monitoring exporters rather than modifying route wiring.",
+      "expectations": [
+        "Recognizes exporter conversion as the primary boundary.",
+        "Composes with healthcheck-monitoring-exporters if the route consumes changed output.",
+        "Does not put exporter logic in Next route files."
+      ]
+    }
+  ]
+}

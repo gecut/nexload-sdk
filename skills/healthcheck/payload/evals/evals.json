@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-payload",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add a Payload CMS readiness check against a lightweight users collection query and integrate it into an existing manager.",
+      "expected_output": "A deterministic payloadHealthCheck configuration using default small query behavior and readiness semantics with tests.",
+      "expectations": [
+        "Imports from @nexload-sdk/healthcheck-payload.",
+        "Uses a small limit and depth zero with explicit collection rationale.",
+        "Tests exact query arguments and readiness status."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "A settings collection must contain one document, while an optional drafts collection may be empty. Define the correct expectedMinDocuments behavior.",
+      "expected_output": "Separate explicit semantics where only the real singleton invariant fails on zero documents.",
+      "expectations": [
+        "Uses expectedMinDocuments only for the required settings record.",
+        "Keeps empty optional collection success semantics.",
+        "Tests numeric and malformed totalDocs when a minimum exists."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a Payload health check in liveness that performs a deep business query, exposes raw database causes publicly, and assumes timeout cancels the query.",
+      "expected_output": "A review that moves the check to readiness, reduces query cost, suppresses causes, and documents cooperative timeout limits.",
+      "expectations": [
+        "Rejects external Payload dependency as default liveness behavior.",
+        "Reduces depth/limit/business query complexity.",
+        "States that manager timeout does not cancel payload.find."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why a timed-out Payload check reports CHECK_TIMEOUT instead of PAYLOAD_QUERY_FAILED and why its latencyMs is missing from Prometheus.",
+      "expected_output": "A manager timeout and collector-only export boundary diagnosis.",
+      "expectations": [
+        "Explains manager timeout normalization and timedOut metadata.",
+        "Distinguishes check-local metrics from report collector metrics.",
+        "Does not add exporter exceptions for the adapter."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Add managed slug, Jalali date, and money fields to a Payload collection.",
+      "expected_output": "A handoff to payload-fields skills without applying the health adapter contract.",
+      "expectations": [
+        "Recognizes this as Payload field-factory work, not healthcheck-payload.",
+        "Routes to the relevant payload-fields skills.",
+        "Does not introduce payload.find health probes."
+      ]
+    }
+  ]
+}

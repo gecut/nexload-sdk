@@ -1,0 +1,22 @@
+[
+  { "query": "Add a Payload CMS readiness health check", "should_trigger": true },
+  { "query": "Use payloadHealthCheck with a small deterministic find query", "should_trigger": true },
+  { "query": "Should an empty Payload collection fail readiness?", "should_trigger": true },
+  { "query": "Configure expectedMinDocuments for a required settings record", "should_trigger": true },
+  { "query": "Test Payload health query timeout normalization", "should_trigger": true },
+  { "query": "Why does Payload timeout return CHECK_TIMEOUT?", "should_trigger": true },
+  { "query": "Keep a Payload dependency out of liveness", "should_trigger": true },
+  { "query": "Review Payload health query depth limit and where options", "should_trigger": true },
+  { "query": "Suppress raw Payload query causes in public health JSON", "should_trigger": true },
+  { "query": "Diagnose missing Payload check metrics in Prometheus", "should_trigger": true },
+  { "query": "Create a Payload slug field and lock", "should_trigger": false },
+  { "query": "Add a Jalali date picker to Payload Admin", "should_trigger": false },
+  { "query": "Validate Payload money minor units", "should_trigger": false },
+  { "query": "Write a generic PostgreSQL custom health check", "should_trigger": false },
+  { "query": "Create Next.js health route modules", "should_trigger": false },
+  { "query": "Protect diagnostics with IPv4 CIDR", "should_trigger": false },
+  { "query": "Convert collector metrics to Prometheus", "should_trigger": false },
+  { "query": "Parse Docker cgroup memory limits", "should_trigger": false },
+  { "query": "Configure core manager aggregation", "should_trigger": false },
+  { "query": "Build a server-side slug generator endpoint", "should_trigger": false }
+]

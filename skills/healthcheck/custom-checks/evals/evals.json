@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-custom-checks",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Implement a custom Redis readiness check with latency metrics, cancellation, stable errors, and one retry for transient failures.",
+      "expected_output": "A side-effect-free defineHealthCheck implementation with explicit readiness semantics and layered tests.",
+      "expectations": [
+        "Passes ctx.signal to the Redis client or checks cancellation at the client boundary.",
+        "Returns raw latency metrics and a stable generic error code/message.",
+        "Tests direct behavior plus manager retry, criticality, and aggregation."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Design a dependency check used in readiness and diagnostics where failure blocks traffic only in readiness and degraded results should retry.",
+      "expected_output": "A per-scope critical definition with explicit retryOn and tests for both scopes.",
+      "expectations": [
+        "Uses a per-scope criticality map.",
+        "Includes degraded in retryOn rather than assuming it retries by default.",
+        "Tests both resolved report statuses."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a custom database check that writes the connection string into metrics, throws raw SQL errors, and repairs a table during retries.",
+      "expected_output": "A security and correctness review that removes secrets and side effects and normalizes expected failure.",
+      "expectations": [
+        "Flags that check.metrics is not serializer-redacted.",
+        "Rejects repair writes because retry/timeout can repeat or overlap.",
+        "Returns stable generic failure data instead of raw thrown SQL context."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why a collector timeout still hangs the health run and why its defaultEnabled false option does not disable it.",
+      "expected_output": "A diagnosis of cooperative collector cancellation and the currently unused defaultEnabled field.",
+      "expectations": [
+        "Explains that collectors must honor ctx.signal because timeout is cooperative.",
+        "Does not claim defaultEnabled is implemented.",
+        "Uses explicit scopes and cancellation tests as the correction."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Expose existing collector metrics as deterministic OpenMetrics with HELP lines and safe labels.",
+      "expected_output": "A handoff to monitoring exporters while retaining collector output invariants.",
+      "expectations": [
+        "Recognizes exporter formatting as the primary skill boundary.",
+        "Composes with healthcheck-monitoring-exporters.",
+        "Retains stable metric names and bounded-label guidance."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-container-resources",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add container memory and CPU monitoring for a Node service running with cgroup v2 limits, including a 0.5 CPU quota.",
+      "expected_output": "A collector-first implementation that preserves fractional CPU and source/confidence evidence with deterministic fixtures.",
+      "expectations": [
+        "Parses quota divided by period without integer rounding.",
+        "Uses containerMetricsCollector for telemetry-only output.",
+        "Tests the cgroup tree through root/platform overrides."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Handle cgroup v1 memory values above the unlimited sentinel, non-positive CPU quota, and a cpuset range while computing effective CPUs.",
+      "expected_output": "Correct null/unlimited parsing and minimum-positive effective CPU calculation.",
+      "expectations": [
+        "Treats unlimited memory and CPU quota as null rather than zero.",
+        "Parses cpuset ranges accurately.",
+        "Uses the minimum positive finite CPU candidate."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a readiness policy that marks missing cgroup limits unhealthy, rounds 0.5 CPU to 1, ignores permission warnings, and exposes raw host paths publicly.",
+      "expected_output": "A correctness and exposure review that distinguishes unknown/unlimited from pressure and preserves evidence safely.",
+      "expectations": [
+        "Rejects null-as-zero and CPU rounding.",
+        "Uses warnings/source/confidence in diagnosis without exposing unnecessary paths publicly.",
+        "Requires reliable ratios before readiness gating."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why a Dokploy container reports host CPU count despite cpu.max and cpuset constraints, and why detected does not prove Docker.",
+      "expected_output": "A source-grounded trace of candidate parsing and evidence semantics.",
+      "expectations": [
+        "Checks v2 cpu.max and cpuset.cpus.effective inputs.",
+        "Computes effective CPU as the minimum reliable candidate.",
+        "Treats detected/isContainerLikely as hints, not proof."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Expose existing container collector metrics as Prometheus with a prefix, HELP lines, and label allowlisting.",
+      "expected_output": "Composition with monitoring exporters while leaving cgroup parsing unchanged.",
+      "expectations": [
+        "Recognizes exporter formatting as the primary skill boundary.",
+        "Retains collector-only monitoring semantics.",
+        "Does not add Prometheus logic to cgroup parsing."
+      ]
+    }
+  ]
+}

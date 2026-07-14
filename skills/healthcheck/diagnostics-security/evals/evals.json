@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-diagnostics-security",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Design public liveness/readiness and private diagnostics/metrics exposure for a Next.js service behind a trusted reverse proxy.",
+      "expected_output": "An explicit exposure matrix with minimal public payloads and layered fail-closed protection for private routes.",
+      "expectations": [
+        "Separates public probes from protected diagnostics and metrics.",
+        "Uses explicit serializer opt-ins and no-store responses.",
+        "Documents and verifies the trusted proxy/header assumption."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Protect a diagnostics route with bearer auth, allowIps, and allowCidrs, then explain behavior when x-forwarded-for is missing or contains an invalid first value.",
+      "expected_output": "A fail-closed AND-composed policy with construction and runtime denial tests.",
+      "expectations": [
+        "Requires trustProxy true and valid IPv4/CIDR configuration.",
+        "Explains that all configured policy classes must pass.",
+        "Expects 401 for missing or invalid proxy address."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a public diagnostics endpoint using includeDetails, redact false, stack traces, request IDs in OTel labels, and custom cache-control public headers.",
+      "expected_output": "A prioritized security review that closes data, cardinality, and caching leaks.",
+      "expectations": [
+        "Flags non-sanitized metrics/labels and unbounded request IDs.",
+        "Moves stack/cause exposure behind protected diagnostics with minimal opt-in.",
+        "Preserves no-store and rejects custom cache override."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why includeDetails false still exposes service identity and metrics, while redact false still hides the original error message.",
+      "expected_output": "A serializer-surface diagnosis that distinguishes details redaction from error policy and unsanitized report fields.",
+      "expectations": [
+        "Explains that includeDetails controls check.details only.",
+        "Explains that error messages need explicit includeErrorMessage opt-in.",
+        "Identifies identities and metrics as separate unsanitized surfaces."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Implement the actual Next.js route modules, singleton manager import, GET/HEAD handlers, and strict readiness status for the approved exposure matrix.",
+      "expected_output": "Composition with the Next.js routes skill while retaining the security acceptance criteria.",
+      "expectations": [
+        "Recognizes route wiring as healthcheck-nextjs-routes work.",
+        "Carries protection, redaction, and no-store requirements into the handoff.",
+        "Does not invent framework-neutral route APIs."
+      ]
+    }
+  ]
+}

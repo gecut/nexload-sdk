@@ -1,0 +1,22 @@
+[
+  { "query": "Is it safe to expose our health diagnostics endpoint publicly?", "should_trigger": true },
+  { "query": "Protect health metrics with bearer auth and an IPv4 CIDR allowlist", "should_trigger": true },
+  { "query": "Review health JSON redaction for errors causes details and stacks", "should_trigger": true },
+  { "query": "What should public versus private health routes return?", "should_trigger": true },
+  { "query": "Fail closed when x-forwarded-for is missing or invalid", "should_trigger": true },
+  { "query": "Audit secrets and high-cardinality labels in health telemetry", "should_trigger": true },
+  { "query": "Prevent caching of diagnostics and unauthorized health responses", "should_trigger": true },
+  { "query": "Review trustProxy assumptions for health route IP protection", "should_trigger": true },
+  { "query": "Why does redact false still suppress the health error message?", "should_trigger": true },
+  { "query": "Harden Basic authentication for a private diagnostics route", "should_trigger": true },
+  { "query": "Implement a custom Redis check with timeout and retries", "should_trigger": false },
+  { "query": "Create Next App Router GET and HEAD health route files", "should_trigger": false },
+  { "query": "Generate Prometheus HELP lines and normalize metric names", "should_trigger": false },
+  { "query": "Parse fractional CPU from cgroup v2 cpu.max", "should_trigger": false },
+  { "query": "Configure createHealthManager scope aggregation", "should_trigger": false },
+  { "query": "Add a deterministic Payload CMS readiness query", "should_trigger": false },
+  { "query": "Test a custom metric collector's AbortSignal", "should_trigger": false },
+  { "query": "Choose strict readiness HTTP status with no auth changes", "should_trigger": false },
+  { "query": "Fix Jalali date persistence in Payload Admin", "should_trigger": false },
+  { "query": "Convert report metrics into OTel record values", "should_trigger": false }
+]

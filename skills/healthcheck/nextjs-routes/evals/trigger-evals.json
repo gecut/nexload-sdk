@@ -1,0 +1,22 @@
+[
+  { "query": "Add Next.js App Router liveness and readiness route handlers", "should_trigger": true },
+  { "query": "Wire createNextHealthRoute to a server-only singleton manager", "should_trigger": true },
+  { "query": "Create a Prometheus metrics route in Next.js", "should_trigger": true },
+  { "query": "Why does the Next health HEAD handler run checks but return no body?", "should_trigger": true },
+  { "query": "Use strict readiness status policy in an App Router route", "should_trigger": true },
+  { "query": "Set nodejs force-dynamic and no-store constants for health routes", "should_trigger": true },
+  { "query": "Configure bearer and IPv4 protection on a Next diagnostics route", "should_trigger": true },
+  { "query": "Choose summary versus JSON for Next health responses", "should_trigger": true },
+  { "query": "Test GET HEAD status and cache headers for healthcheck-next", "should_trigger": true },
+  { "query": "Expose OpenMetrics from a Next App Router endpoint", "should_trigger": true },
+  { "query": "Build an Express health endpoint", "should_trigger": false },
+  { "query": "Write a custom PostgreSQL readiness check", "should_trigger": false },
+  { "query": "Parse cgroup v1 memory limit sentinel values", "should_trigger": false },
+  { "query": "Normalize Prometheus metric names and labels internally", "should_trigger": false },
+  { "query": "Design the core HealthReport aggregation contract", "should_trigger": false },
+  { "query": "Audit serializer redaction without any route changes", "should_trigger": false },
+  { "query": "Add Payload CMS expected document query behavior", "should_trigger": false },
+  { "query": "Convert collector metrics to OTel resources", "should_trigger": false },
+  { "query": "Implement a Bun-native health server", "should_trigger": false },
+  { "query": "Fix Payload money minor-unit validation", "should_trigger": false }
+]

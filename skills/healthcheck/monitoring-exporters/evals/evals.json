@@ -1,0 +1,60 @@
+{
+  "skill_name": "healthcheck-monitoring-exporters",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Export an existing HealthReport to Prometheus and OpenMetrics with a safe prefix, default labels, HELP descriptions, and deterministic tests.",
+      "expected_output": "Source-aligned conversion using report metrics with exact text verification and EOF behavior.",
+      "expectations": [
+        "Exports built-ins plus collector-produced report.metrics, not check.metrics.",
+        "Enables and verifies HELP descriptions.",
+        "Tests exact Prometheus text and OpenMetrics EOF."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Convert collector metrics containing numbers, booleans, strings, null, Infinity, allowed labels, empty labels, and request_id to Prometheus.",
+      "expected_output": "Exact value conversion and label-dropping behavior without losing valid samples.",
+      "expectations": [
+        "Omits null and non-finite values and maps boolean/string values correctly.",
+        "Drops empty/disallowed request_id labels while retaining the metric.",
+        "Uses deterministic normalized names and label ordering."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review OTel metric records whose labels include tokens, raw URLs, error messages, request IDs, and arbitrary tenant IDs.",
+      "expected_output": "A cardinality/security review that fixes collector labels before OTel conversion.",
+      "expectations": [
+        "States that OTel conversion copies labels verbatim and does not redact.",
+        "Removes sensitive and unbounded labels at the producer boundary.",
+        "Does not claim Prometheus allowlisting protects OTel."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why latencyMs in a check.metrics map is missing from Prometheus and OTel while queue.depth from a collector is present.",
+      "expected_output": "A diagnosis of the formal collector-only custom monitoring boundary.",
+      "expectations": [
+        "Distinguishes check.metrics from report.metrics.",
+        "Explains that built-in check status/duration still export.",
+        "Moves desired monitoring data into a collector rather than exporter special cases."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Create and protect a Next.js /metrics route that serves the already-correct Prometheus output with no-store headers.",
+      "expected_output": "Composition with Next routes and diagnostics security without changing exporter conversion.",
+      "expectations": [
+        "Recognizes serving/auth/cache as route and security concerns.",
+        "Composes with healthcheck-nextjs-routes and healthcheck-diagnostics-security.",
+        "Keeps exporter transformation independent of HTTP."
+      ]
+    }
+  ]
+}

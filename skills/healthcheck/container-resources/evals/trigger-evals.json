@@ -1,0 +1,22 @@
+[
+  { "query": "Parse Docker cgroup v2 memory.max and cpu.max for healthcheck-node", "should_trigger": true },
+  { "query": "Why is my Kubernetes container CPU limit reported as 0.5?", "should_trigger": true },
+  { "query": "Handle cgroup v1 unlimited memory sentinel values", "should_trigger": true },
+  { "query": "Compute effective CPUs from quota cpuset and availableParallelism", "should_trigger": true },
+  { "query": "Add container pressure readiness thresholds", "should_trigger": true },
+  { "query": "Choose containerResourceCheck versus containerMetricsCollector", "should_trigger": true },
+  { "query": "Build cgroup v1 and v2 test fixtures with a fake root", "should_trigger": true },
+  { "query": "Interpret cgroup source confidence warnings and detection hints", "should_trigger": true },
+  { "query": "Debug container memory limits in Dokploy", "should_trigger": true },
+  { "query": "Fix fractional CPU quota rounding in healthcheck-node", "should_trigger": true },
+  { "query": "Write a generic Redis custom health check", "should_trigger": false },
+  { "query": "Create Next.js readiness route handlers", "should_trigger": false },
+  { "query": "Normalize Prometheus labels and HELP output", "should_trigger": false },
+  { "query": "Protect diagnostics with bearer authentication", "should_trigger": false },
+  { "query": "Configure the core manager retry policy", "should_trigger": false },
+  { "query": "Add a Payload CMS readiness query", "should_trigger": false },
+  { "query": "Convert health metrics to OpenTelemetry records", "should_trigger": false },
+  { "query": "Review JSON error message redaction", "should_trigger": false },
+  { "query": "Fix Payload Jalali month selection", "should_trigger": false },
+  { "query": "Implement an HTTP dependency check with AbortSignal", "should_trigger": false }
+]

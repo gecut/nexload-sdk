@@ -1,0 +1,22 @@
+[
+  { "query": "Write a custom database readiness check for @nexload-sdk/healthcheck", "should_trigger": true },
+  { "query": "Should this dependency observation be a check or a metric collector?", "should_trigger": true },
+  { "query": "Propagate AbortSignal through my Redis health check", "should_trigger": true },
+  { "query": "Add retryOn degraded to a custom health definition", "should_trigger": true },
+  { "query": "Review stable error codes and raw metrics in a custom check", "should_trigger": true },
+  { "query": "Test a custom collector timeout and failure behavior", "should_trigger": true },
+  { "query": "Choose criticality per scope for one dependency check", "should_trigger": true },
+  { "query": "Why does my timed-out custom check keep doing work?", "should_trigger": true },
+  { "query": "Make a health check safe under retries and overlapping cancellation", "should_trigger": true },
+  { "query": "Add bounded labels to a new metric collector", "should_trigger": true },
+  { "query": "Configure the main health manager lifecycle and shutdown hooks", "should_trigger": false },
+  { "query": "Create Next.js liveness and readiness route files", "should_trigger": false },
+  { "query": "Secure diagnostics with bearer auth and IPv4 CIDR", "should_trigger": false },
+  { "query": "Implement cgroup v1 and v2 memory detection", "should_trigger": false },
+  { "query": "Render Prometheus HELP and TYPE lines", "should_trigger": false },
+  { "query": "Add the shipped Payload CMS health adapter", "should_trigger": false },
+  { "query": "Configure serializer URL redaction for a private route", "should_trigger": false },
+  { "query": "Use strict readiness HTTP status in Next.js", "should_trigger": false },
+  { "query": "Convert report metrics into OpenTelemetry records", "should_trigger": false },
+  { "query": "Fix a Payload money field validation bound", "should_trigger": false }
+]

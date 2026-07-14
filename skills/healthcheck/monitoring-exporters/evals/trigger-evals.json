@@ -1,0 +1,22 @@
+[
+  { "query": "Convert a HealthReport into Prometheus text", "should_trigger": true },
+  { "query": "Add HELP descriptions to healthcheck Prometheus metrics", "should_trigger": true },
+  { "query": "Why was request_id dropped from my Prometheus label set?", "should_trigger": true },
+  { "query": "Create OpenMetrics output with the EOF terminator", "should_trigger": true },
+  { "query": "Map health statuses into OpenTelemetry metric records", "should_trigger": true },
+  { "query": "Audit OTel health metric label cardinality", "should_trigger": true },
+  { "query": "Normalize health metric prefixes and names for Prometheus", "should_trigger": true },
+  { "query": "Why are check-local metrics missing from monitoring exporters?", "should_trigger": true },
+  { "query": "Test OTel resource attributes unit type and observedAt", "should_trigger": true },
+  { "query": "Make health exporter output deterministic", "should_trigger": true },
+  { "query": "Write a new database metric collector", "should_trigger": false },
+  { "query": "Protect a Next.js metrics route with bearer auth", "should_trigger": false },
+  { "query": "Configure JSON diagnostics redaction", "should_trigger": false },
+  { "query": "Parse cgroup CPU quota and cpuset", "should_trigger": false },
+  { "query": "Set up the core manager lifecycle", "should_trigger": false },
+  { "query": "Add Payload CMS readiness checking", "should_trigger": false },
+  { "query": "Implement a complete OpenTelemetry SDK exporter pipeline", "should_trigger": false },
+  { "query": "Create Next App Router HEAD health handling", "should_trigger": false },
+  { "query": "Add AbortSignal to a custom health check", "should_trigger": false },
+  { "query": "Fix a Payload slug generator endpoint", "should_trigger": false }
+]

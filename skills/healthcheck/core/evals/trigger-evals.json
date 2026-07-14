@@ -1,0 +1,22 @@
+[
+  { "query": "Set up the main @nexload-sdk/healthcheck manager and choose scopes for all checks", "should_trigger": true },
+  { "query": "Why does my noncritical unhealthy check only degrade the aggregate report?", "should_trigger": true },
+  { "query": "Configure healthcheck retries, timeout defaults, and concurrency", "should_trigger": true },
+  { "query": "Review the HealthReport schema and serializer redaction behavior", "should_trigger": true },
+  { "query": "How should profiles affect checks and collectors in the core manager?", "should_trigger": true },
+  { "query": "Add shutdown state tracking to the runtime-neutral health manager", "should_trigger": true },
+  { "query": "Separate raw check metrics from collector monitoring metrics", "should_trigger": true },
+  { "query": "Test liveness readiness startup and diagnostics aggregation", "should_trigger": true },
+  { "query": "Migrate manager-level redaction and includeDiagnostics usage", "should_trigger": true },
+  { "query": "Add a custom RuntimeAdapter to createHealthManager", "should_trigger": true },
+  { "query": "Write one custom database health check with AbortSignal", "should_trigger": false },
+  { "query": "Create a Next.js App Router readiness endpoint", "should_trigger": false },
+  { "query": "Parse cgroup v2 memory.max and cpu.max", "should_trigger": false },
+  { "query": "Convert health metrics to Prometheus HELP and TYPE lines", "should_trigger": false },
+  { "query": "Protect diagnostics behind bearer auth and trusted proxy CIDRs", "should_trigger": false },
+  { "query": "Add a Payload CMS query health check", "should_trigger": false },
+  { "query": "Export report metrics through OpenTelemetry", "should_trigger": false },
+  { "query": "Fix a Jalali month-only Payload field", "should_trigger": false },
+  { "query": "Add an HTTP status route without changing manager behavior", "should_trigger": false },
+  { "query": "Design an IPv4 allowlist for a metrics route", "should_trigger": false }
+]
