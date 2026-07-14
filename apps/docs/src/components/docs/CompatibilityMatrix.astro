@@ -1,0 +1,22 @@
+---
+interface Row {
+  concern: string;
+  support: string;
+  notes: string;
+}
+
+interface Props {
+  rows: readonly Row[];
+}
+
+const { rows } = Astro.props;
+---
+
+<div class="compatibility-table" role="region" aria-label="Compatibility matrix" tabindex="0">
+  <table>
+    <thead><tr><th>Environment</th><th>Support</th><th>Notes</th></tr></thead>
+    <tbody>
+      {rows.map((row) => <tr><td>{row.concern}</td><td>{row.support}</td><td>{row.notes}</td></tr>)}
+    </tbody>
+  </table>
+</div>

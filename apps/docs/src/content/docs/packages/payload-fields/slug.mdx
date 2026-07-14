@@ -1,0 +1,58 @@
+---
+title: Managed slugs
+description: Configure Unicode-preserving slugs, synchronized locks, nested sources, and server-side slug generators.
+sidebar:
+  order: 3
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+`slugField()` returns a slug `TextField` and its paired lock `CheckboxField`. Add both to the collection with the spread operator.
+
+```ts
+import { slugField } from "@nexload-sdk/payload-fields";
+
+fields: [
+  { name: "title", type: "text", localized: true },
+  ...slugField({
+    source: "title",
+    overrides: { slug: { localized: true } },
+  }),
+];
+```
+
+## Synchronization rules
+
+- Persian and other Unicode letters are preserved; Arabic variants and digits are normalized.
+- The lock field is localized when the slug is localized.
+- A locked slug regenerates only when its non-empty source changes.
+- Clearing a source never clears an existing slug automatically.
+- `formatSlug` is the final normalization authority.
+
+## Registered generators
+
+<Steps>
+
+1. Register an async server-side generator in `payloadFieldsPlugin`.
+
+   ```ts
+   import { payloadFieldsPlugin } from "@nexload-sdk/payload-fields";
+
+   export default buildConfig({
+     plugins: [
+       payloadFieldsPlugin({
+         slugGenerators: {
+           concise: async ({ sourceValue }) => sourceValue,
+         },
+       }),
+     ],
+   });
+   ```
+
+2. Reference its key from the field definition with `generator: "concise"`.
+
+</Steps>
+
+<Aside type="caution" title="Do not send generator callbacks to the Admin client">
+Only the generator key reaches client props. The implementation remains on the server and the plugin endpoint checks authentication before access policy.
+</Aside>

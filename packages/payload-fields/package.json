@@ -1,7 +1,7 @@
 {
   "name": "@nexload-sdk/payload-fields",
   "version": "2.0.1",
-  "description": "A collection of powerful, production-ready, and beautifully designed fields for Payload CMS, including an advanced date picker, automatic slug generator, and a feature-rich Lexical editor.",
+  "description": "Production-grade semantic field factories and Admin integrations for Payload CMS.",
   "keywords": [
     "payload",
     "payloadcms",
@@ -10,10 +10,9 @@
     "fields",
     "custom-fields",
     "typescript",
-    "lexical",
-    "editor",
     "slug",
-    "date-picker",
+    "jalali",
+    "money",
     "nexload",
     "sdk"
   ],
@@ -23,30 +22,40 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./date": {
-      "types": "./dist/date/index.d.ts",
-      "import": "./dist/date/index.mjs",
-      "require": "./dist/date/index.cjs"
-    },
-    "./date/date-picker": {
-      "types": "./dist/date/date-picker.d.ts",
-      "import": "./dist/date/date-picker.mjs",
-      "require": "./dist/date/date-picker.cjs"
-    },
-    "./date/date-cell": {
-      "types": "./dist/date/date-cell.d.ts",
-      "import": "./dist/date/date-cell.mjs",
-      "require": "./dist/date/date-cell.cjs"
-    },
     "./slug": {
       "types": "./dist/slug/index.d.ts",
       "import": "./dist/slug/index.mjs",
       "require": "./dist/slug/index.cjs"
     },
-    "./slug/slug-field": {
-      "types": "./dist/slug/slug-field.d.ts",
-      "import": "./dist/slug/slug-field.mjs",
-      "require": "./dist/slug/slug-field.cjs"
+    "./date": {
+      "types": "./dist/date/index.d.ts",
+      "import": "./dist/date/index.mjs",
+      "require": "./dist/date/index.cjs"
+    },
+    "./money": {
+      "types": "./dist/money/index.d.ts",
+      "import": "./dist/money/index.mjs",
+      "require": "./dist/money/index.cjs"
+    },
+    "./admin/slug-field": {
+      "types": "./dist/admin/slug-field.d.ts",
+      "import": "./dist/admin/slug-field.mjs",
+      "require": "./dist/admin/slug-field.cjs"
+    },
+    "./admin/jalali-date-field": {
+      "types": "./dist/admin/jalali-date-field.d.ts",
+      "import": "./dist/admin/jalali-date-field.mjs",
+      "require": "./dist/admin/jalali-date-field.cjs"
+    },
+    "./admin/jalali-date-cell": {
+      "types": "./dist/admin/jalali-date-cell.d.ts",
+      "import": "./dist/admin/jalali-date-cell.mjs",
+      "require": "./dist/admin/jalali-date-cell.cjs"
+    },
+    "./admin/money-field": {
+      "types": "./dist/admin/money-field.d.ts",
+      "import": "./dist/admin/money-field.mjs",
+      "require": "./dist/admin/money-field.cjs"
     }
   },
   "files": [
@@ -59,21 +68,27 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@payloadcms/richtext-lexical": "^3.68.5",
-    "@payloadcms/ui": "^3.68.5",
-    "date-fns-jalali": "4.1.0-0",
-    "payload": "catalog:",
-    "react": "^19.2.3",
     "react-day-picker": "^9.12.0"
+  },
+  "peerDependencies": {
+    "@payloadcms/ui": ">=3.68.5 <4",
+    "payload": ">=3.68.5 <4",
+    "react": "^19.0.1 || ^19.1.2 || ^19.2.1",
+    "react-dom": "^19.0.1 || ^19.1.2 || ^19.2.1"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
     "@types/react": "^19.2.7",
+    "@payloadcms/ui": "3.68.5",
+    "payload": "3.68.5",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "eslint": "catalog:",
     "typescript": "catalog:"
   }

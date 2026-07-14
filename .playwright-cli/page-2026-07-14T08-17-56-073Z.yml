@@ -1,0 +1,125 @@
+- generic [active] [ref=f3e1]:
+  - link "Skip to content" [ref=f3e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=f3e3]:
+    - banner [ref=f3e4]:
+      - generic [ref=f3e5]:
+        - link "Nexload SDK" [ref=f3e7] [cursor=pointer]:
+          - /url: /nexload-sdk/
+        - button "Search" [ref=f3e11] [cursor=pointer]
+    - navigation "Main":
+      - button "Menu" [ref=f3e14] [cursor=pointer]
+      - option "Dark" [selected]
+      - option "Light"
+      - option "Auto"
+    - generic [ref=f3e18]:
+      - complementary:
+        - navigation [ref=f3e19]:
+          - group [ref=f3e20]:
+            - generic "On this page Overview" [ref=f3e21]:
+              - generic [ref=f3e22] [cursor=pointer]: On this page
+              - generic [ref=f3e25]: Overview
+      - main [ref=f3e27]:
+        - heading "Install agent skills" [level=1] [ref=f3e30]
+        - generic [ref=f3e32]:
+          - generic [ref=f3e33]:
+            - paragraph [ref=f3e34]:
+              - text: The repository ships 11 valid Skills. The official
+              - code [ref=f3e35]: skills
+              - text: CLI discovers the
+              - code [ref=f3e36]: skills/**/SKILL.md
+              - text: files and configures them for supported agents.
+            - list [ref=f3e37]:
+              - listitem [ref=f3e38]:
+                - paragraph [ref=f3e39]: "Inspect the available Skills before installing:"
+                - figure "Terminal window" [ref=f3e41]:
+                  - code [ref=f3e46]:
+                    - generic [ref=f3e47]: npx skills add gecut/nexload-sdk --list
+                  - button "Copy to clipboard" [ref=f3e50] [cursor=pointer]
+              - listitem [ref=f3e52]:
+                - paragraph [ref=f3e53]: "Install a specific Skill for the current project:"
+                - figure "Terminal window" [ref=f3e55]:
+                  - code [ref=f3e60]:
+                    - generic [ref=f3e61]: npx skills add gecut/nexload-sdk --skill nexload-healthcheck-core
+                  - button "Copy to clipboard" [ref=f3e64] [cursor=pointer]
+              - listitem [ref=f3e66]:
+                - paragraph [ref=f3e67]: "Update installed Skills when you intentionally want newer guidance:"
+                - figure "Terminal window" [ref=f3e69]:
+                  - code [ref=f3e74]:
+                    - generic [ref=f3e75]: npx skills update
+                  - button "Copy to clipboard" [ref=f3e78] [cursor=pointer]
+            - generic [ref=f3e80]:
+              - 'heading "Example: a Next.js health route" [level=2] [ref=f3e81]'
+              - 'link "Section titled “Example: a Next.js health route”" [ref=f3e82] [cursor=pointer]':
+                - /url: "#example-a-nextjs-health-route"
+            - generic [ref=f3e87]:
+              - tablist [ref=f3e89]:
+                - tab "Project" [selected] [ref=f3e90] [cursor=pointer]
+                - tab "Global" [ref=f3e91] [cursor=pointer]
+                - tab "Codex" [ref=f3e92] [cursor=pointer]
+              - tabpanel "Project" [ref=f3e93]:
+                - figure "Terminal window" [ref=f3e95]:
+                  - code [ref=f3e100]:
+                    - generic [ref=f3e101]: npx skills add gecut/nexload-sdk --skill nexload-healthcheck-next-route
+                  - button "Copy to clipboard" [ref=f3e104] [cursor=pointer]
+            - generic [ref=f3e106]:
+              - heading "Source layout" [level=2] [ref=f3e107]
+              - link "Section titled “Source layout”" [ref=f3e108] [cursor=pointer]:
+                - /url: "#source-layout"
+            - list [ref=f3e114]:
+              - listitem [ref=f3e115]:
+                - group [ref=f3e116]:
+                  - generic "Directory skills" [ref=f3e117]:
+                    - generic [ref=f3e119]:
+                      - generic [ref=f3e120]: Directory
+                      - text: skills
+                  - list [ref=f3e124]:
+                    - listitem [ref=f3e125]:
+                      - group [ref=f3e126]:
+                        - generic "Directory healthcheck" [ref=f3e127]:
+                          - generic [ref=f3e129]:
+                            - generic [ref=f3e130]: Directory
+                            - text: healthcheck
+                        - list [ref=f3e134]:
+                          - listitem [ref=f3e135]:
+                            - group [ref=f3e136]:
+                              - generic "Directory next-route" [ref=f3e137]:
+                                - generic [ref=f3e139]:
+                                  - generic [ref=f3e140]: Directory
+                                  - text: next-route
+                              - list [ref=f3e144]:
+                                - listitem [ref=f3e145]:
+                                  - generic [ref=f3e146]: SKILL.md
+                    - listitem [ref=f3e151]:
+                      - group [ref=f3e152]:
+                        - generic "Directory payload-fields" [ref=f3e153]:
+                          - generic [ref=f3e155]:
+                            - generic [ref=f3e156]: Directory
+                            - text: payload-fields
+                        - list [ref=f3e160]:
+                          - listitem [ref=f3e161]:
+                            - group [ref=f3e162]:
+                              - generic "Directory money" [ref=f3e163]:
+                                - generic [ref=f3e165]:
+                                  - generic [ref=f3e166]: Directory
+                                  - text: money
+                              - list [ref=f3e170]:
+                                - listitem [ref=f3e171]:
+                                  - generic [ref=f3e172]: SKILL.md
+            - complementary "Review before broad installation" [ref=f3e177]:
+              - paragraph [ref=f3e178]: Review before broad installation
+              - paragraph [ref=f3e182]:
+                - code [ref=f3e183]: "--all"
+                - text: can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+          - generic [ref=f3e184]:
+            - link "Edit page" [ref=f3e186] [cursor=pointer]:
+              - /url: https://github.com/gecut/nexload-sdk/edit/main/apps/docs/src/content/docs/agents/install.mdx
+            - generic [ref=f3e189]:
+              - link "Previous Agent skills" [ref=f3e190] [cursor=pointer]:
+                - /url: /nexload-sdk/agents/
+                - generic [ref=f3e191]: Previous
+                - generic [ref=f3e194]: Agent skills
+              - link "Next Support" [ref=f3e195] [cursor=pointer]:
+                - /url: /nexload-sdk/community/support/
+                - generic [ref=f3e196]: Next
+                - generic [ref=f3e199]: Support

@@ -1,5 +1,32 @@
-# Nexload SDK healthcheck
+# Nexload SDK
 
-Use `@nexload-sdk/healthcheck` as the runtime-neutral core. Use separate packages for Node, Bun, Next.js, Prometheus/OpenMetrics, OpenTelemetry transforms, and Payload.
+Current documentation index for Nexload SDK packages and agent skills.
 
-Diagnostics and metrics routes must be protected.
+- /agents/
+- /agents/install/
+- /community/support/
+- /index/
+- /packages/healthcheck/concepts/checks-and-collectors/
+- /packages/healthcheck/concepts/reports-and-status/
+- /packages/healthcheck/concepts/scopes/
+- /packages/healthcheck/guides/bun/
+- /packages/healthcheck/guides/custom-checks/
+- /packages/healthcheck/guides/exporters/
+- /packages/healthcheck/guides/nextjs/
+- /packages/healthcheck/guides/node/
+- /packages/healthcheck/guides/operations/
+- /packages/healthcheck/guides/payload/
+- /packages/healthcheck/
+- /packages/healthcheck/quick-start/
+- /packages/healthcheck/reference/api/
+- /packages/
+- /packages/payload-fields/
+- /packages/payload-fields/jalali-dates/
+- /packages/payload-fields/migration/
+- /packages/payload-fields/money/
+- /packages/payload-fields/plugin-and-admin/
+- /packages/payload-fields/quick-start/
+- /packages/payload-fields/reference-api/
+- /packages/payload-fields/slug/
+- /start/choose-a-package/
+- /start/introduction/

@@ -1,0 +1,29 @@
+---
+title: Containers and operations
+description: Apply Healthcheck scopes safely in Docker, Kubernetes, and Dokploy-style container deployments.
+sidebar:
+  order: 4
+---
+
+import { Aside, CardGrid } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../../../components/docs/DocLinkCard.astro";
+
+Healthcheck works in containers without assuming that host memory or CPU is the process limit. The Node adapter checks cgroup v2 and v1 before lower-confidence fallbacks.
+
+## Probe mapping
+
+| Platform concern | Scope | Expected action |
+| --- | --- | --- |
+| process is shutting down | `liveness` and `readiness` | stop new traffic; allow shutdown |
+| required dependency is unavailable | `readiness` | remove instance from traffic |
+| application initialisation is incomplete | `startup` | wait before routing traffic |
+| container memory is close to a hard limit | `readiness` or diagnostics | choose explicitly based on operational policy |
+
+<Aside type="caution" title="Avoid automatic restart loops">
+Do not make external dependencies or ordinary CPU pressure liveness-critical unless your platform should restart the process for that failure. Readiness is usually the safer response.
+</Aside>
+
+<CardGrid>
+  <DocLinkCard title="Node.js adapter" href="/packages/healthcheck/guides/node/" description="Use cgroup-aware checks and collectors." />
+  <DocLinkCard title="Diagnostics security" href="/packages/healthcheck/concepts/scopes/" description="Keep operator data private even when a platform can reach it." />
+</CardGrid>

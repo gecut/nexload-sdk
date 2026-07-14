@@ -1,0 +1,34 @@
+---
+import { Badge, LinkButton } from "@astrojs/starlight/components";
+
+import DocsStatus from "./DocsStatus.astro";
+
+import type { PackageCatalogEntry } from "../../lib/package-catalog";
+
+interface Props {
+  entry: PackageCatalogEntry;
+  eyebrow?: string;
+}
+
+const { entry, eyebrow = "Nexload SDK package" } = Astro.props;
+const { manifest } = entry;
+const npmUrl = `https://www.npmjs.com/package/${manifest.name}`;
+const sourceUrl = `https://github.com/gecut/nexload-sdk/tree/main/${entry.sourcePath}`;
+---
+
+<header class="package-hero">
+  <p class="package-hero__eyebrow">{eyebrow}</p>
+  <div class="package-hero__title-row">
+    <h2>{manifest.name}</h2>
+    <Badge text={`v${manifest.version}`} />
+    <DocsStatus status={entry.status} />
+  </div>
+  <p>{manifest.description}</p>
+  <div class="package-hero__badges" aria-label="Runtime compatibility">
+    {entry.runtimes.map((runtime) => <Badge text={runtime} />)}
+  </div>
+  <div class="package-hero__actions">
+    <LinkButton href={npmUrl} variant="primary" icon="external">View on npm</LinkButton>
+    <LinkButton href={sourceUrl} variant="secondary" icon="github">Browse source</LinkButton>
+  </div>
+</header>

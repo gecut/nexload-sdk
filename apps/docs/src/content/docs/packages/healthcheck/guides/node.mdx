@@ -1,0 +1,45 @@
+---
+title: Node.js services
+description: Add Node runtime, process, container, TCP, and DNS health probes to a Healthcheck manager.
+sidebar:
+  order: 1
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
+
+Use the Node adapter when your service needs process metrics, cgroup-aware container data, TCP checks, or DNS checks.
+
+<InstallTabs packages={["@nexload-sdk/healthcheck", "@nexload-sdk/healthcheck-node"]} />
+
+<Steps>
+
+1. Configure the Node runtime adapter.
+
+   ```ts title="src/lib/health.ts"
+   import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+   import {
+     nodeRuntimeAdapter,
+     processMetricsCollector,
+     tcpCheck,
+   } from "@nexload-sdk/healthcheck-node";
+
+   export const health = createHealthManager({
+     service: { name: "api" },
+     runtime: nodeRuntimeAdapter(),
+     checks: [shutdownCheck(), tcpCheck("postgres", { host: "db", port: 5432 })],
+     collectors: [processMetricsCollector()],
+   });
+   ```
+
+2. Add `containerResourceCheck` only when memory or CPU pressure should influence a health decision.
+
+</Steps>
+
+## Container data
+
+`containerResourceCheck` reads cgroup v2, then cgroup v1, before falling back to process or host data. Fractional CPU quotas are preserved. Inspect the returned source and confidence before using a metric as a hard threshold.
+
+<Aside type="tip" title="Use collectors for monitoring">
+`processMetricsCollector` and `containerMetricsCollector` are suitable for metrics routes. They do not turn a service unhealthy by themselves.
+</Aside>

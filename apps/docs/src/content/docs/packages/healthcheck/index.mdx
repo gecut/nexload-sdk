@@ -1,0 +1,33 @@
+---
+title: Healthcheck
+description: Build production health reports and routes with a runtime-neutral core and explicit adapters for Node, Bun, Next.js, Payload, Prometheus, and OpenTelemetry.
+sidebar:
+  order: 1
+---
+
+import { Aside, CardGrid } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../../components/docs/DocLinkCard.astro";
+import PackageGrid from "../../../../components/docs/PackageGrid.astro";
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageCatalog, packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/healthcheck")} eyebrow="Health and operational data" />
+
+The core runs checks and metric collectors, normalizes failures into a stable report, and leaves runtime/framework concerns to dedicated packages.
+
+<Aside type="tip" title="Start from the core">
+Install the core for orchestration. Add an adapter only for runtime information, route handlers, exporters, or Payload access that your service actually uses.
+</Aside>
+
+## Choose an integration
+
+<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "healthcheck")} />
+
+## Recommended path
+
+<CardGrid>
+  <DocLinkCard title="Quick start" href="/packages/healthcheck/quick-start/" description="Create a manager, register checks, and run a scope." />
+  <DocLinkCard title="Scopes and reports" href="/packages/healthcheck/concepts/scopes/" description="Decide what belongs in liveness, readiness, startup, and diagnostics." />
+  <DocLinkCard title="Runtime guides" href="/packages/healthcheck/guides/node/" description="Use Node, Bun, Next.js, exporter, Payload, and container-specific guidance." />
+  <DocLinkCard title="API reference" href="/packages/healthcheck/reference/api/" description="See curated public exports and the stable response contract." />
+</CardGrid>

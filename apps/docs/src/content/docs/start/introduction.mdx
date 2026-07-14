@@ -1,0 +1,31 @@
+---
+title: Introduction
+description: Understand how Nexload SDK packages are scoped and how to select only the dependencies your service needs.
+sidebar:
+  order: 1
+---
+
+import { Aside, CardGrid } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../components/docs/DocLinkCard.astro";
+
+Nexload SDK is not a single application framework. Each package has a narrow ownership boundary and can be installed independently.
+
+## Package families
+
+<CardGrid>
+  <DocLinkCard title="Healthcheck" href="/packages/healthcheck/" description="Runtime-neutral orchestration with optional Node, Bun, Next.js, Payload, Prometheus, and OpenTelemetry adapters." />
+  <DocLinkCard title="Payload Fields" href="/packages/payload-fields/" description="Payload field factories whose persistence and Admin behavior are part of one explicit contract." />
+  <DocLinkCard title="Utilities and tooling" href="/packages/" description="Public packages such as env, logger, jwt, IconCraft, and shared configs are listed with their documentation status." />
+</CardGrid>
+
+## Selection rule
+
+Choose the package closest to the responsibility you need. For example, use the Healthcheck core to aggregate health results, then add the Node adapter only when you need cgroup, TCP, DNS, or process data.
+
+<Aside type="tip" title="Keep integrations explicit">
+The Healthcheck core intentionally does not import Next.js, Payload, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation`. Add the integration package at the application boundary.
+</Aside>
+
+## What these docs guarantee
+
+Documented pages describe the current source and public exports of the latest package version. Migration pages cover supported major-version changes; historical versioned documentation is not maintained.

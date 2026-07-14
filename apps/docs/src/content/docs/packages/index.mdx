@@ -1,0 +1,23 @@
+---
+title: Package catalog
+description: Browse public Nexload SDK packages and see which families have complete documentation today.
+sidebar:
+  order: 1
+---
+
+import PackageGrid from "../../../components/docs/PackageGrid.astro";
+import { packageCatalog } from "../../../lib/package-catalog";
+
+The catalog is sourced from the workspace package manifests. A `Documented` package has an MDX overview, guides, and curated API coverage. `Docs planned` packages are listed for discovery without pretending that their documentation is complete.
+
+## Health and operations
+
+<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "healthcheck")} />
+
+## Payload CMS
+
+<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "payload")} />
+
+## Utilities and tooling
+
+<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "utilities" || entry.family === "tooling")} />

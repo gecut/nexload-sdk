@@ -1,0 +1,21 @@
+---
+interface Props {
+  name: string;
+  importPath: string;
+  signature: string;
+  description: string;
+  caveat?: string;
+}
+
+const { name, importPath, signature, description, caveat } = Astro.props;
+---
+
+<section class="api-symbol" aria-labelledby={`api-${name}`}>
+  <div class="api-symbol__heading">
+    <h2 id={`api-${name}`}><code>{name}</code></h2>
+    <code>{importPath}</code>
+  </div>
+  <pre><code>{signature}</code></pre>
+  <p>{description}</p>
+  {caveat && <p class="api-symbol__caveat"><strong>Note:</strong> {caveat}</p>}
+</section>

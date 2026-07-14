@@ -1,0 +1,253 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Nexload SDK" [ref=e7] [cursor=pointer]:
+          - /url: /nexload-sdk/
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/gecut/nexload-sdk
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Start" [ref=e34] [cursor=pointer]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "Landing" [ref=e40] [cursor=pointer]:
+                  - /url: /nexload-sdk/
+              - listitem [ref=e41]:
+                - link "Introduction" [ref=e42] [cursor=pointer]:
+                  - /url: /nexload-sdk/start/introduction/
+              - listitem [ref=e43]:
+                - link "Choose a package" [ref=e44] [cursor=pointer]:
+                  - /url: /nexload-sdk/start/choose-a-package/
+        - listitem [ref=e45]:
+          - group [ref=e46]:
+            - generic "Packages" [ref=e47] [cursor=pointer]
+            - list [ref=e51]:
+              - listitem [ref=e52]:
+                - link "Package catalog" [ref=e53] [cursor=pointer]:
+                  - /url: /nexload-sdk/packages/
+              - listitem [ref=e54]:
+                - group [ref=e55]:
+                  - generic "Healthcheck" [ref=e56] [cursor=pointer]
+                  - list [ref=e60]:
+                    - listitem [ref=e61]:
+                      - link "Healthcheck" [ref=e62] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/healthcheck/
+                    - listitem [ref=e63]:
+                      - group [ref=e64]:
+                        - generic "concepts" [ref=e65] [cursor=pointer]
+                        - list [ref=e69]:
+                          - listitem [ref=e70]:
+                            - link "Scopes" [ref=e71] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/concepts/scopes/
+                          - listitem [ref=e72]:
+                            - link "Checks and collectors" [ref=e73] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/concepts/checks-and-collectors/
+                          - listitem [ref=e74]:
+                            - link "Reports and status" [ref=e75] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/concepts/reports-and-status/
+                    - listitem [ref=e76]:
+                      - group [ref=e77]:
+                        - generic "guides" [ref=e78] [cursor=pointer]
+                        - list [ref=e82]:
+                          - listitem [ref=e83]:
+                            - link "Node.js services" [ref=e84] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/node/
+                          - listitem [ref=e85]:
+                            - link "Bun services" [ref=e86] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/bun/
+                          - listitem [ref=e87]:
+                            - link "Next.js App Router" [ref=e88] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/nextjs/
+                          - listitem [ref=e89]:
+                            - link "Containers and operations" [ref=e90] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/operations/
+                          - listitem [ref=e91]:
+                            - link "Prometheus and OpenTelemetry" [ref=e92] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/exporters/
+                          - listitem [ref=e93]:
+                            - link "Payload CMS health checks" [ref=e94] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/payload/
+                          - listitem [ref=e95]:
+                            - link "Custom checks and collectors" [ref=e96] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/custom-checks/
+                    - listitem [ref=e97]:
+                      - group [ref=e98]:
+                        - generic "reference" [ref=e99] [cursor=pointer]
+                        - list [ref=e103]:
+                          - listitem [ref=e104]:
+                            - link "API reference" [ref=e105] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/reference/api/
+                    - listitem [ref=e106]:
+                      - link "Quick start" [ref=e107] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/healthcheck/quick-start/
+              - listitem [ref=e108]:
+                - group [ref=e109]:
+                  - generic "Payload Fields" [ref=e110] [cursor=pointer]
+                  - list [ref=e114]:
+                    - listitem [ref=e115]:
+                      - link "Payload Fields" [ref=e116] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/
+                    - listitem [ref=e117]:
+                      - link "API reference" [ref=e118] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/reference-api/
+                    - listitem [ref=e119]:
+                      - link "Quick start" [ref=e120] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/quick-start/
+                    - listitem [ref=e121]:
+                      - link "Managed slugs" [ref=e122] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/slug/
+                    - listitem [ref=e123]:
+                      - link "Jalali dates" [ref=e124] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/jalali-dates/
+                    - listitem [ref=e125]:
+                      - link "Money fields" [ref=e126] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/money/
+                    - listitem [ref=e127]:
+                      - link "Plugin and Admin boundary" [ref=e128] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/plugin-and-admin/
+                    - listitem [ref=e129]:
+                      - link "Migrate from 2.x" [ref=e130] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/migration/
+        - listitem [ref=e131]:
+          - group [ref=e132]:
+            - generic "Agents and community" [ref=e133] [cursor=pointer]
+            - list [ref=e137]:
+              - listitem [ref=e138]:
+                - link "Agent skills" [ref=e139] [cursor=pointer]:
+                  - /url: /nexload-sdk/agents/
+              - listitem [ref=e140]:
+                - link "Install skills" [ref=e141] [cursor=pointer]:
+                  - /url: /nexload-sdk/agents/install/
+              - listitem [ref=e142]:
+                - link "Support" [ref=e143] [cursor=pointer]:
+                  - /url: /nexload-sdk/community/support/
+    - generic [ref=e145]:
+      - complementary [ref=e146]:
+        - navigation [ref=e151]:
+          - heading "On this page" [level=2] [ref=e152]
+          - list [ref=e153]:
+            - listitem [ref=e154]:
+              - link "Overview" [ref=e155] [cursor=pointer]:
+                - /url: "#_top"
+            - listitem [ref=e156]:
+              - 'link "Example: a Next.js health route" [ref=e157] [cursor=pointer]':
+                - /url: "#example-a-nextjs-health-route"
+            - listitem [ref=e158]:
+              - link "Source layout" [ref=e159] [cursor=pointer]:
+                - /url: "#source-layout"
+      - main [ref=e161]:
+        - heading "Install agent skills" [level=1] [ref=e164]
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - paragraph [ref=e168]:
+              - text: The repository ships 11 valid Skills. The official
+              - code [ref=e169]: skills
+              - text: CLI discovers the
+              - code [ref=e170]: skills/**/SKILL.md
+              - text: files and configures them for supported agents.
+            - list [ref=e171]:
+              - listitem [ref=e172]:
+                - paragraph [ref=e173]: "Inspect the available Skills before installing:"
+                - figure "Terminal window" [ref=e175]:
+                  - code [ref=e180]:
+                    - generic [ref=e181]: npx skills add gecut/nexload-sdk --list
+                  - button "Copy to clipboard" [ref=e184] [cursor=pointer]
+              - listitem [ref=e186]:
+                - paragraph [ref=e187]: "Install a specific Skill for the current project:"
+                - figure "Terminal window" [ref=e189]:
+                  - code [ref=e194]:
+                    - generic [ref=e195]: npx skills add gecut/nexload-sdk --skill nexload-healthcheck-core
+                  - button "Copy to clipboard" [ref=e198] [cursor=pointer]
+              - listitem [ref=e200]:
+                - paragraph [ref=e201]: "Update installed Skills when you intentionally want newer guidance:"
+                - figure "Terminal window" [ref=e203]:
+                  - code [ref=e208]:
+                    - generic [ref=e209]: npx skills update
+                  - button "Copy to clipboard" [ref=e212] [cursor=pointer]
+            - generic [ref=e214]:
+              - 'heading "Example: a Next.js health route" [level=2] [ref=e215]'
+              - 'link "Section titled “Example: a Next.js health route”" [ref=e216] [cursor=pointer]':
+                - /url: "#example-a-nextjs-health-route"
+            - generic [ref=e221]:
+              - tablist [ref=e223]:
+                - tab "Project" [selected] [ref=e224] [cursor=pointer]
+                - tab "Global" [ref=e225] [cursor=pointer]
+                - tab "Codex" [ref=e226] [cursor=pointer]
+              - tabpanel "Project" [ref=e227]: "```bash npx skills add gecut/nexload-sdk --skill nexload-healthcheck-next-route ```"
+            - generic [ref=e228]:
+              - heading "Source layout" [level=2] [ref=e229]
+              - link "Section titled “Source layout”" [ref=e230] [cursor=pointer]:
+                - /url: "#source-layout"
+            - list [ref=e236]:
+              - listitem [ref=e237]:
+                - group [ref=e238]:
+                  - generic "Directory skills" [ref=e239]:
+                    - generic [ref=e241]:
+                      - generic [ref=e242]: Directory
+                      - text: skills
+                  - list [ref=e246]:
+                    - listitem [ref=e247]:
+                      - group [ref=e248]:
+                        - generic "Directory healthcheck" [ref=e249]:
+                          - generic [ref=e251]:
+                            - generic [ref=e252]: Directory
+                            - text: healthcheck
+                        - list [ref=e256]:
+                          - listitem [ref=e257]:
+                            - group [ref=e258]:
+                              - generic "Directory next-route" [ref=e259]:
+                                - generic [ref=e261]:
+                                  - generic [ref=e262]: Directory
+                                  - text: next-route
+                              - list [ref=e266]:
+                                - listitem [ref=e267]:
+                                  - generic [ref=e268]: SKILL.md
+                    - listitem [ref=e273]:
+                      - group [ref=e274]:
+                        - generic "Directory payload-fields" [ref=e275]:
+                          - generic [ref=e277]:
+                            - generic [ref=e278]: Directory
+                            - text: payload-fields
+                        - list [ref=e282]:
+                          - listitem [ref=e283]:
+                            - group [ref=e284]:
+                              - generic "Directory money" [ref=e285]:
+                                - generic [ref=e287]:
+                                  - generic [ref=e288]: Directory
+                                  - text: money
+                              - list [ref=e292]:
+                                - listitem [ref=e293]:
+                                  - generic [ref=e294]: SKILL.md
+            - complementary "Review before broad installation" [ref=e299]:
+              - paragraph [ref=e300]: Review before broad installation
+              - paragraph [ref=e304]:
+                - code [ref=e305]: "--all"
+                - text: can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+          - generic [ref=e306]:
+            - link "Edit page" [ref=e308] [cursor=pointer]:
+              - /url: https://github.com/gecut/nexload-sdk/edit/main/apps/docs/src/content/docs/agents/install.mdx
+            - generic [ref=e311]:
+              - link "Previous Agent skills" [ref=e312] [cursor=pointer]:
+                - /url: /nexload-sdk/agents/
+                - generic [ref=e313]: Previous
+                - generic [ref=e316]: Agent skills
+              - link "Next Support" [ref=e317] [cursor=pointer]:
+                - /url: /nexload-sdk/community/support/
+                - generic [ref=e318]: Next
+                - generic [ref=e321]: Support

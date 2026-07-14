@@ -42,6 +42,7 @@
   "devDependencies": {
     "@nexload-sdk/typescript-config": "workspace:*",
     "@types/node": "catalog:",
-    "eslint": "catalog:"
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   }
 }

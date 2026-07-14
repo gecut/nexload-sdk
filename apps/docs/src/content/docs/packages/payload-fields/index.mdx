@@ -1,0 +1,36 @@
+---
+title: Payload Fields
+description: Semantic Payload CMS field factories for Unicode slugs, Jalali dates, and integer minor-unit money values.
+sidebar:
+  order: 1
+---
+
+import { Aside, CardGrid } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../../components/docs/DocLinkCard.astro";
+import CompatibilityMatrix from "../../../../components/docs/CompatibilityMatrix.astro";
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/payload-fields")} eyebrow="Payload CMS semantic fields" />
+
+Payload Fields owns both the server field definition and the matching Admin component contract. It is designed for Payload CMS applications that need consistent Unicode slugs, Jalali date experiences, and safe money persistence.
+
+<CompatibilityMatrix rows={[
+  { concern: "Payload", support: ">=3.68.5 <4", notes: "Required peer dependency." },
+  { concern: "React and React DOM", support: "19.x", notes: "Required by the Payload Admin UI." },
+  { concern: "Server API", support: "Payload Node runtime", notes: "Factories and plugin handlers run with Payload." },
+  { concern: "Admin components", support: "Payload Import Map", notes: "Factories reference published package subpaths automatically." },
+]} />
+
+## Choose a field contract
+
+<CardGrid>
+  <DocLinkCard title="Quick start" href="/packages/payload-fields/quick-start/" description="Add all three field types to a collection with one explicit configuration." />
+  <DocLinkCard title="Managed slugs" href="/packages/payload-fields/slug/" description="Preserve Unicode, synchronize locks, and register server-side generators." />
+  <DocLinkCard title="Jalali dates" href="/packages/payload-fields/jalali-dates/" description="Persist native dates while presenting Jalali picker and cell behavior." />
+  <DocLinkCard title="Money fields" href="/packages/payload-fields/money/" description="Store safe integer minor units and format only at the UI boundary." />
+</CardGrid>
+
+<Aside type="caution" title="The database contract is intentional">
+Money values in REST, GraphQL, Local API, hooks, validation, and persistence are minor-unit integers. Only the Admin input accepts major-unit text.
+</Aside>

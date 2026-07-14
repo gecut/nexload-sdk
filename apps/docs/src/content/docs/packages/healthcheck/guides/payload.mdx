@@ -1,0 +1,36 @@
+---
+title: Payload CMS health checks
+description: Add a deterministic Payload query to readiness without importing Payload into the Healthcheck core.
+sidebar:
+  order: 6
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
+
+Payload integration lives in a separate package and declares `payload` as a peer dependency.
+
+<InstallTabs packages={["@nexload-sdk/healthcheck", "@nexload-sdk/healthcheck-payload", "payload"]} />
+
+```ts title="src/lib/health.ts"
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+
+export const health = createHealthManager({
+  service: { name: "cms" },
+  runtime: "auto",
+  checks: [
+    payloadHealthCheck(payload, {
+      collection: "users",
+      limit: 1,
+      depth: 0,
+    }),
+  ],
+});
+```
+
+`payloadHealthCheck` reports latency, document total when available, and `up`. Set `expectedMinDocuments` only when an empty collection is truly unhealthy for the service.
+
+<Aside type="tip" title="Keep the query deterministic">
+Use a small `limit`, `depth: 0`, and a narrowly scoped `where` clause if one is needed. A health check should observe a dependency, not perform business work.
+</Aside>

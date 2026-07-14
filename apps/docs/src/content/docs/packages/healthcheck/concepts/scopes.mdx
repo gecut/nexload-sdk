@@ -1,0 +1,30 @@
+---
+title: Scopes
+description: Select liveness, readiness, startup, or diagnostics based on the operational decision a health report must support.
+sidebar:
+  order: 1
+---
+
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+
+Healthcheck scopes answer different questions. A check can participate in more than one scope, but each placement should match a real operational decision.
+
+<CardGrid>
+  <Card title="Liveness" icon="heartbeat">Should this process keep running? Use lifecycle and event-loop signals, not ordinary remote dependencies.</Card>
+  <Card title="Readiness" icon="check-circle">Should this instance receive traffic? Put required dependencies and capacity thresholds here.</Card>
+  <Card title="Startup" icon="rocket">Has initialisation completed? Use it while the process is not yet safe to serve.</Card>
+  <Card title="Diagnostics" icon="information">What does an operator need to inspect? Keep it detail-rich and protected.</Card>
+</CardGrid>
+
+## Default probe posture
+
+| Scope | Typical route | Detail level | Default failure behavior |
+| --- | --- | --- | --- |
+| `liveness` | `/health/live` | minimal | restart only for process lifecycle failure |
+| `readiness` | `/health/ready` | minimal | remove from traffic |
+| `startup` | `/health/startup` | minimal | wait before routing traffic |
+| `diagnostics` | private route | rich | operator investigation only |
+
+<Aside type="caution" title="Protect diagnostics">
+Diagnostics may contain failure context and resource data. Protect it with authentication, private networking, IP policy, or a reverse proxy. Never expose secrets, connection strings, headers, cookies, or stack traces.
+</Aside>

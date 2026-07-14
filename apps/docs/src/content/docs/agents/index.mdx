@@ -1,0 +1,30 @@
+---
+title: Agent skills
+description: Package-scoped guidance for coding agents working with Nexload Healthcheck and Payload Fields.
+sidebar:
+  order: 1
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../components/docs/DocLinkCard.astro";
+
+Agent Skills are short, task-specific instructions distributed with this repository. They complement the API docs by encoding decisions that are easy for an agent to get wrong during implementation.
+
+<CardGrid>
+  <Card title="Healthcheck skills" icon="heartbeat">
+    Seven Skills cover manager design, custom checks, diagnostics security, cgroups, exporters, Next.js routes, and Payload integration.
+  </Card>
+  <Card title="Payload Fields skills" icon="document">
+    Four Skills cover semantic factories, managed slugs, Jalali dates, and minor-unit money contracts.
+  </Card>
+</CardGrid>
+
+## Use the smallest relevant skill
+
+Install a Skill when the task matches its trigger. For example, install `healthcheck-nextjs-routes` when adding a Next App Router health route, not the entire collection by default.
+
+<CardGrid>
+  <DocLinkCard title="Install Skills" href="/agents/install/" description="Use the official skills CLI with this public repository." />
+  <DocLinkCard title="Healthcheck docs" href="/packages/healthcheck/" description="Read the runtime and security contract behind the Healthcheck Skills." />
+  <DocLinkCard title="Payload Fields docs" href="/packages/payload-fields/" description="Read the persistence and Admin contract behind the Payload Skills." />
+</CardGrid>

@@ -1,0 +1,48 @@
+---
+title: Jalali dates
+description: Present native Payload date values with Jalali picker modes, display controls, and virtual Jalali timestamps.
+sidebar:
+  order: 4
+---
+
+import { Aside, Tabs, TabItem } from "@astrojs/starlight/components";
+
+`jalaliDateField` persists a normal Payload date. Jalali behavior belongs to input and presentation, not to a second storage format.
+
+<Tabs>
+  <TabItem label="Collection date">
+    ```ts
+    import { jalaliDateField } from "@nexload-sdk/payload-fields";
+
+    jalaliDateField({
+      name: "publishedAt",
+      pickerAppearance: "dayOnly",
+      display: { timeZone: "Asia/Tehran" },
+    });
+    ```
+  </TabItem>
+  <TabItem label="Virtual timestamps">
+    ```ts
+    import { withJalaliTimestamps } from "@nexload-sdk/payload-fields";
+
+    fields: withJalaliTimestamps([
+      { name: "title", type: "text" },
+    ]);
+    ```
+  </TabItem>
+</Tabs>
+
+## Picker modes
+
+| Appearance | Persistence behavior |
+| --- | --- |
+| `dayOnly` | canonical 12:00 date value |
+| `monthOnly` | first Jalali day at canonical 12:00 |
+| `dayAndTime` | preserves explicit date and time |
+| `timeOnly` | preserves surrounding date context |
+
+`withJalaliTimestamps` adds read-only virtual text fields in `afterRead`; it does not store duplicate timestamp data. Duplicate virtual names are configuration errors.
+
+<Aside type="note" title="Timezone remains a Payload concern">
+`display.timeZone` controls display formatting. It does not replace Payload's own timezone configuration or change what the native date field stores.
+</Aside>

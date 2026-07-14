@@ -1,0 +1,29 @@
+---
+title: Migrate from 2.x
+description: Move from positional field helpers and decimal money values to the current Payload Fields contracts.
+sidebar:
+  order: 7
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+<Steps>
+
+1. Replace positional slug calls with an options object.
+
+   ```diff lang="ts"
+   - ...slugField("title")
+   + ...slugField({ source: "title" })
+   ```
+
+2. Replace older date helpers with `jalaliDateField({ name })`.
+
+3. Migrate decimal price storage to integer minor units before switching fields.
+
+4. Remove `editor` usage. It is not exported by this major version; a separate `payload-editor` package is not part of this release.
+
+</Steps>
+
+<Aside type="caution" title="Money migration changes external contracts">
+Update REST, GraphQL, Local API clients, hooks, fixtures, and integrations together. A stored value is now an integer minor-unit amount, not a decimal major-unit value.
+</Aside>

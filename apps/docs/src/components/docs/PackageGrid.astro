@@ -1,0 +1,30 @@
+---
+import { CardGrid } from "@astrojs/starlight/components";
+
+import DocsStatus from "./DocsStatus.astro";
+
+import type { PackageCatalogEntry } from "../../lib/package-catalog";
+import { withBase } from "../../lib/paths";
+
+interface Props {
+  entries: readonly PackageCatalogEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<CardGrid>
+  {entries.map((entry) => entry.docsPath ? (
+    <a class="package-grid__documented" href={withBase(entry.docsPath)}>
+      <h3>{entry.manifest.name}</h3>
+      <p>{entry.manifest.description}</p>
+      <DocsStatus status={entry.status} />
+    </a>
+  ) : (
+    <div class="package-grid__planned">
+      <h3>{entry.manifest.name}</h3>
+      <p>{entry.manifest.description}</p>
+      <DocsStatus status={entry.status} />
+    </div>
+  ))}
+</CardGrid>

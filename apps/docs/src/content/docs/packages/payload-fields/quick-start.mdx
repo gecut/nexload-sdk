@@ -1,0 +1,39 @@
+---
+title: Quick start
+description: Add managed slug, Jalali date, and minor-unit money fields to a Payload collection.
+sidebar:
+  order: 2
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
+
+<InstallTabs packages="@nexload-sdk/payload-fields" peers={["payload", "@payloadcms/ui", "react", "react-dom"]} />
+
+<Steps>
+
+1. Add the factories to your collection fields.
+
+   ```ts title="src/collections/Posts.ts"
+   import {
+     jalaliDateField,
+     moneyField,
+     slugField,
+   } from "@nexload-sdk/payload-fields";
+
+   export const Posts = {
+     slug: "posts",
+     fields: [
+       { name: "title", type: "text", required: true },
+       ...slugField({ source: "title" }),
+       jalaliDateField({ name: "publishedAt" }),
+       moneyField({ name: "price", currency: "IRT" }),
+     ],
+   };
+   ```
+
+2. Add `payloadFieldsPlugin()` only when a slug uses a registered remote or AI generator.
+
+</Steps>
+
+Each factory protects the semantic field type, name, and package-owned Admin component. Use `overrides` for supported consumer configuration instead of replacing those boundaries.

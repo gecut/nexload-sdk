@@ -1,0 +1,22 @@
+---
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+  skill: string;
+}
+
+const { skill } = Astro.props;
+const base = `npx skills add gecut/nexload-sdk --skill ${skill}`;
+---
+
+<Tabs>
+  <TabItem label="Project">
+    <Code code={base} lang="bash" />
+  </TabItem>
+  <TabItem label="Global">
+    <Code code={`${base} --global`} lang="bash" />
+  </TabItem>
+  <TabItem label="Codex">
+    <Code code={`${base} --agent codex`} lang="bash" />
+  </TabItem>
+</Tabs>

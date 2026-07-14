@@ -1,0 +1,188 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#_top"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Nexload SDK" [ref=e7] [cursor=pointer]:
+          - /url: /nexload-sdk/
+        - button "Search" [ref=e11] [cursor=pointer]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: ⌘
+            - generic [ref=e17]: K
+        - generic [ref=e18]:
+          - link "GitHub" [ref=e20] [cursor=pointer]:
+            - /url: https://github.com/gecut/nexload-sdk
+          - generic [ref=e25]:
+            - generic [ref=e26]: Select theme
+            - combobox "Select theme" [ref=e27] [cursor=pointer]:
+              - option "Dark"
+              - option "Light"
+              - option "Auto" [selected]
+    - navigation "Main":
+      - list [ref=e31]:
+        - listitem [ref=e32]:
+          - group [ref=e33]:
+            - generic "Start" [ref=e34] [cursor=pointer]
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - link "Landing" [ref=e40] [cursor=pointer]:
+                  - /url: /nexload-sdk/
+              - listitem [ref=e41]:
+                - link "Introduction" [ref=e42] [cursor=pointer]:
+                  - /url: /nexload-sdk/start/introduction/
+              - listitem [ref=e43]:
+                - link "Choose a package" [ref=e44] [cursor=pointer]:
+                  - /url: /nexload-sdk/start/choose-a-package/
+        - listitem [ref=e45]:
+          - group [ref=e46]:
+            - generic "Packages" [ref=e47] [cursor=pointer]
+            - list [ref=e51]:
+              - listitem [ref=e52]:
+                - link "Package catalog" [ref=e53] [cursor=pointer]:
+                  - /url: /nexload-sdk/packages/
+              - listitem [ref=e54]:
+                - group [ref=e55]:
+                  - generic "Healthcheck" [ref=e56] [cursor=pointer]
+                  - list [ref=e60]:
+                    - listitem [ref=e61]:
+                      - link "Healthcheck" [ref=e62] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/healthcheck/
+                    - listitem [ref=e63]:
+                      - group [ref=e64]:
+                        - generic "concepts" [ref=e65] [cursor=pointer]
+                        - list [ref=e69]:
+                          - listitem [ref=e70]:
+                            - link "Scopes" [ref=e71] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/concepts/scopes/
+                          - listitem [ref=e72]:
+                            - link "Checks and collectors" [ref=e73] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/concepts/checks-and-collectors/
+                          - listitem [ref=e74]:
+                            - link "Reports and status" [ref=e75] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/concepts/reports-and-status/
+                    - listitem [ref=e76]:
+                      - group [ref=e77]:
+                        - generic "guides" [ref=e78] [cursor=pointer]
+                        - list [ref=e82]:
+                          - listitem [ref=e83]:
+                            - link "Node.js services" [ref=e84] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/node/
+                          - listitem [ref=e85]:
+                            - link "Bun services" [ref=e86] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/bun/
+                          - listitem [ref=e87]:
+                            - link "Next.js App Router" [ref=e88] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/nextjs/
+                          - listitem [ref=e89]:
+                            - link "Containers and operations" [ref=e90] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/operations/
+                          - listitem [ref=e91]:
+                            - link "Prometheus and OpenTelemetry" [ref=e92] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/exporters/
+                          - listitem [ref=e93]:
+                            - link "Payload CMS health checks" [ref=e94] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/payload/
+                          - listitem [ref=e95]:
+                            - link "Custom checks and collectors" [ref=e96] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/guides/custom-checks/
+                    - listitem [ref=e97]:
+                      - group [ref=e98]:
+                        - generic "reference" [ref=e99] [cursor=pointer]
+                        - list [ref=e103]:
+                          - listitem [ref=e104]:
+                            - link "API reference" [ref=e105] [cursor=pointer]:
+                              - /url: /nexload-sdk/packages/healthcheck/reference/api/
+                    - listitem [ref=e106]:
+                      - link "Quick start" [ref=e107] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/healthcheck/quick-start/
+              - listitem [ref=e108]:
+                - group [ref=e109]:
+                  - generic "Payload Fields" [ref=e110] [cursor=pointer]
+                  - list [ref=e114]:
+                    - listitem [ref=e115]:
+                      - link "Payload Fields" [ref=e116] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/
+                    - listitem [ref=e117]:
+                      - link "API reference" [ref=e118] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/reference-api/
+                    - listitem [ref=e119]:
+                      - link "Quick start" [ref=e120] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/quick-start/
+                    - listitem [ref=e121]:
+                      - link "Managed slugs" [ref=e122] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/slug/
+                    - listitem [ref=e123]:
+                      - link "Jalali dates" [ref=e124] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/jalali-dates/
+                    - listitem [ref=e125]:
+                      - link "Money fields" [ref=e126] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/money/
+                    - listitem [ref=e127]:
+                      - link "Plugin and Admin boundary" [ref=e128] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/plugin-and-admin/
+                    - listitem [ref=e129]:
+                      - link "Migrate from 2.x" [ref=e130] [cursor=pointer]:
+                        - /url: /nexload-sdk/packages/payload-fields/migration/
+        - listitem [ref=e131]:
+          - group [ref=e132]:
+            - generic "Agents and community" [ref=e133] [cursor=pointer]
+            - list [ref=e137]:
+              - listitem [ref=e138]:
+                - link "Agent skills" [ref=e139] [cursor=pointer]:
+                  - /url: /nexload-sdk/agents/
+              - listitem [ref=e140]:
+                - link "Install skills" [ref=e141] [cursor=pointer]:
+                  - /url: /nexload-sdk/agents/install/
+              - listitem [ref=e142]:
+                - link "Support" [ref=e143] [cursor=pointer]:
+                  - /url: /nexload-sdk/community/support/
+    - generic [ref=e145]:
+      - complementary [ref=e146]:
+        - navigation [ref=e151]:
+          - heading "On this page" [level=2] [ref=e152]
+          - list [ref=e153]:
+            - listitem [ref=e154]:
+              - link "Overview" [ref=e155] [cursor=pointer]:
+                - /url: "#_top"
+      - main [ref=e157]:
+        - heading "Migrate from 2.x" [level=1] [ref=e160]
+        - generic [ref=e162]:
+          - generic [ref=e163]:
+            - list [ref=e164]:
+              - listitem [ref=e165]:
+                - paragraph [ref=e166]: Replace positional slug calls with an options object.
+                - figure [ref=e168]:
+                  - code [ref=e170]:
+                    - generic [ref=e171]: "- ...slugField(\"title\")"
+                    - generic [ref=e173]: "+ ...slugField({ source: \"title\" })"
+                  - button "Copy to clipboard" [ref=e176] [cursor=pointer]
+              - listitem [ref=e178]:
+                - paragraph [ref=e179]:
+                  - text: Replace older date helpers with
+                  - code [ref=e180]: "jalaliDateField({ name })"
+                  - text: .
+              - listitem [ref=e181]:
+                - paragraph [ref=e182]: Migrate decimal price storage to integer minor units before switching fields.
+              - listitem [ref=e183]:
+                - paragraph [ref=e184]:
+                  - text: Remove
+                  - code [ref=e185]: editor
+                  - text: usage. It is not exported by this major version; a separate
+                  - code [ref=e186]: payload-editor
+                  - text: package is not part of this release.
+            - complementary "Money migration changes external contracts" [ref=e187]:
+              - paragraph [ref=e188]: Money migration changes external contracts
+              - paragraph [ref=e192]: Update REST, GraphQL, Local API clients, hooks, fixtures, and integrations together. A stored value is now an integer minor-unit amount, not a decimal major-unit value.
+          - generic [ref=e193]:
+            - link "Edit page" [ref=e195] [cursor=pointer]:
+              - /url: https://github.com/gecut/nexload-sdk/edit/main/apps/docs/src/content/docs/packages/payload-fields/migration.mdx
+            - generic [ref=e198]:
+              - link "Previous Plugin and Admin boundary" [ref=e199] [cursor=pointer]:
+                - /url: /nexload-sdk/packages/payload-fields/plugin-and-admin/
+                - generic [ref=e200]: Previous
+                - generic [ref=e203]: Plugin and Admin boundary
+              - link "Next Agent skills" [ref=e204] [cursor=pointer]:
+                - /url: /nexload-sdk/agents/
+                - generic [ref=e205]: Next
+                - generic [ref=e208]: Agent skills

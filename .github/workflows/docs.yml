@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths:
       - "apps/docs/**"
+      - "packages/healthcheck/**"
+      - "packages/payload-fields/**"
+      - "skills/**"
+      - "scripts/validate-docs.mjs"
+      - "scripts/generate-docs-llms.mjs"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 

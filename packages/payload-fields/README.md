@@ -1,6 +1,6 @@
 # @nexload-sdk/payload-fields
 
-Reusable Payload CMS field helpers and admin components (date + slug) plus a preconfigured Lexical editor.
+Semantic Payload CMS factories for managed Unicode slugs, Jalali dates, and integer minor-unit money values.
 
 ## Install
 
@@ -8,80 +8,26 @@ Reusable Payload CMS field helpers and admin components (date + slug) plus a pre
 pnpm add @nexload-sdk/payload-fields
 ```
 
-## Exports
-
-Root exports:
-
-- `editor` (Lexical editor preset)
-- `dateField`
-- `slugField`
-- slug/date helper exports (`formatDate`, `formatSlug`, `formatSlugHook`)
-
-Subpath exports (used by Payload admin component paths):
-
-- `@nexload-sdk/payload-fields/date`
-- `@nexload-sdk/payload-fields/date/date-picker`
-- `@nexload-sdk/payload-fields/date/date-cell`
-- `@nexload-sdk/payload-fields/slug`
-- `@nexload-sdk/payload-fields/slug/slug-field`
-
-## `editor`
-
-Preconfigured `lexicalEditor(...)` instance with features including:
-
-- headings (`h1`-`h4`)
-- fixed toolbar
-- horizontal rule
-- upload
-- table (experimental)
-- relationship feature (`products`, `articles`)
-
-Usage:
+## Usage
 
 ```ts
-import { editor } from "@nexload-sdk/payload-fields";
-
-{
-  name: "content",
-  type: "richText",
-  editor
-}
-```
-
-## `dateField(overrides?)`
-
-Returns `[DateField]` configured for Payload admin sidebar, with:
-
-- custom field component (`DatePicker`)
-- custom cell component (`DateCell`)
-- Persian/Jalali formatting helpers
-
-```ts
-import { dateField } from "@nexload-sdk/payload-fields";
-
-fields: [
-  ...dateField()
-];
-```
-
-## `slugField(fieldToUse?, overrides?)`
-
-Returns `[TextField, CheckboxField]` for a slug and lock toggle.
-
-- auto-formats slug values
-- includes `beforeValidate` hook
-- uses custom admin UI component with lock/unlock + generate action
-
-```ts
-import { slugField } from "@nexload-sdk/payload-fields";
+import { jalaliDateField, moneyField, slugField } from "@nexload-sdk/payload-fields";
 
 fields: [
   { name: "title", type: "text", required: true },
-  ...slugField("title")
+  ...slugField({ source: "title" }),
+  jalaliDateField({ name: "publishedAt" }),
+  moneyField({ name: "price", currency: "IRT" }),
 ];
 ```
 
-## Notes
+`payloadFieldsPlugin({ slugGenerators })` registers secure server-side slug generators. REST, GraphQL, and Local API money values are always integer minor units; only the Admin UI accepts major-unit text.
 
-- Admin components are React client components and intended for Payload admin usage.
-- Styles are bundled from package submodules (`date/index.scss`, `slug/index.scss`).
+## Migration from 2.x
+
+- `editor` is removed. A future `payload-editor` package will replace it; it is not part of this release.
+- Replace `slugField("title")` with `slugField({ source: "title" })`.
+- Replace `...dateField()` with `jalaliDateField({ name: "date" })`.
+- Replace decimal price storage with `moneyField`; API values are minor-unit integers.
+
+See the SDK documentation for override, localization, timezone, and generator contracts.

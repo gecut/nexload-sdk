@@ -1,0 +1,36 @@
+---
+title: Plugin and Admin boundary
+description: Keep slug generation on the server while factories wire Payload Admin component subpaths automatically.
+sidebar:
+  order: 6
+---
+
+import { Aside, FileTree } from "@astrojs/starlight/components";
+
+The root package exports server-safe factories and helpers. Factory return values contain the package-owned Admin component paths needed by Payload's Import Map system.
+
+<FileTree>
+
+- src
+  - payload.config.ts
+  - collections
+    - Posts.ts
+  - app
+    - (payload)
+      - admin
+        - importMap.js
+
+</FileTree>
+
+## Plugin endpoint
+
+`payloadFieldsPlugin({ slugGenerators, generateSlugAccess })` adds `POST /payload-fields/generate-slug`.
+
+- Authentication is required before the endpoint evaluates custom access.
+- A registered generator receives source text and the Payload request on the server.
+- The response is `{ slug }` or `{ error: { code, message } }`.
+- The final generated value is normalized with `formatSlug`.
+
+<Aside type="caution" title="Do not override package-owned Admin fields">
+Consumer overrides may extend supported field options, hooks, metadata, and slots. They must not replace the semantic field type, required component path, or protected name contract.
+</Aside>

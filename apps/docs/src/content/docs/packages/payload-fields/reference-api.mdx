@@ -1,0 +1,26 @@
+---
+title: API reference
+description: Curated API reference for Payload Fields factories, formatting helpers, currencies, and plugin configuration.
+sidebar:
+  order: 1
+---
+
+import ApiSymbol from "../../../../components/docs/ApiSymbol.astro";
+
+<ApiSymbol name="slugField" importPath="@nexload-sdk/payload-fields" signature="slugField(options?: SlugFieldOptions): readonly [TextField, CheckboxField]" description="Creates a managed slug and paired lock field. Spread the result into a collection field array." />
+
+<ApiSymbol name="formatSlug" importPath="@nexload-sdk/payload-fields/slug" signature="formatSlug(input: string): string" description="Normalizes Unicode-aware slug text and remains the final formatter for generated values." />
+
+<ApiSymbol name="jalaliDateField" importPath="@nexload-sdk/payload-fields" signature="jalaliDateField(options: JalaliDateFieldOptions): DateField" description="Creates a native Payload date field with Jalali Admin field and cell components." />
+
+<ApiSymbol name="withJalaliTimestamps" importPath="@nexload-sdk/payload-fields" signature="withJalaliTimestamps(fields, options?): Field[]" description="Appends read-only virtual Jalali timestamps derived in afterRead." />
+
+<ApiSymbol name="formatJalaliDate" importPath="@nexload-sdk/payload-fields/date" signature="formatJalaliDate(value, display?): string | null" description="Formats a native date value for Jalali presentation." />
+
+<ApiSymbol name="moneyField" importPath="@nexload-sdk/payload-fields" signature="moneyField(options: MoneyFieldOptions): NumberField" description="Creates a safe integer minor-unit number field with a money-aware Admin component." />
+
+<ApiSymbol name="parseMoneyToMinorUnits" importPath="@nexload-sdk/payload-fields" signature="parseMoneyToMinorUnits(input, currency): number" description="Explicitly parses major-unit text, including Persian digits, into a safe integer minor-unit value." />
+
+<ApiSymbol name="formatMoney" importPath="@nexload-sdk/payload-fields" signature="formatMoney(value, currency, display?): string | null" description="Formats a stored minor-unit integer for presentation." />
+
+<ApiSymbol name="payloadFieldsPlugin" importPath="@nexload-sdk/payload-fields" signature="payloadFieldsPlugin(options?): Plugin" description="Registers server-side slug generators and the protected slug-generation endpoint." />

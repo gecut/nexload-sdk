@@ -1,0 +1,15 @@
+---
+import { LinkCard } from "@astrojs/starlight/components";
+
+import { withBase } from "../../lib/paths";
+
+interface Props {
+  title: string;
+  href: string;
+  description?: string;
+}
+
+const { href, ...props } = Astro.props;
+---
+
+<LinkCard {...props} href={withBase(href)} />

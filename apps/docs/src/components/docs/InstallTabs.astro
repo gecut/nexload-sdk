@@ -1,0 +1,30 @@
+---
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+  packages: string | readonly string[];
+  dev?: boolean;
+  peers?: readonly string[];
+}
+
+const { packages, dev = false, peers = [] } = Astro.props;
+const names = Array.isArray(packages) ? packages.join(" ") : packages;
+const flag = dev ? " -D" : "";
+---
+
+<Tabs>
+  <TabItem label="pnpm">
+    <Code code={`pnpm add${flag} ${names}`} lang="bash" />
+  </TabItem>
+  <TabItem label="npm">
+    <Code code={`npm install${flag} ${names}`} lang="bash" />
+  </TabItem>
+  <TabItem label="yarn">
+    <Code code={`yarn add${flag} ${names}`} lang="bash" />
+  </TabItem>
+  <TabItem label="Bun">
+    <Code code={`bun add${flag} ${names}`} lang="bash" />
+  </TabItem>
+</Tabs>
+
+{peers.length > 0 && <p class="install-tabs__peers"><strong>Peer dependencies:</strong> {peers.join(", ")}</p>}

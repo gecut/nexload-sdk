@@ -1,11 +1,848 @@
-# Nexload SDK healthcheck full LLM guide
+# /agents/
 
-Rules:
+Agent Skills are short, task-specific instructions distributed with this repository. They complement the API docs by encoding decisions that are easy for an agent to get wrong during implementation.
 
-1. Keep root package lightweight and runtime-neutral.
-2. Do not import framework, Payload, or exporter dependencies from root.
-3. Use readiness for dependencies.
-4. Use liveness only for process lifecycle.
-5. Prefer cgroup resource data inside containers.
-6. Keep Prometheus labels low-cardinality.
-7. Do not expose secrets or stack traces in public responses.
+
+
+    Seven Skills cover manager design, custom checks, diagnostics security, cgroups, exporters, Next.js routes, and Payload integration.
+
+
+    Four Skills cover semantic factories, managed slugs, Jalali dates, and minor-unit money contracts.
+
+
+
+## Use the smallest relevant skill
+
+Install a Skill when the task matches its trigger. For example, install `healthcheck-nextjs-routes` when adding a Next App Router health route, not the entire collection by default.
+
+---
+
+# /agents/install/
+
+The repository ships 11 valid Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents.
+
+
+
+1. Inspect the available Skills before installing:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --list
+   ```
+
+2. Install a specific Skill for the current project:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --skill healthcheck-core
+   ```
+
+3. Update installed Skills when you intentionally want newer guidance:
+
+   ```bash
+   npx skills update
+   ```
+
+
+
+## Example: a Next.js health route
+
+
+
+## Source layout
+
+
+
+- skills
+  - healthcheck
+    - nextjs-routes
+      - SKILL.md
+  - payload-fields
+    - money
+      - SKILL.md
+
+
+
+
+`--all` can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+
+---
+
+# /community/support/
+
+Use GitHub Issues as the single public channel for bugs, documentation corrections, and feature requests.
+
+<p>Open an issue</p>
+
+## Report a useful issue
+
+- Name the package and installed version.
+- Include the smallest reproduction or the exact documentation page.
+- State runtime and framework details when relevant.
+- Remove tokens, connection strings, cookies, and production payloads.
+
+
+Use the “Edit this page” link on any page when the correction is local to that document. Source behavior still takes priority over prose when they conflict.
+
+---
+
+# /index/
+
+Nexload SDK is a collection of focused TypeScript packages for backend and platform work. Install only the package that owns your problem; packages do not require a framework-wide runtime.
+
+<p class="sl-flex sl-flex-wrap sl-gap-2">
+  Browse packages
+  Choose a package
+  Install agent skills
+</p>
+
+## Start with a production concern
+
+
+
+    Build liveness, readiness, startup, diagnostics, metrics, and framework route integrations without coupling the core to a single runtime.
+
+
+    Add managed Unicode slugs, Jalali date UI, and integer minor-unit money contracts to Payload CMS.
+
+
+    Give supported coding agents package-specific guardrails for health checks and Payload field conventions.
+
+
+
+## Documented packages
+
+
+
+## How the docs are organized
+
+---
+
+# /packages/healthcheck/concepts/checks-and-collectors/
+
+Checks contribute a status to the report. Collectors add metrics and resources without independently changing the health status.
+
+
+
+    ```ts
+    import { shutdownCheck } from "@nexload-sdk/healthcheck";
+
+    health.register(shutdownCheck());
+    ```
+
+
+    ```ts
+    import { processMetricsCollector } from "@nexload-sdk/healthcheck-node";
+
+    health.registerCollector(processMetricsCollector());
+    ```
+
+
+
+## Choose deliberately
+
+- Use a check when its status should affect a liveness, readiness, startup, or diagnostics report.
+- Use a collector when telemetry is useful but should not change traffic or lifecycle decisions.
+- Return raw metric values: number, boolean, string, or `null`.
+
+
+Use `defineHealthCheck` and honour the supplied `AbortSignal`. Thrown errors and timeouts are normalized into stable result entries; do not intentionally throw formatted user-facing errors from a check.
+
+---
+
+# /packages/healthcheck/concepts/reports-and-status/
+
+Every run produces a `HealthReport` with service identity, scope, status, observation time, duration, runtime identity, check results, summary, metrics, and optional resources.
+
+## Aggregation
+
+| Check outcome | Critical | Aggregate outcome |
+| --- | --- | --- |
+| `unhealthy` | yes | `unhealthy` |
+| `degraded` | yes | `degraded` |
+| `unhealthy` | no | `degraded` by default |
+| `ok` | any | no degradation |
+
+The default HTTP policy maps `ok` and `degraded` to `200`, and `unhealthy` to `503`. Use `STRICT_READINESS_HTTP_STATUS_POLICY` or a custom `HealthHttpStatusPolicy` when your load balancer must treat degraded readiness as unavailable.
+
+## JSON profiles
+
+Use `toHealthJson` or `stringifyHealthJson` to serialize a report. Public routes should omit details; diagnostics can include details only after route protection has been applied.
+
+
+Redaction reduces accidental disclosure in report data. It does not make a diagnostics endpoint public-safe. Keep the route protected as well.
+
+---
+
+# /packages/healthcheck/concepts/scopes/
+
+Healthcheck scopes answer different questions. A check can participate in more than one scope, but each placement should match a real operational decision.
+
+
+  Should this process keep running? Use lifecycle and event-loop signals, not ordinary remote dependencies.
+  Should this instance receive traffic? Put required dependencies and capacity thresholds here.
+  Has initialisation completed? Use it while the process is not yet safe to serve.
+  What does an operator need to inspect? Keep it detail-rich and protected.
+
+
+## Default probe posture
+
+| Scope | Typical route | Detail level | Default failure behavior |
+| --- | --- | --- | --- |
+| `liveness` | `/health/live` | minimal | restart only for process lifecycle failure |
+| `readiness` | `/health/ready` | minimal | remove from traffic |
+| `startup` | `/health/startup` | minimal | wait before routing traffic |
+| `diagnostics` | private route | rich | operator investigation only |
+
+
+Diagnostics may contain failure context and resource data. Protect it with authentication, private networking, IP policy, or a reverse proxy. Never expose secrets, connection strings, headers, cookies, or stack traces.
+
+---
+
+# /packages/healthcheck/guides/bun/
+
+The Bun adapter reports Bun runtime information and can collect basic `Bun.serve` server metrics. It does not depend on the Node adapter.
+
+
+
+
+
+1. Supply `bunRuntimeAdapter()` to the manager.
+
+   ```ts
+   import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+   import { bunRuntimeAdapter, bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+   const server = Bun.serve({ fetch: () => new Response("ok") });
+
+   export const health = createHealthManager({
+     service: { name: "bun-api" },
+     runtime: bunRuntimeAdapter(),
+     checks: [shutdownCheck(), bunServerMetricsCheck(server)],
+   });
+   ```
+
+2. Keep Bun-only checks behind the Bun integration boundary.
+
+
+
+
+The Bun adapter uses available process memory APIs. It does not claim host or cgroup memory limits that Bun cannot provide.
+
+---
+
+# /packages/healthcheck/guides/custom-checks/
+
+Use `defineHealthCheck` for a status-bearing probe and `defineMetricCollector` for monitoring-only collection.
+
+```ts
+
+export const licenseCheck = defineHealthCheck({
+  name: "license",
+  scopes: ["readiness", "diagnostics"],
+  critical: true,
+  timeoutMs: 1_000,
+  async run(ctx) {
+    const valid = await verifyLicense({ signal: ctx.signal });
+
+    return {
+      status: valid ? "ok" : "unhealthy",
+      metrics: { valid },
+      error: valid ? undefined : {
+        code: "LICENSE_INVALID",
+        message: "License is not valid.",
+      },
+    };
+  },
+});
+```
+
+## Custom check rules
+
+- Honour `ctx.signal`; manager timeout and disposal depend on it.
+- Use stable machine-readable error codes.
+- Return raw numbers, booleans, strings, or `null` as metrics.
+- Keep high-cardinality or sensitive values out of labels and details on public profiles.
+
+
+The manager converts thrown errors, timeouts, and aborts into check results. Let unexpected failures be unexpected; do not throw as a normal status transport.
+
+---
+
+# /packages/healthcheck/guides/exporters/
+
+The exporter packages transform an already-created `HealthReport`. They do not run checks and do not require an OpenTelemetry SDK.
+
+
+
+
+
+    ```ts
+    import { toPrometheusText } from "@nexload-sdk/healthcheck-prometheus";
+
+    const text = toPrometheusText(report, {
+      prefix: "nexload",
+      defaultLabels: { service: "api" },
+    });
+    ```
+
+
+    ```ts
+    import {
+      toOtelMetricRecords,
+      toOtelResourceAttributes,
+    } from "@nexload-sdk/healthcheck-otel";
+
+    const metrics = toOtelMetricRecords(report);
+    const resource = toOtelResourceAttributes(report);
+    ```
+
+
+
+
+Prometheus output accepts only a controlled label set. Never use user IDs, request IDs, raw URLs, raw error messages, tokens, or stack traces as labels.
+
+---
+
+# /packages/healthcheck/guides/nextjs/
+
+Use the Next integration to turn a manager into `GET` and `HEAD` handlers. Routes with process or container checks must use the Node runtime and remain uncached.
+
+
+
+
+
+- src
+  - app
+    - api
+      - health
+        - ready
+          - route.ts
+  - lib
+    - health.ts
+
+
+
+
+
+1. Export an initialized manager from a server-only module.
+
+2. Create a readiness route.
+
+   ```ts title="src/app/api/health/ready/route.ts"
+   import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+   import { health } from "@/lib/health";
+
+   export const runtime = "nodejs";
+   export const dynamic = "force-dynamic";
+   export const revalidate = 0;
+   export const fetchCache = "force-no-store";
+
+   export const { GET, HEAD } = createNextHealthRoute(health, {
+     scope: "readiness",
+     format: "json",
+   });
+   ```
+
+3. Use `createNextMetricsRoute` for Prometheus, OpenMetrics, or JSON monitoring output.
+
+
+
+
+Use the `protect` option for bearer tokens, Basic auth, IP allowlists, or CIDRs. Set `trustProxy` only when your deployment correctly supplies the configured proxy header.
+
+---
+
+# /packages/healthcheck/guides/node/
+
+Use the Node adapter when your service needs process metrics, cgroup-aware container data, TCP checks, or DNS checks.
+
+
+
+
+
+1. Configure the Node runtime adapter.
+
+   ```ts title="src/lib/health.ts"
+   import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+   import {
+     nodeRuntimeAdapter,
+     processMetricsCollector,
+     tcpCheck,
+   } from "@nexload-sdk/healthcheck-node";
+
+   export const health = createHealthManager({
+     service: { name: "api" },
+     runtime: nodeRuntimeAdapter(),
+     checks: [shutdownCheck(), tcpCheck("postgres", { host: "db", port: 5432 })],
+     collectors: [processMetricsCollector()],
+   });
+   ```
+
+2. Add `containerResourceCheck` only when memory or CPU pressure should influence a health decision.
+
+
+
+## Container data
+
+`containerResourceCheck` reads cgroup v2, then cgroup v1, before falling back to process or host data. Fractional CPU quotas are preserved. Inspect the returned source and confidence before using a metric as a hard threshold.
+
+
+`processMetricsCollector` and `containerMetricsCollector` are suitable for metrics routes. They do not turn a service unhealthy by themselves.
+
+---
+
+# /packages/healthcheck/guides/operations/
+
+Healthcheck works in containers without assuming that host memory or CPU is the process limit. The Node adapter checks cgroup v2 and v1 before lower-confidence fallbacks.
+
+## Probe mapping
+
+| Platform concern | Scope | Expected action |
+| --- | --- | --- |
+| process is shutting down | `liveness` and `readiness` | stop new traffic; allow shutdown |
+| required dependency is unavailable | `readiness` | remove instance from traffic |
+| application initialisation is incomplete | `startup` | wait before routing traffic |
+| container memory is close to a hard limit | `readiness` or diagnostics | choose explicitly based on operational policy |
+
+
+Do not make external dependencies or ordinary CPU pressure liveness-critical unless your platform should restart the process for that failure. Readiness is usually the safer response.
+
+---
+
+# /packages/healthcheck/guides/payload/
+
+Payload integration lives in a separate package and declares `payload` as a peer dependency.
+
+
+
+```ts title="src/lib/health.ts"
+
+export const health = createHealthManager({
+  service: { name: "cms" },
+  runtime: "auto",
+  checks: [
+    payloadHealthCheck(payload, {
+      collection: "users",
+      limit: 1,
+      depth: 0,
+    }),
+  ],
+});
+```
+
+`payloadHealthCheck` reports latency, document total when available, and `up`. Set `expectedMinDocuments` only when an empty collection is truly unhealthy for the service.
+
+
+Use a small `limit`, `depth: 0`, and a narrowly scoped `where` clause if one is needed. A health check should observe a dependency, not perform business work.
+
+---
+
+# /packages/healthcheck/
+
+The core runs checks and metric collectors, normalizes failures into a stable report, and leaves runtime/framework concerns to dedicated packages.
+
+
+Install the core for orchestration. Add an adapter only for runtime information, route handlers, exporters, or Payload access that your service actually uses.
+
+
+## Choose an integration
+
+ entry.family === "healthcheck")} />
+
+## Recommended path
+
+---
+
+# /packages/healthcheck/quick-start/
+
+Install the core first. The `runtime: "auto"` option uses the generic runtime adapter and is appropriate when you do not need Node-specific or Bun-specific probes.
+
+
+
+
+
+1. Create one manager per process or service boundary.
+
+   ```ts title="src/lib/health.ts"
+   import {
+     createHealthManager,
+     memoryCheck,
+     shutdownCheck,
+   } from "@nexload-sdk/healthcheck";
+
+   export const health = createHealthManager({
+     service: { name: "api" },
+     runtime: "auto",
+     checks: [shutdownCheck(), memoryCheck()],
+   });
+   ```
+
+2. Run the scope that matches the consumer.
+
+   ```ts
+   const report = await health.run("readiness");
+   console.log(report.status);
+   ```
+
+
+
+## Add an external dependency
+
+Use `httpCheck` for an HTTP dependency. Dependencies belong in readiness by default because their failure should normally stop traffic, not restart the process.
+
+```ts
+
+health.register(httpCheck("billing", "https://billing.internal/health"));
+```
+
+
+Adding database, cache, or remote HTTP failures to liveness can cause restart loops during an upstream outage. Keep liveness focused on process lifecycle unless that restart behavior is explicitly desired.
+
+---
+
+# /packages/healthcheck/reference/api/
+
+The public API is intentionally split by runtime and integration. Import only from the package that owns the capability.
+
+
+
+
+
+
+
+'} description="Reports unhealthy when manager shutdown state is set. It is critical for liveness and readiness by default." />
+
+'} description="Evaluates runtime memory snapshots with availability or used-ratio thresholds." />
+
+
+
+
+
+
+
+## Integration exports
+
+| Package | Key exports |
+| --- | --- |
+| `healthcheck-node` | `nodeRuntimeAdapter`, `containerResourceCheck`, `tcpCheck`, `dnsCheck`, `processMetricsCollector` |
+| `healthcheck-next` | `createNextHealthRoute`, `createNextMetricsRoute` |
+| `healthcheck-prometheus` | `toPrometheusText`, `toOpenMetricsText` |
+| `healthcheck-otel` | `toOtelResourceAttributes`, `toOtelMetricRecords` |
+| `healthcheck-payload` | `payloadHealthCheck` |
+
+---
+
+# /packages/
+
+The catalog is sourced from the workspace package manifests. A `Documented` package has an MDX overview, guides, and curated API coverage. `Docs planned` packages are listed for discovery without pretending that their documentation is complete.
+
+## Health and operations
+
+ entry.family === "healthcheck")} />
+
+## Payload CMS
+
+ entry.family === "payload")} />
+
+## Utilities and tooling
+
+ entry.family === "utilities" || entry.family === "tooling")} />
+
+---
+
+# /packages/payload-fields/
+
+Payload Fields owns both the server field definition and the matching Admin component contract. It is designed for Payload CMS applications that need consistent Unicode slugs, Jalali date experiences, and safe money persistence.
+
+=3.68.5 <4", notes: "Required peer dependency." },
+  { concern: "React and React DOM", support: "19.x", notes: "Required by the Payload Admin UI." },
+  { concern: "Server API", support: "Payload Node runtime", notes: "Factories and plugin handlers run with Payload." },
+  { concern: "Admin components", support: "Payload Import Map", notes: "Factories reference published package subpaths automatically." },
+]} />
+
+## Choose a field contract
+
+
+
+
+
+
+
+
+
+Money values in REST, GraphQL, Local API, hooks, validation, and persistence are minor-unit integers. Only the Admin input accepts major-unit text.
+
+---
+
+# /packages/payload-fields/jalali-dates/
+
+`jalaliDateField` persists a normal Payload date. Jalali behavior belongs to input and presentation, not to a second storage format.
+
+
+
+    ```ts
+    import { jalaliDateField } from "@nexload-sdk/payload-fields";
+
+    jalaliDateField({
+      name: "publishedAt",
+      pickerAppearance: "dayOnly",
+      display: { timeZone: "Asia/Tehran" },
+    });
+    ```
+
+
+    ```ts
+    import { withJalaliTimestamps } from "@nexload-sdk/payload-fields";
+
+    fields: withJalaliTimestamps([
+      { name: "title", type: "text" },
+    ]);
+    ```
+
+
+
+## Picker modes
+
+| Appearance | Persistence behavior |
+| --- | --- |
+| `dayOnly` | canonical 12:00 date value |
+| `monthOnly` | first Jalali day at canonical 12:00 |
+| `dayAndTime` | preserves explicit date and time |
+| `timeOnly` | preserves surrounding date context |
+
+`withJalaliTimestamps` adds read-only virtual text fields in `afterRead`; it does not store duplicate timestamp data. Duplicate virtual names are configuration errors.
+
+
+`display.timeZone` controls display formatting. It does not replace Payload's own timezone configuration or change what the native date field stores.
+
+---
+
+# /packages/payload-fields/migration/
+
+1. Replace positional slug calls with an options object.
+
+   ```diff lang="ts"
+   - ...slugField("title")
+   + ...slugField({ source: "title" })
+   ```
+
+2. Replace older date helpers with `jalaliDateField({ name })`.
+
+3. Migrate decimal price storage to integer minor units before switching fields.
+
+4. Remove `editor` usage. It is not exported by this major version; a separate `payload-editor` package is not part of this release.
+
+
+
+
+Update REST, GraphQL, Local API clients, hooks, fixtures, and integrations together. A stored value is now an integer minor-unit amount, not a decimal major-unit value.
+
+---
+
+# /packages/payload-fields/money/
+
+`moneyField` creates a Payload `number` field whose server-side value is always a safe integer minor-unit amount.
+
+```ts
+
+moneyField({
+  name: "price",
+  currency: "IRT",
+  minMinorUnits: 0,
+});
+```
+
+
+
+    ```ts
+    import { parseMoneyToMinorUnits } from "@nexload-sdk/payload-fields";
+
+    const value = parseMoneyToMinorUnits("۱۲٬۵۰۰", "IRT");
+    ```
+
+
+    ```ts
+    import { formatMoney } from "@nexload-sdk/payload-fields";
+
+    const label = formatMoney(12500, "IRT");
+    ```
+
+
+
+## Contract
+
+- REST, GraphQL, Local API, hooks, validation, and persistence use integer minor units.
+- The Admin field is the only UI boundary that accepts a major-unit string.
+- Floating point, unsafe integers, unsupported precision, and negative values are rejected unless `allowNegative` is enabled.
+- `IRR` and `IRT` both have zero fraction digits.
+
+
+Calling `parseMoneyToMinorUnits` is an explicit decision at an input boundary. Do not convert arbitrary server API values from major units automatically.
+
+---
+
+# /packages/payload-fields/plugin-and-admin/
+
+The root package exports server-safe factories and helpers. Factory return values contain the package-owned Admin component paths needed by Payload's Import Map system.
+
+
+
+- src
+  - payload.config.ts
+  - collections
+    - Posts.ts
+  - app
+    - (payload)
+      - admin
+        - importMap.js
+
+
+
+## Plugin endpoint
+
+`payloadFieldsPlugin({ slugGenerators, generateSlugAccess })` adds `POST /payload-fields/generate-slug`.
+
+- Authentication is required before the endpoint evaluates custom access.
+- A registered generator receives source text and the Payload request on the server.
+- The response is `{ slug }` or `{ error: { code, message } }`.
+- The final generated value is normalized with `formatSlug`.
+
+
+Consumer overrides may extend supported field options, hooks, metadata, and slots. They must not replace the semantic field type, required component path, or protected name contract.
+
+---
+
+# /packages/payload-fields/quick-start/
+
+1. Add the factories to your collection fields.
+
+   ```ts title="src/collections/Posts.ts"
+   import {
+     jalaliDateField,
+     moneyField,
+     slugField,
+   } from "@nexload-sdk/payload-fields";
+
+   export const Posts = {
+     slug: "posts",
+     fields: [
+       { name: "title", type: "text", required: true },
+       ...slugField({ source: "title" }),
+       jalaliDateField({ name: "publishedAt" }),
+       moneyField({ name: "price", currency: "IRT" }),
+     ],
+   };
+   ```
+
+2. Add `payloadFieldsPlugin()` only when a slug uses a registered remote or AI generator.
+
+
+
+Each factory protects the semantic field type, name, and package-owned Admin component. Use `overrides` for supported consumer configuration instead of replacing those boundaries.
+
+---
+
+# /packages/payload-fields/reference-api/
+
+
+
+---
+
+# /packages/payload-fields/slug/
+
+`slugField()` returns a slug `TextField` and its paired lock `CheckboxField`. Add both to the collection with the spread operator.
+
+```ts
+
+fields: [
+  { name: "title", type: "text", localized: true },
+  ...slugField({
+    source: "title",
+    overrides: { slug: { localized: true } },
+  }),
+];
+```
+
+## Synchronization rules
+
+- Persian and other Unicode letters are preserved; Arabic variants and digits are normalized.
+- The lock field is localized when the slug is localized.
+- A locked slug regenerates only when its non-empty source changes.
+- Clearing a source never clears an existing slug automatically.
+- `formatSlug` is the final normalization authority.
+
+## Registered generators
+
+
+
+1. Register an async server-side generator in `payloadFieldsPlugin`.
+
+   ```ts
+   import { payloadFieldsPlugin } from "@nexload-sdk/payload-fields";
+
+   export default buildConfig({
+     plugins: [
+       payloadFieldsPlugin({
+         slugGenerators: {
+           concise: async ({ sourceValue }) => sourceValue,
+         },
+       }),
+     ],
+   });
+   ```
+
+2. Reference its key from the field definition with `generator: "concise"`.
+
+
+
+
+Only the generator key reaches client props. The implementation remains on the server and the plugin endpoint checks authentication before access policy.
+
+---
+
+# /start/choose-a-package/
+
+## Choose by problem
+
+| You need to… | Start with | Add when needed |
+| --- | --- | --- |
+| expose service probes and reports | `@nexload-sdk/healthcheck` | Node, Bun, Next.js, Payload, Prometheus, or OpenTelemetry adapters |
+| ship a Node or container health endpoint | `@nexload-sdk/healthcheck-node` | `@nexload-sdk/healthcheck-next` for App Router routes |
+| build Payload fields with Persian-aware UI | `@nexload-sdk/payload-fields` | its generated Admin Import Map subpaths |
+| validate environment configuration | `@nexload-sdk/env` | Docs planned |
+| use structured logs | `@nexload-sdk/logger` | Docs planned |
+| create policy-driven JWTs | `@nexload-sdk/jwt` | Docs planned |
+
+## Fully documented paths
+
+
+
+
+
+
+Packages marked `Docs planned` remain available from npm and their package README, but do not yet receive a minimal overview page in this site.
+
+---
+
+# /start/introduction/
+
+Nexload SDK is not a single application framework. Each package has a narrow ownership boundary and can be installed independently.
+
+## Package families
+
+
+
+
+
+
+
+## Selection rule
+
+Choose the package closest to the responsibility you need. For example, use the Healthcheck core to aggregate health results, then add the Node adapter only when you need cgroup, TCP, DNS, or process data.
+
+
+The Healthcheck core intentionally does not import Next.js, Payload, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation`. Add the integration package at the application boundary.
+
+
+## What these docs guarantee
+
+Documented pages describe the current source and public exports of the latest package version. Migration pages cover supported major-version changes; historical versioned documentation is not maintained.

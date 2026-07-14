@@ -1,0 +1,41 @@
+---
+title: Prometheus and OpenTelemetry
+description: Transform Healthcheck reports into Prometheus, OpenMetrics, or OpenTelemetry-friendly monitoring data.
+sidebar:
+  order: 5
+---
+
+import { Aside, Tabs, TabItem } from "@astrojs/starlight/components";
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
+
+The exporter packages transform an already-created `HealthReport`. They do not run checks and do not require an OpenTelemetry SDK.
+
+<InstallTabs packages={["@nexload-sdk/healthcheck-prometheus", "@nexload-sdk/healthcheck-otel"]} />
+
+<Tabs>
+  <TabItem label="Prometheus">
+    ```ts
+    import { toPrometheusText } from "@nexload-sdk/healthcheck-prometheus";
+
+    const text = toPrometheusText(report, {
+      prefix: "nexload",
+      defaultLabels: { service: "api" },
+    });
+    ```
+  </TabItem>
+  <TabItem label="OpenTelemetry">
+    ```ts
+    import {
+      toOtelMetricRecords,
+      toOtelResourceAttributes,
+    } from "@nexload-sdk/healthcheck-otel";
+
+    const metrics = toOtelMetricRecords(report);
+    const resource = toOtelResourceAttributes(report);
+    ```
+  </TabItem>
+</Tabs>
+
+<Aside type="caution" title="Label cardinality is a reliability concern">
+Prometheus output accepts only a controlled label set. Never use user IDs, request IDs, raw URLs, raw error messages, tokens, or stack traces as labels.
+</Aside>

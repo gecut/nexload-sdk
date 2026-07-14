@@ -1,0 +1,38 @@
+---
+title: Bun services
+description: Configure Bun runtime metadata and Bun server metrics without importing Node-specific Healthcheck adapters.
+sidebar:
+  order: 2
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
+
+The Bun adapter reports Bun runtime information and can collect basic `Bun.serve` server metrics. It does not depend on the Node adapter.
+
+<InstallTabs packages={["@nexload-sdk/healthcheck", "@nexload-sdk/healthcheck-bun"]} />
+
+<Steps>
+
+1. Supply `bunRuntimeAdapter()` to the manager.
+
+   ```ts
+   import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+   import { bunRuntimeAdapter, bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+   const server = Bun.serve({ fetch: () => new Response("ok") });
+
+   export const health = createHealthManager({
+     service: { name: "bun-api" },
+     runtime: bunRuntimeAdapter(),
+     checks: [shutdownCheck(), bunServerMetricsCheck(server)],
+   });
+   ```
+
+2. Keep Bun-only checks behind the Bun integration boundary.
+
+</Steps>
+
+<Aside type="note" title="Memory snapshots">
+The Bun adapter uses available process memory APIs. It does not claim host or cgroup memory limits that Bun cannot provide.
+</Aside>

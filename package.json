@@ -7,7 +7,9 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "skills:healthcheck:validate": "node scripts/validate-healthcheck-skills.mjs",
+    "skills:validate": "node scripts/validate-skills.mjs",
+    "skills:healthcheck:validate": "node scripts/validate-skills.mjs healthcheck",
+    "skills:payload-fields:validate": "node scripts/validate-skills.mjs payload-fields",
     "cublish": "pnpm build && pnpm install && changeset && git add . && changeset version && changeset publish && git push --follow-tags"
   },
   "devDependencies": {

@@ -1,0 +1,55 @@
+---
+title: Install agent skills
+description: Install Nexload package Skills with the official skills CLI for a project, globally, or for Codex.
+sidebar:
+  order: 2
+---
+
+import { Aside, FileTree, Steps } from "@astrojs/starlight/components";
+import SkillInstall from "../../../components/docs/SkillInstall.astro";
+
+The repository ships 11 valid Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents.
+
+<Steps>
+
+1. Inspect the available Skills before installing:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --list
+   ```
+
+2. Install a specific Skill for the current project:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --skill healthcheck-core
+   ```
+
+3. Update installed Skills when you intentionally want newer guidance:
+
+   ```bash
+   npx skills update
+   ```
+
+</Steps>
+
+## Example: a Next.js health route
+
+<SkillInstall skill="healthcheck-nextjs-routes" />
+
+## Source layout
+
+<FileTree>
+
+- skills
+  - healthcheck
+    - nextjs-routes
+      - SKILL.md
+  - payload-fields
+    - money
+      - SKILL.md
+
+</FileTree>
+
+<Aside type="caution" title="Review before broad installation">
+`--all` can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+</Aside>
