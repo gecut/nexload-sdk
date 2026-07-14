@@ -63,6 +63,15 @@ test("regenerates locked slugs when the source changes", async () => {
     siblingData: { slugLock: true },
     value: "عنوان-قبلی",
   }), "عنوان-قبلی");
+
+  assert.equal(await hook?.({
+    data: { title: null, slugLock: true },
+    operation: "update",
+    originalDoc: { title: "عنوان قبلی", slug: "اسلاگ-سفارشی" },
+    previousSiblingDoc: { slug: "اسلاگ-سفارشی" },
+    siblingData: { slugLock: true },
+    value: "اسلاگ-سفارشی",
+  }), "اسلاگ-سفارشی");
 });
 
 test("protects slug generation with auth and access checks", async () => {
@@ -89,4 +98,21 @@ test("protects slug generation with auth and access checks", async () => {
   });
   assert.equal(allowed.status, 200);
   assert.deepEqual(await allowed.json(), { slug: "محصول-ویژه" });
+});
+
+test("rejects invalid and inherited slug generator input", async () => {
+  const plugin = payloadFieldsPlugin({ slugGenerators: {} });
+  const endpoint = plugin({}).endpoints?.at(-1);
+
+  const nullBody = await endpoint.handler({
+    user: { role: "editor" },
+    json: async () => null,
+  });
+  assert.equal(nullBody.status, 400);
+
+  const inherited = await endpoint.handler({
+    user: { role: "editor" },
+    json: async () => ({ generator: "toString", sourceValue: "محصول" }),
+  });
+  assert.equal(inherited.status, 404);
 });

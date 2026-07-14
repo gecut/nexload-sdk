@@ -39,6 +39,9 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
               "PAYLOAD_FIELDS_INVALID_INPUT", "ورودی تولید اسلاگ معتبر نیست.", 400
             );
           }
+          if (!body || typeof body !== "object" || Array.isArray(body)) return failure(
+            "PAYLOAD_FIELDS_INVALID_INPUT", "ورودی تولید اسلاگ معتبر نیست.", 400
+          );
           const input = body as {
             generator?: unknown
             sourceValue?: unknown
@@ -51,7 +54,11 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
           ) return failure(
             "PAYLOAD_FIELDS_INVALID_INPUT", "ورودی تولید اسلاگ معتبر نیست.", 400
           );
-          const generator = options.slugGenerators?.[input.generator];
+          const generator = options.slugGenerators && Object.prototype.hasOwnProperty.call(
+            options.slugGenerators, input.generator
+          )
+            ? options.slugGenerators[input.generator]
+            : undefined;
           if (!generator) return failure(
             "PAYLOAD_FIELDS_GENERATOR_NOT_FOUND", "تولیدکننده اسلاگ پیدا نشد.", 404
           );

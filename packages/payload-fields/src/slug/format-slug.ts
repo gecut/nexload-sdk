@@ -85,11 +85,15 @@ export const formatSlugHook = (options: SlugHookOptions): FieldHook => ({
   ) !== getPath(
     originalDoc, options.source
   );
-  const source = getPath(
+  const source = hasPath(
     data, options.source
-  ) ?? getPath(
-    originalDoc, options.source
-  );
+  )
+    ? getPath(
+      data, options.source
+    )
+    : getPath(
+      originalDoc, options.source
+    );
 
   if (lock !== false && typeof source === "string" && source.trim() && (operation === "create" || (options.regenerateOnSourceChange && sourceChanged))) {
     return formatSlug(source);
