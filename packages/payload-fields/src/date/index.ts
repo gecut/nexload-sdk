@@ -1,13 +1,10 @@
 import { formatJalaliDate } from "./format-date";
 
+import type { JalaliPickerAppearance } from "./picker-types";
 import type { DateField, Field, TextField } from "payload";
 
-export type JalaliPickerAppearance
-  = | "dayOnly"
-    | "dayAndTime"
-    | "timeOnly"
-    | "monthOnly";
 export type { JalaliDateDisplayOptions, JalaliDateValue } from "./format-date";
+export type { JalaliPickerAppearance } from "./picker-types";
 export type JalaliDateFieldOptions = {
   name: string
   pickerAppearance?: JalaliPickerAppearance

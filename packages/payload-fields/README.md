@@ -23,6 +23,8 @@ fields: [
 
 `payloadFieldsPlugin({ slugGenerators })` registers secure server-side slug generators. REST, GraphQL, and Local API money values are always integer minor units; only the Admin UI accepts major-unit text.
 
+Jalali values remain native ISO dates. `dayOnly` uses canonical local noon, and `monthOnly` stores the first Jalali day of the selected month at canonical local noon.
+
 ## Migration from 2.x
 
 - `editor` is removed. A future `payload-editor` package will replace it; it is not part of this release.

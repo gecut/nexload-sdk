@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker/persian";
 import "react-day-picker/style.css";
 
+import { canonicalizeJalaliPickerDate } from "./jalali-picker-value";
 import { formatJalaliDate, type JalaliDateDisplayOptions } from "../date/format-date";
 
+import type { JalaliPickerAppearance } from "../date/picker-types";
 import type { DateFieldClientProps } from "payload";
 
-type Props = { appearance: "dayOnly" | "dayAndTime" | "timeOnly" | "monthOnly", display: JalaliDateDisplayOptions };
+type Props = { appearance: JalaliPickerAppearance, display: JalaliDateDisplayOptions };
 
 export const JalaliDateFieldComponent = ({
   field, path, appearance, display, readOnly,
@@ -28,12 +30,9 @@ export const JalaliDateFieldComponent = ({
   };
   const chooseDay = (date: Date | undefined) => {
     if (!date) return save(undefined);
-    const result = new Date(date);
-    if (appearance === "dayOnly" || appearance === "monthOnly") result.setHours(
-      12, 0, 0, 0
-    );
-    if (appearance === "monthOnly") result.setDate(1);
-    save(result);
+    save(canonicalizeJalaliPickerDate(
+      date, appearance
+    ));
   };
   const updateTime = (
     part: "hours" | "minutes", raw: string
