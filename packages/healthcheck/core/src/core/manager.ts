@@ -232,7 +232,7 @@ export function createHealthManager (options: HealthManagerOptions): HealthManag
               name: check.name,
               component: check.component,
               scope,
-              status: "unhealthy",
+              status: timedOut && defaults.unhealthyOnTimeout === false ? "degraded" : "unhealthy",
               critical: isCritical(
                 check, scope
               ),

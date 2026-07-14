@@ -13,3 +13,5 @@ const check = payloadHealthCheck(payload, {
 ```
 
 Use a small, deterministic collection. Do not use a heavy query for readiness.
+
+Use `expectedMinDocuments` only when an empty collection is operationally unhealthy. Set `timeoutMs` when the default manager timeout is not appropriate, and keep `where` narrowly scoped.

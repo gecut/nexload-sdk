@@ -33,7 +33,8 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "@nexload-sdk/healthcheck": "workspace:*"

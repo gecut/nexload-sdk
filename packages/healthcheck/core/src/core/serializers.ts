@@ -7,7 +7,7 @@ const DEFAULT_REDACTION: RedactionPolicy = {
   redactSecrets: true,
   redactUrls: "query",
   includeStack: false,
-  includeErrorMessage: true,
+  includeErrorMessage: false,
 };
 
 const SECRET_KEY_PATTERN = /token|secret|password|authorization|cookie|api[_-]?key|connection|string/i;

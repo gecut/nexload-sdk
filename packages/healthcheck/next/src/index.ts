@@ -112,6 +112,62 @@ function cidrContains (
   return (rangeNumber & mask) === (ipNumber & mask);
 }
 
+function isValidCidr (cidr: string): boolean {
+  const [
+    range,
+    bitsRaw
+  ] = cidr.split("/");
+  const bits = Number(bitsRaw);
+
+  return ipToNumber(range ?? "") !== null
+    && Number.isInteger(bits)
+    && bits >= 0
+    && bits <= 32;
+}
+
+function invalidConfig (message: string): Error {
+  const error = new Error(message);
+  error.name = "HEALTHCHECK_INVALID_CONFIG";
+  return error;
+}
+
+function validateProtection (protection?: NextHealthRouteProtection): void {
+  if (!protection) return;
+
+  const hasBearer = "bearerToken" in protection;
+  const hasBasic = protection.basicAuth !== undefined;
+  const hasIps = (protection.allowIps?.length ?? 0) > 0;
+  const hasCidrs = (protection.allowCidrs?.length ?? 0) > 0;
+
+  if (!hasBearer && !hasBasic && !hasIps && !hasCidrs) {
+    throw invalidConfig("Route protection must configure at least one access policy.");
+  }
+
+  if (hasBearer && !protection.bearerToken?.trim()) {
+    throw invalidConfig("Bearer token protection requires a non-empty token.");
+  }
+
+  if (hasBasic && (!protection.basicAuth?.username.trim() || !protection.basicAuth.password)) {
+    throw invalidConfig("Basic authentication requires a non-empty username and password.");
+  }
+
+  if (hasBearer && hasBasic) {
+    throw invalidConfig("Bearer and Basic authentication cannot share one Authorization header.");
+  }
+
+  if ((hasIps || hasCidrs) && protection.trustProxy !== true) {
+    throw invalidConfig("IP and CIDR protection require trustProxy: true.");
+  }
+
+  if (protection.allowIps?.some((ip) => ipToNumber(ip) === null)) {
+    throw invalidConfig("IP protection currently accepts valid IPv4 addresses only.");
+  }
+
+  if (protection.allowCidrs?.some((cidr) => !isValidCidr(cidr))) {
+    throw invalidConfig("CIDR protection currently accepts valid IPv4 CIDRs only.");
+  }
+}
+
 function getRequestIp (
   request: Request, protection: NextHealthRouteProtection
 ): string | null {
@@ -227,6 +283,12 @@ export function createNextHealthRoute (
   GET: (request: Request) => Promise<Response>
   HEAD: (request: Request) => Promise<Response>
 } {
+  validateProtection(options.protect);
+
+  if (options.cache !== undefined && options.cache !== "no-store") {
+    throw invalidConfig("Health routes only support cache: no-store.");
+  }
+
   async function handle (
     request: Request, head = false
   ): Promise<Response> {
@@ -272,6 +334,8 @@ export function createNextHealthRoute (
 export function createNextMetricsRoute (
   manager: HealthManager, options: NextMetricsRouteOptions
 ): { GET: (request: Request) => Promise<Response> } {
+  validateProtection(options.protect);
+
   return {
     async GET (request) {
       if (!isAuthorized(

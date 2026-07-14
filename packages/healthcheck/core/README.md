@@ -312,6 +312,12 @@ Use a small deterministic collection. Payload is an optional peer dependency of 
 
 The manager runs checks with a configurable concurrency limit, applies timeout/cancellation, and prevents a thrown check from rejecting the whole report. Built-in defaults avoid heavy diagnostics and avoid high-cardinality metric labels.
 
+Set `defaults.unhealthyOnTimeout: false` only when a timed-out check should degrade the report instead of making it unhealthy. The default is `true`.
+
+Profiles are context hints passed to checks and collectors. They do not filter a report automatically. Use `toHealthJson()` or `stringifyHealthJson()` to control response details and redaction.
+
+Public JSON suppresses error and cause messages by default. Enable `redaction.includeErrorMessage` only after access control has made the response private.
+
 ## Migration from previous versions
 
 Breaking changes:

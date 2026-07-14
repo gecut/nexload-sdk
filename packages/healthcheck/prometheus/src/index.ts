@@ -88,6 +88,57 @@ function appendMetric (
   lines.push(`${name}${labels(labelsInput)} ${numeric}`);
 }
 
+function appendDescriptions (
+  lines: string[], report: HealthReport, prefix: string
+): void {
+  const descriptions = new Map<string, string>([
+    [
+      metricName(
+        "health.status", prefix
+      ),
+      "Current aggregate health status."
+    ],
+    [
+      metricName(
+        "health.check.status", prefix
+      ),
+      "Current status of a registered health check."
+    ],
+    [
+      metricName(
+        "health.check.duration_milliseconds", prefix
+      ),
+      "Duration of a registered health check in milliseconds."
+    ],
+    [
+      metricName(
+        "health.run.duration_milliseconds", prefix
+      ),
+      "Duration of the health report run in milliseconds."
+    ]
+  ]);
+
+  for (const metric of report.metrics) {
+    if (metric.description) {
+      descriptions.set(
+        metricName(
+          metric.name, prefix
+        ), metric.description
+      );
+    }
+  }
+
+  for (const [
+    name,
+    description
+  ] of descriptions) {
+    const sanitizedDescription = description.replace(
+      /\s+/g, " "
+    ).trim();
+    lines.push(`# HELP ${name} ${sanitizedDescription}`);
+  }
+}
+
 function appendHealthStatus (
   lines: string[], report: HealthReport, prefix: string, defaults: Record<string, string>
 ): void {
@@ -185,6 +236,12 @@ export function toPrometheusText (
   const prefix = options.prefix ?? "nexload";
   const defaults = options.defaultLabels ?? {};
   const lines: string[] = [];
+
+  if (options.includeDescriptions) {
+    appendDescriptions(
+      lines, report, prefix
+    );
+  }
 
   appendHealthStatus(
     lines, report, prefix, defaults

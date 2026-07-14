@@ -35,3 +35,21 @@ test("serializes stable health metrics without raw error labels", () => {
   assert.match(text, /nexload_health_check_duration_milliseconds/);
   assert.doesNotMatch(text, /request_id/);
 });
+
+test("includeDescriptions emits HELP for built-in and collector metrics", () => {
+  const text = toPrometheusText({
+    schemaVersion: "2.0",
+    service: { name: "api" },
+    scope: "diagnostics",
+    status: "ok",
+    observedAt: new Date().toISOString(),
+    durationMs: 5,
+    runtime: { name: "node" },
+    summary: { ok: 0, degraded: 0, unhealthy: 0, total: 0, criticalFailed: 0, nonCriticalFailed: 0 },
+    checks: [],
+    metrics: [{ name: "queue.depth", value: 3, description: "Current queue depth." }]
+  }, { includeDescriptions: true });
+
+  assert.match(text, /# HELP nexload_health_status Current aggregate health status\./);
+  assert.match(text, /# HELP nexload_queue_depth Current queue depth\./);
+});

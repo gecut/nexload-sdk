@@ -211,11 +211,14 @@ export interface HealthManagerOptions {
   defaults?: {
     timeoutMs?: number
     concurrency?: number
+    /** Defaults to true. Set false to report timed-out checks as degraded. */
     unhealthyOnTimeout?: boolean
     includeStack?: boolean
     profile?: HealthDataProfile
   }
+  /** Profiles are passed to checks and collectors as context hints. */
   profiles?: Partial<Record<HealthScope, HealthDataProfile>> & { default?: HealthDataProfile }
+  /** @deprecated Configure redaction when calling toHealthJson or stringifyHealthJson. */
   redaction?: Partial<RedactionPolicy>
   checks?: readonly HealthCheckDefinition[]
   collectors?: readonly MetricCollectorDefinition[]
@@ -224,6 +227,7 @@ export interface HealthManagerOptions {
 export interface HealthRunOptions {
   signal?: AbortSignal
   profile?: HealthDataProfile
+  /** @deprecated Select a profile and configure serializer detail options instead. */
   includeDiagnostics?: boolean
   includeStacks?: boolean
   timeoutMs?: number

@@ -16,3 +16,5 @@ export const { GET, HEAD } = createNextHealthRoute(health, {
   format: "json"
 });
 ```
+
+Protection is fail-closed. A supplied `protect` object must configure a non-empty bearer token, valid Basic credentials, or an IPv4 allowlist. IP and CIDR rules require `trustProxy: true`; only enable it when the configured proxy header is controlled by your deployment.
