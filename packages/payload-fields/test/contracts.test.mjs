@@ -3,6 +3,18 @@ import test from "node:test";
 
 import { IRT, formatJalaliDate, formatMoney, formatSlug, moneyField, parseMoneyToMinorUnits, payloadFieldsPlugin, slugField, withJalaliTimestamps } from "../dist/index.mjs";
 
+test("builds every documented server subpath", async () => {
+  const [slug, date, money] = await Promise.all([
+    import("../dist/slug/index.mjs"),
+    import("../dist/date/index.mjs"),
+    import("../dist/money/index.mjs"),
+  ]);
+
+  assert.equal(typeof slug.slugField, "function");
+  assert.equal(typeof date.jalaliDateField, "function");
+  assert.equal(typeof money.moneyField, "function");
+});
+
 test("normalizes Unicode slugs", () => {
   assert.equal(formatSlug("  كِتاب_جدید 😀 ۱۲ "), "کتاب-جدید-12");
 });
