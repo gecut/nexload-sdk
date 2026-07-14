@@ -38,9 +38,24 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Nexload SDK",
+      head: [
+        {
+          tag: "meta",
+          attrs: {
+            name: "google-site-verification",
+            content: "bgRRnzHHrHc-WkOZg4BdqT96LMtHFqYlNXmLPZ9oqKo",
+          },
+        },
+      ],
       description: "Production package documentation for Nexload SDK.",
       customCss: ["./src/styles/docs.css"],
-      social: [{ icon: "github", label: "GitHub", href: "https://github.com/gecut/nexload-sdk" }],
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/gecut/nexload-sdk",
+        },
+      ],
       editLink: {
         baseUrl: "https://github.com/gecut/nexload-sdk/edit/main/apps/docs/",
       },
@@ -66,7 +81,9 @@ export default defineConfig({
             },
             {
               label: "Payload Fields",
-              items: [{ autogenerate: { directory: "packages/payload-fields" } }],
+              items: [
+                { autogenerate: { directory: "packages/payload-fields" } },
+              ],
             },
           ],
         },
