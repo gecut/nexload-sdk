@@ -34,10 +34,10 @@ export const licenseCheck = defineHealthCheck({
 
 ## Custom check rules
 
-- Honour `ctx.signal`; manager timeout and disposal depend on it.
+- Honour `ctx.signal`; timeout is cooperative and ignored cancellation can leak or overlap work during retries.
 - Use stable machine-readable error codes.
 - Return raw numbers, booleans, strings, or `null` as metrics.
-- Keep high-cardinality or sensitive values out of labels and details on public profiles.
+- Keep high-cardinality or sensitive values out of metrics, labels, details, resources, and errors. Profiles are context hints, not automatic response filters.
 
 <Aside type="note" title="Thrown errors are normalized">
 The manager converts thrown errors, timeouts, and aborts into check results. Let unexpected failures be unexpected; do not throw as a normal status transport.

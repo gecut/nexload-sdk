@@ -20,6 +20,7 @@ The exporter packages transform an already-created `HealthReport`. They do not r
     const text = toPrometheusText(report, {
       prefix: "nexload",
       defaultLabels: { service: "api" },
+      includeDescriptions: true,
     });
     ```
   </TabItem>
@@ -36,6 +37,8 @@ The exporter packages transform an already-created `HealthReport`. They do not r
   </TabItem>
 </Tabs>
 
+Custom exporter metrics come from collectors in `report.metrics`; raw `check.metrics` stays in JSON/report diagnostics. Prometheus drops labels outside its controlled allowlist and emits `# HELP` for built-ins and described collector metrics when `includeDescriptions` is enabled. OpenMetrics adds the `# EOF` terminator.
+
 <Aside type="caution" title="Label cardinality is a reliability concern">
-Prometheus output accepts only a controlled label set. Never use user IDs, request IDs, raw URLs, raw error messages, tokens, or stack traces as labels.
+Prometheus output accepts only a controlled label set. OTel record conversion copies labels verbatim and does not sanitize or bound cardinality. Never use user IDs, request IDs, raw URLs, raw error messages, tokens, or stack traces as labels.
 </Aside>

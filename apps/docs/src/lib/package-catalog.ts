@@ -46,7 +46,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/healthcheck/",
     status: documented,
     runtimes: ["Node.js", "Bun", "edge-safe core"],
-    skills: ["healthcheck-core", "healthcheck-custom-checks"],
+    skills: ["healthcheck-core", "healthcheck-custom-checks", "healthcheck-diagnostics-security"],
   },
   {
     manifest: healthcheckNode,
@@ -82,7 +82,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/healthcheck/guides/exporters/",
     status: documented,
     runtimes: ["Node.js", "Bun"],
-    skills: ["healthcheck-monitoring-exporters"],
+    skills: ["healthcheck-monitoring-exporters", "healthcheck-diagnostics-security"],
   },
   {
     manifest: healthcheckOtel,
@@ -91,7 +91,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/healthcheck/guides/exporters/",
     status: documented,
     runtimes: ["Node.js", "Bun"],
-    skills: ["healthcheck-monitoring-exporters"],
+    skills: ["healthcheck-monitoring-exporters", "healthcheck-diagnostics-security"],
   },
   {
     manifest: healthcheckPayload,

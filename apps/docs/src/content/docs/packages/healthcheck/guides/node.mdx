@@ -38,7 +38,7 @@ Use the Node adapter when your service needs process metrics, cgroup-aware conta
 
 ## Container data
 
-`containerResourceCheck` reads cgroup v2, then cgroup v1, before falling back to process or host data. Fractional CPU quotas are preserved. Inspect the returned source and confidence before using a metric as a hard threshold.
+`containerResourceCheck` reads cgroup v2, then cgroup v1. Fractional CPU quotas are preserved; unlimited sentinels remain `null`, not zero. Inspect source, confidence, and warnings before using a metric as a hard threshold. Process/host memory fallback belongs to `nodeRuntimeAdapter`, not the raw container snapshot.
 
 <Aside type="tip" title="Use collectors for monitoring">
 `processMetricsCollector` and `containerMetricsCollector` are suitable for metrics routes. They do not turn a service unhealthy by themselves.

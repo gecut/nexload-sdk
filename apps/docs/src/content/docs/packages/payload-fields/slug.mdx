@@ -26,7 +26,7 @@ fields: [
 - Persian and other Unicode letters are preserved; Arabic variants and digits are normalized.
 - The lock field is localized when the slug is localized.
 - A locked slug regenerates only when its non-empty source changes.
-- Clearing a source never clears an existing slug automatically.
+- Clearing a source with an empty string or `null` preserves the exact previous slug.
 - `formatSlug` is the final normalization authority.
 
 ## Registered generators
@@ -54,5 +54,5 @@ fields: [
 </Steps>
 
 <Aside type="caution" title="Do not send generator callbacks to the Admin client">
-Only the generator key reaches client props. The implementation remains on the server and the plugin endpoint checks authentication before access policy.
+Only the generator key reaches client props. The implementation remains on the server; the plugin checks authentication before access policy, rejects malformed/non-object input, resolves only own registered generator keys, and applies final `formatSlug` normalization.
 </Aside>

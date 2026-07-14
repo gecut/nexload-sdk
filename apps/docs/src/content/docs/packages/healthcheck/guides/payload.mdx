@@ -29,8 +29,10 @@ export const health = createHealthManager({
 });
 ```
 
-`payloadHealthCheck` reports latency, document total when available, and `up`. Set `expectedMinDocuments` only when an empty collection is truly unhealthy for the service.
+`payloadHealthCheck` reports latency, document total when available, and `up`. Without `expectedMinDocuments`, an empty collection remains healthy when the query succeeds. With a minimum, `totalDocs` must be numeric and meet the floor.
 
 <Aside type="tip" title="Keep the query deterministic">
 Use a small `limit`, `depth: 0`, and a narrowly scoped `where` clause if one is needed. A health check should observe a dependency, not perform business work.
 </Aside>
+
+`timeoutMs` is normalized by the manager as `CHECK_TIMEOUT`, but the adapter does not pass an `AbortSignal` into `payload.find`; the underlying query may continue. Keep the query small rather than treating timeout as database cancellation.

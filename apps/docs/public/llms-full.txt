@@ -1,6 +1,6 @@
 # /agents/
 
-Agent Skills are short, task-specific instructions distributed with this repository. They complement the API docs by encoding decisions that are easy for an agent to get wrong during implementation.
+Agent Skills are task-specific, progressively disclosed instructions distributed with this repository. They complement the API docs by encoding source inspection, decision flow, invariants, security boundaries, verification, and handoff requirements that are easy for an agent to get wrong during implementation.
 
 
 
@@ -15,11 +15,13 @@ Agent Skills are short, task-specific instructions distributed with this reposit
 
 Install a Skill when the task matches its trigger. For example, install `healthcheck-nextjs-routes` when adding a Next App Router health route, not the entire collection by default.
 
+Every Skill is self-contained for its primary task. A sibling Skill may be recommended for composition, but the primary workflow does not depend on reading it. Committed behavior evals cover a happy path, edge case, security/failure case, diagnosis/review case, and a near-miss or composition boundary; trigger evals balance 10 positive and 10 neighboring negative queries.
+
 ---
 
 # /agents/install/
 
-The repository ships 11 valid Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents.
+The repository ships 11 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
 
 
 
@@ -55,14 +57,26 @@ The repository ships 11 valid Skills. The official `skills` CLI discovers the `s
   - healthcheck
     - nextjs-routes
       - SKILL.md
+      - references
+        - route-matrix.md
+        - protection-and-proxy.md
+        - app-router-playbook.md
+      - evals
+        - evals.json
+        - trigger-evals.json
   - payload-fields
     - money
       - SKILL.md
+      - references
+      - evals
 
 
 
 
 `--all` can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+
+
+Run `pnpm skills:validate` in a repository checkout to verify frontmatter, path/name consistency, references, line limits, behavior evals, and balanced trigger evals.
 
 ---
 
@@ -142,6 +156,7 @@ Checks contribute a status to the report. Collectors add metrics and resources w
 - Use a check when its status should affect a liveness, readiness, startup, or diagnostics report.
 - Use a collector when telemetry is useful but should not change traffic or lifecycle decisions.
 - Return raw metric values: number, boolean, string, or `null`.
+- Keep `check.metrics` as JSON/report diagnostics. Prometheus and OpenTelemetry custom series come only from collector-produced `report.metrics`.
 
 
 Use `defineHealthCheck` and honour the supplied `AbortSignal`. Thrown errors and timeouts are normalized into stable result entries; do not intentionally throw formatted user-facing errors from a check.
@@ -163,9 +178,11 @@ Every run produces a `HealthReport` with service identity, scope, status, observ
 
 The default HTTP policy maps `ok` and `degraded` to `200`, and `unhealthy` to `503`. Use `STRICT_READINESS_HTTP_STATUS_POLICY` or a custom `HealthHttpStatusPolicy` when your load balancer must treat degraded readiness as unavailable.
 
-## JSON profiles
+## Profiles and JSON serialization
 
-Use `toHealthJson` or `stringifyHealthJson` to serialize a report. Public routes should omit details; diagnostics can include details only after route protection has been applied.
+Profiles are context hints passed to checks and collectors. They do not automatically filter checks, details, or metrics from a response.
+
+Use `toHealthJson` or `stringifyHealthJson` to serialize a report. Details, original error messages, causes, and stacks are suppressed by default. Public routes should keep those defaults; diagnostics can opt into the minimum required fields only after route protection has been applied. Manager-level `redaction` and run-level `includeDiagnostics` remain deprecated compatibility fields and do not control serialization.
 
 
 Redaction reduces accidental disclosure in report data. It does not make a diagnostics endpoint public-safe. Keep the route protected as well.
@@ -257,10 +274,10 @@ export const licenseCheck = defineHealthCheck({
 
 ## Custom check rules
 
-- Honour `ctx.signal`; manager timeout and disposal depend on it.
+- Honour `ctx.signal`; timeout is cooperative and ignored cancellation can leak or overlap work during retries.
 - Use stable machine-readable error codes.
 - Return raw numbers, booleans, strings, or `null` as metrics.
-- Keep high-cardinality or sensitive values out of labels and details on public profiles.
+- Keep high-cardinality or sensitive values out of metrics, labels, details, resources, and errors. Profiles are context hints, not automatic response filters.
 
 
 The manager converts thrown errors, timeouts, and aborts into check results. Let unexpected failures be unexpected; do not throw as a normal status transport.
@@ -281,6 +298,7 @@ The exporter packages transform an already-created `HealthReport`. They do not r
     const text = toPrometheusText(report, {
       prefix: "nexload",
       defaultLabels: { service: "api" },
+      includeDescriptions: true,
     });
     ```
 
@@ -297,8 +315,10 @@ The exporter packages transform an already-created `HealthReport`. They do not r
 
 
 
+Custom exporter metrics come from collectors in `report.metrics`; raw `check.metrics` stays in JSON/report diagnostics. Prometheus drops labels outside its controlled allowlist and emits `# HELP` for built-ins and described collector metrics when `includeDescriptions` is enabled. OpenMetrics adds the `# EOF` terminator.
 
-Prometheus output accepts only a controlled label set. Never use user IDs, request IDs, raw URLs, raw error messages, tokens, or stack traces as labels.
+
+Prometheus output accepts only a controlled label set. OTel record conversion copies labels verbatim and does not sanitize or bound cardinality. Never use user IDs, request IDs, raw URLs, raw error messages, tokens, or stack traces as labels.
 
 ---
 
@@ -346,8 +366,10 @@ Use the Next integration to turn a manager into `GET` and `HEAD` handlers. Route
 
 
 
+Use `STRICT_READINESS_HTTP_STATUS_POLICY` when degraded readiness must return `503`; the default policy returns `200` for degraded and `503` only for unhealthy. Metrics routes always return HTTP `200` and expose report state through `x-health-status`.
 
-Use the `protect` option for bearer tokens, Basic auth, IP allowlists, or CIDRs. Set `trustProxy` only when your deployment correctly supplies the configured proxy header.
+
+Use the `protect` option for bearer tokens, Basic auth, IPv4 allowlists, or IPv4 CIDRs. Empty protection and credentials are configuration errors. IP/CIDR rules require `trustProxy: true`; missing or invalid forwarded addresses fail closed with `401`. Set proxy trust only when the deployment overwrites the configured header. Every success and denial response remains `no-store`.
 
 ---
 
@@ -383,7 +405,7 @@ Use the Node adapter when your service needs process metrics, cgroup-aware conta
 
 ## Container data
 
-`containerResourceCheck` reads cgroup v2, then cgroup v1, before falling back to process or host data. Fractional CPU quotas are preserved. Inspect the returned source and confidence before using a metric as a hard threshold.
+`containerResourceCheck` reads cgroup v2, then cgroup v1. Fractional CPU quotas are preserved; unlimited sentinels remain `null`, not zero. Inspect source, confidence, and warnings before using a metric as a hard threshold. Process/host memory fallback belongs to `nodeRuntimeAdapter`, not the raw container snapshot.
 
 
 `processMetricsCollector` and `containerMetricsCollector` are suitable for metrics routes. They do not turn a service unhealthy by themselves.
@@ -429,10 +451,13 @@ export const health = createHealthManager({
 });
 ```
 
-`payloadHealthCheck` reports latency, document total when available, and `up`. Set `expectedMinDocuments` only when an empty collection is truly unhealthy for the service.
+`payloadHealthCheck` reports latency, document total when available, and `up`. Without `expectedMinDocuments`, an empty collection remains healthy when the query succeeds. With a minimum, `totalDocs` must be numeric and meet the floor.
 
 
 Use a small `limit`, `depth: 0`, and a narrowly scoped `where` clause if one is needed. A health check should observe a dependency, not perform business work.
+
+
+`timeoutMs` is normalized by the manager as `CHECK_TIMEOUT`, but the adapter does not pass an `AbortSignal` into `payload.find`; the underlying query may continue. Keep the query small rather than treating timeout as database cancellation.
 
 ---
 
@@ -606,13 +631,16 @@ Money values in REST, GraphQL, Local API, hooks, validation, and persistence are
 | --- | --- |
 | `dayOnly` | canonical 12:00 date value |
 | `monthOnly` | first Jalali day at canonical 12:00 |
-| `dayAndTime` | preserves explicit date and time |
-| `timeOnly` | preserves surrounding date context |
+| `dayAndTime` | calendar and local time controls; test date-change time preservation for your flow |
+| `timeOnly` | edits the existing date context; empty-state baseline currently uses the browser clock |
 
 `withJalaliTimestamps` adds read-only virtual text fields in `afterRead`; it does not store duplicate timestamp data. Duplicate virtual names are configuration errors.
 
 
 `display.timeZone` controls display formatting. It does not replace Payload's own timezone configuration or change what the native date field stores.
+
+
+Canonical noon and time controls use the browser/runtime local timezone. The current Admin component relies on native number inputs for hour/minute bounds, and selecting a new calendar day can replace previously edited time. Treat these as integration caveats and add component tests before relying on stricter behavior.
 
 ---
 
@@ -702,6 +730,8 @@ The root package exports server-safe factories and helpers. Factory return value
 `payloadFieldsPlugin({ slugGenerators, generateSlugAccess })` adds `POST /payload-fields/generate-slug`.
 
 - Authentication is required before the endpoint evaluates custom access.
+- Request bodies must be non-null objects with the registered generator key and string source value.
+- Generator lookup accepts only explicitly registered own keys; inherited prototype names are rejected.
 - A registered generator receives source text and the Payload request on the server.
 - The response is `{ slug }` or `{ error: { code, message } }`.
 - The final generated value is normalized with `formatSlug`.
@@ -767,7 +797,7 @@ fields: [
 - Persian and other Unicode letters are preserved; Arabic variants and digits are normalized.
 - The lock field is localized when the slug is localized.
 - A locked slug regenerates only when its non-empty source changes.
-- Clearing a source never clears an existing slug automatically.
+- Clearing a source with an empty string or `null` preserves the exact previous slug.
 - `formatSlug` is the final normalization authority.
 
 ## Registered generators
@@ -795,7 +825,7 @@ fields: [
 
 
 
-Only the generator key reaches client props. The implementation remains on the server and the plugin endpoint checks authentication before access policy.
+Only the generator key reaches client props. The implementation remains on the server; the plugin checks authentication before access policy, rejects malformed/non-object input, resolves only own registered generator keys, and applies final `formatSlug` normalization.
 
 ---
 

@@ -50,6 +50,8 @@ Use the Next integration to turn a manager into `GET` and `HEAD` handlers. Route
 
 </Steps>
 
+Use `STRICT_READINESS_HTTP_STATUS_POLICY` when degraded readiness must return `503`; the default policy returns `200` for degraded and `503` only for unhealthy. Metrics routes always return HTTP `200` and expose report state through `x-health-status`.
+
 <Aside type="caution" title="Protect metrics and diagnostics">
-Use the `protect` option for bearer tokens, Basic auth, IP allowlists, or CIDRs. Set `trustProxy` only when your deployment correctly supplies the configured proxy header.
+Use the `protect` option for bearer tokens, Basic auth, IPv4 allowlists, or IPv4 CIDRs. Empty protection and credentials are configuration errors. IP/CIDR rules require `trustProxy: true`; missing or invalid forwarded addresses fail closed with `401`. Set proxy trust only when the deployment overwrites the configured header. Every success and denial response remains `no-store`.
 </Aside>

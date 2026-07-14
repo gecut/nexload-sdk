@@ -20,9 +20,11 @@ Every run produces a `HealthReport` with service identity, scope, status, observ
 
 The default HTTP policy maps `ok` and `degraded` to `200`, and `unhealthy` to `503`. Use `STRICT_READINESS_HTTP_STATUS_POLICY` or a custom `HealthHttpStatusPolicy` when your load balancer must treat degraded readiness as unavailable.
 
-## JSON profiles
+## Profiles and JSON serialization
 
-Use `toHealthJson` or `stringifyHealthJson` to serialize a report. Public routes should omit details; diagnostics can include details only after route protection has been applied.
+Profiles are context hints passed to checks and collectors. They do not automatically filter checks, details, or metrics from a response.
+
+Use `toHealthJson` or `stringifyHealthJson` to serialize a report. Details, original error messages, causes, and stacks are suppressed by default. Public routes should keep those defaults; diagnostics can opt into the minimum required fields only after route protection has been applied. Manager-level `redaction` and run-level `includeDiagnostics` remain deprecated compatibility fields and do not control serialization.
 
 <Aside type="caution" title="Redaction is not access control">
 Redaction reduces accidental disclosure in report data. It does not make a diagnostics endpoint public-safe. Keep the route protected as well.

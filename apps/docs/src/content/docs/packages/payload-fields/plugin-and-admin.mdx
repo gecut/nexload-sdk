@@ -27,6 +27,8 @@ The root package exports server-safe factories and helpers. Factory return value
 `payloadFieldsPlugin({ slugGenerators, generateSlugAccess })` adds `POST /payload-fields/generate-slug`.
 
 - Authentication is required before the endpoint evaluates custom access.
+- Request bodies must be non-null objects with the registered generator key and string source value.
+- Generator lookup accepts only explicitly registered own keys; inherited prototype names are rejected.
 - A registered generator receives source text and the Payload request on the server.
 - The response is `{ slug }` or `{ error: { code, message } }`.
 - The final generated value is normalized with `formatSlug`.
