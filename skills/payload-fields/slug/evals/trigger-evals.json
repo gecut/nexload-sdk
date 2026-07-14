@@ -1,0 +1,22 @@
+[
+  { "query": "Add a managed Payload slug and lock tuple", "should_trigger": true },
+  { "query": "Regenerate a locked slug when a localized title changes", "should_trigger": true },
+  { "query": "Preserve the previous slug when source is cleared", "should_trigger": true },
+  { "query": "Normalize Persian and Arabic characters in Payload slugs", "should_trigger": true },
+  { "query": "Use a nested dot-path source for slugField", "should_trigger": true },
+  { "query": "Secure a registered server-side slug generator", "should_trigger": true },
+  { "query": "Why is generator toString accepted from an empty registry?", "should_trigger": true },
+  { "query": "Test auth access and invalid JSON for payloadFieldsPlugin", "should_trigger": true },
+  { "query": "Review slug hook ordering and final normalization", "should_trigger": true },
+  { "query": "Debug nested Admin slug source and lock paths", "should_trigger": true },
+  { "query": "Build a global SEO redirect history system", "should_trigger": false },
+  { "query": "Guarantee database uniqueness for arbitrary routes", "should_trigger": false },
+  { "query": "Add a Payload money field", "should_trigger": false },
+  { "query": "Fix Jalali month-only date behavior", "should_trigger": false },
+  { "query": "Repair package-wide Payload Import Map exports", "should_trigger": false },
+  { "query": "Add Payload CMS readiness monitoring", "should_trigger": false },
+  { "query": "Implement generic Next.js dynamic route slugs", "should_trigger": false },
+  { "query": "Migrate decimal prices to minor units", "should_trigger": false },
+  { "query": "Format Jalali timestamps", "should_trigger": false },
+  { "query": "Review all payload-fields factory protected overrides", "should_trigger": false }
+]

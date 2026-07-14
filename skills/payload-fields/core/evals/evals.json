@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-fields-core",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Integrate slug, Jalali date, and money factories into a Payload collection and verify package Admin component resolution.",
+      "expected_output": "Options-object factory usage with correct tuple spread, single fields, server/client boundaries, Import Map validation, and package tests.",
+      "expectations": [
+        "Spreads slugField and inserts date/money fields directly.",
+        "Preserves package-owned component paths and server-safe root imports.",
+        "Builds/tests the package and verifies the consuming Import Map."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Add consumer hooks and admin metadata to all factories without replacing package normalization, validation, timestamp formatting, or Import Map components.",
+      "expected_output": "A source-grounded override design with explicit hook ordering and protected fields.",
+      "expectations": [
+        "Inspects actual spread and hook order in each factory.",
+        "Keeps package hooks and required Admin components authoritative.",
+        "Adds hook-order and protected-override tests."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a Payload config that passes an AI generator callback and API key into slug Admin clientProps and overrides semantic field types.",
+      "expected_output": "A security and contract review that keeps callbacks/secrets server-side and rejects protected overrides.",
+      "expectations": [
+        "Moves generator implementation and secrets into payloadFieldsPlugin.",
+        "Sends only a registered generator key to the client.",
+        "Rejects name/type/component contract replacement."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why Payload cannot resolve an Admin field component after changing its subpath even though the source component compiles.",
+      "expected_output": "An end-to-end trace through factory path, package export, bundler entrypoint, and generated Import Map.",
+      "expectations": [
+        "Checks the exact component path and named export.",
+        "Checks package.json exports and esbuild entrypoints.",
+        "Regenerates and validates the consuming Import Map/Admin build."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Change only the rule for regenerating a locked localized slug when its nested source is cleared.",
+      "expected_output": "A handoff to payload-fields-slug while preserving core protected factory constraints.",
+      "expectations": [
+        "Recognizes slug synchronization as the primary specialized skill.",
+        "Composes with payload-fields-slug rather than broad package rewrite.",
+        "Retains tuple/component/hook invariants from core."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-fields-slug",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add a localized managed slug sourced from title with a synchronized lock and Unicode/Persian normalization.",
+      "expected_output": "A spread slugField tuple with matching localization, locked regeneration, final normalization, and focused tests.",
+      "expectations": [
+        "Spreads both slug and lock fields.",
+        "Matches lock localization to slug localization explicitly.",
+        "Tests create/update/manual normalization behavior."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Preserve a custom previous slug when a nested source changes to empty string, null, or undefined, while regeneration remains enabled.",
+      "expected_output": "A path-presence-aware hook that treats explicit clears as clears and preserves the exact prior slug.",
+      "expectations": [
+        "Distinguishes an absent source path from an explicitly null/undefined value.",
+        "Preserves the custom previous slug for all clear variants.",
+        "Tests dot-path and regeneration behavior through the real hook."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a server slug generator that exposes API keys to clientProps, trusts generator=toString, skips access control, accepts null bodies, and returns raw exceptions.",
+      "expected_output": "A fail-closed registered-generator design with server-only secrets, own-key lookup, structured validation, access, and error suppression.",
+      "expectations": [
+        "Keeps callback/secrets server-side and sends only the generator key.",
+        "Requires auth then explicit access and own-property registry lookup.",
+        "Normalizes null/invalid input and generator failures."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why a nested slug lock toggles correctly but the generator reads the wrong title, and why an unlocked manual slug still changes.",
+      "expected_output": "A source-grounded explanation of sibling-relative lock paths, supplied global source paths, and final manual normalization.",
+      "expectations": [
+        "Distinguishes lock path resolution from getDataByPath(source).",
+        "Requires an explicit nested source path and Admin test.",
+        "Explains that unlocked strings remain subject to formatSlug."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Guarantee globally unique SEO slugs, reserved-word rejection, collision suffixing, and redirects for historical slugs.",
+      "expected_output": "A scope boundary that treats database uniqueness/routing/history as application architecture beyond package normalization.",
+      "expectations": [
+        "Does not claim slugField implements uniqueness or redirects.",
+        "Retains formatSlug only as final normalization where useful.",
+        "Requests application persistence/routing requirements before expanding scope."
+      ]
+    }
+  ]
+}

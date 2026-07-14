@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-fields-money",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add an IRT price field with Persian Admin input, nonnegative minor-unit storage, and REST/GraphQL/Local API examples.",
+      "expected_output": "A moneyField integration whose UI parses explicitly and every server boundary uses safe integer minor units.",
+      "expectations": [
+        "Uses moneyField with minor-unit min/negative policy.",
+        "Keeps API and hooks as integer values without implicit conversion.",
+        "Tests Persian parsing, formatting, and field validation."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Support a custom currency with two fraction digits, negative refunds, exact min/max bounds, Arabic digits, and excess-precision rejection.",
+      "expected_output": "An exact custom currency contract with separate parser and field-policy tests.",
+      "expectations": [
+        "Scales two fraction digits without floating rounding.",
+        "Allows negatives while still enforcing configured bounds.",
+        "Tests Arabic decimal input, padding, and rejected excess precision."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a price field that stores floats, accepts unsafe integers, double-parses API minor units, and silently rounds unsupported currency precision.",
+      "expected_output": "A data-integrity review restoring exact minor-unit and safe-integer boundaries.",
+      "expectations": [
+        "Rejects float/unsafe storage and silent rounding.",
+        "Removes implicit or double conversion from server APIs/hooks.",
+        "Requires an explicit audited migration for existing data."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why parseMoneyToMinorUnits accepts a negative value even though moneyField rejects it, and why a consumer validator never receives a float.",
+      "expected_output": "A distinction between parser syntax and field policy plus built-in-before-consumer validation order.",
+      "expectations": [
+        "Explains that parser does not implement allowNegative.",
+        "Explains package validation short-circuiting before consumer validation.",
+        "Adds separate parser and field tests rather than changing parser semantics."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Implement exchange rates, tax allocation, ledger postings, and accounting rounding across currencies.",
+      "expected_output": "A scope boundary that does not misuse payload-fields-money as an accounting engine.",
+      "expectations": [
+        "Recognizes exchange/accounting logic as outside this skill.",
+        "Retains only the integer storage/input contract where relevant.",
+        "Does not invent package APIs for rates or ledgers."
+      ]
+    }
+  ]
+}

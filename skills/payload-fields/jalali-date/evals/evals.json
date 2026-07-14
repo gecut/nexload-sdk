@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-fields-jalali-date",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add a nullable Jalali publication date field with dayOnly mode, Asia/Tehran display, ISO persistence, and virtual Jalali timestamps.",
+      "expected_output": "A native date-backed factory integration with explicit timezone/null semantics and focused formatter/timestamp/Admin tests.",
+      "expectations": [
+        "Persists ISO/null rather than a Jalali string.",
+        "Treats Asia/Tehran as display configuration only.",
+        "Tests day-only local noon and virtual timestamp behavior."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Fix monthOnly so selecting Jalali 1403-02-15 stores the first Jalali day at noon, including Nowruz boundary tests.",
+      "expected_output": "A Persian DateLib startOfMonth implementation with exact local-noon regression tests.",
+      "expectations": [
+        "Uses Jalali-aware startOfMonth instead of native setDate(1).",
+        "Asserts 1403-02-01 and exact 12:00:00.000.",
+        "Adds boundary coverage without changing ISO persistence."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a date field that stores Jalali strings, trusts HTML min/max for time inputs, crashes on invalid ISO/timezone, and has inaccessible time controls.",
+      "expected_output": "A persistence, validation, robustness, and accessibility review with layered tests.",
+      "expectations": [
+        "Restores native ISO/null persistence.",
+        "Requires code-level time validation and invalid-state handling.",
+        "Requires label association and accessible names."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why dayAndTime loses edited time when a new day is selected and why timeOnly shows 00:00 but saves current minutes.",
+      "expected_output": "A source-grounded diagnosis of current DayPicker replacement and current-Date empty baseline behavior.",
+      "expectations": [
+        "Traces chooseDay replacing the prior selected Date.",
+        "Traces empty timeOnly edits starting from new Date().",
+        "Proposes deterministic component tests before changing the contract."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Fix package-wide Import Map exports and protected overrides for every Payload field factory.",
+      "expected_output": "A handoff to payload-fields-core while retaining Jalali component path requirements if relevant.",
+      "expectations": [
+        "Recognizes package-wide architecture as payload-fields-core work.",
+        "Composes with core only for the Jalali Admin subpaths.",
+        "Does not expand date behavior unnecessarily."
+      ]
+    }
+  ]
+}

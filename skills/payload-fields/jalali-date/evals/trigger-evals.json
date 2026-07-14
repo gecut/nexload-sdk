@@ -1,0 +1,22 @@
+[
+  { "query": "Add a Jalali date field to Payload CMS", "should_trigger": true },
+  { "query": "Fix monthOnly Jalali first-day persistence", "should_trigger": true },
+  { "query": "Choose dayOnly dayAndTime timeOnly or monthOnly", "should_trigger": true },
+  { "query": "Keep Jalali presentation while storing native ISO dates", "should_trigger": true },
+  { "query": "Debug Payload Jalali display timezone behavior", "should_trigger": true },
+  { "query": "Add virtual Jalali createdAt and updatedAt fields", "should_trigger": true },
+  { "query": "Test clear and null behavior in the Jalali Admin field", "should_trigger": true },
+  { "query": "Why does dayAndTime lose the selected time?", "should_trigger": true },
+  { "query": "Make timeOnly input deterministic and accessible", "should_trigger": true },
+  { "query": "Format Jalali dates with Persian or Latin digits", "should_trigger": true },
+  { "query": "Fix protected overrides across all payload-fields factories", "should_trigger": false },
+  { "query": "Parse Persian money into minor units", "should_trigger": false },
+  { "query": "Regenerate a localized slug when title changes", "should_trigger": false },
+  { "query": "Secure a server-side slug generator", "should_trigger": false },
+  { "query": "Repair Payload Admin Import Map for all components", "should_trigger": false },
+  { "query": "Add Payload CMS readiness health checking", "should_trigger": false },
+  { "query": "Use a generic Gregorian backend date calculation", "should_trigger": false },
+  { "query": "Configure Payload collection timestamps", "should_trigger": false },
+  { "query": "Validate money min and max bounds", "should_trigger": false },
+  { "query": "Normalize Unicode slug characters", "should_trigger": false }
+]
