@@ -1,5 +1,11 @@
 # @nexload-sdk/jwt
 
+## 1.1.0
+
+### Minor Changes
+
+- df4443b: republish
+
 ## 1.0.1
 
 ### Patch Changes

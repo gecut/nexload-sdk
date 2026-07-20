@@ -1,5 +1,11 @@
 # @nexload-sdk/iconcraft
 
+## 2.1.0
+
+### Minor Changes
+
+- df4443b: republish
+
 ## 2.0.1
 
 ### Patch Changes

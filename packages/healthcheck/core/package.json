@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/healthcheck",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Runtime-neutral health orchestration and monitoring report foundation for production services.",
   "keywords": [
     "nodejs",

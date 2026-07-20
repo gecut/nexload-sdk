@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 3.1.0
+
+### Minor Changes
+
+- df4443b: republish
+
 ## 3.0.0
 
 ### Major Changes

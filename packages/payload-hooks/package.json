@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/payload-hooks",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "private": false,
   "description": "Effortless, type-safe logging for Payload CMS collection operations.",
   "keywords": [
@@ -31,7 +31,7 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "@nexload-sdk/logger": "^4.0.1",
+    "@nexload-sdk/logger": "^4.1.0",
     "payload": "catalog:"
   },
   "devDependencies": {

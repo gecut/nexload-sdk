@@ -1,5 +1,16 @@
 # @nexload-sdk/healthcheck-node
 
+## 2.1.0
+
+### Minor Changes
+
+- df4443b: republish
+
+### Patch Changes
+
+- Updated dependencies [df4443b]
+  - @nexload-sdk/healthcheck@4.1.0
+
 ## 2.0.1
 
 ### Patch Changes

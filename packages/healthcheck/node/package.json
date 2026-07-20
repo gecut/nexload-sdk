@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/healthcheck-node",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.",
   "keywords": [
     "nodejs",

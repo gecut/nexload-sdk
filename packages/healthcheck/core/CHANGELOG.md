@@ -1,5 +1,11 @@
 # @nexload-sdk/healthcheck
 
+## 4.1.0
+
+### Minor Changes
+
+- df4443b: republish
+
 ## 4.0.1
 
 ### Patch Changes

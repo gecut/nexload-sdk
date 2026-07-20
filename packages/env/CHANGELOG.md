@@ -1,5 +1,16 @@
 # @nexload-sdk/env
 
+## 3.1.0
+
+### Minor Changes
+
+- df4443b: republish
+
+### Patch Changes
+
+- Updated dependencies [df4443b]
+  - @nexload-sdk/logger@4.1.0
+
 ## 3.0.1
 
 ### Patch Changes
