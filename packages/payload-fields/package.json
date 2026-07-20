@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/payload-fields",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Production-grade semantic field factories and Admin integrations for Payload CMS.",
   "keywords": [
     "payload",

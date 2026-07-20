@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-fields
 
+## 3.0.0
+
+### Major Changes
+
+- 19ae881: Rebuild Payload field factories around managed Unicode slugs, Jalali dates, integer minor-unit money values, and server-side slug generation. Month-only Jalali selections now persist the first Jalali day of the selected month at canonical local noon. Slug generation rejects malformed or inherited registry keys, and locked slugs retain their prior value when a source is cleared with null. Documented `./slug`, `./date`, and `./money` server subpaths now ship executable ESM and CommonJS outputs.
+
 ## 2.0.1
 
 ### Patch Changes

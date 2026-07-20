@@ -1,0 +1,17 @@
+---
+title: Testing and compatibility
+description: Supported versions, test layers, and consumer verification expectations.
+---
+
+| Runtime | Minimum lane | Current lane |
+|---|---:|---:|
+| Node.js | 20.9.0 | 22 |
+| Payload | 3.85.0 | 3.86.0 |
+| Zod | 4.0.0 | 4.4.3 |
+| PostgreSQL | 18 | 18 |
+
+Pull requests exercise the minimum and current lanes. Main, release tags, and manual runs exercise the full Payload/Zod cross-product. Every `@payloadcms/*` dependency in a lane matches Payload exactly.
+
+Package verification includes public-interface unit tests, TypeScript inference tests, SQLite boot and persistence, PostgreSQL relationships and IDs, generated Payload types, and a packed independent consumer. The tarball test checks runtime imports, declarations, exports, config compilation, and rejection of deep imports.
+
+Canonical schema learning tests lock public Payload/Zod behavior at both supported edges rather than relying on private library internals.

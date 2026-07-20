@@ -1,5 +1,13 @@
 # @nexload-sdk/healthcheck-prometheus
 
+## 2.0.1
+
+### Patch Changes
+
+- ad1d0c5: Harden public health report redaction, honor timeout degradation policy, fail closed on invalid Next.js route protection, and emit optional Prometheus HELP descriptions.
+- Updated dependencies [ad1d0c5]
+  - @nexload-sdk/healthcheck@4.0.1
+
 ## 2.0.0
 
 ### Major Changes

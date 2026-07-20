@@ -8,6 +8,7 @@ on:
       - "packages/healthcheck/**"
       - "packages/payload-fields/**"
       - "packages/payload-editor/**"
+      - "packages/payload-schema/**"
       - "skills/**"
       - "scripts/validate-docs.mjs"
       - "scripts/generate-docs-llms.mjs"

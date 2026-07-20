@@ -33,6 +33,7 @@ export default defineConfig({
     "/payload-fields/money/": `${docsBase}/packages/payload-fields/money/`,
     "/payload-fields/migration/": `${docsBase}/packages/payload-fields/migration/`,
     "/payload-editor/": `${docsBase}/packages/payload-editor/`,
+    "/payload-schema/": `${docsBase}/packages/payload-schema/`,
     "/llm/overview/": `${docsBase}/agents/`,
     "/llm/agent-skills/": `${docsBase}/agents/install/`,
   },
@@ -90,6 +91,12 @@ export default defineConfig({
               label: "Payload Fields",
               items: [
                 { autogenerate: { directory: "packages/payload-fields" } },
+              ],
+            },
+            {
+              label: "Payload Schema",
+              items: [
+                { autogenerate: { directory: "packages/payload-schema" } },
               ],
             },
           ],

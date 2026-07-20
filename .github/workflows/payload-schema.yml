@@ -1,0 +1,117 @@
+name: Payload schema compatibility
+
+on:
+  pull_request:
+    paths:
+      - "packages/payload-schema/**"
+      - "tools/bundler/**"
+      - "pnpm-lock.yaml"
+      - "package.json"
+      - ".changeset/**"
+      - "skills/payload-schema/**"
+      - "apps/docs/src/content/docs/packages/payload-schema/**"
+      - "scripts/validate-docs.mjs"
+      - "scripts/generate-docs-llms.mjs"
+      - "scripts/validate-skills.mjs"
+      - ".github/scripts/payload-schema-compat.sh"
+      - ".github/workflows/payload-schema.yml"
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - "packages/payload-schema/**"
+      - "tools/bundler/**"
+      - "pnpm-lock.yaml"
+      - "package.json"
+      - ".changeset/**"
+      - "skills/payload-schema/**"
+      - "apps/docs/**"
+      - "scripts/validate-docs.mjs"
+      - "scripts/generate-docs-llms.mjs"
+      - "scripts/validate-skills.mjs"
+      - ".github/scripts/payload-schema-compat.sh"
+      - ".github/workflows/payload-schema.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pull-request:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { node: 20.9.0, payload: 3.85.0, zod: 4.0.0 }
+          - { node: 22, payload: 3.86.0, zod: 4.4.3 }
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: payload_schema
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d payload_schema"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PAYLOAD_SCHEMA_POSTGRES_URL: postgresql://postgres:postgres@127.0.0.1:5432/payload_schema
+      PAYLOAD_VERSION: ${{ matrix.payload }}
+      ZOD_VERSION: ${{ matrix.zod }}
+      RUN_META_CHECKS: ${{ matrix.payload == '3.86.0' && matrix.zod == '4.4.3' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: bash .github/scripts/payload-schema-compat.sh
+
+  full-matrix:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        payload: [3.85.0, 3.86.0]
+        zod: [4.0.0, 4.4.3]
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: payload_schema
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d payload_schema"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PAYLOAD_SCHEMA_POSTGRES_URL: postgresql://postgres:postgres@127.0.0.1:5432/payload_schema
+      PAYLOAD_VERSION: ${{ matrix.payload }}
+      ZOD_VERSION: ${{ matrix.zod }}
+      RUN_META_CHECKS: ${{ matrix.payload == '3.86.0' && matrix.zod == '4.4.3' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: bash .github/scripts/payload-schema-compat.sh

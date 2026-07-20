@@ -1,0 +1,168 @@
+import { defineEntity, field } from "../../src/index.js";
+
+const fields1 = {
+  field001: field.text(),
+  field002: field.text(),
+  field003: field.text(),
+  field004: field.text(),
+  field005: field.number(),
+  field006: field.text(),
+  field007: field.text(),
+  field008: field.text(),
+  field009: field.text(),
+  field010: field.number(),
+  field011: field.text(),
+  field012: field.text(),
+  field013: field.text(),
+  field014: field.text(),
+  field015: field.number(),
+  field016: field.text(),
+  field017: field.text(),
+  field018: field.text(),
+  field019: field.text(),
+  field020: field.number(),
+};
+
+const fields2 = {
+  field021: field.text(),
+  field022: field.text(),
+  field023: field.text(),
+  field024: field.text(),
+  field025: field.number(),
+  field026: field.text(),
+  field027: field.text(),
+  field028: field.text(),
+  field029: field.text(),
+  field030: field.number(),
+  field031: field.text(),
+  field032: field.text(),
+  field033: field.text(),
+  field034: field.text(),
+  field035: field.number(),
+  field036: field.text(),
+  field037: field.text(),
+  field038: field.text(),
+  field039: field.text(),
+  field040: field.number(),
+};
+
+const fields3 = {
+  field041: field.text(),
+  field042: field.text(),
+  field043: field.text(),
+  field044: field.text(),
+  field045: field.number(),
+  field046: field.text(),
+  field047: field.text(),
+  field048: field.text(),
+  field049: field.text(),
+  field050: field.number(),
+  field051: field.text(),
+  field052: field.text(),
+  field053: field.text(),
+  field054: field.text(),
+  field055: field.number(),
+  field056: field.text(),
+  field057: field.text(),
+  field058: field.text(),
+  field059: field.text(),
+  field060: field.number(),
+};
+
+const fields4 = {
+  field061: field.text(),
+  field062: field.text(),
+  field063: field.text(),
+  field064: field.text(),
+  field065: field.number(),
+  field066: field.text(),
+  field067: field.text(),
+  field068: field.text(),
+  field069: field.text(),
+  field070: field.number(),
+  field071: field.text(),
+  field072: field.text(),
+  field073: field.text(),
+  field074: field.text(),
+  field075: field.number(),
+  field076: field.text(),
+  field077: field.text(),
+  field078: field.text(),
+  field079: field.text(),
+  field080: field.number(),
+};
+
+const fields5 = {
+  field081: field.text(),
+  field082: field.text(),
+  field083: field.text(),
+  field084: field.text(),
+  field085: field.number(),
+  field086: field.text(),
+  field087: field.text(),
+  field088: field.text(),
+  field089: field.text(),
+  field090: field.number(),
+  field091: field.text(),
+  field092: field.text(),
+  field093: field.text(),
+  field094: field.text(),
+  field095: field.number(),
+  field096: field.text(),
+  field097: field.text(),
+  field098: field.text(),
+  field099: field.text(),
+  field100: field.number(),
+};
+
+const entity = defineEntity({
+  name: "Performance",
+  fields: {
+    ...fields1,
+    ...fields2,
+    ...fields3,
+    ...fields4,
+    ...fields5,
+    owner: field.relationship({ relationTo: "users" }),
+    nested: field.group({
+      fields: {
+        level2: field.group({
+          fields: {
+            level3: field.array({
+              fields: {
+                label: field.text(),
+                relation: field.relationship({ relationTo: ["posts", "pages"] }),
+              },
+            }),
+          },
+        }),
+      },
+    }),
+  },
+});
+
+const schemas = [
+  entity.schema(({ pick }) => pick(["field001", "field021", "owner"])),
+  entity.schema(({ pick }) => pick(["field002", "field022", "owner"])),
+  entity.schema(({ pick }) => pick(["field003", "field023", "owner"])),
+  entity.schema(({ pick }) => pick(["field004", "field024", "owner"])),
+  entity.schema(({ pick }) => pick(["field005", "field025", "owner"])),
+  entity.schema(({ pick }) => pick(["field006", "field026", "owner"])),
+  entity.schema(({ pick }) => pick(["field007", "field027", "owner"])),
+  entity.schema(({ pick }) => pick(["field008", "field028", "owner"])),
+  entity.schema(({ pick }) => pick(["field009", "field029", "owner"])),
+  entity.schema(({ pick }) => pick(["field010", "field030", "owner"])),
+  entity.schema(({ pick }) => pick(["field011", "field031", "owner"])),
+  entity.schema(({ pick }) => pick(["field012", "field032", "owner"])),
+  entity.schema(({ pick }) => pick(["field013", "field033", "owner"])),
+  entity.schema(({ pick }) => pick(["field014", "field034", "owner"])),
+  entity.schema(({ pick }) => pick(["field015", "field035", "owner"])),
+  entity.schema(({ pick }) => pick(["field016", "field036", "owner"])),
+  entity.schema(({ pick }) => pick(["field017", "field037", "owner"])),
+  entity.schema(({ pick }) => pick(["field018", "field038", "owner"])),
+  entity.schema(({ pick }) => pick(["field019", "field039", "owner"])),
+  entity.schema(({ pick }) => pick(["field020", "field040", "owner"])),
+];
+
+void schemas;
+

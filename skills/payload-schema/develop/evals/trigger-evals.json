@@ -1,0 +1,22 @@
+[
+  { "query": "Implement a new factory inside @nexload-sdk/payload-schema", "should_trigger": true },
+  { "query": "Refactor payload-schema private IR and field compiler", "should_trigger": true },
+  { "query": "Fix canonical beforeValidate adapter error paths", "should_trigger": true },
+  { "query": "Review PayloadSchemaError codes and safe serialization", "should_trigger": true },
+  { "query": "Add payload-schema compatibility lanes for Payload and Zod", "should_trigger": true },
+  { "query": "Diagnose packed payload-schema consumer declaration failure", "should_trigger": true },
+  { "query": "Change descriptor cloning behavior in payload-schema", "should_trigger": true },
+  { "query": "Audit payload-schema root exports and deep import boundaries", "should_trigger": true },
+  { "query": "Prepare payload-schema v1 release docs, skills, and Changeset", "should_trigger": true },
+  { "query": "Add nested type tests for payload-schema group and array", "should_trigger": true },
+  { "query": "Use defineEntity in a product collection", "should_trigger": false },
+  { "query": "Migrate a project schema to payload-schema factories", "should_trigger": false },
+  { "query": "Configure a generic Payload relationship field", "should_trigger": false },
+  { "query": "Write an ordinary Zod transform", "should_trigger": false },
+  { "query": "Fix Payload access control for admins", "should_trigger": false },
+  { "query": "Add PostgreSQL to a Payload app", "should_trigger": false },
+  { "query": "Develop a Payload Lexical editor feature", "should_trigger": false },
+  { "query": "Create a Payload UI component", "should_trigger": false },
+  { "query": "Choose a static default for one consumer entity", "should_trigger": false },
+  { "query": "Build a populated API projection from an entity", "should_trigger": false }
+]

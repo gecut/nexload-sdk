@@ -1,0 +1,27 @@
+---
+title: Schema derivation
+description: Reuse canonical field schemas in strict picks and arbitrary Zod contracts.
+---
+
+`entity.schema` accepts any Zod result, including primitives, transforms, codecs, unions, tuples, arrays, and objects.
+
+```ts
+const searchSchema = productEntity.schema(({ fields, z }) =>
+  z.object({ query: fields.title.optional() }).transform(({ query }) => query ?? ""),
+);
+```
+
+`pick` is strict by default and preserves caller key order. Selected properties are required unless explicitly made optional. Nullability comes from the field schema and is independent of property presence.
+
+```ts
+const patchSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "inventory"], {
+    optional: "all",
+    required: ["title"],
+  }),
+);
+```
+
+Schema-less fields are absent from the typed context. Untyped JavaScript calls receive `UNKNOWN_FIELD` or `SCHEMA_UNAVAILABLE` rather than silently dropping data.
+
+Arbitrary schemas returned from `entity.schema` may be async. Canonical field schemas must be synchronous; async behavior is reported when synchronous parsing first encounters a Promise.

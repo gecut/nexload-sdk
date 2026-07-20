@@ -1,0 +1,22 @@
+---
+title: Payload Schema errors
+description: Structured configuration failures, Payload validation failures, phases, and safe serialization.
+---
+
+`PayloadSchemaError` is reserved for developer/configuration failures. Its code union is exactly `keyof PayloadSchemaErrorDataMap`; phases are `definition`, `payload-compilation`, `schema-derivation`, and `internal`.
+
+Common codes include `INVALID_FIELD_CONFIGURATION`, `INVALID_DEFAULT_VALUE`, `CONFLICTING_DEFAULT_CONFIGURATION`, `RESERVED_PAYLOAD_OPTION`, `INVALID_PAYLOAD_FIELD`, `UNKNOWN_FIELD`, `SCHEMA_UNAVAILABLE`, and `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED`.
+
+```ts
+try {
+  defineProductEntity();
+} catch (error) {
+  if (isPayloadSchemaError(error, "INVALID_DEFAULT_VALUE")) {
+    console.error(error.data.fieldPath, error.data.issues);
+  }
+}
+```
+
+`toJSON()` includes only name, code, phase, message, and safe data. It excludes stack, cause, raw values, schemas, functions, complete config, and secrets.
+
+Invalid field data flowing through Payload becomes Payload's `ValidationError`, not `PayloadSchemaError`.

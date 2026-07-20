@@ -1,0 +1,23 @@
+---
+title: Payload Schema field reference
+description: Canonical values, normalization, defaults, and Payload mappings for every v1 factory.
+---
+
+| Factory | Payload type | Canonical value |
+|---|---|---|
+| `field.text`, `field.textarea` | text / textarea | string with trim, case, length, and pattern rules |
+| `field.slug` | text | NFKC normalized lowercase slug |
+| `field.number` | number | finite number with integer, safe, range, and multiple rules |
+| `field.money` | number | safe integer; currency is inspection metadata |
+| `field.boolean` | checkbox | boolean |
+| `field.date` | date | timezone-qualified datetime normalized to UTC ISO |
+| `field.select` | select | literal union or array of literals |
+| `field.relationship`, `field.upload` | relationship / upload | ID or polymorphic `{ relationTo, value }` reference |
+| `field.group` | group | strict recursive object when every descendant has a schema |
+| `field.array` | array | strict recursive object rows without Payload row IDs |
+| `field.richText` | richText | consumer-provided Zod schema |
+| `field.native` | native data field | optional consumer-provided Zod schema |
+
+`defaultValue` is static, parsed at entity definition, and copied to Payload without adding `.default()` to Zod. `dynamicDefaultValue` is a native Payload function forwarded opaquely. Setting both is invalid. `payload.defaultValue` is always reserved.
+
+Text transforms run in fixed order: type, trim, case, length, pattern, customizer. Date bounds compare instants. Populated relationship documents are never accepted by canonical relationship schemas.

@@ -1,0 +1,21 @@
+---
+title: Payload Schema
+description: Define canonical field semantics once and reuse them in Payload and Zod contracts.
+---
+
+import DocLinkCard from "../../../../components/docs/DocLinkCard.astro";
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/payload-schema")} eyebrow="Canonical Payload and Zod fields" />
+
+`@nexload-sdk/payload-schema` owns intrinsic field validation and normalization. One entity definition compiles fresh Payload fields and exposes the same canonical Zod schemas for application contracts.
+
+It does not create collections, infer CRUD DTOs, model populated relationships, own authorization, or replace Payload-generated persistence types.
+
+<div class="doc-card-grid">
+  <DocLinkCard title="Quick start" href="/packages/payload-schema/quick-start/" description="Define an entity and attach its fields to a collection." />
+  <DocLinkCard title="Architecture" href="/packages/payload-schema/architecture/" description="Understand ownership, lifecycle, and private IR boundaries." />
+  <DocLinkCard title="Field reference" href="/packages/payload-schema/fields/" description="Review every v1 factory and canonical value shape." />
+  <DocLinkCard title="Schema derivation" href="/packages/payload-schema/schema-derivation/" description="Build strict picks or arbitrary Zod schemas." />
+</div>

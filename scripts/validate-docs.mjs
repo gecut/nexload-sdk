@@ -8,6 +8,7 @@ const documentedRoots = [
   "packages/healthcheck",
   "packages/payload-fields",
   "packages/payload-editor",
+  "packages/payload-schema",
   "agents",
   "community",
   "start",
@@ -46,6 +47,10 @@ const inventory = {
   "@nexload-sdk/payload-editor": {
     source: "packages/payload-editor/src",
     symbols: ["createEditor", "defineEditorPreset", "PayloadEditorConfigError"],
+  },
+  "@nexload-sdk/payload-schema": {
+    source: "packages/payload-schema/src",
+    symbols: ["defineEntity", "field", "defaultIdSchema", "PayloadSchemaError", "isPayloadSchemaError"],
   },
 };
 

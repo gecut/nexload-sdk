@@ -13,6 +13,9 @@ Agent Skills are task-specific, progressively disclosed instructions distributed
     Three Skills cover core semantic configuration, preset contracts, and native Payload extensions.
 
 
+    Two Skills separate entity consumption and migration from package compiler, adapter, and release development.
+
+
 
 ## Use the smallest relevant skill
 
@@ -24,7 +27,7 @@ Every Skill is self-contained for its primary task. A sibling Skill may be recom
 
 # /agents/install/
 
-The repository ships 14 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
+The repository ships 16 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
 
 
 
@@ -74,6 +77,15 @@ The repository ships 14 validated, self-contained Skills. The official `skills` 
       - evals
   - payload-editor
     - core
+      - SKILL.md
+      - references
+      - evals
+  - payload-schema
+    - use
+      - SKILL.md
+      - references
+      - evals
+    - develop
       - SKILL.md
       - references
       - evals
@@ -954,6 +966,247 @@ Only the generator key reaches client props. The implementation remains on the s
 
 ---
 
+# /packages/payload-schema/architecture/
+
+Factories create immutable public definitions backed by private symbol state. `defineEntity` validates and normalizes that state into a closure-owned IR; neither the IR nor compiler is exported.
+
+```text
+field factory → immutable definition → defineEntity
+  ├─ payload facade → fresh Payload field configs
+  ├─ schema context → canonical Zod contracts
+  └─ inspect → safe deterministic metadata
+```
+
+Canonical schemas own intrinsic type checks, constraints, and same-type normalization. Payload owns required-field presence, persistence, collection lifecycle, access, drafts, localization, and populated documents. Application schemas own cross-field and use-case rules.
+
+Each schema-capable compiled field receives one server-side `beforeValidate` adapter. Consumer `beforeValidate` hooks run first; the canonical adapter runs last and returns the parsed value. Group and array parents validate only container shape and row limits because Payload traverses children separately.
+
+Every `payload.all()`, `payload.pick()`, and `payload.field()` call deep-clones plain containers by descriptor. Functions, editors, components, regular expressions, maps, sets, and class instances remain opaque references; getters are not executed while cloning.
+
+---
+
+# /packages/payload-schema/errors/
+
+`PayloadSchemaError` is reserved for developer/configuration failures. Its code union is exactly `keyof PayloadSchemaErrorDataMap`; phases are `definition`, `payload-compilation`, `schema-derivation`, and `internal`.
+
+Common codes include `INVALID_FIELD_CONFIGURATION`, `INVALID_DEFAULT_VALUE`, `CONFLICTING_DEFAULT_CONFIGURATION`, `RESERVED_PAYLOAD_OPTION`, `INVALID_PAYLOAD_FIELD`, `UNKNOWN_FIELD`, `SCHEMA_UNAVAILABLE`, and `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED`.
+
+```ts
+try {
+  defineProductEntity();
+} catch (error) {
+  if (isPayloadSchemaError(error, "INVALID_DEFAULT_VALUE")) {
+    console.error(error.data.fieldPath, error.data.issues);
+  }
+}
+```
+
+`toJSON()` includes only name, code, phase, message, and safe data. It excludes stack, cause, raw values, schemas, functions, complete config, and secrets.
+
+Invalid field data flowing through Payload becomes Payload's `ValidationError`, not `PayloadSchemaError`.
+
+---
+
+# /packages/payload-schema/fields/
+
+| Factory | Payload type | Canonical value |
+|---|---|---|
+| `field.text`, `field.textarea` | text / textarea | string with trim, case, length, and pattern rules |
+| `field.slug` | text | NFKC normalized lowercase slug |
+| `field.number` | number | finite number with integer, safe, range, and multiple rules |
+| `field.money` | number | safe integer; currency is inspection metadata |
+| `field.boolean` | checkbox | boolean |
+| `field.date` | date | timezone-qualified datetime normalized to UTC ISO |
+| `field.select` | select | literal union or array of literals |
+| `field.relationship`, `field.upload` | relationship / upload | ID or polymorphic `{ relationTo, value }` reference |
+| `field.group` | group | strict recursive object when every descendant has a schema |
+| `field.array` | array | strict recursive object rows without Payload row IDs |
+| `field.richText` | richText | consumer-provided Zod schema |
+| `field.native` | native data field | optional consumer-provided Zod schema |
+
+`defaultValue` is static, parsed at entity definition, and copied to Payload without adding `.default()` to Zod. `dynamicDefaultValue` is a native Payload function forwarded opaquely. Setting both is invalid. `payload.defaultValue` is always reserved.
+
+Text transforms run in fixed order: type, trim, case, length, pattern, customizer. Date bounds compare instants. Populated relationship documents are never accepted by canonical relationship schemas.
+
+---
+
+# /packages/payload-schema/
+
+`@nexload-sdk/payload-schema` owns intrinsic field validation and normalization. One entity definition compiles fresh Payload fields and exposes the same canonical Zod schemas for application contracts.
+
+It does not create collections, infer CRUD DTOs, model populated relationships, own authorization, or replace Payload-generated persistence types.
+
+<div class="doc-card-grid">
+
+
+
+
+</div>
+
+---
+
+# /packages/payload-schema/migration/
+
+1. Choose one small field group with duplicated Payload and Zod rules.
+2. Define those intrinsic rules with `field.*` factories.
+3. Replace only the corresponding native collection entries with `entity.payload.pick(...)`.
+4. Rebuild existing input or output schemas through `entity.schema(...)`.
+5. Verify Local API writes, generated Payload types, and existing hooks before expanding the migration.
+
+Keep collection access, hooks, tabs, uploads, drafts, localization, and business workflows in their current Payload owners. Use `field.native` for unsupported data fields; keep layout fields directly in the collection.
+
+Static defaults move to factory-level `defaultValue`. Dynamic Payload defaults move to `dynamicDefaultValue`. Never copy defaults into Zod `.default()` unless a specific consumer contract independently requires that behavior.
+
+Migration is reversible: compiled fields remain ordinary Payload field configs and canonical schemas remain ordinary Zod schemas.
+
+---
+
+# /packages/payload-schema/native-fields/
+
+Use `field.native` for data-affecting Payload types not covered by a built-in factory.
+
+```ts
+
+const location = field.native({
+  payload: { type: "point" },
+  schema: z.tuple([z.number(), z.number()]),
+});
+```
+
+Without `schema`, the field still compiles for Payload but is omitted from the schema context. A group or array containing it also becomes schema-unavailable; the picker reports the first blocking descendant path. Static defaults require a schema, while `dynamicDefaultValue` remains allowed.
+
+Layout and UI fields such as rows, tabs, and collapsibles do not represent entity data and are rejected. Compose those directly in the Payload collection around `entity.payload.pick(...)`.
+
+Native `validate` and hooks remain consumer-owned. The package only appends its canonical hook when a schema exists.
+
+---
+
+# /packages/payload-schema/payload-integration/
+
+The entity is not a collection builder. Keep collection lifecycle and layout native:
+
+```ts
+export const Products = {
+  slug: "products",
+  hooks: { beforeChange: [applyBusinessRules] },
+  fields: [
+    { type: "tabs", tabs: [
+      { label: "Content", fields: productEntity.payload.pick(["title", "slug"]) },
+      { label: "Stock", fields: productEntity.payload.pick(["inventory"]) },
+    ] },
+  ],
+};
+```
+
+The canonical adapter is a server-side field `beforeValidate` hook. It passes `undefined` through for Payload required/default handling, returns normalized valid values, and converts Zod issues to Payload `ValidationError` entries with dot paths such as `gallery.0.alt`.
+
+Consumer field hooks are cloned and preserved. Consumer `beforeValidate` hooks run before the package adapter. Native `validate` is not replaced or translated.
+
+Keep all Payload and `@payloadcms/*` packages on the same exact version. Payload-generated types remain authoritative for persisted documents.
+
+---
+
+# /packages/payload-schema/projections/
+
+Canonical relationship fields accept IDs only. A populated document is a consumer output concern:
+
+```ts
+const productCardSchema = productEntity.schema(({ fields, z }) =>
+  z.object({
+    id: productEntity.idSchema,
+    title: fields.title,
+    category: z.object({ id: z.union([z.string(), z.number()]), title: z.string() }),
+  }),
+);
+```
+
+Keep projections small and named by use case. Validate external or serialized output at its boundary. Do not treat `InferEntityFields` as a persisted document model; it describes canonical field values only.
+
+This separation prevents Payload population depth, access behavior, and generated document types from leaking into reusable field definitions.
+
+---
+
+# /packages/payload-schema/quick-start/
+
+Supported versions are Node `>=20.9.0`, Payload `>=3.85.0 <4`, and Zod `>=4 <5`.
+
+```ts
+
+export const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true }),
+    slug: field.slug({ required: true }),
+    inventory: field.number({ integer: true, safe: true, defaultValue: 0 }),
+  },
+});
+
+export const Products = {
+  slug: "products",
+  fields: productEntity.payload.all(),
+};
+```
+
+Build application contracts explicitly:
+
+```ts
+export const createProductSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "slug", "inventory"], { optional: ["inventory"] }),
+);
+```
+
+---
+
+# /packages/payload-schema/reference-api/
+
+Stable root types include all entity, field option, inference, inspection, picker, and error-contract types. Compiler, IR, registry, adapter internals, and deep imports are not public.
+
+---
+
+# /packages/payload-schema/schema-derivation/
+
+`entity.schema` accepts any Zod result, including primitives, transforms, codecs, unions, tuples, arrays, and objects.
+
+```ts
+const searchSchema = productEntity.schema(({ fields, z }) =>
+  z.object({ query: fields.title.optional() }).transform(({ query }) => query ?? ""),
+);
+```
+
+`pick` is strict by default and preserves caller key order. Selected properties are required unless explicitly made optional. Nullability comes from the field schema and is independent of property presence.
+
+```ts
+const patchSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "inventory"], {
+    optional: "all",
+    required: ["title"],
+  }),
+);
+```
+
+Schema-less fields are absent from the typed context. Untyped JavaScript calls receive `UNKNOWN_FIELD` or `SCHEMA_UNAVAILABLE` rather than silently dropping data.
+
+Arbitrary schemas returned from `entity.schema` may be async. Canonical field schemas must be synchronous; async behavior is reported when synchronous parsing first encounters a Promise.
+
+---
+
+# /packages/payload-schema/testing-compatibility/
+
+| Runtime | Minimum lane | Current lane |
+|---|---:|---:|
+| Node.js | 20.9.0 | 22 |
+| Payload | 3.85.0 | 3.86.0 |
+| Zod | 4.0.0 | 4.4.3 |
+| PostgreSQL | 18 | 18 |
+
+Pull requests exercise the minimum and current lanes. Main, release tags, and manual runs exercise the full Payload/Zod cross-product. Every `@payloadcms/*` dependency in a lane matches Payload exactly.
+
+Package verification includes public-interface unit tests, TypeScript inference tests, SQLite boot and persistence, PostgreSQL relationships and IDs, generated Payload types, and a packed independent consumer. The tarball test checks runtime imports, declarations, exports, config compilation, and rejection of deep imports.
+
+Canonical schema learning tests lock public Payload/Zod behavior at both supported edges rather than relying on private library internals.
+
+---
+
 # /start/choose-a-package/
 
 ## Choose by problem
@@ -964,11 +1217,13 @@ Only the generator key reaches client props. The implementation remains on the s
 | ship a Node or container health endpoint | `@nexload-sdk/healthcheck-node` | `@nexload-sdk/healthcheck-next` for App Router routes |
 | build Payload fields with Persian-aware UI | `@nexload-sdk/payload-fields` | its generated Admin Import Map subpaths |
 | standardize Payload Lexical editor configuration | `@nexload-sdk/payload-editor` | native extensions for project-owned features and Blocks |
+| reuse canonical field validation across Payload and application contracts | `@nexload-sdk/payload-schema` | native fields for unsupported data types and layout fields outside entities |
 | validate environment configuration | `@nexload-sdk/env` | Docs planned |
 | use structured logs | `@nexload-sdk/logger` | Docs planned |
 | create policy-driven JWTs | `@nexload-sdk/jwt` | Docs planned |
 
 ## Fully documented paths
+
 
 
 
@@ -985,6 +1240,7 @@ Packages marked `Docs planned` remain available from npm and their package READM
 Nexload SDK is not a single application framework. Each package has a narrow ownership boundary and can be installed independently.
 
 ## Package families
+
 
 
 

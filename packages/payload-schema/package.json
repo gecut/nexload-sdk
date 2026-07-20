@@ -1,0 +1,71 @@
+{
+  "name": "@nexload-sdk/payload-schema",
+  "version": "1.0.0",
+  "description": "Canonical Payload field definitions with reusable Zod schemas.",
+  "keywords": [
+    "payload",
+    "payloadcms",
+    "zod",
+    "schema",
+    "typescript",
+    "nexload",
+    "sdk"
+  ],
+  "author": "GecutWeb",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint src --ext .ts",
+    "test": "pnpm build && node --test tests/unit/*.test.mjs",
+    "test:types": "tsc --project tests/types/tsconfig.json",
+    "test:sqlite": "pnpm build && node --test tests/integration/sqlite.test.mjs",
+    "test:postgres": "pnpm build && node --test tests/integration/postgres.test.mjs",
+    "test:consumer": "pnpm build && node tests/consumer-smoke.mjs 3.86.0 4.4.3",
+    "test:compat": "pnpm build && node tests/consumer-smoke.mjs"
+  },
+  "peerDependencies": {
+    "payload": ">=3.85.0 <4.0.0",
+    "zod": ">=4.0.0 <5.0.0"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@payloadcms/db-postgres": "3.86.0",
+    "@payloadcms/db-sqlite": "3.86.0",
+    "@payloadcms/next": "3.86.0",
+    "@payloadcms/richtext-lexical": "3.86.0",
+    "@types/node": "catalog:",
+    "@types/react": "^19.2.0",
+    "eslint": "catalog:",
+    "next": "15.4.11",
+    "payload": "3.86.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "typescript": "catalog:",
+    "zod": "4.4.3"
+  }
+}

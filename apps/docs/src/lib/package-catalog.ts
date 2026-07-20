@@ -13,6 +13,7 @@ import orpcClient from "../../../../packages/orpc-client/package.json";
 import payloadFields from "../../../../packages/payload-fields/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
 import payloadHooks from "../../../../packages/payload-hooks/package.json";
+import payloadSchema from "../../../../packages/payload-schema/package.json";
 import eslintConfig from "../../../../tools/eslint-config/package.json";
 import typescriptConfig from "../../../../tools/typescript-config/package.json";
 
@@ -125,6 +126,15 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
       "payload-fields-jalali-date",
       "payload-fields-money",
     ],
+  },
+  {
+    manifest: payloadSchema,
+    family: "payload",
+    sourcePath: "packages/payload-schema",
+    docsPath: "/packages/payload-schema/",
+    status: documented,
+    runtimes: ["Payload CMS", "Node.js", "ESM"],
+    skills: ["payload-schema-use", "payload-schema-develop"],
   },
   { manifest: env, family: "utilities", sourcePath: "packages/env", status: planned, runtimes: ["Node.js"], skills: [] },
   { manifest: logger, family: "utilities", sourcePath: "packages/logger", status: planned, runtimes: ["Node.js", "browser"], skills: [] },

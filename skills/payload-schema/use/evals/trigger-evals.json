@@ -1,0 +1,22 @@
+[
+  { "query": "Migrate duplicated Payload and Zod product fields to @nexload-sdk/payload-schema", "should_trigger": true },
+  { "query": "Define a new entity with defineEntity and canonical field factories", "should_trigger": true },
+  { "query": "Build a strict update schema from payload-schema fields", "should_trigger": true },
+  { "query": "Choose between field.native and field.group for this Payload data", "should_trigger": true },
+  { "query": "Why is this payload-schema group missing from schema context?", "should_trigger": true },
+  { "query": "Integrate entity.payload.pick into existing Payload tabs", "should_trigger": true },
+  { "query": "Model polymorphic relationship IDs with payload-schema", "should_trigger": true },
+  { "query": "Move static and dynamic defaults to payload-schema factories", "should_trigger": true },
+  { "query": "Create an output projection from a payload-schema entity", "should_trigger": true },
+  { "query": "Diagnose canonical normalization missing from Payload Local API writes", "should_trigger": true },
+  { "query": "Create a generic Payload collection with access control", "should_trigger": false },
+  { "query": "Add tabs and collapsible layout fields to Payload", "should_trigger": false },
+  { "query": "Write a standalone Zod login schema", "should_trigger": false },
+  { "query": "Configure a Payload Postgres adapter", "should_trigger": false },
+  { "query": "Add a Lexical rich-text editor preset", "should_trigger": false },
+  { "query": "Fix a hook in a Payload collection that does not use defineEntity", "should_trigger": false },
+  { "query": "Generate Payload TypeScript types", "should_trigger": false },
+  { "query": "Design authorization for a Payload admin user", "should_trigger": false },
+  { "query": "Validate a REST response with ordinary Zod", "should_trigger": false },
+  { "query": "Add a native upload collection and storage adapter", "should_trigger": false }
+]

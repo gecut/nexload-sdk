@@ -1,0 +1,18 @@
+---
+title: Payload Schema API reference
+description: Exact runtime exports and stable public TypeScript contracts.
+---
+
+import ApiSymbol from "../../../../components/docs/ApiSymbol.astro";
+
+<ApiSymbol name="defineEntity" importPath="@nexload-sdk/payload-schema" signature="defineEntity(options): EntityDefinition" description="Validates a named field map and returns an immutable Payload and schema facade." />
+
+<ApiSymbol name="field" importPath="@nexload-sdk/payload-schema" signature="field.text(...), field.number(...), ..." description="Frozen namespace containing all v1 canonical field factories." />
+
+<ApiSymbol name="defaultIdSchema" importPath="@nexload-sdk/payload-schema" signature="z.union([nonEmptyString, safeInteger])" description="Default canonical document and relationship ID schema." />
+
+<ApiSymbol name="PayloadSchemaError" importPath="@nexload-sdk/payload-schema" signature="class PayloadSchemaError&lt;TCode&gt; extends Error" description="Structured developer and configuration error with safe serializable data." />
+
+<ApiSymbol name="isPayloadSchemaError" importPath="@nexload-sdk/payload-schema" signature="isPayloadSchemaError(error, code?): boolean" description="Type guard for all package errors or one exact code." />
+
+Stable root types include all entity, field option, inference, inspection, picker, and error-contract types. Compiler, IR, registry, adapter internals, and deep imports are not public.

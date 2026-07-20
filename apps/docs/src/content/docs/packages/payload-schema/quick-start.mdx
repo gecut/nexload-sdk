@@ -1,0 +1,36 @@
+---
+title: Payload Schema quick start
+description: Install compatible peers, define an entity, and integrate it into a Payload collection.
+---
+
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
+
+<InstallTabs packages="@nexload-sdk/payload-schema" peers={["payload", "zod"]} />
+
+Supported versions are Node `>=20.9.0`, Payload `>=3.85.0 <4`, and Zod `>=4 <5`.
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+
+export const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true }),
+    slug: field.slug({ required: true }),
+    inventory: field.number({ integer: true, safe: true, defaultValue: 0 }),
+  },
+});
+
+export const Products = {
+  slug: "products",
+  fields: productEntity.payload.all(),
+};
+```
+
+Build application contracts explicitly:
+
+```ts
+export const createProductSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "slug", "inventory"], { optional: ["inventory"] }),
+);
+```

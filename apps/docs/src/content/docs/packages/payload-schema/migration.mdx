@@ -1,0 +1,16 @@
+---
+title: Migrate to Payload Schema
+description: Incrementally replace duplicated Payload and Zod field rules without moving collection lifecycle.
+---
+
+1. Choose one small field group with duplicated Payload and Zod rules.
+2. Define those intrinsic rules with `field.*` factories.
+3. Replace only the corresponding native collection entries with `entity.payload.pick(...)`.
+4. Rebuild existing input or output schemas through `entity.schema(...)`.
+5. Verify Local API writes, generated Payload types, and existing hooks before expanding the migration.
+
+Keep collection access, hooks, tabs, uploads, drafts, localization, and business workflows in their current Payload owners. Use `field.native` for unsupported data fields; keep layout fields directly in the collection.
+
+Static defaults move to factory-level `defaultValue`. Dynamic Payload defaults move to `dynamicDefaultValue`. Never copy defaults into Zod `.default()` unless a specific consumer contract independently requires that behavior.
+
+Migration is reversible: compiled fields remain ordinary Payload field configs and canonical schemas remain ordinary Zod schemas.

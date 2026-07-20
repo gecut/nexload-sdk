@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/healthcheck-next",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Next.js App Router route factories for @nexload-sdk/healthcheck.",
   "keywords": [
     "nextjs",

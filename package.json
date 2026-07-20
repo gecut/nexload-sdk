@@ -12,6 +12,7 @@
     "skills:healthcheck:validate": "node scripts/validate-skills.mjs healthcheck",
     "skills:payload-fields:validate": "node scripts/validate-skills.mjs payload-fields",
     "skills:payload-editor:validate": "node scripts/validate-skills.mjs payload-editor",
+    "skills:payload-schema:validate": "node scripts/validate-skills.mjs payload-schema",
     "cublish": "pnpm build && pnpm install && changeset && git add . && changeset version && changeset publish && git push --follow-tags"
   },
   "devDependencies": {

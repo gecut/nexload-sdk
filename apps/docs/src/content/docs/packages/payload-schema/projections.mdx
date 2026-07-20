@@ -1,0 +1,20 @@
+---
+title: Projections and output contracts
+description: Validate populated data and API output without expanding canonical relationship semantics.
+---
+
+Canonical relationship fields accept IDs only. A populated document is a consumer output concern:
+
+```ts
+const productCardSchema = productEntity.schema(({ fields, z }) =>
+  z.object({
+    id: productEntity.idSchema,
+    title: fields.title,
+    category: z.object({ id: z.union([z.string(), z.number()]), title: z.string() }),
+  }),
+);
+```
+
+Keep projections small and named by use case. Validate external or serialized output at its boundary. Do not treat `InferEntityFields` as a persisted document model; it describes canonical field values only.
+
+This separation prevents Payload population depth, access behavior, and generated document types from leaking into reusable field definitions.

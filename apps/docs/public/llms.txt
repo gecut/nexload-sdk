@@ -35,5 +35,17 @@ Current documentation index for Nexload SDK packages and agent skills.
 - /packages/payload-fields/quick-start/
 - /packages/payload-fields/reference-api/
 - /packages/payload-fields/slug/
+- /packages/payload-schema/architecture/
+- /packages/payload-schema/errors/
+- /packages/payload-schema/fields/
+- /packages/payload-schema/
+- /packages/payload-schema/migration/
+- /packages/payload-schema/native-fields/
+- /packages/payload-schema/payload-integration/
+- /packages/payload-schema/projections/
+- /packages/payload-schema/quick-start/
+- /packages/payload-schema/reference-api/
+- /packages/payload-schema/schema-derivation/
+- /packages/payload-schema/testing-compatibility/
 - /start/choose-a-package/
 - /start/introduction/
