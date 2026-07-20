@@ -13,6 +13,8 @@ on:
       - "scripts/validate-docs.mjs"
       - "scripts/generate-docs-llms.mjs"
       - ".github/workflows/docs.yml"
+      - "package.json"
+      - "pnpm-lock.yml"
   workflow_dispatch:
 
 permissions:
