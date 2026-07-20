@@ -1,0 +1,22 @@
+[
+  { "query": "Design Payload collections for orders, order items, payments, and immutable product pricing snapshots", "should_trigger": true },
+  { "query": "Should this Payload concept be a group, bounded array, Global, or independent collection?", "should_trigger": true },
+  { "query": "Review our Payload many-to-many product category schema and remove mirrored relationship arrays", "should_trigger": true },
+  { "query": "Name a Payload junction collection for users and organizations when membership has role and status", "should_trigger": true },
+  { "query": "Choose indexes, compound uniqueness, and deletion rules for a PostgreSQL-backed Payload relationship", "should_trigger": true },
+  { "query": "Model one-to-one customer profiles in Payload and decide which side owns the foreign key", "should_trigger": true },
+  { "query": "Audit a Payload schema where historical invoices depend only on live product relationships", "should_trigger": true },
+  { "query": "Create an explicit collection design review for a self-referential category tree", "should_trigger": true },
+  { "query": "Should reverse navigation use a Payload join or a synchronized hasMany field?", "should_trigger": true },
+  { "query": "Refactor generic collections named data and records into durable domain resources", "should_trigger": true },
+  { "query": "Fix a Payload Jalali date field Admin component Import Map path", "should_trigger": false },
+  { "query": "Add a money field factory that stores integer minor units", "should_trigger": false },
+  { "query": "Write a REST DTO that returns customerId instead of a populated customer object", "should_trigger": false },
+  { "query": "Optimize a slow PostgreSQL query that is unrelated to Payload CMS", "should_trigger": false },
+  { "query": "Style the Payload Admin collection list with a custom React component", "should_trigger": false },
+  { "query": "Implement a Next.js route handler for an existing Payload collection", "should_trigger": false },
+  { "query": "Generate Payload TypeScript types after a schema change", "should_trigger": false },
+  { "query": "Configure Payload Lexical editor features and presets", "should_trigger": false },
+  { "query": "Create a Prisma many-to-many relation in a service that does not use Payload", "should_trigger": false },
+  { "query": "Fix authentication middleware for Payload Local API calls", "should_trigger": false }
+]

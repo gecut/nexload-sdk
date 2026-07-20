@@ -1,0 +1,10 @@
+{
+  "skill_name": "payload-editor-presets",
+  "evals": [
+    { "id": 1, "category": "happy_path", "prompt": "Choose a built-in editor preset for long-form articles with inline code and relationships.", "expected_output": "Select article explicitly and explain its versioned defaults.", "expectations": ["Selects article rather than a hidden default.", "Notes headings h2 through h5 and depth one.", "Uses overrides only for actual differences."] },
+    { "id": 2, "category": "edge_case", "prompt": "Create an organization preset, mutate the original heading array, and reuse it in two editors.", "expected_output": "Use defineEditorPreset and verify snapshot immutability and fresh providers.", "expectations": ["Preserves the original snapshot.", "Does not create a global registry.", "Tests both consumers through the public interface."] },
+    { "id": 3, "category": "failure_security", "prompt": "Make relationship depth five the default in compact and standard presets.", "expected_output": "Reject the expensive generic default and require explicit consumer opt-in.", "expectations": ["Keeps relational defaults at depth one.", "Notes compact has no relationship feature.", "Calls out population performance impact."] },
+    { "id": 4, "category": "review_diagnosis", "prompt": "A heading override unexpectedly retains h4 from the preset; diagnose the merge expectation.", "expected_output": "Confirm nested arrays replace and test the public mapped heading sizes.", "expectations": ["Does not deep-merge heading arrays.", "Checks caller configuration and built output.", "Adds a contract test for exact sizes."] },
+    { "id": 5, "category": "near_miss_composition", "prompt": "Add a custom Payload feature provider after the selected article preset.", "expected_output": "Route native provider work to payload-editor-extensions.", "expectations": ["Keeps preset selection separate from native append.", "Checks managed key replacement needs.", "Composes with extension collision rules."] }
+  ]
+}

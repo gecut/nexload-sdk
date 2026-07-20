@@ -8,7 +8,7 @@ sidebar:
 import { Aside, FileTree, Steps } from "@astrojs/starlight/components";
 import SkillInstall from "../../../components/docs/SkillInstall.astro";
 
-The repository ships 11 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
+The repository ships 14 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
 
 <Steps>
 
@@ -53,6 +53,11 @@ The repository ships 11 validated, self-contained Skills. The official `skills` 
         - trigger-evals.json
   - payload-fields
     - money
+      - SKILL.md
+      - references
+      - evals
+  - payload-editor
+    - core
       - SKILL.md
       - references
       - evals

@@ -20,6 +20,13 @@ Current documentation index for Nexload SDK packages and agent skills.
 - /packages/healthcheck/quick-start/
 - /packages/healthcheck/reference/api/
 - /packages/
+- /packages/payload-editor/extensions/
+- /packages/payload-editor/features/
+- /packages/payload-editor/
+- /packages/payload-editor/migration/
+- /packages/payload-editor/presets/
+- /packages/payload-editor/quick-start/
+- /packages/payload-editor/reference-api/
 - /packages/payload-fields/
 - /packages/payload-fields/jalali-dates/
 - /packages/payload-fields/migration/

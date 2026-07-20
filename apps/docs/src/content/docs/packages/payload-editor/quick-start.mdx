@@ -1,0 +1,24 @@
+---
+title: Payload Editor quick start
+description: Install matched Payload peers and create an explicit semantic Lexical editor.
+---
+
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
+
+<InstallTabs packages="@nexload-sdk/payload-editor" peers={["payload", "@payloadcms/richtext-lexical"]} />
+
+`payload` and all installed `@payloadcms/*` packages must use the exact same version within the supported `>=3.68.5 <4` range.
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+
+export const editor = createEditor({
+  preset: "structured-content",
+  features: {
+    heading: { sizes: ["h2", "h3"] },
+    upload: { allowedCollections: ["media"], maxDepth: 1 },
+  },
+});
+```
+
+Use the returned value as Payload's root `editor` or a `richText` field editor. `createEditor()` without an explicit preset or features definition is invalid.

@@ -7,6 +7,7 @@ const docsRoot = join(root, "apps/docs/src/content/docs");
 const documentedRoots = [
   "packages/healthcheck",
   "packages/payload-fields",
+  "packages/payload-editor",
   "agents",
   "community",
   "start",
@@ -41,6 +42,10 @@ const inventory = {
   "@nexload-sdk/payload-fields": {
     source: "packages/payload-fields/src",
     symbols: ["slugField", "formatSlug", "jalaliDateField", "withJalaliTimestamps", "formatJalaliDate", "moneyField", "parseMoneyToMinorUnits", "formatMoney", "payloadFieldsPlugin"],
+  },
+  "@nexload-sdk/payload-editor": {
+    source: "packages/payload-editor/src",
+    symbols: ["createEditor", "defineEditorPreset", "PayloadEditorConfigError"],
   },
 };
 

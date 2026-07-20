@@ -1,0 +1,10 @@
+{
+  "skill_name": "payload-editor-extensions",
+  "evals": [
+    { "id": 1, "category": "happy_path", "prompt": "Add Callout and Gallery Blocks to the article editor.", "expected_output": "Append one official BlocksFeature through extendFeatures and verify Payload config.", "expectations": ["Keeps project Blocks schemas outside the package.", "Appends after managed features.", "Builds a real Payload config."] },
+    { "id": 2, "category": "edge_case", "prompt": "Replace the managed link feature with a native LinkFeature using custom fields.", "expected_output": "Disable semantic link first, then append the native replacement.", "expectations": ["Avoids duplicate link keys.", "Preserves extension order.", "Tests the replacement through the public interface."] },
+    { "id": 3, "category": "failure_security", "prompt": "Pass an AI SDK client and secret key as client feature props.", "expected_output": "Reject secret/function serialization and require a separate authenticated server contract.", "expectations": ["Keeps provider SDKs out of client code.", "Requires JSON-safe client metadata only.", "Does not add AI to the core capability bag."] },
+    { "id": 4, "category": "review_diagnosis", "prompt": "Payload silently keeps the last of two custom feature providers with the same key.", "expected_output": "Trace provider keys and enforce pre-Payload duplicate errors.", "expectations": ["Checks managed and native keys.", "Reports the exact extension path.", "Does not rely on Payload last-wins behavior."] },
+    { "id": 5, "category": "near_miss_composition", "prompt": "Restrict link collections using the standard semantic option.", "expected_output": "Use core link.allowedCollections rather than a native extension.", "expectations": ["Recognizes the supported semantic mapping.", "Avoids unnecessary native replacement.", "Routes primary work to core configuration."] }
+  ]
+}

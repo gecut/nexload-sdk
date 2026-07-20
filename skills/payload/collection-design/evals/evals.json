@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-collection-design",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Design Payload collections for products, categories, and category assignments where assignments need sort order and an operator note.",
+      "expected_output": "An explicit product-categories junction model with singular indexed parent relationships, relation metadata, compound uniqueness, ownership, joins only where needed, and a completed review rationale.",
+      "expectations": [
+        "Models the metadata-bearing many-to-many relation as a junction collection.",
+        "Defines compound uniqueness and indexes without making each parent relation unique.",
+        "States deletion, access, scale, ordering, and inverse-navigation decisions."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Model a self-referential organization hierarchy plus undirected peer relationships between organizations in Payload CMS.",
+      "expected_output": "A parent-owned tree relation with cycle prevention and a separate canonicalized peer junction that prevents A-B and B-A duplicates.",
+      "expectations": [
+        "Uses a singular parent relation and optional children join for the hierarchy.",
+        "Prevents cycles and canonicalizes undirected peer pairs.",
+        "Defines compound uniqueness, indexes, deletion, and access policies."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review an order schema that stores customer and product relations on both sides, cascades payment deletion, and authorizes order-item junction writes from only the order parent.",
+      "expected_output": "A critical review that removes mirrored persistence, protects financial history, requires authorization through both junction parents, and replaces mutable-only historical data with snapshots.",
+      "expectations": [
+        "Identifies mirrored relationships as duplicate sources of truth.",
+        "Rejects cascade deletion for payments and requires historical snapshots.",
+        "Requires junction authorization against both participating parents."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose duplicate organization memberships created under concurrency even though a beforeChange hook checks whether the user and organization pair already exists.",
+      "expected_output": "A race-condition diagnosis that moves the invariant to a compound database unique constraint while retaining optional friendly hook validation.",
+      "expectations": [
+        "Explains why an application-only duplicate check races.",
+        "Adds a compound unique constraint for user plus organization.",
+        "Covers migration cleanup, conflict handling, indexes, and transaction behavior."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "A Payload collection already has the right data model; fix only a custom Jalali date Admin component that fails to resolve through the package Import Map.",
+      "expected_output": "A boundary decision that does not redesign collections and routes the work to the field or Admin component integration workflow.",
+      "expectations": [
+        "Recognizes that collection design is not the primary problem.",
+        "Preserves the existing schema and relationship model.",
+        "Routes diagnosis to component export and Import Map inspection."
+      ]
+    }
+  ]
+}

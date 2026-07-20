@@ -1,0 +1,16 @@
+---
+title: Payload Editor API reference
+description: Public functions, error contract, types, and runtime constraints.
+---
+
+import ApiSymbol from "../../../../components/docs/ApiSymbol.astro";
+
+<ApiSymbol name="createEditor" importPath="@nexload-sdk/payload-editor" signature="createEditor(options: CreateEditorOptions): ReturnType&lt;typeof lexicalEditor&gt;" description="Compiles one explicit semantic definition into a Payload Lexical editor adapter provider." />
+
+<ApiSymbol name="defineEditorPreset" importPath="@nexload-sdk/payload-editor" signature="defineEditorPreset(options: DefineEditorPresetOptions): EditorPreset" description="Validates and snapshots a reusable organization preset." />
+
+<ApiSymbol name="PayloadEditorConfigError" importPath="@nexload-sdk/payload-editor" signature="class PayloadEditorConfigError extends TypeError" description="Synchronous configuration error with stable code, exact path, and optional hint." />
+
+Public types include `CreateEditorOptions`, `EditorFeatureConfig`, `EditorPreset`, `EditorPresetName`, `HeadingSize`, option types, `NativeEditorFeature`, and `PayloadEditorConfigErrorCode`.
+
+The root is ESM-only and server/config safe. Registry, adapter, merge, order, and resolver internals are not exported.

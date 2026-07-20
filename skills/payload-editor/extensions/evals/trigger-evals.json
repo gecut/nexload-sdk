@@ -1,0 +1,22 @@
+[
+  { "query": "Add BlocksFeature through payload-editor extendFeatures", "should_trigger": true },
+  { "query": "Replace managed link with native LinkFeature", "should_trigger": true },
+  { "query": "Diagnose duplicate custom Lexical provider key", "should_trigger": true },
+  { "query": "Review custom Payload feature dependencies", "should_trigger": true },
+  { "query": "Add project Callout node to article editor", "should_trigger": true },
+  { "query": "Secure client props for a custom editor feature", "should_trigger": true },
+  { "query": "Verify Payload import map for a client feature", "should_trigger": true },
+  { "query": "Preserve order of native editor extensions", "should_trigger": true },
+  { "query": "Use Payload CodeBlock as an explicit native block", "should_trigger": true },
+  { "query": "Why does extension provider dependency resolution fail?", "should_trigger": true },
+  { "query": "Choose the standard editor preset", "should_trigger": false },
+  { "query": "Change article preset heading sizes", "should_trigger": false },
+  { "query": "Set link allowedCollections semantically", "should_trigger": false },
+  { "query": "Fix createEditor definition-required error", "should_trigger": false },
+  { "query": "Audit payload-editor package exports", "should_trigger": false },
+  { "query": "Render Lexical content as HTML", "should_trigger": false },
+  { "query": "Build a richText field factory", "should_trigger": false },
+  { "query": "Add a Jalali date field", "should_trigger": false },
+  { "query": "Configure a healthcheck endpoint", "should_trigger": false },
+  { "query": "Migrate positional payload-fields helpers", "should_trigger": false }
+]

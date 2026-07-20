@@ -11,6 +11,7 @@ import jwt from "../../../../packages/jwt/package.json";
 import logger from "../../../../packages/logger/package.json";
 import orpcClient from "../../../../packages/orpc-client/package.json";
 import payloadFields from "../../../../packages/payload-fields/package.json";
+import payloadEditor from "../../../../packages/payload-editor/package.json";
 import payloadHooks from "../../../../packages/payload-hooks/package.json";
 import eslintConfig from "../../../../tools/eslint-config/package.json";
 import typescriptConfig from "../../../../tools/typescript-config/package.json";
@@ -101,6 +102,15 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     status: documented,
     runtimes: ["Payload CMS", "Node.js"],
     skills: ["healthcheck-payload"],
+  },
+  {
+    manifest: payloadEditor,
+    family: "payload",
+    sourcePath: "packages/payload-editor",
+    docsPath: "/packages/payload-editor/",
+    status: documented,
+    runtimes: ["Payload CMS", "Node.js", "ESM"],
+    skills: ["payload-editor-core", "payload-editor-presets", "payload-editor-extensions"],
   },
   {
     manifest: payloadFields,

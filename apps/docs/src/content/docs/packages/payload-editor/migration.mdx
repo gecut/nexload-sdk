@@ -1,0 +1,13 @@
+---
+title: Payload Editor migration
+description: Replace ad hoc Payload Lexical feature arrays with explicit semantic editor contracts.
+---
+
+1. Match `payload` and `@payloadcms/richtext-lexical` exactly within Payload 3.
+2. Choose the closest explicit preset or provide a complete `features` definition.
+3. Translate collection allowlists to `allowedCollections` and keep upload sub-fields native.
+4. Move project Blocks and custom providers to `extendFeatures`.
+5. Disable a managed feature before adding a native replacement with the same key.
+6. Verify root and field editors through a real Payload config build.
+
+Do not migrate ambiguous `code` to a managed feature: use `inlineCode` for inline formatting and native Blocks for code blocks. There is no CJS, AI, theme, `defaultFeatures`, `rootFeatures`, or advanced engine export.

@@ -1,0 +1,21 @@
+---
+title: Payload Editor
+description: Compile semantic editor intent into deterministic Payload Lexical configuration.
+---
+
+import DocLinkCard from "../../../../components/docs/DocLinkCard.astro";
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/payload-editor")} eyebrow="Payload Lexical configuration" />
+
+`@nexload-sdk/payload-editor` provides one explicit server-side configuration seam. It owns semantic features, preset contracts, validation, deterministic resolution, and translation to official Payload features.
+
+It does not own rich-text fields, frontend rendering, Blocks schemas, AI actions, themes, or Payload feature dependency sorting.
+
+<div class="doc-card-grid">
+  <DocLinkCard title="Quick start" href="/packages/payload-editor/quick-start/" description="Install the matched Payload peers and create an explicit editor." />
+  <DocLinkCard title="Features" href="/packages/payload-editor/features/" description="Review semantic states, merge rules, and Payload mappings." />
+  <DocLinkCard title="Presets" href="/packages/payload-editor/presets/" description="Choose a versioned task-oriented editor contract." />
+  <DocLinkCard title="Extensions" href="/packages/payload-editor/extensions/" description="Append native Payload features without silent collisions." />
+</div>

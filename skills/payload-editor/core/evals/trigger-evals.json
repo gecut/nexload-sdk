@@ -1,0 +1,22 @@
+[
+  { "query": "Integrate @nexload-sdk/payload-editor into root and field Payload config", "should_trigger": true },
+  { "query": "Change createEditor semantic feature validation", "should_trigger": true },
+  { "query": "Review payload-editor public types and error codes", "should_trigger": true },
+  { "query": "Diagnose payload-editor ESM package resolution", "should_trigger": true },
+  { "query": "Test payload-editor against minimum and latest Payload 3", "should_trigger": true },
+  { "query": "Audit bundle safety for payload-editor root", "should_trigger": true },
+  { "query": "Migrate ad hoc Lexical arrays to semantic editor config", "should_trigger": true },
+  { "query": "Change feature merge states in payload-editor", "should_trigger": true },
+  { "query": "Prepare payload-editor package release validation", "should_trigger": true },
+  { "query": "Why does createEditor reject this configuration path?", "should_trigger": true },
+  { "query": "Add a native BlocksFeature to article editor", "should_trigger": false },
+  { "query": "Change compact preset heading membership", "should_trigger": false },
+  { "query": "Design an AI rewrite toolbar for Lexical", "should_trigger": false },
+  { "query": "Render Payload Lexical JSON in Next.js", "should_trigger": false },
+  { "query": "Create a richText field factory", "should_trigger": false },
+  { "query": "Fix a Payload slug field", "should_trigger": false },
+  { "query": "Add Jalali date picker to Payload", "should_trigger": false },
+  { "query": "Configure healthcheck Payload adapter", "should_trigger": false },
+  { "query": "Build a custom Lexical React node", "should_trigger": false },
+  { "query": "Choose an organization-specific editor preset", "should_trigger": false }
+]

@@ -1,0 +1,57 @@
+{
+  "name": "@nexload-sdk/payload-editor",
+  "version": "0.0.0",
+  "description": "Semantic, deterministic Payload Lexical editor configuration.",
+  "keywords": [
+    "payload",
+    "payloadcms",
+    "lexical",
+    "rich-text",
+    "editor",
+    "typescript",
+    "nexload",
+    "sdk"
+  ],
+  "author": "GecutWeb",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint src --ext .ts",
+    "test": "pnpm build && PAYLOAD_DISABLE_DEPENDENCY_CHECKER=true node --test test/*.test.mjs && pnpm test:types",
+    "test:types": "tsc --project test/types/tsconfig.json",
+    "test:consumer": "pnpm build && node test/consumer-smoke.mjs 3.68.5",
+    "test:compat:latest": "pnpm build && node test/consumer-smoke.mjs latest"
+  },
+  "peerDependencies": {
+    "@payloadcms/richtext-lexical": ">=3.68.5 <4",
+    "payload": ">=3.68.5 <4"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@payloadcms/richtext-lexical": "3.68.5",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "payload": "3.68.5",
+    "typescript": "catalog:"
+  }
+}

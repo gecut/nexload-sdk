@@ -1,0 +1,22 @@
+[
+  { "query": "Which payload-editor preset fits a product description?", "should_trigger": true },
+  { "query": "Define a reusable organization editor preset", "should_trigger": true },
+  { "query": "Change article preset heading sizes", "should_trigger": true },
+  { "query": "Audit compact preset feature membership", "should_trigger": true },
+  { "query": "Override standard preset link depth", "should_trigger": true },
+  { "query": "Why did a preset heading array not merge?", "should_trigger": true },
+  { "query": "Version a breaking preset default change", "should_trigger": true },
+  { "query": "Test defineEditorPreset immutability", "should_trigger": true },
+  { "query": "Disable upload in structured-content preset", "should_trigger": true },
+  { "query": "Compare article and structured-content presets", "should_trigger": true },
+  { "query": "Add custom BlocksFeature to an editor", "should_trigger": false },
+  { "query": "Fix duplicate native Lexical provider keys", "should_trigger": false },
+  { "query": "Change package-wide error code behavior", "should_trigger": false },
+  { "query": "Diagnose ESM tarball import failure", "should_trigger": false },
+  { "query": "Add AI provider credentials", "should_trigger": false },
+  { "query": "Render rich text JSON on frontend", "should_trigger": false },
+  { "query": "Create a Payload richText field factory", "should_trigger": false },
+  { "query": "Add a custom Lexical React node", "should_trigger": false },
+  { "query": "Update payload-fields money validation", "should_trigger": false },
+  { "query": "Configure Payload health check", "should_trigger": false }
+]

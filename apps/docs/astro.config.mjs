@@ -32,6 +32,7 @@ export default defineConfig({
     "/payload-fields/jalali-date/": `${docsBase}/packages/payload-fields/jalali-dates/`,
     "/payload-fields/money/": `${docsBase}/packages/payload-fields/money/`,
     "/payload-fields/migration/": `${docsBase}/packages/payload-fields/migration/`,
+    "/payload-editor/": `${docsBase}/packages/payload-editor/`,
     "/llm/overview/": `${docsBase}/agents/`,
     "/llm/agent-skills/": `${docsBase}/agents/install/`,
   },
@@ -78,6 +79,12 @@ export default defineConfig({
             {
               label: "Healthcheck",
               items: [{ autogenerate: { directory: "packages/healthcheck" } }],
+            },
+            {
+              label: "Payload Editor",
+              items: [
+                { autogenerate: { directory: "packages/payload-editor" } },
+              ],
             },
             {
               label: "Payload Fields",

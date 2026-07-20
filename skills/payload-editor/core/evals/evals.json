@@ -1,0 +1,10 @@
+{
+  "skill_name": "payload-editor-core",
+  "evals": [
+    { "id": 1, "category": "happy_path", "prompt": "Configure a structured Payload editor with restricted headings and media uploads.", "expected_output": "An explicit createEditor call using semantic options and matched Payload peers.", "expectations": ["Uses an explicit preset or features definition.", "Maps heading and collection options semantically.", "Runs package and real Payload config checks."] },
+    { "id": 2, "category": "edge_case", "prompt": "Override a preset with false, true, option objects, maxDepth zero, and replacement arrays.", "expected_output": "Correct shallow merge behavior without caller mutation.", "expectations": ["Distinguishes reset from inheritance.", "Accepts maxDepth zero.", "Asserts immutability and mapped output."] },
+    { "id": 3, "category": "failure_security", "prompt": "Review a proposal that adds AI credentials and an execute callback to the editor config sent to Admin.", "expected_output": "Reject client credential/function transport and keep AI outside the core contract.", "expectations": ["Identifies the server/client serialization seam.", "Requires a separate authenticated endpoint design.", "Preserves the server-safe ESM root."] },
+    { "id": 4, "category": "review_diagnosis", "prompt": "Diagnose why a packed payload-editor works in the workspace but fails in an external ESM Payload project.", "expected_output": "Trace exports, tar contents, peer versions, ESM resolution, and external bundling.", "expectations": ["Inspects the packed artifact rather than workspace links.", "Checks exact matched Payload versions.", "Checks ESM export targets and external dependencies."] },
+    { "id": 5, "category": "near_miss_composition", "prompt": "Change the feature membership of only the article preset.", "expected_output": "Route primary work to payload-editor-presets while retaining package compatibility gates.", "expectations": ["Recognizes preset membership as the specialized scope.", "Treats existing membership as SemVer major.", "Composes core validation without broad redesign."] }
+  ]
+}

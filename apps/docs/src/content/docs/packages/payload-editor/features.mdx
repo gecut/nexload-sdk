@@ -1,0 +1,19 @@
+---
+title: Semantic editor features
+description: Configure supported Payload Lexical features with deterministic merge and mapping rules.
+---
+
+Feature values have four useful states: absence inherits the preset, `false` disables, `true` enables or resets to adapter defaults, and an options object shallow-merges over preset options. Nested arrays replace; `null` is rejected.
+
+Managed boolean features are `paragraph`, `bold`, `italic`, `underline`, `strikethrough`, `inlineCode`, `unorderedList`, `orderedList`, `blockquote`, `horizontalRule`, `inlineToolbar`, and `fixedToolbar`.
+
+Options map as follows:
+
+| Semantic option | Payload option |
+| --- | --- |
+| `heading.sizes` | `enabledHeadingSizes` |
+| `allowedCollections` | `enabledCollections` |
+| `link.autoLink: false` | `disableAutoLinks: true` |
+| relational `maxDepth` | native `maxDepth` |
+
+`maxDepth: 0` is valid. Presets use `1`; larger values must be an explicit consumer choice. Upload sub-fields, link fields, exclusions, and Blocks use a native replacement or extension rather than expanding the semantic interface.

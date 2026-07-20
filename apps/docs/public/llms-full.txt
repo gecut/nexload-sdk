@@ -10,6 +10,9 @@ Agent Skills are task-specific, progressively disclosed instructions distributed
     Four Skills cover semantic factories, managed slugs, Jalali dates, and minor-unit money contracts.
 
 
+    Three Skills cover core semantic configuration, preset contracts, and native Payload extensions.
+
+
 
 ## Use the smallest relevant skill
 
@@ -21,7 +24,7 @@ Every Skill is self-contained for its primary task. A sibling Skill may be recom
 
 # /agents/install/
 
-The repository ships 11 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
+The repository ships 14 validated, self-contained Skills. The official `skills` CLI discovers the `skills/**/SKILL.md` files and configures them for supported agents. Each Skill keeps its core workflow in `SKILL.md`, routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
 
 
 
@@ -66,6 +69,11 @@ The repository ships 11 validated, self-contained Skills. The official `skills` 
         - trigger-evals.json
   - payload-fields
     - money
+      - SKILL.md
+      - references
+      - evals
+  - payload-editor
+    - core
       - SKILL.md
       - references
       - evals
@@ -574,6 +582,123 @@ The catalog is sourced from the workspace package manifests. A `Documented` pack
 
 ---
 
+# /packages/payload-editor/extensions/
+
+```ts
+
+export const editor = createEditor({
+  preset: "article",
+  extendFeatures: [BlocksFeature({ blocks: [Callout, Gallery] })],
+});
+```
+
+Native providers keep their input order and append after managed features. Missing keys and managed/native or native/native duplicate keys throw before Payload's last-wins behavior can hide the collision.
+
+To replace a managed feature, disable it in `features`, then append the native replacement. Payload remains responsible for dependency and priority sorting during sanitization.
+
+Code blocks use Payload's `BlocksFeature` plus the project-owned Blocks schema. AI and themes have no stable package interface.
+
+---
+
+# /packages/payload-editor/features/
+
+Feature values have four useful states: absence inherits the preset, `false` disables, `true` enables or resets to adapter defaults, and an options object shallow-merges over preset options. Nested arrays replace; `null` is rejected.
+
+Managed boolean features are `paragraph`, `bold`, `italic`, `underline`, `strikethrough`, `inlineCode`, `unorderedList`, `orderedList`, `blockquote`, `horizontalRule`, `inlineToolbar`, and `fixedToolbar`.
+
+Options map as follows:
+
+| Semantic option | Payload option |
+| --- | --- |
+| `heading.sizes` | `enabledHeadingSizes` |
+| `allowedCollections` | `enabledCollections` |
+| `link.autoLink: false` | `disableAutoLinks: true` |
+| relational `maxDepth` | native `maxDepth` |
+
+`maxDepth: 0` is valid. Presets use `1`; larger values must be an explicit consumer choice. Upload sub-fields, link fields, exclusions, and Blocks use a native replacement or extension rather than expanding the semantic interface.
+
+---
+
+# /packages/payload-editor/
+
+`@nexload-sdk/payload-editor` provides one explicit server-side configuration seam. It owns semantic features, preset contracts, validation, deterministic resolution, and translation to official Payload features.
+
+It does not own rich-text fields, frontend rendering, Blocks schemas, AI actions, themes, or Payload feature dependency sorting.
+
+<div class="doc-card-grid">
+
+
+
+
+</div>
+
+---
+
+# /packages/payload-editor/migration/
+
+1. Match `payload` and `@payloadcms/richtext-lexical` exactly within Payload 3.
+2. Choose the closest explicit preset or provide a complete `features` definition.
+3. Translate collection allowlists to `allowedCollections` and keep upload sub-fields native.
+4. Move project Blocks and custom providers to `extendFeatures`.
+5. Disable a managed feature before adding a native replacement with the same key.
+6. Verify root and field editors through a real Payload config build.
+
+Do not migrate ambiguous `code` to a managed feature: use `inlineCode` for inline formatting and native Blocks for code blocks. There is no CJS, AI, theme, `defaultFeatures`, `rootFeatures`, or advanced engine export.
+
+---
+
+# /packages/payload-editor/presets/
+
+Built-in names describe authoring tasks: `compact`, `standard`, `structured-content`, `article`, and `product-description`. There is no hidden default.
+
+- `compact`: paragraph, bold, italic, link, inline toolbar.
+- `standard`: compact formatting plus underline, lists, blockquote, and fixed toolbar.
+- `structured-content`: headings `h2`–`h4`, extended formatting, lists, divider, upload, and both toolbars.
+- `article`: structured content with `h5`, inline code, and relationship.
+- `product-description`: headings `h2`–`h3`, core formatting, lists, upload, and both toolbars.
+
+Relational features in presets use `maxDepth: 1`.
+
+```ts
+
+const landing = defineEditorPreset({
+  features: { paragraph: true, heading: { sizes: ["h2"] }, bold: true },
+});
+
+export const editor = createEditor({ preset: landing });
+```
+
+`defineEditorPreset` validates and snapshots input. Changing an existing built-in preset contract requires a major release.
+
+---
+
+# /packages/payload-editor/quick-start/
+
+`payload` and all installed `@payloadcms/*` packages must use the exact same version within the supported `>=3.68.5 <4` range.
+
+```ts
+
+export const editor = createEditor({
+  preset: "structured-content",
+  features: {
+    heading: { sizes: ["h2", "h3"] },
+    upload: { allowedCollections: ["media"], maxDepth: 1 },
+  },
+});
+```
+
+Use the returned value as Payload's root `editor` or a `richText` field editor. `createEditor()` without an explicit preset or features definition is invalid.
+
+---
+
+# /packages/payload-editor/reference-api/
+
+Public types include `CreateEditorOptions`, `EditorFeatureConfig`, `EditorPreset`, `EditorPresetName`, `HeadingSize`, option types, `NativeEditorFeature`, and `PayloadEditorConfigErrorCode`.
+
+The root is ESM-only and server/config safe. Registry, adapter, merge, order, and resolver internals are not exported.
+
+---
+
 # /packages/payload-fields/
 
 Payload Fields owns both the server field definition and the matching Admin component contract. It is designed for Payload CMS applications that need consistent Unicode slugs, Jalali date experiences, and safe money persistence.
@@ -838,11 +963,13 @@ Only the generator key reaches client props. The implementation remains on the s
 | expose service probes and reports | `@nexload-sdk/healthcheck` | Node, Bun, Next.js, Payload, Prometheus, or OpenTelemetry adapters |
 | ship a Node or container health endpoint | `@nexload-sdk/healthcheck-node` | `@nexload-sdk/healthcheck-next` for App Router routes |
 | build Payload fields with Persian-aware UI | `@nexload-sdk/payload-fields` | its generated Admin Import Map subpaths |
+| standardize Payload Lexical editor configuration | `@nexload-sdk/payload-editor` | native extensions for project-owned features and Blocks |
 | validate environment configuration | `@nexload-sdk/env` | Docs planned |
 | use structured logs | `@nexload-sdk/logger` | Docs planned |
 | create policy-driven JWTs | `@nexload-sdk/jwt` | Docs planned |
 
 ## Fully documented paths
+
 
 
 
@@ -858,6 +985,7 @@ Packages marked `Docs planned` remain available from npm and their package READM
 Nexload SDK is not a single application framework. Each package has a narrow ownership boundary and can be installed independently.
 
 ## Package families
+
 
 
 

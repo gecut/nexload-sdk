@@ -1,0 +1,9 @@
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": false,
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": ["valid.ts", "invalid.ts"]
+}
