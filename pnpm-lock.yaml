@@ -88,8 +88,8 @@ importers:
   packages/env:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: ^4.0.1
-        version: 4.0.1
+        specifier: ^4.1.0
+        version: 4.1.0
     devDependencies:
       '@nexload-sdk/bundler':
         specifier: workspace:*
@@ -388,11 +388,11 @@ importers:
   packages/orpc-client:
     dependencies:
       '@nexload-sdk/env':
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^3.1.0
+        version: 3.1.0
       '@nexload-sdk/logger':
-        specifier: ^4.0.1
-        version: 4.0.1
+        specifier: ^4.1.0
+        version: 4.1.0
       '@orpc/client':
         specifier: ^1.12.3
         version: 1.12.3
@@ -486,8 +486,8 @@ importers:
   packages/payload-hooks:
     dependencies:
       '@nexload-sdk/logger':
-        specifier: ^4.0.1
-        version: 4.0.1
+        specifier: ^4.1.0
+        version: 4.1.0
       payload:
         specifier: 'catalog:'
         version: 3.68.5(graphql@16.12.0)(typescript@5.9.3)
@@ -2391,11 +2391,11 @@ packages:
   '@neon-rs/load@0.0.4':
     resolution: {integrity: sha512-kTPhdZyTQxB+2wpiRcFWrDcejc4JI6tkPuS7UZCG4l6Zvc5kU/gGQ/ozvHTh1XR5tS+UlfAfGuPajjzQjCiHCw==}
 
-  '@nexload-sdk/env@3.0.1':
-    resolution: {integrity: sha512-KIhRuSRWTBIqbk7JhG1lge/FY1USjAG+FwwbNzO4mKDgd1cFEm7wQtbwAfBRv2z2yd413PhtJm/hrOu9IVEXuQ==}
+  '@nexload-sdk/env@3.1.0':
+    resolution: {integrity: sha512-8d7cSBntKy3fhIKdVY8MF4lVMIiyRqpeLnfyO30SJU4caZQBsL5XSXCwKH/uHVEhLBmfAbI7TLH9FanO1yx4lg==}
 
-  '@nexload-sdk/logger@4.0.1':
-    resolution: {integrity: sha512-BRKBKt6KAhoOJXxYlRnglOEdzL2aTB/ihq9HjP+dC5ozLpHXtPdRMPSlkY232KSsks6ZbfEqj9suB052ZcDQqQ==}
+  '@nexload-sdk/logger@4.1.0':
+    resolution: {integrity: sha512-So/i2z+SN0LbKiD1NMX+W+nctNm0xqgdqlHQgak3xQYwVQ07lo7n079vIXQkJqCt1ubvyysturuhLgLVFy+GZw==}
 
   '@next/env@15.4.11':
     resolution: {integrity: sha512-mIYp/091eYfPFezKX7ZPTWqrmSXq+ih6+LcUyKvLmeLQGhlPtot33kuEOd4U+xAA7sFfj21+OtCpIZx0g5SpvQ==}
@@ -8659,11 +8659,11 @@ snapshots:
 
   '@neon-rs/load@0.0.4': {}
 
-  '@nexload-sdk/env@3.0.1':
+  '@nexload-sdk/env@3.1.0':
     dependencies:
-      '@nexload-sdk/logger': 4.0.1
+      '@nexload-sdk/logger': 4.1.0
 
-  '@nexload-sdk/logger@4.0.1': {}
+  '@nexload-sdk/logger@4.1.0': {}
 
   '@next/env@15.4.11': {}
 
