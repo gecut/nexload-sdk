@@ -1,69 +1,69 @@
 ---
 name: payload-schema-develop
-description: Use when developing, reviewing, testing, or releasing @nexload-sdk/payload-schema internals: field factories, private IR, Payload compiler and canonical adapter, structured errors, cloning, type inference, compatibility fixtures, docs, skills, or distribution artifacts.
+description: Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seed and compiler, canonical beforeValidate adapter, cloning, structured errors, public type inference, package fixtures, packed distribution, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work.
 ---
 
 # Payload Schema Develop
 
 ## Purpose
 
-Evolve the package as a small deep module while preserving one canonical validation source, public type precision, Payload lifecycle compatibility, and independent distribution.
+Evolve the package as a small deep module while preserving one canonical validation source, precise public types, Payload lifecycle behavior, safe failures, and independent distribution.
 
 ## Trigger boundary
 
-- Use for package source, factories, IR, compiler, adapter, errors, types, tests, CI, docs, skills, and release validation.
-- Do not use for ordinary consumer entity migration; use `payload-schema-use`.
-- Generic Payload or Zod work without this package is out of scope.
+- Use for package source, factories, private state, compiler/adapter, errors, type tests, package fixtures, distribution, compatibility evidence, and release-impact review.
+- Route ordinary entity migration, native-field selection, schema derivation, and collection integration to `payload-schema-use`.
+- Generic Payload, Zod, collection UI, access, storage, or editor work is out of scope.
 
 ## Source of truth
 
-Read root exports, public declarations, public-interface tests, README, canonical docs, package manifest, compatibility workflows, and current official Payload/Zod behavior. Latest approved decisions override older spec text.
+Read current root exports, public types/tests, implementation, manifest, changelog, docs, helper scripts, and workflow files. Derive version and release facts live; never preserve a historical bootstrap claim. Current code outranks skill prose.
 
 ## Required inspection
 
-Inspect `package.json`, `src/index.ts`, public types/errors, field definitions, entity/compiler seam, clone logic, unit/type/integration/consumer tests, CI lanes, docs inventory, skill validation, lockfile, and worktree status.
+Inspect only the seams affected by the request, plus package manifest and worktree status. For release or compatibility claims, inspect actual workflow files and consumer/config fixtures rather than inferring automation from a helper script.
 
 ## Decision flow
 
-1. Confirm the behavior belongs in the small public API and has multiple real consumers.
-2. Add a failing test through root exports or compiled Payload lifecycle.
-3. Extend the existing private seed and closure-owned entity IR.
-4. Keep Payload/Zod internals opaque and supported-version behavior locked by learning tests.
-5. Update docs, skills, fixtures, compatibility, and Changeset when public behavior changes.
+1. Prove the behavior belongs in the public package and has more than one real consumer.
+2. Add a failing test through root exports, public types, or compiled Payload lifecycle.
+3. Extend the existing private seed/entity/compiler seam; do not create a parallel public interface.
+4. Keep private Payload/Zod internals opaque and lock supported public behavior with learning tests.
+5. Update docs, skill guidance, fixtures, compatibility evidence, and release impact only as required by the actual change.
 
 ## Implementation workflow
 
-1. Write acceptance and public contract tests first.
-2. Implement the minimal source change without exporting internals.
-3. Run unit and type tests before integration fixtures.
-4. Exercise SQLite, PostgreSQL, generated types, and packed consumers as relevant.
-5. Rebuild canonical docs and LLM indexes.
-6. Validate both package skills and the whole workspace.
+1. Write observable acceptance and type/runtime contract tests first.
+2. Implement the smallest change without exporting internals.
+3. Run unit and type tests before database and packed-consumer fixtures.
+4. Exercise only relevant SQLite/Postgres/config/distribution boundaries, then expand for public changes.
+5. Rebuild canonical docs and LLM indexes when public behavior changes.
+6. Validate both package skills, workspace checks, artifacts, and current release evidence.
 
 ## Invariants
 
-- Runtime root exports remain exactly five values.
-- No WeakMap registry, global singleton, reflection metadata, private Zod internals, or deep public imports.
-- Every facade call returns independent plain containers without executing getters.
-- Consumer hooks precede one canonical field adapter; native validate remains unchanged.
-- Group/array lifecycle adapters never recursively parse children.
-- Error data is deterministic, safe, and never serializes values, schemas, functions, config, secrets, stack, or cause.
-- Payload and Zod remain peer dependencies; core has no Lexical runtime dependency.
+- Runtime root exports remain exactly the five documented values unless an approved public change says otherwise.
+- Private state is symbol-backed and closure-owned; there is no WeakMap/global registry or metadata reflection.
+- Compilation clones arrays and plain objects by descriptor without executing getters; opaque values remain references.
+- Consumer `beforeValidate` hooks precede one canonical adapter; native `validate` remains unchanged.
+- Group/array parent adapters validate containers and never recursively parse children.
+- Error data is bounded and deterministic and excludes raw values, schemas, functions, config, secrets, stack, and serialized cause.
+- Payload/Zod remain peers and core has no Lexical runtime dependency.
 
 ## Security and edge cases
 
-Fail fast on reserved options, invalid native/layout fields, conflicting defaults, invalid constraints, and schema-less static defaults. Convert runtime canonical data failures to Payload `ValidationError`. Treat async detection as first-exercised sync parse behavior.
+Respect fail-fast option/default/name/constraint checks and convert runtime canonical data failures to Payload `ValidationError` with `req` and dot paths. Async canonical behavior is detected only when sync parsing first encounters a Promise. Treat caller option objects as mutable input references until compilation; do not claim definition-time snapshot immutability.
 
 ## Verification
 
-Run package lint, unit, type, SQLite, PostgreSQL, consumer, compatibility, and build checks; validate tar contents and exports; run docs build, package/all skill validators, workspace build/lint, and `git diff --check`. Separate unrelated baseline failures.
+Distinguish a current-version packed smoke from a supported-version matrix. Run only commands that exist, inspect tar contents and exports, and report absent workflows or unrun lanes. Determine Changeset impact from the current version and requested public behavior; never assume an initial-major release.
 
 ## Reference routing
 
-- Read [architecture invariants](references/architecture-invariants.md) for IR, compiler, adapter, and clone boundaries.
-- Read [factory and error contract](references/factory-error-contract.md) before semantic changes.
-- Read [release matrix](references/release-matrix.md) for fixtures, CI, docs, and package delivery.
+- Read [architecture boundaries](references/architecture-invariants.md) for seed/entity/compiler/adapter/cloning behavior and the mutable-input caveat.
+- Read [factory and error contract](references/factory-error-contract.md) before changing validation, defaults, relationships, errors, or async behavior.
+- Read [release evidence](references/release-matrix.md) for live version discovery, actual commands, distribution proof, and CI-claim rules.
 
 ## Handoff requirements
 
-Report public behavior and architecture rationale, exact commands and version lanes, artifact/export checks, docs/skills/Changeset status, remaining compatibility risk, and unrelated baseline failures.
+Report public behavior, architecture rationale, exact commands and version lanes actually run, artifact/export checks, docs/skills/release-impact status, absent automation, remaining compatibility risk, and unrelated baseline failures.

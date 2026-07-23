@@ -1,10 +1,65 @@
 {
   "skill_name": "payload-schema-develop",
   "evals": [
-    { "id": 1, "category": "happy_path", "prompt": "Add a canonical email-like scalar factory to payload-schema while preserving the v1 module architecture.", "expected_output": "A test-first addition through existing definition/compiler seams with public types, docs, and compatibility checks.", "expectations": ["Challenges whether a new primitive is justified.", "Uses private IR rather than a parallel interface.", "Updates public tests, docs, and release impact."] },
-    { "id": 2, "category": "edge_case", "prompt": "Fix nested array validation so Payload row IDs survive while strict consumer schemas still reject them.", "expected_output": "Separate container lifecycle validation from recursive consumer parsing.", "expectations": ["Does not recursively parse children in the parent adapter.", "Preserves Payload row metadata.", "Adds public lifecycle and schema tests."] },
-    { "id": 3, "category": "failure_security", "prompt": "Serialize the rejected default, full Zod schema, and compiler cause in PayloadSchemaError.data for easier debugging.", "expected_output": "Reject unsafe serialization and retain only bounded deterministic summaries.", "expectations": ["Protects values, config, functions, stack, and cause.", "Uses issue summaries without raw input.", "Adds serialization tests."] },
-    { "id": 4, "category": "review_diagnosis", "prompt": "A packed consumer fails on Payload 3.85 while workspace tests pass on 3.86. Diagnose and fix compatibility.", "expected_output": "Reproduce from the tarball, compare supported public types/behavior, and run matched version lanes.", "expectations": ["Avoids private Payload internals.", "Checks every @payloadcms package version.", "Validates declarations, config load, and runtime import externally."] },
-    { "id": 5, "category": "near_miss_composition", "prompt": "Change a project product entity and add a native point field without changing payload-schema itself.", "expected_output": "Route primary work to payload-schema-use and avoid core expansion.", "expectations": ["Recognizes consumer-only scope.", "Uses field.native with an explicit schema when needed.", "Does not modify compiler or exports."] }
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Review the attached email-factory proposal against the current package architecture. Return a test-first change design and explicit public export impact.",
+      "expected_output": "The new factory extends existing private seams without registry, deep imports, private Zod metadata, or a sixth runtime export.",
+      "files": ["evals/fixtures/factory-review.md"],
+      "expectations": [
+        "Rejects the parallel registry, compileEmailField runtime export, private Zod metadata, and source-deep-import tests.",
+        "Extends the existing field namespace, private seed, entity/compiler seam, and public option/type surface with tests through root exports.",
+        "Requires runtime export count to remain five and covers docs plus current semver/Changeset impact without assuming an initial release."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Design regression tests for the attached clone fixture using the package's actual mutable-input and fresh-compilation boundaries.",
+      "expected_output": "Descriptor-safe fresh cloning without a false immutable-seed claim.",
+      "files": ["evals/fixtures/clone-review.md"],
+      "expectations": [
+        "Asserts that compilation cloning does not increment getter reads and preserves the getter descriptor.",
+        "Asserts independent plain containers across facade calls while opaque non-plain objects and functions preserve references.",
+        "States and tests that mutation of caller payload options before later compilation can affect output under current behavior."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Resolve both failures in the attached adapter fixture with exact error shapes and supported-boundary reasoning.",
+      "expected_output": "Payload ValidationError for data and first-exercised structured package error for async canonical behavior.",
+      "files": ["evals/fixtures/adapter-review.md"],
+      "expectations": [
+        "Maps the nested issue to gallery.0.alt and passes the original req into Payload ValidationError.",
+        "Keeps canonical data failures out of PayloadSchemaError and returns canonical parsed output on success.",
+        "Raises ASYNC_CANONICAL_SCHEMA_UNSUPPORTED with phase definition only when remote: first exercises the Promise path, without private Zod inspection."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Security-review the attached unsafe error proposal and define binary serialization tests.",
+      "expected_output": "Bounded deterministic summaries and native non-serialized cause behavior.",
+      "files": ["evals/fixtures/error-review.md"],
+      "expectations": [
+        "Excludes rejected value, schema, config, function source, secret, stack, and serialized cause from data/toJSON.",
+        "Allows the Error instance to retain native cause while serialization exposes only safe code, phase, message, and bounded data.",
+        "Requires INVALID_DEFAULT_VALUE issue summaries and compiler causeName tests that assert forbidden material is absent."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Audit the attached live release observations and return only compatibility/release claims supported by repository evidence.",
+      "expected_output": "An evidence report that does not mistake a helper or current smoke for CI matrix coverage.",
+      "files": ["evals/fixtures/release-review.md"],
+      "expectations": [
+        "States that no payload-schema compatibility workflow is active and the shell helper alone does not prove PR/main/tag lanes.",
+        "Treats test:consumer/test:compat as packed current-version smokes rather than proof of the full peer cross-product.",
+        "Does not create an initial-major or other Changeset for a no-public-change skill review and still checks tar contents, declarations, root import, config load, and deep-import rejection as relevant evidence."
+      ]
+    }
   ]
 }

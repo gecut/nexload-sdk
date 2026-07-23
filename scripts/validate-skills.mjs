@@ -165,6 +165,63 @@ function validateTriggerEvals (skillDirectory, errors) {
   if (positive !== 10 || negative !== 10) errors.push(`${path}: must contain 10 positive and 10 negative queries`);
 }
 
+function validatePayloadSchemaContracts (skillsRoot, skillDirectory, skillName, body, errors) {
+  const evalsPath = join(skillDirectory, "evals", "evals.json");
+  const triggerPath = join(skillDirectory, "evals", "trigger-evals.json");
+  const evalDocument = parseJson(evalsPath, errors);
+  const triggerEntries = parseJson(triggerPath, errors);
+  const referenceDirectory = join(skillDirectory, "references");
+  const references = existsSync(referenceDirectory)
+    ? readdirSync(referenceDirectory)
+      .filter((name) => name.endsWith(".md"))
+      .map((name) => readFileSync(join(referenceDirectory, name), "utf8"))
+      .join("\n")
+    : "";
+  const guidance = `${body}\n${references}`;
+
+  if (evalDocument?.evals?.some((entry) => !Array.isArray(entry.files) || entry.files.length === 0)) {
+    errors.push(`${evalsPath}: every payload-schema behavioral eval must include at least one fixture`);
+  }
+  if (evalDocument?.evals?.some((entry) => !Array.isArray(entry.expectations) || entry.expectations.length < 3)) {
+    errors.push(`${evalsPath}: every payload-schema behavioral eval must include at least three observable expectations`);
+  }
+
+  if (Array.isArray(triggerEntries)) {
+    const positivePackageNamed = triggerEntries.filter((entry) => entry.should_trigger === true
+      && /payload-schema/iu.test(entry.query ?? "")).length;
+    const negativePackageNamed = triggerEntries.filter((entry) => entry.should_trigger === false
+      && /payload-schema/iu.test(entry.query ?? "")).length;
+    if (positivePackageNamed < 8 || negativePackageNamed < 8) {
+      errors.push(`${triggerPath}: positive and negative sets must each contain at least eight package-named boundary cases`);
+    }
+
+    const hasCrossSkillNearMiss = skillName === "payload-schema-use"
+      ? triggerEntries.some((entry) => entry.should_trigger === false
+        && /(compiler|field seed|descriptor cloning|package exports|release)/iu.test(entry.query ?? ""))
+      : triggerEntries.some((entry) => entry.should_trigger === false
+        && /(migrate|consumer|entity\.payload|Local API|schema derivation)/iu.test(entry.query ?? ""));
+    if (!hasCrossSkillNearMiss) {
+      errors.push(`${triggerPath}: missing a package-named cross-skill near miss`);
+    }
+  }
+
+  if (/(?:initial|bootstrap)\s+(?:stable\s+)?1\.0\.0|major Changeset for (?:the )?initial/iu.test(guidance)) {
+    errors.push(`${skillDirectory}: release guidance must derive version and Changeset impact from live repository state`);
+  }
+  if (/closure-owned immutable|immutable (?:IR|state|seed)|IR is immutable/iu.test(guidance)) {
+    errors.push(`${skillDirectory}: current payload-schema guidance must not claim definition-time IR immutability`);
+  }
+
+  const repositoryRoot = resolve(skillsRoot, "..");
+  const workflowDirectory = join(repositoryRoot, ".github", "workflows");
+  const hasCompatibilityWorkflow = existsSync(workflowDirectory)
+    && readdirSync(workflowDirectory).some((name) => /payload-schema/iu.test(name));
+  if (!hasCompatibilityWorkflow
+    && /(?:PR|main|tag|manual).{0,80}(?:workflow|lane).{0,80}(?:runs?|executes?|covers?).{0,80}(?:matrix|cross-product)/isu.test(guidance)) {
+    errors.push(`${skillDirectory}: guidance claims an active payload-schema compatibility workflow that is absent`);
+  }
+}
+
 function validateReferences (skillDirectory, content, errors) {
   const directory = join(skillDirectory, "references");
   if (!existsSync(directory) || !statSync(directory).isDirectory()) {
@@ -211,6 +268,11 @@ function validateSkill (root, packageName, directoryName, names, errors) {
   validateReferences(skillDirectory, content, errors);
   validateEvals(skillDirectory, attributes.name, errors);
   validateTriggerEvals(skillDirectory, errors);
+  if (packageName === "payload-schema") {
+    validatePayloadSchemaContracts(
+      root, skillDirectory, attributes.name, body, errors
+    );
+  }
 }
 
 export function validateSkills ({ root, selected } = {}) {

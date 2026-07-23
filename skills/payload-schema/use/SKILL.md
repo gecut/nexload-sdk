@@ -1,68 +1,70 @@
 ---
 name: payload-schema-use
-description: Use when consuming or migrating to @nexload-sdk/payload-schema: defining entities, choosing canonical factories versus field.native, deriving Zod schemas, integrating compiled fields into Payload collections, or diagnosing consumer contract errors.
+description: Use for consumer-side work with @nexload-sdk/payload-schema: migrating duplicated Payload and Zod fields, defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, integrating compiled fields into existing collections, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work.
 ---
 
 # Payload Schema Use
 
 ## Purpose
 
-Reuse one intrinsic field contract across Payload writes and application Zod schemas without moving collection lifecycle or inventing persistence types.
+Reuse intrinsic field contracts across Payload writes and application schemas while leaving persistence types, collection lifecycle, access, layout, and business rules with their existing owners.
 
 ## Trigger boundary
 
-- Use for `defineEntity`, `field.*`, schema derivation, migration, native selection, defaults, projections, and Payload collection integration.
-- Do not use for generic Payload collection work, UI layout, access control, database adapters, or unrelated Zod schemas.
-- Use `payload-schema-develop` when changing package internals, factories, compiler, adapter, errors, compatibility, or release assets.
+- Use for consumer entities, `defineEntity`, `field.*`, defaults, canonical schema derivation, native-field selection, migration, projections, and compiled-field integration.
+- Keep generic collection design, access, hooks, tabs, adapters, storage, and unrelated Zod schemas with Payload or the application.
+- Route factory, IR, compiler, adapter, error, package compatibility, or release changes to `payload-schema-develop`.
 
 ## Source of truth
 
-Read package exports, types, tests, README, canonical docs, and the consuming collection. Payload-generated types remain authoritative for stored documents.
+Prefer the installed package's root exports and declarations, then its README and canonical docs. Inside this monorepo, source and public tests outrank prose. Payload-generated types remain authoritative for stored documents.
 
 ## Required inspection
 
-Inspect `packages/payload-schema/src/index.ts`, the relevant factory option types, the entity definition, existing collection fields/hooks/layout, derived schemas, and exact Payload/Zod versions.
+- In this repository, inspect the root export, relevant option types, entity/compiler behavior, public tests, and the consuming collection.
+- In an external consumer, inspect package exports/declarations, README/docs, collection fields/hooks/layout, and exact installed Payload/Zod versions; do not assume monorepo source exists.
+- Read only the routed reference needed for the task.
 
 ## Decision flow
 
-1. Separate intrinsic field rules from cross-field, workflow, access, and output concerns.
-2. Use a built-in factory when its canonical value matches the domain.
-3. Use `field.native` for unsupported data fields; keep layout fields directly in Payload.
-4. Derive small named schemas with arbitrary composition or strict `pick`.
-5. Keep populated relationships and output projection explicit.
+1. Separate intrinsic value rules from cross-field, request, database, access, workflow, and output concerns.
+2. Use the built-in factory only when its canonical value shape matches the domain.
+3. Use `field.native` for unsupported data fields; attach a sync schema only when the field belongs in consumer contracts.
+4. Keep layout fields directly in Payload and compose ordered compiled fields inside them.
+5. Derive small named schemas with strict `pick` or arbitrary Zod composition.
 
 ## Implementation workflow
 
-1. Preserve existing collection lifecycle and field names.
-2. Add or adjust the entity definition through the public root API.
-3. Compile fields with `all`, `field`, or ordered `pick`.
-4. Replace duplicated application constraints with canonical schemas.
-5. Test direct schema parsing and real Payload writes.
-6. Update consumer docs when integration behavior changes.
+1. Preserve collection slug, field names, hooks, access, versions, upload settings, localization, layout, and generated types.
+2. Migrate one cohesive field group through the public root API.
+3. Compile with `all`, `field`, or caller-ordered `pick`.
+4. Replace only duplicated intrinsic constraints and normalization.
+5. Verify direct parsing and a real Payload Local API write.
+6. Report remaining application-owned validation and populated-output work.
 
 ## Invariants
 
-- `required` is Payload presence; `nullable` is canonical value nullability.
-- Static `defaultValue` is definition-validated; dynamic defaults use `dynamicDefaultValue`.
-- Neither default mode adds Zod `.default()`.
-- Canonical relationships contain IDs or polymorphic references, never populated documents.
-- Schema-less native descendants make their group or array schema unavailable.
-- Entity APIs do not create collections or CRUD-specific schemas.
+- `required` controls Payload presence; `nullable` controls canonical `null`.
+- Static `defaultValue` is parsed at definition; `dynamicDefaultValue` is forwarded opaquely; neither adds Zod `.default()`.
+- Canonical relationship/upload values contain IDs or polymorphic references, never populated documents.
+- Group/array schemas are strict and unavailable when any data descendant lacks a schema.
+- Array row IDs are Payload metadata and are absent from canonical item schemas.
+- Entity APIs do not create collections, persistence types, CRUD contracts, access rules, or layout.
 
 ## Security and edge cases
 
-Never place secrets, request-dependent checks, database calls, async refinement, or authorization inside canonical field schemas. Do not expose inspection as an API model. Validate external populated output separately.
+Keep secrets, request-dependent checks, database calls, authorization, and async refinements outside canonical fields. Treat `SCHEMA_UNAVAILABLE` as a contract failure with phase, reason, and blocking path; never silently omit the field. Validate populated external output separately.
 
 ## Verification
 
-Run the consumer typecheck, direct schema tests, Payload integration tests, package consumer smoke when exports are involved, and `git diff --check`. Confirm exact Payload family versions.
+Run direct schema and consumer type tests, real Local API create/update coverage, and packed-consumer smoke when exports or installation change. Confirm exact Payload-family versions rather than treating a current-version smoke as a compatibility matrix.
 
 ## Reference routing
 
-- Read [consumer contract](references/consumer-contract.md) for ownership, defaults, and schema behavior.
-- Read [field selection](references/field-selection.md) for factory/native/container decisions.
-- Read [integration checklist](references/integration-checklist.md) for migration and Payload verification.
+- Read [consumer contract](references/consumer-contract.md) for ownership, defaults, picker/error behavior, and public API examples.
+- Read [field selection](references/field-selection.md) for canonical shapes, relationship/native/container decisions, and row metadata.
+- Read [integration checklist](references/integration-checklist.md) for migration, diagnosis, environment-specific inspection, and verification commands.
 
 ## Handoff requirements
 
-Report entities and collection seams changed, schema contracts affected, defaults/native choices, Payload and Zod versions tested, commands run, and remaining migration risk.
+Report the entity and collection seams changed, canonical shapes affected, default/native decisions, exact versions and commands tested, any unavailable schema path, and remaining migration or populated-output risk.
