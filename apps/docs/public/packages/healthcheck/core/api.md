@@ -713,16 +713,6 @@ Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L21)
 
-### `HealthMetrics`
-
-```ts
-type HealthMetrics = Record<string, HealthMetricValue>;
-```
-
-Public type exported by @nexload-sdk/healthcheck.
-
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L20)
-
 ### `HealthMetricValue`
 
 ```ts
@@ -732,6 +722,16 @@ type HealthMetricValue = string | number | boolean | null;
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L18)
+
+### `HealthMetrics`
+
+```ts
+type HealthMetrics = Record<string, HealthMetricValue>;
+```
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L20)
 
 ### `HealthRunScope`
 

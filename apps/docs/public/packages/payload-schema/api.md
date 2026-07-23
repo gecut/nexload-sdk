@@ -500,20 +500,6 @@ Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L67)
 
-### `TextareaFieldOptions`
-
-```ts
-type TextareaFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
-  string,
-  TNullable,
-  NativePayloadExtras<TextareaField, "maxLength" | "minLength">
-> & Omit<TextFieldOptions<TNullable>, keyof CommonFieldOptions<string, TNullable, unknown> | "payload">;
-```
-
-Public type exported by @nexload-sdk/payload-schema.
-
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L71)
-
 ### `TextFieldOptions`
 
 ```ts
@@ -534,6 +520,20 @@ type TextFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L58)
+
+### `TextareaFieldOptions`
+
+```ts
+type TextareaFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<TextareaField, "maxLength" | "minLength">
+> & Omit<TextFieldOptions<TNullable>, keyof CommonFieldOptions<string, TNullable, unknown> | "payload">;
+```
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L71)
 
 ### `UploadFieldOptions`
 

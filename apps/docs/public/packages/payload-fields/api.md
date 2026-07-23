@@ -109,16 +109,6 @@ Public function exported by @nexload-sdk/payload-fields.
 
 ## Constants
 
-### `formatSlugHook`
-
-```ts
-formatSlugHook(options: SlugHookOptions) => FieldHook
-```
-
-Public constant exported by @nexload-sdk/payload-fields.
-
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L70)
-
 ### `IRR`
 
 ```ts
@@ -138,6 +128,16 @@ IRT: Readonly<MoneyCurrencyDefinition>
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L26)
+
+### `formatSlugHook`
+
+```ts
+formatSlugHook(options: SlugHookOptions) => FieldHook
+```
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L70)
 
 ## Types
 
