@@ -1,0 +1,35 @@
+---
+title: Concepts
+description: Understand Payload Fields persistence, override, hook, localization, and Admin boundaries.
+sidebar:
+  order: 4
+package: payload-fields
+topic: concepts
+---
+
+## Persistence before presentation
+
+Each factory keeps the database contract native to Payload. Jalali is a calendar presentation over a native date value. Money formatting is a view over a safe integer. A slug is a normalized text field plus a lock checkbox. This makes REST, GraphQL, Local API, migrations, and generated Payload types predictable.
+
+## Protected semantics
+
+`overrides` lets you add ordinary Payload options, but cannot change a factory's identity:
+
+- field names and types are protected;
+- slug and lock localization must match;
+- the package Admin component remains authoritative;
+- money validation always runs before an optional consumer validator.
+
+For slug normalization, existing consumer `beforeValidate` hooks run first and the package formatter runs last. The formatter therefore owns the final persisted slug. The lock defaults to `true`; when locked, source-driven regeneration is suppressed. If unlocked, `regenerateOnSourceChange` defaults to `true`.
+
+## Localization
+
+A localized slug produces a localized lock. Jalali formatting controls only display and never changes the stored calendar. Money display accepts locale, Persian or Latin digits, grouping, and currency-label visibility without changing the stored integer.
+
+## Security
+
+The optional slug-generation endpoint is not anonymous. It checks authentication, optional project access, body shape, and an own-key registry lookup before calling a generator. Generator errors are returned as safe package errors rather than exposing the thrown value.
+
+## Composition
+
+Factories return standard Payload field configs. Put layout-only fields directly around them, combine them with collection hooks, and continue using Payload-generated document types. Keep business rules such as discounts, publication windows, and slug uniqueness in your application or Payload configuration.

@@ -1,0 +1,18 @@
+---
+title: Healthcheck Bun API
+description: Public Bun runtime exports.
+sidebar: { order: 6 }
+package: healthcheck-bun
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck-bun" />
+
+- `bunRuntimeAdapter()` returns the core runtime adapter.
+- `bunRuntimeInfoCheck(options?)` creates the `bun.runtime` diagnostic check.
+- `bunServerMetricsCheck(server, options?)` creates `bun.server.metrics`.
+- `BunServerLike` is the minimal server shape: pending request/WebSocket counters and optional subscribers.
+
+Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts).

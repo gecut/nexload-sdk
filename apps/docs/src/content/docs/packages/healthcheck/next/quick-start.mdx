@@ -1,0 +1,50 @@
+---
+title: Healthcheck Next.js quick start
+description: Expose a no-cache readiness route in App Router.
+sidebar: { order: 3 }
+package: healthcheck-next
+topic: quick-start
+---
+
+The route needs an initialized Core manager. First create `src/lib/health.ts`:
+
+```ts
+import { createHealthManager, runtimeInfoCheck } from "@nexload-sdk/healthcheck";
+
+export const health = createHealthManager({
+  service: { name: "web" },
+  runtime: "auto",
+  checks: [runtimeInfoCheck()],
+});
+```
+
+Read the [Core quick start](/nexload-sdk/packages/healthcheck/core/quick-start/) when adding dependency checks
+or choosing scopes.
+
+Create `app/api/health/ready/route.ts`:
+
+```ts
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+import { health } from "@/lib/health";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
+export const { GET, HEAD } = createNextHealthRoute(health, {
+  scope: "readiness",
+});
+```
+
+The factory also sets no-store response headers. The route-module exports prevent Next.js caching and static treatment.
+
+Start Next.js and verify the first result:
+
+```bash
+curl -i http://localhost:3000/api/health/ready
+```
+
+The response should be `200`, include `cache-control: no-store`, and contain a
+JSON report with `"status":"ok"` and `"scope":"readiness"`. If it is cached,
+unauthorized, or fails at the edge, use [Troubleshooting](./troubleshooting/).

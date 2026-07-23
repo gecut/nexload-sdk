@@ -1,0 +1,14 @@
+# Migrate Healthcheck Node
+
+Verify Node and container behavior after an upgrade.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/migration/
+This page targets `@nexload-sdk/healthcheck-node` 2.1.0 with Core 4.1.0.
+Identify your source version in the
+[Node changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/CHANGELOG.md).
+
+Upgrade core and Node together, then type-check imports. Compare runtime identity, container memory limits, fractional CPU quota, collector metric names, TCP/DNS error codes, and shutdown behavior.
+
+Run the service inside its production container runtime; host-only tests cannot prove cgroup behavior. Coordinate metric-name changes with dashboards. Roll back both packages if resource sources or readiness semantics change unexpectedly.

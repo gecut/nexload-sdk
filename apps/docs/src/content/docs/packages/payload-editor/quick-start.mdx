@@ -1,24 +1,57 @@
 ---
-title: Payload Editor quick start
-description: Install matched Payload peers and create an explicit semantic Lexical editor.
+title: Quick start
+description: Create an explicit Payload Lexical editor and attach it to a field.
+sidebar:
+  order: 3
+package: payload-editor
+topic: quick-start
 ---
 
-import InstallTabs from "../../../../components/docs/InstallTabs.astro";
-
-<InstallTabs packages="@nexload-sdk/payload-editor" peers={["payload", "@payloadcms/richtext-lexical"]} />
-
-`payload` and all installed `@payloadcms/*` packages must use the exact same version within the supported `>=3.68.5 <4` range.
+Create one editor policy:
 
 ```ts
 import { createEditor } from "@nexload-sdk/payload-editor";
+import type { CollectionConfig } from "payload";
 
-export const editor = createEditor({
+const articleEditor = createEditor({
   preset: "structured-content",
   features: {
     heading: { sizes: ["h2", "h3"] },
-    upload: { allowedCollections: ["media"], maxDepth: 1 },
+    upload: {
+      allowedCollections: ["media"],
+      maxDepth: 1,
+    },
   },
 });
+
+export const Articles: CollectionConfig = {
+  slug: "articles",
+  fields: [
+    {
+      name: "content",
+      type: "richText",
+      editor: articleEditor,
+    },
+  ],
+};
 ```
 
-Use the returned value as Payload's root `editor` or a `richText` field editor. `createEditor()` without an explicit preset or features definition is invalid.
+There is no implicit default: pass a built-in/custom `preset` or an explicit `features` object. Feature states mean:
+
+- omitted: inherit from the preset, or stay absent without one;
+- `false`: disable;
+- `true`: enable with the package adapter defaults;
+- object: enable and shallow-merge options; arrays replace rather than concatenate.
+
+The example narrows headings and upload collections while inheriting every other `structured-content` feature.
+
+Open a new or existing Article in Payload Admin. The `content` toolbar should
+offer only H2 and H3 heading choices from this override, and its upload action
+should allow the `media` collection. Seeing those controls confirms that
+Payload loaded this editor policy; merely loading the config is not the full
+visual check.
+
+For organization-owned reusable policies, create a branded snapshot with `defineEditorPreset` and pass it to `createEditor`.
+
+Next, read [Concepts](./concepts/) before changing merge behavior, then use
+[Guides](./guides/) for presets and native extensions.

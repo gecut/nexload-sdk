@@ -1,51 +1,113 @@
-# Nexload SDK
+# Nexload SDK documentation
 
-Current documentation index for Nexload SDK packages and agent skills.
+Current-version documentation for ten released Healthcheck and Payload CMS packages.
 
-- /agents/
-- /agents/install/
-- /community/support/
-- /index/
-- /packages/healthcheck/concepts/checks-and-collectors/
-- /packages/healthcheck/concepts/reports-and-status/
-- /packages/healthcheck/concepts/scopes/
-- /packages/healthcheck/guides/bun/
-- /packages/healthcheck/guides/custom-checks/
-- /packages/healthcheck/guides/exporters/
-- /packages/healthcheck/guides/nextjs/
-- /packages/healthcheck/guides/node/
-- /packages/healthcheck/guides/operations/
-- /packages/healthcheck/guides/payload/
-- /packages/healthcheck/
-- /packages/healthcheck/quick-start/
-- /packages/healthcheck/reference/api/
-- /packages/
-- /packages/payload-editor/extensions/
-- /packages/payload-editor/features/
-- /packages/payload-editor/
-- /packages/payload-editor/migration/
-- /packages/payload-editor/presets/
-- /packages/payload-editor/quick-start/
-- /packages/payload-editor/reference-api/
-- /packages/payload-fields/
-- /packages/payload-fields/jalali-dates/
-- /packages/payload-fields/migration/
-- /packages/payload-fields/money/
-- /packages/payload-fields/plugin-and-admin/
-- /packages/payload-fields/quick-start/
-- /packages/payload-fields/reference-api/
-- /packages/payload-fields/slug/
-- /packages/payload-schema/architecture/
-- /packages/payload-schema/errors/
-- /packages/payload-schema/fields/
-- /packages/payload-schema/
-- /packages/payload-schema/migration/
-- /packages/payload-schema/native-fields/
-- /packages/payload-schema/payload-integration/
-- /packages/payload-schema/projections/
-- /packages/payload-schema/quick-start/
-- /packages/payload-schema/reference-api/
-- /packages/payload-schema/schema-derivation/
-- /packages/payload-schema/testing-compatibility/
-- /start/choose-a-package/
-- /start/introduction/
+- [Agent skills](/agents/) — Package-scoped guidance for coding agents working with Nexload Healthcheck and Payload packages. [topic: agents]
+- [Install agent skills](/agents/install.md) — Install Nexload package Skills with the official skills CLI for a project, globally, or for Codex. [topic: agents]
+- [Support and contribution](/community/support.md) — Use GitHub Issues for Nexload SDK bug reports, documentation corrections, and feature requests. [topic: community]
+- [Nexload SDK](/) — Current documentation for ten focused Healthcheck and Payload CMS TypeScript packages. [topic: ecosystem]
+- [Healthcheck Bun API](/packages/healthcheck/bun/api.md) — Public Bun runtime exports. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: api]
+- [Healthcheck Bun compatibility](/packages/healthcheck/bun/compatibility.md) — Bun runtime and module boundaries. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: compatibility]
+- [Healthcheck Bun concepts](/packages/healthcheck/bun/concepts.md) — Understand Bun runtime and server observations. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: concepts]
+- [Healthcheck Bun examples](/packages/healthcheck/bun/examples.md) — Return a readiness report from Bun. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: examples]
+- [Healthcheck Bun guides](/packages/healthcheck/bun/guides.md) — Expose safe Bun health and diagnostics endpoints. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: guides]
+- [Healthcheck Bun](/packages/healthcheck/bun/) — Bun runtime identity, memory, and server activity checks. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: overview]
+- [Install Healthcheck Bun](/packages/healthcheck/bun/installation.md) — Install the Bun runtime integration and core. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: installation]
+- [Migrate Healthcheck Bun](/packages/healthcheck/bun/migration.md) — Verify Bun runtime output after an upgrade. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: migration]
+- [Healthcheck Bun quick start](/packages/healthcheck/bun/quick-start.md) — Connect a Bun server to a health manager. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck Bun](/packages/healthcheck/bun/troubleshooting.md) — Diagnose runtime mismatch and unavailable Bun counters. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: troubleshooting]
+- [Healthcheck Core API](/packages/healthcheck/core/api.md) — Public runtime and type exports of the health orchestration package. [@nexload-sdk/healthcheck v4.1.0] [topic: api]
+- [Healthcheck Core compatibility](/packages/healthcheck/core/compatibility.md) — Runtime, module, and integration boundaries for the current package. [@nexload-sdk/healthcheck v4.1.0] [topic: compatibility]
+- [Healthcheck Core concepts](/packages/healthcheck/core/concepts.md) — Understand scopes, checks, collectors, status, and report profiles. [@nexload-sdk/healthcheck v4.1.0] [topic: concepts]
+- [Healthcheck Core examples](/packages/healthcheck/core/examples.md) — Compose startup, readiness, diagnostics, and serialization. [@nexload-sdk/healthcheck v4.1.0] [topic: examples]
+- [Healthcheck Core guides](/packages/healthcheck/core/guides.md) — Design custom checks, safe scopes, and operational output. [@nexload-sdk/healthcheck v4.1.0] [topic: guides]
+- [Healthcheck Core](/packages/healthcheck/core/) — Runtime-neutral health orchestration for production services. [@nexload-sdk/healthcheck v4.1.0] [topic: overview]
+- [Install Healthcheck Core](/packages/healthcheck/core/installation.md) — Install the runtime-neutral health manager and choose optional integrations. [@nexload-sdk/healthcheck v4.1.0] [topic: installation]
+- [Migrate Healthcheck Core](/packages/healthcheck/core/migration.md) — Verify an upgrade to the current healthcheck package. [@nexload-sdk/healthcheck v4.1.0] [topic: migration]
+- [Healthcheck Core quick start](/packages/healthcheck/core/quick-start.md) — Create a manager and run a readiness report. [@nexload-sdk/healthcheck v4.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck Core](/packages/healthcheck/core/troubleshooting.md) — Diagnose timeouts, unexpected status, missing metrics, and unsafe reports. [@nexload-sdk/healthcheck v4.1.0] [topic: troubleshooting]
+- [Healthcheck Next.js API](/packages/healthcheck/next/api.md) — Public App Router factories and option contracts. [@nexload-sdk/healthcheck-next v2.1.0] [topic: api]
+- [Healthcheck Next.js compatibility](/packages/healthcheck/next/compatibility.md) — App Router, runtime, and serializer boundaries. [@nexload-sdk/healthcheck-next v2.1.0] [topic: compatibility]
+- [Healthcheck Next.js concepts](/packages/healthcheck/next/concepts.md) — Understand route factories, status mapping, formats, and protection. [@nexload-sdk/healthcheck-next v2.1.0] [topic: concepts]
+- [Healthcheck Next.js examples](/packages/healthcheck/next/examples.md) — Expose a protected OpenMetrics route. [@nexload-sdk/healthcheck-next v2.1.0] [topic: examples]
+- [Healthcheck Next.js guides](/packages/healthcheck/next/guides.md) — Design public probes and protected operational routes. [@nexload-sdk/healthcheck-next v2.1.0] [topic: guides]
+- [Healthcheck Next.js](/packages/healthcheck/next/) — App Router health and metrics route factories. [@nexload-sdk/healthcheck-next v2.1.0] [topic: overview]
+- [Install Healthcheck Next.js](/packages/healthcheck/next/installation.md) — Install App Router factories and their health packages. [@nexload-sdk/healthcheck-next v2.1.0] [topic: installation]
+- [Migrate Healthcheck Next.js](/packages/healthcheck/next/migration.md) — Verify route, protection, and response behavior after an upgrade. [@nexload-sdk/healthcheck-next v2.1.0] [topic: migration]
+- [Healthcheck Next.js quick start](/packages/healthcheck/next/quick-start.md) — Expose a no-cache readiness route in App Router. [@nexload-sdk/healthcheck-next v2.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck Next.js](/packages/healthcheck/next/troubleshooting.md) — Diagnose caching, unauthorized responses, invalid protection, and wrong runtime. [@nexload-sdk/healthcheck-next v2.1.0] [topic: troubleshooting]
+- [Healthcheck Node API](/packages/healthcheck/node/api.md) — Public exports for Node runtime and operational checks. [@nexload-sdk/healthcheck-node v2.1.0] [topic: api]
+- [Healthcheck Node compatibility](/packages/healthcheck/node/compatibility.md) — Node, Linux cgroup, and module compatibility. [@nexload-sdk/healthcheck-node v2.1.0] [topic: compatibility]
+- [Healthcheck Node concepts](/packages/healthcheck/node/concepts.md) — Understand runtime adapters, cgroup detection, collectors, and dependency probes. [@nexload-sdk/healthcheck-node v2.1.0] [topic: concepts]
+- [Healthcheck Node examples](/packages/healthcheck/node/examples.md) — Collect container metrics and check a TCP dependency. [@nexload-sdk/healthcheck-node v2.1.0] [topic: examples]
+- [Healthcheck Node guides](/packages/healthcheck/node/guides.md) — Configure container thresholds and network dependency checks. [@nexload-sdk/healthcheck-node v2.1.0] [topic: guides]
+- [Healthcheck Node](/packages/healthcheck/node/) — Node.js runtime, process, container, TCP, and DNS health integrations. [@nexload-sdk/healthcheck-node v2.1.0] [topic: overview]
+- [Install Healthcheck Node](/packages/healthcheck/node/installation.md) — Install the Node integration with core. [@nexload-sdk/healthcheck-node v2.1.0] [topic: installation]
+- [Migrate Healthcheck Node](/packages/healthcheck/node/migration.md) — Verify Node and container behavior after an upgrade. [@nexload-sdk/healthcheck-node v2.1.0] [topic: migration]
+- [Healthcheck Node quick start](/packages/healthcheck/node/quick-start.md) — Add Node and container observations to a health manager. [@nexload-sdk/healthcheck-node v2.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck Node](/packages/healthcheck/node/troubleshooting.md) — Diagnose cgroup detection and TCP or DNS failures. [@nexload-sdk/healthcheck-node v2.1.0] [topic: troubleshooting]
+- [Healthcheck OpenTelemetry API](/packages/healthcheck/otel/api.md) — Public transform and metric-record exports. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: api]
+- [Healthcheck OpenTelemetry compatibility](/packages/healthcheck/otel/compatibility.md) — Transform and SDK ownership boundaries. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: compatibility]
+- [Healthcheck OpenTelemetry concepts](/packages/healthcheck/otel/concepts.md) — Understand resources, generated health records, and collector metrics. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: concepts]
+- [Healthcheck OpenTelemetry examples](/packages/healthcheck/otel/examples.md) — Record numeric health values with an application-owned meter. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: examples]
+- [Healthcheck OpenTelemetry guides](/packages/healthcheck/otel/guides.md) — Bridge health reports into an existing telemetry pipeline. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: guides]
+- [Healthcheck OpenTelemetry](/packages/healthcheck/otel/) — Convert health reports to OpenTelemetry-friendly resources and metric records. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: overview]
+- [Install Healthcheck OpenTelemetry](/packages/healthcheck/otel/installation.md) — Install OpenTelemetry transforms with healthcheck core. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: installation]
+- [Migrate Healthcheck OpenTelemetry](/packages/healthcheck/otel/migration.md) — Verify resource and metric mapping after an upgrade. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: migration]
+- [Healthcheck OpenTelemetry quick start](/packages/healthcheck/otel/quick-start.md) — Transform a report into resource attributes and metric records. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck OpenTelemetry](/packages/healthcheck/otel/troubleshooting.md) — Diagnose missing identity, incompatible values, and high-cardinality attributes. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: troubleshooting]
+- [Healthcheck Payload API](/packages/healthcheck/payload/api.md) — Public Payload readiness-check exports. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: api]
+- [Healthcheck Payload compatibility](/packages/healthcheck/payload/compatibility.md) — Payload peer, runtime, and query boundaries. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: compatibility]
+- [Healthcheck Payload concepts](/packages/healthcheck/payload/concepts.md) — Understand readiness, Local API queries, and document-count expectations. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: concepts]
+- [Healthcheck Payload examples](/packages/healthcheck/payload/examples.md) — Require a known configuration document before accepting traffic. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: examples]
+- [Healthcheck Payload guides](/packages/healthcheck/payload/guides.md) — Choose a safe collection and readiness query. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: guides]
+- [Healthcheck Payload](/packages/healthcheck/payload/) — A lightweight Payload Local API readiness check. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: overview]
+- [Install Healthcheck Payload](/packages/healthcheck/payload/installation.md) — Install the Payload readiness integration with core and Payload. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: installation]
+- [Migrate Healthcheck Payload](/packages/healthcheck/payload/migration.md) — Verify Local API readiness behavior after an upgrade. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: migration]
+- [Healthcheck Payload quick start](/packages/healthcheck/payload/quick-start.md) — Add a small Local API query to readiness. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck Payload](/packages/healthcheck/payload/troubleshooting.md) — Diagnose unhealthy queries, count expectations, and slow readiness. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: troubleshooting]
+- [Healthcheck Prometheus API](/packages/healthcheck/prometheus/api.md) — Public Prometheus and OpenMetrics serializer exports. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: api]
+- [Healthcheck Prometheus compatibility](/packages/healthcheck/prometheus/compatibility.md) — Text-format and package compatibility. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: compatibility]
+- [Healthcheck Prometheus concepts](/packages/healthcheck/prometheus/concepts.md) — Understand exported series, labels, and OpenMetrics output. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: concepts]
+- [Healthcheck Prometheus examples](/packages/healthcheck/prometheus/examples.md) — Expose OpenMetrics output from a framework handler. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: examples]
+- [Healthcheck Prometheus guides](/packages/healthcheck/prometheus/guides.md) — Publish safe, stable health metrics. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: guides]
+- [Healthcheck Prometheus](/packages/healthcheck/prometheus/) — Serialize health reports as Prometheus or OpenMetrics text. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: overview]
+- [Install Healthcheck Prometheus](/packages/healthcheck/prometheus/installation.md) — Install Prometheus serializers with core. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: installation]
+- [Migrate Healthcheck Prometheus](/packages/healthcheck/prometheus/migration.md) — Protect dashboards and alerts during an exporter upgrade. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: migration]
+- [Healthcheck Prometheus quick start](/packages/healthcheck/prometheus/quick-start.md) — Convert a health report to Prometheus text. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: quick-start]
+- [Troubleshoot Healthcheck Prometheus](/packages/healthcheck/prometheus/troubleshooting.md) — Diagnose missing series, labels, and scrape output. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: troubleshooting]
+- [Package catalog](/packages/) — Browse the ten current Nexload SDK packages documented on this site. [topic: ecosystem]
+- [API reference](/packages/payload-editor/api.md) — Public exports for Payload Editor 1.1.0. [@nexload-sdk/payload-editor v1.1.0] [topic: api]
+- [Compatibility](/packages/payload-editor/compatibility.md) — Current runtime, peer, packaging, and repository test boundaries for Payload Editor. [@nexload-sdk/payload-editor v1.1.0] [topic: compatibility]
+- [Concepts](/packages/payload-editor/concepts.md) — Understand semantic features, preset merging, native extensions, and runtime ownership. [@nexload-sdk/payload-editor v1.1.0] [topic: concepts]
+- [Examples](/packages/payload-editor/examples.md) — Complete Payload Editor examples for root, field, preset, and native extension use. [@nexload-sdk/payload-editor v1.1.0] [topic: examples]
+- [Guides](/packages/payload-editor/guides.md) — Select presets, define organization policies, and extend Payload Editor safely. [@nexload-sdk/payload-editor v1.1.0] [topic: guides]
+- [Payload Editor](/packages/payload-editor/) — Deterministic semantic configuration for Payload's Lexical editor. [@nexload-sdk/payload-editor v1.1.0] [topic: overview]
+- [Installation](/packages/payload-editor/installation.md) — Install Payload Editor with exactly matched Payload Lexical peers. [@nexload-sdk/payload-editor v1.1.0] [topic: installation]
+- [Migration](/packages/payload-editor/migration.md) — Move editor configuration to Payload Editor 1.1.0 without changing stored content. [@nexload-sdk/payload-editor v1.1.0] [topic: migration]
+- [Quick start](/packages/payload-editor/quick-start.md) — Create an explicit Payload Lexical editor and attach it to a field. [@nexload-sdk/payload-editor v1.1.0] [topic: quick-start]
+- [Troubleshooting](/packages/payload-editor/troubleshooting.md) — Diagnose Payload Editor definitions, presets, options, extensions, and peer mismatch. [@nexload-sdk/payload-editor v1.1.0] [topic: troubleshooting]
+- [API reference](/packages/payload-fields/api.md) — Public exports for Payload Fields 3.1.0. [@nexload-sdk/payload-fields v3.1.0] [topic: api]
+- [Compatibility](/packages/payload-fields/compatibility.md) — Current runtime, peer, packaging, and test boundaries for Payload Fields. [@nexload-sdk/payload-fields v3.1.0] [topic: compatibility]
+- [Concepts](/packages/payload-fields/concepts.md) — Understand Payload Fields persistence, override, hook, localization, and Admin boundaries. [@nexload-sdk/payload-fields v3.1.0] [topic: concepts]
+- [Examples](/packages/payload-fields/examples.md) — Complete Payload Fields examples for collections, formatters, and custom slug generation. [@nexload-sdk/payload-fields v3.1.0] [topic: examples]
+- [Guides](/packages/payload-fields/guides.md) — Configure slugs, Jalali presentation, money storage, and server-side slug generation. [@nexload-sdk/payload-fields v3.1.0] [topic: guides]
+- [Payload Fields](/packages/payload-fields/) — Semantic Payload field factories for Unicode slugs, Jalali dates, and integer money values. [@nexload-sdk/payload-fields v3.1.0] [topic: overview]
+- [Installation](/packages/payload-fields/installation.md) — Install Payload Fields and align its Payload, UI, and React peer dependencies. [@nexload-sdk/payload-fields v3.1.0] [topic: installation]
+- [Migration](/packages/payload-fields/migration.md) — Upgrade Payload Fields 2.x integrations to the current 3.1.0 contract. [@nexload-sdk/payload-fields v3.1.0] [topic: migration]
+- [Quick start](/packages/payload-fields/quick-start.md) — Add managed slug, Jalali date, and money fields to one Payload collection. [@nexload-sdk/payload-fields v3.1.0] [topic: quick-start]
+- [Troubleshooting](/packages/payload-fields/troubleshooting.md) — Diagnose Payload Fields setup, Import Map, storage, validation, and generator failures. [@nexload-sdk/payload-fields v3.1.0] [topic: troubleshooting]
+- [API reference](/packages/payload-schema/api.md) — Public runtime and type exports for Payload Schema 1.1.0. [@nexload-sdk/payload-schema v1.1.0] [topic: api]
+- [Compatibility](/packages/payload-schema/compatibility.md) — Current runtime, peer, test, packaging, and workflow boundaries for Payload Schema. [@nexload-sdk/payload-schema v1.1.0] [topic: compatibility]
+- [Concepts](/packages/payload-schema/concepts.md) — Understand canonical schemas, compilation, schema availability, cloning, and lifecycle ordering. [@nexload-sdk/payload-schema v1.1.0] [topic: concepts]
+- [Examples](/packages/payload-schema/examples.md) — Complete Payload Schema examples for Local API normalization, nested fields, and relationships. [@nexload-sdk/payload-schema v1.1.0] [topic: examples]
+- [Guides](/packages/payload-schema/guides.md) — Configure factories, defaults, relationships, native fields, schema derivation, and projections. [@nexload-sdk/payload-schema v1.1.0] [topic: guides]
+- [Payload Schema](/packages/payload-schema/) — Define canonical field validation once for Payload and reusable Zod schemas. [@nexload-sdk/payload-schema v1.1.0] [topic: overview]
+- [Installation](/packages/payload-schema/installation.md) — Install the ESM-only Payload Schema package with supported Payload and Zod peers. [@nexload-sdk/payload-schema v1.1.0] [topic: installation]
+- [Migration](/packages/payload-schema/migration.md) — Incrementally adopt Payload Schema without moving collection ownership. [@nexload-sdk/payload-schema v1.1.0] [topic: migration]
+- [Quick start](/packages/payload-schema/quick-start.md) — Define an entity, compile Payload fields, and derive an application schema. [@nexload-sdk/payload-schema v1.1.0] [topic: quick-start]
+- [Troubleshooting](/packages/payload-schema/troubleshooting.md) — Diagnose Payload Schema definition, derivation, hook, and validation failures. [@nexload-sdk/payload-schema v1.1.0] [topic: troubleshooting]
+- [Choose a package](/start/choose-a-package.md) — Match a service-health or Payload CMS task to one of the ten packages documented here. [topic: ecosystem]
+- [Glossary](/start/glossary.md) — Shared terms used across Healthcheck and Payload package documentation. [topic: ecosystem]
+- [Introduction](/start/introduction.md) — Understand the Nexload SDK package model, documentation policy, and recommended learning path. [topic: ecosystem]
+- [Choose a Payload package](/start/payload-packages.md) — Compare Payload Fields, Payload Editor, and Payload Schema by responsibility. [topic: ecosystem]

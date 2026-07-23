@@ -1,0 +1,11 @@
+---
+title: Healthcheck Prometheus
+description: Serialize health reports as Prometheus or OpenMetrics text.
+sidebar: { order: 1 }
+package: healthcheck-prometheus
+topic: overview
+---
+
+`@nexload-sdk/healthcheck-prometheus` converts a completed core report to Prometheus or OpenMetrics text. It does not start a metrics server or push data.
+
+Install it separately from core and expose its output through your framework. Exporters read report-level collector metrics; check-local metrics stay in JSON.

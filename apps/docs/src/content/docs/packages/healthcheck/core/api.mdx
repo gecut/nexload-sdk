@@ -1,0 +1,28 @@
+---
+title: Healthcheck Core API
+description: Public runtime and type exports of the health orchestration package.
+sidebar:
+  order: 6
+package: healthcheck
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck" />
+
+## Primary runtime exports
+
+- `createHealthManager(options)` creates a manager with `run`, shutdown-state, and registration operations.
+- `defineHealthCheck()` and `defineMetricCollector()` preserve typed definitions.
+- `runtimeInfoCheck`, `shutdownCheck`, `startupCheck`, `timerLagCheck`, `memoryCheck`, and `httpCheck` create built-in checks.
+- `runtimeMetricsCollector()` produces report-level runtime metrics.
+- `toHealthJson()` and `stringifyHealthJson()` serialize reports with detail and redaction controls.
+- `aggregateStatus()` and `summarizeChecks()` operate on completed results.
+- `statusToHttpStatus()` applies `DEFAULT_HTTP_STATUS_POLICY` or `STRICT_READINESS_HTTP_STATUS_POLICY`.
+- `genericRuntimeAdapter()` and `autoRuntimeAdapter()` avoid importing a runtime integration.
+- `createAbortSignal()` and `sleep()` support cancellation-aware checks.
+
+`HEALTH_ERROR_CODES` is the stable error-code vocabulary. Public types include manager, report, check, collector, runtime, retry, redaction, metric, HTTP-policy, and serialization contracts.
+
+Source: [`packages/healthcheck/core/src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/index.ts)

@@ -1,10 +1,10 @@
 ---
 interface Props {
-  status: "documented" | "planned";
+  status: "released" | "stable";
 }
 
 const { status } = Astro.props;
-const label = status === "documented" ? "Documented" : "Docs planned";
+const label = status === "released" ? "Released" : "Stable";
 ---
 
 <span class:list={["docs-status", `docs-status--${status}`]}>{label}</span>

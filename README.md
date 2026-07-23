@@ -1,80 +1,70 @@
-# Nexload SDK Monorepo
+# Nexload SDK
 
-Monorepo for the `@nexload-sdk/*` packages.
+Production TypeScript packages for service health and Payload CMS.
 
-This repository contains reusable Node.js / TypeScript packages for:
-
-- environment variable management
-- structured logging
-- health checks
-- JWT helpers
-- Payload CMS utilities
-- HTTP pooling and RPC client helpers
-- internal build/lint/TypeScript tooling
-
-## Workspace Layout
-
-- `packages/*`: publishable SDK packages
-- `tools/*`: internal shared tooling packages used by the workspace
-- `apps/web`: small Vite playground/demo app
-- `.changeset`: release metadata for versioning/publishing
+This repository currently documents and supports ten released packages. Install
+only the package that owns your task. Package versions, peer dependencies, and
+runtime compatibility are listed in the
+[documentation](https://gecut.github.io/nexload-sdk/).
 
 ## Packages
 
-### Runtime packages (`packages/*`)
+### Healthcheck
 
-- `@nexload-sdk/env`: typed environment variable manager + presets
-- `@nexload-sdk/logger`: lightweight structured logger (Node + browser renderers)
-- `@nexload-sdk/healthcheck`: framework-agnostic liveness/readiness checks
-- `@nexload-sdk/jwt`: policy-driven JWT factory
-- `@nexload-sdk/orpc-client`: small oRPC client factory wrapper
-- `@nexload-sdk/payload-fields`: Payload CMS custom fields + lexical editor preset
-- `@nexload-sdk/payload-hooks`: Payload CMS logging hooks
-- `@nexload-sdk/iconcraft`: CLI to generate local icon components from Iconify
+Start with `@nexload-sdk/healthcheck`, then add the runtime, framework, CMS, or
+monitoring integration your service needs.
 
-### Tooling packages (`tools/*`)
+| Package                                                                                                       | Use it for                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`@nexload-sdk/healthcheck`](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/)                  | Defining checks, collectors, scopes, health reports, timeouts, status aggregation, and serialization without coupling the core to a framework. |
+| [`@nexload-sdk/healthcheck-node`](https://gecut.github.io/nexload-sdk/packages/healthcheck/node/)             | Reading Node.js process data, Linux cgroup limits, TCP reachability, and DNS resolution.                                                       |
+| [`@nexload-sdk/healthcheck-bun`](https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/)               | Adapting the health manager to Bun and observing `Bun.serve` server metrics.                                                                   |
+| [`@nexload-sdk/healthcheck-next`](https://gecut.github.io/nexload-sdk/packages/healthcheck/next/)             | Creating no-store health and metrics route handlers for the Next.js App Router.                                                                |
+| [`@nexload-sdk/healthcheck-prometheus`](https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/) | Serializing health reports as Prometheus or OpenMetrics text.                                                                                  |
+| [`@nexload-sdk/healthcheck-otel`](https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/)             | Converting health reports into OpenTelemetry-friendly resource attributes and metric records without requiring an OpenTelemetry SDK.           |
+| [`@nexload-sdk/healthcheck-payload`](https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/)       | Checking Payload CMS readiness through a small, controlled Local API query.                                                                    |
 
-- `@nexload-sdk/bundler`: shared esbuild + `tsc` bundling helper
-- `@nexload-sdk/eslint-config`: shared flat ESLint configs
-- `@nexload-sdk/typescript-config`: shared tsconfig presets
+The runtime adapters do not create HTTP endpoints. Route ownership stays with
+your application or framework integration. Monitoring serializers only convert
+reports; they do not start exporters or register SDK providers.
 
-## Requirements
+### Payload CMS
 
-- Node.js 20+ (recommended)
-- pnpm 10+
+These packages solve separate problems and can be used independently.
 
-The workspace is configured with `pnpm` and `turbo`.
+| Package                                                                                       | Use it for                                                                                                     |
+| --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [`@nexload-sdk/payload-fields`](https://gecut.github.io/nexload-sdk/packages/payload-fields/) | Adding managed Unicode slugs, Jalali date inputs, and integer minor-unit money fields to Payload collections.  |
+| [`@nexload-sdk/payload-editor`](https://gecut.github.io/nexload-sdk/packages/payload-editor/) | Building deterministic Payload Lexical editor configurations from explicit presets and feature options.        |
+| [`@nexload-sdk/payload-schema`](https://gecut.github.io/nexload-sdk/packages/payload-schema/) | Defining canonical field validation and normalization once, then reusing it as Payload fields and Zod schemas. |
 
-## Getting Started
+`payload-fields` owns specific field behavior and Admin UI integrations.
+`payload-editor` owns Lexical configuration. `payload-schema` owns canonical
+data contracts shared by Payload and Zod; it does not replace either of the
+other packages.
+
+## Documentation
+
+The [package catalog](https://gecut.github.io/nexload-sdk/packages/) is the
+starting point for installation, quick starts, concepts, guides, API references,
+examples, troubleshooting, migration, and compatibility.
+
+The site documents the current released version of each package. Historical
+versioned pages are not hosted; use the package changelog and migration guide
+when upgrading.
+
+## Repository development
+
+The workspace uses pnpm and Turbo. Node.js 20 or newer and pnpm 10 are
+recommended for repository development.
 
 ```bash
 pnpm install
 pnpm build
+pnpm lint
 ```
 
-Common commands:
+Package source lives under `packages/`. Build output is generated in `dist/`
+and should not be edited directly. Releases are managed with Changesets.
 
-```bash
-pnpm dev      # turbo run dev
-pnpm build    # turbo run build
-pnpm lint     # turbo run lint
-pnpm format   # prettier on ts/tsx/md
-```
-
-## Development Notes
-
-- Most packages are bundled with the internal `@nexload-sdk/bundler` helper.
-- Package builds usually output CJS + ESM + `.d.ts` files to `dist/`.
-- Releases are managed through Changesets (`.changeset/`).
-- The root script `cublish` is a local convenience release flow (build/install/changesets/publish).
-
-## Documentation
-
-Each package has its own `README.md` with:
-
-- install instructions
-- exported API overview
-- usage examples
-- package-specific caveats
-
-See also `AGENTS.md` for repository-specific guidance when working with automated coding agents.
+See [`AGENTS.md`](./AGENTS.md) for repository-specific contribution guidance.

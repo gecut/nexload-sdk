@@ -1,0 +1,11 @@
+---
+title: Healthcheck Payload
+description: A lightweight Payload Local API readiness check.
+sidebar: { order: 1 }
+package: healthcheck-payload
+topic: overview
+---
+
+`@nexload-sdk/healthcheck-payload` creates a core check that calls `payload.find()` on a small, deterministic collection.
+
+It answers whether Payload's Local API can complete a representative query. It does not add a Payload route, validate every collection, inspect queues, or replace database-specific monitoring. The check is readiness-critical and diagnostics-non-critical by default.

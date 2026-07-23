@@ -1,0 +1,55 @@
+# Quick start
+
+Create an explicit Payload Lexical editor and attach it to a field.
+
+**Topic:** quick-start
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/quick-start/
+Create one editor policy:
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+import type { CollectionConfig } from "payload";
+
+const articleEditor = createEditor({
+  preset: "structured-content",
+  features: {
+    heading: { sizes: ["h2", "h3"] },
+    upload: {
+      allowedCollections: ["media"],
+      maxDepth: 1,
+    },
+  },
+});
+
+export const Articles: CollectionConfig = {
+  slug: "articles",
+  fields: [
+    {
+      name: "content",
+      type: "richText",
+      editor: articleEditor,
+    },
+  ],
+};
+```
+
+There is no implicit default: pass a built-in/custom `preset` or an explicit `features` object. Feature states mean:
+
+* omitted: inherit from the preset, or stay absent without one;
+* `false`: disable;
+* `true`: enable with the package adapter defaults;
+* object: enable and shallow-merge options; arrays replace rather than concatenate.
+
+The example narrows headings and upload collections while inheriting every other `structured-content` feature.
+
+Open a new or existing Article in Payload Admin. The `content` toolbar should
+offer only H2 and H3 heading choices from this override, and its upload action
+should allow the `media` collection. Seeing those controls confirms that
+Payload loaded this editor policy; merely loading the config is not the full
+visual check.
+
+For organization-owned reusable policies, create a branded snapshot with `defineEditorPreset` and pass it to `createEditor`.
+
+Next, read [Concepts](./concepts/) before changing merge behavior, then use
+[Guides](./guides/) for presets and native extensions.

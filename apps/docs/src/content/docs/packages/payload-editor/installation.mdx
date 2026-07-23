@@ -1,0 +1,35 @@
+---
+title: Installation
+description: Install Payload Editor with exactly matched Payload Lexical peers.
+sidebar:
+  order: 2
+package: payload-editor
+topic: installation
+---
+
+```bash
+pnpm add @nexload-sdk/payload-editor payload @payloadcms/richtext-lexical
+```
+
+The examples use pnpm. With another package manager, use
+`npm install`, `yarn add`, or `bun add` with the same package names.
+
+Version 1.1.0 requires Payload and `@payloadcms/richtext-lexical` from `3.68.5` up to, but not including, 4. Keep `payload` and every `@payloadcms/*` dependency on exactly the same version.
+
+The package is ESM-only, side-effect free, and intended for server/config imports:
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+```
+
+Do not import it from browser components. The returned object is the result of Payload's native `lexicalEditor(...)` call and should be placed where Payload expects an editor provider.
+
+## Verify
+
+```ts
+export const editor = createEditor({ preset: "standard" });
+```
+
+Load the Payload config and open one rich-text field. A missing definition, unknown preset, invalid option, or duplicate native feature fails synchronously while config loads.
+
+If Payload reports incompatible Lexical types or duplicate packages, inspect the resolved versions of `payload` and `@payloadcms/richtext-lexical` first. Do not solve version skew with casts.

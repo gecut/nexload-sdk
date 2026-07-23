@@ -25,6 +25,14 @@
 
   .package-hero h2 { margin: 0.5rem 0; }
   .package-hero__actions { margin-top: 1.25rem; }
+  .package-hero__switcher {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .package-hero__switcher span[aria-current="page"] { font-weight: 700; }
   .install-tabs__peers { color: var(--sl-color-gray-3); font-size: var(--sl-text-sm); }
 
   .docs-status {
@@ -36,8 +44,8 @@
     line-height: 1;
     padding: 0.3rem 0.55rem;
   }
-  .docs-status--documented { color: var(--sl-color-green-high); }
-  .docs-status--planned { color: var(--sl-color-gray-3); }
+  .docs-status--released,
+  .docs-status--stable { color: var(--sl-color-green-high); }
 
 .package-grid__planned {
     border: 1px solid var(--sl-color-gray-5);

@@ -4,6 +4,8 @@ import { Badge, LinkButton } from "@astrojs/starlight/components";
 import DocsStatus from "./DocsStatus.astro";
 
 import type { PackageCatalogEntry } from "../../lib/package-catalog";
+import { packageCatalog } from "../../lib/package-catalog";
+import { withBase } from "../../lib/paths";
 
 interface Props {
   entry: PackageCatalogEntry;
@@ -14,6 +16,7 @@ const { entry, eyebrow = "Nexload SDK package" } = Astro.props;
 const { manifest } = entry;
 const npmUrl = `https://www.npmjs.com/package/${manifest.name}`;
 const sourceUrl = `https://github.com/gecut/nexload-sdk/tree/main/${entry.sourcePath}`;
+const siblings = packageCatalog.filter((candidate) => candidate.family === entry.family);
 ---
 
 <header class="package-hero">
@@ -21,7 +24,8 @@ const sourceUrl = `https://github.com/gecut/nexload-sdk/tree/main/${entry.source
   <div class="package-hero__title-row">
     <h2>{manifest.name}</h2>
     <Badge text={`v${manifest.version}`} />
-    <DocsStatus status={entry.status} />
+    <DocsStatus status={entry.maturity} />
+    <DocsStatus status={entry.releaseStatus} />
   </div>
   <p>{manifest.description}</p>
   <div class="package-hero__badges" aria-label="Runtime compatibility">
@@ -31,4 +35,10 @@ const sourceUrl = `https://github.com/gecut/nexload-sdk/tree/main/${entry.source
     <LinkButton href={npmUrl} variant="primary" icon="external">View on npm</LinkButton>
     <LinkButton href={sourceUrl} variant="secondary" icon="github">Browse source</LinkButton>
   </div>
+  <nav class="package-hero__switcher" aria-label={`${entry.family} package documentation`}>
+    <strong>Related packages:</strong>
+    {siblings.map((candidate) => candidate.id === entry.id
+      ? <span aria-current="page">{candidate.label}</span>
+      : <a href={withBase(candidate.docsPath)}>{candidate.label}</a>)}
+  </nav>
 </header>

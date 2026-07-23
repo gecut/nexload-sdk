@@ -1,0 +1,11 @@
+---
+title: Healthcheck OpenTelemetry
+description: Convert health reports to OpenTelemetry-friendly resources and metric records.
+sidebar: { order: 1 }
+package: healthcheck-otel
+topic: overview
+---
+
+`@nexload-sdk/healthcheck-otel` converts a core report into resource attributes and plain metric records. It does not depend on, configure, or export through the OpenTelemetry SDK.
+
+Use your existing SDK/meter pipeline to record the transformed values. Install Prometheus separately if you need text scraping.

@@ -1,0 +1,54 @@
+---
+title: Guides
+description: Configure slugs, Jalali presentation, money storage, and server-side slug generation.
+sidebar:
+  order: 5
+package: payload-fields
+topic: guides
+---
+
+## Managed Unicode slugs
+
+```ts
+...slugField({
+  name: "slug",
+  lockName: "slugLock",
+  source: "title",
+  regenerateOnSourceChange: true,
+  overrides: {
+    slug: { required: true, unique: true, localized: true },
+    lock: { localized: true },
+  },
+})
+```
+
+`formatSlug` normalizes Unicode, lowercases text, replaces separator runs with `-`, and trims edge hyphens. Use the exported formatter when imports or migrations must produce the same value.
+
+## Jalali date presentation
+
+```ts
+jalaliDateField({
+  name: "publishedAt",
+  pickerAppearance: "dayOnly",
+  display: { digits: "persian", dateStyle: "long" },
+  overrides: { required: true },
+})
+```
+
+The picker supports Payload date appearances. Day-only and month-only choices use deterministic native date values; consumers still receive Payload's ISO representation. `withJalaliTimestamps(fields)` appends virtual, read-only `createdAtJalali` and `updatedAtJalali` text fields.
+
+## Money
+
+```ts
+const price = moneyField({
+  name: "price",
+  currency: { code: "USD", label: "$", fractionDigits: 2 },
+  minMinorUnits: 0,
+});
+```
+
+`parseMoneyToMinorUnits("12.50", currency)` returns `1250`. `formatMoney(1250, currency)` formats the stored integer. Both reject unsafe values; the parser also rejects excess precision.
+
+## Custom slug generation
+
+Register a generator using `payloadFieldsPlugin`, reference its exact key in `slugField({ generator })`, and set `generateSlugAccess` for role or tenant checks. Generators receive `{ sourceValue, currentSlug }` plus `{ req }`. They must return a string; the package applies `formatSlug` before responding.

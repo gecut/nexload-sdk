@@ -1,0 +1,22 @@
+# Migrate Healthcheck Core
+
+Verify an upgrade to the current healthcheck package.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/migration/
+This documentation targets `@nexload-sdk/healthcheck` 4.1.0. Review the
+[package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/CHANGELOG.md)
+to identify the source version and version-specific breaking changes before
+upgrading.
+
+## Upgrade checklist
+
+1. Update core and every installed healthcheck integration together where practical.
+2. Type-check manager options, custom definitions, and report consumers.
+3. Run all four scopes and snapshot status, HTTP mapping, and redacted JSON.
+4. Confirm dependency checks remain outside liveness.
+5. Confirm diagnostic routes remain protected.
+6. Exercise timeout, thrown-error, cancellation, and shutdown paths.
+
+Do not rename check names or metric names without coordinating dashboards and alerts. Roll back the package set if report shape or routing behavior differs from your deployed contract.

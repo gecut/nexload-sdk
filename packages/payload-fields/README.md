@@ -2,6 +2,9 @@
 
 Semantic Payload CMS factories for managed Unicode slugs, Jalali dates, and integer minor-unit money values.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/payload-fields/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/payload-fields/api/)
+
 ## Install
 
 ```bash
@@ -27,9 +30,11 @@ Jalali values remain native ISO dates. `dayOnly` uses canonical local noon, and 
 
 ## Migration from 2.x
 
-- `editor` is removed. A future `payload-editor` package will replace it; it is not part of this release.
+- `editor` is removed. Use the independent
+  [`@nexload-sdk/payload-editor`](https://gecut.github.io/nexload-sdk/packages/payload-editor/)
+  package for managed Lexical configuration.
 - Replace `slugField("title")` with `slugField({ source: "title" })`.
 - Replace `...dateField()` with `jalaliDateField({ name: "date" })`.
 - Replace decimal price storage with `moneyField`; API values are minor-unit integers.
 
-See the SDK documentation for override, localization, timezone, and generator contracts.
+See the canonical documentation for override, localization, timezone, and generator contracts.

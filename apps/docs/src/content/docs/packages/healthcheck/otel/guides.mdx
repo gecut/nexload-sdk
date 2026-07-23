@@ -1,0 +1,11 @@
+---
+title: Healthcheck OpenTelemetry guides
+description: Bridge health reports into an existing telemetry pipeline.
+sidebar: { order: 5 }
+package: healthcheck-otel
+topic: guides
+---
+
+Create the report on a bounded schedule, transform it once, attach resource attributes to your configured resource, and record numeric values with matching instruments.
+
+The transform may return string, boolean, or null collector values. Decide how your SDK bridge handles non-numeric values. Do not turn request IDs, user IDs, raw errors, or secret-bearing values into attributes.

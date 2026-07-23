@@ -1,0 +1,15 @@
+# Healthcheck Next.js compatibility
+
+App Router, runtime, and serializer boundaries.
+
+**Topic:** compatibility
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/compatibility/
+The package targets Web `Request`/`Response` App Router handlers and depends on current core and Prometheus packages. It publishes ESM, CommonJS, and declarations; no Next.js peer is declared.
+
+Repository tests cover factory behavior, but no broad Next.js-version matrix is claimed. Node-only manager checks require a Node route runtime. IPv4 protection is supported; IPv6 CIDR matching is not.
+
+No Next.js peer range or minimum version is declared. The current contract is
+the App Router Web `Request`/`Response` interface, and the active docs gate
+type-checks on Node 22 without booting Next.js. Verify the route against the
+exact Next.js version pinned by your application.

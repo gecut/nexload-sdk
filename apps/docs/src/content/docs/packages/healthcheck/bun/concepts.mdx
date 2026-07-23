@@ -1,0 +1,11 @@
+---
+title: Healthcheck Bun concepts
+description: Understand Bun runtime and server observations.
+sidebar: { order: 4 }
+package: healthcheck-bun
+topic: concepts
+---
+
+`bunRuntimeAdapter()` reads `Bun.version`, revision, platform, process identity, uptime, and memory where available.
+
+`bunRuntimeInfoCheck()` is diagnostic and non-critical by default; it degrades when the active runtime is not Bun. `bunServerMetricsCheck()` reads pending requests and WebSockets and remains non-critical. These are observations, not dependency readiness checks.

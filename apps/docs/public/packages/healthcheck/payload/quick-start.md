@@ -1,0 +1,35 @@
+# Healthcheck Payload quick start
+
+Add a small Local API query to readiness.
+
+**Topic:** quick-start
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/quick-start/
+`payload` below is the initialized server-side Payload instance; the health
+package does not create it. In an ESM server or script:
+
+```ts
+import config from "@payload-config";
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+import { getPayload } from "payload";
+
+const payload = await getPayload({ config });
+const health = createHealthManager({
+  service: { name: "cms" },
+  checks: [payloadHealthCheck(payload, {
+    collection: "users",
+    limit: 1,
+    depth: 0,
+  })],
+});
+
+const report = await health.run("readiness");
+console.log(report.status, report.checks[0]?.status);
+// ok ok
+```
+
+Use an existing, inexpensive collection. A successful empty result is healthy unless `expectedMinDocuments` is set.
+Read the [Core quick start](/nexload-sdk/packages/healthcheck/core/quick-start/) for manager scopes. If the
+query fails, times out, or does not meet a minimum count, use
+[Troubleshooting](./troubleshooting/).

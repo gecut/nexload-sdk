@@ -1,0 +1,26 @@
+# Compatibility
+
+Current runtime, peer, packaging, and repository test boundaries for Payload Editor.
+
+**Topic:** compatibility
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/compatibility/
+The current documented package is `@nexload-sdk/payload-editor` 1.1.0.
+
+| Requirement | Contract |
+| --- | --- |
+| Payload | `>=3.68.5 <4` |
+| `@payloadcms/richtext-lexical` | `>=3.68.5 <4` |
+| Module system | ESM-only |
+| Runtime | Payload server/config |
+| Side effects | package declares `false` |
+
+Use exactly matching versions for Payload and all `@payloadcms/*` dependencies.
+
+## Repository evidence
+
+Package scripts cover build, lint, unit behavior, type tests, a packed consumer against `3.68.5`, and a manually invoked latest-peer consumer smoke. These are not an active full compatibility matrix unless a current workflow explicitly runs them.
+
+The core package intentionally has no React, CSS, Admin UI, browser, theme, or AI runtime dependency. Native extensions can introduce their own requirements.
+
+Historical versioned docs are not hosted. Pin dependencies and review the [manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/package.json), [tests](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor/test), and release history before upgrading.

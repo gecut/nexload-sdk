@@ -2,6 +2,9 @@
 
 Prometheus/OpenMetrics text serializers for `@nexload-sdk/healthcheck`.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/api/)
+
 ```ts
 import { toPrometheusText } from "@nexload-sdk/healthcheck-prometheus";
 

@@ -1,0 +1,27 @@
+---
+title: Healthcheck Core compatibility
+description: Runtime, module, and integration boundaries for the current package.
+sidebar:
+  order: 10
+package: healthcheck
+topic: compatibility
+---
+
+The core package is runtime-neutral and publishes ESM, CommonJS, and TypeScript declarations. Its manifest declares no runtime or peer dependencies.
+
+The manifest declares no minimum Node or Bun version. The active documentation
+gate builds and type-checks the current package on Node 22; earlier Node
+versions and a Bun runtime matrix are unverified, not implied compatible.
+
+Runtime-specific guarantees belong to integration packages:
+
+| Need | Package |
+| --- | --- |
+| Node process, cgroup, TCP, DNS | `@nexload-sdk/healthcheck-node` |
+| Bun runtime and server metrics | `@nexload-sdk/healthcheck-bun` |
+| Next.js App Router handlers | `@nexload-sdk/healthcheck-next` |
+| Prometheus/OpenMetrics text | `@nexload-sdk/healthcheck-prometheus` |
+| OpenTelemetry-ready records | `@nexload-sdk/healthcheck-otel` |
+| Payload Local API readiness | `@nexload-sdk/healthcheck-payload` |
+
+Compatibility claims here follow current manifests and repository tests, not an unverified cross-version matrix.

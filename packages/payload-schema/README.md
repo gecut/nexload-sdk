@@ -2,6 +2,9 @@
 
 Define intrinsic field validation and normalization once, then reuse it as ordinary Payload fields and ordinary Zod schemas.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/payload-schema/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/payload-schema/api/)
+
 ## Install
 
 ```bash

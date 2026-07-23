@@ -1,0 +1,35 @@
+---
+title: API reference
+description: Public exports for Payload Fields 3.1.0.
+sidebar:
+  order: 6
+package: payload-fields
+topic: api
+---
+
+import ApiInventory from "../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="payload-fields" />
+
+## Field factories
+
+- `slugField(options?)` returns `[TextField, CheckboxField]`; spread it into `fields`.
+- `jalaliDateField(options)` returns one native Payload date field.
+- `withJalaliTimestamps(fields, options?)` returns a new field array with virtual Jalali timestamp fields.
+- `moneyField(options)` returns one native number field with safe-integer validation.
+- `payloadFieldsPlugin(options?)` returns a Payload plugin and adds the slug-generator endpoint.
+
+## Pure helpers and constants
+
+- `formatSlug` and `formatSlugHook` share slug normalization.
+- `formatJalaliDate` formats date-like input or returns `null`.
+- `parseMoneyToMinorUnits`, `formatMoney`, and `resolveCurrency` own money conversion and presentation.
+- `IRR` and `IRT` are frozen zero-fraction currency definitions.
+
+Public option and value types are exported from the root and semantic subpaths. Import Admin components only through the package's declared `./admin/*` subpaths, normally via Payload's Import Map.
+
+## Failure model
+
+Factory configuration errors throw synchronously. Field validation returns Payload validation strings. Pure money parsers throw `TypeError` for malformed input and `RangeError` for precision or safe-integer violations. The plugin endpoint returns structured HTTP failures with codes from `PAYLOAD_FIELDS_UNAUTHENTICATED` through `PAYLOAD_FIELDS_GENERATION_FAILED`.
+
+See the [source entrypoint](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/index.ts) for the current export surface.

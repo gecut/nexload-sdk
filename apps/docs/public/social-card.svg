@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Nexload SDK documentation</title>
+  <desc id="description">Documentation for Healthcheck and Payload CMS TypeScript packages.</desc>
+  <rect width="1200" height="630" fill="#100f0f"/>
+  <circle cx="1030" cy="110" r="280" fill="#ce5d97" opacity=".2"/>
+  <circle cx="110" cy="590" r="240" fill="#879a39" opacity=".18"/>
+  <text x="96" y="270" fill="#fffcf0" font-family="system-ui, sans-serif" font-size="88" font-weight="700">Nexload SDK</text>
+  <text x="100" y="354" fill="#cecdc3" font-family="system-ui, sans-serif" font-size="38">Healthcheck and Payload CMS packages</text>
+  <text x="100" y="430" fill="#d14d41" font-family="ui-monospace, monospace" font-size="28">Current package documentation</text>
+</svg>

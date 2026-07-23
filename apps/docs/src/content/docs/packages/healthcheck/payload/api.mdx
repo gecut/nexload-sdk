@@ -1,0 +1,17 @@
+---
+title: Healthcheck Payload API
+description: Public Payload readiness-check exports.
+sidebar: { order: 6 }
+package: healthcheck-payload
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck-payload" />
+
+`payloadHealthCheck(payload, options)` returns `HealthCheckDefinition<"payload">`.
+
+`PayloadHealthCheckOptions` requires `collection` and supports `limit`, `timeoutMs`, `where`, `depth`, `expectedMinDocuments`, and `scopes`. Defaults are `limit: 1`, `depth: 0`, and `scopes: ["readiness"]`.
+
+Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts).

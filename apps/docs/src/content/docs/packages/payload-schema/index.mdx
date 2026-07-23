@@ -1,21 +1,36 @@
 ---
 title: Payload Schema
-description: Define canonical field semantics once and reuse them in Payload and Zod contracts.
+description: Define canonical field validation once for Payload and reusable Zod schemas.
+sidebar:
+  order: 1
+package: payload-schema
+topic: overview
 ---
 
-import DocLinkCard from "../../../../components/docs/DocLinkCard.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
 <PackageHero entry={packageByName("@nexload-sdk/payload-schema")} eyebrow="Canonical Payload and Zod fields" />
 
-`@nexload-sdk/payload-schema` owns intrinsic field validation and normalization. One entity definition compiles fresh Payload fields and exposes the same canonical Zod schemas for application contracts.
+`@nexload-sdk/payload-schema` 1.1.0 defines intrinsic validation and normalization once, compiles it to ordinary Payload fields, and exposes the same Zod schemas to application boundaries.
 
-It does not create collections, infer CRUD DTOs, model populated relationships, own authorization, or replace Payload-generated persistence types.
+Use it for reusable data-field contracts. It does not create collections, infer CRUD schemas, model populated relationship documents, own access control or collection hooks, provide an editor, or replace Payload-generated persistence types.
 
-<div class="doc-card-grid">
-  <DocLinkCard title="Quick start" href="/packages/payload-schema/quick-start/" description="Define an entity and attach its fields to a collection." />
-  <DocLinkCard title="Architecture" href="/packages/payload-schema/architecture/" description="Understand ownership, lifecycle, and private IR boundaries." />
-  <DocLinkCard title="Field reference" href="/packages/payload-schema/fields/" description="Review every v1 factory and canonical value shape." />
-  <DocLinkCard title="Schema derivation" href="/packages/payload-schema/schema-derivation/" description="Build strict picks or arbitrary Zod schemas." />
-</div>
+## What you get
+
+- scalar, relationship, upload, container, rich-text, and native field factories;
+- a closed entity facade for Payload compilation and schema derivation;
+- canonical normalization in Payload `beforeValidate`;
+- structured configuration errors and safe inspection metadata.
+
+The facade and exposed definition containers are frozen. However, nested option objects supplied by the caller are not a guaranteed immutable snapshot before compilation. Treat all factory input as write-once and do not mutate it after `defineEntity`.
+
+## Learning path
+
+1. [Install Payload and Zod peers](./installation/).
+2. Follow the [quick start](./quick-start/).
+3. Learn ownership, schema availability, and lifecycle in [concepts](./concepts/).
+4. Use [guides](./guides/) for defaults, relationships, native fields, and derivation.
+5. Consult [API](./api/) and [troubleshooting](./troubleshooting/).
+
+See [source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema/src), [tests](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema/tests), and [issues](https://github.com/gecut/nexload-sdk/issues). These docs cover the current version only.

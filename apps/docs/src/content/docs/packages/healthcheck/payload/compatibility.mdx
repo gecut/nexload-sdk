@@ -1,0 +1,17 @@
+---
+title: Healthcheck Payload compatibility
+description: Payload peer, runtime, and query boundaries.
+sidebar: { order: 10 }
+package: healthcheck-payload
+topic: compatibility
+---
+
+The current manifest declares optional peer `payload >=3` and depends on current core. The package publishes ESM, CommonJS, and declarations.
+
+It requires a server-side Payload object exposing `find`. Collection access, database adapter behavior, and query semantics follow the installed Payload application. Repository tests cover the small `PayloadLike` boundary; no broader Payload-version matrix is claimed here.
+
+The workspace currently resolves Payload 3.68.5 and the active docs gate uses
+Node 22. The declared support floor is only Payload 3; other Payload 3 versions
+are permitted by the manifest but are not covered by an active compatibility
+matrix. Verify the Local API query with the exact Payload and database adapter
+versions used by your application.

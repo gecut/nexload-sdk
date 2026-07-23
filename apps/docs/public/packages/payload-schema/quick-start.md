@@ -1,0 +1,67 @@
+# Quick start
+
+Define an entity, compile Payload fields, and derive an application schema.
+
+**Topic:** quick-start
+**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/quick-start/
+```ts
+import {
+  defineEntity,
+  field,
+} from "@nexload-sdk/payload-schema";
+import type { CollectionConfig } from "payload";
+
+export const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true }),
+    slug: field.slug({ required: true }),
+    inventory: field.number({
+      integer: true,
+      safe: true,
+      defaultValue: 0,
+    }),
+  },
+});
+
+export const Products: CollectionConfig = {
+  slug: "products",
+  fields: productEntity.payload.all(),
+};
+
+export const createProductSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "slug", "inventory"], {
+    optional: ["inventory"],
+  }),
+);
+
+const input = createProductSchema.parse({
+  title: "  New Product  ",
+  slug: " New Product ",
+});
+
+console.log(input);
+// { title: "New Product", slug: "new-product" }
+```
+
+`productEntity.payload.all()` supplies the fields and canonical write-time
+normalization to Payload. `createProductSchema` applies the same field contract
+to application input before it reaches Payload. `inventory` is absent above
+because the picker made it optional; the factory-level `defaultValue` belongs
+to Payload and is not converted to Zod `.default()`.
+
+`payload.all()` preserves declaration order and returns fresh config containers each time. The canonical field adapter is appended after consumer field `beforeValidate` hooks, so consumer hooks run first and canonical normalization owns the final value.
+
+`entity.schema` can return any Zod schema:
+
+```ts
+const titleLength = productEntity.schema(({ fields }) =>
+  fields.title.transform((value) => value.length),
+);
+```
+
+Do not use the derived schema as a Payload document type. Payload-generated types remain authoritative for persisted documents.
+
+Next, read [Concepts](./concepts/) for schema ownership and
+[Guides](./guides/) for native fields, relationships, and projections.

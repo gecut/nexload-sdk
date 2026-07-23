@@ -1,5 +1,5 @@
 {
   "extends": "@nexload-sdk/typescript-config/base.json",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "examples", "scripts", "tests"]
 }

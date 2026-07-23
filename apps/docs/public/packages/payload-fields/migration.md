@@ -1,0 +1,41 @@
+# Migration
+
+Upgrade Payload Fields 2.x integrations to the current 3.1.0 contract.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/migration/
+Version 3 changed semantic APIs and storage expectations. Migrate one collection at a time and back up data before changing money representation.
+This page targets 3.1.0; use the
+[package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/CHANGELOG.md)
+to identify version-specific changes from your installed release.
+
+## Required changes
+
+```ts
+// 2.x
+slugField("title")
+
+// 3.x
+slugField({ source: "title" })
+```
+
+Replace spread-based legacy date helpers with `jalaliDateField({ name })`. Replace decimal or formatted money storage with integer minor units before enabling `moneyField`.
+
+The former `editor` export is removed from Payload Fields. The replacement is the separate, currently available `@nexload-sdk/payload-editor` package; install and migrate it independently when you use Lexical.
+
+## Verification
+
+1. Generate Payload types and resolve all field-shape errors.
+2. Regenerate the Admin Import Map.
+3. Test create and update through Admin and Local API.
+4. Verify locked/unlocked and localized slug behavior.
+5. Compare stored date instants before and after the UI change.
+6. Assert every stored money value is a safe integer in the selected minor unit.
+7. Run a dry-run migration report before rewriting production money values.
+
+## Rollback
+
+Keep the pre-migration data backup and old deployment artifact. Rolling code back does not reverse converted money values; provide an explicit inverse data migration if the previous application expects decimals. Do not run both versions against the same collection while their money contracts differ.
+
+No public editor compatibility is implied by the Payload Fields version. Review the editor package's own migration page separately.

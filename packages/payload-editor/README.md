@@ -2,6 +2,9 @@
 
 Semantic, deterministic Payload Lexical editor configuration for Payload 3.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/payload-editor/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/payload-editor/api/)
+
 ## Install
 
 ```bash

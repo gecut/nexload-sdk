@@ -1,45 +1,31 @@
 ---
 title: Nexload SDK
-description: Production-oriented TypeScript packages for service health, Payload CMS, and shared backend infrastructure.
+description: Current documentation for ten focused Healthcheck and Payload CMS TypeScript packages.
 sidebar:
   order: 1
+topic: ecosystem
 ---
 
-import { Card, CardGrid, LinkButton } from "@astrojs/starlight/components";
-import DocLinkCard from "../../components/docs/DocLinkCard.astro";
+import { LinkButton } from "@astrojs/starlight/components";
 import PackageGrid from "../../components/docs/PackageGrid.astro";
-import { documentedPackages } from "../../lib/package-catalog";
+import { packageCatalog } from "../../lib/package-catalog";
 
-Nexload SDK is a collection of focused TypeScript packages for backend and platform work. Install only the package that owns your problem; packages do not require a framework-wide runtime.
+Nexload SDK provides focused TypeScript packages for service health and Payload CMS. Install only the package that owns your task.
 
 <p class="sl-flex sl-flex-wrap sl-gap-2">
-  <LinkButton href="./packages/" icon="right-arrow">Browse packages</LinkButton>
-  <LinkButton href="./start/choose-a-package/" variant="secondary">Choose a package</LinkButton>
+  <LinkButton href="./start/choose-a-package/" icon="right-arrow">Choose a package</LinkButton>
+  <LinkButton href="./packages/" variant="secondary">Browse all ten packages</LinkButton>
   <LinkButton href="./agents/install/" variant="minimal" icon="bot">Install agent skills</LinkButton>
 </p>
 
-## Start with a production concern
+## Healthcheck packages
 
-<CardGrid stagger>
-  <Card title="Healthcheck" icon="heartbeat">
-    Build liveness, readiness, startup, diagnostics, metrics, and framework route integrations without coupling the core to a single runtime.
-  </Card>
-  <Card title="Payload Fields" icon="document">
-    Add managed Unicode slugs, Jalali date UI, and integer minor-unit money contracts to Payload CMS.
-  </Card>
-  <Card title="Agent skills" icon="bot">
-    Give supported coding agents package-specific guardrails for health checks and Payload field conventions.
-  </Card>
-</CardGrid>
+<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "healthcheck")} />
 
-## Documented packages
+## Payload packages
 
-<PackageGrid entries={documentedPackages} />
+<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "payload")} />
 
-## How the docs are organized
+## How to read these docs
 
-<CardGrid>
-  <DocLinkCard title="Understand the package" href="/start/introduction/" description="Find the ownership boundary, supported runtimes, and package relationships." />
-  <DocLinkCard title="Use a documented family" href="/packages/healthcheck/" description="Start with an overview, then choose a guide or the curated API reference." />
-  <DocLinkCard title="Keep agents aligned" href="/agents/" description="Install only the Skills that match the package and task you are working on." />
-</CardGrid>
+Every package follows the same route: overview, installation, quick start, concepts, guides, API, examples, troubleshooting, migration, and compatibility. The displayed version is the current released version documented by this site.

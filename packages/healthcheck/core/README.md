@@ -2,6 +2,9 @@
 
 Runtime-neutral health orchestration and monitoring reports for production services.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/)
+
 ## What it is
 
 `@nexload-sdk/healthcheck` runs checks and collectors safely, then returns a stable JSON report for liveness, readiness, startup, diagnostics, and monitoring exporters.

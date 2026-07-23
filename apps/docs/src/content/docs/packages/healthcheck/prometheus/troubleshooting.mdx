@@ -1,0 +1,13 @@
+---
+title: Troubleshoot Healthcheck Prometheus
+description: Diagnose missing series, labels, and scrape output.
+sidebar: { order: 8 }
+package: healthcheck-prometheus
+topic: troubleshooting
+---
+
+- A collector metric is absent: null and non-finite values are skipped.
+- A label is absent: only the package allowlist is emitted.
+- A check-local measurement is absent: exporters use `report.metrics`; add a collector.
+- Metric names changed: normalization replaces unsupported characters and collapses underscores.
+- Prometheus rejects OpenMetrics output: use the matching serializer and content type.

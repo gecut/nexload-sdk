@@ -1,39 +1,86 @@
 ---
 title: Quick start
-description: Add managed slug, Jalali date, and minor-unit money fields to a Payload collection.
+description: Add managed slug, Jalali date, and money fields to one Payload collection.
 sidebar:
-  order: 2
+  order: 3
+package: payload-fields
+topic: quick-start
 ---
 
-import { Steps } from "@astrojs/starlight/components";
-import InstallTabs from "../../../../components/docs/InstallTabs.astro";
+Create ordinary Payload fields and spread the two-field slug result:
 
-<InstallTabs packages="@nexload-sdk/payload-fields" peers={["payload", "@payloadcms/ui", "react", "react-dom"]} />
+```ts
+import {
+  jalaliDateField,
+  moneyField,
+  slugField,
+} from "@nexload-sdk/payload-fields";
+import type { CollectionConfig } from "payload";
 
-<Steps>
+export const Products: CollectionConfig = {
+  slug: "products",
+  fields: [
+    { name: "title", type: "text", required: true },
+    ...slugField({ source: "title" }),
+    jalaliDateField({
+      name: "availableAt",
+      pickerAppearance: "dayAndTime",
+    }),
+    moneyField({
+      name: "price",
+      currency: "IRT",
+      minMinorUnits: 0,
+      overrides: { required: true },
+    }),
+  ],
+};
+```
 
-1. Add the factories to your collection fields.
+The generated Payload document stores:
 
-   ```ts title="src/collections/Posts.ts"
-   import {
-     jalaliDateField,
-     moneyField,
-     slugField,
-   } from "@nexload-sdk/payload-fields";
+```ts
+{
+  title: "New Product",
+  slug: "new-product",
+  slugLock: true,
+  availableAt: "2026-07-24T08:30:00.000Z",
+  price: 125000
+}
+```
 
-   export const Posts = {
-     slug: "posts",
-     fields: [
-       { name: "title", type: "text", required: true },
-       ...slugField({ source: "title" }),
-       jalaliDateField({ name: "publishedAt" }),
-       moneyField({ name: "price", currency: "IRT" }),
-     ],
-   };
-   ```
+`price` is already the stored integer value. Only the Admin field treats typed text as a formatted major-unit input. REST, GraphQL, Local API, hooks, and jobs must send integer minor units.
 
-2. Add `payloadFieldsPlugin()` only when a slug uses a registered remote or AI generator.
+In Payload Admin, verify that the slug is generated from the title and can be
+locked, the date uses the Jalali picker, and the money control formats the
+typed major-unit value. If the stored values are correct but these controls do
+not appear, regenerate the Payload Import Map and use
+[Troubleshooting](./troubleshooting/).
 
-</Steps>
+## Add a custom slug generator
 
-Each factory protects the semantic field type, name, and package-owned Admin component. Use `overrides` for supported consumer configuration instead of replacing those boundaries.
+Only add the plugin when a field declares `generator`:
+
+```ts
+import { payloadFieldsPlugin, slugField } from "@nexload-sdk/payload-fields";
+import { buildConfig } from "payload";
+
+const fields = [
+  ...slugField({ source: "title", generator: "product" }),
+];
+
+export default buildConfig({
+  collections: [{ slug: "products", fields }],
+  plugins: [
+    payloadFieldsPlugin({
+      slugGenerators: {
+        product: async ({ sourceValue }) => sourceValue,
+      },
+    }),
+  ],
+});
+```
+
+The endpoint requires `req.user`; add `generateSlugAccess` when authentication alone is not enough.
+
+Next, read [Concepts](./concepts/) for storage and ownership rules, or
+[Guides](./guides/) for field-specific configuration.

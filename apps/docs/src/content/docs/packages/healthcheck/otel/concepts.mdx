@@ -1,0 +1,11 @@
+---
+title: Healthcheck OpenTelemetry concepts
+description: Understand resources, generated health records, and collector metrics.
+sidebar: { order: 4 }
+package: healthcheck-otel
+topic: concepts
+---
+
+Resource attributes describe service, deployment, runtime, architecture, and OS. Missing optional identity values become `"unknown"`.
+
+Metric records include aggregate status, run duration, every check's status/duration, and report-level collector metrics. `ok`, `degraded`, and `unhealthy` map to `1`, `0.5`, and `0`. Collector labels become attributes; keep them low-cardinality.

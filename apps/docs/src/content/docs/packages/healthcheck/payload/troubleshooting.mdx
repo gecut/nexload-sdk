@@ -1,0 +1,14 @@
+---
+title: Troubleshoot Healthcheck Payload
+description: Diagnose unhealthy queries, count expectations, and slow readiness.
+sidebar: { order: 8 }
+package: healthcheck-payload
+topic: troubleshooting
+---
+
+- `PAYLOAD_QUERY_FAILED` with a cause: verify Payload initialization, collection slug, access context, adapter connectivity, and query shape.
+- The query succeeds but health is unhealthy: `totalDocs` is below `expectedMinDocuments`.
+- Readiness is slow: keep `limit` small, `depth` zero, remove broad filters, and check database latency.
+- The app restarts during a database outage: do not add this check to liveness.
+
+Log causes privately; return only the safe core error message publicly.

@@ -2,6 +2,9 @@
 
 Payload CMS health check integration for `@nexload-sdk/healthcheck`.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/api/)
+
 ```ts
 import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
 

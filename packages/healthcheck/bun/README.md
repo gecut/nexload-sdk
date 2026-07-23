@@ -2,6 +2,9 @@
 
 Bun runtime adapter and Bun server metrics for `@nexload-sdk/healthcheck`.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/)
+
 ```ts
 import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
 import { bunRuntimeAdapter, bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";

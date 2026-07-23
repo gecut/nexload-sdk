@@ -1,0 +1,11 @@
+---
+title: Healthcheck Next.js
+description: App Router health and metrics route factories.
+sidebar: { order: 1 }
+package: healthcheck-next
+topic: overview
+---
+
+`@nexload-sdk/healthcheck-next` turns a core manager into Next.js App Router `GET` and `HEAD` handlers. It supports JSON/summary health responses, Prometheus/OpenMetrics/JSON metrics, HTTP status policies, and route protection.
+
+It does not create checks or choose a runtime adapter. Use core plus Node checks for Node runtime observations. Keep diagnostics and metrics protected when they expose operational detail.

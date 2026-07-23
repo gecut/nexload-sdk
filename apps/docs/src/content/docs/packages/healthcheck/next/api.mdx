@@ -1,0 +1,19 @@
+---
+title: Healthcheck Next.js API
+description: Public App Router factories and option contracts.
+sidebar: { order: 6 }
+package: healthcheck-next
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck-next" />
+
+- `createNextHealthRoute(manager, options)` returns `{ GET, HEAD }`.
+- `createNextMetricsRoute(manager, options)` returns `{ GET, HEAD }`.
+- `NextHealthRouteOptions` requires a health scope and supports format, status policy, details, protection, headers, and no-store cache.
+- `NextMetricsRouteOptions` requires `prometheus`, `openmetrics`, or `json` format and supports scope, protection, prefix, and default labels.
+- `NextHealthRouteProtection` supports bearer, Basic, IPv4/CIDR allowlists, and proxy-header configuration.
+
+Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts).

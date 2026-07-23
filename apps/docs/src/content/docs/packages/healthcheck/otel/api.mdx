@@ -1,0 +1,17 @@
+---
+title: Healthcheck OpenTelemetry API
+description: Public transform and metric-record exports.
+sidebar: { order: 6 }
+package: healthcheck-otel
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck-otel" />
+
+- `toOtelResourceAttributes(report)` returns semantic resource attributes.
+- `toOtelMetricRecords(report)` returns `OtelMetricRecord[]`.
+- `OtelMetricRecord` contains name, value, attributes, optional unit/type, and `observedAt`.
+
+The functions do not mutate the report or call an exporter. Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts).

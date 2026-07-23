@@ -1,6 +1,21 @@
-name: Deploy docs
+name: Docs
 
 on:
+  pull_request:
+    paths:
+      - "apps/docs/**"
+      - "packages/healthcheck/**"
+      - "packages/payload-fields/**"
+      - "packages/payload-editor/**"
+      - "packages/payload-schema/**"
+      - "skills/healthcheck-*/**"
+      - "skills/payload-*/**"
+      - "scripts/generate-docs-llms.mjs"
+      - "scripts/validate-docs.mjs"
+      - "scripts/validate-docs-links.mjs"
+      - ".github/workflows/docs.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
   push:
     branches: [main]
     paths:
@@ -9,12 +24,14 @@ on:
       - "packages/payload-fields/**"
       - "packages/payload-editor/**"
       - "packages/payload-schema/**"
-      - "skills/**"
+      - "skills/healthcheck-*/**"
+      - "skills/payload-*/**"
       - "scripts/validate-docs.mjs"
+      - "scripts/validate-docs-links.mjs"
       - "scripts/generate-docs-llms.mjs"
       - ".github/workflows/docs.yml"
       - "package.json"
-      - "pnpm-lock.yml"
+      - "pnpm-lock.yaml"
   workflow_dispatch:
 
 permissions:
@@ -23,11 +40,11 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: docs-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,17 +56,33 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter docs content:api
+      - run: pnpm --filter docs content:examples
+      - run: pnpm --filter docs content:check
+      - run: pnpm --filter docs content:llms
+      - run: pnpm --filter docs test
       - run: pnpm --filter docs build
+      - run: pnpm --filter docs content:links
+      - run: pnpm --filter docs content:accessibility
+      - run: pnpm skills:validate
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: apps/docs/dist
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: docs-preview
+          path: apps/docs/dist
+          if-no-files-found: error
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    if: github.event_name != 'pull_request'
+    needs: validate
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4

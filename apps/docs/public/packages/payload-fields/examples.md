@@ -1,0 +1,71 @@
+# Examples
+
+Complete Payload Fields examples for collections, formatters, and custom slug generation.
+
+**Topic:** examples
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/examples/
+## A localized article collection
+
+```ts
+import {
+  jalaliDateField,
+  moneyField,
+  slugField,
+  withJalaliTimestamps,
+} from "@nexload-sdk/payload-fields";
+import type { CollectionConfig } from "payload";
+
+export const Articles: CollectionConfig = {
+  slug: "articles",
+  fields: withJalaliTimestamps([
+    { name: "title", type: "text", required: true, localized: true },
+    ...slugField({
+      source: "title",
+      overrides: {
+        slug: { localized: true, unique: true },
+        lock: { localized: true },
+      },
+    }),
+    jalaliDateField({ name: "publishedAt", pickerAppearance: "dayAndTime" }),
+    moneyField({ name: "sponsorFee", currency: "IRR", allowNegative: false }),
+  ]),
+};
+```
+
+## Parse at an import boundary
+
+```ts
+import {
+  formatSlug,
+  parseMoneyToMinorUnits,
+} from "@nexload-sdk/payload-fields";
+
+const data = {
+  slug: formatSlug(row.title),
+  price: parseMoneyToMinorUnits(row.displayPrice, "IRT"),
+};
+
+await payload.create({ collection: "products", data });
+```
+
+The Local API receives the stored representation, not Admin display text.
+
+## Restricted generator
+
+```ts
+payloadFieldsPlugin({
+  generateSlugAccess: ({ req }) =>
+    Boolean(req.user && req.user.roles?.includes("editor")),
+  slugGenerators: {
+    catalog: async ({ sourceValue, currentSlug }, { req }) => {
+      const suffix = currentSlug ? "" : `-${req.locale ?? "fa"}`;
+      return `${sourceValue}${suffix}`;
+    },
+  },
+})
+```
+
+Do not place secrets in generator results or thrown errors. The public endpoint deliberately returns safe, localized errors.
+
+The core field composition example is type-checked in CI: [`payload-fields.ts`](https://github.com/gecut/nexload-sdk/blob/main/apps/docs/examples/payload-fields.ts).

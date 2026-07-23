@@ -1,0 +1,14 @@
+# Migrate Healthcheck Next.js
+
+Verify route, protection, and response behavior after an upgrade.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/migration/
+This page targets `@nexload-sdk/healthcheck-next` 2.1.0 with Core 4.1.0.
+Identify your source version in the
+[Next.js changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/CHANGELOG.md).
+
+Upgrade core and Next integration together. Type-check route factories and verify GET/HEAD, status mapping, content types, no-store headers, summary/JSON formats, metrics formats, custom headers, and unauthorized responses.
+
+Test protection behind the real proxy before deployment. Preserve route paths used by probes and scrapers. Roll back if status or authentication behavior changes unexpectedly.

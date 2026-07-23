@@ -1,0 +1,11 @@
+---
+title: Healthcheck Prometheus concepts
+description: Understand exported series, labels, and OpenMetrics output.
+sidebar: { order: 4 }
+package: healthcheck-prometheus
+topic: concepts
+---
+
+Every export includes aggregate status, check status, check duration, run duration, and `report.metrics`. Metric names are normalized and prefixed.
+
+Only the built-in low-cardinality label allowlist is retained. String metric values become `1`; booleans become `1` or `0`; null and non-finite numbers are skipped. OpenMetrics output is Prometheus text plus `# EOF`.

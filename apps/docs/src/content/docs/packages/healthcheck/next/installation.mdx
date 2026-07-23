@@ -1,0 +1,18 @@
+---
+title: Install Healthcheck Next.js
+description: Install App Router factories and their health packages.
+sidebar: { order: 2 }
+package: healthcheck-next
+topic: installation
+---
+
+```bash
+pnpm add @nexload-sdk/healthcheck @nexload-sdk/healthcheck-next
+```
+
+Use `npm install`, `yarn add`, or `bun add` with the same package names if the
+project does not use pnpm.
+
+The route package depends on the Prometheus serializer internally. Install `@nexload-sdk/healthcheck-node` separately if the manager uses `nodeRuntimeAdapter()` or Node probes.
+
+Use these handlers in App Router route modules, not browser components or Pages Router API handlers.

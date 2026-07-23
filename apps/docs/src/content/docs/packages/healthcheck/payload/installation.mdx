@@ -1,0 +1,16 @@
+---
+title: Install Healthcheck Payload
+description: Install the Payload readiness integration with core and Payload.
+sidebar: { order: 2 }
+package: healthcheck-payload
+topic: installation
+---
+
+```bash
+pnpm add @nexload-sdk/healthcheck @nexload-sdk/healthcheck-payload payload
+```
+
+Use `npm install`, `yarn add`, or `bun add` with the same package names if the
+project does not use pnpm.
+
+The optional Payload peer range is `>=3`. Install Payload in the application that constructs the check. This package uses the server-side Local API and is not for browser or admin-bundle code.

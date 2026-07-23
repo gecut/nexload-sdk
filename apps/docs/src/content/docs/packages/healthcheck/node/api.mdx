@@ -1,0 +1,20 @@
+---
+title: Healthcheck Node API
+description: Public exports for Node runtime and operational checks.
+sidebar: { order: 6 }
+package: healthcheck-node
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck-node" />
+
+- `nodeRuntimeAdapter()` returns a core `RuntimeAdapter`.
+- `containerResourceCheck()` evaluates container memory thresholds.
+- `processMetricsCollector()` and `containerMetricsCollector()` produce report metrics.
+- `tcpCheck(name, options)` and `dnsCheck(name, options)` create readiness checks.
+- `readContainerResourceSnapshot()` reads cgroup/process/OS resources.
+- `parseCpuList()` parses Linux cpuset lists.
+
+The package exports container snapshot and options interfaces. Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts).

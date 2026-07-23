@@ -1,0 +1,22 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Page not found",
+    description: "The requested Nexload SDK documentation page does not exist.",
+    editUrl: false,
+    pagefind: false,
+    template: "splash",
+  }}
+>
+  <p>The page may have moved during the package documentation rebuild.</p>
+  <ul>
+    <li><a href={`${base}/start/choose-a-package/`}>Choose a package</a></li>
+    <li><a href={`${base}/packages/`}>Browse the package catalog</a></li>
+    <li><a href={`${base}/`}>Search the current documentation</a></li>
+  </ul>
+</StarlightPage>

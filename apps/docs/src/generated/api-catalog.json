@@ -1,0 +1,1539 @@
+{
+  "healthcheck": {
+    "id": "healthcheck",
+    "name": "@nexload-sdk/healthcheck",
+    "sourcePath": "packages/healthcheck/core",
+    "symbols": [
+      {
+        "name": "DEFAULT_HTTP_STATUS_POLICY",
+        "category": "constants",
+        "signature": "DEFAULT_HTTP_STATUS_POLICY: HealthHttpStatusPolicy",
+        "description": "Public constant exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/http.ts",
+        "line": 6,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L6"
+      },
+      {
+        "name": "HEALTH_ERROR_CODES",
+        "category": "constants",
+        "signature": "HEALTH_ERROR_CODES: { readonly CHECK_THROWN: \"CHECK_THROWN\"; readonly CHECK_TIMEOUT: \"CHECK_TIMEOUT\"; readonly CHECK_ABORTED: \"CHECK_ABORTED\"; readonly HEALTHCHECK_TIMEOUT: \"HEALTHCHECK_TIMEOUT\"; readonly HEALTHCHECK_ABORTED: \"HEALTHCHECK_ABORTED\"; readonly HEALTHCHECK_DEPENDENCY_UNAVAILABLE: \"HEALTHCHECK_DEPENDENCY_UNAVAILABLE\"; readonly HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE: \"HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE\"; readonly HEALTHCHECK_ROUTE_UNAUTHORIZED: \"HEALTHCHECK_ROUTE_UNAUTHORIZED\"; readonly HEALTHCHECK_INVALID_CONFIG: \"HEALTHCHECK_INVALID_CONFIG\"; readonly HTTP_STATUS_MISMATCH: \"HTTP_STATUS_MISMATCH\"; readonly HTTP_BODY_MISMATCH: \"HTTP_BODY_MISMATCH\"; readonly TCP_CONNECT_FAILED: \"TCP_CONNECT_FAILED\"; readonly DNS_RESOLVE_FAILED: \"DNS_RESOLVE_FAILED\"; readonly DATABASE_PING_FAILED: \"DATABASE_PING_FAILED\"; readonly PAYLOAD_QUERY_FAILED: \"PAYLOAD_QUERY_FAILED\"; readonly RUNTIME_UNSUPPORTED: \"RUNTIME_UNSUPPORTED\"; readonly METRIC_UNAVAILABLE: \"METRIC_UNAVAILABLE\"; }",
+        "description": "Public constant exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/errors.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L1"
+      },
+      {
+        "name": "STRICT_READINESS_HTTP_STATUS_POLICY",
+        "category": "constants",
+        "signature": "STRICT_READINESS_HTTP_STATUS_POLICY: HealthHttpStatusPolicy",
+        "description": "Public constant exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/http.ts",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L12"
+      },
+      {
+        "name": "aggregateStatus",
+        "category": "functions",
+        "signature": "aggregateStatus(results: readonly HealthCheckResult[]) => HealthStatus",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/aggregate.ts",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L18"
+      },
+      {
+        "name": "autoRuntimeAdapter",
+        "category": "functions",
+        "signature": "autoRuntimeAdapter() => RuntimeAdapter",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/runtime.ts",
+        "line": 113,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/runtime.ts#L113"
+      },
+      {
+        "name": "createAbortSignal",
+        "category": "functions",
+        "signature": "createAbortSignal(timeoutMs: number | undefined, parent?: AbortSignal) => { signal: AbortSignal; dispose: () => void; }",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/timeout.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L1"
+      },
+      {
+        "name": "createHealthManager",
+        "category": "functions",
+        "signature": "createHealthManager(options: HealthManagerOptions) => HealthManager",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/manager.ts",
+        "line": 95,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/manager.ts#L95"
+      },
+      {
+        "name": "defineHealthCheck",
+        "category": "functions",
+        "signature": "defineHealthCheck<TName extends string>(definition: HealthCheckDefinition<TName>) => HealthCheckDefinition<TName>",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/define.ts",
+        "line": 6,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/define.ts#L6"
+      },
+      {
+        "name": "defineMetricCollector",
+        "category": "functions",
+        "signature": "defineMetricCollector<TName extends string>(definition: MetricCollectorDefinition<TName>) => MetricCollectorDefinition<TName>",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/define.ts",
+        "line": 10,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/define.ts#L10"
+      },
+      {
+        "name": "genericRuntimeAdapter",
+        "category": "functions",
+        "signature": "genericRuntimeAdapter() => RuntimeAdapter",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/runtime.ts",
+        "line": 101,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/runtime.ts#L101"
+      },
+      {
+        "name": "httpCheck",
+        "category": "functions",
+        "signature": "httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => HealthCheckDefinition<string>",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/http-check.ts",
+        "line": 30,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L30"
+      },
+      {
+        "name": "memoryCheck",
+        "category": "functions",
+        "signature": "memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degraded: number; unhealthy: number; }; usedRatio?: { degraded: number; unhealthy: number; }; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<\"memory\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/checks.ts",
+        "line": 125,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L125"
+      },
+      {
+        "name": "runtimeInfoCheck",
+        "category": "functions",
+        "signature": "runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean; }) => HealthCheckDefinition<\"runtime.info\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/checks.ts",
+        "line": 29,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L29"
+      },
+      {
+        "name": "runtimeMetricsCollector",
+        "category": "functions",
+        "signature": "runtimeMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<\"runtime.metrics\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/collectors.ts",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/collectors.ts#L9"
+      },
+      {
+        "name": "shutdownCheck",
+        "category": "functions",
+        "signature": "shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<\"shutdown\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/checks.ts",
+        "line": 49,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L49"
+      },
+      {
+        "name": "sleep",
+        "category": "functions",
+        "signature": "sleep(ms: number, signal?: AbortSignal) => Promise<void>",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/timeout.ts",
+        "line": 42,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L42"
+      },
+      {
+        "name": "startupCheck",
+        "category": "functions",
+        "signature": "startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<\"startup\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/checks.ts",
+        "line": 69,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L69"
+      },
+      {
+        "name": "statusToHttpStatus",
+        "category": "functions",
+        "signature": "statusToHttpStatus(status: HealthStatus, policy?: HealthHttpStatusPolicy) => number",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/http.ts",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L18"
+      },
+      {
+        "name": "stringifyHealthJson",
+        "category": "functions",
+        "signature": "stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/serializers.ts",
+        "line": 122,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L122"
+      },
+      {
+        "name": "summarizeChecks",
+        "category": "functions",
+        "signature": "summarizeChecks(results: readonly HealthCheckResult[]) => HealthSummary",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/aggregate.ts",
+        "line": 7,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L7"
+      },
+      {
+        "name": "timerLagCheck",
+        "category": "functions",
+        "signature": "timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; thresholds?: { degradedMs: number; unhealthyMs: number; }; critical?: boolean; }) => HealthCheckDefinition<\"timer.lag\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/checks.ts",
+        "line": 90,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L90"
+      },
+      {
+        "name": "toHealthJson",
+        "category": "functions",
+        "signature": "toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport",
+        "description": "Public function exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/serializers.ts",
+        "line": 87,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L87"
+      },
+      {
+        "name": "EnvironmentIdentity",
+        "category": "interfaces",
+        "signature": "interface EnvironmentIdentity {\n  name?: string\n  region?: string\n  zone?: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 31,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L31"
+      },
+      {
+        "name": "HealthCheckDefinition",
+        "category": "interfaces",
+        "signature": "interface HealthCheckDefinition<TName extends string = string> {\n  kind?: \"check\"\n  name: TName\n  component?: string\n  scopes: readonly HealthScope[]\n  critical?: boolean | Partial<Record<HealthScope, boolean>>\n  timeoutMs?: number\n  retries?: RetryPolicy\n  tags?: readonly string[]\n  run(context: HealthRunContext): Promise<HealthCheckRunResult> | HealthCheckRunResult\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 181,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L181"
+      },
+      {
+        "name": "HealthCheckResult",
+        "category": "interfaces",
+        "signature": "interface HealthCheckResult<TName extends string = string> {\n  name: TName\n  component?: string\n  scope: HealthRunScope\n  status: HealthStatus\n  critical: boolean\n  observedAt: string\n  durationMs: number\n  timedOut: boolean\n  attempt: number\n  metrics: HealthMetrics\n  details?: HealthDetails\n  error?: HealthErrorInfo\n  tags?: readonly string[]\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 101,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L101"
+      },
+      {
+        "name": "HealthCheckRunResult",
+        "category": "interfaces",
+        "signature": "interface HealthCheckRunResult {\n  status: HealthStatus\n  metrics?: HealthMetrics\n  details?: HealthDetails\n  error?: HealthErrorInfo\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 174,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L174"
+      },
+      {
+        "name": "HealthErrorInfo",
+        "category": "interfaces",
+        "signature": "interface HealthErrorInfo {\n  code: string\n  message: string\n  causeName?: string\n  causeMessage?: string\n  stack?: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 76,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L76"
+      },
+      {
+        "name": "HealthHttpStatusPolicy",
+        "category": "interfaces",
+        "signature": "interface HealthHttpStatusPolicy {\n  ok: number\n  degraded: number\n  unhealthy: number\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 246,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L246"
+      },
+      {
+        "name": "HealthJsonOptions",
+        "category": "interfaces",
+        "signature": "interface HealthJsonOptions {\n  includeDetails?: boolean\n  redact?: boolean\n  redaction?: Partial<RedactionPolicy>\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/serializers.ts",
+        "line": 81,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L81"
+      },
+      {
+        "name": "HealthLinks",
+        "category": "interfaces",
+        "signature": "interface HealthLinks {\n  self?: string\n  metrics?: string\n  diagnostics?: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 126,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L126"
+      },
+      {
+        "name": "HealthManager",
+        "category": "interfaces",
+        "signature": "interface HealthManager {\n  register(check: HealthCheckDefinition): HealthManager\n  registerCollector(collector: MetricCollectorDefinition): HealthManager\n  unregister(name: string): boolean\n  run(scope: HealthRunScope, options?: HealthRunOptions): Promise<HealthReport>\n  setShutdownState(state: boolean, reason?: string): void\n  isShuttingDown(): boolean\n  dispose(): void\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 236,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L236"
+      },
+      {
+        "name": "HealthManagerOptions",
+        "category": "interfaces",
+        "signature": "interface HealthManagerOptions {\n  service: ServiceIdentity\n  runtime?: RuntimeAdapter | \"auto\"\n  environment?: EnvironmentIdentity\n  defaults?: {\n    timeoutMs?: number\n    concurrency?: number\n    /** Defaults to true. Set false to report timed-out checks as degraded. */\n    unhealthyOnTimeout?: boolean\n    includeStack?: boolean\n    profile?: HealthDataProfile\n  }\n  /** Profiles are passed to checks and collectors as context hints. */\n  profiles?: Partial<Record<HealthScope, HealthDataProfile>> & { default?: HealthDataProfile }\n  /** @deprecated Configure redaction when calling toHealthJson or stringifyHealthJson. */\n  redaction?: Partial<RedactionPolicy>\n  checks?: readonly HealthCheckDefinition[]\n  collectors?: readonly MetricCollectorDefinition[]\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 207,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L207"
+      },
+      {
+        "name": "HealthMetric",
+        "category": "interfaces",
+        "signature": "interface HealthMetric {\n  name: string\n  value: HealthMetricValue\n  unit?:\n    | \"bytes\"\n    | \"seconds\"\n    | \"milliseconds\"\n    | \"ratio\"\n    | \"count\"\n    | \"percent\"\n    | \"state\"\n  type?: \"gauge\" | \"counter\" | \"histogram\" | \"info\"\n  labels?: Record<string, string>\n  description?: string\n  observedAt?: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 84,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L84"
+      },
+      {
+        "name": "HealthReport",
+        "category": "interfaces",
+        "signature": "interface HealthReport {\n  schemaVersion: \"2.0\"\n  service: ServiceIdentity\n  scope: HealthRunScope\n  status: HealthStatus\n  observedAt: string\n  durationMs: number\n  runtime: RuntimeIdentity\n  environment?: EnvironmentIdentity\n  summary: HealthSummary\n  checks: readonly HealthCheckResult[]\n  metrics: readonly HealthMetric[]\n  resources?: Record<string, unknown>\n  links?: HealthLinks\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 132,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L132"
+      },
+      {
+        "name": "HealthRunContext",
+        "category": "interfaces",
+        "signature": "interface HealthRunContext {\n  scope: HealthRunScope\n  signal: AbortSignal\n  runtime: RuntimeAdapter\n  service: ServiceIdentity\n  profile: HealthDataProfile\n  now: () => number\n  getShutdownState: () => { shuttingDown: boolean, reason?: string }\n  result: (result: HealthCheckRunResult) => HealthCheckRunResult\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 163,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L163"
+      },
+      {
+        "name": "HealthRunOptions",
+        "category": "interfaces",
+        "signature": "interface HealthRunOptions {\n  signal?: AbortSignal\n  profile?: HealthDataProfile\n  /** @deprecated Select a profile and configure serializer detail options instead. */\n  includeDiagnostics?: boolean\n  includeStacks?: boolean\n  timeoutMs?: number\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 227,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L227"
+      },
+      {
+        "name": "HealthSummary",
+        "category": "interfaces",
+        "signature": "interface HealthSummary {\n  ok: number\n  degraded: number\n  unhealthy: number\n  total: number\n  criticalFailed: number\n  nonCriticalFailed: number\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 117,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L117"
+      },
+      {
+        "name": "HttpCheckOptions",
+        "category": "interfaces",
+        "signature": "interface HttpCheckOptions {\n  scopes?: readonly HealthScope[]\n  method?: \"GET\" | \"HEAD\" | \"POST\"\n  headers?: HeadersInit\n  body?: BodyInit | null\n  expectedStatus?: number | readonly number[] | { min: number, max: number }\n  validateBody?: (body: string, response: Response) => boolean | Promise<boolean>\n  timeoutMs?: number\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/http-check.ts",
+        "line": 10,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L10"
+      },
+      {
+        "name": "MetricCollectionResult",
+        "category": "interfaces",
+        "signature": "interface MetricCollectionResult {\n  metrics: readonly HealthMetric[]\n  resources?: Record<string, unknown>\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 193,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L193"
+      },
+      {
+        "name": "MetricCollectorDefinition",
+        "category": "interfaces",
+        "signature": "interface MetricCollectorDefinition<TName extends string = string> {\n  kind?: \"collector\"\n  name: TName\n  scopes?: readonly HealthScope[]\n  defaultEnabled?: boolean\n  timeoutMs?: number\n  collect(context: HealthRunContext): Promise<MetricCollectionResult> | MetricCollectionResult\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 198,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L198"
+      },
+      {
+        "name": "RedactionPolicy",
+        "category": "interfaces",
+        "signature": "interface RedactionPolicy {\n  redactSecrets: boolean\n  redactUrls: \"none\" | \"query\" | \"origin\" | \"full\"\n  includeStack: boolean\n  includeErrorMessage: boolean\n  allowedDetailKeys?: readonly string[]\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 155,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L155"
+      },
+      {
+        "name": "RetryPolicy",
+        "category": "interfaces",
+        "signature": "interface RetryPolicy {\n  attempts: number\n  delayMs?: number\n  backoff?: \"none\" | \"linear\" | \"exponential\"\n  retryOn?: readonly HealthStatus[]\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 148,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L148"
+      },
+      {
+        "name": "RuntimeAdapter",
+        "category": "interfaces",
+        "signature": "interface RuntimeAdapter {\n  name: RuntimeIdentity[\"name\"]\n  now(): number\n  uptimeSeconds(): number | null\n  getRuntimeInfo(): RuntimeIdentity\n  getMemory?(): RuntimeMemorySnapshot | Promise<RuntimeMemorySnapshot>\n  getCpu?(previous?: RuntimeCpuSnapshot): RuntimeCpuSnapshot | Promise<RuntimeCpuSnapshot>\n  onShutdown?(signals: readonly string[], callback: (signal: string) => void): () => void\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 66,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L66"
+      },
+      {
+        "name": "RuntimeCpuSnapshot",
+        "category": "interfaces",
+        "signature": "interface RuntimeCpuSnapshot {\n  userMicros: number | null\n  systemMicros: number | null\n  availableParallelism: number | null\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 60,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L60"
+      },
+      {
+        "name": "RuntimeIdentity",
+        "category": "interfaces",
+        "signature": "interface RuntimeIdentity {\n  name: \"node\" | \"bun\" | \"unknown\"\n  version?: string\n  revision?: string\n  platform?: string\n  arch?: string\n  pid?: number\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 37,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L37"
+      },
+      {
+        "name": "RuntimeMemorySnapshot",
+        "category": "interfaces",
+        "signature": "interface RuntimeMemorySnapshot {\n  rssBytes: number | null\n  heapTotalBytes: number | null\n  heapUsedBytes: number | null\n  externalBytes: number | null\n  arrayBuffersBytes: number | null\n  constrainedBytes: number | null\n  availableBytes: number | null\n  totalBytes: number | null\n  usedRatio: number | null\n  availableRatio: number | null\n  source: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 46,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L46"
+      },
+      {
+        "name": "ServiceIdentity",
+        "category": "interfaces",
+        "signature": "interface ServiceIdentity {\n  name: string\n  version?: string\n  environment?: string\n  instanceId?: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 24,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L24"
+      },
+      {
+        "name": "HealthDataProfile",
+        "category": "types",
+        "signature": "type HealthDataProfile\n  = | \"probe\"\n    | \"summary\"\n    | \"monitoring\"\n    | \"diagnostics\"\n    | \"full\";",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 11,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L11"
+      },
+      {
+        "name": "HealthDetails",
+        "category": "types",
+        "signature": "type HealthDetails = Record<string, unknown>;",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 22,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L22"
+      },
+      {
+        "name": "HealthErrorCode",
+        "category": "types",
+        "signature": "type HealthErrorCode\n  = (typeof HEALTH_ERROR_CODES)[keyof typeof HEALTH_ERROR_CODES];",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/errors.ts",
+        "line": 21,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L21"
+      },
+      {
+        "name": "HealthMetrics",
+        "category": "types",
+        "signature": "type HealthMetrics = Record<string, HealthMetricValue>;",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 20,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L20"
+      },
+      {
+        "name": "HealthMetricValue",
+        "category": "types",
+        "signature": "type HealthMetricValue = string | number | boolean | null;",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L18"
+      },
+      {
+        "name": "HealthRunScope",
+        "category": "types",
+        "signature": "type HealthRunScope = HealthScope | \"all\";",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L9"
+      },
+      {
+        "name": "HealthScope",
+        "category": "types",
+        "signature": "type HealthScope\n  = | \"liveness\"\n    | \"readiness\"\n    | \"startup\"\n    | \"diagnostics\";",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 3,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L3"
+      },
+      {
+        "name": "HealthStatus",
+        "category": "types",
+        "signature": "type HealthStatus = \"ok\" | \"degraded\" | \"unhealthy\";",
+        "description": "Public type exported by @nexload-sdk/healthcheck.",
+        "source": "packages/healthcheck/core/src/core/types.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L1"
+      }
+    ]
+  },
+  "healthcheck-node": {
+    "id": "healthcheck-node",
+    "name": "@nexload-sdk/healthcheck-node",
+    "sourcePath": "packages/healthcheck/node",
+    "symbols": [
+      {
+        "name": "containerMetricsCollector",
+        "category": "functions",
+        "signature": "containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => import(\"@nexload-sdk/healthcheck\").MetricCollectorDefinition<\"container.metrics\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/index.ts",
+        "line": 172,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L172"
+      },
+      {
+        "name": "containerResourceCheck",
+        "category": "functions",
+        "signature": "containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { usageRatio?: { degraded: number; unhealthy: number; }; }; root?: string; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<\"container.resources\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/index.ts",
+        "line": 105,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L105"
+      },
+      {
+        "name": "dnsCheck",
+        "category": "functions",
+        "signature": "dnsCheck(name: string, options: { hostname: string; recordType?: \"A\" | \"AAAA\" | \"CNAME\" | \"TXT\" | \"MX\"; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/index.ts",
+        "line": 254,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L254"
+      },
+      {
+        "name": "nodeRuntimeAdapter",
+        "category": "functions",
+        "signature": "nodeRuntimeAdapter() => RuntimeAdapter",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/index.ts",
+        "line": 59,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L59"
+      },
+      {
+        "name": "parseCpuList",
+        "category": "functions",
+        "signature": "parseCpuList(value: string | null) => number | null",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/cgroup.ts",
+        "line": 81,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L81"
+      },
+      {
+        "name": "processMetricsCollector",
+        "category": "functions",
+        "signature": "processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => import(\"@nexload-sdk/healthcheck\").MetricCollectorDefinition<\"process.metrics\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/index.ts",
+        "line": 147,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L147"
+      },
+      {
+        "name": "readContainerResourceSnapshot",
+        "category": "functions",
+        "signature": "readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<ContainerResourceSnapshot>",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/cgroup.ts",
+        "line": 307,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L307"
+      },
+      {
+        "name": "tcpCheck",
+        "category": "functions",
+        "signature": "tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>",
+        "description": "Public function exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/index.ts",
+        "line": 196,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L196"
+      },
+      {
+        "name": "ContainerCpuSnapshot",
+        "category": "interfaces",
+        "signature": "interface ContainerCpuSnapshot {\n  quotaMicros: number | null\n  periodMicros: number | null\n  quotaCpus: number | null\n  cpusetCpus: number | null\n  availableParallelism: number | null\n  hostCpuCount: number | null\n  effectiveCpuCount: number | null\n  isLimited: boolean\n  source: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/cgroup.ts",
+        "line": 15,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L15"
+      },
+      {
+        "name": "ContainerMemorySnapshot",
+        "category": "interfaces",
+        "signature": "interface ContainerMemorySnapshot {\n  currentBytes: number | null\n  limitBytes: number | null\n  highBytes: number | null\n  swapCurrentBytes: number | null\n  swapLimitBytes: number | null\n  isLimited: boolean\n  usageRatio: number | null\n  source: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/cgroup.ts",
+        "line": 4,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L4"
+      },
+      {
+        "name": "ContainerResourceOptions",
+        "category": "interfaces",
+        "signature": "interface ContainerResourceOptions {\n  root?: string\n  platform?: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/cgroup.ts",
+        "line": 39,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L39"
+      },
+      {
+        "name": "ContainerResourceSnapshot",
+        "category": "interfaces",
+        "signature": "interface ContainerResourceSnapshot {\n  detected: boolean\n  platform: string\n  cgroupVersion: 1 | 2 | null\n  isContainerLikely: boolean | null\n  memory: ContainerMemorySnapshot\n  cpu: ContainerCpuSnapshot\n  source: \"cgroup-v2\" | \"cgroup-v1\" | \"node\" | \"os\" | \"none\"\n  confidence: \"high\" | \"medium\" | \"low\"\n  warnings: string[]\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-node.",
+        "source": "packages/healthcheck/node/src/cgroup.ts",
+        "line": 27,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L27"
+      }
+    ]
+  },
+  "healthcheck-bun": {
+    "id": "healthcheck-bun",
+    "name": "@nexload-sdk/healthcheck-bun",
+    "sourcePath": "packages/healthcheck/bun",
+    "symbols": [
+      {
+        "name": "bunRuntimeAdapter",
+        "category": "functions",
+        "signature": "bunRuntimeAdapter() => RuntimeAdapter",
+        "description": "Public function exported by @nexload-sdk/healthcheck-bun.",
+        "source": "packages/healthcheck/bun/src/index.ts",
+        "line": 54,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L54"
+      },
+      {
+        "name": "bunRuntimeInfoCheck",
+        "category": "functions",
+        "signature": "bunRuntimeInfoCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<\"bun.runtime\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck-bun.",
+        "source": "packages/healthcheck/bun/src/index.ts",
+        "line": 74,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L74"
+      },
+      {
+        "name": "bunServerMetricsCheck",
+        "category": "functions",
+        "signature": "bunServerMetricsCheck(server: BunServerLike, options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<\"bun.server.metrics\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck-bun.",
+        "source": "packages/healthcheck/bun/src/index.ts",
+        "line": 91,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L91"
+      },
+      {
+        "name": "BunServerLike",
+        "category": "interfaces",
+        "signature": "interface BunServerLike {\n  pendingRequests?: number\n  pendingWebSockets?: number\n  subscriberCount?: (topic: string) => number\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-bun.",
+        "source": "packages/healthcheck/bun/src/index.ts",
+        "line": 15,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L15"
+      }
+    ]
+  },
+  "healthcheck-next": {
+    "id": "healthcheck-next",
+    "name": "@nexload-sdk/healthcheck-next",
+    "sourcePath": "packages/healthcheck/next",
+    "symbols": [
+      {
+        "name": "createNextHealthRoute",
+        "category": "functions",
+        "signature": "createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) => { GET: (request: Request) => Promise<Response>; HEAD: (request: Request) => Promise<Response>; }",
+        "description": "Public function exported by @nexload-sdk/healthcheck-next.",
+        "source": "packages/healthcheck/next/src/index.ts",
+        "line": 280,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L280"
+      },
+      {
+        "name": "createNextMetricsRoute",
+        "category": "functions",
+        "signature": "createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions) => { GET: (request: Request) => Promise<Response>; }",
+        "description": "Public function exported by @nexload-sdk/healthcheck-next.",
+        "source": "packages/healthcheck/next/src/index.ts",
+        "line": 334,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L334"
+      },
+      {
+        "name": "NextHealthRouteOptions",
+        "category": "interfaces",
+        "signature": "interface NextHealthRouteOptions {\n  scope: HealthScope\n  format?: \"json\" | \"summary\"\n  httpStatus?: HealthHttpStatusPolicy\n  includeDetails?: boolean | ((request: Request) => boolean)\n  protect?: NextHealthRouteProtection\n  headers?: HeadersInit | ((report: HealthReport) => HeadersInit)\n  cache?: \"no-store\"\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-next.",
+        "source": "packages/healthcheck/next/src/index.ts",
+        "line": 32,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L32"
+      },
+      {
+        "name": "NextHealthRouteProtection",
+        "category": "interfaces",
+        "signature": "interface NextHealthRouteProtection {\n  bearerToken?: string\n  basicAuth?: {\n    username: string\n    password: string\n  }\n  allowCidrs?: readonly string[]\n  allowIps?: readonly string[]\n  trustProxy?: boolean\n  proxyHeader?: \"x-forwarded-for\" | \"x-real-ip\" | string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-next.",
+        "source": "packages/healthcheck/next/src/index.ts",
+        "line": 20,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L20"
+      },
+      {
+        "name": "NextMetricsRouteOptions",
+        "category": "interfaces",
+        "signature": "interface NextMetricsRouteOptions {\n  format: \"prometheus\" | \"openmetrics\" | \"json\"\n  scope?: HealthRunScope\n  protect?: NextHealthRouteProtection\n  prefix?: string\n  defaultLabels?: Record<string, string>\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-next.",
+        "source": "packages/healthcheck/next/src/index.ts",
+        "line": 42,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L42"
+      }
+    ]
+  },
+  "healthcheck-prometheus": {
+    "id": "healthcheck-prometheus",
+    "name": "@nexload-sdk/healthcheck-prometheus",
+    "sourcePath": "packages/healthcheck/prometheus",
+    "symbols": [
+      {
+        "name": "toOpenMetricsText",
+        "category": "functions",
+        "signature": "toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => string",
+        "description": "Public function exported by @nexload-sdk/healthcheck-prometheus.",
+        "source": "packages/healthcheck/prometheus/src/index.ts",
+        "line": 259,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L259"
+      },
+      {
+        "name": "toPrometheusText",
+        "category": "functions",
+        "signature": "toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => string",
+        "description": "Public function exported by @nexload-sdk/healthcheck-prometheus.",
+        "source": "packages/healthcheck/prometheus/src/index.ts",
+        "line": 233,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L233"
+      },
+      {
+        "name": "PrometheusExportOptions",
+        "category": "interfaces",
+        "signature": "interface PrometheusExportOptions {\n  prefix?: string\n  defaultLabels?: Record<string, string>\n  includeDescriptions?: boolean\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-prometheus.",
+        "source": "packages/healthcheck/prometheus/src/index.ts",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L8"
+      },
+      {
+        "name": "OpenMetricsExportOptions",
+        "category": "types",
+        "signature": "type OpenMetricsExportOptions = PrometheusExportOptions;",
+        "description": "Public type exported by @nexload-sdk/healthcheck-prometheus.",
+        "source": "packages/healthcheck/prometheus/src/index.ts",
+        "line": 14,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L14"
+      }
+    ]
+  },
+  "healthcheck-otel": {
+    "id": "healthcheck-otel",
+    "name": "@nexload-sdk/healthcheck-otel",
+    "sourcePath": "packages/healthcheck/otel",
+    "symbols": [
+      {
+        "name": "toOtelMetricRecords",
+        "category": "functions",
+        "signature": "toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]",
+        "description": "Public function exported by @nexload-sdk/healthcheck-otel.",
+        "source": "packages/healthcheck/otel/src/index.ts",
+        "line": 35,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L35"
+      },
+      {
+        "name": "toOtelResourceAttributes",
+        "category": "functions",
+        "signature": "toOtelResourceAttributes(report: HealthReport) => Record<string, string | number | boolean>",
+        "description": "Public function exported by @nexload-sdk/healthcheck-otel.",
+        "source": "packages/healthcheck/otel/src/index.ts",
+        "line": 22,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L22"
+      },
+      {
+        "name": "OtelMetricRecord",
+        "category": "interfaces",
+        "signature": "interface OtelMetricRecord {\n  name: string\n  value: HealthMetricValue\n  attributes: Record<string, string | number | boolean>\n  unit?: string\n  type?: HealthMetric[\"type\"]\n  observedAt: string\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-otel.",
+        "source": "packages/healthcheck/otel/src/index.ts",
+        "line": 7,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L7"
+      }
+    ]
+  },
+  "healthcheck-payload": {
+    "id": "healthcheck-payload",
+    "name": "@nexload-sdk/healthcheck-payload",
+    "sourcePath": "packages/healthcheck/payload",
+    "symbols": [
+      {
+        "name": "payloadHealthCheck",
+        "category": "functions",
+        "signature": "payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => HealthCheckDefinition<\"payload\">",
+        "description": "Public function exported by @nexload-sdk/healthcheck-payload.",
+        "source": "packages/healthcheck/payload/src/index.ts",
+        "line": 32,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L32"
+      },
+      {
+        "name": "PayloadHealthCheckOptions",
+        "category": "interfaces",
+        "signature": "interface PayloadHealthCheckOptions {\n  collection: string\n  limit?: number\n  timeoutMs?: number\n  where?: Record<string, unknown>\n  depth?: number\n  expectedMinDocuments?: number\n  scopes?: readonly HealthScope[]\n}",
+        "description": "Public interface exported by @nexload-sdk/healthcheck-payload.",
+        "source": "packages/healthcheck/payload/src/index.ts",
+        "line": 10,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L10"
+      }
+    ]
+  },
+  "payload-fields": {
+    "id": "payload-fields",
+    "name": "@nexload-sdk/payload-fields",
+    "sourcePath": "packages/payload-fields",
+    "symbols": [
+      {
+        "name": "formatSlugHook",
+        "category": "constants",
+        "signature": "formatSlugHook(options: SlugHookOptions) => FieldHook",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/slug/format-slug.ts",
+        "line": 70,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L70"
+      },
+      {
+        "name": "IRR",
+        "category": "constants",
+        "signature": "IRR: Readonly<MoneyCurrencyDefinition>",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 25,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L25"
+      },
+      {
+        "name": "IRT",
+        "category": "constants",
+        "signature": "IRT: Readonly<MoneyCurrencyDefinition>",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 26,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L26"
+      },
+      {
+        "name": "formatJalaliDate",
+        "category": "functions",
+        "signature": "formatJalaliDate(value: JalaliDateValue, options?: JalaliDateDisplayOptions) => string | null",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/format-date.ts",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L9"
+      },
+      {
+        "name": "formatMoney",
+        "category": "functions",
+        "signature": "formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?: MoneyDisplayOptions) => string | null",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 78,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L78"
+      },
+      {
+        "name": "formatSlug",
+        "category": "functions",
+        "signature": "formatSlug(value: string) => string",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/slug/format-slug.ts",
+        "line": 45,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L45"
+      },
+      {
+        "name": "jalaliDateField",
+        "category": "functions",
+        "signature": "jalaliDateField(options: JalaliDateFieldOptions) => DateField",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/index.ts",
+        "line": 21,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L21"
+      },
+      {
+        "name": "moneyField",
+        "category": "functions",
+        "signature": "moneyField(options: MoneyFieldOptions) => NumberField",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 94,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L94"
+      },
+      {
+        "name": "parseMoneyToMinorUnits",
+        "category": "functions",
+        "signature": "parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 56,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L56"
+      },
+      {
+        "name": "payloadFieldsPlugin",
+        "category": "functions",
+        "signature": "payloadFieldsPlugin(options?: PayloadFieldsPluginOptions) => Plugin",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/plugin.ts",
+        "line": 19,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L19"
+      },
+      {
+        "name": "resolveCurrency",
+        "category": "functions",
+        "signature": "resolveCurrency(currency: MoneyCurrency) => MoneyCurrencyDefinition",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 28,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L28"
+      },
+      {
+        "name": "slugField",
+        "category": "functions",
+        "signature": "slugField(options?: SlugFieldOptions) => SlugFieldResult",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/slug/index.ts",
+        "line": 16,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L16"
+      },
+      {
+        "name": "withJalaliTimestamps",
+        "category": "functions",
+        "signature": "withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOptions) => Field[]",
+        "description": "Public function exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/index.ts",
+        "line": 53,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L53"
+      },
+      {
+        "name": "JalaliDateDisplayOptions",
+        "category": "types",
+        "signature": "type JalaliDateDisplayOptions = {\n  dateStyle?: \"short\" | \"medium\" | \"long\" | \"full\"\n  timeStyle?: \"short\" | \"medium\"\n  digits?: \"persian\" | \"latin\"\n  timeZone?: string\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/format-date.ts",
+        "line": 2,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L2"
+      },
+      {
+        "name": "JalaliDateFieldOptions",
+        "category": "types",
+        "signature": "type JalaliDateFieldOptions = {\n  name: string\n  pickerAppearance?: JalaliPickerAppearance\n  display?: import(\"./format-date\").JalaliDateDisplayOptions\n  overrides?: Partial<DateField>\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/index.ts",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L8"
+      },
+      {
+        "name": "JalaliDateValue",
+        "category": "types",
+        "signature": "type JalaliDateValue = Date | string | number | null | undefined;",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/format-date.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L1"
+      },
+      {
+        "name": "JalaliPickerAppearance",
+        "category": "types",
+        "signature": "type JalaliPickerAppearance\n  = | \"dayOnly\"\n    | \"dayAndTime\"\n    | \"timeOnly\"\n    | \"monthOnly\";",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/picker-types.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/picker-types.ts#L1"
+      },
+      {
+        "name": "JalaliTimestampsOptions",
+        "category": "types",
+        "signature": "type JalaliTimestampsOptions = {\n  createdAt?: boolean\n  updatedAt?: boolean\n  display?: import(\"./format-date\").JalaliDateDisplayOptions\n  overrides?: { createdAt?: Partial<TextField>, updatedAt?: Partial<TextField> }\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/date/index.ts",
+        "line": 14,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L14"
+      },
+      {
+        "name": "MoneyCurrency",
+        "category": "types",
+        "signature": "type MoneyCurrency = \"IRR\" | \"IRT\" | MoneyCurrencyDefinition;",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L8"
+      },
+      {
+        "name": "MoneyCurrencyDefinition",
+        "category": "types",
+        "signature": "type MoneyCurrencyDefinition = {\n  code: string\n  label: string\n  fractionDigits: number\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 3,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L3"
+      },
+      {
+        "name": "MoneyDisplayOptions",
+        "category": "types",
+        "signature": "type MoneyDisplayOptions = {\n  locale?: string\n  digits?: \"persian\" | \"latin\"\n  grouping?: boolean\n  showCurrency?: boolean\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L9"
+      },
+      {
+        "name": "MoneyFieldOptions",
+        "category": "types",
+        "signature": "type MoneyFieldOptions = {\n  name: string\n  currency: MoneyCurrency\n  minMinorUnits?: number\n  maxMinorUnits?: number\n  allowNegative?: boolean\n  display?: MoneyDisplayOptions\n  overrides?: Partial<NumberField>\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/money/index.ts",
+        "line": 15,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L15"
+      },
+      {
+        "name": "PayloadFieldsPluginOptions",
+        "category": "types",
+        "signature": "type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerator>, generateSlugAccess?: SlugGenerationAccess };",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/plugin.ts",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L9"
+      },
+      {
+        "name": "SlugFieldOptions",
+        "category": "types",
+        "signature": "type SlugFieldOptions = {\n  name?: string\n  lockName?: string\n  source?: string\n  generator?: string\n  regenerateOnSourceChange?: boolean\n  overrides?: { slug?: Partial<TextField>, lock?: Partial<CheckboxField> }\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/slug/index.ts",
+        "line": 5,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L5"
+      },
+      {
+        "name": "SlugFieldResult",
+        "category": "types",
+        "signature": "type SlugFieldResult = readonly [TextField, CheckboxField];",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/slug/index.ts",
+        "line": 14,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L14"
+      },
+      {
+        "name": "SlugGenerationAccess",
+        "category": "types",
+        "signature": "type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise<boolean>;",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/plugin.ts",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L8"
+      },
+      {
+        "name": "SlugGenerator",
+        "category": "types",
+        "signature": "type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorContext) => Promise<string>;",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/plugin.ts",
+        "line": 7,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L7"
+      },
+      {
+        "name": "SlugGeneratorContext",
+        "category": "types",
+        "signature": "type SlugGeneratorContext = { req: PayloadRequest };",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/plugin.ts",
+        "line": 6,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L6"
+      },
+      {
+        "name": "SlugGeneratorInput",
+        "category": "types",
+        "signature": "type SlugGeneratorInput = { sourceValue: string, currentSlug?: string };",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/plugin.ts",
+        "line": 5,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L5"
+      },
+      {
+        "name": "SlugHookOptions",
+        "category": "types",
+        "signature": "type SlugHookOptions = {\n  name: string\n  lockName: string\n  source: string\n  regenerateOnSourceChange: boolean\n};",
+        "description": "Public type exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/slug/format-slug.ts",
+        "line": 3,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L3"
+      }
+    ]
+  },
+  "payload-editor": {
+    "id": "payload-editor",
+    "name": "@nexload-sdk/payload-editor",
+    "sourcePath": "packages/payload-editor",
+    "symbols": [
+      {
+        "name": "PayloadEditorConfigError",
+        "category": "classes",
+        "signature": "class PayloadEditorConfigError",
+        "description": "Public classe exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/errors.ts",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L12"
+      },
+      {
+        "name": "createEditor",
+        "category": "functions",
+        "signature": "createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>",
+        "description": "Public function exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/create-editor.ts",
+        "line": 54,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L54"
+      },
+      {
+        "name": "defineEditorPreset",
+        "category": "functions",
+        "signature": "defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset",
+        "description": "Public function exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/define-editor-preset.ts",
+        "line": 38,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L38"
+      },
+      {
+        "name": "DefineEditorPresetOptions",
+        "category": "interfaces",
+        "signature": "interface DefineEditorPresetOptions { readonly features: Readonly<EditorFeatureConfig> }",
+        "description": "Public interface exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 62,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L62"
+      },
+      {
+        "name": "EditorFeatureConfig",
+        "category": "interfaces",
+        "signature": "interface EditorFeatureConfig {\n  paragraph?: FeatureOption\n  heading?: FeatureOption<HeadingOptions>\n  bold?: FeatureOption\n  italic?: FeatureOption\n  underline?: FeatureOption\n  strikethrough?: FeatureOption\n  inlineCode?: FeatureOption\n  link?: FeatureOption<LinkOptions>\n  unorderedList?: FeatureOption\n  orderedList?: FeatureOption\n  blockquote?: FeatureOption\n  horizontalRule?: FeatureOption\n  upload?: FeatureOption<UploadOptions>\n  relationship?: FeatureOption<RelationshipOptions>\n  inlineToolbar?: FeatureOption\n  fixedToolbar?: FeatureOption\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 36,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L36"
+      },
+      {
+        "name": "EditorPreset",
+        "category": "interfaces",
+        "signature": "interface EditorPreset {\n  readonly [editorPresetBrand]: true\n  readonly features: Readonly<EditorFeatureConfig>\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 57,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L57"
+      },
+      {
+        "name": "HeadingOptions",
+        "category": "interfaces",
+        "signature": "interface HeadingOptions { sizes?: readonly HeadingSize[] }",
+        "description": "Public interface exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 24,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L24"
+      },
+      {
+        "name": "LinkOptions",
+        "category": "interfaces",
+        "signature": "interface LinkOptions extends RelationalOptions<CollectionSlug> { autoLink?: boolean }",
+        "description": "Public interface exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 31,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L31"
+      },
+      {
+        "name": "CreateEditorOptions",
+        "category": "types",
+        "signature": "type CreateEditorOptions = CommonEditorOptions & (\n  | {\n    readonly preset: EditorPresetName | EditorPreset\n    readonly features?: Readonly<EditorFeatureConfig>\n  }\n  | {\n    readonly preset?: never\n    readonly features: Readonly<EditorFeatureConfig>\n  }\n);",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 69,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L69"
+      },
+      {
+        "name": "EditorPresetName",
+        "category": "types",
+        "signature": "type EditorPresetName\n  = | \"compact\"\n    | \"standard\"\n    | \"structured-content\"\n    | \"article\"\n    | \"product-description\";",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 11,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L11"
+      },
+      {
+        "name": "FeatureOption",
+        "category": "types",
+        "signature": "type FeatureOption<TOptions = never> = [TOptions] extends [never]\n  ? boolean\n  : boolean | Readonly<TOptions>;",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L18"
+      },
+      {
+        "name": "HeadingSize",
+        "category": "types",
+        "signature": "type HeadingSize = \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\";",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 22,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L22"
+      },
+      {
+        "name": "NativeEditorFeature",
+        "category": "types",
+        "signature": "type NativeEditorFeature = FeatureProviderServer<any, any, any>;",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L9"
+      },
+      {
+        "name": "PayloadEditorConfigErrorCode",
+        "category": "types",
+        "signature": "type PayloadEditorConfigErrorCode\n  = | \"PAYLOAD_EDITOR_DEFINITION_REQUIRED\"\n    | \"PAYLOAD_EDITOR_UNKNOWN_PRESET\"\n    | \"PAYLOAD_EDITOR_UNKNOWN_FEATURE\"\n    | \"PAYLOAD_EDITOR_INVALID_FEATURE_OPTIONS\"\n    | \"PAYLOAD_EDITOR_INVALID_HEADING_SIZES\"\n    | \"PAYLOAD_EDITOR_INVALID_COLLECTIONS\"\n    | \"PAYLOAD_EDITOR_INVALID_MAX_DEPTH\"\n    | \"PAYLOAD_EDITOR_INVALID_EXTENSION\"\n    | \"PAYLOAD_EDITOR_DUPLICATE_FEATURE\";",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/errors.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L1"
+      },
+      {
+        "name": "RelationshipOptions",
+        "category": "types",
+        "signature": "type RelationshipOptions = RelationalOptions<CollectionSlug>;",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 34,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L34"
+      },
+      {
+        "name": "UploadOptions",
+        "category": "types",
+        "signature": "type UploadOptions = RelationalOptions<UploadCollectionSlug>;",
+        "description": "Public type exported by @nexload-sdk/payload-editor.",
+        "source": "packages/payload-editor/src/types.ts",
+        "line": 33,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L33"
+      }
+    ]
+  },
+  "payload-schema": {
+    "id": "payload-schema",
+    "name": "@nexload-sdk/payload-schema",
+    "sourcePath": "packages/payload-schema",
+    "symbols": [
+      {
+        "name": "PayloadSchemaError",
+        "category": "classes",
+        "signature": "class PayloadSchemaError",
+        "description": "Public classe exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/errors.ts",
+        "line": 75,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L75"
+      },
+      {
+        "name": "defaultIdSchema",
+        "category": "constants",
+        "signature": "defaultIdSchema: z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>",
+        "description": "Public constant exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/default-id.ts",
+        "line": 3,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/default-id.ts#L3"
+      },
+      {
+        "name": "field",
+        "category": "constants",
+        "signature": "field: Readonly<{ text: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<\"text\", NullableSchema<string, TNullable>, TextField>; textarea: <TNullable extends boolean = false>(options?: TextareaFieldOptions<TNullable>) => FieldDefinition<\"textarea\", NullableSchema<string, TNullable>, TextareaField>; slug: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<\"slug\", NullableSchema<string, TNullable>, TextField>; number: <TNullable extends boolean = false>(options?: NumberFieldOptions<TNullable>) => FieldDefinition<\"number\", NullableSchema<number, TNullable>, NumberField>; money: <TNullable extends boolean = false>(options: MoneyFieldOptions<TNullable>) => FieldDefinition<\"money\", NullableSchema<number, TNullable>, NumberField>; boolean: <TNullable extends boolean = false>(options?: BooleanFieldOptions<TNullable>) => FieldDefinition<\"boolean\", NullableSchema<boolean, TNullable>, CheckboxField>; date: <TNullable extends boolean = false>(options?: DateFieldOptions<TNullable>) => FieldDefinition<\"date\", NullableSchema<string, TNullable>, DateField>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable>) => FieldDefinition<\"select\", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<\"relationship\", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<\"upload\", TRelationTo, THasMany, TNullable, TIdSchema, UploadField>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: GroupFieldOptions<TFields, TNullable>) => FieldDefinition<\"group\", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable>) => FieldDefinition<\"array\", ArrayCanonicalSchema<TFields, TNullable>, ArrayField>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable>) => FieldDefinition<\"richText\", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField>; native: <TPayloadField extends PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<\"native\", TSchema, TPayloadField>; }>",
+        "description": "Public constant exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/fields/index.ts",
+        "line": 686,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L686"
+      },
+      {
+        "name": "defineEntity",
+        "category": "functions",
+        "signature": "defineEntity<const TName extends string, const TFields extends EntityFieldMap, TIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>, TRelationshipIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>>(options: DefineEntityOptions<TName, TFields, TIdSchema, TRelationshipIdSchema>) => EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>, TIdSchema>",
+        "description": "Public function exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/entity/define-entity.ts",
+        "line": 518,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L518"
+      },
+      {
+        "name": "isPayloadSchemaError",
+        "category": "functions",
+        "signature": "isPayloadSchemaError(error: unknown) => error is PayloadSchemaError<PayloadSchemaErrorCode>\nisPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code: TCode) => error is PayloadSchemaError<TCode>",
+        "description": "Public function exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/errors.ts",
+        "line": 113,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L113"
+      },
+      {
+        "name": "ArrayFieldOptions",
+        "category": "interfaces",
+        "signature": "interface ArrayFieldOptions<TFields extends EntityFieldMap, TNullable extends boolean = false> {\n  fields: TFields\n  required?: boolean\n  nullable?: TNullable\n  minRows?: number\n  maxRows?: number\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<ArrayField, \"fields\" | \"maxRows\" | \"minRows\">\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 219,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L219"
+      },
+      {
+        "name": "DefineEntityOptions",
+        "category": "interfaces",
+        "signature": "interface DefineEntityOptions<\n  TName extends string,\n  TFields extends EntityFieldMap,\n  TIdSchema extends AnyCanonicalSchema,\n  TRelationshipIdSchema extends AnyCanonicalSchema\n> {\n  name: TName\n  fields: TFields\n  idSchema?: TIdSchema\n  relationshipIdSchema?: TRelationshipIdSchema\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 362,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L362"
+      },
+      {
+        "name": "EntityDefinition",
+        "category": "interfaces",
+        "signature": "interface EntityDefinition<\n  TName extends string,\n  TFields extends EntityFieldMap,\n  TIdSchema extends AnyCanonicalSchema\n> {\n  readonly name: TName\n  readonly idSchema: TIdSchema\n  readonly fields: TFields\n  readonly payload: EntityPayloadFacade<TFields>\n  schema<TSchema extends AnyCanonicalSchema>(factory: (context: EntitySchemaContext<TFields>) => TSchema): TSchema\n  inspect(): EntityInspection\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 349,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L349"
+      },
+      {
+        "name": "EntityInspection",
+        "category": "interfaces",
+        "signature": "interface EntityInspection { name: string, fields: EntityInspectionFieldMap }",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 284,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L284"
+      },
+      {
+        "name": "EntitySchemaContext",
+        "category": "interfaces",
+        "signature": "interface EntitySchemaContext<TFields extends EntityFieldMap> {\n  readonly fields: CanonicalSchemaMap<TFields>\n  readonly pick: EntitySchemaPicker<TFields>\n  readonly z: typeof import(\"zod\").z\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 337,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L337"
+      },
+      {
+        "name": "EntitySchemaPicker",
+        "category": "interfaces",
+        "signature": "interface EntitySchemaPicker<TFields extends EntityFieldMap> {\n  <\n    const TKeys extends readonly (keyof CanonicalSchemaMap<TFields>)[],\n    const TOptional extends readonly SelectedKey<TKeys>[] | \"all\" | undefined = undefined,\n    const TRequired extends readonly SelectedKey<TKeys>[] | undefined = undefined\n  >(\n    keys: TKeys,\n    options?: SchemaPickOptions<SelectedKey<TKeys>, TOptional, TRequired>,\n  ): ZodObjectForPickedFields<TFields, TKeys, TOptional, TRequired>\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 326,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L326"
+      },
+      {
+        "name": "FieldDefinition",
+        "category": "interfaces",
+        "signature": "interface FieldDefinition<\n  TKind extends string,\n  TSchema extends AnyCanonicalSchema | undefined,\n  TPayloadField extends PayloadDataField\n> {\n  readonly kind: TKind\n  readonly schema: TSchema\n  readonly __payloadFieldType?: TPayloadField\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 24,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L24"
+      },
+      {
+        "name": "GroupFieldOptions",
+        "category": "interfaces",
+        "signature": "interface GroupFieldOptions<TFields extends EntityFieldMap, TNullable extends boolean = false> {\n  fields: TFields\n  required?: boolean\n  nullable?: TNullable\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<NamedGroupField, \"fields\">\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 210,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L210"
+      },
+      {
+        "name": "NativeFieldOptions",
+        "category": "interfaces",
+        "signature": "interface NativeFieldOptions<\n  TPayloadField extends PayloadDataField,\n  TSchema extends AnyCanonicalSchema | undefined = undefined\n> {\n  payload: Omit<TPayloadField, \"defaultValue\" | \"name\">\n  schema?: TSchema\n  defaultValue?: TSchema extends AnyCanonicalSchema ? z.input<TSchema> : never\n  dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 260,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L260"
+      },
+      {
+        "name": "PayloadSchemaErrorDataMap",
+        "category": "interfaces",
+        "signature": "interface PayloadSchemaErrorDataMap {\n  INVALID_ENTITY_NAME: { received: string }\n  INVALID_FIELD_NAME: { entity?: string, field: string }\n  RESERVED_FIELD_NAME: { entity?: string, field: string, reservedName: string }\n  INVALID_FIELD_CONFIGURATION: { entity?: string, fieldPath: string, fieldKind: string, reason: string }\n  INVALID_CONSTRAINT_RANGE: {\n    entity?: string\n    fieldPath: string\n    constraint: string\n    minimum?: number | string\n    maximum?: number | string\n  }\n  INVALID_DEFAULT_VALUE: { entity?: string, fieldPath: string, fieldKind: string, issues: SafeIssueSummary[] }\n  CONFLICTING_DEFAULT_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    fieldType: string\n    configuredDefaults: readonly [\"defaultValue\", \"dynamicDefaultValue\"]\n  }\n  EMPTY_SELECT_VALUES: { entity?: string, fieldPath: string }\n  INVALID_RELATIONSHIP_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    reason: string\n    relationTo?: string[]\n  }\n  INVALID_NESTED_FIELD_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    reason: string\n    blockingFieldPath?: string\n  }\n  ASYNC_CANONICAL_SCHEMA_UNSUPPORTED: { entity?: string, fieldPath: string, fieldKind: string }\n  RESERVED_PAYLOAD_OPTION: { entity?: string, fieldPath: string, fieldKind: string, option: string }\n  DUPLICATE_PAYLOAD_FIELD_NAME: { entity: string, payloadName: string, fieldPaths: string[] }\n  INVALID_PAYLOAD_FIELD: { entity: string, fieldPath: string, fieldKind: string, reason: string }\n  PAYLOAD_COMPILATION_FAILED: {\n    entity: string\n    fieldPath?: string\n    fieldKind?: string\n    operation: \"all\" | \"field\" | \"pick\"\n    causeName?: string\n  }\n  UNKNOWN_FIELD: { entity: string, field: string, availableFields: string[] }\n  SCHEMA_UNAVAILABLE: {\n    entity: string\n    fieldPath: string\n    fieldKind: string\n    reason: \"native-without-schema\" | \"schema-less-descendant\"\n    blockingFieldPath?: string\n  }\n  INVALID_SCHEMA_FACTORY_RESULT: { entity: string, receivedType: string }\n  SCHEMA_DERIVATION_FAILED: { entity: string, causeName?: string }\n  INTERNAL_INVARIANT_VIOLATION: { invariant: string, entity?: string, fieldPath?: string }\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/errors.ts",
+        "line": 7,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L7"
+      },
+      {
+        "name": "RelationshipFieldOptions",
+        "category": "interfaces",
+        "signature": "interface RelationshipFieldOptions<\n  TRelationTo extends string | readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TIdSchema extends AnyCanonicalSchema | undefined = undefined\n> {\n  relationTo: TRelationTo\n  hasMany?: THasMany\n  required?: boolean\n  nullable?: TNullable\n  idSchema?: TIdSchema\n  defaultValue?: MaybeNullable<\n    RelationshipValueForOptions<TRelationTo, THasMany, TIdSchema>,\n    TNullable\n  >\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<RelationshipField, \"hasMany\" | \"relationTo\">\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 123,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L123"
+      },
+      {
+        "name": "RichTextFieldOptions",
+        "category": "interfaces",
+        "signature": "interface RichTextFieldOptions<\n  TSchema extends AnyCanonicalSchema,\n  TNullable extends boolean = false\n> {\n  schema: TSchema\n  required?: boolean\n  nullable?: TNullable\n  defaultValue?: MaybeNullable<z.input<TSchema>, TNullable>\n  dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<z.input<TSchema>, TNullable>>\n  payload?: NativePayloadExtras<RichTextField>\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 230,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L230"
+      },
+      {
+        "name": "SelectFieldOptions",
+        "category": "interfaces",
+        "signature": "interface SelectFieldOptions<\n  TValues extends readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false\n> {\n  values: TValues\n  labels?: Partial<Record<TValues[number], string>>\n  hasMany?: THasMany\n  required?: boolean\n  nullable?: TNullable\n  defaultValue?: MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>\n  dynamicDefaultValue?: DynamicDefaultValue<\n    MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>\n  >\n  payload?: NativePayloadExtras<SelectField, \"hasMany\" | \"options\">\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 106,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L106"
+      },
+      {
+        "name": "BooleanFieldOptions",
+        "category": "types",
+        "signature": "type BooleanFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  boolean,\n  TNullable,\n  NativePayloadExtras<CheckboxField>\n>;",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 94,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L94"
+      },
+      {
+        "name": "DateFieldOptions",
+        "category": "types",
+        "signature": "type DateFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<DateField>\n> & { minimum?: string, maximum?: string };",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 100,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L100"
+      },
+      {
+        "name": "DefaultIdSchema",
+        "category": "types",
+        "signature": "type DefaultIdSchema = typeof defaultIdSchema;",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/default-id.ts",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/default-id.ts#L8"
+      },
+      {
+        "name": "EntityFieldMap",
+        "category": "types",
+        "signature": "type EntityFieldMap = Readonly<Record<string, AnyFieldDefinition>>;",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 35,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L35"
+      },
+      {
+        "name": "InferEntityField",
+        "category": "types",
+        "signature": "type InferEntityField<TField extends FieldDefinition<string, AnyCanonicalSchema, PayloadDataField>>\n  = z.infer<TField[\"schema\"]>;",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 374,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L374"
+      },
+      {
+        "name": "InferEntityFields",
+        "category": "types",
+        "signature": "type InferEntityFields<TEntity extends EntityDefinition<string, EntityFieldMap, AnyCanonicalSchema>> = {\n  [TKey in keyof TEntity[\"fields\"]]: TEntity[\"fields\"][TKey][\"schema\"] extends AnyCanonicalSchema\n    ? z.infer<TEntity[\"fields\"][TKey][\"schema\"]>\n    : never\n};",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 377,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L377"
+      },
+      {
+        "name": "MoneyFieldOptions",
+        "category": "types",
+        "signature": "type MoneyFieldOptions<TNullable extends boolean = false> = Omit<\n  NumberFieldOptions<TNullable>,\n  \"integer\" | \"safe\"\n> & { currency: string };",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 89,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L89"
+      },
+      {
+        "name": "NumberFieldOptions",
+        "category": "types",
+        "signature": "type NumberFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  number,\n  TNullable,\n  NativePayloadExtras<NumberField, \"max\" | \"min\">\n> & {\n  integer?: boolean\n  safe?: boolean\n  minimum?: number\n  maximum?: number\n  multipleOf?: number\n};",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 77,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L77"
+      },
+      {
+        "name": "PayloadSchemaErrorCode",
+        "category": "types",
+        "signature": "type PayloadSchemaErrorCode = keyof PayloadSchemaErrorDataMap;",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/errors.ts",
+        "line": 63,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L63"
+      },
+      {
+        "name": "PayloadSchemaErrorPhase",
+        "category": "types",
+        "signature": "type PayloadSchemaErrorPhase = \"definition\" | \"internal\" | \"payload-compilation\" | \"schema-derivation\";",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/errors.ts",
+        "line": 65,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L65"
+      },
+      {
+        "name": "SerializedPayloadSchemaError",
+        "category": "types",
+        "signature": "type SerializedPayloadSchemaError<TCode extends PayloadSchemaErrorCode = PayloadSchemaErrorCode> = {\n  name: \"PayloadSchemaError\"\n  code: TCode\n  phase: PayloadSchemaErrorPhase\n  message: string\n  data: PayloadSchemaErrorDataMap[TCode]\n};",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/errors.ts",
+        "line": 67,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L67"
+      },
+      {
+        "name": "TextareaFieldOptions",
+        "category": "types",
+        "signature": "type TextareaFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<TextareaField, \"maxLength\" | \"minLength\">\n> & Omit<TextFieldOptions<TNullable>, keyof CommonFieldOptions<string, TNullable, unknown> | \"payload\">;",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 71,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L71"
+      },
+      {
+        "name": "TextFieldOptions",
+        "category": "types",
+        "signature": "type TextFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<TextField, \"maxLength\" | \"minLength\">\n> & {\n  trim?: boolean\n  lowercase?: boolean\n  uppercase?: boolean\n  minLength?: number\n  maxLength?: number\n  pattern?: RegExp\n};",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 58,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L58"
+      },
+      {
+        "name": "UploadFieldOptions",
+        "category": "types",
+        "signature": "type UploadFieldOptions<\n  TRelationTo extends string | readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TIdSchema extends AnyCanonicalSchema | undefined = undefined\n> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>, \"payload\"> & { payload?: NativePayloadExtras<UploadField, \"hasMany\" | \"relationTo\"> };",
+        "description": "Public type exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/types.ts",
+        "line": 203,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L203"
+      }
+    ]
+  }
+}

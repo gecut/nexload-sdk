@@ -1,13 +1,40 @@
 ---
-title: Payload Editor migration
-description: Replace ad hoc Payload Lexical feature arrays with explicit semantic editor contracts.
+title: Migration
+description: Move editor configuration to Payload Editor 1.1.0 without changing stored content.
+sidebar:
+  order: 9
+package: payload-editor
+topic: migration
 ---
 
-1. Match `payload` and `@payloadcms/richtext-lexical` exactly within Payload 3.
-2. Choose the closest explicit preset or provide a complete `features` definition.
-3. Translate collection allowlists to `allowedCollections` and keep upload sub-fields native.
-4. Move project Blocks and custom providers to `extendFeatures`.
-5. Disable a managed feature before adding a native replacement with the same key.
-6. Verify root and field editors through a real Payload config build.
+Payload Editor replaces repeated `lexicalEditor({ features })` assembly and the removed editor export from Payload Fields. It does not migrate stored Lexical JSON.
+This page targets 1.1.0; use the
+[package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/CHANGELOG.md)
+to identify version-specific changes from your installed release.
 
-Do not migrate ambiguous `code` to a managed feature: use `inlineCode` for inline formatting and native Blocks for code blocks. There is no CJS, AI, theme, `defaultFeatures`, `rootFeatures`, or advanced engine export.
+## Incremental migration
+
+1. Record the native provider keys and options currently used by one collection.
+2. Choose the closest built-in preset or define an explicit custom preset.
+3. Disable unwanted managed features.
+4. Add project-owned providers through `extendFeatures`.
+5. Attach the new provider to only that field.
+6. Compare rendered editing controls and read existing content before migrating the next field.
+
+```ts
+// Before
+lexicalEditor({ features: () => [ParagraphFeature(), BoldFeature()] })
+
+// After
+createEditor({ features: { paragraph: true, bold: true } })
+```
+
+Do not assume preset membership from its name; verify the current feature table. Blocks remain a native extension.
+
+## Verification
+
+Boot the Payload config, create/edit/read representative documents, compare generated types, and test any custom nodes or converters. Confirm relationship/upload permissions separately.
+
+## Rollback
+
+Keep the previous native editor factory available until content has been read and written successfully. Because this package does not rewrite stored JSON, rollback normally means restoring the old provider. If custom nodes changed their serialized shape, use the project's own content migration and backup plan.

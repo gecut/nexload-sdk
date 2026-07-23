@@ -1,0 +1,28 @@
+---
+title: Troubleshoot Healthcheck Core
+description: Diagnose timeouts, unexpected status, missing metrics, and unsafe reports.
+sidebar:
+  order: 8
+package: healthcheck
+topic: troubleshooting
+---
+
+## A dependency restarts the process
+
+Remove it from `liveness`; register it for `readiness`. Kubernetes restarts on failed liveness but stops routing on failed readiness.
+
+## A check returns `CHECK_TIMEOUT`
+
+Increase its `timeoutMs` only after checking latency. Ensure the check observes `ctx.signal`; abandoned work can otherwise continue after the report completes.
+
+## The report is degraded
+
+Inspect `summary` and each result's `critical` flag. A non-critical degraded result is still visible even when the aggregate remains healthy.
+
+## Metrics are missing
+
+Exporter packages read `report.metrics`, populated by collectors. Metrics nested inside check results remain part of JSON check output.
+
+## Reports expose too much
+
+Disable details and enable redaction. Never put tokens, connection strings, user identifiers, or raw response bodies into metrics, labels, or details.

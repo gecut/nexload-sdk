@@ -1,0 +1,40 @@
+---
+title: API reference
+description: Public exports for Payload Editor 1.1.0.
+sidebar:
+  order: 6
+package: payload-editor
+topic: api
+---
+
+import ApiInventory from "../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="payload-editor" />
+
+## Runtime exports
+
+`createEditor(options)` validates and merges one definition, creates managed feature providers in deterministic order, appends native extensions, and returns Payload's Lexical editor provider.
+
+`defineEditorPreset(options)` validates and snapshots a reusable feature definition. Only presets created by this function or built-in preset names are accepted.
+
+`PayloadEditorConfigError` extends `TypeError` with stable `code`, exact `path`, and optional `hint`.
+
+## Type exports
+
+The root exports the option, preset, feature, heading, link, upload, relationship, and native-provider types. `EditorPresetName` is the five-name built-in union. `FeatureOption<T>` represents `boolean | options`.
+
+## Error codes
+
+- `PAYLOAD_EDITOR_DEFINITION_REQUIRED`
+- `PAYLOAD_EDITOR_UNKNOWN_PRESET`
+- `PAYLOAD_EDITOR_UNKNOWN_FEATURE`
+- `PAYLOAD_EDITOR_INVALID_FEATURE_OPTIONS`
+- `PAYLOAD_EDITOR_INVALID_HEADING_SIZES`
+- `PAYLOAD_EDITOR_INVALID_COLLECTIONS`
+- `PAYLOAD_EDITOR_INVALID_MAX_DEPTH`
+- `PAYLOAD_EDITOR_INVALID_EXTENSION`
+- `PAYLOAD_EDITOR_DUPLICATE_FEATURE`
+
+All are configuration-time errors. Do not expose their messages directly as end-user content.
+
+See the [root entrypoint](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/index.ts) for the live export surface.

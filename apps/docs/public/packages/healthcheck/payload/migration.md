@@ -1,0 +1,14 @@
+# Migrate Healthcheck Payload
+
+Verify Local API readiness behavior after an upgrade.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/migration/
+This page targets `@nexload-sdk/healthcheck-payload` 2.1.0 with Core 4.1.0.
+Identify your source version in the
+[Payload integration changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/CHANGELOG.md).
+
+Upgrade core and Payload integration together, while keeping the installed Payload major within the declared peer range.
+
+Type-check the collection and `where` values; test successful, empty, minimum-not-met, thrown-query, and timeout paths. Confirm the check remains readiness-only and that protected diagnostics are the only place where causes appear.

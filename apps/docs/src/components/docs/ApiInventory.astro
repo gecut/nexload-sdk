@@ -1,0 +1,30 @@
+---
+import apiCatalog from "../../generated/api-catalog.json";
+
+interface Props {
+  packageId: keyof typeof apiCatalog;
+}
+
+const { packageId } = Astro.props;
+const entry = apiCatalog[packageId];
+if (!entry) throw new Error(`Unknown API inventory package: ${packageId}`);
+
+const groups = Object.groupBy(entry.symbols, (symbol) => symbol.category);
+const categories = ["functions", "classes", "constants", "interfaces", "types"] as const;
+---
+
+{categories.map((category) => groups[category]?.length ? (
+  <section class="api-inventory">
+    <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+    {groups[category].map((symbol) => (
+      <article class="api-symbol" id={`api-${symbol.name}`}>
+        <div class="api-symbol__heading">
+          <h3><code>{symbol.name}</code></h3>
+          <a href={symbol.sourceUrl}>Source</a>
+        </div>
+        <pre><code>{symbol.signature}</code></pre>
+        <p>{symbol.description}</p>
+      </article>
+    ))}
+  </section>
+) : null)}

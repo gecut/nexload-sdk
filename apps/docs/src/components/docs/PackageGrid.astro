@@ -14,17 +14,12 @@ const { entries } = Astro.props;
 ---
 
 <CardGrid>
-  {entries.map((entry) => entry.docsPath ? (
+  {entries.map((entry) => (
     <a class="package-grid__documented" href={withBase(entry.docsPath)}>
-      <h3>{entry.manifest.name}</h3>
+      <h3>{entry.label}</h3>
       <p>{entry.manifest.description}</p>
-      <DocsStatus status={entry.status} />
+      <p><code>{entry.manifest.name}</code></p>
+      <DocsStatus status={entry.releaseStatus} />
     </a>
-  ) : (
-    <div class="package-grid__planned">
-      <h3>{entry.manifest.name}</h3>
-      <p>{entry.manifest.description}</p>
-      <DocsStatus status={entry.status} />
-    </div>
   ))}
 </CardGrid>

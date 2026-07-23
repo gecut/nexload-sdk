@@ -5,11 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "content:api": "node scripts/generate-api.mjs --check",
+    "content:api:write": "node scripts/generate-api.mjs",
+    "content:accessibility": "node scripts/validate-accessibility.mjs",
     "content:check": "node ../../scripts/validate-docs.mjs",
+    "content:examples": "tsc --project examples/tsconfig.json --noEmit",
     "content:links": "node ../../scripts/validate-docs-links.mjs",
-    "content:llms": "node ../../scripts/generate-docs-llms.mjs",
-    "prebuild": "pnpm content:llms && pnpm content:check",
+    "content:llms": "node scripts/generate-markdown.mjs --check",
+    "content:llms:write": "node scripts/generate-markdown.mjs",
+    "prebuild": "pnpm content:api:write && pnpm content:llms:write && pnpm content:check && pnpm content:examples",
     "build": "astro check && astro build && pnpm content:links",
+    "test": "node --test tests/*.test.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -19,7 +25,11 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@nexload-sdk/typescript-config": "workspace:*",
+    "mdast-util-to-markdown": "^2.1.2",
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
     "starlight-theme-flexoki": "^0.2.2",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "unified": "^11.0.5"
   }
 }

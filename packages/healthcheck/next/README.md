@@ -2,6 +2,9 @@
 
 Next.js App Router route factories for `@nexload-sdk/healthcheck`.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/next/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/next/api/)
+
 ```ts
 import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
 import { health } from "@/lib/health";

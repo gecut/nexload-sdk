@@ -1,21 +1,40 @@
 ---
 title: Payload Editor
-description: Compile semantic editor intent into deterministic Payload Lexical configuration.
+description: Deterministic semantic configuration for Payload's Lexical editor.
+sidebar:
+  order: 1
+package: payload-editor
+topic: overview
 ---
 
-import DocLinkCard from "../../../../components/docs/DocLinkCard.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
 <PackageHero entry={packageByName("@nexload-sdk/payload-editor")} eyebrow="Payload Lexical configuration" />
 
-`@nexload-sdk/payload-editor` provides one explicit server-side configuration seam. It owns semantic features, preset contracts, validation, deterministic resolution, and translation to official Payload features.
+`@nexload-sdk/payload-editor` 1.1.0 turns an explicit semantic feature definition into the official Payload Lexical editor provider. It gives teams named presets, deterministic merge rules, validation, and a safe extension seam without owning editor UI.
 
-It does not own rich-text fields, frontend rendering, Blocks schemas, AI actions, themes, or Payload feature dependency sorting.
+Use it when multiple collections need a reviewable editor policy. Use `lexicalEditor` directly when each collection needs unrelated native configuration.
 
-<div class="doc-card-grid">
-  <DocLinkCard title="Quick start" href="/packages/payload-editor/quick-start/" description="Install the matched Payload peers and create an explicit editor." />
-  <DocLinkCard title="Features" href="/packages/payload-editor/features/" description="Review semantic states, merge rules, and Payload mappings." />
-  <DocLinkCard title="Presets" href="/packages/payload-editor/presets/" description="Choose a versioned task-oriented editor contract." />
-  <DocLinkCard title="Extensions" href="/packages/payload-editor/extensions/" description="Append native Payload features without silent collisions." />
-</div>
+## Boundaries
+
+The package runs in server/config code and is ESM-only. It has no React, CSS, browser-global, theme, AI-provider, or Admin component runtime. Actual editing behavior and persistence remain owned by `@payloadcms/richtext-lexical`.
+
+It does not define Payload fields. Assign the returned provider to a rich-text field or Payload's root `editor` option.
+
+## Learning path
+
+1. [Install matched Payload peers](./installation/).
+2. Build an explicit editor in the [quick start](./quick-start/).
+3. Learn [feature state, preset, merge, and extension concepts](./concepts/).
+4. Apply task-focused [guides](./guides/).
+5. Use the [API](./api/) and [troubleshooting](./troubleshooting/) pages as references.
+
+## Source of truth
+
+- [Package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor/src)
+- [Tests](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor/test)
+- [Package manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/package.json)
+- [Report an issue](https://github.com/gecut/nexload-sdk/issues)
+
+These pages document the current package version; historical documentation is not hosted.

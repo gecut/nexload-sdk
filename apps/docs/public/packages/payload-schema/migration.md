@@ -1,0 +1,34 @@
+# Migration
+
+Incrementally adopt Payload Schema without moving collection ownership.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/migration/
+Adopt the package field by field. Keep collection slugs, access control, collection hooks, versions, database adapters, and generated Payload types in their existing modules.
+This page targets 1.1.0; use the
+[package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/CHANGELOG.md)
+to identify version-specific changes from your installed release.
+
+## Incremental path
+
+1. Identify duplicated intrinsic validation in a Payload field and Zod schema.
+2. Model only that data field with the nearest factory.
+3. Replace its Payload config with `entity.payload.field(key)`.
+4. Derive one application schema from `entity.schema`.
+5. Compare Admin, REST, Local API, and existing data.
+6. Repeat after the first field is stable.
+
+Use `field.native` for unsupported data-affecting fields. Leave layout fields outside the entity. Do not model populated relationship results as canonical relationship inputs.
+
+## Defaults migration
+
+Move static Payload defaults to factory `defaultValue` and dynamic functions to `dynamicDefaultValue`. Remove `payload.defaultValue`. Confirm static defaults pass the canonical schema and remember that derived Zod schemas do not apply defaults.
+
+## Verification
+
+Run type tests, config boot, create/update through Local API, nested validation, and schema parsing. Check hook ordering where existing `beforeValidate` hooks transform values. Inspect each entity for schema-blocking native descendants.
+
+## Rollback
+
+Keep the previous field configs until persistence shapes are proven equivalent. Replacing compiled fields with previous configs is safe only when normalization did not rewrite stored values. Back up data before introducing transforms. Never run old and new normalizers concurrently when they produce different canonical values.

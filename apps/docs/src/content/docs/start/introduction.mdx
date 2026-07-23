@@ -1,33 +1,31 @@
 ---
 title: Introduction
-description: Understand how Nexload SDK packages are scoped and how to select only the dependencies your service needs.
+description: Understand the Nexload SDK package model, documentation policy, and recommended learning path.
 sidebar:
   order: 1
+topic: ecosystem
 ---
 
-import { Aside, CardGrid } from "@astrojs/starlight/components";
-import DocLinkCard from "../../../components/docs/DocLinkCard.astro";
+Nexload SDK is a set of independently installed TypeScript packages. It is not one framework and it does not require a shared runtime.
 
-Nexload SDK is not a single application framework. Each package has a narrow ownership boundary and can be installed independently.
+## Recommended path
 
-## Package families
+1. Use [Choose a package](/nexload-sdk/start/choose-a-package/) to select the narrowest owner of your task.
+2. Read that package's overview and installation requirements.
+3. Complete its quick start before adding optional behavior.
+4. Use concepts and guides for design choices.
+5. Use the API inventory for exact exports and source links.
+6. Use troubleshooting and compatibility before reporting an integration problem.
 
-<CardGrid>
-  <DocLinkCard title="Healthcheck" href="/packages/healthcheck/" description="Runtime-neutral orchestration with optional Node, Bun, Next.js, Payload, Prometheus, and OpenTelemetry adapters." />
-  <DocLinkCard title="Payload Fields" href="/packages/payload-fields/" description="Payload field factories whose persistence and Admin behavior are part of one explicit contract." />
-  <DocLinkCard title="Payload Editor" href="/packages/payload-editor/" description="Explicit semantic presets and feature mapping for Payload Lexical editors." />
-  <DocLinkCard title="Payload Schema" href="/packages/payload-schema/" description="Own canonical field validation once across Payload and Zod contracts." />
-  <DocLinkCard title="Utilities and tooling" href="/packages/" description="Public packages such as env, logger, jwt, IconCraft, and shared configs are listed with their documentation status." />
-</CardGrid>
+## Documentation policy
 
-## Selection rule
+- The site covers exactly ten current, stable packages.
+- Versions and peer ranges come from the live workspace manifests.
+- The shown versions are released on npm.
+- Historical versioned pages are not hosted.
+- Package changelogs and migration pages own upgrade guidance.
+- Source and public declarations take priority if prose ever conflicts with implementation.
 
-Choose the package closest to the responsibility you need. For example, use the Healthcheck core to aggregate health results, then add the Node adapter only when you need cgroup, TCP, DNS, or process data.
+## Shared terms
 
-<Aside type="tip" title="Keep integrations explicit">
-The Healthcheck core intentionally does not import Next.js, Payload, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation`. Add the integration package at the application boundary.
-</Aside>
-
-## What these docs guarantee
-
-Documented pages describe the current source and public exports of the latest package version. Migration pages cover supported major-version changes; historical versioned documentation is not maintained.
+Use the [glossary](/nexload-sdk/start/glossary/) for terms such as check, collector, canonical schema, adapter, Payload field hook, and populated relationship.

@@ -1,0 +1,29 @@
+# Introduction
+
+Understand the Nexload SDK package model, documentation policy, and recommended learning path.
+
+**Topic:** ecosystem
+**Canonical page:** https://gecut.github.io/nexload-sdk/start/introduction/
+Nexload SDK is a set of independently installed TypeScript packages. It is not one framework and it does not require a shared runtime.
+
+## Recommended path
+
+1. Use [Choose a package](/nexload-sdk/start/choose-a-package/) to select the narrowest owner of your task.
+2. Read that package's overview and installation requirements.
+3. Complete its quick start before adding optional behavior.
+4. Use concepts and guides for design choices.
+5. Use the API inventory for exact exports and source links.
+6. Use troubleshooting and compatibility before reporting an integration problem.
+
+## Documentation policy
+
+* The site covers exactly ten current, stable packages.
+* Versions and peer ranges come from the live workspace manifests.
+* The shown versions are released on npm.
+* Historical versioned pages are not hosted.
+* Package changelogs and migration pages own upgrade guidance.
+* Source and public declarations take priority if prose ever conflicts with implementation.
+
+## Shared terms
+
+Use the [glossary](/nexload-sdk/start/glossary/) for terms such as check, collector, canonical schema, adapter, Payload field hook, and populated relationship.

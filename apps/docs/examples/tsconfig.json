@@ -1,0 +1,25 @@
+{
+  "extends": "@nexload-sdk/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "declaration": false,
+    "declarationMap": false,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "paths": {
+      "@nexload-sdk/healthcheck": ["../../packages/healthcheck/core/src/index.ts"],
+      "@nexload-sdk/healthcheck-node": ["../../packages/healthcheck/node/src/index.ts"],
+      "@nexload-sdk/healthcheck-bun": ["../../packages/healthcheck/bun/src/index.ts"],
+      "@nexload-sdk/healthcheck-next": ["../../packages/healthcheck/next/src/index.ts"],
+      "@nexload-sdk/healthcheck-prometheus": ["../../packages/healthcheck/prometheus/src/index.ts"],
+      "@nexload-sdk/healthcheck-otel": ["../../packages/healthcheck/otel/src/index.ts"],
+      "@nexload-sdk/healthcheck-payload": ["../../packages/healthcheck/payload/src/index.ts"],
+      "@nexload-sdk/payload-fields": ["../../packages/payload-fields/src/index.ts"],
+      "@nexload-sdk/payload-fields/*": ["../../packages/payload-fields/src/*/index.ts"],
+      "@nexload-sdk/payload-editor": ["../../packages/payload-editor/src/index.ts"],
+      "@nexload-sdk/payload-schema": ["../../packages/payload-schema/src/index.ts"]
+    }
+  },
+  "include": ["*.ts"]
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gecut.github.io/nexload-sdk/sitemap-index.xml

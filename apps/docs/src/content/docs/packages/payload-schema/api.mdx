@@ -1,0 +1,34 @@
+---
+title: API reference
+description: Public runtime and type exports for Payload Schema 1.1.0.
+sidebar:
+  order: 6
+package: payload-schema
+topic: api
+---
+
+import ApiInventory from "../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="payload-schema" />
+
+## Runtime exports
+
+- `defineEntity(options)` validates and binds a named field map, then returns the entity facade.
+- `field` is a frozen namespace of 14 field factories.
+- `defaultIdSchema` accepts a non-empty string or safe integer.
+- `PayloadSchemaError` represents package definition, compilation, derivation, and invariant failures.
+- `isPayloadSchemaError(error, code?)` narrows any package error or one exact code.
+
+## Entity facade
+
+`entity.payload.all()`, `.field(key)`, and `.pick(keys)` return ordinary Payload fields. `entity.schema(factory)` supplies `{ fields, pick, z }` and accepts any Zod schema result. `entity.inspect()` returns deterministic safe metadata without raw configs, schemas, functions, or values.
+
+## Types
+
+The root exports field option types, entity/context/picker types, inference helpers, and the structured error map. `PayloadSchemaErrorCode` is exactly `keyof PayloadSchemaErrorDataMap`. `InferEntityField` and `InferEntityFields` infer canonical schema outputs, not Payload documents.
+
+## Error phases
+
+`PayloadSchemaErrorPhase` is `definition | payload-compilation | schema-derivation | internal`. Ordinary invalid field data is a Payload `ValidationError`, not a `PayloadSchemaError`.
+
+See the [root entrypoint](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/index.ts) and [public types](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts).

@@ -1,0 +1,13 @@
+---
+title: Troubleshoot Healthcheck OpenTelemetry
+description: Diagnose missing identity, incompatible values, and high-cardinality attributes.
+sidebar: { order: 8 }
+package: healthcheck-otel
+topic: troubleshooting
+---
+
+- Resource values say `unknown`: supply service/environment identity to core and use a runtime adapter.
+- Collector records are absent: collectors populate `report.metrics`; check-local metrics are represented only by status/duration records.
+- The SDK rejects a value: bridge only value kinds supported by the chosen instrument.
+- Cardinality grows: remove dynamic collector labels before recording.
+- Nothing is exported: this package transforms only; configure an SDK exporter.

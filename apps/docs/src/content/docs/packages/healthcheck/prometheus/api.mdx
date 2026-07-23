@@ -1,0 +1,18 @@
+---
+title: Healthcheck Prometheus API
+description: Public Prometheus and OpenMetrics serializer exports.
+sidebar: { order: 6 }
+package: healthcheck-prometheus
+topic: api
+---
+
+import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="healthcheck-prometheus" />
+
+- `toPrometheusText(report, options?)` returns newline-terminated text.
+- `toOpenMetricsText(report, options?)` appends the OpenMetrics EOF marker.
+- `PrometheusExportOptions` supports `prefix`, `defaultLabels`, and `includeDescriptions`.
+- `OpenMetricsExportOptions` aliases the same options.
+
+Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts).

@@ -1,0 +1,15 @@
+---
+title: Troubleshoot Healthcheck Node
+description: Diagnose cgroup detection and TCP or DNS failures.
+sidebar: { order: 8 }
+package: healthcheck-node
+topic: troubleshooting
+---
+
+- `container.detected` is false: confirm cgroup files are mounted and readable; OS fallback may still provide limits.
+- Container status is degraded: inspect `confidence` and `source` in protected details.
+- `TCP_CONNECT_FAILED`: verify host, port, network policy, and timeout.
+- `DNS_RESOLVE_FAILED`: verify the requested record type and resolver inside the running container.
+- Memory differs from host tools: the adapter prioritizes container limits, which is intentional.
+
+Do not publish raw container paths or process detail on an unauthenticated endpoint.

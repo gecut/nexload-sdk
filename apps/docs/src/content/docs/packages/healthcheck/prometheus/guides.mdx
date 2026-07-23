@@ -1,0 +1,11 @@
+---
+title: Healthcheck Prometheus guides
+description: Publish safe, stable health metrics.
+sidebar: { order: 5 }
+package: healthcheck-prometheus
+topic: guides
+---
+
+Use a stable prefix and low-cardinality default labels. Register core collectors for monitoring data; metrics inside individual check results are not promoted to report-level series.
+
+Protect metrics according to your network model. Never place secrets, user IDs, request IDs, URLs with tokens, or raw error messages in labels. Coordinate name or label changes with dashboards and alerts.

@@ -1,0 +1,11 @@
+---
+title: Healthcheck Payload guides
+description: Choose a safe collection and readiness query.
+sidebar: { order: 5 }
+package: healthcheck-payload
+topic: guides
+---
+
+Choose a collection that always exists, has predictable access behavior, and can be queried cheaply. Keep `limit: 1`, `depth: 0`, and a narrow `where`.
+
+Use `expectedMinDocuments` only when emptiness truly means the service is not ready. Set `timeoutMs` based on the probe budget. Do not query a heavy relation graph, write data, or expose error causes on a public endpoint.

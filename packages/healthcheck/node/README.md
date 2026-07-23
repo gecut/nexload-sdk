@@ -2,6 +2,9 @@
 
 Node.js runtime adapter and operational checks for `@nexload-sdk/healthcheck`.
 
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/node/) ·
+[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/node/api/)
+
 ```ts
 import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
 import { containerResourceCheck, nodeRuntimeAdapter } from "@nexload-sdk/healthcheck-node";

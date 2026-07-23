@@ -1,0 +1,31 @@
+---
+title: Healthcheck Core
+description: Runtime-neutral health orchestration for production services.
+sidebar:
+  order: 1
+package: healthcheck
+topic: overview
+---
+
+`@nexload-sdk/healthcheck` runs checks and collectors and returns a stable `HealthReport`. Use it for liveness, readiness, startup, protected diagnostics, and exporter input.
+
+It owns orchestration: scope selection, timeouts, cancellation, retries, status aggregation, redaction, and JSON serialization. Runtime, framework, Payload, Prometheus, and OpenTelemetry behavior live in separate packages.
+
+In plain language: a **check** can change service health, while a **collector**
+only adds measurements. A **scope** is the question being asked: liveness asks
+whether the process should restart, readiness asks whether it can receive
+traffic, startup asks whether initialization finished, and diagnostics exposes
+protected operational detail.
+
+## Choose the next page
+
+- New project: [Installation](./installation/) then [Quick start](./quick-start/).
+- Designing probes: [Concepts](./concepts/) and [Guides](./guides/).
+- Looking up a symbol: [API](./api/).
+- A check is timing out or changing status: [Troubleshooting](./troubleshooting/).
+
+## Non-goals
+
+Core does not start an HTTP server, inspect Node/Bun-specific resources, query Payload, or publish telemetry. It does not make dependency failures part of liveness unless you explicitly assign them there.
+
+This site documents the current package version only. Use the package changelog for release history.

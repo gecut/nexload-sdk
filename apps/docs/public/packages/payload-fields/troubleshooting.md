@@ -1,0 +1,36 @@
+# Troubleshooting
+
+Diagnose Payload Fields setup, Import Map, storage, validation, and generator failures.
+
+**Topic:** troubleshooting
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/troubleshooting/
+## Admin component cannot be resolved
+
+Regenerate Payload's Import Map and confirm the package is installed in the Payload application's runtime workspace. Do not replace the package component path in `overrides.admin.components`.
+
+## Slug does not follow the source
+
+Check the paired lock field first. A locked slug is intentionally preserved. Confirm `source`, `lockName`, localization, and `regenerateOnSourceChange`. Consumer `beforeValidate` hooks run before final package normalization.
+
+## Generator endpoint returns an error
+
+| Code | Meaning |
+| --- | --- |
+| `PAYLOAD_FIELDS_UNAUTHENTICATED` | `req.user` is absent |
+| `PAYLOAD_FIELDS_FORBIDDEN` | `generateSlugAccess` rejected the request |
+| `PAYLOAD_FIELDS_INVALID_INPUT` | body or value types are invalid |
+| `PAYLOAD_FIELDS_GENERATOR_NOT_FOUND` | key is not an own key in the registry |
+| `PAYLOAD_FIELDS_GENERATION_FAILED` | the registered generator threw |
+
+## Money looks 100 times too large or small
+
+Your application mixed display units and stored minor units. REST, GraphQL, Local API, hooks, and jobs must use the integer storage representation. Use `parseMoneyToMinorUnits` only at a text-input or import boundary.
+
+## Jalali date shifts
+
+Inspect the stored ISO value and the intended picker appearance. Jalali is presentation, not an alternate database value. Avoid reparsing display strings in hooks.
+
+## Factory throws during config load
+
+Protected names/types, mismatched slug localization, invalid money bounds, unsafe integer limits, and invalid currency definitions fail synchronously. Fix the factory options instead of catching and suppressing the error.
