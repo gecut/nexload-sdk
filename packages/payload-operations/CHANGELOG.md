@@ -1,5 +1,11 @@
 # @nexload-sdk/payload-operations
 
+## 0.2.0
+
+### Minor Changes
+
+- abe627e: publish
+
 ## 0.1.0
 
 Initial release.

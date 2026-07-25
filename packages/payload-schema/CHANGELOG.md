@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1
+
+### Patch Changes
+
+- abe627e: publish
+
 ## 1.1.0
 
 ### Minor Changes
