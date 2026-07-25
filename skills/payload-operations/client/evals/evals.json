@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-operations-client",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Create a typed CMS client for a shared operations contract with Payload config types, auth headers, and a timeout plugin.",
+      "expected_output": "A createCMSClient integration preserving the native SDK and typed operation tree.",
+      "expectations": [
+        "Supplies both Config and typeof operations when explicit Payload typing is used.",
+        "Places auth in baseInit and timeout in the public plugin API.",
+        "Uses cms.payload and cms.operations without proxies or SDK internals."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Send a void operation with a caller AbortSignal and a call header that overrides a base header.",
+      "expected_output": "A bodyless POST that preserves caller cancellation and documented header precedence.",
+      "expectations": [
+        "Leaves method and body under operation control.",
+        "Lets the call header override the base header and removes Content-Length.",
+        "Does not classify caller abort as timeout."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a plugin that logs request bodies and upgrades any JSON with defined:true into a domain error.",
+      "expected_output": "Reject credential/body leakage and require complete operation-specific envelope validation.",
+      "expectations": [
+        "Flags sensitive request logging.",
+        "Requires code, status, message, and data schema agreement.",
+        "Downgrades forged or malformed envelopes to a generic safe error."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why operation timeouts become INTERNAL_SERVER_ERROR while Payload SDK timeouts must remain native.",
+      "expected_output": "Trace timeout normalization through plugin and response body parsing without changing SDK errors.",
+      "expectations": [
+        "Checks request source and timeout signal identity.",
+        "Preserves the package timeout across response parsing.",
+        "Leaves payload-source SDK errors unchanged."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Add client timeout behavior and server access control to one payload-operations feature.",
+      "expected_output": "Implement timeout through the client plugin and route access policy to server guidance.",
+      "expectations": [
+        "Keeps timeout out of the contract and handler.",
+        "Keeps authorization out of the transport plugin.",
+        "Preserves shared operation metadata across both sides."
+      ]
+    }
+  ]
+}

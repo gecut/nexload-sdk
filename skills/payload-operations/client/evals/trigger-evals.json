@@ -1,0 +1,22 @@
+[
+  { "query": "Create an @nexload-sdk/payload-operations CMS client", "should_trigger": true },
+  { "query": "Configure timeoutPlugin for payload-operations calls", "should_trigger": true },
+  { "query": "Diagnose payload-operations client header precedence", "should_trigger": true },
+  { "query": "Add a transport plugin around createCMSClient", "should_trigger": true },
+  { "query": "Why does cms.operations reject a successful JSON response?", "should_trigger": true },
+  { "query": "Preserve PayloadSDK native methods under cms.payload", "should_trigger": true },
+  { "query": "Debug baseURL and basePath joining in payload-operations client", "should_trigger": true },
+  { "query": "Distinguish caller abort from payload-operations timeout", "should_trigger": true },
+  { "query": "Audit payload-operations operation request metadata and source", "should_trigger": true },
+  { "query": "Handle a forged declared-error envelope in the operations client", "should_trigger": true },
+  { "query": "Define operation input and output Zod transforms", "should_trigger": false },
+  { "query": "Create Payload endpoints from an operation tree", "should_trigger": false },
+  { "query": "Implement authenticated server access overrides", "should_trigger": false },
+  { "query": "Use Payload Local API inside a request transaction", "should_trigger": false },
+  { "query": "Build a generic fetch retry library", "should_trigger": false },
+  { "query": "Configure native Payload REST SDK without payload-operations", "should_trigger": false },
+  { "query": "Add cache and request deduplication to an application", "should_trigger": false },
+  { "query": "Design operation error codes and data schemas", "should_trigger": false },
+  { "query": "Publish payload-operations and create a Changeset", "should_trigger": false },
+  { "query": "Add CORS preflight endpoints on the Payload server", "should_trigger": false }
+]

@@ -13,6 +13,8 @@ Public Payload readiness-check exports.
 payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => HealthCheckDefinition<"payload">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-payload`
+
 Public function exported by @nexload-sdk/healthcheck-payload.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L32)
@@ -32,6 +34,8 @@ interface PayloadHealthCheckOptions {
   scopes?: readonly HealthScope[]
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-payload`
 
 Public interface exported by @nexload-sdk/healthcheck-payload.
 

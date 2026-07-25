@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-operations-server",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Mount account operations in Payload with one public read operation and one authenticated mutation using Local API.",
+      "expected_output": "Exact handlers and scoped access overrides mounted through createPayloadEndpoints.",
+      "expectations": [
+        "Provides every handler leaf and only overrides the public operation.",
+        "Uses req.payload with request and user context for caller-scoped access.",
+        "Mounts the returned endpoints with a client-matching base path."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Handle an empty-body z.void operation returning undefined and verify cross-origin preflight.",
+      "expected_output": "Undefined input/output handling with 204 success and matching CORS-capable OPTIONS behavior.",
+      "expectations": [
+        "Treats an empty body as undefined.",
+        "Returns 204 without a JSON body.",
+        "Checks CORS headers and the installed package's generated OPTIONS endpoint."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review a handler that decodes its own JWT, calls Local API with overrideAccess true, and returns raw exception details.",
+      "expected_output": "Reject all three boundary violations and keep authentication, access, and error sanitization with their owners.",
+      "expectations": [
+        "Uses req.user rather than parsing credentials.",
+        "Requires caller-scoped Local API access with overrideAccess false.",
+        "Converts unknown failures to a generic response without causes or stacks."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose startup failure from one missing handler, one extra handler, and an access override attached to a namespace object.",
+      "expected_output": "Trace exact runtime tree validation and correct the mirrors without weakening checks.",
+      "expectations": [
+        "Identifies complete exact handler coverage.",
+        "Identifies partial but leaf-only access overrides.",
+        "Preserves early endpoint-construction failure."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Add an authenticated operation, a declared error, and a client timeout.",
+      "expected_output": "Implement handler/access here while routing contract error definition to core and timeout to client.",
+      "expectations": [
+        "Keeps declared error definition on the shared operation.",
+        "Uses generated server error factories.",
+        "Keeps timeout out of server handlers and access policy."
+      ]
+    }
+  ]
+}

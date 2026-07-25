@@ -10,8 +10,10 @@ Public exports for Node runtime and operational checks.
 ### `containerMetricsCollector`
 
 ```ts
-containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => import("@nexload-sdk/healthcheck").MetricCollectorDefinition<"container.metrics">
+containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"container.metrics">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -23,6 +25,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { usageRatio?: { degraded: number; unhealthy: number; }; }; root?: string; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<"container.resources">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L105)
@@ -32,6 +36,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 ```ts
 dnsCheck(name: string, options: { hostname: string; recordType?: "A" | "AAAA" | "CNAME" | "TXT" | "MX"; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -43,6 +49,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 nodeRuntimeAdapter() => RuntimeAdapter
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L59)
@@ -53,6 +61,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 parseCpuList(value: string | null) => number | null
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L81)
@@ -60,8 +70,10 @@ Public function exported by @nexload-sdk/healthcheck-node.
 ### `processMetricsCollector`
 
 ```ts
-processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => import("@nexload-sdk/healthcheck").MetricCollectorDefinition<"process.metrics">
+processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"process.metrics">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -73,6 +85,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<ContainerResourceSnapshot>
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L307)
@@ -82,6 +96,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 ```ts
 tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -105,6 +121,8 @@ interface ContainerCpuSnapshot {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public interface exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L15)
@@ -124,6 +142,8 @@ interface ContainerMemorySnapshot {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public interface exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L4)
@@ -136,6 +156,8 @@ interface ContainerResourceOptions {
   platform?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public interface exported by @nexload-sdk/healthcheck-node.
 
@@ -156,6 +178,8 @@ interface ContainerResourceSnapshot {
   warnings: string[]
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public interface exported by @nexload-sdk/healthcheck-node.
 

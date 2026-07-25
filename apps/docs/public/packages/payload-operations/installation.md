@@ -1,0 +1,45 @@
+# Installation
+
+Install Payload Operations with supported Payload SDK and Zod peers.
+
+**Topic:** installation
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/installation/
+```bash
+pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+```
+
+The examples use pnpm. With another package manager, use `npm install`, `yarn add`, or `bun add` with the same package names.
+
+Version 0.1.0 requires:
+
+| Runtime           | Supported range   |
+| ----------------- | ----------------- |
+| Node              | `>=20.9.0`        |
+| Payload           | `>=3.85.0 <4.0.0` |
+| `@payloadcms/sdk` | `>=3.85.0 <4.0.0` |
+| Zod               | `>=4.0.0 <5.0.0`  |
+
+Keep `payload` and `@payloadcms/sdk` on the same version. The package is ESM-only and declares no side effects.
+
+Use universal and client APIs from the root:
+
+```ts
+import {
+  createCMSClient,
+  defineCMSOperations,
+  operation,
+} from "@nexload-sdk/payload-operations";
+```
+
+Keep the Payload runtime boundary explicit:
+
+```ts
+import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
+```
+
+The `/server` entrypoint imports Payload runtime helpers. Do not import it into browser bundles. Public subpaths are `/contract`, `/client`, `/errors`, `/plugins/timeout`, and `/server`; internal files are not supported imports.
+
+## Verify
+
+Define one `z.void()` operation, create its endpoints during Payload config construction, and invoke it through `createCMSClient`. A valid void response is HTTP 204 and resolves to `undefined`.

@@ -7,6 +7,7 @@ import healthcheckPayload from "../../../../packages/healthcheck/payload/package
 import healthcheckPrometheus from "../../../../packages/healthcheck/prometheus/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
 import payloadFields from "../../../../packages/payload-fields/package.json";
+import payloadOperations from "../../../../packages/payload-operations/package.json";
 import payloadSchema from "../../../../packages/payload-schema/package.json";
 
 export type PackageFamily = "healthcheck" | "payload";
@@ -148,6 +149,17 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/payload-schema/",
     runtimes: ["Payload CMS", "Node.js", "ESM"],
     skills: ["payload-schema-use", "payload-schema-develop"],
+    ...stableRelease,
+  },
+  {
+    id: "payload-operations",
+    label: "Payload Operations",
+    manifest: payloadOperations,
+    family: "payload",
+    sourcePath: "packages/payload-operations",
+    docsPath: "/packages/payload-operations/",
+    runtimes: ["Payload CMS", "Node.js", "Browser", "ESM"],
+    skills: ["payload-operations-core", "payload-operations-client", "payload-operations-server"],
     ...stableRelease,
   },
 ];

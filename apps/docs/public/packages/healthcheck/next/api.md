@@ -13,6 +13,8 @@ Public App Router factories and option contracts.
 createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) => { GET: (request: Request) => Promise<Response>; HEAD: (request: Request) => Promise<Response>; }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
 Public function exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L280)
@@ -22,6 +24,8 @@ Public function exported by @nexload-sdk/healthcheck-next.
 ```ts
 createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions) => { GET: (request: Request) => Promise<Response>; }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
 
 Public function exported by @nexload-sdk/healthcheck-next.
 
@@ -43,6 +47,8 @@ interface NextHealthRouteOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
 Public interface exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L32)
@@ -63,6 +69,8 @@ interface NextHealthRouteProtection {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
 Public interface exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L20)
@@ -78,6 +86,8 @@ interface NextMetricsRouteOptions {
   defaultLabels?: Record<string, string>
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
 
 Public interface exported by @nexload-sdk/healthcheck-next.
 

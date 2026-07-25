@@ -26,6 +26,14 @@ function sanitizeSignature(signature) {
       `import("${entry.name}")`,
     );
   }
+  clean = clean.replace(
+    /import\(["'][^"']*\/node_modules\/(?:\.pnpm\/[^"']*\/node_modules\/)?(payload|@payloadcms\/sdk|zod)(?:\/[^"']*)?["']\)/g,
+    'import("$1")',
+  );
+  clean = clean.replace(
+    /const TOperations extends CMSOperationsTree = Readonly<\{ \[key: string\]: Readonly<any> \| CMSOperationContract; \}>/g,
+    "const TOperations extends CMSOperationsTree = CMSOperationsTree",
+  );
   return clean;
 }
 
@@ -54,6 +62,7 @@ function declarationSignature(checker, symbol, declaration) {
               signature,
               declaration,
               ts.TypeFormatFlags.NoTruncation |
+                ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope |
                 ts.TypeFormatFlags.WriteArrowStyleSignature,
             )}`,
         )
@@ -112,22 +121,45 @@ function publicSymbol(checker, exportedSymbol, packageEntry) {
   };
 }
 
+function entrypointsFor(entry) {
+  return (
+    entry.entries ?? [
+      {
+        entry: entry.entry,
+        exportPath: entry.name,
+      },
+    ]
+  ).map((item) => ({
+    ...item,
+    absoluteEntry: resolve(docsRoot, item.entry),
+  }));
+}
+
 function createCatalog() {
   const entries = apiPackages.map((entry) => ({
     ...entry,
-    absoluteEntry: resolve(docsRoot, entry.entry),
+    entrypoints: entrypointsFor(entry),
   }));
   const program = ts.createProgram(
-    entries.map((entry) => entry.absoluteEntry),
+    entries.flatMap((entry) =>
+      entry.entrypoints.map((item) => item.absoluteEntry),
+    ),
     {
       baseUrl: repositoryRoot,
       module: ts.ModuleKind.ESNext,
       moduleResolution: ts.ModuleResolutionKind.Bundler,
       paths: Object.fromEntries(
-        entries.map((entry) => [
-          entry.name,
-          [`${entry.sourcePath}/src/index.ts`],
-        ]),
+        entries.flatMap((entry) =>
+          entry.entrypoints.map((item) => [
+            item.exportPath,
+            [
+              relative(repositoryRoot, item.absoluteEntry).replaceAll(
+                "\\",
+                "/",
+              ),
+            ],
+          ]),
+        ),
       ),
       target: ts.ScriptTarget.ESNext,
       skipLibCheck: true,
@@ -138,15 +170,42 @@ function createCatalog() {
 
   return Object.fromEntries(
     entries.map((entry) => {
-      const sourceFile = program.getSourceFile(entry.absoluteEntry);
-      const moduleSymbol =
-        sourceFile && checker.getSymbolAtLocation(sourceFile);
-      if (!sourceFile || !moduleSymbol)
-        throw new Error(`Cannot load public entrypoint for ${entry.name}.`);
+      const symbolsByDeclaration = new Map();
 
-      const symbols = checker
-        .getExportsOfModule(moduleSymbol)
-        .map((symbol) => publicSymbol(checker, symbol, entry))
+      for (const entrypoint of entry.entrypoints) {
+        const sourceFile = program.getSourceFile(entrypoint.absoluteEntry);
+        const moduleSymbol =
+          sourceFile && checker.getSymbolAtLocation(sourceFile);
+        if (!sourceFile || !moduleSymbol) {
+          throw new Error(
+            `Cannot load public entrypoint ${entrypoint.exportPath}.`,
+          );
+        }
+
+        for (const exportedSymbol of checker.getExportsOfModule(moduleSymbol)) {
+          const symbol =
+            exportedSymbol.flags & ts.SymbolFlags.Alias
+              ? checker.getAliasedSymbol(exportedSymbol)
+              : exportedSymbol;
+          const existing = symbolsByDeclaration.get(symbol);
+
+          if (existing) {
+            existing.exportPaths.add(entrypoint.exportPath);
+            continue;
+          }
+
+          symbolsByDeclaration.set(symbol, {
+            symbol: publicSymbol(checker, exportedSymbol, entry),
+            exportPaths: new Set([entrypoint.exportPath]),
+          });
+        }
+      }
+
+      const symbols = [...symbolsByDeclaration.values()]
+        .map(({ symbol, exportPaths }) => ({
+          ...symbol,
+          exportPaths: [...exportPaths].sort(compareText),
+        }))
         .sort(
           (left, right) =>
             compareText(left.category, right.category) ||
@@ -177,7 +236,7 @@ if (checkOnly) {
     );
     process.exit(1);
   }
-  console.log("API catalog matches all 10 public entrypoints.");
+  console.log(`API catalog matches ${apiPackages.length} documented packages.`);
 } else {
   mkdirSync(dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, serialized);

@@ -1,0 +1,82 @@
+{
+  "name": "@nexload-sdk/payload-operations",
+  "version": "0.1.0",
+  "description": "Typed custom operations for Payload CMS with the native Payload REST SDK.",
+  "keywords": [
+    "payload",
+    "payloadcms",
+    "operations",
+    "sdk",
+    "zod",
+    "typescript",
+    "nexload"
+  ],
+  "author": "GecutWeb",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.js",
+      "default": "./dist/client/index.js"
+    },
+    "./contract": {
+      "types": "./dist/contract/index.d.ts",
+      "import": "./dist/contract/index.js",
+      "default": "./dist/contract/index.js"
+    },
+    "./errors": {
+      "types": "./dist/errors/index.d.ts",
+      "import": "./dist/errors/index.js",
+      "default": "./dist/errors/index.js"
+    },
+    "./plugins/timeout": {
+      "types": "./dist/plugins/timeout/index.d.ts",
+      "import": "./dist/plugins/timeout/index.js",
+      "default": "./dist/plugins/timeout/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "@payloadcms/sdk": ">=3.85.0 <4.0.0",
+    "payload": ">=3.85.0 <4.0.0",
+    "zod": ">=4.0.0 <5.0.0"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@payloadcms/sdk": "3.86.0",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "payload": "3.86.0",
+    "typescript": "catalog:",
+    "zod": "4.4.3"
+  }
+}

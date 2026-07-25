@@ -1,13 +1,14 @@
 # Choose a Payload package
 
-Compare Payload Fields, Payload Editor, and Payload Schema by responsibility.
+Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations by responsibility.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/payload-packages/
-| Package | Owns | Does not own |
-| --- | --- | --- |
-| `@nexload-sdk/payload-fields` | Concrete semantic Payload field factories and matching Admin UI | General schema derivation or editor feature policy |
-| `@nexload-sdk/payload-editor` | Semantic Payload Lexical feature and preset configuration | Rich-text fields, frontend rendering, Blocks schemas, or themes |
-| `@nexload-sdk/payload-schema` | Canonical field validation compiled into Payload fields and reusable Zod schemas | Collections, access control, populated documents, or CRUD DTO inference |
+| Package                           | Owns                                                                                                   | Does not own                                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `@nexload-sdk/payload-fields`     | Concrete semantic Payload field factories and matching Admin UI                                        | General schema derivation or editor feature policy                                                      |
+| `@nexload-sdk/payload-editor`     | Semantic Payload Lexical feature and preset configuration                                              | Rich-text fields, frontend rendering, Blocks schemas, or themes                                         |
+| `@nexload-sdk/payload-schema`     | Canonical field validation compiled into Payload fields and reusable Zod schemas                       | Collections, access control, populated documents, or CRUD DTO inference                                 |
+| `@nexload-sdk/payload-operations` | Typed custom operation contracts, Payload endpoints, SDK facade, transport plugins, and defined errors | CRUD replacement, collection definitions, transactions, retry, caching, batching, or custom serializers |
 
 The packages can be composed, but they do not wrap one another. Keep collection lifecycle, access, drafts, localization, tabs, and application business rules in the Payload application.

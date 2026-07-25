@@ -1,0 +1,22 @@
+[
+  { "query": "Define an @nexload-sdk/payload-operations contract tree with Zod transforms", "should_trigger": true },
+  { "query": "Review payload-operations operation() error definitions and type inference", "should_trigger": true },
+  { "query": "Why does defineCMSOperations reject this namespace key?", "should_trigger": true },
+  { "query": "Use safe() while preserving payload-operations declared error unions", "should_trigger": true },
+  { "query": "Diagnose isDefinedError narrowing for an operation promise", "should_trigger": true },
+  { "query": "Audit payload-operations universal exports for server runtime leakage", "should_trigger": true },
+  { "query": "Model z.input and z.output boundaries for payload-operations", "should_trigger": true },
+  { "query": "Review payload-operations error codes, statuses, and data schemas", "should_trigger": true },
+  { "query": "Add a z.void payload operation to the shared contract", "should_trigger": true },
+  { "query": "Check payload-operations public subpaths and declaration safety", "should_trigger": true },
+  { "query": "Configure Payload Local API access inside an operation handler", "should_trigger": false },
+  { "query": "Add a timeout plugin to createCMSClient", "should_trigger": false },
+  { "query": "Debug Payload SDK request headers", "should_trigger": false },
+  { "query": "Generate OPTIONS endpoints for Payload operations", "should_trigger": false },
+  { "query": "Design generic REST routes without payload-operations", "should_trigger": false },
+  { "query": "Write an unrelated Zod registration schema", "should_trigger": false },
+  { "query": "Create Payload collection access controls", "should_trigger": false },
+  { "query": "Add retry and caching middleware to a fetch client", "should_trigger": false },
+  { "query": "Publish the payload-operations package to npm", "should_trigger": false },
+  { "query": "Fix a Payload slug field validation error", "should_trigger": false }
+]

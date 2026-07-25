@@ -1,4 +1,11 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -44,12 +51,15 @@ function routeFor(file) {
 
 function outputFor(route) {
   if (route === "/") return resolve(publicRoot, "index.md");
-  if (route.endsWith("/")) return resolve(publicRoot, route.slice(1), "index.md");
+  if (route.endsWith("/"))
+    return resolve(publicRoot, route.slice(1), "index.md");
   return resolve(publicRoot, route.slice(1));
 }
 
 function attribute(node, name) {
-  const value = node.attributes?.find((candidate) => candidate.name === name)?.value;
+  const value = node.attributes?.find(
+    (candidate) => candidate.name === name,
+  )?.value;
   return typeof value === "string" ? value : undefined;
 }
 
@@ -60,41 +70,65 @@ function parseMarkdown(markdown) {
 function apiMarkdown(packageId) {
   const entry = apiCatalog[packageId];
   if (!entry) throw new Error(`Unknown API inventory package: ${packageId}`);
-  const categories = ["functions", "classes", "constants", "interfaces", "types"];
-  return categories.flatMap((category) => {
-    const symbols = entry.symbols.filter((symbol) => symbol.category === category);
-    if (symbols.length === 0) return [];
-    return [
-      `## ${category[0].toUpperCase()}${category.slice(1)}`,
-      "",
-      ...symbols.flatMap((symbol) => [
-        `### \`${symbol.name}\``,
+  const categories = [
+    "functions",
+    "classes",
+    "constants",
+    "interfaces",
+    "types",
+  ];
+  return categories
+    .flatMap((category) => {
+      const symbols = entry.symbols.filter(
+        (symbol) => symbol.category === category,
+      );
+      if (symbols.length === 0) return [];
+      return [
+        `## ${category[0].toUpperCase()}${category.slice(1)}`,
         "",
-        "```ts",
-        symbol.signature,
-        "```",
-        "",
-        symbol.description,
-        "",
-        `[Source](${symbol.sourceUrl})`,
-        "",
-      ]),
-    ];
-  }).join("\n");
+        ...symbols.flatMap((symbol) => [
+          `### \`${symbol.name}\``,
+          "",
+          "```ts",
+          symbol.signature,
+          "```",
+          "",
+          `**Exported from:** ${symbol.exportPaths.map((path) => `\`${path}\``).join(", ")}`,
+          "",
+          symbol.description,
+          "",
+          `[Source](${symbol.sourceUrl})`,
+          "",
+        ]),
+      ];
+    })
+    .join("\n");
 }
 
-const packageMetadata = Object.fromEntries(apiPackages.map((entry) => {
-  const manifest = JSON.parse(readFileSync(resolve(repositoryRoot, entry.sourcePath, "package.json"), "utf8"));
-  return [entry.id, {
-    ...entry,
-    version: manifest.version,
-    description: manifest.description,
-  }];
-}));
+const packageMetadata = Object.fromEntries(
+  apiPackages.map((entry) => {
+    const manifest = JSON.parse(
+      readFileSync(
+        resolve(repositoryRoot, entry.sourcePath, "package.json"),
+        "utf8",
+      ),
+    );
+    return [
+      entry.id,
+      {
+        ...entry,
+        version: manifest.version,
+        description: manifest.description,
+      },
+    ];
+  }),
+);
 
 function packageHeroMarkdown(source) {
   const packageName = source.match(/packageByName\("([^"]+)"\)/)?.[1];
-  const entry = Object.values(packageMetadata).find((candidate) => candidate.name === packageName);
+  const entry = Object.values(packageMetadata).find(
+    (candidate) => candidate.name === packageName,
+  );
   if (!entry) return "";
   return [
     `**Package:** \`${entry.name}\``,
@@ -110,30 +144,47 @@ function packageGridMarkdown(source) {
     : source.includes('family === "payload"')
       ? "payload"
       : undefined;
-  const entries = apiPackages.filter((entry) => !family || (family === "healthcheck"
-    ? entry.id.startsWith("healthcheck")
-    : entry.id.startsWith("payload-")));
-  return entries.map((entry) => {
-    const metadata = packageMetadata[entry.id];
-    const route = entry.id === "healthcheck"
-      ? "/packages/healthcheck/core/"
-      : entry.id.startsWith("healthcheck-")
-        ? `/packages/healthcheck/${entry.id.slice("healthcheck-".length)}/`
-        : `/packages/${entry.id}/`;
-    return `- [${entry.name}](${route}) — ${metadata.description ?? ""} (v${metadata.version})`;
-  }).join("\n");
+  const entries = apiPackages.filter(
+    (entry) =>
+      !family ||
+      (family === "healthcheck"
+        ? entry.id.startsWith("healthcheck")
+        : entry.id.startsWith("payload-")),
+  );
+  return entries
+    .map((entry) => {
+      const metadata = packageMetadata[entry.id];
+      const route =
+        entry.id === "healthcheck"
+          ? "/packages/healthcheck/core/"
+          : entry.id.startsWith("healthcheck-")
+            ? `/packages/healthcheck/${entry.id.slice("healthcheck-".length)}/`
+            : `/packages/${entry.id}/`;
+      return `- [${entry.name}](${route}) — ${metadata.description ?? ""} (v${metadata.version})`;
+    })
+    .join("\n");
 }
 
 function transformChildren(children, source) {
   const output = [];
   for (const node of children ?? []) {
-    if (node.type === "mdxjsEsm" || node.type === "mdxFlowExpression" || node.type === "mdxTextExpression") continue;
-    if (node.type === "mdxJsxFlowElement" || node.type === "mdxJsxTextElement") {
+    if (
+      node.type === "mdxjsEsm" ||
+      node.type === "mdxFlowExpression" ||
+      node.type === "mdxTextExpression"
+    )
+      continue;
+    if (
+      node.type === "mdxJsxFlowElement" ||
+      node.type === "mdxJsxTextElement"
+    ) {
       const original = node.position
         ? source.slice(node.position.start.offset, node.position.end.offset)
         : "";
       if (node.name === "ApiInventory") {
-        output.push(...parseMarkdown(apiMarkdown(attribute(node, "packageId"))));
+        output.push(
+          ...parseMarkdown(apiMarkdown(attribute(node, "packageId"))),
+        );
         continue;
       }
       if (node.name === "PackageHero") {
@@ -146,7 +197,11 @@ function transformChildren(children, source) {
       }
       if (node.name === "SkillInstall") {
         const skill = attribute(node, "skill");
-        output.push(...parseMarkdown(`\`\`\`bash\nnpx skills add gecut/nexload-sdk --skill ${skill}\n\`\`\``));
+        output.push(
+          ...parseMarkdown(
+            `\`\`\`bash\nnpx skills add gecut/nexload-sdk --skill ${skill}\n\`\`\``,
+          ),
+        );
         continue;
       }
       if (node.name === "DocLinkCard") {
@@ -159,7 +214,11 @@ function transformChildren(children, source) {
       const nested = transformChildren(node.children, source);
       const label = attribute(node, "label") ?? attribute(node, "title");
       if (label && ["TabItem", "Card", "Aside"].includes(node.name)) {
-        output.push({ type: "heading", depth: 3, children: [{ type: "text", value: label }] });
+        output.push({
+          type: "heading",
+          depth: 3,
+          children: [{ type: "text", value: label }],
+        });
       }
       output.push(...nested);
       continue;
@@ -176,14 +235,18 @@ function canonicalDocument(file) {
   const tree = unified().use(remarkParse).use(remarkMdx).parse(content);
   tree.children = transformChildren(tree.children, content);
   const route = routeFor(file);
-  const packageEntry = value.package ? packageMetadata[value.package] : undefined;
+  const packageEntry = value.package
+    ? packageMetadata[value.package]
+    : undefined;
   const metadata = [
     `# ${value.title}`,
     "",
     value.description ?? "",
     "",
     `**Topic:** ${value.topic ?? "documentation"}`,
-    packageEntry ? `**Package:** \`${packageEntry.name}\` v${packageEntry.version}` : undefined,
+    packageEntry
+      ? `**Package:** \`${packageEntry.name}\` v${packageEntry.version}`
+      : undefined,
     `**Canonical page:** https://gecut.github.io/nexload-sdk${route === "/" ? "/" : route.replace(/\.md$/, "/")}`,
     "",
   ].filter((line) => line !== undefined);
@@ -201,25 +264,36 @@ const documents = walk(contentRoot)
   .filter((path) => path.endsWith(".mdx"))
   .sort()
   .map(canonicalDocument);
-const generatedFiles = documents.map((document) => relative(publicRoot, outputFor(document.route)).replaceAll("\\", "/"));
+const generatedFiles = documents.map((document) =>
+  relative(publicRoot, outputFor(document.route)).replaceAll("\\", "/"),
+);
 const llmsIndex = [
   "# Nexload SDK documentation",
   "",
-  "Current-version documentation for ten released Healthcheck and Payload CMS packages.",
+  `Current-version documentation for ${apiPackages.length} released Healthcheck and Payload CMS packages.`,
   "",
   ...documents.map((document) => {
-    const metadata = document.packageId ? packageMetadata[document.packageId] : undefined;
-    return `- [${document.title}](${document.route}) — ${document.description}`
-      + `${metadata ? ` [${metadata.name} v${metadata.version}]` : ""} [topic: ${document.topic}]`;
+    const metadata = document.packageId
+      ? packageMetadata[document.packageId]
+      : undefined;
+    return (
+      `- [${document.title}](${document.route}) — ${document.description}` +
+      `${metadata ? ` [${metadata.name} v${metadata.version}]` : ""} [topic: ${document.topic}]`
+    );
   }),
   "",
 ].join("\n");
-const llmsFull = documents.map((document) => document.content).join("\n---\n\n");
+const llmsFull = documents
+  .map((document) => document.content)
+  .join("\n---\n\n");
 const manifest = `${JSON.stringify({ files: generatedFiles }, null, 2)}\n`;
 
 function expectedFiles() {
   return [
-    ...documents.map((document) => [outputFor(document.route), document.content]),
+    ...documents.map((document) => [
+      outputFor(document.route),
+      document.content,
+    ]),
     [resolve(publicRoot, "llms.txt"), llmsIndex],
     [resolve(publicRoot, "llms-full.txt"), llmsFull],
     [generatedManifestPath, manifest],
@@ -227,16 +301,24 @@ function expectedFiles() {
 }
 
 if (checkOnly) {
-  const stale = expectedFiles().filter(([path, expected]) => !existsSync(path) || readFileSync(path, "utf8") !== expected);
+  const stale = expectedFiles().filter(
+    ([path, expected]) =>
+      !existsSync(path) || readFileSync(path, "utf8") !== expected,
+  );
   if (stale.length > 0) {
-    console.error(`Generated Markdown is stale:\n${stale.map(([path]) => relative(repositoryRoot, path)).join("\n")}`);
+    console.error(
+      `Generated Markdown is stale:\n${stale.map(([path]) => relative(repositoryRoot, path)).join("\n")}`,
+    );
     process.exit(1);
   }
-  console.log(`Markdown and LLM outputs match ${documents.length} source pages.`);
+  console.log(
+    `Markdown and LLM outputs match ${documents.length} source pages.`,
+  );
 } else {
   if (existsSync(generatedManifestPath)) {
     const previous = JSON.parse(readFileSync(generatedManifestPath, "utf8"));
-    for (const file of previous.files ?? []) rmSync(resolve(publicRoot, file), { force: true });
+    for (const file of previous.files ?? [])
+      rmSync(resolve(publicRoot, file), { force: true });
   }
   for (const [path, content] of expectedFiles()) {
     mkdirSync(dirname(path), { recursive: true });

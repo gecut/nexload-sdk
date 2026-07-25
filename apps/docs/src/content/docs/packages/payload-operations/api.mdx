@@ -1,0 +1,49 @@
+---
+title: API reference
+description: Public root and subpath exports for Payload Operations 0.1.0.
+sidebar:
+  order: 6
+package: payload-operations
+topic: api
+---
+
+import ApiInventory from "../../../../components/docs/ApiInventory.astro";
+
+<ApiInventory packageId="payload-operations" />
+
+## Entrypoints
+
+| Subpath            | Purpose                                                             |
+| ------------------ | ------------------------------------------------------------------- |
+| package root       | Universal contract, client, error, and timeout helpers              |
+| `/contract`        | `operation`, `defineCMSOperations`, and contract types              |
+| `/client`          | `createCMSClient`, `defineClientPlugin`, and client/transport types |
+| `/errors`          | `CMSOperationError`, guards, `safe`, and error types                |
+| `/plugins/timeout` | `timeoutPlugin`, `isTimeoutError`, and timeout options              |
+| `/server`          | `createPayloadEndpoints`, `CMSOperationError`, and server types     |
+
+## Contract
+
+`operation({ input, output, errors? })` brands one immutable operation definition while preserving schema identity. Error codes must be uppercase snake case, status must be 400–599, and messages must be non-empty.
+
+`defineCMSOperations(tree)` validates and snapshots a direct recursive namespace. It accepts no `query` or `command` wrapper.
+
+## Client
+
+`createCMSClient(options)` returns `{ payload, operations }`. `payload` is the actual `PayloadSDK<Config>` instance. `operations` mirrors the supplied contract.
+
+`CMSClientOptions` accepts `operations`, `payload`, optional `plugins`, and optional operation `basePath`. `payload.baseInit` is merged before per-call options. Operation calls accept `Omit<RequestInit, "body" | "method">`; the package always supplies POST and the serialized body.
+
+`defineClientPlugin(plugin)` validates and freezes a named transport wrapper. Plugin names must be unique; the first plugin is outermost.
+
+## Errors
+
+`safe(promise)` resolves to `[null, data, false]`, `[definedError, undefined, true]`, or `[unknownError, undefined, false]`.
+
+`isDefinedError(error, code?)` validates the shared error brand and optionally narrows the declared code. `isTimeoutError(error)` recognizes operation timeout errors.
+
+## Server
+
+`createPayloadEndpoints(options)` returns Payload `Endpoint[]` containing a POST endpoint and matching OPTIONS preflight endpoint for each contract leaf. Options include exact `handlers`, partial access overrides, an optional default access policy, and `basePath`.
+
+See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations/src) for the live export surface.

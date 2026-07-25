@@ -51,6 +51,7 @@ export default defineConfig({
     "/payload-fields/money/": `${docsBase}/packages/payload-fields/guides/`,
     "/payload-fields/migration/": `${docsBase}/packages/payload-fields/migration/`,
     "/payload-editor/": `${docsBase}/packages/payload-editor/`,
+    "/payload-operations/": `${docsBase}/packages/payload-operations/`,
     "/payload-schema/": `${docsBase}/packages/payload-schema/`,
     "/packages/payload-fields/slug/": `${docsBase}/packages/payload-fields/guides/`,
     "/packages/payload-fields/jalali-dates/": `${docsBase}/packages/payload-fields/guides/`,
@@ -133,12 +134,22 @@ export default defineConfig({
             packageSidebar("Healthcheck Node", "packages/healthcheck/node"),
             packageSidebar("Healthcheck Bun", "packages/healthcheck/bun"),
             packageSidebar("Healthcheck Next.js", "packages/healthcheck/next"),
-            packageSidebar("Healthcheck Prometheus", "packages/healthcheck/prometheus"),
-            packageSidebar("Healthcheck OpenTelemetry", "packages/healthcheck/otel"),
-            packageSidebar("Healthcheck Payload", "packages/healthcheck/payload"),
+            packageSidebar(
+              "Healthcheck Prometheus",
+              "packages/healthcheck/prometheus",
+            ),
+            packageSidebar(
+              "Healthcheck OpenTelemetry",
+              "packages/healthcheck/otel",
+            ),
+            packageSidebar(
+              "Healthcheck Payload",
+              "packages/healthcheck/payload",
+            ),
             packageSidebar("Payload Fields", "packages/payload-fields"),
             packageSidebar("Payload Editor", "packages/payload-editor"),
             packageSidebar("Payload Schema", "packages/payload-schema"),
+            packageSidebar("Payload Operations", "packages/payload-operations"),
           ],
         },
         {

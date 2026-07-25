@@ -8,19 +8,28 @@ Agent Skills are task-specific, progressively disclosed instructions distributed
 
 ### Healthcheck skills
 
-Seven Skills cover manager design, custom checks, diagnostics security, cgroups, exporters, Next.js routes, and Payload integration.
+Seven Skills cover manager design, custom checks, diagnostics security,
+cgroups, exporters, Next.js routes, and Payload integration.
 
 ### Payload Fields skills
 
-Four Skills cover semantic factories, managed slugs, Jalali dates, and minor-unit money contracts.
+Four Skills cover semantic factories, managed slugs, Jalali dates, and
+minor-unit money contracts.
 
 ### Payload Editor skills
 
-Three Skills cover core semantic configuration, preset contracts, and native Payload extensions.
+Three Skills cover core semantic configuration, preset contracts, and native
+Payload extensions.
 
 ### Payload Schema skills
 
-Two Skills separate entity consumption and migration from package compiler, adapter, and release development.
+Two Skills separate entity consumption and migration from package compiler,
+adapter, and release development.
+
+### Payload Operations skills
+
+Three Skills cover operation contracts, the shared Payload SDK client, and
+secure custom endpoints.
 
 ## Use the smallest relevant skill
 
@@ -37,3 +46,5 @@ Every Skill is self-contained for its primary task. A sibling Skill may be recom
 - [Payload Editor docs](/packages/payload-editor/) — Read the semantic editor and native extension contracts.
 
 * [Payload Schema docs](/packages/payload-schema/) — Read the canonical field, Payload adapter, and Zod derivation contracts.
+
+- [Payload Operations docs](/packages/payload-operations/) — Read the contract, client transport, endpoint, access, and error boundaries.

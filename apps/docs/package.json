@@ -30,6 +30,7 @@
     "remark-parse": "^11.0.0",
     "starlight-theme-flexoki": "^0.2.2",
     "typescript": "catalog:",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "zod": "4.4.3"
   }
 }

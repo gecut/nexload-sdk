@@ -1,6 +1,6 @@
 ---
 title: Choose a package
-description: Match a service-health or Payload CMS task to one of the ten packages documented here.
+description: Match a service-health or Payload CMS task to one of the eleven packages documented here.
 sidebar:
   order: 2
 topic: ecosystem
@@ -8,24 +8,25 @@ topic: ecosystem
 
 ## Healthcheck packages
 
-| You need to… | Install |
-| --- | --- |
-| define checks, collectors, scopes, reports, and serialization | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/) |
-| inspect Node processes, cgroups, TCP, or DNS | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/) |
-| identify Bun and observe a `Bun.serve` server | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/) |
-| expose Next.js App Router health or metrics handlers | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/) |
-| render Prometheus or OpenMetrics text | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
-| convert reports into OpenTelemetry-friendly records | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/) |
-| include a small Payload Local API query in readiness | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/) |
+| You need to…                                                  | Install                                                                                |
+| ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| define checks, collectors, scopes, reports, and serialization | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/)                  |
+| inspect Node processes, cgroups, TCP, or DNS                  | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/)             |
+| identify Bun and observe a `Bun.serve` server                 | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/)               |
+| expose Next.js App Router health or metrics handlers          | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/)             |
+| render Prometheus or OpenMetrics text                         | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
+| convert reports into OpenTelemetry-friendly records           | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/)             |
+| include a small Payload Local API query in readiness          | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/)       |
 
 Node probes do not create an HTTP endpoint. Use your framework or the Next.js package for route handlers. Prometheus and OpenTelemetry are separate integrations; install only the output format you use.
 
 ## Payload packages
 
-| You need to… | Install |
-| --- | --- |
-| add managed slugs, Jalali date UI, or integer minor-unit money fields | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/) |
-| compile semantic editor intent into Payload Lexical features | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/) |
-| share canonical field validation between Payload and Zod contracts | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/) |
+| You need to…                                                              | Install                                                                        |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| add managed slugs, Jalali date UI, or integer minor-unit money fields     | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/)         |
+| compile semantic editor intent into Payload Lexical features              | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/)         |
+| share canonical field validation between Payload and Zod contracts        | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/)         |
+| expose typed contract-first custom operations through Payload and its SDK | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
 
 Read [Choose a Payload package](/nexload-sdk/start/payload-packages/) when two of these packages appear to overlap.

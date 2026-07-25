@@ -1,13 +1,15 @@
 # Nexload SDK
 
-Current documentation for ten focused Healthcheck and Payload CMS TypeScript packages.
+Current documentation for eleven focused Healthcheck and Payload CMS TypeScript packages.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/
 Nexload SDK provides focused TypeScript packages for service health and Payload CMS. Install only the package that owns your task.
 
 Choose a package
-Browse all ten packages
+
+Browse all eleven packages
+
 Install agent skills
 
 ## Healthcheck packages
@@ -25,6 +27,7 @@ Install agent skills
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
 
 ## How to read these docs
 

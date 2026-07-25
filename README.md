@@ -2,7 +2,7 @@
 
 Production TypeScript packages for service health and Payload CMS.
 
-This repository currently documents and supports ten released packages. Install
+This repository currently documents and supports eleven released packages. Install
 only the package that owns your task. Package versions, peer dependencies, and
 runtime compatibility are listed in the
 [documentation](https://gecut.github.io/nexload-sdk/).
@@ -32,16 +32,18 @@ reports; they do not start exporters or register SDK providers.
 
 These packages solve separate problems and can be used independently.
 
-| Package                                                                                       | Use it for                                                                                                     |
-| --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| [`@nexload-sdk/payload-fields`](https://gecut.github.io/nexload-sdk/packages/payload-fields/) | Adding managed Unicode slugs, Jalali date inputs, and integer minor-unit money fields to Payload collections.  |
-| [`@nexload-sdk/payload-editor`](https://gecut.github.io/nexload-sdk/packages/payload-editor/) | Building deterministic Payload Lexical editor configurations from explicit presets and feature options.        |
-| [`@nexload-sdk/payload-schema`](https://gecut.github.io/nexload-sdk/packages/payload-schema/) | Defining canonical field validation and normalization once, then reusing it as Payload fields and Zod schemas. |
+| Package                                                                                               | Use it for                                                                                                     |
+| ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [`@nexload-sdk/payload-fields`](https://gecut.github.io/nexload-sdk/packages/payload-fields/)         | Adding managed Unicode slugs, Jalali date inputs, and integer minor-unit money fields to Payload collections.  |
+| [`@nexload-sdk/payload-editor`](https://gecut.github.io/nexload-sdk/packages/payload-editor/)         | Building deterministic Payload Lexical editor configurations from explicit presets and feature options.        |
+| [`@nexload-sdk/payload-operations`](https://gecut.github.io/nexload-sdk/packages/payload-operations/) | Exposing typed custom Payload operations through shared Zod contracts, secure endpoints, and the native SDK.   |
+| [`@nexload-sdk/payload-schema`](https://gecut.github.io/nexload-sdk/packages/payload-schema/)         | Defining canonical field validation and normalization once, then reusing it as Payload fields and Zod schemas. |
 
 `payload-fields` owns specific field behavior and Admin UI integrations.
 `payload-editor` owns Lexical configuration. `payload-schema` owns canonical
-data contracts shared by Payload and Zod; it does not replace either of the
-other packages.
+data contracts shared by Payload and Zod. `payload-operations` owns custom
+operation transport, endpoint, access, and error boundaries; it does not replace
+Payload CRUD or the other packages.
 
 ## Documentation
 

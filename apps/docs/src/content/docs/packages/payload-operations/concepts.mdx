@@ -1,0 +1,38 @@
+---
+title: Concepts
+description: Understand contracts, parse boundaries, transport ownership, access, and operation errors.
+sidebar:
+  order: 4
+package: payload-operations
+topic: concepts
+---
+
+## One contract, two adapters
+
+`operation()` preserves the exact input, output, and error schemas. `defineCMSOperations()` validates a recursive namespace and returns a safe immutable tree. The client materializes matching methods; the server materializes Payload endpoints. Keys must be safe URL segments, and reserved Promise/object keys are rejected.
+
+The default route for `billing.invoice.create` is `POST /operations/billing/invoice/create`. A normalized `basePath` can replace `/operations`, but client and server must receive the same value.
+
+## Zod input and output
+
+Client callers provide `z.input<InputSchema>`. The client parses it before network I/O, and handlers receive `z.output<InputSchema>`.
+
+Handlers return `z.input<OutputSchema>`. The server validates that wire value asynchronously without publishing a transformed in-memory object. The client parses the response and resolves to `z.output<OutputSchema>`. This prevents a transform from running twice across the wire.
+
+The same rule applies to defined error data: handlers create errors with schema input; clients observe schema output.
+
+## Success wire format
+
+Non-void operations return JSON with status 200. A successful `z.void()` operation returns status 204 with no body. An input parsed to `undefined` sends no request body; every other input must be JSON-serializable.
+
+## Error classes
+
+Defined errors belong to one operation contract. Their factories are available only inside that handler. The client promotes an error to defined only when code, status, message, and optional data match the contract.
+
+Framework errors cover validation, authentication, protocol, timeout, and internal failures. Invalid or forged envelopes are downgraded to a generic internal error. Native Payload SDK errors remain native SDK errors.
+
+`safe()` preserves a three-state tuple: success, a typed defined error, or an unknown/framework error.
+
+## Runtime ownership
+
+Plugins wrap a shared fetch transport. Operation requests include operation metadata and `source: "operation"`; native SDK requests use `source: "payload"`. Payload owns auth parsing, collection access, transactions, and request-scoped Local API semantics.

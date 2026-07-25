@@ -1,6 +1,6 @@
 ---
 title: Package catalog
-description: Browse the ten current Nexload SDK packages documented on this site.
+description: Browse the eleven current Nexload SDK packages documented on this site.
 sidebar:
   order: 1
 topic: ecosystem
@@ -9,19 +9,23 @@ topic: ecosystem
 import PackageGrid from "../../../components/docs/PackageGrid.astro";
 import { packageCatalog } from "../../../lib/package-catalog";
 
-This site documents ten stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
+This site documents eleven stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
 
 ## Healthcheck
 
 Start with the runtime-neutral core, then add only the runtime, framework, CMS, or exporter integration you need.
 
-<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "healthcheck")} />
+<PackageGrid
+  entries={packageCatalog.filter((entry) => entry.family === "healthcheck")}
+/>
 
 ## Payload CMS
 
-Choose a semantic field factory, an explicit Lexical editor configuration, or canonical Payload-and-Zod field schemas.
+Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zod schemas, or contract-first custom operations.
 
-<PackageGrid entries={packageCatalog.filter((entry) => entry.family === "payload")} />
+<PackageGrid
+  entries={packageCatalog.filter((entry) => entry.family === "payload")}
+/>
 
 ## Documentation policy
 

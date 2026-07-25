@@ -1,0 +1,80 @@
+---
+title: Examples
+description: Complete contract, server, client, error, timeout, and void operation examples.
+sidebar:
+  order: 7
+package: payload-operations
+topic: examples
+---
+
+## Transform output at the client boundary
+
+```ts
+const getClock = operation({
+  input: z.void(),
+  output: z.object({
+    now: z.iso.datetime().transform((value) => new Date(value)),
+  }),
+});
+```
+
+The handler returns `{ now: new Date().toISOString() }`. The server validates the string wire value, and the client receives a `Date`.
+
+## Defined error data
+
+```ts
+const reserve = operation({
+  input: z.object({
+    sku: z.string().min(1),
+    quantity: z.int().positive(),
+  }),
+  output: z.object({ reservationId: z.string() }),
+  errors: {
+    OUT_OF_STOCK: {
+      status: 409,
+      message: "Insufficient stock.",
+      data: z.object({ available: z.int().nonnegative() }),
+    },
+  },
+});
+```
+
+Inside the handler:
+
+```ts
+throw errors.OUT_OF_STOCK({ data: { available: 0 } });
+```
+
+The error becomes a typed domain error only after the client validates the complete response envelope and its data schema.
+
+## Custom transport plugin
+
+```ts
+const tracePlugin = defineClientPlugin({
+  name: "trace",
+  wrapTransport: (next) => (request) => {
+    const headers = new Headers(request.init.headers);
+    headers.set("X-Trace-Source", request.source);
+
+    return next({
+      ...request,
+      init: { ...request.init, headers },
+    });
+  },
+});
+```
+
+Plugins can distinguish operation and native Payload requests. Preserve the request metadata and pass the complete request to `next`.
+
+## Void operation
+
+```ts
+const removeSession = operation({
+  input: z.object({ sessionId: z.string() }),
+  output: z.void(),
+});
+```
+
+The handler returns `undefined`; the endpoint responds with 204 and the client resolves to `undefined`.
+
+The complete example is type-checked in CI: [`payload-operations.ts`](https://github.com/gecut/nexload-sdk/blob/main/apps/docs/examples/payload-operations.ts).

@@ -1,0 +1,43 @@
+# Payload Operations
+
+Define typed application operations across Payload server endpoints and the native Payload SDK.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
+**Package:** `@nexload-sdk/payload-operations`
+
+**Current released version:** `0.1.0`
+
+Typed custom operations for Payload CMS with the native Payload REST SDK.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-operations) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations)
+
+`@nexload-sdk/payload-operations` 0.1.0 defines a shared Zod contract, turns it into Payload endpoints, and exposes matching client methods beside the native `PayloadSDK`.
+
+Use it for application commands and workflows that do not fit Payload's collection CRUD API. Keep ordinary document reads and writes on `cms.payload`; put only project-owned operations under `cms.operations`.
+
+## What you get
+
+* recursive, statically typed operation namespaces;
+* asynchronous Zod parsing at client and server boundaries;
+* exact handler and partial access-control trees;
+* typed domain errors plus safe framework-error downgrade;
+* one plugin-aware transport shared by operations and Payload SDK calls;
+* POST endpoints with matching CORS preflight endpoints.
+
+## Boundaries
+
+The package does not add query/command categories, custom HTTP verbs, batching, retries, caching, uploads, transaction wrappers, or authentication parsing. Payload remains responsible for authentication and Local API behavior. Operation handlers receive the original `PayloadRequest`.
+
+Client-safe APIs are available from the root and dedicated subpaths. Import `createPayloadEndpoints` only from `@nexload-sdk/payload-operations/server`.
+
+## Learning path
+
+1. [Install the Payload, SDK, and Zod peers](./installation/).
+2. Build one shared contract in the [quick start](./quick-start/).
+3. Understand parse and error boundaries in [concepts](./concepts/).
+4. Apply access, transport, and Local API patterns from [guides](./guides/).
+5. Consult the [API](./api/) and [troubleshooting](./troubleshooting/) references.
+
+See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations/src), [manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/package.json), and [issues](https://github.com/gecut/nexload-sdk/issues). These pages document the current version only.

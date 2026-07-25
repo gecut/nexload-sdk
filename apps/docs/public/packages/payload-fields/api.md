@@ -13,6 +13,8 @@ Public exports for Payload Fields 3.1.0.
 formatJalaliDate(value: JalaliDateValue, options?: JalaliDateDisplayOptions) => string | null
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L9)
@@ -22,6 +24,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?: MoneyDisplayOptions) => string | null
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -33,6 +37,8 @@ Public function exported by @nexload-sdk/payload-fields.
 formatSlug(value: string) => string
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L45)
@@ -42,6 +48,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 jalaliDateField(options: JalaliDateFieldOptions) => DateField
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -53,6 +61,8 @@ Public function exported by @nexload-sdk/payload-fields.
 moneyField(options: MoneyFieldOptions) => NumberField
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L94)
@@ -62,6 +72,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -73,6 +85,8 @@ Public function exported by @nexload-sdk/payload-fields.
 payloadFieldsPlugin(options?: PayloadFieldsPluginOptions) => Plugin
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L19)
@@ -82,6 +96,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 resolveCurrency(currency: MoneyCurrency) => MoneyCurrencyDefinition
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -93,6 +109,8 @@ Public function exported by @nexload-sdk/payload-fields.
 slugField(options?: SlugFieldOptions) => SlugFieldResult
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L16)
@@ -102,6 +120,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOptions) => Field[]
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -115,6 +135,8 @@ Public function exported by @nexload-sdk/payload-fields.
 IRR: Readonly<MoneyCurrencyDefinition>
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L25)
@@ -125,6 +147,8 @@ Public constant exported by @nexload-sdk/payload-fields.
 IRT: Readonly<MoneyCurrencyDefinition>
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L26)
@@ -134,6 +158,8 @@ Public constant exported by @nexload-sdk/payload-fields.
 ```ts
 formatSlugHook(options: SlugHookOptions) => FieldHook
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public constant exported by @nexload-sdk/payload-fields.
 
@@ -152,6 +178,8 @@ type JalaliDateDisplayOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L2)
@@ -167,6 +195,8 @@ type JalaliDateFieldOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L8)
@@ -176,6 +206,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type JalaliDateValue = Date | string | number | null | undefined;
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -190,6 +222,8 @@ type JalaliPickerAppearance
     | "timeOnly"
     | "monthOnly";
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -206,6 +240,8 @@ type JalaliTimestampsOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L14)
@@ -215,6 +251,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type MoneyCurrency = "IRR" | "IRT" | MoneyCurrencyDefinition;
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -230,6 +268,8 @@ type MoneyCurrencyDefinition = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L3)
@@ -244,6 +284,8 @@ type MoneyDisplayOptions = {
   showCurrency?: boolean
 };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -263,6 +305,8 @@ type MoneyFieldOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L15)
@@ -272,6 +316,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerator>, generateSlugAccess?: SlugGenerationAccess };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -290,6 +336,8 @@ type SlugFieldOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L5)
@@ -299,6 +347,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type SlugFieldResult = readonly [TextField, CheckboxField];
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -310,6 +360,8 @@ Public type exported by @nexload-sdk/payload-fields.
 type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise<boolean>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L8)
@@ -319,6 +371,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorContext) => Promise<string>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -330,6 +384,8 @@ Public type exported by @nexload-sdk/payload-fields.
 type SlugGeneratorContext = { req: PayloadRequest };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L6)
@@ -339,6 +395,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type SlugGeneratorInput = { sourceValue: string, currentSlug?: string };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -354,6 +412,8 @@ type SlugHookOptions = {
   regenerateOnSourceChange: boolean
 };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 

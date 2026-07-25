@@ -1,10 +1,10 @@
 # Package catalog
 
-Browse the ten current Nexload SDK packages documented on this site.
+Browse the eleven current Nexload SDK packages documented on this site.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/
-This site documents ten stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
+This site documents eleven stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
 
 ## Healthcheck
 
@@ -20,11 +20,12 @@ Start with the runtime-neutral core, then add only the runtime, framework, CMS, 
 
 ## Payload CMS
 
-Choose a semantic field factory, an explicit Lexical editor configuration, or canonical Payload-and-Zod field schemas.
+Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zod schemas, or contract-first custom operations.
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
 
 ## Documentation policy
 

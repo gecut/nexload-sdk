@@ -62,9 +62,24 @@ npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
       * SKILL.md
       * references
       * evals
+  * payload-operations
+    * core
+      * SKILL.md
+      * references
+      * evals
+    * client
+      * SKILL.md
+      * references
+      * evals
+    * server
+      * SKILL.md
+      * references
+      * evals
 
 ### Review before broad installation
 
-`--all` can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+`--all` can install every Skill for every detected agent. Prefer a specific
+Skill or the interactive command unless the repository is intentionally your
+shared agent baseline.
 
 Run `pnpm skills:validate` in a repository checkout to verify frontmatter, path/name consistency, references, line limits, behavior evals, and balanced trigger evals.

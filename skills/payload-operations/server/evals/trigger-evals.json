@@ -1,0 +1,22 @@
+[
+  { "query": "Mount @nexload-sdk/payload-operations endpoints in Payload config", "should_trigger": true },
+  { "query": "Implement a complete payload-operations handler tree", "should_trigger": true },
+  { "query": "Add public and authenticated access overrides to Payload operations", "should_trigger": true },
+  { "query": "Diagnose 401 versus 403 from createPayloadEndpoints", "should_trigger": true },
+  { "query": "Use Payload Local API safely inside an operation handler", "should_trigger": true },
+  { "query": "Debug payload-operations CORS and OPTIONS preflight", "should_trigger": true },
+  { "query": "Handle malformed JSON and invalid operation input on the server", "should_trigger": true },
+  { "query": "Throw a declared payload-operations error from a handler", "should_trigger": true },
+  { "query": "Prevent output validation details leaking from a Payload endpoint", "should_trigger": true },
+  { "query": "Review basePath alignment for createPayloadEndpoints", "should_trigger": true },
+  { "query": "Configure createCMSClient timeout plugins", "should_trigger": false },
+  { "query": "Diagnose operation client response envelope parsing", "should_trigger": false },
+  { "query": "Define a payload-operations contract with Zod transforms", "should_trigger": false },
+  { "query": "Use safe() to narrow a declared client error", "should_trigger": false },
+  { "query": "Create a generic Payload collection endpoint", "should_trigger": false },
+  { "query": "Design Payload collection fields and hooks", "should_trigger": false },
+  { "query": "Decode JWT credentials in an Express middleware", "should_trigger": false },
+  { "query": "Build a generic CORS proxy", "should_trigger": false },
+  { "query": "Publish payload-operations to npm", "should_trigger": false },
+  { "query": "Add retries to a browser fetch client", "should_trigger": false }
+]

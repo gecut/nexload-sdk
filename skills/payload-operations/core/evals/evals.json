@@ -1,0 +1,60 @@
+{
+  "skill_name": "payload-operations-core",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Define typed account operations with transformed input/output schemas and one declared conflict error.",
+      "expected_output": "A direct operation tree that preserves all four Zod type boundaries and exposes a typed declared error.",
+      "expectations": [
+        "Uses operation and defineCMSOperations without query or command wrappers.",
+        "Distinguishes caller input, parsed handler input, handler return, and parsed client result.",
+        "Defines a valid uppercase error code with stable status, message, and typed data."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Model an operation with z.void input and output, async transforms, and no declared errors.",
+      "expected_output": "A valid contract that relies on async parsing and represents empty success as undefined.",
+      "expectations": [
+        "Uses z.void rather than inventing a body sentinel.",
+        "Preserves async parsing boundaries.",
+        "Does not invent an error definition or manual serialization API."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review an operations tree containing constructor and then keys plus an error code named invalid-code.",
+      "expected_output": "Reject unsafe segments and the malformed error code before runtime routing.",
+      "expectations": [
+        "Identifies constructor and then as unsafe reserved segments.",
+        "Requires uppercase snake-case error codes.",
+        "Does not propose weakening runtime validation."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why safe() lost the exact declared-error data union after a wrapper converted the operation promise to Promise<unknown>.",
+      "expected_output": "Trace the type brand loss at the wrapper and preserve the original operation promise type.",
+      "expectations": [
+        "Explains that safe extracts the declared union from the operation promise type.",
+        "Avoids casts or reconstructing private brands.",
+        "Keeps unknown and framework failures outside the declared branch."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Add timeout and authorization behavior to an existing payload-operations contract.",
+      "expected_output": "Keep contract edits in core while routing timeout to client and access to server guidance.",
+      "expectations": [
+        "Separates contract, client transport, and server access concerns.",
+        "Preserves one shared operation definition.",
+        "Avoids adding auth parsing or timeout metadata to the contract."
+      ]
+    }
+  ]
+}

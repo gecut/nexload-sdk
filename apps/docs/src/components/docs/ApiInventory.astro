@@ -23,6 +23,15 @@ const categories = ["functions", "classes", "constants", "interfaces", "types"] 
           <a href={symbol.sourceUrl}>Source</a>
         </div>
         <pre><code>{symbol.signature}</code></pre>
+        <p>
+          <strong>Exported from:</strong>{" "}
+          {symbol.exportPaths.map((path, index) => (
+            <Fragment>
+              {index > 0 ? ", " : null}
+              <code>{path}</code>
+            </Fragment>
+          ))}
+        </p>
         <p>{symbol.description}</p>
       </article>
     ))}

@@ -13,6 +13,8 @@ Public Prometheus and OpenMetrics serializer exports.
 toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => string
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L259)
@@ -22,6 +24,8 @@ Public function exported by @nexload-sdk/healthcheck-prometheus.
 ```ts
 toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => string
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
 
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
@@ -39,6 +43,8 @@ interface PrometheusExportOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
 Public interface exported by @nexload-sdk/healthcheck-prometheus.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L8)
@@ -50,6 +56,8 @@ Public interface exported by @nexload-sdk/healthcheck-prometheus.
 ```ts
 type OpenMetricsExportOptions = PrometheusExportOptions;
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
 
 Public type exported by @nexload-sdk/healthcheck-prometheus.
 

@@ -8,19 +8,28 @@ Agent Skills are task-specific, progressively disclosed instructions distributed
 
 ### Healthcheck skills
 
-Seven Skills cover manager design, custom checks, diagnostics security, cgroups, exporters, Next.js routes, and Payload integration.
+Seven Skills cover manager design, custom checks, diagnostics security,
+cgroups, exporters, Next.js routes, and Payload integration.
 
 ### Payload Fields skills
 
-Four Skills cover semantic factories, managed slugs, Jalali dates, and minor-unit money contracts.
+Four Skills cover semantic factories, managed slugs, Jalali dates, and
+minor-unit money contracts.
 
 ### Payload Editor skills
 
-Three Skills cover core semantic configuration, preset contracts, and native Payload extensions.
+Three Skills cover core semantic configuration, preset contracts, and native
+Payload extensions.
 
 ### Payload Schema skills
 
-Two Skills separate entity consumption and migration from package compiler, adapter, and release development.
+Two Skills separate entity consumption and migration from package compiler,
+adapter, and release development.
+
+### Payload Operations skills
+
+Three Skills cover operation contracts, the shared Payload SDK client, and
+secure custom endpoints.
 
 ## Use the smallest relevant skill
 
@@ -37,6 +46,8 @@ Every Skill is self-contained for its primary task. A sibling Skill may be recom
 - [Payload Editor docs](/packages/payload-editor/) — Read the semantic editor and native extension contracts.
 
 * [Payload Schema docs](/packages/payload-schema/) — Read the canonical field, Payload adapter, and Zod derivation contracts.
+
+- [Payload Operations docs](/packages/payload-operations/) — Read the contract, client transport, endpoint, access, and error boundaries.
 
 ---
 
@@ -104,10 +115,25 @@ npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
       * SKILL.md
       * references
       * evals
+  * payload-operations
+    * core
+      * SKILL.md
+      * references
+      * evals
+    * client
+      * SKILL.md
+      * references
+      * evals
+    * server
+      * SKILL.md
+      * references
+      * evals
 
 ### Review before broad installation
 
-`--all` can install every Skill for every detected agent. Prefer a specific Skill or the interactive command unless the repository is intentionally your shared agent baseline.
+`--all` can install every Skill for every detected agent. Prefer a specific
+Skill or the interactive command unless the repository is intentionally your
+shared agent baseline.
 
 Run `pnpm skills:validate` in a repository checkout to verify frontmatter, path/name consistency, references, line limits, behavior evals, and balanced trigger evals.
 
@@ -138,14 +164,16 @@ Use the “Edit this page” link on any page when the correction is local to th
 
 # Nexload SDK
 
-Current documentation for ten focused Healthcheck and Payload CMS TypeScript packages.
+Current documentation for eleven focused Healthcheck and Payload CMS TypeScript packages.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/
 Nexload SDK provides focused TypeScript packages for service health and Payload CMS. Install only the package that owns your task.
 
 Choose a package
-Browse all ten packages
+
+Browse all eleven packages
+
 Install agent skills
 
 ## Healthcheck packages
@@ -163,6 +191,7 @@ Install agent skills
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
 
 ## How to read these docs
 
@@ -185,6 +214,8 @@ Public Bun runtime exports.
 bunRuntimeAdapter() => RuntimeAdapter
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
 Public function exported by @nexload-sdk/healthcheck-bun.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L54)
@@ -195,6 +226,8 @@ Public function exported by @nexload-sdk/healthcheck-bun.
 bunRuntimeInfoCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.runtime">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
 Public function exported by @nexload-sdk/healthcheck-bun.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L74)
@@ -204,6 +237,8 @@ Public function exported by @nexload-sdk/healthcheck-bun.
 ```ts
 bunServerMetricsCheck(server: BunServerLike, options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.server.metrics">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
 
 Public function exported by @nexload-sdk/healthcheck-bun.
 
@@ -220,6 +255,8 @@ interface BunServerLike {
   subscriberCount?: (topic: string) => number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
 
 Public interface exported by @nexload-sdk/healthcheck-bun.
 
@@ -416,6 +453,8 @@ Public runtime and type exports of the health orchestration package.
 aggregateStatus(results: readonly HealthCheckResult[]) => HealthStatus
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L18)
@@ -425,6 +464,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 autoRuntimeAdapter() => RuntimeAdapter
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -436,6 +477,8 @@ Public function exported by @nexload-sdk/healthcheck.
 createAbortSignal(timeoutMs: number | undefined, parent?: AbortSignal) => { signal: AbortSignal; dispose: () => void; }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L1)
@@ -445,6 +488,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 createHealthManager(options: HealthManagerOptions) => HealthManager
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -456,6 +501,8 @@ Public function exported by @nexload-sdk/healthcheck.
 defineHealthCheck<TName extends string>(definition: HealthCheckDefinition<TName>) => HealthCheckDefinition<TName>
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/define.ts#L6)
@@ -465,6 +512,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 defineMetricCollector<TName extends string>(definition: MetricCollectorDefinition<TName>) => MetricCollectorDefinition<TName>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -476,6 +525,8 @@ Public function exported by @nexload-sdk/healthcheck.
 genericRuntimeAdapter() => RuntimeAdapter
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/runtime.ts#L101)
@@ -485,6 +536,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => HealthCheckDefinition<string>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -496,6 +549,8 @@ Public function exported by @nexload-sdk/healthcheck.
 memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degraded: number; unhealthy: number; }; usedRatio?: { degraded: number; unhealthy: number; }; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<"memory">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L125)
@@ -505,6 +560,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean; }) => HealthCheckDefinition<"runtime.info">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -516,6 +573,8 @@ Public function exported by @nexload-sdk/healthcheck.
 runtimeMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"runtime.metrics">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/collectors.ts#L9)
@@ -525,6 +584,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"shutdown">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -536,6 +597,8 @@ Public function exported by @nexload-sdk/healthcheck.
 sleep(ms: number, signal?: AbortSignal) => Promise<void>
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L42)
@@ -545,6 +608,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<"startup">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -556,6 +621,8 @@ Public function exported by @nexload-sdk/healthcheck.
 statusToHttpStatus(status: HealthStatus, policy?: HealthHttpStatusPolicy) => number
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L18)
@@ -565,6 +632,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -576,6 +645,8 @@ Public function exported by @nexload-sdk/healthcheck.
 summarizeChecks(results: readonly HealthCheckResult[]) => HealthSummary
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L7)
@@ -586,6 +657,8 @@ Public function exported by @nexload-sdk/healthcheck.
 timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; thresholds?: { degradedMs: number; unhealthyMs: number; }; critical?: boolean; }) => HealthCheckDefinition<"timer.lag">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L90)
@@ -595,6 +668,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -608,6 +683,8 @@ Public function exported by @nexload-sdk/healthcheck.
 DEFAULT_HTTP_STATUS_POLICY: HealthHttpStatusPolicy
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public constant exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L6)
@@ -618,6 +695,8 @@ Public constant exported by @nexload-sdk/healthcheck.
 HEALTH_ERROR_CODES: { readonly CHECK_THROWN: "CHECK_THROWN"; readonly CHECK_TIMEOUT: "CHECK_TIMEOUT"; readonly CHECK_ABORTED: "CHECK_ABORTED"; readonly HEALTHCHECK_TIMEOUT: "HEALTHCHECK_TIMEOUT"; readonly HEALTHCHECK_ABORTED: "HEALTHCHECK_ABORTED"; readonly HEALTHCHECK_DEPENDENCY_UNAVAILABLE: "HEALTHCHECK_DEPENDENCY_UNAVAILABLE"; readonly HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE: "HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE"; readonly HEALTHCHECK_ROUTE_UNAUTHORIZED: "HEALTHCHECK_ROUTE_UNAUTHORIZED"; readonly HEALTHCHECK_INVALID_CONFIG: "HEALTHCHECK_INVALID_CONFIG"; readonly HTTP_STATUS_MISMATCH: "HTTP_STATUS_MISMATCH"; readonly HTTP_BODY_MISMATCH: "HTTP_BODY_MISMATCH"; readonly TCP_CONNECT_FAILED: "TCP_CONNECT_FAILED"; readonly DNS_RESOLVE_FAILED: "DNS_RESOLVE_FAILED"; readonly DATABASE_PING_FAILED: "DATABASE_PING_FAILED"; readonly PAYLOAD_QUERY_FAILED: "PAYLOAD_QUERY_FAILED"; readonly RUNTIME_UNSUPPORTED: "RUNTIME_UNSUPPORTED"; readonly METRIC_UNAVAILABLE: "METRIC_UNAVAILABLE"; }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public constant exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L1)
@@ -627,6 +706,8 @@ Public constant exported by @nexload-sdk/healthcheck.
 ```ts
 STRICT_READINESS_HTTP_STATUS_POLICY: HealthHttpStatusPolicy
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public constant exported by @nexload-sdk/healthcheck.
 
@@ -643,6 +724,8 @@ interface EnvironmentIdentity {
   zone?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -663,6 +746,8 @@ interface HealthCheckDefinition<TName extends string = string> {
   run(context: HealthRunContext): Promise<HealthCheckRunResult> | HealthCheckRunResult
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -688,6 +773,8 @@ interface HealthCheckResult<TName extends string = string> {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L101)
@@ -702,6 +789,8 @@ interface HealthCheckRunResult {
   error?: HealthErrorInfo
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -719,6 +808,8 @@ interface HealthErrorInfo {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L76)
@@ -732,6 +823,8 @@ interface HealthHttpStatusPolicy {
   unhealthy: number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -747,6 +840,8 @@ interface HealthJsonOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L81)
@@ -760,6 +855,8 @@ interface HealthLinks {
   diagnostics?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -778,6 +875,8 @@ interface HealthManager {
   dispose(): void
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -807,6 +906,8 @@ interface HealthManagerOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L207)
@@ -832,6 +933,8 @@ interface HealthMetric {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L84)
@@ -856,6 +959,8 @@ interface HealthReport {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L132)
@@ -875,6 +980,8 @@ interface HealthRunContext {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L163)
@@ -892,6 +999,8 @@ interface HealthRunOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L227)
@@ -908,6 +1017,8 @@ interface HealthSummary {
   nonCriticalFailed: number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -927,6 +1038,8 @@ interface HttpCheckOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L10)
@@ -939,6 +1052,8 @@ interface MetricCollectionResult {
   resources?: Record<string, unknown>
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -957,6 +1072,8 @@ interface MetricCollectorDefinition<TName extends string = string> {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L198)
@@ -973,6 +1090,8 @@ interface RedactionPolicy {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L155)
@@ -987,6 +1106,8 @@ interface RetryPolicy {
   retryOn?: readonly HealthStatus[]
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -1006,6 +1127,8 @@ interface RuntimeAdapter {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L66)
@@ -1019,6 +1142,8 @@ interface RuntimeCpuSnapshot {
   availableParallelism: number | null
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -1036,6 +1161,8 @@ interface RuntimeIdentity {
   pid?: number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -1059,6 +1186,8 @@ interface RuntimeMemorySnapshot {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L46)
@@ -1073,6 +1202,8 @@ interface ServiceIdentity {
   instanceId?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -1091,6 +1222,8 @@ type HealthDataProfile
     | "full";
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L11)
@@ -1100,6 +1233,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthDetails = Record<string, unknown>;
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -1112,6 +1247,8 @@ type HealthErrorCode
   = (typeof HEALTH_ERROR_CODES)[keyof typeof HEALTH_ERROR_CODES];
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L21)
@@ -1121,6 +1258,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthMetricValue = string | number | boolean | null;
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -1132,6 +1271,8 @@ Public type exported by @nexload-sdk/healthcheck.
 type HealthMetrics = Record<string, HealthMetricValue>;
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L20)
@@ -1141,6 +1282,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthRunScope = HealthScope | "all";
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -1156,6 +1299,8 @@ type HealthScope
     | "diagnostics";
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L3)
@@ -1165,6 +1310,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthStatus = "ok" | "degraded" | "unhealthy";
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -1504,6 +1651,8 @@ Public App Router factories and option contracts.
 createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) => { GET: (request: Request) => Promise<Response>; HEAD: (request: Request) => Promise<Response>; }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
 Public function exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L280)
@@ -1513,6 +1662,8 @@ Public function exported by @nexload-sdk/healthcheck-next.
 ```ts
 createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions) => { GET: (request: Request) => Promise<Response>; }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
 
 Public function exported by @nexload-sdk/healthcheck-next.
 
@@ -1534,6 +1685,8 @@ interface NextHealthRouteOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
 Public interface exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L32)
@@ -1554,6 +1707,8 @@ interface NextHealthRouteProtection {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
 Public interface exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L20)
@@ -1569,6 +1724,8 @@ interface NextMetricsRouteOptions {
   defaultLabels?: Record<string, string>
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
 
 Public interface exported by @nexload-sdk/healthcheck-next.
 
@@ -1795,8 +1952,10 @@ Public exports for Node runtime and operational checks.
 ### `containerMetricsCollector`
 
 ```ts
-containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => import("@nexload-sdk/healthcheck").MetricCollectorDefinition<"container.metrics">
+containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"container.metrics">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -1808,6 +1967,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { usageRatio?: { degraded: number; unhealthy: number; }; }; root?: string; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<"container.resources">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L105)
@@ -1817,6 +1978,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 ```ts
 dnsCheck(name: string, options: { hostname: string; recordType?: "A" | "AAAA" | "CNAME" | "TXT" | "MX"; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -1828,6 +1991,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 nodeRuntimeAdapter() => RuntimeAdapter
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L59)
@@ -1838,6 +2003,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 parseCpuList(value: string | null) => number | null
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L81)
@@ -1845,8 +2012,10 @@ Public function exported by @nexload-sdk/healthcheck-node.
 ### `processMetricsCollector`
 
 ```ts
-processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => import("@nexload-sdk/healthcheck").MetricCollectorDefinition<"process.metrics">
+processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"process.metrics">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -1858,6 +2027,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<ContainerResourceSnapshot>
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public function exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L307)
@@ -1867,6 +2038,8 @@ Public function exported by @nexload-sdk/healthcheck-node.
 ```ts
 tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
@@ -1890,6 +2063,8 @@ interface ContainerCpuSnapshot {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public interface exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L15)
@@ -1909,6 +2084,8 @@ interface ContainerMemorySnapshot {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
 Public interface exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L4)
@@ -1921,6 +2098,8 @@ interface ContainerResourceOptions {
   platform?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public interface exported by @nexload-sdk/healthcheck-node.
 
@@ -1941,6 +2120,8 @@ interface ContainerResourceSnapshot {
   warnings: string[]
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
 
 Public interface exported by @nexload-sdk/healthcheck-node.
 
@@ -2161,6 +2342,8 @@ Public transform and metric-record exports.
 toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
 Public function exported by @nexload-sdk/healthcheck-otel.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L35)
@@ -2170,6 +2353,8 @@ Public function exported by @nexload-sdk/healthcheck-otel.
 ```ts
 toOtelResourceAttributes(report: HealthReport) => Record<string, string | number | boolean>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
 
 Public function exported by @nexload-sdk/healthcheck-otel.
 
@@ -2189,6 +2374,8 @@ interface OtelMetricRecord {
   observedAt: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
 
 Public interface exported by @nexload-sdk/healthcheck-otel.
 
@@ -2389,6 +2576,8 @@ Public Payload readiness-check exports.
 payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => HealthCheckDefinition<"payload">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-payload`
+
 Public function exported by @nexload-sdk/healthcheck-payload.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L32)
@@ -2408,6 +2597,8 @@ interface PayloadHealthCheckOptions {
   scopes?: readonly HealthScope[]
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-payload`
 
 Public interface exported by @nexload-sdk/healthcheck-payload.
 
@@ -2609,6 +2800,8 @@ Public Prometheus and OpenMetrics serializer exports.
 toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => string
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L259)
@@ -2618,6 +2811,8 @@ Public function exported by @nexload-sdk/healthcheck-prometheus.
 ```ts
 toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => string
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
 
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
@@ -2635,6 +2830,8 @@ interface PrometheusExportOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
 Public interface exported by @nexload-sdk/healthcheck-prometheus.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L8)
@@ -2646,6 +2843,8 @@ Public interface exported by @nexload-sdk/healthcheck-prometheus.
 ```ts
 type OpenMetricsExportOptions = PrometheusExportOptions;
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
 
 Public type exported by @nexload-sdk/healthcheck-prometheus.
 
@@ -2840,11 +3039,11 @@ Diagnose missing series, labels, and scrape output.
 
 # Package catalog
 
-Browse the ten current Nexload SDK packages documented on this site.
+Browse the eleven current Nexload SDK packages documented on this site.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/
-This site documents ten stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
+This site documents eleven stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
 
 ## Healthcheck
 
@@ -2860,11 +3059,12 @@ Start with the runtime-neutral core, then add only the runtime, framework, CMS, 
 
 ## Payload CMS
 
-Choose a semantic field factory, an explicit Lexical editor configuration, or canonical Payload-and-Zod field schemas.
+Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zod schemas, or contract-first custom operations.
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
 
 ## Documentation policy
 
@@ -2887,6 +3087,8 @@ Public exports for Payload Editor 1.1.0.
 createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public function exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L54)
@@ -2896,6 +3098,8 @@ Public function exported by @nexload-sdk/payload-editor.
 ```ts
 defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public function exported by @nexload-sdk/payload-editor.
 
@@ -2909,6 +3113,8 @@ Public function exported by @nexload-sdk/payload-editor.
 class PayloadEditorConfigError
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public classe exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L12)
@@ -2920,6 +3126,8 @@ Public classe exported by @nexload-sdk/payload-editor.
 ```ts
 interface DefineEditorPresetOptions { readonly features: Readonly<EditorFeatureConfig> }
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public interface exported by @nexload-sdk/payload-editor.
 
@@ -2948,6 +3156,8 @@ interface EditorFeatureConfig {
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public interface exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L36)
@@ -2961,6 +3171,8 @@ interface EditorPreset {
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public interface exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L57)
@@ -2971,6 +3183,8 @@ Public interface exported by @nexload-sdk/payload-editor.
 interface HeadingOptions { sizes?: readonly HeadingSize[] }
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public interface exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L24)
@@ -2980,6 +3194,8 @@ Public interface exported by @nexload-sdk/payload-editor.
 ```ts
 interface LinkOptions extends RelationalOptions<CollectionSlug> { autoLink?: boolean }
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public interface exported by @nexload-sdk/payload-editor.
 
@@ -3002,6 +3218,8 @@ type CreateEditorOptions = CommonEditorOptions & (
 );
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L69)
@@ -3017,6 +3235,8 @@ type EditorPresetName
     | "product-description";
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L11)
@@ -3029,6 +3249,8 @@ type FeatureOption<TOptions = never> = [TOptions] extends [never]
   : boolean | Readonly<TOptions>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L18)
@@ -3039,6 +3261,8 @@ Public type exported by @nexload-sdk/payload-editor.
 type HeadingSize = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L22)
@@ -3048,6 +3272,8 @@ Public type exported by @nexload-sdk/payload-editor.
 ```ts
 type NativeEditorFeature = FeatureProviderServer<any, any, any>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public type exported by @nexload-sdk/payload-editor.
 
@@ -3068,6 +3294,8 @@ type PayloadEditorConfigErrorCode
     | "PAYLOAD_EDITOR_DUPLICATE_FEATURE";
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L1)
@@ -3078,6 +3306,8 @@ Public type exported by @nexload-sdk/payload-editor.
 type RelationshipOptions = RelationalOptions<CollectionSlug>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L34)
@@ -3087,6 +3317,8 @@ Public type exported by @nexload-sdk/payload-editor.
 ```ts
 type UploadOptions = RelationalOptions<UploadCollectionSlug>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public type exported by @nexload-sdk/payload-editor.
 
@@ -3535,6 +3767,8 @@ Public exports for Payload Fields 3.1.0.
 formatJalaliDate(value: JalaliDateValue, options?: JalaliDateDisplayOptions) => string | null
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L9)
@@ -3544,6 +3778,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?: MoneyDisplayOptions) => string | null
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -3555,6 +3791,8 @@ Public function exported by @nexload-sdk/payload-fields.
 formatSlug(value: string) => string
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L45)
@@ -3564,6 +3802,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 jalaliDateField(options: JalaliDateFieldOptions) => DateField
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -3575,6 +3815,8 @@ Public function exported by @nexload-sdk/payload-fields.
 moneyField(options: MoneyFieldOptions) => NumberField
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L94)
@@ -3584,6 +3826,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -3595,6 +3839,8 @@ Public function exported by @nexload-sdk/payload-fields.
 payloadFieldsPlugin(options?: PayloadFieldsPluginOptions) => Plugin
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L19)
@@ -3604,6 +3850,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 resolveCurrency(currency: MoneyCurrency) => MoneyCurrencyDefinition
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -3615,6 +3863,8 @@ Public function exported by @nexload-sdk/payload-fields.
 slugField(options?: SlugFieldOptions) => SlugFieldResult
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public function exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L16)
@@ -3624,6 +3874,8 @@ Public function exported by @nexload-sdk/payload-fields.
 ```ts
 withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOptions) => Field[]
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
@@ -3637,6 +3889,8 @@ Public function exported by @nexload-sdk/payload-fields.
 IRR: Readonly<MoneyCurrencyDefinition>
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L25)
@@ -3647,6 +3901,8 @@ Public constant exported by @nexload-sdk/payload-fields.
 IRT: Readonly<MoneyCurrencyDefinition>
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L26)
@@ -3656,6 +3912,8 @@ Public constant exported by @nexload-sdk/payload-fields.
 ```ts
 formatSlugHook(options: SlugHookOptions) => FieldHook
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public constant exported by @nexload-sdk/payload-fields.
 
@@ -3674,6 +3932,8 @@ type JalaliDateDisplayOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L2)
@@ -3689,6 +3949,8 @@ type JalaliDateFieldOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L8)
@@ -3698,6 +3960,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type JalaliDateValue = Date | string | number | null | undefined;
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3712,6 +3976,8 @@ type JalaliPickerAppearance
     | "timeOnly"
     | "monthOnly";
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3728,6 +3994,8 @@ type JalaliTimestampsOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L14)
@@ -3737,6 +4005,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type MoneyCurrency = "IRR" | "IRT" | MoneyCurrencyDefinition;
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3752,6 +4022,8 @@ type MoneyCurrencyDefinition = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L3)
@@ -3766,6 +4038,8 @@ type MoneyDisplayOptions = {
   showCurrency?: boolean
 };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3785,6 +4059,8 @@ type MoneyFieldOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L15)
@@ -3794,6 +4070,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerator>, generateSlugAccess?: SlugGenerationAccess };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3812,6 +4090,8 @@ type SlugFieldOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L5)
@@ -3821,6 +4101,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type SlugFieldResult = readonly [TextField, CheckboxField];
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3832,6 +4114,8 @@ Public type exported by @nexload-sdk/payload-fields.
 type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise<boolean>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L8)
@@ -3841,6 +4125,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorContext) => Promise<string>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3852,6 +4138,8 @@ Public type exported by @nexload-sdk/payload-fields.
 type SlugGeneratorContext = { req: PayloadRequest };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`
+
 Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L6)
@@ -3861,6 +4149,8 @@ Public type exported by @nexload-sdk/payload-fields.
 ```ts
 type SlugGeneratorInput = { sourceValue: string, currentSlug?: string };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -3876,6 +4166,8 @@ type SlugHookOptions = {
   regenerateOnSourceChange: boolean
 };
 ```
+
+**Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -4363,6 +4655,1224 @@ Protected names/types, mismatched slug localization, invalid money bounds, unsaf
 
 # API reference
 
+Public root and subpath exports for Payload Operations 0.1.0.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/api/
+## Functions
+
+### `createCMSClient`
+
+```ts
+createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: CMSClientOptions<TOperations>) => CMSClient<TPayloadConfig, TOperations>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L19)
+
+### `createPayloadEndpoints`
+
+```ts
+createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: CreatePayloadEndpointsOptions<TOperations>) => Endpoint[]
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L22)
+
+### `defineCMSOperations`
+
+```ts
+defineCMSOperations<const TOperations extends CMSOperationsTree>(operations: TOperations) => TOperations
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/define-cms-operations.ts#L8)
+
+### `defineClientPlugin`
+
+```ts
+defineClientPlugin<const TPlugin extends CMSClientPlugin>(plugin: TPlugin) => TPlugin
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/define-client-plugin.ts#L3)
+
+### `isCMSOperationError`
+
+```ts
+isCMSOperationError(error: unknown) => error is CMSOperationError
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/errors`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/cms-operation-error.ts#L46)
+
+### `isDefinedError`
+
+```ts
+isDefinedError<TError extends CMSOperationError<string, unknown, true>>(error: TError) => error is TError
+isDefinedError<TError extends CMSOperationError<string, unknown, true>, TCode extends TError["code"]>(error: TError, code: TCode) => error is Extract<TError, { code: TCode; }>
+isDefinedError(error: unknown, code?: string) => error is CMSOperationError<string, unknown, true>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/is-defined-error.ts#L5)
+
+### `isTimeoutError`
+
+```ts
+isTimeoutError(error: unknown) => boolean
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/plugins/timeout`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/is-timeout-error.ts#L4)
+
+### `operation`
+
+```ts
+operation<const TInput extends z.ZodType, const TOutput extends z.ZodType, const TErrors extends CMSOperationErrorDefinitions = Readonly<Record<string, never>>>(definition: { errors?: TErrors; input: TInput; output: TOutput; }) => CMSOperation<TInput, TOutput, TErrors>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L15)
+
+### `safe`
+
+```ts
+safe<const TPromise extends PromiseLike<unknown>>(promise: TPromise) => Promise<CMSSafeResult<AwaitedData<TPromise>, DefinedError<TPromise>>>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/safe.ts#L14)
+
+### `timeoutPlugin`
+
+```ts
+timeoutPlugin(options: TimeoutPluginOptions) => { readonly name: "timeout"; readonly wrapTransport: (next: CMSClientTransport) => (request: CMSClientTransportRequest) => Promise<Response>; }
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/plugins/timeout`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L6)
+
+## Classes
+
+### `CMSOperationError`
+
+```ts
+class CMSOperationError
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/errors`, `@nexload-sdk/payload-operations/server`
+
+Public classe exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/cms-operation-error.ts#L16)
+
+## Interfaces
+
+### `CMSClient`
+
+```ts
+interface CMSClient<
+  TPayloadConfig extends PayloadTypesShape = PayloadTypes,
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> {
+  readonly operations: InferOperationsClient<TOperations>
+  readonly payload: PayloadSDK<TPayloadConfig>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L49)
+
+### `CMSClientOptions`
+
+```ts
+interface CMSClientOptions<
+  TOperations extends CMSOperationsTree
+> {
+  basePath?: string
+  operations: TOperations
+  payload: CMSPayloadClientOptions
+  plugins?: readonly CMSClientPlugin[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L23)
+
+### `CMSClientPlugin`
+
+```ts
+interface CMSClientPlugin {
+  readonly name: string
+  wrapTransport(next: CMSClientTransport): CMSClientTransport
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L15)
+
+### `CMSClientTransportRequest`
+
+```ts
+interface CMSClientTransportRequest {
+  readonly init: RequestInit
+  readonly operation?: {
+    readonly name: string
+    readonly path: string
+  }
+  readonly source: "operation" | "payload"
+  readonly url: string
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L1)
+
+### `CMSOperation`
+
+```ts
+interface CMSOperation<
+  TInputSchema extends z.ZodType = z.ZodType,
+  TOutputSchema extends z.ZodType = z.ZodType,
+  TErrors extends CMSOperationErrorDefinitions = CMSOperationErrorDefinitions
+> {
+  readonly [CMS_OPERATION_SYMBOL]: true
+  readonly errors: TErrors
+  readonly input: TInputSchema
+  readonly output: TOutputSchema
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L19)
+
+### `CMSOperationAccessContext`
+
+```ts
+interface CMSOperationAccessContext<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> {
+  readonly operation: CMSOperationMetadata<TOperation>
+  readonly req: PayloadRequest
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L21)
+
+### `CMSOperationErrorJSON`
+
+```ts
+interface CMSOperationErrorJSON {
+  code: string
+  data?: unknown
+  defined: boolean
+  message: string
+  status: number
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L8)
+
+### `CMSOperationHandlerContext`
+
+```ts
+interface CMSOperationHandlerContext<
+  TOperation extends CMSOperationContract
+> {
+  readonly errors: CMSDefinedErrorFactories<TOperation>
+  readonly input: InferParsedOperationInput<TOperation>
+  readonly operation: CMSOperationMetadata<TOperation>
+  readonly req: PayloadRequest
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L34)
+
+### `CMSOperationMetadata`
+
+```ts
+interface CMSOperationMetadata<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> {
+  readonly definition: TOperation
+  readonly name: string
+  readonly path: string
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L13)
+
+### `CMSPayloadClientOptions`
+
+```ts
+interface CMSPayloadClientOptions {
+  baseInit?: RequestInit
+  baseURL: string
+  fetch?: typeof fetch
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L17)
+
+### `CMSValidationErrorData`
+
+```ts
+interface CMSValidationErrorData {
+  issues: Array<{
+    code?: string
+    message: string
+    path: Array<number | string>
+  }>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L16)
+
+### `CreatePayloadEndpointsOptions`
+
+```ts
+interface CreatePayloadEndpointsOptions<
+  TOperations extends CMSOperationsTree
+> {
+  access?: {
+    default?: CMSOperationAccess
+    overrides?: CMSOperationAccessOverrides<TOperations>
+  }
+  basePath?: string
+  handlers: CMSOperationHandlers<TOperations>
+  operations: TOperations
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L69)
+
+### `TimeoutPluginOptions`
+
+```ts
+interface TimeoutPluginOptions { timeout: number }
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/plugins/timeout`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L4)
+
+## Types
+
+### `CMSClientTransport`
+
+```ts
+type CMSClientTransport = (
+  request: CMSClientTransportRequest
+) => Promise<Response>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L11)
+
+### `CMSDefinedErrorFactories`
+
+```ts
+type CMSDefinedErrorFactories<
+  TOperation extends CMSOperationContract
+> = {
+  readonly [TCode in keyof TOperation["errors"] & string]:
+  ErrorFactoryFromDefinition<TCode, TOperation["errors"][TCode]>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/errors`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L52)
+
+### `CMSDefinedOperationError`
+
+```ts
+type CMSDefinedOperationError<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> = {
+  [TCode in keyof TOperation["errors"] & string]: DefinedErrorFromDefinition<
+    TCode,
+    TOperation["errors"][TCode]
+  >;
+}[keyof TOperation["errors"] & string];
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L31)
+
+### `CMSOperationAccess`
+
+```ts
+type CMSOperationAccess<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> = (
+  context: CMSOperationAccessContext<TOperation>
+) => boolean | Promise<boolean>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L28)
+
+### `CMSOperationAccessOverrides`
+
+```ts
+type CMSOperationAccessOverrides<
+  TOperations extends CMSOperationsTree
+> = {
+  readonly [TKey in keyof TOperations]?:
+  TOperations[TKey] extends CMSOperationContract
+    ? CMSOperationAccess<TOperations[TKey]>
+    : TOperations[TKey] extends CMSOperationsTree
+      ? CMSOperationAccessOverrides<TOperations[TKey]>
+      : never;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L58)
+
+### `CMSOperationCallOptions`
+
+```ts
+type CMSOperationCallOptions = Omit<RequestInit, "body" | "method">;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L34)
+
+### `CMSOperationContract`
+
+```ts
+type CMSOperationContract = CMSOperation;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L30)
+
+### `CMSOperationErrorDefinition`
+
+```ts
+type CMSOperationErrorDefinition<
+  TDataSchema extends z.ZodType | undefined = z.ZodType | undefined
+> = Readonly<{
+  data?: TDataSchema
+  message: string
+  status: number
+}>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L7)
+
+### `CMSOperationErrorDefinitions`
+
+```ts
+type CMSOperationErrorDefinitions = Readonly<
+  Record<string, CMSOperationErrorDefinition<z.ZodType | undefined>>
+>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L15)
+
+### `CMSOperationHandler`
+
+```ts
+type CMSOperationHandler<
+  TOperation extends CMSOperationContract
+> = (
+  context: CMSOperationHandlerContext<TOperation>
+) => Promise<InferHandlerOutput<TOperation>>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L43)
+
+### `CMSOperationHandlers`
+
+```ts
+type CMSOperationHandlers<TOperations extends CMSOperationsTree> = {
+  readonly [TKey in keyof TOperations]:
+  TOperations[TKey] extends CMSOperationContract
+    ? CMSOperationHandler<TOperations[TKey]>
+    : TOperations[TKey] extends CMSOperationsTree
+      ? CMSOperationHandlers<TOperations[TKey]>
+      : never;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L49)
+
+### `CMSOperationsTree`
+
+```ts
+type CMSOperationsTree = Readonly<{ [key: string]: CMSOperationContract | CMSOperationsTree }>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L32)
+
+### `CMSSafeResult`
+
+```ts
+type CMSSafeResult<TData, TDefinedError>
+  = | readonly [error: null, data: TData, isDefined: false]
+    | readonly [
+      error: TDefinedError,
+      data: undefined,
+      isDefined: true
+    ]
+    | readonly [error: unknown, data: undefined, isDefined: false];
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/errors`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L59)
+
+### `InferHandlerOutput`
+
+```ts
+type InferHandlerOutput<TOperation extends CMSOperationContract>
+  = z.input<TOperation["output"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L48)
+
+### `InferOperationInput`
+
+```ts
+type InferOperationInput<TOperation extends CMSOperationContract>
+  = z.input<TOperation["input"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L38)
+
+### `InferOperationOutput`
+
+```ts
+type InferOperationOutput<TOperation extends CMSOperationContract>
+  = z.output<TOperation["output"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L45)
+
+### `InferOperationsClient`
+
+```ts
+type InferOperationsClient<TOperations extends CMSOperationsTree> = {
+  readonly [TKey in keyof TOperations]:
+  TOperations[TKey] extends CMSOperationContract
+    ? CMSOperationMethod<TOperations[TKey]>
+    : TOperations[TKey] extends CMSOperationsTree
+      ? InferOperationsClient<TOperations[TKey]>
+      : never;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/client`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L40)
+
+### `InferParsedOperationInput`
+
+```ts
+type InferParsedOperationInput<
+  TOperation extends CMSOperationContract
+> = z.output<TOperation["input"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L41)
+
+### `PayloadOperationEndpoints`
+
+```ts
+type PayloadOperationEndpoints = readonly Endpoint[];
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L81)
+
+## Entrypoints
+
+| Subpath            | Purpose                                                             |
+| ------------------ | ------------------------------------------------------------------- |
+| package root       | Universal contract, client, error, and timeout helpers              |
+| `/contract`        | `operation`, `defineCMSOperations`, and contract types              |
+| `/client`          | `createCMSClient`, `defineClientPlugin`, and client/transport types |
+| `/errors`          | `CMSOperationError`, guards, `safe`, and error types                |
+| `/plugins/timeout` | `timeoutPlugin`, `isTimeoutError`, and timeout options              |
+| `/server`          | `createPayloadEndpoints`, `CMSOperationError`, and server types     |
+
+## Contract
+
+`operation({ input, output, errors? })` brands one immutable operation definition while preserving schema identity. Error codes must be uppercase snake case, status must be 400–599, and messages must be non-empty.
+
+`defineCMSOperations(tree)` validates and snapshots a direct recursive namespace. It accepts no `query` or `command` wrapper.
+
+## Client
+
+`createCMSClient(options)` returns `{ payload, operations }`. `payload` is the actual `PayloadSDK<Config>` instance. `operations` mirrors the supplied contract.
+
+`CMSClientOptions` accepts `operations`, `payload`, optional `plugins`, and optional operation `basePath`. `payload.baseInit` is merged before per-call options. Operation calls accept `Omit<RequestInit, "body" | "method">`; the package always supplies POST and the serialized body.
+
+`defineClientPlugin(plugin)` validates and freezes a named transport wrapper. Plugin names must be unique; the first plugin is outermost.
+
+## Errors
+
+`safe(promise)` resolves to `[null, data, false]`, `[definedError, undefined, true]`, or `[unknownError, undefined, false]`.
+
+`isDefinedError(error, code?)` validates the shared error brand and optionally narrows the declared code. `isTimeoutError(error)` recognizes operation timeout errors.
+
+## Server
+
+`createPayloadEndpoints(options)` returns Payload `Endpoint[]` containing a POST endpoint and matching OPTIONS preflight endpoint for each contract leaf. Options include exact `handlers`, partial access overrides, an optional default access policy, and `basePath`.
+
+See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations/src) for the live export surface.
+
+---
+
+# Compatibility
+
+Current runtime, peer, entrypoint, and verification boundaries for Payload Operations.
+
+**Topic:** compatibility
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/compatibility/
+The current documented package is `@nexload-sdk/payload-operations` 0.1.0.
+
+| Requirement       | Contract                 |
+| ----------------- | ------------------------ |
+| Node              | `>=20.9.0`               |
+| Payload           | `>=3.85.0 <4.0.0`        |
+| `@payloadcms/sdk` | `>=3.85.0 <4.0.0`        |
+| Zod               | `>=4.0.0 <5.0.0`         |
+| Module system     | ESM-only                 |
+| Side effects      | package declares `false` |
+
+Keep Payload and its SDK on the same exact version. The development baseline is Payload and SDK 3.86.0 with Zod 4.4.3; supported peer ranges are not a claim that every combination is continuously tested.
+
+## Runtime boundaries
+
+The root, `/contract`, `/client`, `/errors`, and `/plugins/timeout` entrypoints do not import the Payload server runtime. `/server` is Node/Payload-only.
+
+`AbortSignal.timeout` and `AbortSignal.any` are required by the timeout plugin and are available at the minimum Node runtime. Browser consumers need equivalent platform support if they use that plugin.
+
+## Repository evidence
+
+This initial package stage intentionally has no package test suite. Repository checks cover strict typechecking, lint, ESM build artifacts, public export resolution, docs examples, and workspace build compatibility. Runtime and type behavior therefore do not have independent automated test-suite evidence yet.
+
+Historical versioned docs are not hosted. Pin peers, inspect the [manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/package.json), and review the [changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/CHANGELOG.md) before upgrading.
+
+---
+
+# Concepts
+
+Understand contracts, parse boundaries, transport ownership, access, and operation errors.
+
+**Topic:** concepts
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/concepts/
+## One contract, two adapters
+
+`operation()` preserves the exact input, output, and error schemas. `defineCMSOperations()` validates a recursive namespace and returns a safe immutable tree. The client materializes matching methods; the server materializes Payload endpoints. Keys must be safe URL segments, and reserved Promise/object keys are rejected.
+
+The default route for `billing.invoice.create` is `POST /operations/billing/invoice/create`. A normalized `basePath` can replace `/operations`, but client and server must receive the same value.
+
+## Zod input and output
+
+Client callers provide `z.input<InputSchema>`. The client parses it before network I/O, and handlers receive `z.output<InputSchema>`.
+
+Handlers return `z.input<OutputSchema>`. The server validates that wire value asynchronously without publishing a transformed in-memory object. The client parses the response and resolves to `z.output<OutputSchema>`. This prevents a transform from running twice across the wire.
+
+The same rule applies to defined error data: handlers create errors with schema input; clients observe schema output.
+
+## Success wire format
+
+Non-void operations return JSON with status 200. A successful `z.void()` operation returns status 204 with no body. An input parsed to `undefined` sends no request body; every other input must be JSON-serializable.
+
+## Error classes
+
+Defined errors belong to one operation contract. Their factories are available only inside that handler. The client promotes an error to defined only when code, status, message, and optional data match the contract.
+
+Framework errors cover validation, authentication, protocol, timeout, and internal failures. Invalid or forged envelopes are downgraded to a generic internal error. Native Payload SDK errors remain native SDK errors.
+
+`safe()` preserves a three-state tuple: success, a typed defined error, or an unknown/framework error.
+
+## Runtime ownership
+
+Plugins wrap a shared fetch transport. Operation requests include operation metadata and `source: "operation"`; native SDK requests use `source: "payload"`. Payload owns auth parsing, collection access, transactions, and request-scoped Local API semantics.
+
+---
+
+# Examples
+
+Complete contract, server, client, error, timeout, and void operation examples.
+
+**Topic:** examples
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/examples/
+## Transform output at the client boundary
+
+```ts
+const getClock = operation({
+  input: z.void(),
+  output: z.object({
+    now: z.iso.datetime().transform((value) => new Date(value)),
+  }),
+});
+```
+
+The handler returns `{ now: new Date().toISOString() }`. The server validates the string wire value, and the client receives a `Date`.
+
+## Defined error data
+
+```ts
+const reserve = operation({
+  input: z.object({
+    sku: z.string().min(1),
+    quantity: z.int().positive(),
+  }),
+  output: z.object({ reservationId: z.string() }),
+  errors: {
+    OUT_OF_STOCK: {
+      status: 409,
+      message: "Insufficient stock.",
+      data: z.object({ available: z.int().nonnegative() }),
+    },
+  },
+});
+```
+
+Inside the handler:
+
+```ts
+throw errors.OUT_OF_STOCK({ data: { available: 0 } });
+```
+
+The error becomes a typed domain error only after the client validates the complete response envelope and its data schema.
+
+## Custom transport plugin
+
+```ts
+const tracePlugin = defineClientPlugin({
+  name: "trace",
+  wrapTransport: (next) => (request) => {
+    const headers = new Headers(request.init.headers);
+    headers.set("X-Trace-Source", request.source);
+
+    return next({
+      ...request,
+      init: { ...request.init, headers },
+    });
+  },
+});
+```
+
+Plugins can distinguish operation and native Payload requests. Preserve the request metadata and pass the complete request to `next`.
+
+## Void operation
+
+```ts
+const removeSession = operation({
+  input: z.object({ sessionId: z.string() }),
+  output: z.void(),
+});
+```
+
+The handler returns `undefined`; the endpoint responds with 204 and the client resolves to `undefined`.
+
+The complete example is type-checked in CI: [`payload-operations.ts`](https://github.com/gecut/nexload-sdk/blob/main/apps/docs/examples/payload-operations.ts).
+
+---
+
+# Guides
+
+Configure access, base paths, error handling, plugins, and request-scoped Payload workflows.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/guides/
+## Make one operation public
+
+Default access is `Boolean(req.user)`. A denied anonymous request receives 401; a denied authenticated request receives 403.
+
+```ts
+createPayloadEndpoints({
+  operations: cmsOperations,
+  handlers,
+  access: {
+    overrides: {
+      status: {
+        ping: () => true,
+      },
+    },
+  },
+});
+```
+
+The access tree is partial but cannot contain unknown leaves. The handler tree must match every operation exactly.
+
+## Use a custom base path
+
+```ts
+const basePath = "/internal/actions";
+
+createPayloadEndpoints({ basePath, operations: cmsOperations, handlers });
+
+createCMSClient({
+  basePath,
+  operations: cmsOperations,
+  payload: { baseURL: "https://cms.example.com/api" },
+});
+```
+
+The base path accepts safe slash-separated segments and is normalized at both boundaries. `baseURL` must not contain a query or hash.
+
+## Handle defined errors
+
+```ts
+const [error, data, defined] = await safe(
+  cms.operations.inventory.reserve({ sku: "A-1", quantity: 2 }),
+);
+
+if (defined && isDefinedError(error, "OUT_OF_STOCK")) {
+  console.log(error.data.available);
+} else if (error) {
+  reportUnexpectedError(error);
+} else {
+  console.log(data.reservationId);
+}
+```
+
+Do not treat every `CMSOperationError` as a declared business outcome. Check `defined`, preferably through `safe()` or `isDefinedError()`.
+
+## Add a timeout
+
+```ts
+const cms = createCMSClient({
+  operations: cmsOperations,
+  payload: { baseURL },
+  plugins: [timeoutPlugin({ timeout: 5_000 })],
+});
+```
+
+The timeout plugin affects both request sources, but converts a timeout to the package timeout error only for operations. Caller aborts and native SDK failures are preserved.
+
+## Use Local API in the caller's request
+
+Pass the handler's `req` into Local API calls and keep access checks enabled:
+
+```ts
+await req.payload.update({
+  collection: "orders",
+  id,
+  data,
+  overrideAccess: false,
+  req,
+  user: req.user,
+});
+```
+
+The adapter does not open transactions or supply Local API access options for you. Compose transaction behavior explicitly in application code.
+
+---
+
+# Payload Operations
+
+Define typed application operations across Payload server endpoints and the native Payload SDK.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
+**Package:** `@nexload-sdk/payload-operations`
+
+**Current released version:** `0.1.0`
+
+Typed custom operations for Payload CMS with the native Payload REST SDK.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-operations) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations)
+
+`@nexload-sdk/payload-operations` 0.1.0 defines a shared Zod contract, turns it into Payload endpoints, and exposes matching client methods beside the native `PayloadSDK`.
+
+Use it for application commands and workflows that do not fit Payload's collection CRUD API. Keep ordinary document reads and writes on `cms.payload`; put only project-owned operations under `cms.operations`.
+
+## What you get
+
+* recursive, statically typed operation namespaces;
+* asynchronous Zod parsing at client and server boundaries;
+* exact handler and partial access-control trees;
+* typed domain errors plus safe framework-error downgrade;
+* one plugin-aware transport shared by operations and Payload SDK calls;
+* POST endpoints with matching CORS preflight endpoints.
+
+## Boundaries
+
+The package does not add query/command categories, custom HTTP verbs, batching, retries, caching, uploads, transaction wrappers, or authentication parsing. Payload remains responsible for authentication and Local API behavior. Operation handlers receive the original `PayloadRequest`.
+
+Client-safe APIs are available from the root and dedicated subpaths. Import `createPayloadEndpoints` only from `@nexload-sdk/payload-operations/server`.
+
+## Learning path
+
+1. [Install the Payload, SDK, and Zod peers](./installation/).
+2. Build one shared contract in the [quick start](./quick-start/).
+3. Understand parse and error boundaries in [concepts](./concepts/).
+4. Apply access, transport, and Local API patterns from [guides](./guides/).
+5. Consult the [API](./api/) and [troubleshooting](./troubleshooting/) references.
+
+See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations/src), [manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/package.json), and [issues](https://github.com/gecut/nexload-sdk/issues). These pages document the current version only.
+
+---
+
+# Installation
+
+Install Payload Operations with supported Payload SDK and Zod peers.
+
+**Topic:** installation
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/installation/
+```bash
+pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+```
+
+The examples use pnpm. With another package manager, use `npm install`, `yarn add`, or `bun add` with the same package names.
+
+Version 0.1.0 requires:
+
+| Runtime           | Supported range   |
+| ----------------- | ----------------- |
+| Node              | `>=20.9.0`        |
+| Payload           | `>=3.85.0 <4.0.0` |
+| `@payloadcms/sdk` | `>=3.85.0 <4.0.0` |
+| Zod               | `>=4.0.0 <5.0.0`  |
+
+Keep `payload` and `@payloadcms/sdk` on the same version. The package is ESM-only and declares no side effects.
+
+Use universal and client APIs from the root:
+
+```ts
+import {
+  createCMSClient,
+  defineCMSOperations,
+  operation,
+} from "@nexload-sdk/payload-operations";
+```
+
+Keep the Payload runtime boundary explicit:
+
+```ts
+import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
+```
+
+The `/server` entrypoint imports Payload runtime helpers. Do not import it into browser bundles. Public subpaths are `/contract`, `/client`, `/errors`, `/plugins/timeout`, and `/server`; internal files are not supported imports.
+
+## Verify
+
+Define one `z.void()` operation, create its endpoints during Payload config construction, and invoke it through `createCMSClient`. A valid void response is HTTP 204 and resolves to `undefined`.
+
+---
+
+# Migration
+
+Move custom Payload endpoints to shared typed operation contracts incrementally.
+
+**Topic:** migration
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/migration/
+Payload Operations 0.1.0 is the initial release. This page describes migration from project-owned custom endpoints; use the [package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/CHANGELOG.md) for later version-specific changes.
+
+## Incremental migration
+
+1. Select one POST workflow with JSON input and output.
+2. Write Zod input, output, and declared business-error schemas.
+3. Place the contract in a module shared by server and client.
+4. Move endpoint logic into the matching handler leaf.
+5. Express public or special access as the narrowest override.
+6. Register generated endpoints while retaining the old route.
+7. Switch one consumer to `cms.operations`.
+8. Compare status, wire JSON, access, CORS, and failure behavior before removing the old route.
+
+```ts
+// Before
+await fetch("/api/custom/reserve", {
+  method: "POST",
+  body: JSON.stringify(input),
+});
+
+// After
+await cms.operations.inventory.reserve(input);
+```
+
+## Compatibility cautions
+
+Do not copy transformed Zod output into handler return types. The handler owns the wire input shape; the client owns final output parsing. Preserve request-scoped Local API calls with `req` and `overrideAccess: false`.
+
+If an old endpoint uses uploads, streaming, non-POST methods, custom serialization, or transaction middleware, it is outside this package's contract. Keep that endpoint native.
+
+## Rollback
+
+Keep the previous route available until all consumers use the generated operation. Rollback means restoring the old client call and endpoint registration; this package performs no database migration or stored-data rewrite.
+
+---
+
+# Quick start
+
+Define one operation contract, expose Payload endpoints, and call it from the client.
+
+**Topic:** quick-start
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/quick-start/
+Define the shared contract in a module that is safe for server and client imports:
+
+```ts
+import {
+  defineCMSOperations,
+  operation,
+} from "@nexload-sdk/payload-operations/contract";
+import { z } from "zod";
+
+export const cmsOperations = defineCMSOperations({
+  account: {
+    rename: operation({
+      input: z.object({ name: z.string().trim().min(1) }),
+      output: z.object({ name: z.string() }),
+      errors: {
+        NAME_TAKEN: {
+          status: 409,
+          message: "Account name is already in use.",
+        },
+      },
+    }),
+  },
+});
+```
+
+Create Payload endpoints:
+
+```ts
+import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
+
+export const operationEndpoints = createPayloadEndpoints({
+  operations: cmsOperations,
+  handlers: {
+    account: {
+      rename: async ({ errors, input, req }) => {
+        const existing = await req.payload.find({
+          collection: "users",
+          limit: 1,
+          overrideAccess: false,
+          req,
+          where: { name: { equals: input.name } },
+        });
+
+        if (existing.totalDocs > 0) {
+          throw errors.NAME_TAKEN();
+        }
+
+        return { name: input.name };
+      },
+    },
+  },
+});
+```
+
+Add the returned endpoints to Payload's root `endpoints` array. The default access policy requires `req.user`; override an operation explicitly when it must be public.
+
+Create a client using the same contract:
+
+```ts
+import { createCMSClient } from "@nexload-sdk/payload-operations/client";
+
+const cms = createCMSClient({
+  operations: cmsOperations,
+  payload: { baseURL: "https://cms.example.com/api" },
+});
+
+const result = await cms.operations.account.rename({ name: "Nexload" });
+```
+
+`cms.payload` is the native `PayloadSDK` instance. `cms.operations` mirrors the contract tree without an extra namespace.
+
+---
+
+# Troubleshooting
+
+Diagnose contract trees, routes, validation, errors, CORS, timeout, and Payload SDK behavior.
+
+**Topic:** troubleshooting
+**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/troubleshooting/
+## Operation method returns before network access
+
+Client input parsing happens first. Inspect the sanitized `INPUT_VALIDATION_FAILED` issues and pass the schema's input type. Async refinements and transforms are supported.
+
+## Endpoint returns 401 or 403
+
+The default operation access policy requires `req.user`. Anonymous denial is 401 and authenticated denial is 403. Add a narrow operation override for public routes; do not parse cookies, JWTs, or API keys inside the handler.
+
+## Route returns 404
+
+Confirm that Payload includes every returned endpoint and that client and server use the same `basePath`. The operation path is derived from the exact namespace keys. Do not include a query or hash in `baseURL`.
+
+## Browser preflight fails
+
+Register the complete result of `createPayloadEndpoints`, including its OPTIONS entries. Success and error responses use Payload's `headersWithCors`, so verify Payload's CORS configuration and the request origin.
+
+## A defined error became internal
+
+The response must match the operation's code, status, message, and data schema exactly. Unknown, malformed, non-JSON, or forged envelopes are deliberately downgraded. Throw the supplied handler factory instead of constructing a lookalike object.
+
+## Output becomes an internal error
+
+Handlers return the output schema's input shape, and that value must also be JSON-serializable. The client receives the output schema's parsed shape. Return a wire-safe value rather than the transformed result.
+
+## Timeout classification is unexpected
+
+`timeoutPlugin` requires a positive finite integer. It converts only operation transport timeouts. A caller-supplied abort remains the original abort, and native Payload SDK request failures are not converted to operation errors.
+
+## Payload SDK method behaves differently
+
+`cms.payload` is the native SDK instance and keeps native SDK semantics and error types. Inspect Payload SDK documentation for its request behavior; operation error handling applies only to `cms.operations`.
+
+---
+
+# API reference
+
 Public runtime and type exports for Payload Schema 1.1.0.
 
 **Topic:** api
@@ -4376,6 +5886,8 @@ Public runtime and type exports for Payload Schema 1.1.0.
 defineEntity<const TName extends string, const TFields extends EntityFieldMap, TIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>, TRelationshipIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>>(options: DefineEntityOptions<TName, TFields, TIdSchema, TRelationshipIdSchema>) => EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>, TIdSchema>
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public function exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L518)
@@ -4386,6 +5898,8 @@ Public function exported by @nexload-sdk/payload-schema.
 isPayloadSchemaError(error: unknown) => error is PayloadSchemaError<PayloadSchemaErrorCode>
 isPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code: TCode) => error is PayloadSchemaError<TCode>
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public function exported by @nexload-sdk/payload-schema.
 
@@ -4399,6 +5913,8 @@ Public function exported by @nexload-sdk/payload-schema.
 class PayloadSchemaError
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public classe exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L75)
@@ -4411,6 +5927,8 @@ Public classe exported by @nexload-sdk/payload-schema.
 defaultIdSchema: z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public constant exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/default-id.ts#L3)
@@ -4420,6 +5938,8 @@ Public constant exported by @nexload-sdk/payload-schema.
 ```ts
 field: Readonly<{ text: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<"text", NullableSchema<string, TNullable>, TextField>; textarea: <TNullable extends boolean = false>(options?: TextareaFieldOptions<TNullable>) => FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField>; slug: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField>; number: <TNullable extends boolean = false>(options?: NumberFieldOptions<TNullable>) => FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField>; money: <TNullable extends boolean = false>(options: MoneyFieldOptions<TNullable>) => FieldDefinition<"money", NullableSchema<number, TNullable>, NumberField>; boolean: <TNullable extends boolean = false>(options?: BooleanFieldOptions<TNullable>) => FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField>; date: <TNullable extends boolean = false>(options?: DateFieldOptions<TNullable>) => FieldDefinition<"date", NullableSchema<string, TNullable>, DateField>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable>) => FieldDefinition<"select", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<"relationship", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<"upload", TRelationTo, THasMany, TNullable, TIdSchema, UploadField>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: GroupFieldOptions<TFields, TNullable>) => FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable>) => FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable>) => FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField>; native: <TPayloadField extends PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<"native", TSchema, TPayloadField>; }>
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public constant exported by @nexload-sdk/payload-schema.
 
@@ -4442,6 +5962,8 @@ interface ArrayFieldOptions<TFields extends EntityFieldMap, TNullable extends bo
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L219)
@@ -4461,6 +5983,8 @@ interface DefineEntityOptions<
   relationshipIdSchema?: TRelationshipIdSchema
 }
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public interface exported by @nexload-sdk/payload-schema.
 
@@ -4483,6 +6007,8 @@ interface EntityDefinition<
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L349)
@@ -4492,6 +6018,8 @@ Public interface exported by @nexload-sdk/payload-schema.
 ```ts
 interface EntityInspection { name: string, fields: EntityInspectionFieldMap }
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public interface exported by @nexload-sdk/payload-schema.
 
@@ -4506,6 +6034,8 @@ interface EntitySchemaContext<TFields extends EntityFieldMap> {
   readonly z: typeof import("zod").z
 }
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public interface exported by @nexload-sdk/payload-schema.
 
@@ -4526,6 +6056,8 @@ interface EntitySchemaPicker<TFields extends EntityFieldMap> {
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L326)
@@ -4544,6 +6076,8 @@ interface FieldDefinition<
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L24)
@@ -4560,6 +6094,8 @@ interface GroupFieldOptions<TFields extends EntityFieldMap, TNullable extends bo
   payload?: NativePayloadExtras<NamedGroupField, "fields">
 }
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public interface exported by @nexload-sdk/payload-schema.
 
@@ -4578,6 +6114,8 @@ interface NativeFieldOptions<
   dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>
 }
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public interface exported by @nexload-sdk/payload-schema.
 
@@ -4643,6 +6181,8 @@ interface PayloadSchemaErrorDataMap {
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L7)
@@ -4670,6 +6210,8 @@ interface RelationshipFieldOptions<
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L123)
@@ -4689,6 +6231,8 @@ interface RichTextFieldOptions<
   payload?: NativePayloadExtras<RichTextField>
 }
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public interface exported by @nexload-sdk/payload-schema.
 
@@ -4715,6 +6259,8 @@ interface SelectFieldOptions<
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L106)
@@ -4731,6 +6277,8 @@ type BooleanFieldOptions<TNullable extends boolean = false> = CommonFieldOptions
 >;
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L94)
@@ -4745,6 +6293,8 @@ type DateFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
 > & { minimum?: string, maximum?: string };
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L100)
@@ -4754,6 +6304,8 @@ Public type exported by @nexload-sdk/payload-schema.
 ```ts
 type DefaultIdSchema = typeof defaultIdSchema;
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -4765,6 +6317,8 @@ Public type exported by @nexload-sdk/payload-schema.
 type EntityFieldMap = Readonly<Record<string, AnyFieldDefinition>>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L35)
@@ -4775,6 +6329,8 @@ Public type exported by @nexload-sdk/payload-schema.
 type InferEntityField<TField extends FieldDefinition<string, AnyCanonicalSchema, PayloadDataField>>
   = z.infer<TField["schema"]>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -4790,6 +6346,8 @@ type InferEntityFields<TEntity extends EntityDefinition<string, EntityFieldMap, 
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L377)
@@ -4802,6 +6360,8 @@ type MoneyFieldOptions<TNullable extends boolean = false> = Omit<
   "integer" | "safe"
 > & { currency: string };
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -4823,6 +6383,8 @@ type NumberFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L77)
@@ -4833,6 +6395,8 @@ Public type exported by @nexload-sdk/payload-schema.
 type PayloadSchemaErrorCode = keyof PayloadSchemaErrorDataMap;
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L63)
@@ -4842,6 +6406,8 @@ Public type exported by @nexload-sdk/payload-schema.
 ```ts
 type PayloadSchemaErrorPhase = "definition" | "internal" | "payload-compilation" | "schema-derivation";
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -4858,6 +6424,8 @@ type SerializedPayloadSchemaError<TCode extends PayloadSchemaErrorCode = Payload
   data: PayloadSchemaErrorDataMap[TCode]
 };
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -4880,6 +6448,8 @@ type TextFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-schema`
+
 Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L58)
@@ -4893,6 +6463,8 @@ type TextareaFieldOptions<TNullable extends boolean = false> = CommonFieldOption
   NativePayloadExtras<TextareaField, "maxLength" | "minLength">
 > & Omit<TextFieldOptions<TNullable>, keyof CommonFieldOptions<string, TNullable, unknown> | "payload">;
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -4908,6 +6480,8 @@ type UploadFieldOptions<
   TIdSchema extends AnyCanonicalSchema | undefined = undefined
 > = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>, "payload"> & { payload?: NativePayloadExtras<UploadField, "hasMany" | "relationTo"> };
 ```
+
+**Exported from:** `@nexload-sdk/payload-schema`
 
 Public type exported by @nexload-sdk/payload-schema.
 
@@ -5342,31 +6916,32 @@ Use `isPayloadSchemaError(error, code)` and safe `toJSON()` output when logging 
 
 # Choose a package
 
-Match a service-health or Payload CMS task to one of the ten packages documented here.
+Match a service-health or Payload CMS task to one of the eleven packages documented here.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/choose-a-package/
 ## Healthcheck packages
 
-| You need to… | Install |
-| --- | --- |
-| define checks, collectors, scopes, reports, and serialization | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/) |
-| inspect Node processes, cgroups, TCP, or DNS | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/) |
-| identify Bun and observe a `Bun.serve` server | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/) |
-| expose Next.js App Router health or metrics handlers | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/) |
-| render Prometheus or OpenMetrics text | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
-| convert reports into OpenTelemetry-friendly records | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/) |
-| include a small Payload Local API query in readiness | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/) |
+| You need to…                                                  | Install                                                                                |
+| ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| define checks, collectors, scopes, reports, and serialization | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/)                  |
+| inspect Node processes, cgroups, TCP, or DNS                  | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/)             |
+| identify Bun and observe a `Bun.serve` server                 | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/)               |
+| expose Next.js App Router health or metrics handlers          | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/)             |
+| render Prometheus or OpenMetrics text                         | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
+| convert reports into OpenTelemetry-friendly records           | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/)             |
+| include a small Payload Local API query in readiness          | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/)       |
 
 Node probes do not create an HTTP endpoint. Use your framework or the Next.js package for route handlers. Prometheus and OpenTelemetry are separate integrations; install only the output format you use.
 
 ## Payload packages
 
-| You need to… | Install |
-| --- | --- |
-| add managed slugs, Jalali date UI, or integer minor-unit money fields | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/) |
-| compile semantic editor intent into Payload Lexical features | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/) |
-| share canonical field validation between Payload and Zod contracts | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/) |
+| You need to…                                                              | Install                                                                        |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| add managed slugs, Jalali date UI, or integer minor-unit money fields     | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/)         |
+| compile semantic editor intent into Payload Lexical features              | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/)         |
+| share canonical field validation between Payload and Zod contracts        | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/)         |
+| expose typed contract-first custom operations through Payload and its SDK | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
 
 Read [Choose a Payload package](/nexload-sdk/start/payload-packages/) when two of these packages appear to overlap.
 
@@ -5416,7 +6991,7 @@ Nexload SDK is a set of independently installed TypeScript packages. It is not o
 
 ## Documentation policy
 
-* The site covers exactly ten current, stable packages.
+* The site covers exactly eleven current, stable packages.
 * Versions and peer ranges come from the live workspace manifests.
 * The shown versions are released on npm.
 * Historical versioned pages are not hosted.
@@ -5431,14 +7006,15 @@ Use the [glossary](/nexload-sdk/start/glossary/) for terms such as check, collec
 
 # Choose a Payload package
 
-Compare Payload Fields, Payload Editor, and Payload Schema by responsibility.
+Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations by responsibility.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/payload-packages/
-| Package | Owns | Does not own |
-| --- | --- | --- |
-| `@nexload-sdk/payload-fields` | Concrete semantic Payload field factories and matching Admin UI | General schema derivation or editor feature policy |
-| `@nexload-sdk/payload-editor` | Semantic Payload Lexical feature and preset configuration | Rich-text fields, frontend rendering, Blocks schemas, or themes |
-| `@nexload-sdk/payload-schema` | Canonical field validation compiled into Payload fields and reusable Zod schemas | Collections, access control, populated documents, or CRUD DTO inference |
+| Package                           | Owns                                                                                                   | Does not own                                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `@nexload-sdk/payload-fields`     | Concrete semantic Payload field factories and matching Admin UI                                        | General schema derivation or editor feature policy                                                      |
+| `@nexload-sdk/payload-editor`     | Semantic Payload Lexical feature and preset configuration                                              | Rich-text fields, frontend rendering, Blocks schemas, or themes                                         |
+| `@nexload-sdk/payload-schema`     | Canonical field validation compiled into Payload fields and reusable Zod schemas                       | Collections, access control, populated documents, or CRUD DTO inference                                 |
+| `@nexload-sdk/payload-operations` | Typed custom operation contracts, Payload endpoints, SDK facade, transport plugins, and defined errors | CRUD replacement, collection definitions, transactions, retry, caching, batching, or custom serializers |
 
 The packages can be composed, but they do not wrap one another. Keep collection lifecycle, access, drafts, localization, tabs, and application business rules in the Payload application.

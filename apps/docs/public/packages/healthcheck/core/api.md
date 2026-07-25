@@ -13,6 +13,8 @@ Public runtime and type exports of the health orchestration package.
 aggregateStatus(results: readonly HealthCheckResult[]) => HealthStatus
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L18)
@@ -22,6 +24,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 autoRuntimeAdapter() => RuntimeAdapter
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -33,6 +37,8 @@ Public function exported by @nexload-sdk/healthcheck.
 createAbortSignal(timeoutMs: number | undefined, parent?: AbortSignal) => { signal: AbortSignal; dispose: () => void; }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L1)
@@ -42,6 +48,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 createHealthManager(options: HealthManagerOptions) => HealthManager
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -53,6 +61,8 @@ Public function exported by @nexload-sdk/healthcheck.
 defineHealthCheck<TName extends string>(definition: HealthCheckDefinition<TName>) => HealthCheckDefinition<TName>
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/define.ts#L6)
@@ -62,6 +72,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 defineMetricCollector<TName extends string>(definition: MetricCollectorDefinition<TName>) => MetricCollectorDefinition<TName>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -73,6 +85,8 @@ Public function exported by @nexload-sdk/healthcheck.
 genericRuntimeAdapter() => RuntimeAdapter
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/runtime.ts#L101)
@@ -82,6 +96,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => HealthCheckDefinition<string>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -93,6 +109,8 @@ Public function exported by @nexload-sdk/healthcheck.
 memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degraded: number; unhealthy: number; }; usedRatio?: { degraded: number; unhealthy: number; }; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<"memory">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L125)
@@ -102,6 +120,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean; }) => HealthCheckDefinition<"runtime.info">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -113,6 +133,8 @@ Public function exported by @nexload-sdk/healthcheck.
 runtimeMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"runtime.metrics">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/collectors.ts#L9)
@@ -122,6 +144,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"shutdown">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -133,6 +157,8 @@ Public function exported by @nexload-sdk/healthcheck.
 sleep(ms: number, signal?: AbortSignal) => Promise<void>
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L42)
@@ -142,6 +168,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<"startup">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -153,6 +181,8 @@ Public function exported by @nexload-sdk/healthcheck.
 statusToHttpStatus(status: HealthStatus, policy?: HealthHttpStatusPolicy) => number
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L18)
@@ -162,6 +192,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -173,6 +205,8 @@ Public function exported by @nexload-sdk/healthcheck.
 summarizeChecks(results: readonly HealthCheckResult[]) => HealthSummary
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L7)
@@ -183,6 +217,8 @@ Public function exported by @nexload-sdk/healthcheck.
 timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; thresholds?: { degradedMs: number; unhealthyMs: number; }; critical?: boolean; }) => HealthCheckDefinition<"timer.lag">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public function exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L90)
@@ -192,6 +228,8 @@ Public function exported by @nexload-sdk/healthcheck.
 ```ts
 toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public function exported by @nexload-sdk/healthcheck.
 
@@ -205,6 +243,8 @@ Public function exported by @nexload-sdk/healthcheck.
 DEFAULT_HTTP_STATUS_POLICY: HealthHttpStatusPolicy
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public constant exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L6)
@@ -215,6 +255,8 @@ Public constant exported by @nexload-sdk/healthcheck.
 HEALTH_ERROR_CODES: { readonly CHECK_THROWN: "CHECK_THROWN"; readonly CHECK_TIMEOUT: "CHECK_TIMEOUT"; readonly CHECK_ABORTED: "CHECK_ABORTED"; readonly HEALTHCHECK_TIMEOUT: "HEALTHCHECK_TIMEOUT"; readonly HEALTHCHECK_ABORTED: "HEALTHCHECK_ABORTED"; readonly HEALTHCHECK_DEPENDENCY_UNAVAILABLE: "HEALTHCHECK_DEPENDENCY_UNAVAILABLE"; readonly HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE: "HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE"; readonly HEALTHCHECK_ROUTE_UNAUTHORIZED: "HEALTHCHECK_ROUTE_UNAUTHORIZED"; readonly HEALTHCHECK_INVALID_CONFIG: "HEALTHCHECK_INVALID_CONFIG"; readonly HTTP_STATUS_MISMATCH: "HTTP_STATUS_MISMATCH"; readonly HTTP_BODY_MISMATCH: "HTTP_BODY_MISMATCH"; readonly TCP_CONNECT_FAILED: "TCP_CONNECT_FAILED"; readonly DNS_RESOLVE_FAILED: "DNS_RESOLVE_FAILED"; readonly DATABASE_PING_FAILED: "DATABASE_PING_FAILED"; readonly PAYLOAD_QUERY_FAILED: "PAYLOAD_QUERY_FAILED"; readonly RUNTIME_UNSUPPORTED: "RUNTIME_UNSUPPORTED"; readonly METRIC_UNAVAILABLE: "METRIC_UNAVAILABLE"; }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public constant exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L1)
@@ -224,6 +266,8 @@ Public constant exported by @nexload-sdk/healthcheck.
 ```ts
 STRICT_READINESS_HTTP_STATUS_POLICY: HealthHttpStatusPolicy
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public constant exported by @nexload-sdk/healthcheck.
 
@@ -240,6 +284,8 @@ interface EnvironmentIdentity {
   zone?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -260,6 +306,8 @@ interface HealthCheckDefinition<TName extends string = string> {
   run(context: HealthRunContext): Promise<HealthCheckRunResult> | HealthCheckRunResult
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -285,6 +333,8 @@ interface HealthCheckResult<TName extends string = string> {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L101)
@@ -299,6 +349,8 @@ interface HealthCheckRunResult {
   error?: HealthErrorInfo
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -316,6 +368,8 @@ interface HealthErrorInfo {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L76)
@@ -329,6 +383,8 @@ interface HealthHttpStatusPolicy {
   unhealthy: number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -344,6 +400,8 @@ interface HealthJsonOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L81)
@@ -357,6 +415,8 @@ interface HealthLinks {
   diagnostics?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -375,6 +435,8 @@ interface HealthManager {
   dispose(): void
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -404,6 +466,8 @@ interface HealthManagerOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L207)
@@ -429,6 +493,8 @@ interface HealthMetric {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L84)
@@ -453,6 +519,8 @@ interface HealthReport {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L132)
@@ -472,6 +540,8 @@ interface HealthRunContext {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L163)
@@ -489,6 +559,8 @@ interface HealthRunOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L227)
@@ -505,6 +577,8 @@ interface HealthSummary {
   nonCriticalFailed: number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -524,6 +598,8 @@ interface HttpCheckOptions {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L10)
@@ -536,6 +612,8 @@ interface MetricCollectionResult {
   resources?: Record<string, unknown>
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -554,6 +632,8 @@ interface MetricCollectorDefinition<TName extends string = string> {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L198)
@@ -570,6 +650,8 @@ interface RedactionPolicy {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L155)
@@ -584,6 +666,8 @@ interface RetryPolicy {
   retryOn?: readonly HealthStatus[]
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -603,6 +687,8 @@ interface RuntimeAdapter {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L66)
@@ -616,6 +702,8 @@ interface RuntimeCpuSnapshot {
   availableParallelism: number | null
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -633,6 +721,8 @@ interface RuntimeIdentity {
   pid?: number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -656,6 +746,8 @@ interface RuntimeMemorySnapshot {
 }
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public interface exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L46)
@@ -670,6 +762,8 @@ interface ServiceIdentity {
   instanceId?: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public interface exported by @nexload-sdk/healthcheck.
 
@@ -688,6 +782,8 @@ type HealthDataProfile
     | "full";
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L11)
@@ -697,6 +793,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthDetails = Record<string, unknown>;
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -709,6 +807,8 @@ type HealthErrorCode
   = (typeof HEALTH_ERROR_CODES)[keyof typeof HEALTH_ERROR_CODES];
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L21)
@@ -718,6 +818,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthMetricValue = string | number | boolean | null;
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -729,6 +831,8 @@ Public type exported by @nexload-sdk/healthcheck.
 type HealthMetrics = Record<string, HealthMetricValue>;
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L20)
@@ -738,6 +842,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthRunScope = HealthScope | "all";
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 
@@ -753,6 +859,8 @@ type HealthScope
     | "diagnostics";
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck`
+
 Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L3)
@@ -762,6 +870,8 @@ Public type exported by @nexload-sdk/healthcheck.
 ```ts
 type HealthStatus = "ok" | "degraded" | "unhealthy";
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck`
 
 Public type exported by @nexload-sdk/healthcheck.
 

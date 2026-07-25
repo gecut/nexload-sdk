@@ -13,6 +13,8 @@ Public Bun runtime exports.
 bunRuntimeAdapter() => RuntimeAdapter
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
 Public function exported by @nexload-sdk/healthcheck-bun.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L54)
@@ -23,6 +25,8 @@ Public function exported by @nexload-sdk/healthcheck-bun.
 bunRuntimeInfoCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.runtime">
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
 Public function exported by @nexload-sdk/healthcheck-bun.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L74)
@@ -32,6 +36,8 @@ Public function exported by @nexload-sdk/healthcheck-bun.
 ```ts
 bunServerMetricsCheck(server: BunServerLike, options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.server.metrics">
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
 
 Public function exported by @nexload-sdk/healthcheck-bun.
 
@@ -48,6 +54,8 @@ interface BunServerLike {
   subscriberCount?: (topic: string) => number
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
 
 Public interface exported by @nexload-sdk/healthcheck-bun.
 

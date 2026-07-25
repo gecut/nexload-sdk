@@ -13,6 +13,8 @@ Public exports for Payload Editor 1.1.0.
 createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public function exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L54)
@@ -22,6 +24,8 @@ Public function exported by @nexload-sdk/payload-editor.
 ```ts
 defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public function exported by @nexload-sdk/payload-editor.
 
@@ -35,6 +39,8 @@ Public function exported by @nexload-sdk/payload-editor.
 class PayloadEditorConfigError
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public classe exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L12)
@@ -46,6 +52,8 @@ Public classe exported by @nexload-sdk/payload-editor.
 ```ts
 interface DefineEditorPresetOptions { readonly features: Readonly<EditorFeatureConfig> }
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public interface exported by @nexload-sdk/payload-editor.
 
@@ -74,6 +82,8 @@ interface EditorFeatureConfig {
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public interface exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L36)
@@ -87,6 +97,8 @@ interface EditorPreset {
 }
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public interface exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L57)
@@ -97,6 +109,8 @@ Public interface exported by @nexload-sdk/payload-editor.
 interface HeadingOptions { sizes?: readonly HeadingSize[] }
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public interface exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L24)
@@ -106,6 +120,8 @@ Public interface exported by @nexload-sdk/payload-editor.
 ```ts
 interface LinkOptions extends RelationalOptions<CollectionSlug> { autoLink?: boolean }
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public interface exported by @nexload-sdk/payload-editor.
 
@@ -128,6 +144,8 @@ type CreateEditorOptions = CommonEditorOptions & (
 );
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L69)
@@ -143,6 +161,8 @@ type EditorPresetName
     | "product-description";
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L11)
@@ -155,6 +175,8 @@ type FeatureOption<TOptions = never> = [TOptions] extends [never]
   : boolean | Readonly<TOptions>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L18)
@@ -165,6 +187,8 @@ Public type exported by @nexload-sdk/payload-editor.
 type HeadingSize = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L22)
@@ -174,6 +198,8 @@ Public type exported by @nexload-sdk/payload-editor.
 ```ts
 type NativeEditorFeature = FeatureProviderServer<any, any, any>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public type exported by @nexload-sdk/payload-editor.
 
@@ -194,6 +220,8 @@ type PayloadEditorConfigErrorCode
     | "PAYLOAD_EDITOR_DUPLICATE_FEATURE";
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L1)
@@ -204,6 +232,8 @@ Public type exported by @nexload-sdk/payload-editor.
 type RelationshipOptions = RelationalOptions<CollectionSlug>;
 ```
 
+**Exported from:** `@nexload-sdk/payload-editor`
+
 Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L34)
@@ -213,6 +243,8 @@ Public type exported by @nexload-sdk/payload-editor.
 ```ts
 type UploadOptions = RelationalOptions<UploadCollectionSlug>;
 ```
+
+**Exported from:** `@nexload-sdk/payload-editor`
 
 Public type exported by @nexload-sdk/payload-editor.
 

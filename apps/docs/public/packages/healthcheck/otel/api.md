@@ -13,6 +13,8 @@ Public transform and metric-record exports.
 toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]
 ```
 
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
 Public function exported by @nexload-sdk/healthcheck-otel.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L35)
@@ -22,6 +24,8 @@ Public function exported by @nexload-sdk/healthcheck-otel.
 ```ts
 toOtelResourceAttributes(report: HealthReport) => Record<string, string | number | boolean>
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
 
 Public function exported by @nexload-sdk/healthcheck-otel.
 
@@ -41,6 +45,8 @@ interface OtelMetricRecord {
   observedAt: string
 }
 ```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
 
 Public interface exported by @nexload-sdk/healthcheck-otel.
 

@@ -78,6 +78,9 @@ importers:
       unified:
         specifier: ^11.0.5
         version: 11.0.5
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
 
   apps/web:
     devDependencies:
@@ -522,6 +525,36 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+
+  packages/payload-operations:
+    devDependencies:
+      '@nexload-sdk/bundler':
+        specifier: workspace:*
+        version: link:../../tools/bundler
+      '@nexload-sdk/eslint-config':
+        specifier: workspace:*
+        version: link:../../tools/eslint-config
+      '@nexload-sdk/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
+      '@payloadcms/sdk':
+        specifier: 3.86.0
+        version: 3.86.0(graphql@16.12.0)(typescript@5.9.3)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.3
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.2
+      payload:
+        specifier: 3.86.0
+        version: 3.86.0(graphql@16.12.0)(typescript@5.9.3)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
 
   packages/payload-schema:
     devDependencies:
@@ -2726,6 +2759,9 @@ packages:
       payload: 3.86.0
       react: ^19.0.1 || ^19.1.2 || ^19.2.1
       react-dom: ^19.0.1 || ^19.1.2 || ^19.2.1
+
+  '@payloadcms/sdk@3.86.0':
+    resolution: {integrity: sha512-UPAXQB0+evS496uB+YFyyFKX0HZvsL4EUckKG9qGMvTl1DoFo5ve7Kvzr1V8dl+rcEYhmA1XIzZBnwIQ4+q04A==}
 
   '@payloadcms/translations@3.68.5':
     resolution: {integrity: sha512-C669lD6Ud8q1my2xJsdRaiO3ueca1uHM58kW7/QnduWXVFKrjwxn3kRr8lRAqELxvzmaWtswAZz+DpXu9ZqNww==}
@@ -5891,6 +5927,7 @@ packages:
 
   scmp@2.1.0:
     resolution: {integrity: sha512-o/mRQGk9Rcer/jEEw/yw4mwo3EU/NvYvp577/Btqrym9Qy5/MdWGBqipbALgd2lrdWTJ5/gqDusxfnQBxOxT2Q==}
+    deprecated: Just use Node.js's crypto.timingSafeEqual()
 
   secure-json-parse@4.1.0:
     resolution: {integrity: sha512-l4KnYfEyqYJxDwlNVyRfO2E4NTHfMKAWdUuA8J0yve2Dz/E/PdBepY03RvyJpssIpRFwJoCD55wA+mEDs6ByWA==}
@@ -9171,6 +9208,18 @@ snapshots:
       - typescript
       - utf-8-validate
       - yjs
+
+  '@payloadcms/sdk@3.86.0(graphql@16.12.0)(typescript@5.9.3)':
+    dependencies:
+      payload: 3.86.0(graphql@16.12.0)(typescript@5.9.3)
+      qs-esm: 8.0.1
+      ts-essentials: 10.0.3(typescript@5.9.3)
+    transitivePeerDependencies:
+      - bufferutil
+      - graphql
+      - supports-color
+      - typescript
+      - utf-8-validate
 
   '@payloadcms/translations@3.68.5':
     dependencies:
