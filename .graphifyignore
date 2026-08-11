@@ -1,0 +1,15 @@
+# Package/skill lock files — high noise, little architectural value
+pnpm-lock.yaml
+skills-lock.json
+
+# Generated browser/test artifacts
+output/
+.playwright-cli/
+
+# Generated reports/artifacts that shouldn't define architecture
+reports/
+
+# Generic generated artifacts
+coverage/
+**/coverage/
+*.log
