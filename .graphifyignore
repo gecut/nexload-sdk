@@ -2,14 +2,18 @@
 pnpm-lock.yaml
 skills-lock.json
 
-# Generated browser/test artifacts
+# Generated / irrelevant artifacts
 output/
 .playwright-cli/
-
-# Generated reports/artifacts that shouldn't define architecture
+coverage/
 reports/
+
+# Generated documentation
+apps/docs/public/
 
 # Generic generated artifacts
 coverage/
 **/coverage/
 *.log
+
+.agents

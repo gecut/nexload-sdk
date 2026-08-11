@@ -6,4 +6,4 @@ set -a
 source .env
 set +a
 
-exec graphify extract . --backend openai "$@"
+exec graphify extract . --backend openai --ignore .graphifyignore --token-budget 4000 "$@"
