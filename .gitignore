@@ -13,3 +13,5 @@ public/dist
 # Graphify
 graphify-out/cost.json
 graphify-out/cache/
+
+output
