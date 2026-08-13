@@ -1,6 +1,6 @@
 ---
 name: nexload-react
-description: Use when the primary task changes or reviews React component or hook behavior and locality in Nexload: render purity, state/effect ownership, component file boundaries, named exports and props, narrow client/browser boundaries, or Payload Admin component contracts and entrypoint placement. Use nexload-package when publication is primary. Do not use for visual styling, accessibility or motion audits, test strategy, performance profiling, or detailed Next.js/Payload policy.
+description: "Use when the primary task changes or reviews React component or hook behavior and locality in Nexload: render purity, state/effect ownership, component file boundaries, named exports and props, narrow client/browser boundaries, or Payload Admin component contracts and entrypoint placement. Use nexload-package when publication is primary. Do not use for visual styling, accessibility or motion audits, test strategy, performance profiling, or detailed Next.js/Payload policy."
 ---
 
 # Nexload React Engineering

@@ -2960,8 +2960,8 @@
     "semantic_hash": ""
   },
   "skills/nexload/code/SKILL.md": {
-    "mtime": 1786621658.736614,
-    "ast_hash": "396880d54d2ac982dd902dfa0c2b39bb",
+    "mtime": 1786641067.7106547,
+    "ast_hash": "aa94e3fc2c40c75c6d4f5843273c5fdc",
     "semantic_hash": ""
   },
   "skills/nexload/code/evals/fixtures/abstraction-proposal.md": {
@@ -3005,8 +3005,8 @@
     "semantic_hash": ""
   },
   "skills/nexload/design/SKILL.md": {
-    "mtime": 1786453285.020556,
-    "ast_hash": "30699cc00cff7d2dbc940a90f66988ca",
+    "mtime": 1786641067.7112565,
+    "ast_hash": "e251a0eb2f2ce50171831f4af43fb6ef",
     "semantic_hash": ""
   },
   "skills/nexload/design/references/geometry-and-ui-preservation.md": {
@@ -3025,8 +3025,8 @@
     "semantic_hash": ""
   },
   "skills/nexload/package/SKILL.md": {
-    "mtime": 1786455716.781527,
-    "ast_hash": "a9b6ebe7e975d682bd78045a31130787",
+    "mtime": 1786641067.711748,
+    "ast_hash": "ff4806ab61fc137af59f9d3f7947c1bc",
     "semantic_hash": ""
   },
   "skills/nexload/package/evals/fixtures/browser-leak.md": {
@@ -3070,8 +3070,8 @@
     "semantic_hash": ""
   },
   "skills/nexload/react/SKILL.md": {
-    "mtime": 1786621658.7373579,
-    "ast_hash": "ef75f9c864ca35c1c24b45ed2f856cdf",
+    "mtime": 1786641067.7120886,
+    "ast_hash": "baa341abf20944653c611d64b4537a66",
     "semantic_hash": ""
   },
   "skills/nexload/react/references/component-contracts-and-locality.md": {
@@ -3115,8 +3115,8 @@
     "semantic_hash": ""
   },
   "skills/nexload/cto-review/SKILL.md": {
-    "mtime": 1786623097.6005685,
-    "ast_hash": "0a0a0c3240782326c2124b500404b9cf",
+    "mtime": 1786641067.7109752,
+    "ast_hash": "dab0c3dfea9abc638405e157b09f9651",
     "semantic_hash": ""
   },
   "skills/nexload/cto-review/evals/fixtures/browser-secret-leak.md": {

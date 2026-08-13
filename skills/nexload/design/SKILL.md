@@ -1,6 +1,6 @@
 ---
 name: nexload-design
-description: Use when the primary task changes or reviews rendered visual behavior or CSS-system rules in Nexload: semantic tokens, spacing/alignment ownership, radius/control/surface roles, responsive or zoom/long-content layout, RTL-safe geometry, or UI-locked CSS cleanup. Do not use for React behavior, package metadata, CSS build-tool configuration, comprehensive accessibility audits, motion, test strategy, or performance profiling.
+description: "Use when the primary task changes or reviews rendered visual behavior or CSS-system rules in Nexload: semantic tokens, spacing/alignment ownership, radius/control/surface roles, responsive or zoom/long-content layout, RTL-safe geometry, or UI-locked CSS cleanup. Do not use for React behavior, package metadata, CSS build-tool configuration, comprehensive accessibility audits, motion, test strategy, or performance profiling."
 ---
 
 # Nexload Design Engineering

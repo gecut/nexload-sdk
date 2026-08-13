@@ -1,6 +1,6 @@
 ---
 name: nexload-cto-review
-description: Use whenever the user explicitly asks to review or evaluate meaningful proposed or completed Nexload engineering work—such as a package, architecture, implementation, public API, React system, or design system—or asks for CTO judgment, production readiness, overengineering analysis, a score, or an approval verdict. This remains review-only even in mixed requests to review and then fix: report only material findings and never implement, patch, rewrite, or emit executable solution steps. Do not use for implementation-only work or generic line-by-line diff review.
+description: "Use whenever the user explicitly asks to review or evaluate meaningful proposed or completed Nexload engineering work—such as a package, architecture, implementation, public API, React system, or design system—or asks for CTO judgment, production readiness, overengineering analysis, a score, or an approval verdict. This remains review-only even in mixed requests to review and then fix: report only material findings and never implement, patch, rewrite, or emit executable solution steps. Do not use for implementation-only work or generic line-by-line diff review."
 ---
 
 # Nexload CTO Review

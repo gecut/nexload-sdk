@@ -1,6 +1,6 @@
 ---
 name: nexload-code
-description: Use when internal TypeScript behavior or repository-wide file naming is the primary task in Nexload: scope discipline, kebab-case filenames, type or trust-boundary safety, typed interoperability seams, module or lifecycle ownership, abstraction value, dependency restraint, own-package internal imports, or honest verification. Use nexload-package for consumer-facing exports and compatibility, and sibling skills when React, visual design, or a dedicated domain is primary.
+description: "Use when internal TypeScript behavior or repository-wide file naming is the primary task in Nexload: scope discipline, kebab-case filenames, type or trust-boundary safety, typed interoperability seams, module or lifecycle ownership, abstraction value, dependency restraint, own-package internal imports, or honest verification. Use nexload-package for consumer-facing exports and compatibility, and sibling skills when React, visual design, or a dedicated domain is primary."
 ---
 
 # Nexload Code
