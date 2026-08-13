@@ -3,7 +3,7 @@
 Current runtime, peer, entrypoint, and verification boundaries for Payload Operations.
 
 **Topic:** compatibility
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/compatibility/
 The current documented package is `@nexload-sdk/payload-operations` 0.1.0.
 

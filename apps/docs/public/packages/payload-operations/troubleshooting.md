@@ -3,7 +3,7 @@
 Diagnose contract trees, routes, validation, errors, CORS, timeout, and Payload SDK behavior.
 
 **Topic:** troubleshooting
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/troubleshooting/
 ## Operation method returns before network access
 

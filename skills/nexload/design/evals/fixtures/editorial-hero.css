@@ -1,0 +1,16 @@
+.editorial-hero {
+  color: #172033;
+  background: #f4efe7;
+  padding: 48px 24px;
+  position: relative;
+}
+
+.editorial-hero__art {
+  position: absolute;
+  left: -37px;
+  top: 19px;
+  width: 286px;
+}
+
+.editorial-hero__prose p { margin: 0 0 1.25em; }
+.editorial-hero__prose blockquote { margin: 2em 0 2em 3em; }

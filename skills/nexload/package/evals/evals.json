@@ -1,0 +1,70 @@
+{
+  "skill_name": "nexload-package",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Design the attached runtime split as the smallest correct Nexload package surface. Preserve runtime-neutral policy and support real Node and browser consumers.",
+      "expected_output": "A capability-owned core with deliberate runtime entrypoints/adapters and a concrete consumer verification matrix.",
+      "files": ["evals/fixtures/runtime-split.md"],
+      "expectations": [
+        "Keeps runtime-neutral session policy free of Node, browser, and Payload Admin dependencies.",
+        "Introduces only entrypoints or adapters required by the two confirmed consumers.",
+        "Defines export, build, declaration, packed-file, and clean-consumer checks for each public path.",
+        "Rejects a speculative plugin or universal adapter system."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Classify the attached React, Payload, and date-picker dependencies for a publishable Payload Admin component. Account for the build's current externalization rather than applying a slogan.",
+      "expected_output": "Host peers and implementation dependency ownership derived from shared identity and the actual shipped artifact.",
+      "files": ["evals/fixtures/dependency-classification.md"],
+      "expectations": [
+        "Treats React and Payload as peer compatibility contracts because the host must share their runtime identity.",
+        "Classifies react-day-picker from whether it remains external or is bundled, and does not hide a required external runtime in devDependencies.",
+        "Requires peer-range and clean packed-consumer verification.",
+        "Does not claim every framework-related library is automatically a peer."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Audit the attached browser entrypoint. The bundle compiles, but determine whether its transitive imports and module initialization are safe for consumers.",
+      "expected_output": "A root-cause trace that isolates browser code from Node, secrets, and mutable module-global initialization.",
+      "files": ["evals/fixtures/browser-leak.md"],
+      "expectations": [
+        "Traces the leak through the client re-export of the root barrel rather than accepting compilation as proof.",
+        "Prevents node:fs and secret resolution from entering or evaluating in the browser graph.",
+        "Replaces or explicitly owns the mutable singleton lifecycle instead of silently configuring it globally.",
+        "Adds browser import/bundle and packed-consumer checks."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose the attached subpath failure from source through the installed package and give the minimal correction and proof.",
+      "expected_output": "An end-to-end export/build/files/declaration diagnosis that does not mistake workspace aliases for distribution evidence.",
+      "files": ["evals/fixtures/export-mismatch.md"],
+      "expectations": [
+        "Distinguishes a missing export-map key from an exported subpath whose built target is absent, identifying the missing bundler entry as the fixture's immediate gap.",
+        "Checks manifest targets, declarations, publish files, and README import together.",
+        "Inspects the packed manifest and tarball targets when observed resolution errors disagree, then verifies with a clean installed consumer.",
+        "Treats the documented subpath as public compatibility surface."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Review the attached major-release request. Define the package-level compatibility questions, but do not invent missing runtime, error, testing, or publication policy.",
+      "expected_output": "A bounded compatibility assessment and handoff to specialist future skills without publishing or fabricating evidence.",
+      "files": ["evals/fixtures/release-request.md"],
+      "expectations": [
+        "Inspects the current version, public imports, manifest, and real consumer evidence before assigning release impact.",
+        "Recognizes dropping CommonJS and adding exports as compatibility/runtime decisions.",
+        "Routes detailed error, runtime, test-matrix, and release execution policy to their future skills.",
+        "Does not edit versions, create a Changeset, or publish without authorization."
+      ]
+    }
+  ]
+}

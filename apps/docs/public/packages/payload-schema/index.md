@@ -3,11 +3,11 @@
 Define canonical field validation once for Payload and reusable Zod schemas.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Current released version:** `1.1.0`
+**Current released version:** `2.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 

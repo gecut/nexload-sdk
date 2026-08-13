@@ -1,0 +1,22 @@
+[
+  { "query": "Refactor this TypeScript request parser in packages/jwt so unknown JSON is narrowed once and the change stays local to the failing call path.", "should_trigger": true },
+  { "query": "Review a new ConfigManager and helper layer proposed for one existing environment lookup; keep only abstractions that own real policy.", "should_trigger": true },
+  { "query": "Fix this noUncheckedIndexedAccess error without a non-null assertion that hides a genuinely missing array element.", "should_trigger": true },
+  { "query": "A third-party CommonJS module has broken declarations; design one contained adapter assertion and keep any out of the rest of the package.", "should_trigger": true },
+  { "query": "Trace and remove hidden module-global mutable state from this TypeScript service while making initialization and cleanup ownership explicit.", "should_trigger": true },
+  { "query": "Implement a small normalization function without adding lodash or creating a generic utilities package, then run the narrowest useful checks.", "should_trigger": true },
+  { "query": "Review this broad cleanup PR: the bug is one branch but it also renames unrelated files and rewrites nearby helpers.", "should_trigger": true },
+  { "query": "Review these new source filenames—parseMetrics.ts, APIClient.ts, and ProductCard.tsx—and apply Nexload's repository-wide filename convention without renaming framework-reserved files.", "should_trigger": true },
+  { "query": "Replace a direct internal import through the package's own index barrel where it obscures dependency direction and introduces a cycle.", "should_trigger": true },
+  { "query": "Implement explicit object configuration for this stateful subsystem and make instance ownership predictable instead of using a convenience singleton.", "should_trigger": true },
+  { "query": "Add a new public subpath export and decide whether react should be a peerDependency or dependency in @nexload-sdk/payload-fields.", "should_trigger": false },
+  { "query": "Fix a React effect loop in a Payload Admin field and decide whether the component needs useEffect at all.", "should_trigger": false },
+  { "query": "Unify card radii, sibling gaps, semantic colors, and RTL alignment across the docs landing page.", "should_trigger": false },
+  { "query": "Design stable public error codes, safe envelopes, cause serialization, and HTTP mappings across payload-operations.", "should_trigger": false },
+  { "query": "Create the repository-wide integration testing strategy, fixture pyramid, coverage policy, and flaky-test quarantine process.", "should_trigger": false },
+  { "query": "Threat-model authentication and secret storage for the SDK, including abuse cases and incident response controls.", "should_trigger": false },
+  { "query": "Profile bundle size and render latency, define budgets, and build a performance regression benchmark for the Admin UI.", "should_trigger": false },
+  { "query": "Prepare a Changeset, rewrite package release docs, and publish the next semver version to npm.", "should_trigger": false },
+  { "query": "Model Payload access control, hooks, drafts, relationships, generated types, and Local API behavior for a collection.", "should_trigger": false },
+  { "query": "Implement a Next.js route handler with cache tags, server actions, runtime selection, and framework-specific error behavior.", "should_trigger": false }
+]

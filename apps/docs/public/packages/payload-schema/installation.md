@@ -3,7 +3,7 @@
 Install the ESM-only Payload Schema package with supported Payload and Zod peers.
 
 **Topic:** installation
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/installation/
 ```bash
 pnpm add @nexload-sdk/payload-schema payload zod

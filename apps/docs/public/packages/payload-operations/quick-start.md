@@ -3,7 +3,7 @@
 Define one operation contract, expose Payload endpoints, and call it from the client.
 
 **Topic:** quick-start
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/quick-start/
 Define the shared contract in a module that is safe for server and client imports:
 

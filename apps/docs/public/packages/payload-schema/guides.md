@@ -3,7 +3,7 @@
 Configure factories, defaults, relationships, native fields, schema derivation, and projections.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/guides/
 ## Choose a field factory
 

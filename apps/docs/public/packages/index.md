@@ -24,8 +24,8 @@ Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zo
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
+* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
 
 ## Documentation policy
 

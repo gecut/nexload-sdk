@@ -3,7 +3,7 @@
 Current runtime, peer, test, packaging, and workflow boundaries for Payload Schema.
 
 **Topic:** compatibility
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/compatibility/
 The current documented package is `@nexload-sdk/payload-schema` 1.1.0.
 

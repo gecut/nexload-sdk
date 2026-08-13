@@ -10,6 +10,7 @@
     "graphify": "sh scripts/graphify.sh",
     "skills:validate": "node scripts/validate-skills.mjs",
     "skills:test": "node --test scripts/validate-skills.test.mjs",
+    "skills:nexload:validate": "node scripts/validate-skills.mjs nexload",
     "skills:healthcheck:validate": "node scripts/validate-skills.mjs healthcheck",
     "skills:payload-fields:validate": "node scripts/validate-skills.mjs payload-fields",
     "skills:payload-editor:validate": "node scripts/validate-skills.mjs payload-editor",

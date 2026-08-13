@@ -3,7 +3,7 @@
 Install Payload Operations with supported Payload SDK and Zod peers.
 
 **Topic:** installation
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/installation/
 ```bash
 pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod

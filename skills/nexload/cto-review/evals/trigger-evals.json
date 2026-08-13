@@ -1,0 +1,22 @@
+[
+  { "query": "Give the new @nexload-sdk/cache package a final CTO review: score its architecture, flag only approval-level issues, and tell me whether it is production-ready.", "should_trigger": true },
+  { "query": "Review this package. Focus on whether its public API, export map, runtime boundaries, and consumer ownership form a sound SDK contract.", "should_trigger": true },
+  { "query": "Evaluate this architecture: it introduces a core/adapter split, and I need to know whether the boundary is justified or over-engineered.", "should_trigger": true },
+  { "query": "I finished the Payload Admin component system. Do a final technical-leadership review focused on React and runtime boundaries.", "should_trigger": true },
+  { "query": "Review this design system's token, spacing, radius, responsive, and RTL architecture; report only material system weaknesses.", "should_trigger": true },
+  { "query": "Is this implementation genuinely production-ready? I want a concise architecture verdict, not another implementation pass.", "should_trigger": true },
+  { "query": "Review this implementation and then fix everything you find. Start with a concise architecture judgment and only material findings.", "should_trigger": true },
+  { "query": "Do a narrow CTO review of the logger public API only; ignore unrelated repository cleanup opportunities.", "should_trigger": true },
+  { "query": "Be the final Nexload technical reviewer for this refactor and decide Approved, Needs revision, or Rejected with evidence.", "should_trigger": true },
+  { "query": "Check whether this plugin architecture pays for its complexity. Would technical leadership approve it for the stated one-use-case requirement?", "should_trigger": true },
+  { "query": "Implement the cache package described in this spec, including its exports, tests, README, and Changeset.", "should_trigger": false },
+  { "query": "Fix the failing webhook handler and replace its global state with the correct production implementation.", "should_trigger": false },
+  { "query": "Address these existing CTO review findings by refactoring the package and updating all affected tests.", "should_trigger": false },
+  { "query": "Write a React product card with a named props interface, local state, and responsive Persian UI.", "should_trigger": false },
+  { "query": "Refactor this TypeScript parser to validate unknown JSON and keep the change narrow.", "should_trigger": false },
+  { "query": "Design the public API and runtime entrypoints for a new publishable package; I have not implemented anything yet and want you to build it.", "should_trigger": false },
+  { "query": "Run a line-by-line code review of this diff and leave inline comments for every bug you find.", "should_trigger": false },
+  { "query": "Audit this page for WCAG accessibility failures and implement the keyboard and screen-reader fixes.", "should_trigger": false },
+  { "query": "Profile the Admin UI bundle and render latency, then optimize the measured hot paths.", "should_trigger": false },
+  { "query": "Create semantic design tokens and replace the inconsistent spacing and radii across these components.", "should_trigger": false }
+]

@@ -13,14 +13,15 @@ const sections = [
 ];
 const categories = ["happy_path", "edge_case", "failure_security", "review_diagnosis", "near_miss_composition"];
 
-function createFixture () {
+function createFixture ({ packageName = "healthcheck", directoryName = "core" } = {}) {
   const root = mkdtempSync(join(tmpdir(), "nexload-skills-"));
-  const skill = join(root, "healthcheck", "core");
+  const skillName = `${packageName}-${directoryName}`;
+  const skill = join(root, packageName, directoryName);
   mkdirSync(join(skill, "references"), { recursive: true });
   mkdirSync(join(skill, "evals"));
   const body = [
     "---",
-    "name: healthcheck-core",
+    `name: ${skillName}`,
     "description: Use when managing the complete healthcheck orchestration contract safely.",
     "---",
     "",
@@ -35,7 +36,7 @@ function createFixture () {
   writeFileSync(join(skill, "SKILL.md"), body);
   for (const name of ["contract.md", "playbook.md", "failure-modes.md"]) writeFileSync(join(skill, "references", name), `# ${name}\n`);
   writeFileSync(join(skill, "evals", "evals.json"), JSON.stringify({
-    skill_name: "healthcheck-core",
+    skill_name: skillName,
     evals: categories.map((category, index) => ({
       id: index + 1,
       category,
@@ -83,5 +84,27 @@ test("rejects unbalanced trigger evals", () => {
     assert(validateSkills({ root }).some((error) => error.includes("10 positive and 10 negative")));
   } finally {
     rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("accepts the approved nexload skills", () => {
+  for (const directoryName of ["code", "package", "react", "design", "cto-review"]) {
+    const root = createFixture({ packageName: "nexload", directoryName });
+    try {
+      assert.deepEqual(validateSkills({ root }), []);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  }
+});
+
+test("rejects unapproved nexload-prefixed skills", () => {
+  for (const directoryName of ["legacy", "cto-review-v2"]) {
+    const root = createFixture({ packageName: "nexload", directoryName });
+    try {
+      assert(validateSkills({ root }).some((error) => error.includes(`deprecated skill name 'nexload-${directoryName}'`)));
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   }
 });

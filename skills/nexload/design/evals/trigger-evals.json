@@ -1,0 +1,22 @@
+[
+  { "query": "Replace hard-coded checkout card colors and spacing with semantic Nexload design roles while preserving the approved screenshots.", "should_trigger": true },
+  { "query": "Audit why sibling cards use random margins instead of a parent grid gap and no longer align with the section heading.", "should_trigger": true },
+  { "query": "Make this dashboard responsive and RTL-safe by replacing physical product-layout offsets with logical CSS.", "should_trigger": true },
+  { "query": "Define coherent radius, control-height, border, and surface-elevation roles for our form system.", "should_trigger": true },
+  { "query": "Refactor our Tailwind theme variables so components consume semantic action and surface roles instead of raw palette utilities.", "should_trigger": true },
+  { "query": "The approved UI cannot change; clean up duplicate CSS tokens and layout ownership with strict before/after visual comparison.", "should_trigger": true },
+  { "query": "Review whether a hero illustration's left/top coordinates should remain physical while the surrounding Persian layout mirrors.", "should_trigger": true },
+  { "query": "Fix a settings page whose child margins, inconsistent radii, and misaligned controls make nested cards look more important than the parent.", "should_trigger": true },
+  { "query": "Long Persian button labels overflow at mobile width and 200% zoom; repair the visual layout without redesigning typography.", "should_trigger": true },
+  { "query": "Create shared alignment anchors across the header, content grid, filters, and footer while retaining an intentional full-bleed breakout.", "should_trigger": true },
+  { "query": "Fix redundant React state and a stale useEffect request race in ProductSearch.tsx.", "should_trigger": false },
+  { "query": "Publish our CSS package with conditional exports, sideEffects metadata, peer dependencies, and a Changeset.", "should_trigger": false },
+  { "query": "Choose Next.js image loading, route caching, and bundle splitting to improve LCP on the catalog page.", "should_trigger": false },
+  { "query": "Run a full keyboard, focus-order, landmark, screen-reader naming, and contrast accessibility audit of checkout.", "should_trigger": false },
+  { "query": "Implement spring easing, staggered entrances, shared-layout transitions, and reduced-motion choreography from Figma.", "should_trigger": false },
+  { "query": "Build Playwright visual regression infrastructure and decide snapshot thresholds for every viewport.", "should_trigger": false },
+  { "query": "Profile style recalculation and CSS bundle size, then prove a measurable runtime performance improvement.", "should_trigger": false },
+  { "query": "Design Payload access control and validation for a theme-token collection stored in the CMS.", "should_trigger": false },
+  { "query": "Model strict TypeScript types for a token JSON parser and narrow unknown input safely.", "should_trigger": false },
+  { "query": "Configure Tailwind PostCSS plugins, content scanning, monorepo paths, and editor IntelliSense.", "should_trigger": false }
+]

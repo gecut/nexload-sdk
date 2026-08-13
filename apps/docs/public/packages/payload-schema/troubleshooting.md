@@ -3,7 +3,7 @@
 Diagnose Payload Schema definition, derivation, hook, and validation failures.
 
 **Topic:** troubleshooting
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/troubleshooting/
 ## `SCHEMA_UNAVAILABLE`
 

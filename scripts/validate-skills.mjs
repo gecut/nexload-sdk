@@ -36,6 +36,13 @@ const DEPRECATED_NAMES = new Set([
   "healthcheck-next-route",
   "healthcheck-payload-adapter",
 ]);
+const APPROVED_NEXLOAD_SKILLS = new Set([
+  "nexload-code",
+  "nexload-package",
+  "nexload-react",
+  "nexload-design",
+  "nexload-cto-review",
+]);
 
 function lineCount (value) {
   return value.replace(/\n$/, "").split(/\r?\n/).length;
@@ -256,7 +263,10 @@ function validateSkill (root, packageName, directoryName, names, errors) {
   const expectedName = `${packageName}-${directoryName}`;
   if (!KEBAB_CASE.test(packageName) || !KEBAB_CASE.test(directoryName)) errors.push(`${path}: package and directory names must use kebab-case`);
   if (attributes.name !== expectedName) errors.push(`${path}: name must equal '${expectedName}'`);
-  if (DEPRECATED_NAMES.has(attributes.name) || attributes.name?.startsWith("nexload-")) errors.push(`${path}: deprecated skill name '${attributes.name}'`);
+  if (DEPRECATED_NAMES.has(attributes.name)
+    || (attributes.name?.startsWith("nexload-") && !APPROVED_NEXLOAD_SKILLS.has(attributes.name))) {
+    errors.push(`${path}: deprecated skill name '${attributes.name}'`);
+  }
   if (names.has(attributes.name)) errors.push(`${path}: duplicate skill name '${attributes.name}'`);
   else if (attributes.name) names.add(attributes.name);
   if (typeof attributes.description !== "string" || attributes.description.length < 40 || attributes.description.length > 600) {

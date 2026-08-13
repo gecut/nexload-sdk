@@ -1,0 +1,70 @@
+{
+  "skill_name": "nexload-design",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Refactor the attached checkout card CSS into a small semantic token system. Preserve the current rendered appearance while making sibling spacing and action alignment parent-owned.",
+      "expected_output": "A UI-preserving token and layout cleanup with semantic roles and explicit parent ownership.",
+      "files": ["evals/fixtures/checkout-card.css"],
+      "expectations": [
+        "Introduces roles for surface, text, action, border, spacing, and radius intent rather than component-number tokens.",
+        "Moves sibling spacing from child margins to the shared parent gap.",
+        "Preserves block ordering and exact computed values; if flex/grid is introduced only to enable parent-owned gap, it remains unproven until strict before/after screenshots confirm equivalence, and no baseline is updated without approval.",
+        "Reports responsive and RTL comparison requirements."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Review the attached editorial hero. Decide which physical artwork coordinates and prose margins should remain local instead of being forced into global tokens or logical spacing rules.",
+      "expected_output": "A reasoned exception-preserving cleanup that distinguishes product layout from artwork and document flow.",
+      "files": ["evals/fixtures/editorial-hero.css"],
+      "expectations": [
+        "Keeps physical artwork positioning when mirroring would change the composition.",
+        "Keeps the fixture's physical blockquote indentation local and unchanged unless RTL visual evidence explicitly authorizes mirroring it.",
+        "Uses semantic roles for reusable product colors/spacing without tokenizing every coordinate.",
+        "Documents exceptions locally rather than weakening the global RTL rule."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Fix the attached account action bar, which clips the destructive action at 200% zoom and places an invisible overlay over controls in RTL. Keep the approved colors and typography.",
+      "expected_output": "A responsive, RTL-safe layout correction that prevents hidden or obstructed essential actions without redesigning the surface.",
+      "files": ["evals/fixtures/account-actions.css"],
+      "expectations": [
+        "Removes fixed sizing or overflow behavior that hides essential controls under zoom or long labels.",
+        "Uses parent layout and logical geometry for directional positioning.",
+        "Keeps the overlay exactly 210px at the approved 620px state while bounding it on narrower layouts, using logical RTL geometry, and preventing pointer interception.",
+        "Preserves approved colors and typography and flags further accessibility audit scope."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose the visual inconsistency in the attached settings panel: controls do not align, nested cards look more prominent than the parent, and each child owns arbitrary margins and radii.",
+      "expected_output": "A hierarchy-based diagnosis and minimal coherent spacing/control/surface correction.",
+      "files": ["evals/fixtures/settings-panel.css"],
+      "expectations": [
+        "Identifies fragmented sibling spacing and assigns it to the common parent.",
+        "Establishes a shared alignment anchor and compatible control geometry.",
+        "Uses radius/elevation roles to restore hierarchy without unexplained rounded replacement values; every deliberate visual-value change is justified and gated by explicit visual approval.",
+        "Avoids an unrelated component or framework rewrite."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "The attached modal matches the approved geometry. Specify its focus trap, Escape behavior, screen-reader naming, reduced-motion transition, animation easing, and Playwright coverage without changing the visual design.",
+      "expected_output": "A preserved-design handoff that routes accessibility, motion, React behavior, and testing policy to their owning skills.",
+      "files": ["evals/fixtures/approved-modal.tsx"],
+      "expectations": [
+        "Keeps the approved visual geometry unchanged.",
+        "Recognizes focus, Escape, and screen-reader acceptance as accessibility/behavior composition rather than visual-token work.",
+        "Routes transition choreography and Playwright infrastructure without prescribing easing direction, transforms, animation properties, or timing absent an established motion system.",
+        "Does not invent detailed policies from the design skill alone."
+      ]
+    }
+  ]
+}

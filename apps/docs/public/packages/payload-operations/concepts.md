@@ -3,7 +3,7 @@
 Understand contracts, parse boundaries, transport ownership, access, and operation errors.
 
 **Topic:** concepts
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/concepts/
 ## One contract, two adapters
 

@@ -1,0 +1,16 @@
+/* These color, spacing, and geometry intents are shared by checkout summary and
+   order confirmation surfaces and vary across product themes. Semantic roles
+   are therefore justified even though this fixture shows one consumer. */
+.checkout-card {
+  color: #172033;
+  background: #ffffff;
+  border: 1px solid #d7dce5;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.checkout-card__title { margin: 0 0 16px; }
+.checkout-card__summary { margin: 0 0 16px; }
+.checkout-card__actions { display: flex; align-items: center; }
+.checkout-card__actions > * + * { margin-left: 8px; }
+.checkout-card__submit { color: #ffffff; background: #1458d6; border-radius: 8px; }

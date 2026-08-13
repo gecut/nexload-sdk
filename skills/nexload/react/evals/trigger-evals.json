@@ -1,0 +1,22 @@
+[
+  { "query": "Refactor packages/store-ui/src/ProductList.tsx so filtered products are derived instead of copied into state, while preserving the current UI.", "should_trigger": true },
+  { "query": "Our React price editor keeps resetting user input when props change; trace the state owner and fix the effect lifecycle.", "should_trigger": true },
+  { "query": "Review this TSX feature: it has three exported components in one file, anonymous props, and helpers reused nowhere. Apply Nexload React locality conventions.", "should_trigger": true },
+  { "query": "Shrink the use client boundary around an interactive cart quantity picker without deciding Next.js cache policy.", "should_trigger": true },
+  { "query": "Wrap an imperative browser chart in React with correct effect cleanup and a typed component-facing adapter.", "should_trigger": true },
+  { "query": "Diagnose a stale fetch race in a React search component that updates after unmount.", "should_trigger": true },
+  { "query": "Create a named props contract and named export for this reusable Nexload React component without changing its visuals.", "should_trigger": true },
+  { "query": "Review whether this Payload Admin field component belongs behind a dedicated client subpath and whether its readOnly behavior is preserved.", "should_trigger": true },
+  { "query": "A component calls localStorage and Date.now during render and now hydration is inconsistent; fix the React runtime boundary.", "should_trigger": true },
+  { "query": "Should this click-driven save operation live in useEffect or the button handler? Refactor the React flow and explain ownership.", "should_trigger": true },
+  { "query": "Harden an unknown JSON parser in packages/core with strict TypeScript narrowing; there is no React code.", "should_trigger": false },
+  { "query": "Add conditional exports, React peer ranges, and a packed-consumer smoke test for our UI package.", "should_trigger": false },
+  { "query": "Replace hard-coded card colors, spacing, and radii with semantic design tokens and RTL-safe CSS.", "should_trigger": false },
+  { "query": "Choose force-static versus dynamic rendering, tag revalidation, and cache boundaries for a Next.js product route.", "should_trigger": false },
+  { "query": "Design Payload collection access rules, beforeChange hooks, and relationship depth limits for Orders.", "should_trigger": false },
+  { "query": "Audit this modal against keyboard navigation, focus trapping, landmarks, and screen-reader naming requirements.", "should_trigger": false },
+  { "query": "Implement the approved spring timing, reduced-motion variants, and page transition choreography from Figma.", "should_trigger": false },
+  { "query": "Set up Vitest, Storybook interaction tests, and coverage thresholds for all UI components.", "should_trigger": false },
+  { "query": "Profile React commits, virtualize a 50k-row table, and prove the bundle-size and interaction-latency gains.", "should_trigger": false },
+  { "query": "Upgrade React across the monorepo, reconcile peerDependencies, publish a Changeset, and verify downstream installs.", "should_trigger": false }
+]

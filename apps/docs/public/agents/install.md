@@ -1,6 +1,6 @@
 # Install agent skills
 
-Install Nexload package Skills with the official skills CLI for a project, globally, or for Codex.
+Install Nexload engineering and package Skills with the official skills CLI for a project, globally, or for Codex.
 
 **Topic:** agents
 **Canonical page:** https://gecut.github.io/nexload-sdk/agents/install/
@@ -18,6 +18,18 @@ The repository ships validated, self-contained Skills. The official `skills` CLI
    npx skills add gecut/nexload-sdk --skill healthcheck-core
    ```
 
+   For repository-wide package engineering standards:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --skill nexload-package
+   ```
+
+   For a final reviewer-only CTO judgment:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --skill nexload-cto-review
+   ```
+
 3. Update installed Skills when you intentionally want newer guidance:
 
    ```bash
@@ -33,6 +45,27 @@ npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
 ## Source layout
 
 * skills
+  * nexload
+    * code
+      * SKILL.md
+      * references
+      * evals
+    * package
+      * SKILL.md
+      * references
+      * evals
+    * react
+      * SKILL.md
+      * references
+      * evals
+    * design
+      * SKILL.md
+      * references
+      * evals
+    * cto-review
+      * SKILL.md
+      * references
+      * evals
   * healthcheck
     * nextjs-routes
       * SKILL.md

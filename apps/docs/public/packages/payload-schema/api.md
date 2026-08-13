@@ -3,7 +3,7 @@
 Public runtime and type exports for Payload Schema 1.1.0.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
 ## Functions
 

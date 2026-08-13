@@ -1,0 +1,71 @@
+{
+  "skill_name": "nexload-react",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Refactor the attached ProductList React component to remove redundant state, keep the filter interaction local, and make its public component contract match Nexload conventions without changing rendered behavior.",
+      "expected_output": "A narrow component refactor with a named props contract/export, render-time derivation, and no unnecessary effect.",
+      "files": ["evals/fixtures/product-list.tsx"],
+      "expectations": [
+        "Replaces the effect-driven filteredItems state with a pure render-time derivation.",
+        "Uses a named ProductListProps contract and named ProductList export while preserving the established default export unless a breaking migration is authorized, and identifies `product-list.tsx` as the compliant filename for deliberate rename or new placement.",
+        "Keeps query as the single canonical local state and preserves the empty result behavior.",
+        "Does not add a dependency or broaden the client boundary."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Integrate the attached untyped map widget into React. The vendor API mutates a DOM node and has no TypeScript declarations. Keep the necessary escape hatch contained and make remount/update behavior safe.",
+      "expected_output": "A typed React-facing adapter whose contained interop assertion is justified, with effect cleanup and update-safe synchronization.",
+      "files": ["evals/fixtures/vendor-map.tsx"],
+      "expectations": [
+        "Reads the vendor global as unknown, checks it is callable, and keeps at most one necessary signature assertion inside the vendor boundary.",
+        "Creates and destroys the imperative widget in an effect with identity-safe cleanup that cannot clear a newer instance.",
+        "Synchronizes coordinate updates without recreating unrelated application state.",
+        "Explains why the exception is justified rather than claiming assertions are forbidden."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Review and fix the attached SearchPreview component. Users can type HTML, requests race, and the component updates after unmount. Preserve the preview's plain-text product requirement.",
+      "expected_output": "A security- and lifecycle-safe component that renders user input as text and prevents stale async results.",
+      "files": ["evals/fixtures/unsafe-search-preview.tsx"],
+      "expectations": [
+        "Removes dangerouslySetInnerHTML because the requirement is plain-text preview.",
+        "Cancels or ignores stale requests and does not update from obsolete responses.",
+        "Renders loading, error, empty, and success states mutually exclusively so loading/error never fall through to preview content, and prevents a previous query result flashing before the next effect runs.",
+        "Treats browser/network input as untrusted at the boundary."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why the attached CartSummary briefly shows the previous total and can loop when the parent passes a newly allocated items array. Return findings and a minimal correction.",
+      "expected_output": "A root-cause diagnosis of effect-derived state and a render-pure total calculation.",
+      "files": ["evals/fixtures/cart-summary.tsx"],
+      "expectations": [
+        "Traces the stale frame to copying a derived total into state after render.",
+        "Removes the effect and derives total directly from items.",
+        "Does not prescribe memoization unless measurement or expensive computation justifies it.",
+        "Preserves the component's display contract."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "The attached Next.js checkout page is marked use client at the route root. Plan the smallest React client boundary, but also decide the route cache policy, server action validation, and revalidation strategy.",
+      "expected_output": "A React-level boundary recommendation that explicitly composes with future Next.js and code/security guidance for framework and trust-boundary policy.",
+      "files": ["evals/fixtures/checkout-page.tsx"],
+      "expectations": [
+        "Identifies that an async use-client page with Hooks and a nested use-server function is an invalid mixed boundary.",
+        "Keeps the form and server action server-owned while the client leaf owns only quantity interaction and a named form control, not the action or cart contract.",
+        "Does not invent route caching or revalidation policy under the general React skill.",
+        "Routes server action validation to the appropriate code/security and future Next.js standards.",
+        "Separates confirmed component facts from framework decisions requiring repository inspection."
+      ]
+    }
+  ]
+}

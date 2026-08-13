@@ -1,0 +1,22 @@
+[
+  { "query": "Create a new publishable package in packages/session and decide whether its Node and browser adapters belong in subpaths or separate packages.", "should_trigger": true },
+  { "query": "Audit @nexload-sdk/payload-fields exports, esbuild entries, declarations, and packed files after adding a new Admin subpath.", "should_trigger": true },
+  { "query": "Our browser entrypoint unexpectedly bundles node:crypto; trace the package boundary and keep the root runtime-neutral.", "should_trigger": true },
+  { "query": "Decide whether React, Payload, and an implementation-owned picker belong in dependencies, peerDependencies, or the bundle.", "should_trigger": true },
+  { "query": "Review the public API budget before exporting six internal parsing helpers from the package root.", "should_trigger": true },
+  { "query": "Add an exports map to this already published package without breaking consumers that may use deep imports.", "should_trigger": true },
+  { "query": "Verify that every documented package subpath exists in the tarball and imports from a clean consumer.", "should_trigger": true },
+  { "query": "Choose ESM-only versus dual output from our actual Node consumer matrix and define the compatibility smoke tests.", "should_trigger": true },
+  { "query": "Review whether sideEffects false is truthful now that one Admin entrypoint imports global CSS.", "should_trigger": true },
+  { "query": "Split this runtime-neutral health contract from its Node, Next.js, and Payload integrations with clear dependency direction.", "should_trigger": true },
+  { "query": "Refactor a strict TypeScript parser to narrow unknown values and remove an unsafe assertion; no package API changes.", "should_trigger": false },
+  { "query": "Fix redundant state and effect races inside a React component while preserving its current exports.", "should_trigger": false },
+  { "query": "Replace random spacing, radius, and colors with semantic design tokens in the dashboard.", "should_trigger": false },
+  { "query": "Design the canonical Zod DTO and runtime validation rules for webhook payloads.", "should_trigger": false },
+  { "query": "Define stable error envelopes, public error codes, cause handling, and HTTP mappings.", "should_trigger": false },
+  { "query": "Build a Node/Bun/browser cancellation and conditional-exports matrix for the runtime standard itself.", "should_trigger": false },
+  { "query": "Design Payload access control, Local API hooks, relationship depth, and custom endpoint authorization.", "should_trigger": false },
+  { "query": "Set repository-wide contract-test strategy, coverage gates, mocks, and compatibility matrices.", "should_trigger": false },
+  { "query": "Prepare and publish the release, write the Changeset, regenerate changelogs, and push tags.", "should_trigger": false },
+  { "query": "Choose Next.js caching, revalidation, streaming, and route-handler behavior for the storefront.", "should_trigger": false }
+]

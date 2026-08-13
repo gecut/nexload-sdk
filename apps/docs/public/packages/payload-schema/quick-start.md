@@ -3,7 +3,7 @@
 Define an entity, compile Payload fields, and derive an application schema.
 
 **Topic:** quick-start
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/quick-start/
 ```ts
 import {

@@ -1,10 +1,20 @@
 # Agent skills
 
-Package-scoped guidance for coding agents working with Nexload Healthcheck and Payload packages.
+Repository-wide engineering standards and package-scoped guidance for coding agents working with Nexload SDK.
 
 **Topic:** agents
 **Canonical page:** https://gecut.github.io/nexload-sdk/agents/
 Agent Skills are task-specific, progressively disclosed instructions distributed with this repository. They complement the API docs by encoding source inspection, decision flow, invariants, security boundaries, verification, and handoff requirements that are easy for an agent to get wrong during implementation.
+
+### Nexload engineering standards
+
+Four foundational Skills cover TypeScript implementation, publishable package
+design, React boundaries, and semantic UI design.
+
+### Nexload CTO review
+
+One reviewer-only Skill combines relevant standards into a scoped score,
+verdict, and small set of approval-level findings without implementing fixes.
 
 ### Healthcheck skills
 
@@ -33,7 +43,9 @@ secure custom endpoints.
 
 ## Use the smallest relevant skill
 
-Install a Skill when the task matches its trigger. For example, install `healthcheck-nextjs-routes` when adding a Next App Router health route, not the entire collection by default.
+Install a Skill when the task matches its trigger. Use a foundational Skill for repository-wide engineering decisions and a package Skill for package-specific contracts. For example, compose `nexload-package` with `payload-operations-core` when changing that package's public entrypoints; do not install the entire collection by default.
+
+Use `nexload-cto-review` only for an explicit review or evaluation of meaningful engineering work, including architecture, production-readiness, overengineering, or approval judgment. It sits above the four foundational implementation standards, consults only the relevant ones, and remains review-only even when asked to fix the result.
 
 Every Skill is self-contained for its primary task. A sibling Skill may be recommended for composition, but the primary workflow does not depend on reading it. Committed behavior evals cover a happy path, edge case, security/failure case, diagnosis/review case, and a near-miss or composition boundary; trigger evals balance 10 positive and 10 neighboring negative queries.
 
@@ -53,7 +65,7 @@ Every Skill is self-contained for its primary task. A sibling Skill may be recom
 
 # Install agent skills
 
-Install Nexload package Skills with the official skills CLI for a project, globally, or for Codex.
+Install Nexload engineering and package Skills with the official skills CLI for a project, globally, or for Codex.
 
 **Topic:** agents
 **Canonical page:** https://gecut.github.io/nexload-sdk/agents/install/
@@ -71,6 +83,18 @@ The repository ships validated, self-contained Skills. The official `skills` CLI
    npx skills add gecut/nexload-sdk --skill healthcheck-core
    ```
 
+   For repository-wide package engineering standards:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --skill nexload-package
+   ```
+
+   For a final reviewer-only CTO judgment:
+
+   ```bash
+   npx skills add gecut/nexload-sdk --skill nexload-cto-review
+   ```
+
 3. Update installed Skills when you intentionally want newer guidance:
 
    ```bash
@@ -86,6 +110,27 @@ npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
 ## Source layout
 
 * skills
+  * nexload
+    * code
+      * SKILL.md
+      * references
+      * evals
+    * package
+      * SKILL.md
+      * references
+      * evals
+    * react
+      * SKILL.md
+      * references
+      * evals
+    * design
+      * SKILL.md
+      * references
+      * evals
+    * cto-review
+      * SKILL.md
+      * references
+      * evals
   * healthcheck
     * nextjs-routes
       * SKILL.md
@@ -190,8 +235,8 @@ Install agent skills
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
+* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
 
 ## How to read these docs
 
@@ -3063,8 +3108,8 @@ Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zo
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v1.1.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v0.1.0)
+* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
 
 ## Documentation policy
 
@@ -4658,7 +4703,7 @@ Protected names/types, mismatched slug localization, invalid money bounds, unsaf
 Public root and subpath exports for Payload Operations 0.1.0.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/api/
 ## Functions
 
@@ -5372,7 +5417,7 @@ See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages
 Current runtime, peer, entrypoint, and verification boundaries for Payload Operations.
 
 **Topic:** compatibility
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/compatibility/
 The current documented package is `@nexload-sdk/payload-operations` 0.1.0.
 
@@ -5406,7 +5451,7 @@ Historical versioned docs are not hosted. Pin peers, inspect the [manifest](http
 Understand contracts, parse boundaries, transport ownership, access, and operation errors.
 
 **Topic:** concepts
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/concepts/
 ## One contract, two adapters
 
@@ -5445,7 +5490,7 @@ Plugins wrap a shared fetch transport. Operation requests include operation meta
 Complete contract, server, client, error, timeout, and void operation examples.
 
 **Topic:** examples
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/examples/
 ## Transform output at the client boundary
 
@@ -5526,7 +5571,7 @@ The complete example is type-checked in CI: [`payload-operations.ts`](https://gi
 Configure access, base paths, error handling, plugins, and request-scoped Payload workflows.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/guides/
 ## Make one operation public
 
@@ -5618,11 +5663,11 @@ The adapter does not open transactions or supply Local API access options for yo
 Define typed application operations across Payload server endpoints and the native Payload SDK.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
 **Package:** `@nexload-sdk/payload-operations`
 
-**Current released version:** `0.1.0`
+**Current released version:** `1.0.0`
 
 Typed custom operations for Payload CMS with the native Payload REST SDK.
 
@@ -5664,7 +5709,7 @@ See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages
 Install Payload Operations with supported Payload SDK and Zod peers.
 
 **Topic:** installation
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/installation/
 ```bash
 pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
@@ -5712,7 +5757,7 @@ Define one `z.void()` operation, create its endpoints during Payload config cons
 Move custom Payload endpoints to shared typed operation contracts incrementally.
 
 **Topic:** migration
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/migration/
 Payload Operations 0.1.0 is the initial release. This page describes migration from project-owned custom endpoints; use the [package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/CHANGELOG.md) for later version-specific changes.
 
@@ -5755,7 +5800,7 @@ Keep the previous route available until all consumers use the generated operatio
 Define one operation contract, expose Payload endpoints, and call it from the client.
 
 **Topic:** quick-start
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/quick-start/
 Define the shared contract in a module that is safe for server and client imports:
 
@@ -5835,7 +5880,7 @@ const result = await cms.operations.account.rename({ name: "Nexload" });
 Diagnose contract trees, routes, validation, errors, CORS, timeout, and Payload SDK behavior.
 
 **Topic:** troubleshooting
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/troubleshooting/
 ## Operation method returns before network access
 
@@ -5876,7 +5921,7 @@ Handlers return the output schema's input shape, and that value must also be JSO
 Public runtime and type exports for Payload Schema 1.1.0.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
 ## Functions
 
@@ -6516,7 +6561,7 @@ See the [root entrypoint](https://github.com/gecut/nexload-sdk/blob/main/package
 Current runtime, peer, test, packaging, and workflow boundaries for Payload Schema.
 
 **Topic:** compatibility
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/compatibility/
 The current documented package is `@nexload-sdk/payload-schema` 1.1.0.
 
@@ -6544,7 +6589,7 @@ The package is side-effect free and exposes only its root and `package.json`. De
 Understand canonical schemas, compilation, schema availability, cloning, and lifecycle ordering.
 
 **Topic:** concepts
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/concepts/
 ## One intrinsic contract
 
@@ -6575,7 +6620,7 @@ Canonical schemas must parse synchronously. Async refinements are detected when 
 Complete Payload Schema examples for Local API normalization, nested fields, and relationships.
 
 **Topic:** examples
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/examples/
 ## Local API normalization
 
@@ -6647,7 +6692,7 @@ The entity composition example is type-checked in CI: [`payload-schema.ts`](http
 Configure factories, defaults, relationships, native fields, schema derivation, and projections.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/guides/
 ## Choose a field factory
 
@@ -6690,11 +6735,11 @@ Only data-affecting Payload fields are accepted. Put tabs, rows, collapsibles, a
 Define canonical field validation once for Payload and reusable Zod schemas.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Current released version:** `1.1.0`
+**Current released version:** `2.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 
@@ -6730,7 +6775,7 @@ See [source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-sch
 Install the ESM-only Payload Schema package with supported Payload and Zod peers.
 
 **Topic:** installation
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/installation/
 ```bash
 pnpm add @nexload-sdk/payload-schema payload zod
@@ -6772,7 +6817,7 @@ The package supplies no database or rich-text runtime. Install your Payload data
 Incrementally adopt Payload Schema without moving collection ownership.
 
 **Topic:** migration
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/migration/
 Adopt the package field by field. Keep collection slugs, access control, collection hooks, versions, database adapters, and generated Payload types in their existing modules.
 This page targets 1.1.0; use the
@@ -6809,7 +6854,7 @@ Keep the previous field configs until persistence shapes are proven equivalent. 
 Define an entity, compile Payload fields, and derive an application schema.
 
 **Topic:** quick-start
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/quick-start/
 ```ts
 import {
@@ -6879,7 +6924,7 @@ Next, read [Concepts](./concepts/) for schema ownership and
 Diagnose Payload Schema definition, derivation, hook, and validation failures.
 
 **Topic:** troubleshooting
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/troubleshooting/
 ## `SCHEMA_UNAVAILABLE`
 

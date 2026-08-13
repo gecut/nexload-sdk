@@ -1,0 +1,65 @@
+{
+  "skill_name": "nexload-code",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Implement the attached metrics parser as the smallest production-ready TypeScript change and describe the verification you would run.",
+      "expected_output": "A local parser that validates the JSON trust boundary, derives a precise result, and avoids speculative layers or dependencies.",
+      "files": ["evals/fixtures/metrics-parser.md"],
+      "expectations": [
+        "Receives parsed input as unknown and accepts only a non-array first sample named exactly rss with a finite numeric value; other names or later valid entries do not qualify.",
+        "Keeps the change in the owning `parse-metrics.ts` module without a manager, registry, generic helper package, or new dependency, and rejects the proposed `parseMetrics.ts` filename.",
+        "Names focused behavior and reports only targeted type, test, or package checks actually proposed or run."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Review the attached untyped interop seam and propose the narrowest acceptable typing fix without pretending assertions are universally forbidden.",
+      "expected_output": "A contained typed adapter after runtime shape checks, using an assertion only if narrowing cannot express the external callable contract.",
+      "files": ["evals/fixtures/interop-seam.md"],
+      "expectations": [
+        "Allows a contained assertion or any only at the unavoidable external seam and explains the runtime fact supporting it.",
+        "Rejects spreading any or repeated assertions into callers and exposes a safe narrow adapter interface.",
+        "Rejects malformed module shapes including null, array-shaped default wrappers, non-callable or nested defaults, and does not claim compile-time typing validates runtime input."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Diagnose the attached webhook handler and provide a minimal correction plan focused on trust, state ownership, and sensitive diagnostics.",
+      "expected_output": "Runtime validation before use, request-scoped or explicitly owned state, and diagnostics that do not leak credentials or payloads.",
+      "files": ["evals/fixtures/webhook-handler.md"],
+      "expectations": [
+        "Rejects the direct WebhookEvent assertion as a substitute for validating request JSON.",
+        "Replaces the module-global set with an injected atomic claim(id) owner and states TTL/capacity/cleanup, restart/cross-process, and failed-dispatch semantics.",
+        "Uses allowlisted diagnostic fields and normalized error kinds without authorization, raw bodies, or arbitrary error messages."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Review the attached abstraction proposal against Nexload code standards and return a smaller architecture with reasons.",
+      "expected_output": "Direct use of the existing platform seam with one focused policy function rather than speculative managers, factories, and registries.",
+      "files": ["evals/fixtures/abstraction-proposal.md"],
+      "expectations": [
+        "Identifies layers that own no policy, lifecycle, boundary, current variant, or meaningful duplication.",
+        "Keeps the real retry decision explicit and does not prebuild plugins, batching, cache, or transport variants.",
+        "Preserves current behavior and avoids unrelated renames or module-wide cleanup."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "The attached request proposes exporting an internal helper from a publishable package. Decide which foundational skill owns the decision and state only the baseline code constraints that still compose.",
+      "expected_output": "Handoff to nexload-package for API/export ownership while retaining narrow-change, type-safety, and honest-verification constraints.",
+      "files": ["evals/fixtures/public-export-request.md"],
+      "expectations": [
+        "Recognizes package public surface and export-map compatibility as primarily nexload-package work.",
+        "Does not approve the export merely because an internal helper already exists or might be reused.",
+        "Carries forward narrow scope, safe typing, and evidence requirements without duplicating the package design."
+      ]
+    }
+  ]
+}

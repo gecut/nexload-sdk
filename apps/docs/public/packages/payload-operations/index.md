@@ -3,11 +3,11 @@
 Define typed application operations across Payload server endpoints and the native Payload SDK.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
 **Package:** `@nexload-sdk/payload-operations`
 
-**Current released version:** `0.1.0`
+**Current released version:** `1.0.0`
 
 Typed custom operations for Payload CMS with the native Payload REST SDK.
 

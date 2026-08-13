@@ -3,7 +3,7 @@
 Configure access, base paths, error handling, plugins, and request-scoped Payload workflows.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-operations` v0.1.0
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/guides/
 ## Make one operation public
 

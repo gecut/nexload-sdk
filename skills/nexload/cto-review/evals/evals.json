@@ -1,0 +1,65 @@
+{
+  "skill_name": "nexload-cto-review",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Give this package architecture a final Nexload CTO review. Score it, decide whether it is production-ready, and report only issues that should affect approval.",
+      "expected_output": "A high score and Approved verdict with no invented findings, recognizing the small valid runtime adapter boundary and available compatibility evidence.",
+      "files": ["evals/fixtures/minimal-runtime-adapter.md"],
+      "expectations": [
+        "Returns Approved with a score in the 9.0–10.0 range and does not manufacture a P1 or P2 issue.",
+        "Recognizes that two current runtime implementations, isolated subpaths, instance ownership, and packed consumer evidence justify the small adapter boundary.",
+        "Does not output code, patches, commands, pseudo-code, or implementation steps."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Perform the requested CTO review, including a score and verdict. The caller also asks for corrected code, so keep the CTO role boundary explicit.",
+      "expected_output": "A strong approval-oriented review that accepts the real two-adapter abstraction and refuses to supply corrected code or a patch.",
+      "files": ["evals/fixtures/valid-adapter-code-request.md"],
+      "expectations": [
+        "Does not condemn the adapter as overengineering because it owns two real integrations while shared policy remains in core.",
+        "Returns Approved with a score in the 9.0–10.0 range unless it identifies a concrete evidence-backed gap.",
+        "Explicitly remains review-only and produces no replacement interface, patch, pseudo-code, commands, or ordered implementation plan."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "CTO-review the browser entrypoint for production readiness. Give a score, verdict, and only the material blockers.",
+      "expected_output": "A concise rejection centered on the false browser/runtime boundary and missing browser evidence, without implementing the fix.",
+      "files": ["evals/fixtures/browser-secret-leak.md"],
+      "expectations": [
+        "Reports the transitive Node secret-loading import as a P0 runtime/security/public-contract blocker rather than merely a missing test.",
+        "Returns Rejected with a score below 6.0 and distinguishes the proven boundary failure from the missing browser smoke evidence.",
+        "Does not provide export-map code, replacement modules, shell commands, or a step-by-step fix."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Review the proposed timeout architecture from the Nexload CTO perspective. Be strict, but do not invent issues to satisfy the requested quota.",
+      "expected_output": "A restrained Needs revision verdict focused on the speculative plugin architecture and its concrete cost, not ten synthetic complaints.",
+      "files": ["evals/fixtures/timeout-plugin-system.md"],
+      "expectations": [
+        "Compresses the plugin registry, factory/manager, unused plugin interfaces, hooks, and DSL into one or at most two root-cause findings instead of listing ten symptoms.",
+        "Classifies the speculative architecture as P1, explains that current timeout behavior is already host-native, and does not become anti-abstraction dogma.",
+        "Returns Needs revision with a calibrated 6.0–7.9 score and no implementation code, commands, or executable rewrite plan."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "near_miss_composition",
+      "prompt": "Give a final CTO review of only the React architecture in the attached feature. Use relevant Nexload standards, ignore unrelated visual design, and do not perform the requested refactor.",
+      "expected_output": "A scoped React/runtime review that prioritizes the broad client/root boundary and derived state, treats file locality proportionally, ignores visual styling, and remains reviewer-only.",
+      "files": ["evals/fixtures/narrow-react-review.md"],
+      "expectations": [
+        "Stays within React architecture while admitting the package-root client leak because it invalidates the runtime architecture; it suppresses the out-of-scope radius/color issue.",
+        "Prioritizes the broad client/runtime boundary and effect-derived state; any multi-component file observation is no higher than P2 unless concrete impact justifies more.",
+        "Returns a coherent score/verdict and no corrected files, component code, patch, commands, or step-by-step refactor."
+      ]
+    }
+  ]
+}

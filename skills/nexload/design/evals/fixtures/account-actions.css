@@ -1,0 +1,18 @@
+.account-actions {
+  display: flex;
+  width: 620px;
+  height: 56px;
+  overflow: hidden;
+  position: relative;
+}
+
+.account-actions__delete { margin-left: auto; }
+.account-actions::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 410px;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}

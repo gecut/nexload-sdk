@@ -3,7 +3,7 @@
 Understand canonical schemas, compilation, schema availability, cloning, and lifecycle ordering.
 
 **Topic:** concepts
-**Package:** `@nexload-sdk/payload-schema` v1.1.0
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/concepts/
 ## One intrinsic contract
 
