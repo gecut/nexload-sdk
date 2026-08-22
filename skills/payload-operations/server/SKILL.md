@@ -1,6 +1,6 @@
 ---
 name: payload-operations-server
-description: Use for implementing, integrating, reviewing, or diagnosing @nexload-sdk/payload-operations on Payload: createPayloadEndpoints, complete handler trees, partial access overrides, authentication semantics, request parsing, CORS and OPTIONS, declared errors, output validation, request-scoped Local API use, and server-safe failures.
+description: "Use for implementing, integrating, reviewing, or diagnosing @nexload-sdk/payload-operations on Payload: createPayloadEndpoints, complete handler trees, partial access overrides, authentication semantics, request parsing, CORS and OPTIONS, declared errors, output validation, request-scoped Local API use, and server-safe failures."
 ---
 
 # Payload Operations Server

@@ -1,6 +1,6 @@
 ---
 name: payload-schema-develop
-description: Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seed and compiler, canonical beforeValidate adapter, cloning, structured errors, public type inference, package fixtures, packed distribution, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work.
+description: "Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seed and compiler, canonical beforeValidate adapter, cloning, structured errors, public type inference, package fixtures, packed distribution, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work."
 ---
 
 # Payload Schema Develop

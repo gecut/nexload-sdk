@@ -1,6 +1,6 @@
 ---
 name: payload-operations-client
-description: Use for implementing, integrating, reviewing, or diagnosing the @nexload-sdk/payload-operations client: createCMSClient, the native PayloadSDK facade, operation calls, base URL and path handling, request headers, transport plugins, timeout behavior, response validation, and browser-safe client packaging.
+description: "Use for implementing, integrating, reviewing, or diagnosing the @nexload-sdk/payload-operations client: createCMSClient, the native PayloadSDK facade, operation calls, base URL and path handling, request headers, transport plugins, timeout behavior, response validation, and browser-safe client packaging."
 ---
 
 # Payload Operations Client

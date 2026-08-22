@@ -1,6 +1,6 @@
 ---
 name: payload-schema-use
-description: Use for consumer-side work with @nexload-sdk/payload-schema: migrating duplicated Payload and Zod fields, defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, integrating compiled fields into existing collections, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work.
+description: "Use for consumer-side work with @nexload-sdk/payload-schema: migrating duplicated Payload and Zod fields, defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, integrating compiled fields into existing collections, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work."
 ---
 
 # Payload Schema Use
