@@ -1,16 +1,16 @@
-# Graph Report - nexload-sdk  (2026-09-10)
+# Graph Report - nexload-sdk  (2026-08-13)
 
 ## Corpus Check
-- 686 files · ~157,249 words
+- 681 files · ~154,051 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3655 nodes · 4502 edges · 438 communities (287 shown, 151 thin omitted)
+- 3628 nodes · 4463 edges · 447 communities (296 shown, 151 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.68)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5312a324`
+- Built from commit: `eab45cfe`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -37,11 +37,11 @@
 - payload-operations/package.json
 - Entity Definition Logic
 - Node Healthcheck Utilities
-- prometheus/src/index.ts
+- OpenTelemetry Health Metrics
 - execute-operation.ts
 - scripts
 - errors/types.ts
-- traversal.ts
+- contract/types.ts
 - Environment Manager
 - JWT Adapter Implementation
 - paths
@@ -70,7 +70,7 @@
 - core/package.json
 - compilerOptions
 - devDependencies
-- manager.ts
+- core/types.ts
 - response.ts
 - create-payload-endpoints.ts
 - Base TypeScript Config
@@ -94,7 +94,7 @@
 - Docs Schema Definition
 - UI Action Schema
 - Bun Healthcheck Utilities
-- createHealthManager
+- payload/src/index.ts
 - core/tsconfig.json
 - node/tsconfig.json
 - prometheus/tsconfig.json
@@ -121,7 +121,7 @@
 - keywords
 - Payload Schema Error Handling
 - Entity Field Definitions
-- choobinooo.mjs
+- Product Schema Fixtures
 - TypeScript Test Configuration
 - Documentation Link Validation
 - @nexload-sdk/healthcheck
@@ -141,7 +141,7 @@
 - ORPC Client Implementation
 - Editor Extension Testing
 - Nexload Package Engineering
-- agy-worker/SKILL.md
+- Database Fixture Configuration
 - Template Schema Definition
 - Log Test Exports
 - Consumer Smoke Testing
@@ -179,7 +179,7 @@
 - Payload Operations Client
 - Payload Operations Core
 - Payload Operations Server
-- eslint-config/src/index.ts
+- ESLint Configuration Base
 - Nexload React Engineering
 - API Inventory Components
 - Agent Skills Index
@@ -209,7 +209,6 @@
 - Logger and ORPC Client
 - Payload SDK Packages
 - Validation Presets
-- core/types.ts
 - Graphify Build Script
 - Route Security Hardening
 - Bun Compatibility
@@ -272,17 +271,9 @@
 - Schema Migration
 - Package Documentation
 - Documentation Workflow
-- contract/types.ts
 - Payload Healthcheck Changelog
 - Payload Healthcheck README
-- healthcheck-otel.ts
-- pagefind
 - JWT SDK
-- 2.4.0
-- 3.1.1
-- payload-fields/test/contracts.test.mjs
-- 3.1.3
-- 4.0.0
 - Check Collector Logic
 - Testing Patterns
 - Timeout and Retry Logic
@@ -371,6 +362,7 @@
 - scripts
 - scripts
 - support.mdx
+- draft
 - eslint-plugin-import
 - eslint-plugin-react
 - eslint-plugin-turbo
@@ -384,8 +376,12 @@
 - 2.1.1
 - 2.1.2
 - eslint-config-prettier
+- 2.1.3
 - 3.1.2
+- 2.3.0
+- 3.0.0
 - 4.0.1
+- 4.1.0
 - @payloadcms/next
 - @types/node
 - abstraction-proposal.md
@@ -479,7 +475,7 @@
 - **Payload Schema Documentation Suite** — skills_payload_schema_develop_references_architecture_invariants, skills_payload_schema_develop_references_factory_error_contract, skills_payload_schema_develop_references_release_matrix [EXTRACTED 1.00]
 - **Payload Schema Documentation Suite** — skills_payload_schema_use_references_consumer_contract, skills_payload_schema_use_references_field_selection, skills_payload_schema_use_references_integration_checklist [INFERRED 0.90]
 
-## Communities (438 total, 151 thin omitted)
+## Communities (447 total, 151 thin omitted)
 
 ### Community 0 - "Payload Editor Features"
 Cohesion: 0.07
@@ -550,8 +546,8 @@ Cohesion: 0.17
 Nodes (12): nexload, payload, payload-cms, payloadcms, sdk, typescript, keywords, custom-fields (+4 more)
 
 ### Community 18 - "payload-operations/src/index.ts"
-Cohesion: 0.18
-Nodes (21): createCMSClient(), createPayloadFetchAdapter(), createOperationsClient(), defineOperationMethod(), freezeTree(), CMSClient, CMSClientOptions, CMSOperationMethod (+13 more)
+Cohesion: 0.17
+Nodes (22): createCMSClient(), createPayloadFetchAdapter(), createOperationsClient(), defineOperationMethod(), freezeTree(), RequestOperationOptions, CMSClient, CMSClientOptions (+14 more)
 
 ### Community 19 - "Field Definition Logic"
 Cohesion: 0.21
@@ -569,25 +565,25 @@ Nodes (28): appendCanonicalHook(), assertFieldName(), bindSeed(), canonicalHook(
 Cohesion: 0.15
 Nodes (23): health, ContainerCpuSnapshot, ContainerMemorySnapshot, ContainerResourceOptions, ContainerResourceSnapshot, emptyCpu(), emptyMemory(), getAvailableParallelism() (+15 more)
 
-### Community 23 - "prometheus/src/index.ts"
-Cohesion: 0.25
-Nodes (16): ALLOWED_LABELS, appendCheckMetrics(), appendDescriptions(), appendHealthMetric(), appendHealthStatus(), appendMetric(), appendReportMetrics(), escapeLabel() (+8 more)
+### Community 23 - "OpenTelemetry Health Metrics"
+Cohesion: 0.13
+Nodes (24): metricRecords, resourceAttributes, metrics, HealthReport, OtelMetricRecord, statusValue(), toOtelMetricRecords(), toOtelResourceAttributes() (+16 more)
 
 ### Community 24 - "execute-operation.ts"
-Cohesion: 0.19
-Nodes (19): createOperationInit(), requestOperation(), parseOperationResponse(), joinOperationURL(), BUILT_IN_ERROR_STATUS, createFrameworkError(), createInputValidationError(), createInternalError() (+11 more)
+Cohesion: 0.18
+Nodes (20): createOperationInit(), requestOperation(), joinOperationURL(), BUILT_IN_ERROR_STATUS, createFrameworkError(), createInputValidationError(), createInternalError(), createDefinedErrorFactories() (+12 more)
 
 ### Community 25 - "scripts"
 Cohesion: 0.07
 Nodes (27): @changesets/cli, devDependencies, @changesets/cli, eslint, prettier, turbo, eslint, prettier (+19 more)
 
 ### Community 26 - "errors/types.ts"
-Cohesion: 0.15
-Nodes (17): cms, cmsOperations, operationEndpoints, reserveInventory(), CMSOperationErrorOptions, isCMSOperationError(), isDefinedError(), AwaitedData (+9 more)
+Cohesion: 0.17
+Nodes (16): cms, cmsOperations, operationEndpoints, reserveInventory(), CMSOperationError, CMSOperationErrorOptions, isCMSOperationError(), isDefinedError() (+8 more)
 
-### Community 27 - "traversal.ts"
-Cohesion: 0.18
-Nodes (20): defineCMSOperations(), freezeOperationsTree(), assertSchema(), EMPTY_ERRORS, operation(), flattenCMSOperations(), FlattenedCMSOperation, isCMSOperation() (+12 more)
+### Community 27 - "contract/types.ts"
+Cohesion: 0.16
+Nodes (24): defineCMSOperations(), freezeOperationsTree(), assertSchema(), EMPTY_ERRORS, operation(), flattenCMSOperations(), FlattenedCMSOperation, isCMSOperation() (+16 more)
 
 ### Community 28 - "Environment Manager"
 Cohesion: 0.14
@@ -606,8 +602,8 @@ Cohesion: 0.14
 Nodes (13): author, description, exports, ./package.json, license, main, module, name (+5 more)
 
 ### Community 32 - "next/src/index.ts"
-Cohesion: 0.17
-Nodes (20): { GET, HEAD }, health, baseHeaders(), cidrContains(), constantTimeEquals(), createNextHealthRoute(), createNextMetricsRoute(), getRequestIp() (+12 more)
+Cohesion: 0.20
+Nodes (18): baseHeaders(), cidrContains(), constantTimeEquals(), createNextHealthRoute(), createNextMetricsRoute(), getRequestIp(), invalidConfig(), ipToNumber() (+10 more)
 
 ### Community 33 - "devDependencies"
 Cohesion: 0.09
@@ -655,10 +651,10 @@ Nodes (18): apiCatalogPath, catalog, catalogIds, catalogPath, docsRoot, docsText
 
 ### Community 44 - "properties"
 Cohesion: 0.11
-Nodes (19): type, default, type, anyOf, default, anyOf, anyOf, anyOf (+11 more)
+Nodes (19): type, anyOf, default, anyOf, anyOf, default, type, anyOf (+11 more)
 
 ### Community 45 - "validate-skills.mjs"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (17): ALLOWED_FRONTMATTER, APPROVED_NEXLOAD_SKILLS, DEPRECATED_NAMES, EVAL_CATEGORIES, lineCount(), parseFrontmatter(), parseJson(), parseScalar() (+9 more)
 
 ### Community 46 - "next/package.json"
@@ -701,17 +697,17 @@ Nodes (18): next-env.d.ts, **/*.tsx, compilerOptions, allowImportingTsExtensions
 Cohesion: 0.09
 Nodes (23): devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config, @nexload-sdk/typescript-config, payload, @payloadcms/sdk, @types/node (+15 more)
 
-### Community 56 - "manager.ts"
-Cohesion: 0.13
-Nodes (11): aggregateStatus(), summarizeChecks(), createAbortSignal(), sleep(), HealthCheckResult, HealthDataProfile, HealthManagerOptions, HealthRunContext (+3 more)
+### Community 56 - "core/types.ts"
+Cohesion: 0.08
+Nodes (24): aggregateStatus(), summarizeChecks(), DEFAULT_HTTP_STATUS_POLICY, STRICT_READINESS_HTTP_STATUS_POLICY, createAbortSignal(), sleep(), EnvironmentIdentity, HealthCheckResult (+16 more)
 
 ### Community 57 - "response.ts"
-Cohesion: 0.25
-Nodes (9): parseDefinedData(), parseFailureResponse(), CMSOperationError, parseErrorEnvelope(), CMSClientTimeoutError, isTimeoutError(), assertTimeout(), timeoutPlugin() (+1 more)
+Cohesion: 0.24
+Nodes (10): parseDefinedData(), parseFailureResponse(), parseOperationResponse(), parseErrorEnvelope(), defineClientPlugin(), CMSClientTimeoutError, isTimeoutError(), assertTimeout() (+2 more)
 
 ### Community 58 - "create-payload-endpoints.ts"
-Cohesion: 0.27
-Nodes (12): InferParsedOperationInput, CMSDefinedErrorFactories, ExecuteOperationOptions, CMSOperationAccess, CMSOperationAccessContext, CMSOperationAccessOverrides, CMSOperationHandler, CMSOperationHandlerContext (+4 more)
+Cohesion: 0.21
+Nodes (16): CMSOperationContract, InferParsedOperationInput, createPayloadEndpoints(), ExecuteOperationOptions, assertTreeLeaves(), collectLeaves(), getTreeValue(), CMSOperationAccess (+8 more)
 
 ### Community 59 - "Base TypeScript Config"
 Cohesion: 0.12
@@ -774,8 +770,8 @@ Cohesion: 0.05
 Nodes (38): dependencies, @nexload-sdk/logger, payload, description, devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config (+30 more)
 
 ### Community 74 - "core/src/index.ts"
-Cohesion: 0.39
-Nodes (4): runtimeMetricsCollector(), defineMetricCollector(), HealthMetric, MetricCollectorDefinition
+Cohesion: 0.20
+Nodes (8): health, { GET, HEAD }, health, runtimeMetricsCollector(), defineMetricCollector(), createHealthManager(), HealthMetric, MetricCollectorDefinition
 
 ### Community 75 - "compilerOptions"
 Cohesion: 0.11
@@ -797,9 +793,9 @@ Nodes (12): items, type, default, items, type, required, type, actions (+4 more)
 Cohesion: 0.30
 Nodes (9): health, BunGlobalShape, bunRuntimeAdapter(), BunServerLike, bunServerMetricsCheck(), finitePositive(), getBun(), getProcess() (+1 more)
 
-### Community 80 - "createHealthManager"
-Cohesion: 0.20
-Nodes (7): health, health, createHealthManager(), PayloadFindArgs, payloadHealthCheck(), PayloadHealthCheckOptions, PayloadLike
+### Community 80 - "payload/src/index.ts"
+Cohesion: 0.29
+Nodes (5): health, PayloadFindArgs, payloadHealthCheck(), PayloadHealthCheckOptions, PayloadLike
 
 ### Community 81 - "core/tsconfig.json"
 Cohesion: 0.15
@@ -905,9 +901,9 @@ Nodes (6): PayloadSchemaError, PayloadSchemaErrorCode, PayloadSchemaErrorDataMap
 Cohesion: 0.22
 Nodes (8): FieldDefinition, InferEntityFields, entity, raw, rows, settings, tags, Values
 
-### Community 107 - "choobinooo.mjs"
-Cohesion: 0.10
-Nodes (11): ../../dist/index.js, categoryEntity, collectionStubs, createProductSchema, editor, productCardSchema, productEntity, categoryEntity (+3 more)
+### Community 107 - "Product Schema Fixtures"
+Cohesion: 0.31
+Nodes (6): categoryEntity, collectionStubs, createProductSchema, editor, productCardSchema, productEntity
 
 ### Community 108 - "TypeScript Test Configuration"
 Cohesion: 0.22
@@ -973,9 +969,9 @@ Nodes (3): CustomFeature, featureMap(), resolveEditor()
 Cohesion: 0.06
 Nodes (30): Delivery proof, Dependency ownership, Documentation and release, Manifest truth, Metadata, compatibility, and delivery, Primary sources, Choose the owner, Dependency direction (+22 more)
 
-### Community 127 - "agy-worker/SKILL.md"
-Cohesion: 0.09
-Nodes (17): Invocation and models, Permissions and execution limits, Results and continuation, Verified AGY capabilities, Structured result, Supervisor → worker contract, Worker obligations, Launch and integrate (+9 more)
+### Community 127 - "Database Fixture Configuration"
+Cohesion: 0.38
+Nodes (4): categoryEntity, createFixtureConfig(), mediaEntity, productEntity
 
 ### Community 128 - "Template Schema Definition"
 Cohesion: 0.33
@@ -1133,26 +1129,6 @@ Nodes (3): bunRuntimeAdapter, Healthcheck Bun README, createHealthManager
 Cohesion: 0.67
 Nodes (3): Exposure matrix, Redaction and error policy, Healthcheck Diagnostics Security
 
-### Community 203 - "core/types.ts"
-Cohesion: 0.14
-Nodes (13): DEFAULT_HTTP_STATUS_POLICY, STRICT_READINESS_HTTP_STATUS_POLICY, EnvironmentIdentity, HealthDetails, HealthErrorInfo, HealthHttpStatusPolicy, HealthLinks, HealthMetricValue (+5 more)
-
-### Community 278 - "contract/types.ts"
-Cohesion: 0.29
-Nodes (10): RequestOperationOptions, CMSOperation, CMSOperationCallOptions, CMSOperationContract, CMSOperationErrorDefinition, InferHandlerOutput, InferOperationInput, InferOperationOutput (+2 more)
-
-### Community 290 - "healthcheck-otel.ts"
-Cohesion: 0.24
-Nodes (8): metricRecords, resourceAttributes, metrics, HealthReport, OtelMetricRecord, statusValue(), toOtelMetricRecords(), toOtelResourceAttributes()
-
-### Community 291 - "pagefind"
-Cohesion: 0.67
-Nodes (3): default, type, pagefind
-
-### Community 302 - "payload-fields/test/contracts.test.mjs"
-Cohesion: 0.50
-Nodes (3): ../dist/date/index.mjs, ../dist/money/index.mjs, ../dist/slug/index.mjs
-
 ### Community 335 - "@nexload-sdk/typescript-config"
 Cohesion: 0.07
 Nodes (29): 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.1.0, 1.1.1, 2.0.0, 2.0.1 (+21 more)
@@ -1223,7 +1199,7 @@ Nodes (9): 0.1.0, 1.0.0, 1.0.1, 1.1.0, Major Changes, Minor Changes, Minor Chang
 
 ### Community 352 - "@nexload-sdk/logger"
 Cohesion: 0.20
-Nodes (9): 2.1.3, 2.3.0, 3.0.0, 4.1.0, Major Changes, Minor Changes, Minor Changes, @nexload-sdk/logger (+1 more)
+Nodes (9): 2.4.0, 3.1.1, 3.1.3, 4.0.0, Major Changes, Minor Changes, @nexload-sdk/logger, Patch Changes (+1 more)
 
 ### Community 353 - "eslint-config/package.json"
 Cohesion: 0.20
@@ -1437,8 +1413,12 @@ Nodes (3): scripts, build, lint
 Cohesion: 0.67
 Nodes (3): scripts, build, lint
 
+### Community 407 - "draft"
+Cohesion: 0.67
+Nodes (3): default, type, draft
+
 ## Knowledge Gaps
-- **1841 isolated node(s):** `$schema`, `changelog`, `commit`, `fixed`, `linked` (+1836 more)
+- **1826 isolated node(s):** `$schema`, `changelog`, `commit`, `fixed`, `linked` (+1821 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **151 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -1452,7 +1432,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `devDependencies` connect `devDependencies` to `payload-schema/package.json`, `peerDependencies`, `@types/node`, `@payloadcms/next`, `@payloadcms/db-postgres`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **What connects `$schema`, `changelog`, `commit` to the rest of the system?**
-  _1841 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1826 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Payload Editor Features` be split into smaller, more focused modules?**
   _Cohesion score 0.0733099209833187 - nodes in this community are weakly interconnected._
 - **Should `Icon CLI Engine` be split into smaller, more focused modules?**

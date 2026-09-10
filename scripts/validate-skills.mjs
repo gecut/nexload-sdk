@@ -229,17 +229,17 @@ function validatePayloadSchemaContracts (skillsRoot, skillDirectory, skillName, 
   }
 }
 
-function validateReferences (skillDirectory, content, errors) {
+function validateReferences (skillDirectory, content, errors, { portable = false } = {}) {
   const directory = join(skillDirectory, "references");
-  if (!existsSync(directory) || !statSync(directory).isDirectory()) {
-    errors.push(`${directory}: missing references directory`);
-    return;
-  }
-  const files = readdirSync(directory).filter((name) => statSync(join(directory, name)).isFile());
-  if (files.length < 3 || files.some((name) => !name.endsWith(".md"))) errors.push(`${directory}: must contain at least three Markdown references`);
   const linked = new Set();
   const pattern = /\[[^\]]+\]\((references\/[^)#?\s]+\.md)(?:#[^)]+)?\)/g;
   for (const match of content.matchAll(pattern)) linked.add(match[1].slice("references/".length));
+  if (!existsSync(directory) || !statSync(directory).isDirectory()) {
+    if (!portable || linked.size) errors.push(`${directory}: missing references directory`);
+    return;
+  }
+  const files = readdirSync(directory).filter((name) => statSync(join(directory, name)).isFile());
+  if (!portable && (files.length < 3 || files.some((name) => !name.endsWith(".md")))) errors.push(`${directory}: must contain at least three Markdown references`);
   for (const name of files) {
     const path = join(directory, name);
     if (lineCount(readFileSync(path, "utf8")) > 200) errors.push(`${path}: reference exceeds 200 lines`);
@@ -251,7 +251,8 @@ function validateReferences (skillDirectory, content, errors) {
 }
 
 function validateSkill (root, packageName, directoryName, names, errors) {
-  const skillDirectory = join(root, packageName, directoryName);
+  const portable = directoryName === undefined;
+  const skillDirectory = portable ? join(root, packageName) : join(root, packageName, directoryName);
   const path = join(skillDirectory, "SKILL.md");
   if (!existsSync(path)) {
     errors.push(`${path}: missing required file`);
@@ -260,22 +261,26 @@ function validateSkill (root, packageName, directoryName, names, errors) {
   const body = readFileSync(path, "utf8");
   if (lineCount(body) > 200) errors.push(`${path}: SKILL.md exceeds 200 lines`);
   const { attributes, content } = parseFrontmatter(body, path, errors);
-  const expectedName = `${packageName}-${directoryName}`;
-  if (!KEBAB_CASE.test(packageName) || !KEBAB_CASE.test(directoryName)) errors.push(`${path}: package and directory names must use kebab-case`);
+  const expectedName = portable ? packageName : `${packageName}-${directoryName}`;
+  if (!KEBAB_CASE.test(packageName) || (!portable && !KEBAB_CASE.test(directoryName))) errors.push(`${path}: package and directory names must use kebab-case`);
   if (attributes.name !== expectedName) errors.push(`${path}: name must equal '${expectedName}'`);
+  if (portable && expectedName.length > 64) errors.push(`${path}: name must not exceed 64 characters`);
   if (DEPRECATED_NAMES.has(attributes.name)
     || (attributes.name?.startsWith("nexload-") && !APPROVED_NEXLOAD_SKILLS.has(attributes.name))) {
     errors.push(`${path}: deprecated skill name '${attributes.name}'`);
   }
   if (names.has(attributes.name)) errors.push(`${path}: duplicate skill name '${attributes.name}'`);
   else if (attributes.name) names.add(attributes.name);
-  if (typeof attributes.description !== "string" || attributes.description.length < 40 || attributes.description.length > 600) {
-    errors.push(`${path}: description must be between 40 and 600 characters`);
+  const minimumDescription = portable ? 1 : 40;
+  const maximumDescription = portable ? 1024 : 600;
+  if (typeof attributes.description !== "string" || attributes.description.trim().length < minimumDescription || attributes.description.length > maximumDescription) {
+    errors.push(`${path}: description must be between ${minimumDescription} and ${maximumDescription} characters`);
   }
+  validateReferences(skillDirectory, content, errors, { portable });
+  if (portable) return;
   for (const section of REQUIRED_SECTIONS) {
     if (!new RegExp(`^## ${section}$`, "m").test(content)) errors.push(`${path}: missing '## ${section}' section`);
   }
-  validateReferences(skillDirectory, content, errors);
   validateEvals(skillDirectory, attributes.name, errors);
   validateTriggerEvals(skillDirectory, errors);
   if (packageName === "payload-schema") {
@@ -295,6 +300,10 @@ export function validateSkills ({ root, selected } = {}) {
     const packageDirectory = join(skillsRoot, packageName);
     if (!existsSync(packageDirectory) || !statSync(packageDirectory).isDirectory()) {
       errors.push(`${packageDirectory}: missing skill package`);
+      continue;
+    }
+    if (existsSync(join(packageDirectory, "SKILL.md"))) {
+      validateSkill(skillsRoot, packageName, undefined, names, errors);
       continue;
     }
     for (const directoryName of readdirSync(packageDirectory).filter((name) => statSync(join(packageDirectory, name)).isDirectory())) {

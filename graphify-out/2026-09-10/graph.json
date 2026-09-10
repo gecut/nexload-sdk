@@ -1741,8 +1741,8 @@
       "source_location": "L626",
       "_origin": "ast",
       "id": "apps_docs_astro_collections_docs_schema_properties_pagefind",
-      "community": 291,
-      "community_name": "pagefind",
+      "community": 44,
+      "community_name": "properties",
       "norm_label": "pagefind"
     },
     {
@@ -1752,8 +1752,8 @@
       "source_location": "L627",
       "_origin": "ast",
       "id": "apps_docs_astro_collections_docs_schema_pagefind_default",
-      "community": 291,
-      "community_name": "pagefind",
+      "community": 44,
+      "community_name": "properties",
       "norm_label": "default"
     },
     {
@@ -1763,8 +1763,8 @@
       "source_location": "L628",
       "_origin": "ast",
       "id": "apps_docs_astro_collections_docs_schema_pagefind_type",
-      "community": 291,
-      "community_name": "pagefind",
+      "community": 44,
+      "community_name": "properties",
       "norm_label": "type"
     },
     {
@@ -1774,8 +1774,8 @@
       "source_location": "L630",
       "_origin": "ast",
       "id": "apps_docs_astro_collections_docs_schema_properties_draft",
-      "community": 44,
-      "community_name": "properties",
+      "community": 407,
+      "community_name": "draft",
       "norm_label": "draft"
     },
     {
@@ -1785,8 +1785,8 @@
       "source_location": "L631",
       "_origin": "ast",
       "id": "apps_docs_astro_collections_docs_schema_draft_default",
-      "community": 44,
-      "community_name": "properties",
+      "community": 407,
+      "community_name": "draft",
       "norm_label": "default"
     },
     {
@@ -1796,8 +1796,8 @@
       "source_location": "L632",
       "_origin": "ast",
       "id": "apps_docs_astro_collections_docs_schema_draft_type",
-      "community": 44,
-      "community_name": "properties",
+      "community": 407,
+      "community_name": "draft",
       "norm_label": "type"
     },
     {
@@ -2813,8 +2813,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_next",
-      "community": 32,
-      "community_name": "next/src/index.ts",
+      "community": 74,
+      "community_name": "core/src/index.ts",
       "norm_label": "healthcheck-next.ts"
     },
     {
@@ -2824,8 +2824,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_next_health",
-      "community": 32,
-      "community_name": "next/src/index.ts",
+      "community": 74,
+      "community_name": "core/src/index.ts",
       "norm_label": "health"
     },
     {
@@ -2835,8 +2835,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_next_get_head",
-      "community": 32,
-      "community_name": "next/src/index.ts",
+      "community": 74,
+      "community_name": "core/src/index.ts",
       "norm_label": "{ get, head }"
     },
     {
@@ -2868,8 +2868,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_otel",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "healthcheck-otel.ts"
     },
     {
@@ -2879,8 +2879,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_otel_metricrecords",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "metricrecords"
     },
     {
@@ -2890,8 +2890,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_otel_resourceattributes",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "resourceattributes"
     },
     {
@@ -2902,7 +2902,7 @@
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_payload",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "healthcheck-payload.ts"
     },
     {
@@ -2913,7 +2913,7 @@
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_payload_health",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "health"
     },
     {
@@ -2923,8 +2923,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_prometheus",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "healthcheck-prometheus.ts"
     },
     {
@@ -2934,8 +2934,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_prometheus_metrics",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "metrics"
     },
     {
@@ -2945,8 +2945,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck",
-      "community": 80,
-      "community_name": "createHealthManager",
+      "community": 74,
+      "community_name": "core/src/index.ts",
       "norm_label": "healthcheck.ts"
     },
     {
@@ -2956,8 +2956,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_docs_examples_healthcheck_health",
-      "community": 80,
-      "community_name": "createHealthManager",
+      "community": 74,
+      "community_name": "core/src/index.ts",
       "norm_label": "health"
     },
     {
@@ -5632,8 +5632,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_env_eslint_config",
-      "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community": 278,
+      "community_name": "Environment ESLint Config",
       "norm_label": "env/eslint.config.mjs"
     },
     {
@@ -8110,7 +8110,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_aggregate",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "aggregate.ts"
     },
     {
@@ -8122,7 +8122,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_aggregate_summarizechecks",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "summarizechecks()"
     },
     {
@@ -8134,7 +8134,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_aggregate_aggregatestatus",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "aggregatestatus()"
     },
     {
@@ -8214,7 +8214,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_http",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "http.ts"
     },
@@ -8225,7 +8225,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_http_default_http_status_policy",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "default_http_status_policy"
     },
@@ -8236,7 +8236,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_http_strict_readiness_http_status_policy",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "strict_readiness_http_status_policy"
     },
@@ -8248,7 +8248,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_http_statustohttpstatus",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "statustohttpstatus()"
     },
@@ -8260,7 +8260,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "manager.ts"
     },
     {
@@ -8272,7 +8272,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_isscopematch",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "isscopematch()"
     },
     {
@@ -8284,7 +8284,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_iscritical",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "iscritical()"
     },
     {
@@ -8296,7 +8296,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_aserror",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "aserror()"
     },
     {
@@ -8308,7 +8308,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_shouldretry",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "shouldretry()"
     },
     {
@@ -8320,7 +8320,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_retrydelay",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "retrydelay()"
     },
     {
@@ -8332,7 +8332,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_runlimited",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "runlimited()"
     },
     {
@@ -8343,8 +8343,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_manager_createhealthmanager",
-      "community": 80,
-      "community_name": "createHealthManager",
+      "community": 74,
+      "community_name": "core/src/index.ts",
       "norm_label": "createhealthmanager()"
     },
     {
@@ -8583,7 +8583,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_timeout",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "timeout.ts"
     },
     {
@@ -8595,7 +8595,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_timeout_createabortsignal",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "createabortsignal()"
     },
     {
@@ -8607,7 +8607,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_timeout_sleep",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "sleep()"
     },
     {
@@ -8617,7 +8617,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "core/types.ts"
     },
@@ -8630,7 +8630,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthstatus",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healthstatus"
     },
@@ -8657,7 +8657,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthrunscope",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "healthrunscope"
     },
     {
@@ -8670,7 +8670,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthdataprofile",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "healthdataprofile"
     },
     {
@@ -8682,7 +8682,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthmetricvalue",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healthmetricvalue"
     },
@@ -8708,7 +8708,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthdetails",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healthdetails"
     },
@@ -8721,7 +8721,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_serviceidentity",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "serviceidentity"
     },
@@ -8734,7 +8734,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_environmentidentity",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "environmentidentity"
     },
@@ -8773,7 +8773,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_runtimecpusnapshot",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "runtimecpusnapshot"
     },
@@ -8871,7 +8871,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healtherrorinfo",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healtherrorinfo"
     },
@@ -8898,7 +8898,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthcheckresult",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "healthcheckresult"
     },
     {
@@ -8911,7 +8911,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthsummary",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "healthsummary"
     },
     {
@@ -8923,7 +8923,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthlinks",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healthlinks"
     },
@@ -8936,8 +8936,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthreport",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "healthreport"
     },
     {
@@ -8949,7 +8949,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_retrypolicy",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "retrypolicy"
     },
@@ -8976,7 +8976,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthruncontext",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "healthruncontext"
     },
     {
@@ -9027,7 +9027,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_metriccollectionresult",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "metriccollectionresult"
     },
     {
@@ -9065,7 +9065,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthmanageroptions",
       "community": 56,
-      "community_name": "manager.ts",
+      "community_name": "core/types.ts",
       "norm_label": "healthmanageroptions"
     },
     {
@@ -9077,7 +9077,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthrunoptions",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healthrunoptions"
     },
@@ -9187,7 +9187,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_core_src_core_types_healthhttpstatuspolicy",
-      "community": 203,
+      "community": 56,
       "community_name": "core/types.ts",
       "norm_label": "healthhttpstatuspolicy"
     },
@@ -11894,8 +11894,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_healthcheck_otel_src_index",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "otel/src/index.ts"
     },
     {
@@ -11907,8 +11907,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_healthcheck_otel_src_index_otelmetricrecord",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "otelmetricrecord"
     },
     {
@@ -11919,8 +11919,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_healthcheck_otel_src_index_statusvalue",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "statusvalue()"
     },
     {
@@ -11931,8 +11931,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_healthcheck_otel_src_index_tootelresourceattributes",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "tootelresourceattributes()"
     },
     {
@@ -11943,8 +11943,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_healthcheck_otel_src_index_tootelmetricrecords",
-      "community": 290,
-      "community_name": "healthcheck-otel.ts",
+      "community": 23,
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "tootelmetricrecords()"
     },
     {
@@ -12692,7 +12692,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_payload_src_index",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "payload/src/index.ts"
     },
     {
@@ -12705,7 +12705,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_payload_src_index_payloadhealthcheckoptions",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "payloadhealthcheckoptions"
     },
     {
@@ -12718,7 +12718,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_payload_src_index_payloadlike",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "payloadlike"
     },
     {
@@ -12731,7 +12731,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_payload_src_index_payloadfindargs",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "payloadfindargs"
     },
     {
@@ -12743,7 +12743,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_payload_src_index_gettotaldocs",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "gettotaldocs()"
     },
     {
@@ -12755,7 +12755,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_payload_src_index_payloadhealthcheck",
       "community": 80,
-      "community_name": "createHealthManager",
+      "community_name": "payload/src/index.ts",
       "norm_label": "payloadhealthcheck()"
     },
     {
@@ -13427,7 +13427,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "prometheus/src/index.ts"
     },
     {
@@ -13440,7 +13440,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_prometheusexportoptions",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "prometheusexportoptions"
     },
     {
@@ -13453,7 +13453,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_openmetricsexportoptions",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "openmetricsexportoptions"
     },
     {
@@ -13464,7 +13464,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_statuses",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "statuses"
     },
     {
@@ -13475,7 +13475,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_allowed_labels",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "allowed_labels"
     },
     {
@@ -13487,7 +13487,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_metricname",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "metricname()"
     },
     {
@@ -13499,7 +13499,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_metricvalue",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "metricvalue()"
     },
     {
@@ -13511,7 +13511,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_escapelabel",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "escapelabel()"
     },
     {
@@ -13523,7 +13523,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_labels",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "labels()"
     },
     {
@@ -13535,7 +13535,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_appendmetric",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "appendmetric()"
     },
     {
@@ -13547,7 +13547,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_appenddescriptions",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "appenddescriptions()"
     },
     {
@@ -13559,7 +13559,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_appendhealthstatus",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "appendhealthstatus()"
     },
     {
@@ -13571,7 +13571,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_appendcheckmetrics",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "appendcheckmetrics()"
     },
     {
@@ -13583,7 +13583,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_appendreportmetrics",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "appendreportmetrics()"
     },
     {
@@ -13595,7 +13595,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_appendhealthmetric",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "appendhealthmetric()"
     },
     {
@@ -13607,7 +13607,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_toprometheustext",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "toprometheustext()"
     },
     {
@@ -13619,7 +13619,7 @@
       "_origin": "ast",
       "id": "packages_healthcheck_prometheus_src_index_toopenmetricstext",
       "community": 23,
-      "community_name": "prometheus/src/index.ts",
+      "community_name": "OpenTelemetry Health Metrics",
       "norm_label": "toopenmetricstext()"
     },
     {
@@ -13805,8 +13805,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_iconcraft_eslint_config",
-      "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community": 290,
+      "community_name": "Iconcraft ESLint Config",
       "norm_label": "iconcraft/eslint.config.mjs"
     },
     {
@@ -15418,8 +15418,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_jwt_eslint_config",
-      "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community": 291,
+      "community_name": "JWT ESLint Config",
       "norm_label": "jwt/eslint.config.mjs"
     },
     {
@@ -16550,8 +16550,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_logger_eslint_config",
-      "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community": 293,
+      "community_name": "Logger ESLint Config",
       "norm_label": "logger/eslint.config.mjs"
     },
     {
@@ -17400,8 +17400,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_logger_src_logger_nexloadlogger_error",
-      "community": 24,
-      "community_name": "execute-operation.ts",
+      "community": 5,
+      "community_name": "create-global.ts",
       "norm_label": ".error()"
     },
     {
@@ -17951,8 +17951,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_orpc_client_eslint_config",
-      "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community": 294,
+      "community_name": "ORPC Client ESLint Config",
       "norm_label": "orpc-client/eslint.config.mjs"
     },
     {
@@ -22283,41 +22283,8 @@
       "_origin": "ast",
       "id": "packages_payload_fields_test_contracts_test",
       "community": 302,
-      "community_name": "payload-fields/test/contracts.test.mjs",
+      "community_name": "Field Contract Testing",
       "norm_label": "payload-fields/test/contracts.test.mjs"
-    },
-    {
-      "label": "../dist/slug/index.mjs",
-      "file_type": "code",
-      "source_file": "packages/payload-fields/dist/slug/index.mjs",
-      "confidence": "EXTRACTED",
-      "_origin": "ast",
-      "id": "packages_payload_fields_dist_slug_index",
-      "community": 302,
-      "community_name": "payload-fields/test/contracts.test.mjs",
-      "norm_label": "../dist/slug/index.mjs"
-    },
-    {
-      "label": "../dist/date/index.mjs",
-      "file_type": "code",
-      "source_file": "packages/payload-fields/dist/date/index.mjs",
-      "confidence": "EXTRACTED",
-      "_origin": "ast",
-      "id": "packages_payload_fields_dist_date_index",
-      "community": 302,
-      "community_name": "payload-fields/test/contracts.test.mjs",
-      "norm_label": "../dist/date/index.mjs"
-    },
-    {
-      "label": "../dist/money/index.mjs",
-      "file_type": "code",
-      "source_file": "packages/payload-fields/dist/money/index.mjs",
-      "confidence": "EXTRACTED",
-      "_origin": "ast",
-      "id": "packages_payload_fields_dist_money_index",
-      "community": 302,
-      "community_name": "payload-fields/test/contracts.test.mjs",
-      "norm_label": "../dist/money/index.mjs"
     },
     {
       "label": "jalali-picker.test.mjs",
@@ -22491,8 +22458,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_hooks_eslint_config",
-      "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community": 304,
+      "community_name": "Hook Linting Configuration",
       "norm_label": "payload-hooks/eslint.config.mjs"
     },
     {
@@ -24088,8 +24055,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_client_request_operation_requestoperationoptions",
-      "community": 278,
-      "community_name": "contract/types.ts",
+      "community": 18,
+      "community_name": "payload-operations/src/index.ts",
       "norm_label": "requestoperationoptions"
     },
     {
@@ -24123,8 +24090,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_client_response_parseoperationresponse",
-      "community": 24,
-      "community_name": "execute-operation.ts",
+      "community": 57,
+      "community_name": "response.ts",
       "norm_label": "parseoperationresponse()"
     },
     {
@@ -24234,8 +24201,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_client_url",
-      "community": 24,
-      "community_name": "execute-operation.ts",
+      "community": 18,
+      "community_name": "payload-operations/src/index.ts",
       "norm_label": "url.ts"
     },
     {
@@ -24270,7 +24237,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_define_cms_operations",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "define-cms-operations.ts"
     },
     {
@@ -24282,7 +24249,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_define_cms_operations_definecmsoperations",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "definecmsoperations()"
     },
     {
@@ -24294,7 +24261,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_define_cms_operations_freezeoperationstree",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "freezeoperationstree()"
     },
     {
@@ -24304,7 +24271,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_index",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "contract/index.ts"
     },
@@ -24316,7 +24283,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_operation",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "operation.ts"
     },
     {
@@ -24327,7 +24294,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_operation_empty_errors",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "empty_errors"
     },
     {
@@ -24339,7 +24306,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_operation_operation",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "operation()"
     },
     {
@@ -24351,7 +24318,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_operation_assertschema",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "assertschema()"
     },
     {
@@ -24362,7 +24329,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_traversal",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "traversal.ts"
     },
     {
@@ -24375,7 +24342,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_traversal_flattenedcmsoperation",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "flattenedcmsoperation"
     },
     {
@@ -24387,7 +24354,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_traversal_iscmsoperation",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "iscmsoperation()"
     },
     {
@@ -24399,7 +24366,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_traversal_flattencmsoperations",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "flattencmsoperations()"
     },
     {
@@ -24411,7 +24378,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_traversal_normalizebasepath",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "normalizebasepath()"
     },
     {
@@ -24423,7 +24390,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_traversal_visittree",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "visittree()"
     },
     {
@@ -24433,7 +24400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "contract/types.ts"
     },
@@ -24446,7 +24413,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_cmsoperationerrordefinition",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "cmsoperationerrordefinition"
     },
@@ -24460,7 +24427,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_cmsoperationerrordefinitions",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "cmsoperationerrordefinitions"
     },
     {
@@ -24472,7 +24439,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_cmsoperation",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "cmsoperation"
     },
@@ -24485,8 +24452,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_cmsoperationcontract",
-      "community": 278,
-      "community_name": "contract/types.ts",
+      "community": 58,
+      "community_name": "create-payload-endpoints.ts",
       "norm_label": "cmsoperationcontract"
     },
     {
@@ -24511,8 +24478,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_cmsoperationcalloptions",
-      "community": 278,
-      "community_name": "contract/types.ts",
+      "community": 18,
+      "community_name": "payload-operations/src/index.ts",
       "norm_label": "cmsoperationcalloptions"
     },
     {
@@ -24537,7 +24504,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_inferoperationinput",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "inferoperationinput"
     },
@@ -24563,7 +24530,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_inferoperationoutput",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "inferoperationoutput"
     },
@@ -24576,7 +24543,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_types_inferhandleroutput",
-      "community": 278,
+      "community": 27,
       "community_name": "contract/types.ts",
       "norm_label": "inferhandleroutput"
     },
@@ -24588,7 +24555,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_validation",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "validation.ts"
     },
     {
@@ -24599,7 +24566,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_validation_reserved_segments",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "reserved_segments"
     },
     {
@@ -24611,7 +24578,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_validation_isrecord",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "isrecord()"
     },
     {
@@ -24623,7 +24590,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_validation_assertsafesegment",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "assertsafesegment()"
     },
     {
@@ -24635,7 +24602,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_validation_asserterrordefinitions",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "asserterrordefinitions()"
     },
     {
@@ -24647,7 +24614,7 @@
       "_origin": "ast",
       "id": "packages_payload_operations_src_contract_validation_asserterrordefinition",
       "community": 27,
-      "community_name": "traversal.ts",
+      "community_name": "contract/types.ts",
       "norm_label": "asserterrordefinition()"
     },
     {
@@ -24741,8 +24708,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_errors_cms_operation_error_cmsoperationerror",
-      "community": 57,
-      "community_name": "response.ts",
+      "community": 26,
+      "community_name": "errors/types.ts",
       "norm_label": "cmsoperationerror"
     },
     {
@@ -24753,8 +24720,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_errors_cms_operation_error_cmsoperationerror_constructor",
-      "community": 57,
-      "community_name": "response.ts",
+      "community": 26,
+      "community_name": "errors/types.ts",
       "norm_label": ".constructor()"
     },
     {
@@ -24776,8 +24743,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_errors_defined_error",
-      "community": 278,
-      "community_name": "contract/types.ts",
+      "community": 26,
+      "community_name": "errors/types.ts",
       "norm_label": "defined-error.ts"
     },
     {
@@ -24800,8 +24767,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_errors_defined_error_validatedefinederror",
-      "community": 278,
-      "community_name": "contract/types.ts",
+      "community": 24,
+      "community_name": "execute-operation.ts",
       "norm_label": "validatedefinederror()"
     },
     {
@@ -24812,8 +24779,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_errors_defined_error_parsedefinederrordata",
-      "community": 278,
-      "community_name": "contract/types.ts",
+      "community": 24,
+      "community_name": "execute-operation.ts",
       "norm_label": "parsedefinederrordata()"
     },
     {
@@ -25019,8 +24986,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_errors_types_cmsdefinederrorfactories",
-      "community": 58,
-      "community_name": "create-payload-endpoints.ts",
+      "community": 26,
+      "community_name": "errors/types.ts",
       "norm_label": "cmsdefinederrorfactories"
     },
     {
@@ -25077,8 +25044,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_internal_symbols",
-      "community": 26,
-      "community_name": "errors/types.ts",
+      "community": 27,
+      "community_name": "contract/types.ts",
       "norm_label": "symbols.ts"
     },
     {
@@ -25088,8 +25055,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_internal_symbols_cms_operation_symbol",
-      "community": 26,
-      "community_name": "errors/types.ts",
+      "community": 27,
+      "community_name": "contract/types.ts",
       "norm_label": "cms_operation_symbol"
     },
     {
@@ -25099,8 +25066,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_payload_operations_src_internal_symbols_cms_operation_error_symbol",
-      "community": 26,
-      "community_name": "errors/types.ts",
+      "community": 27,
+      "community_name": "contract/types.ts",
       "norm_label": "cms_operation_error_symbol"
     },
     {
@@ -25110,8 +25077,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "packages_payload_operations_src_internal_symbols_cms_operation_promise_error_symbol",
-      "community": 26,
-      "community_name": "errors/types.ts",
+      "community": 27,
+      "community_name": "contract/types.ts",
       "norm_label": "cms_operation_promise_error_symbol"
     },
     {
@@ -25121,8 +25088,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_plugins_define_client_plugin",
-      "community": 18,
-      "community_name": "payload-operations/src/index.ts",
+      "community": 57,
+      "community_name": "response.ts",
       "norm_label": "define-client-plugin.ts"
     },
     {
@@ -25133,8 +25100,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_plugins_define_client_plugin_defineclientplugin",
-      "community": 18,
-      "community_name": "payload-operations/src/index.ts",
+      "community": 57,
+      "community_name": "response.ts",
       "norm_label": "defineclientplugin()"
     },
     {
@@ -25286,8 +25253,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_server_create_payload_endpoints_createpayloadendpoints",
-      "community": 27,
-      "community_name": "traversal.ts",
+      "community": 58,
+      "community_name": "create-payload-endpoints.ts",
       "norm_label": "createpayloadendpoints()"
     },
     {
@@ -25427,8 +25394,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_operations_src_server_tree",
-      "community": 27,
-      "community_name": "traversal.ts",
+      "community": 58,
+      "community_name": "create-payload-endpoints.ts",
       "norm_label": "tree.ts"
     },
     {
@@ -25439,8 +25406,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_server_tree_gettreevalue",
-      "community": 27,
-      "community_name": "traversal.ts",
+      "community": 58,
+      "community_name": "create-payload-endpoints.ts",
       "norm_label": "gettreevalue()"
     },
     {
@@ -25451,8 +25418,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_server_tree_asserttreeleaves",
-      "community": 27,
-      "community_name": "traversal.ts",
+      "community": 58,
+      "community_name": "create-payload-endpoints.ts",
       "norm_label": "asserttreeleaves()"
     },
     {
@@ -25463,8 +25430,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_operations_src_server_tree_collectleaves",
-      "community": 27,
-      "community_name": "traversal.ts",
+      "community": 58,
+      "community_name": "create-payload-endpoints.ts",
       "norm_label": "collectleaves()"
     },
     {
@@ -28306,7 +28273,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "choobinooo.mjs"
     },
     {
@@ -28317,7 +28284,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_editor",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "editor"
     },
     {
@@ -28329,7 +28296,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_synchronizeslug",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "synchronizeslug()"
     },
     {
@@ -28340,7 +28307,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_categoryentity",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "categoryentity"
     },
     {
@@ -28351,7 +28318,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_productentity",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "productentity"
     },
     {
@@ -28362,7 +28329,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_createproductschema",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "createproductschema"
     },
     {
@@ -28373,7 +28340,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_productcardschema",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "productcardschema"
     },
     {
@@ -28384,7 +28351,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_choobinooo_collectionstubs",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "collectionstubs"
     },
     {
@@ -28394,8 +28361,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_config",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "config.mjs"
     },
     {
@@ -28405,8 +28372,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_config_categoryentity",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "categoryentity"
     },
     {
@@ -28416,8 +28383,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_config_mediaentity",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "mediaentity"
     },
     {
@@ -28427,8 +28394,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_config_productentity",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "productentity"
     },
     {
@@ -28439,8 +28406,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_schema_tests_fixtures_config_createfixtureconfig",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "createfixtureconfig()"
     },
     {
@@ -28450,8 +28417,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_integration_postgres_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "postgres.test.mjs"
     },
     {
@@ -28461,8 +28428,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_integration_sqlite_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 127,
+      "community_name": "Database Fixture Configuration",
       "norm_label": "sqlite.test.mjs"
     },
     {
@@ -28739,7 +28706,7 @@
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_choobinooo_fixture_test",
       "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community_name": "Product Schema Fixtures",
       "norm_label": "choobinooo-fixture.test.mjs"
     },
     {
@@ -28749,8 +28716,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_compiler_adapter_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 310,
+      "community_name": "Compiler Adapter Testing",
       "norm_label": "compiler-adapter.test.mjs"
     },
     {
@@ -28760,8 +28727,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_defaults_errors_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 311,
+      "community_name": "Default Error Testing",
       "norm_label": "defaults-errors.test.mjs"
     },
     {
@@ -28771,8 +28738,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_entity_clone_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 203,
+      "community_name": "Entity Cloning Utilities",
       "norm_label": "entity-clone.test.mjs"
     },
     {
@@ -28783,20 +28750,9 @@
       "_callable": true,
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_entity_clone_test_get",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 203,
+      "community_name": "Entity Cloning Utilities",
       "norm_label": "get()"
-    },
-    {
-      "label": "../../dist/index.js",
-      "file_type": "code",
-      "source_file": "packages/payload-schema/dist/index.js",
-      "confidence": "EXTRACTED",
-      "_origin": "ast",
-      "id": "packages_payload_schema_dist_index",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
-      "norm_label": "../../dist/index.js"
     },
     {
       "label": "relationships-containers.test.mjs",
@@ -28805,8 +28761,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_relationships_containers_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 312,
+      "community_name": "Relationship Container Testing",
       "norm_label": "relationships-containers.test.mjs"
     },
     {
@@ -28816,8 +28772,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_scalars_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 313,
+      "community_name": "Scalar Type Testing",
       "norm_label": "scalars.test.mjs"
     },
     {
@@ -28827,8 +28783,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "packages_payload_schema_tests_unit_vertical_slice_test",
-      "community": 107,
-      "community_name": "choobinooo.mjs",
+      "community": 314,
+      "community_name": "Vertical Slice Testing",
       "norm_label": "vertical-slice.test.mjs"
     },
     {
@@ -29518,7 +29474,7 @@
       "label": "validateSkills()",
       "file_type": "code",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L293",
+      "source_location": "L288",
       "_callable": true,
       "_origin": "ast",
       "id": "scripts_validate_skills_validateskills",
@@ -29570,18 +29526,6 @@
       "community": 45,
       "community_name": "validate-skills.mjs",
       "norm_label": "createfixture()"
-    },
-    {
-      "label": "createPortableFixture()",
-      "file_type": "code",
-      "source_file": "scripts/validate-skills.test.mjs",
-      "source_location": "L64",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "scripts_validate_skills_test_createportablefixture",
-      "community": 45,
-      "community_name": "validate-skills.mjs",
-      "norm_label": "createportablefixture()"
     },
     {
       "label": "approved-modal.tsx",
@@ -30562,7 +30506,7 @@
       "_origin": "ast",
       "id": "tools_eslint_config_src_base",
       "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community_name": "ESLint Configuration Base",
       "norm_label": "base.ts"
     },
     {
@@ -30573,7 +30517,7 @@
       "_origin": "ast",
       "id": "tools_eslint_config_src_base_baseconfig",
       "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community_name": "ESLint Configuration Base",
       "norm_label": "baseconfig"
     },
     {
@@ -30584,7 +30528,7 @@
       "_origin": "ast",
       "id": "tools_eslint_config_src_index",
       "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community_name": "ESLint Configuration Base",
       "norm_label": "eslint-config/src/index.ts"
     },
     {
@@ -30595,7 +30539,7 @@
       "_origin": "ast",
       "id": "tools_eslint_config_src_nextjs",
       "community": 165,
-      "community_name": "eslint-config/src/index.ts",
+      "community_name": "ESLint Configuration Base",
       "norm_label": "nextjs.ts"
     },
     {
@@ -33751,8 +33695,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "packages_logger_changelog_4_1_0",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 426,
+      "community_name": "4.1.0",
       "norm_label": "4.1.0"
     },
     {
@@ -33762,8 +33706,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "packages_logger_changelog_minor_changes",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 426,
+      "community_name": "4.1.0",
       "norm_label": "minor changes"
     },
     {
@@ -33795,8 +33739,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "packages_logger_changelog_4_0_0",
-      "community": 310,
-      "community_name": "4.0.0",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "4.0.0"
     },
     {
@@ -33806,8 +33750,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "packages_logger_changelog_major_changes",
-      "community": 310,
-      "community_name": "4.0.0",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "major changes"
     },
     {
@@ -33817,8 +33761,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "packages_logger_changelog_3_1_3",
-      "community": 304,
-      "community_name": "3.1.3",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "3.1.3"
     },
     {
@@ -33828,8 +33772,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "packages_logger_changelog_patch_changes_23",
-      "community": 304,
-      "community_name": "3.1.3",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "patch changes"
     },
     {
@@ -33861,8 +33805,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "packages_logger_changelog_3_1_1",
-      "community": 294,
-      "community_name": "3.1.1",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "3.1.1"
     },
     {
@@ -33872,8 +33816,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "packages_logger_changelog_patch_changes_35",
-      "community": 294,
-      "community_name": "3.1.1",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "patch changes"
     },
     {
@@ -33916,8 +33860,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "packages_logger_changelog_3_0_0",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 424,
+      "community_name": "3.0.0",
       "norm_label": "3.0.0"
     },
     {
@@ -33927,8 +33871,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "packages_logger_changelog_major_changes_51",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 424,
+      "community_name": "3.0.0",
       "norm_label": "major changes"
     },
     {
@@ -33971,8 +33915,8 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "packages_logger_changelog_2_4_0",
-      "community": 293,
-      "community_name": "2.4.0",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "2.4.0"
     },
     {
@@ -33982,8 +33926,8 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "packages_logger_changelog_minor_changes_68",
-      "community": 293,
-      "community_name": "2.4.0",
+      "community": 352,
+      "community_name": "@nexload-sdk/logger",
       "norm_label": "minor changes"
     },
     {
@@ -33993,8 +33937,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "packages_logger_changelog_2_3_0",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 423,
+      "community_name": "2.3.0",
       "norm_label": "2.3.0"
     },
     {
@@ -34004,8 +33948,8 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "packages_logger_changelog_minor_changes_74",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 423,
+      "community_name": "2.3.0",
       "norm_label": "minor changes"
     },
     {
@@ -34048,8 +33992,8 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "packages_logger_changelog_2_1_3",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 421,
+      "community_name": "2.1.3",
       "norm_label": "2.1.3"
     },
     {
@@ -34059,8 +34003,8 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "packages_logger_changelog_patch_changes_91",
-      "community": 352,
-      "community_name": "@nexload-sdk/logger",
+      "community": 421,
+      "community_name": "2.1.3",
       "norm_label": "patch changes"
     },
     {
@@ -35041,248 +34985,6 @@
       "community": 336,
       "community_name": "@nexload-sdk/payload-fields",
       "norm_label": "major changes"
-    },
-    {
-      "label": "agy-worker/SKILL.md",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_skill",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "agy-worker/skill.md"
-    },
-    {
-      "label": "AGY Worker",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "skills_agy_worker_skill_agy_worker",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "agy worker"
-    },
-    {
-      "label": "Reassess, then route",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L17",
-      "_origin": "ast",
-      "id": "skills_agy_worker_skill_reassess_then_route",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "reassess, then route"
-    },
-    {
-      "label": "Dispatch only what is useful",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "skills_agy_worker_skill_dispatch_only_what_is_useful",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "dispatch only what is useful"
-    },
-    {
-      "label": "agy-capabilities.md",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_agy_capabilities",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "agy-capabilities.md"
-    },
-    {
-      "label": "Verified AGY capabilities",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_agy_capabilities_verified_agy_capabilities",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "verified agy capabilities"
-    },
-    {
-      "label": "Invocation and models",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_agy_capabilities_invocation_and_models",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "invocation and models"
-    },
-    {
-      "label": "Results and continuation",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L33",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_agy_capabilities_results_and_continuation",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "results and continuation"
-    },
-    {
-      "label": "Permissions and execution limits",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_agy_capabilities_permissions_and_execution_limits",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "permissions and execution limits"
-    },
-    {
-      "label": "communication-contract.md",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_communication_contract",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "communication-contract.md"
-    },
-    {
-      "label": "Supervisor \u2192 worker contract",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_communication_contract_supervisor_worker_contract",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "supervisor \u2192 worker contract"
-    },
-    {
-      "label": "Worker obligations",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L35",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_communication_contract_worker_obligations",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "worker obligations"
-    },
-    {
-      "label": "Structured result",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_communication_contract_structured_result",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "structured result"
-    },
-    {
-      "label": "multi-worker.md",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_multi_worker",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "multi-worker.md"
-    },
-    {
-      "label": "Lightweight multi-worker execution",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_multi_worker_lightweight_multi_worker_execution",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "lightweight multi-worker execution"
-    },
-    {
-      "label": "Ownership before launch",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_multi_worker_ownership_before_launch",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "ownership before launch"
-    },
-    {
-      "label": "Launch and integrate",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L31",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_multi_worker_launch_and_integrate",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "launch and integrate"
-    },
-    {
-      "label": "review-and-recovery.md",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_review_and_recovery",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "review-and-recovery.md"
-    },
-    {
-      "label": "Review and bounded recovery",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_review_and_recovery_review_and_bounded_recovery",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "review and bounded recovery"
-    },
-    {
-      "label": "Review the workspace",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_review_and_recovery_review_the_workspace",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "review the workspace"
-    },
-    {
-      "label": "Choose an outcome",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L25",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_review_and_recovery_choose_an_outcome",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "choose an outcome"
-    },
-    {
-      "label": "Recovery budget per subtask",
-      "file_type": "document",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "skills_agy_worker_references_review_and_recovery_recovery_budget_per_subtask",
-      "community": 127,
-      "community_name": "agy-worker/SKILL.md",
-      "norm_label": "recovery budget per subtask"
     },
     {
       "label": "test-fixtures.md",
@@ -47647,18 +47349,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/env/eslint.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_env_eslint_config",
-      "target": "tools_eslint_config_src_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/env/package.json",
@@ -57561,18 +57251,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/iconcraft/eslint.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_iconcraft_eslint_config",
-      "target": "tools_eslint_config_src_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/iconcraft/package.json",
@@ -59909,18 +59587,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/jwt/eslint.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_jwt_eslint_config",
-      "target": "tools_eslint_config_src_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/jwt/package.json",
@@ -61325,18 +60991,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/logger/eslint.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_logger_eslint_config",
-      "target": "tools_eslint_config_src_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/logger/package.json",
@@ -62694,7 +62348,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L321",
+      "source_location": "L312",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills",
@@ -63661,18 +63315,6 @@
       "_origin": "ast",
       "source": "packages_orpc_client_esbuild_config",
       "target": "tools_bundler_index_createbundler",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/orpc-client/eslint.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_orpc_client_eslint_config",
-      "target": "tools_eslint_config_src_index",
       "confidence_score": 1.0
     },
     {
@@ -69658,33 +69300,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "dynamic_import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-fields/test/contracts.test.mjs",
-      "_origin": "ast",
-      "source": "packages_payload_fields_test_contracts_test",
-      "target": "packages_payload_fields_dist_date_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "dynamic_import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-fields/test/contracts.test.mjs",
-      "_origin": "ast",
-      "source": "packages_payload_fields_test_contracts_test",
-      "target": "packages_payload_fields_dist_money_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "dynamic_import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-fields/test/contracts.test.mjs",
-      "_origin": "ast",
-      "source": "packages_payload_fields_test_contracts_test",
-      "target": "packages_payload_fields_dist_slug_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/payload-fields/tsconfig.json",
@@ -69842,18 +69457,6 @@
       "_origin": "ast",
       "source": "packages_payload_hooks_esbuild_config",
       "target": "tools_bundler_index_createbundler",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "re_exports",
-      "context": "export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-hooks/eslint.config.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_hooks_eslint_config",
-      "target": "tools_eslint_config_src_index",
       "confidence_score": 1.0
     },
     {
@@ -81714,18 +81317,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/fixtures/choobinooo.mjs",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_fixtures_choobinooo",
-      "target": "packages_payload_schema_dist_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/payload-schema/tests/fixtures/choobinooo.mjs",
@@ -81849,18 +81440,6 @@
       "_origin": "ast",
       "source": "packages_payload_schema_tests_unit_choobinooo_fixture_test",
       "target": "packages_payload_schema_tests_fixtures_choobinooo_collectionstubs",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/fixtures/config.mjs",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_fixtures_config",
-      "target": "packages_payload_schema_dist_index",
       "confidence_score": 1.0
     },
     {
@@ -82189,42 +81768,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/unit/compiler-adapter.test.mjs",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_unit_compiler_adapter_test",
-      "target": "packages_payload_schema_dist_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/unit/defaults-errors.test.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_unit_defaults_errors_test",
-      "target": "packages_payload_schema_dist_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/unit/entity-clone.test.mjs",
-      "_origin": "ast",
-      "context": "import",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "packages_payload_schema_tests_unit_entity_clone_test",
-      "target": "packages_payload_schema_dist_index",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/payload-schema/tests/unit/entity-clone.test.mjs",
@@ -82233,42 +81776,6 @@
       "_origin": "ast",
       "source": "packages_payload_schema_tests_unit_entity_clone_test",
       "target": "packages_payload_schema_tests_unit_entity_clone_test_get",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/unit/relationships-containers.test.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_unit_relationships_containers_test",
-      "target": "packages_payload_schema_dist_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/unit/scalars.test.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_unit_scalars_test",
-      "target": "packages_payload_schema_dist_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/payload-schema/tests/unit/vertical-slice.test.mjs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "packages_payload_schema_tests_unit_vertical_slice_test",
-      "target": "packages_payload_schema_dist_index",
       "confidence_score": 1.0
     },
     {
@@ -82875,7 +82382,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L293",
+      "source_location": "L288",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills",
@@ -82922,7 +82429,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L262",
+      "source_location": "L261",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskill",
@@ -82946,7 +82453,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L263",
+      "source_location": "L262",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskill",
@@ -82994,7 +82501,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L284",
+      "source_location": "L279",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskill",
@@ -83006,7 +82513,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L285",
+      "source_location": "L280",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskill",
@@ -83018,7 +82525,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L287",
+      "source_location": "L282",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskill",
@@ -83030,7 +82537,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L279",
+      "source_location": "L278",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskill",
@@ -83042,7 +82549,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-skills.mjs",
-      "source_location": "L306",
+      "source_location": "L301",
       "weight": 1.0,
       "_origin": "ast",
       "source": "scripts_validate_skills_validateskills",
@@ -83081,17 +82588,6 @@
       "_origin": "ast",
       "source": "scripts_validate_skills_test",
       "target": "scripts_validate_skills_test_createfixture",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/validate-skills.test.mjs",
-      "source_location": "L64",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "scripts_validate_skills_test",
-      "target": "scripts_validate_skills_test_createportablefixture",
       "confidence_score": 1.0
     },
     {
@@ -88295,237 +87791,6 @@
       "_origin": "ast",
       "source": "packages_payload_fields_changelog_1_0_0",
       "target": "packages_payload_fields_changelog_major_changes_65",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill",
-      "target": "skills_agy_worker_references_agy_capabilities",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L45",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill",
-      "target": "skills_agy_worker_references_communication_contract",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L50",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill",
-      "target": "skills_agy_worker_references_multi_worker",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L58",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill",
-      "target": "skills_agy_worker_references_review_and_recovery",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill",
-      "target": "skills_agy_worker_skill_agy_worker",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L38",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill_agy_worker",
-      "target": "skills_agy_worker_skill_dispatch_only_what_is_useful",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/SKILL.md",
-      "source_location": "L17",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_skill_agy_worker",
-      "target": "skills_agy_worker_skill_reassess_then_route",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_agy_capabilities",
-      "target": "skills_agy_worker_references_agy_capabilities_verified_agy_capabilities",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_agy_capabilities_verified_agy_capabilities",
-      "target": "skills_agy_worker_references_agy_capabilities_invocation_and_models",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L51",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_agy_capabilities_verified_agy_capabilities",
-      "target": "skills_agy_worker_references_agy_capabilities_permissions_and_execution_limits",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/agy-capabilities.md",
-      "source_location": "L33",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_agy_capabilities_verified_agy_capabilities",
-      "target": "skills_agy_worker_references_agy_capabilities_results_and_continuation",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_communication_contract",
-      "target": "skills_agy_worker_references_communication_contract_supervisor_worker_contract",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L50",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_communication_contract_supervisor_worker_contract",
-      "target": "skills_agy_worker_references_communication_contract_structured_result",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/communication-contract.md",
-      "source_location": "L35",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_communication_contract_supervisor_worker_contract",
-      "target": "skills_agy_worker_references_communication_contract_worker_obligations",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_multi_worker",
-      "target": "skills_agy_worker_references_multi_worker_lightweight_multi_worker_execution",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L31",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_multi_worker_lightweight_multi_worker_execution",
-      "target": "skills_agy_worker_references_multi_worker_launch_and_integrate",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/multi-worker.md",
-      "source_location": "L12",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_multi_worker_lightweight_multi_worker_execution",
-      "target": "skills_agy_worker_references_multi_worker_ownership_before_launch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_review_and_recovery",
-      "target": "skills_agy_worker_references_review_and_recovery_review_and_bounded_recovery",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L25",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_review_and_recovery_review_and_bounded_recovery",
-      "target": "skills_agy_worker_references_review_and_recovery_choose_an_outcome",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L38",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_review_and_recovery_review_and_bounded_recovery",
-      "target": "skills_agy_worker_references_review_and_recovery_recovery_budget_per_subtask",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "skills/agy-worker/references/review-and-recovery.md",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "skills_agy_worker_references_review_and_recovery_review_and_bounded_recovery",
-      "target": "skills_agy_worker_references_review_and_recovery_review_the_workspace",
       "confidence_score": 1.0
     },
     {
@@ -93751,5 +93016,5 @@
       "source_file": "skills/payload-schema/use/references/consumer-contract.md"
     }
   ],
-  "built_at_commit": "5312a324529f0860069b0315fc74181c79b1d998"
+  "built_at_commit": "eab45cfe2e5e2b567ed614d4c5d5047a625cd695"
 }

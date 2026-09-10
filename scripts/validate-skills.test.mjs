@@ -61,6 +61,47 @@ test("accepts a complete structured skill", () => {
   }
 });
 
+function createPortableFixture (root, { name = "portable-worker", description = "Delegate bounded execution to a CLI worker." } = {}) {
+  const skill = join(root, "portable-worker");
+  mkdirSync(skill, { recursive: true });
+  writeFileSync(join(skill, "SKILL.md"), `---\nname: ${name}\ndescription: ${JSON.stringify(description)}\n---\n\nSupervise bounded work.\n`);
+  return skill;
+}
+
+test("validates portable skills alongside nested package skills without requiring eval scaffolding", () => {
+  const root = createFixture();
+  try {
+    const skill = createPortableFixture(root);
+    assert.deepEqual(validateSkills({ root }), []);
+    assert.deepEqual(validateSkills({ root, selected: "portable-worker" }), []);
+    mkdirSync(join(skill, "references"));
+    writeFileSync(join(skill, "references", "contract.md"), "# Contract\n");
+    const entrypoint = join(skill, "SKILL.md");
+    writeFileSync(entrypoint, `${readFileSync(entrypoint, "utf8")}\nRead [contract](references/contract.md).\n`);
+    assert.deepEqual(validateSkills({ root }), []);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("rejects invalid portable frontmatter and broken references", () => {
+  const root = createFixture();
+  try {
+    const skill = createPortableFixture(root, { name: "wrong-name", description: " " });
+    const errors = validateSkills({ root });
+    assert(errors.some((error) => error.includes("name must equal 'portable-worker'")));
+    assert(errors.some((error) => error.includes("description must be between 1 and 1024")));
+    createPortableFixture(root);
+    const entrypoint = join(skill, "SKILL.md");
+    writeFileSync(entrypoint, `${readFileSync(entrypoint, "utf8")}\nRead [missing](references/missing.md).\n`);
+    assert(validateSkills({ root }).some((error) => error.includes("missing references directory")));
+    mkdirSync(join(skill, "references"));
+    assert(validateSkills({ root }).some((error) => error.includes("linked reference does not exist")));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("rejects path mismatches and orphan references", () => {
   const root = createFixture();
   try {
