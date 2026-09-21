@@ -60,6 +60,45 @@
         "Does not approve the export merely because an internal helper already exists or might be reused.",
         "Carries forward narrow scope, safe typing, and evidence requirements without duplicating the package design."
       ]
+    },
+    {
+      "id": 6,
+      "category": "review_diagnosis",
+      "prompt": "Refactor the attached function for clarity while preserving behavior and scope.",
+      "expected_output": "Semantic blank-line grouping with related declarations together, connected control flow intact, and no formatting-only churn.",
+      "files": ["evals/fixtures/readability-grouping.md"],
+      "expectations": [
+        "Inserts one blank line between the initial declaration group and the distinct if, and before the final return after rows preparation.",
+        "Keeps width, height, and area declarations together; removes excessive blank lines and preserves if/else and try/catch/finally connections.",
+        "Preserves load order including config loading when record is absent, all calls and branches, null/output contracts, original error propagation, and cleanup.",
+        "Does not extract trivial helpers, rename public contracts, or reformat neighboring files."
+      ]
+    },
+    {
+      "id": 7,
+      "category": "failure_security",
+      "prompt": "Implement the smallest internal refresh correction using the attached contracts and report decisive verification.",
+      "expected_output": "Preserved failure context, explicit async ownership, and coordination only where the reachable invariant requires it.",
+      "files": ["evals/fixtures/behavior-correctness.md"],
+      "expectations": [
+        "Returns or awaits the shared in-flight promise for duplicate callers and completion for the first caller; preserves original fetchAndPersist rejection.",
+        "Owns the promise returned by finally, clears entries on success and failure, and does not treat void as rejection handling.",
+        "Preserves existing store transaction/version protection, distinguishes process-local coalescing from cross-process integrity, and introduces no lock, queue, retry, or store rewrite.",
+        "Keeps state explicitly service-owned with cleanup; proposes concurrent-caller success/rejection and subsequent retry-after-failure checks without claiming execution."
+      ]
+    },
+    {
+      "id": 8,
+      "category": "review_diagnosis",
+      "prompt": "Review the attached refactor and select only changes that improve cohesion and maintainability.",
+      "expected_output": "Extract shared eligibility policy into its existing owner while keeping cohesive algorithms local and preserving dependency direction.",
+      "files": ["evals/fixtures/cohesion-and-extraction.md"],
+      "expectations": [
+        "Consolidates same-reason eligibility duplication in eligibility.ts and keeps the independent marketing policy separate.",
+        "Rejects one-line helper chains and a fixed 20-line cap; keeps the encoding algorithm cohesive unless a concrete comprehension problem is shown.",
+        "Prevents eligibility importing store and the proposed cycle, preserves the current dependency direction, and allows related types/exports in one module.",
+        "Preserves receipt contracts and effect order without adding classes, wrappers, unrelated cleanup, or public exports."
+      ]
     }
   ]
 }

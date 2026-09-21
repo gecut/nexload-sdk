@@ -1,73 +1,68 @@
 ---
 name: nexload-code
-description: "Use when internal TypeScript behavior or repository-wide file naming is the primary task in Nexload: scope discipline, kebab-case filenames, type or trust-boundary safety, typed interoperability seams, module or lifecycle ownership, abstraction value, dependency restraint, own-package internal imports, or honest verification. Use nexload-package for consumer-facing exports and compatibility, and sibling skills when React, visual design, or a dedicated domain is primary."
+description: "Use when internal TypeScript behavior, refactoring, or repository-wide file naming is the primary task in Nexload: scope discipline, readable functions and modules, type or trust-boundary safety, lifecycle ownership, abstraction value, dependency restraint, internal imports, or honest verification. Route package API compatibility to nexload-package and framework or specialist policy to the owning sibling skill."
 ---
 
 # Nexload Code
 
 ## Purpose
 
-Produce the smallest correct, reviewable TypeScript change while preserving explicit boundaries, strong types, understandable control flow, and current behavior outside the request.
+Produce the smallest correct, reviewable TypeScript change. Preserve current behavior outside the request while making ownership, types, control flow, side effects, and failure behavior easy to verify.
 
-## Trigger boundary
-
-- Use for ordinary implementation, refactoring, and review across Nexload TypeScript modules.
-- Compose with a domain skill when it supplies the contract; this skill supplies baseline implementation discipline.
-- Route package ownership/exports to `nexload-package`, React modules to `nexload-react`, and visual-system work to `nexload-design`.
-- Use a dedicated specialist when installed for detailed contracts, errors, tests, runtime architecture, Payload, security, performance, observability, Next.js, accessibility, or release work. Otherwise bound the decision, preserve the relevant baseline invariant, and report the deferred specialist work.
+This is the foundational implementation standard. Compose it with a domain skill that owns the contract; do not turn it into detailed policy for React, design, package releases, security, testing, performance, framework behavior, or observability.
 
 ## Source of truth
 
-Current code and tests, the nearest `AGENTS.md`, package README/manifest, TypeScript config, and ESLint config outrank this prose. Existing code is evidence, not automatically a standard; record legacy conflicts instead of spreading them.
+Follow the user's authorized scope and applicable `AGENTS.md` first, then established package contracts and effective TypeScript/ESLint/Prettier configuration. Current code and tests establish behavior, not automatic design precedent. This skill fills gaps; external guides do not override local contracts. Report conflicts instead of spreading legacy patterns.
+
+## Trigger boundary
+
+Use for ordinary internal TypeScript implementation, refactoring, and review. Compose with a domain skill when it owns the contract; route API compatibility to `nexload-package`, React behavior to `nexload-react`, visual systems to `nexload-design`, and final technical judgment to `nexload-cto-review`. Dedicated specialists own detailed error systems, security, testing strategy, performance, frameworks, and releases. If unavailable, preserve baseline invariants and report the specific unresolved decision.
 
 ## Required inspection
 
-For repository changes, inspect worktree status, the exact caller-to-effect path, affected public types and tests, nearby module boundaries, and the narrowest available package commands. For supplied fixtures or conceptual reviews, inspect only the evidence required to decide ownership and behavior.
+For repository changes, inspect worktree status, the caller-to-effect path, affected public types and tests, nearby module boundaries, and the narrowest package commands. Inspect only the evidence needed for supplied fixtures or conceptual reviews. Read the relevant reference below before making its decision.
 
 ## Decision flow
 
-1. State the required observable change and what must remain unchanged.
-2. Locate the authoritative state, type, policy, and lifecycle owner.
-3. Prefer the framework/native API or an existing repository seam that already owns the behavior.
-4. Add an abstraction, file, state store, dependency, or configuration only for a current responsibility: policy, lifecycle, integration, type safety, a real variant, or meaningful same-reason duplication.
-5. Validate untrusted runtime data; use types to preserve knowledge after that boundary.
-6. Verify from the narrowest decisive check outward.
+1. State the observable change and what must remain unchanged.
+2. Locate the authoritative state, type, policy, lifecycle, and error owner.
+3. Prefer an existing or native seam that already owns the behavior.
+4. Validate weakly typed input once at the boundary, then preserve the narrowed type.
+5. Keep control flow and side effects explicit; use focused functions and semantic grouping.
+6. Add a file, dependency, abstraction, store, lock, or configuration only for a current responsibility, lifecycle, boundary, real variant, or meaningful same-reason duplication.
+7. Verify from the narrowest decisive check outward.
 
 ## Implementation workflow
 
-1. Trace the current path and identify the smallest cohesive edit.
-2. Derive types from the canonical model; narrow `unknown` at trust boundaries.
-3. Keep control flow explicit with focused functions, guard clauses, and visible side effects.
-4. Keep implementation in its owning module; use `index.ts` primarily as a deliberate boundary.
-5. Name every new or deliberately renamed project-authored file whose exact name is not externally mandated in kebab-case, including component files.
-6. Remove only dead code made obsolete by the change; avoid adjacent cleanup.
-7. Run targeted checks, then broader gates only when impact justifies them.
+Trace the current path, derive types from the canonical model, keep implementation in its owning module, name new files according to repository rules, remove only obsolete dead code, and run targeted checks before broader gates.
 
 ## Invariants
 
-- Preserve unrelated behavior and local architecture.
-- Do not use `any` or assertions to conceal missing modeling or skip runtime validation. A contained `any` or assertion is acceptable at an unavoidable, documented interoperability seam after runtime facts are established.
-- Account for strict TypeScript and `noUncheckedIndexedAccess`; prefer `import type` for type-only dependencies.
-- Keep one primary responsibility per module without splitting trivial statements into files.
-- Use kebab-case for project-authored filenames whose exact names are not externally mandated, including React component files. Preserve exact filenames required by frameworks, tools, protocols, or publication contracts; do not hand-rename generated or vendored files.
-- Avoid own-package barrel imports when direct internal imports preserve dependency direction.
-- State and lifecycle ownership are explicit; no convenience singleton or hidden mutable global by default.
-- Abstractions own real policy, lifecycle, integration, or meaningful duplication; hypothetical reuse is insufficient.
+- Preserve unrelated behavior and local architecture; remove only dead code made obsolete by the change.
+- Derive types from canonical schemas, factories, constants, or public contracts where practical. Account for strict TypeScript and `noUncheckedIndexedAccess`; use `import type` for erased dependencies. Do not conceal missing modeling or validation with `any` or assertions; contained, justified exceptions follow the type reference.
+- Keep one primary responsibility per module and make state creation, mutation, concurrency, and cleanup ownership visible. Do not split trivial code into layers or files.
+- Use project-authored kebab-case filenames, including component files, unless an exact framework, tool, protocol, generated, vendored, or publication name is required.
+- Prefer direct internal imports when a package's own barrel would obscure dependency direction or create a cycle.
+- Handle errors at the boundary that can recover, translate, or enrich them. Preserve meaningful causes and never fabricate success or leak sensitive data in diagnostics.
+- Do not introduce locks, retries, caches, transactions, or other infrastructure without a reachable consistency or lifecycle requirement.
 
 ## Security and edge cases
 
-Treat network, storage, environment, parsed JSON, and untyped library values as untrusted until checked. Cover empty, missing, malformed, repeated, concurrent, and cleanup paths only when the changed seam can reach them. Keep baseline diagnostics free of secrets and raw sensitive values; route authorization, retention, redaction policy, and threat modeling to the security or observability specialist when installed.
-
-## Verification
-
-Use the package's real scripts. Prefer a focused test/typecheck/lint/build that exercises the changed boundary, then run workspace gates for shared or public effects. Never claim an unrun lane, and separate in-scope failures from unrelated baseline failures.
+Treat network, storage, environment, parsed JSON, process output, and untyped library values as untrusted. Cover malformed, repeated, concurrent, and cleanup paths when the changed seam can reach them. Keep diagnostics free of secrets and raw sensitive values; route authorization, retention, redaction, and threat modeling to security or observability specialists.
 
 ## Reference routing
 
-- Read [type and trust boundaries](references/type-trust-boundaries.md) for `unknown`, assertions, canonical types, and runtime narrowing.
-- Read [modules, state, and abstractions](references/module-state-abstractions.md) for filename rules, ownership, files, lifecycle, configuration, and abstraction tests.
-- Read [dependencies and verification](references/dependencies-verification.md) for native-first choices, dependency ownership, comments, and evidence.
+- [Clean code and readability](references/clean-code.md): names, functions, pragmatic DRY, comments, semantic whitespace, and tooling limits.
+- [Behavior and correctness](references/behavior-and-correctness.md): contracts, errors, async work, concurrency, data integrity, resources, and behavior preservation.
+- [Type and trust boundaries](references/type-trust-boundaries.md): `unknown`, runtime narrowing, canonical types, assertions, and interoperability.
+- [Modules, state, and abstractions](references/module-state-abstractions.md): module cohesion, filenames, encapsulation, and internal dependency direction.
+- [Dependencies and verification](references/dependencies-verification.md): native-first choices, dependency ownership, and evidence.
+
+## Verification
+
+Run the package's real focused test, typecheck, lint, or build scripts, then broaden only when shared or public effects justify it. Inspect output as well as exit status. Never claim an unrun check.
 
 ## Handoff requirements
 
-Report the behavior changed, why the chosen owner is correct, preserved boundaries, intentional exceptions, exact checks and outcomes, remaining risk, and unrelated worktree or baseline failures. Do not claim broader architectural cleanup than was performed.
+Report exact commands and outcomes, skipped or unavailable lanes, unrelated baseline failures, behavior changed, preserved boundaries, intentional exceptions, residual risk, and work deferred to another skill.

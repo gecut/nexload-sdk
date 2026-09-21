@@ -9,15 +9,7 @@ Before adding a dependency, check in order:
 3. Is a small local implementation clearer and safer than ecosystem ownership?
 4. If a dependency is justified, which package actually owns its runtime use?
 
-Do not add a package for trivial formatting, collection, parsing, or control-flow work. Do not create a Nexload wrapper that merely renames an upstream API. An abstraction is justified when it adds policy, normalization, type safety, integration, lifecycle, or a runtime boundary.
-
-## Constants and comments
-
-- Name literals that encode domain policy, protocol values, compatibility limits, or repeated meaning.
-- Keep obvious one-use literals local; extracting every literal creates indirection without meaning.
-- Comments explain rationale, constraints, compatibility, or non-obvious tradeoffs.
-- Improve unclear naming or structure instead of narrating it with comments.
-- Remove dead commented-out code; version control already preserves history.
+Do not add a package for trivial formatting, collection access, or control flow. Prefer a maintained dependency when correctness, protocol complexity, security, or existing integration makes a local implementation riskier. Use the abstraction test in [clean code](clean-code.md) before introducing a wrapper.
 
 ## Verification ladder
 

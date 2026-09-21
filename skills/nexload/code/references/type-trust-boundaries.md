@@ -27,14 +27,18 @@ Compile-time assertions do not validate runtime data. `value as Config` after `J
 
 An assertion is acceptable only when all are true:
 
-- the mismatch is at an unavoidable typed interoperability seam;
+- the compiler cannot express a proven invariant or unavoidable interoperability contract after reasonable narrowing/modeling;
 - runtime facts or an upstream contract establish the asserted shape;
-- the assertion is narrow and contained in one adapter;
+- the assertion is narrow and contained at the owning boundary;
 - callers receive a safe type and do not repeat the escape hatch.
 
 Use a locally documented `any` only when an external type system genuinely requires it and `unknown` cannot express the operation. Never widen a public API to `any` for convenience.
 
 Reject assertions that hide an incomplete union, bypass a failed generic design, silence nullability, or replace trust-boundary validation.
+
+Literal `as const` and safe type modeling are not runtime-validation escape hatches. `typeof value === "function"` proves callability, not argument or result types; rely on an established upstream contract or validate the result.
+
+[TypeScript documents](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions) that assertions are erased and provide no runtime checking.
 
 ## Review questions
 

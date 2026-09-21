@@ -1,8 +1,4 @@
-# Modules, state, and abstractions
-
-## Change locality
-
-Start at the exact caller, state transition, or side effect. Modify the smallest cohesive owner and avoid cleanup that does not reduce risk for the requested behavior.
+# Module ownership and filenames
 
 ## File naming
 
@@ -17,44 +13,10 @@ Keep exact conventional names that an external contract requires, such as `packa
 
 Apply the rule to new files and deliberate renames. When materially changing a legacy nonconforming file, rename it only when imports, export maps, framework discovery, case-sensitive filesystems, and consumers can be updated safely within scope; otherwise record the migration conflict instead of hiding a broad rename inside unrelated work. Symbol naming remains language-specific: React component identifiers stay PascalCase even though their filenames are kebab-case.
 
-## Function and module design
+## Cohesion and dependency direction
 
-- Give each function one clear responsibility and make side effects visible in its name or owning module.
-- Prefer guard clauses and explicit branches over deep nesting or clever expression chains.
-- Prefer local mutation inside an owned algorithm over mutation hidden across helpers.
-- A file has one primary responsibility, but trivial helpers may remain beside their owner.
-- Keep substantive implementation out of `index.ts` when it is serving as a module or public export boundary.
-- Import internal modules directly instead of through the package's own public barrel when that makes dependency direction clearer.
+Keep one primary responsibility per module. Related types, contracts, and helper exports can stay together; one export per file is not a requirement. Keep implementation details private and substantive implementation out of `index.ts` when it serves as an export boundary.
 
-Names should communicate domain meaning. Use verbs such as `create`, `define`, `parse`, `resolve`, `normalize`, or `validate` when accurate, but prefer a better domain verb over mechanical vocabulary.
+Follow the existing internal dependency direction. Policy should not acquire a dependency on transport, UI, or persistence details merely to reuse a helper. Prefer direct internal imports over the package's own public barrel where the barrel obscures ownership or creates a cycle. Resolve cycles at the responsibility boundary rather than adding another barrel or generic utilities bucket. Do not invent layers, classes, or interfaces for a single simple capability.
 
-## Abstraction test
-
-Introduce an abstraction only when it owns at least one concrete concern:
-
-- policy or invariant;
-- lifecycle or resource cleanup;
-- runtime/framework boundary;
-- behavior family with current variants;
-- meaningful duplication with the same reason to change.
-
-Reject a new manager, helper layer, factory, adapter, plugin, cache, retry system, or transport created only for possible future reuse. A renamed wrapper around an existing native API is not added value.
-
-## State and lifecycle
-
-- Keep the owner of state, initialization, teardown, and concurrency visible.
-- Prefer consumer-owned instances when consumers need independent state.
-- Avoid mutable module globals and implicit singleton initialization.
-- Make subscription, timer, process-listener, file, and connection cleanup explicit.
-- Keep configuration distinct from runtime state; do not mutate caller configuration invisibly.
-
-Object configuration is preferred when parameters are numerous, optional, or likely to evolve. Defaults must be predictable at the owning boundary rather than scattered across callers.
-
-## Review questions
-
-- Which module owns this behavior and why?
-- Does the abstraction remove a real dependency or encode policy?
-- Can a reader trace state changes top-down?
-- Who creates and disposes the stateful resource?
-- Is a second representation or lifecycle being introduced?
-- Are new or deliberately renamed project-authored files kebab-case, with any exception tied to an exact external naming contract?
+For function extraction and abstraction decisions, use [clean code](clean-code.md). State and lifecycle rules belong to [behavior and correctness](behavior-and-correctness.md). Public exports and compatibility belong to `nexload-package`.
