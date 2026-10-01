@@ -6,7 +6,7 @@ Incrementally adopt Payload Schema without moving collection ownership.
 **Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/migration/
 Adopt the package field by field. Keep collection slugs, access control, collection hooks, versions, database adapters, and generated Payload types in their existing modules.
-This page targets 1.1.0; use the
+This page targets 2.0.0; use the
 [package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/CHANGELOG.md)
 to identify version-specific changes from your installed release.
 

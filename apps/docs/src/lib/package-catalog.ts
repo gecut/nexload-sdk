@@ -6,7 +6,7 @@ import healthcheckOtel from "../../../../packages/healthcheck/otel/package.json"
 import healthcheckPayload from "../../../../packages/healthcheck/payload/package.json";
 import healthcheckPrometheus from "../../../../packages/healthcheck/prometheus/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
-import payloadFields from "../../../../packages/payload-fields/package.json";
+import payloadFields from "../../../../packages/refactoring/payload-fields/package.json";
 import payloadOperations from "../../../../packages/payload-operations/package.json";
 import payloadSchema from "../../../../packages/payload-schema/package.json";
 
@@ -123,7 +123,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     label: "Payload Fields",
     manifest: payloadFields,
     family: "payload",
-    sourcePath: "packages/payload-fields",
+    sourcePath: "packages/refactoring/payload-fields",
     docsPath: "/packages/payload-fields/",
     runtimes: ["Payload CMS", "React 19", "Payload Admin"],
     skills: ["payload-fields-core", "payload-fields-slug", "payload-fields-jalali-date", "payload-fields-money"],

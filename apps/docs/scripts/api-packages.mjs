@@ -44,8 +44,8 @@ export const apiPackages = [
   {
     id: "payload-fields",
     name: "@nexload-sdk/payload-fields",
-    entry: "../../packages/payload-fields/src/index.ts",
-    sourcePath: "packages/payload-fields",
+    entry: "../../packages/refactoring/payload-fields/src/index.ts",
+    sourcePath: "packages/refactoring/payload-fields",
   },
   {
     id: "payload-editor",

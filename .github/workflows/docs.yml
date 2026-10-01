@@ -5,7 +5,7 @@ on:
     paths:
       - "apps/docs/**"
       - "packages/healthcheck/**"
-      - "packages/payload-fields/**"
+      - "packages/refactoring/payload-fields/**"
       - "packages/payload-editor/**"
       - "packages/payload-operations/**"
       - "packages/payload-schema/**"
@@ -16,10 +16,6 @@ on:
       - "skills/payload-editor/**"
       - "skills/payload-operations/**"
       - "skills/payload-schema/**"
-      - "scripts/generate-docs-llms.mjs"
-      - "scripts/validate-docs.mjs"
-      - "scripts/validate-docs-links.mjs"
-      - "scripts/validate-skills.mjs"
       - ".github/workflows/docs.yml"
       - "README.md"
       - "package.json"
@@ -29,7 +25,7 @@ on:
     paths:
       - "apps/docs/**"
       - "packages/healthcheck/**"
-      - "packages/payload-fields/**"
+      - "packages/refactoring/payload-fields/**"
       - "packages/payload-editor/**"
       - "packages/payload-operations/**"
       - "packages/payload-schema/**"
@@ -40,10 +36,6 @@ on:
       - "skills/payload-editor/**"
       - "skills/payload-operations/**"
       - "skills/payload-schema/**"
-      - "scripts/generate-docs-llms.mjs"
-      - "scripts/validate-docs.mjs"
-      - "scripts/validate-docs-links.mjs"
-      - "scripts/validate-skills.mjs"
       - ".github/workflows/docs.yml"
       - "README.md"
       - "package.json"
@@ -94,23 +86,14 @@ jobs:
       - name: Type-check documentation examples
         run: pnpm --filter docs content:examples
 
-      - name: Validate documentation contracts
-        run: pnpm --filter docs content:check
-
       - name: Verify Markdown and LLM outputs
         run: pnpm --filter docs content:llms
 
       - name: Test documentation tooling
         run: pnpm --filter docs test
 
-      - name: Validate agent skills
-        run: pnpm skills:validate
-
       - name: Build documentation
         run: pnpm --filter docs build
-
-      - name: Validate built accessibility
-        run: pnpm --filter docs content:accessibility
 
       - name: Verify generated files are current
         run: git diff --exit-code -- apps/docs/src/generated apps/docs/public

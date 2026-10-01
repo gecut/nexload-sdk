@@ -5,7 +5,7 @@ Move custom Payload endpoints to shared typed operation contracts incrementally.
 **Topic:** migration
 **Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/migration/
-Payload Operations 0.1.0 is the initial release. This page describes migration from project-owned custom endpoints; use the [package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/CHANGELOG.md) for later version-specific changes.
+Payload Operations 1.0.0 is the initial release. This page describes migration from project-owned custom endpoints; use the [package changelog](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/CHANGELOG.md) for later version-specific changes.
 
 ## Incremental migration
 

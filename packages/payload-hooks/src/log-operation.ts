@@ -4,7 +4,7 @@ import type {
   CollectionAfterChangeHook,
   CollectionBeforeChangeHook,
   CollectionAfterDeleteHook,
-  CollectionAfterReadHook,
+  CollectionAfterReadHook
 } from "payload";
 
 type HookType = "beforeChange" | "afterChange" | "afterDelete" | "afterRead";
@@ -21,20 +21,23 @@ type HookReturnType<T extends HookType> = T extends "beforeChange"
 
 export const logOperation = <
   THookType extends HookType,
-  TReturn extends HookReturnType<THookType>,
+  TReturn extends HookReturnType<THookType>
 >(
   hookType: THookType
 ): TReturn => {
-  const hook: TReturn = ((args: any) => {
-    const collectionName = args.collection?.slug || args.collection;
+  const hook: TReturn = ((args: Record<string, unknown>) => {
+    const collection = args.collection as { slug?: string } | string | undefined;
+    const collectionName = (typeof collection === "object" ? collection?.slug : collection) ?? "";
 
-    logger.info({ collection: collectionName }, hookType);
+    logger.info(
+      { collection: collectionName, }, hookType
+    );
 
     if ("data" in args && args.data) return args.data;
     if ("doc" in args && args.doc) return args.doc;
 
-    return null as any;
-  }) as TReturn;
+    return null;
+  }) as unknown as TReturn;
 
   return hook;
 };

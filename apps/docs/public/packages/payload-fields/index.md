@@ -11,7 +11,7 @@ Semantic Payload field factories for Unicode slugs, Jalali dates, and integer mo
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/payload-fields) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-fields)
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-fields) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/refactoring/payload-fields)
 
 `@nexload-sdk/payload-fields` 3.1.0 supplies three opinionated field families for Payload 3: managed Unicode slugs, ISO dates with Jalali Admin presentation, and safe-integer money values. Use it when these persistence and Admin contracts match your product. Use native Payload fields when they do not.
 
