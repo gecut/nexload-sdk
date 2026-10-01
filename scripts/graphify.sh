@@ -2,9 +2,14 @@
 
 set -euo pipefail
 
-set -a
-source .env
-set +a
+if [ -f .env ]; then
+  set -a
+  source .env
+  set +a
+fi
 
-# exec graphify extract . --backend openai --ignore .graphifyignore --token-budget 4000 "$@"
-exec graphify cluster-only . "$@"
+if [ $# -eq 0 ]; then
+  exec graphify update .
+else
+  exec graphify "$@"
+fi

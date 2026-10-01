@@ -59,15 +59,16 @@ Run from repo root unless a package-specific run is faster:
 - This repo may contain local unpublished changes; do not revert unrelated work
 - Avoid destructive git commands unless explicitly requested
 
-## graphify
+## Knowledge Graph (graphify) — MANDATORY FOR ALL AGENTS
 
-This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+The repository maintains an authoritative code knowledge graph in `graphify-out/`.
 
-When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+**Strict Agent Requirements:**
+1. **Query Before Grepping:** When `graphify-out/graph.json` exists, you MUST query the graph first instead of performing exhaustive greps or blindly reading source trees:
+   - Targeted queries: `graphify query "<question>"`
+   - Symbol / module inspection: `graphify explain "<path>::<symbol>"`
+   - Dependency / connection paths: `graphify path "<source>" "<target>"`
+   - Architecture hubs: `graphify god-nodes` or review `graphify-out/GRAPH_REPORT.md`
+2. **Sync Graph After Changes:** You MUST run `graphify update .` (or `pnpm graphify`) after modifying, adding, or deleting any code files before concluding work. It is local, AST-only, fast, and incurs zero LLM cost.
+3. **Never Revert Graph Updates:** Dirty files in `graphify-out/` (`graph.json`, `graph.html`, `GRAPH_REPORT.md`, `manifest.json`) are expected and normal after edits. Never revert them or skip graphify because of modified graph artifacts.
 
-Rules:
-- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
-- Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
-- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
-- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
-- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).

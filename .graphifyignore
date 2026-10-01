@@ -1,19 +1,18 @@
-# Package/skill lock files — high noise, little architectural value
+# Lock files
 pnpm-lock.yaml
 skills-lock.json
 
-# Generated / irrelevant artifacts
+# Generated / build artifacts
 output/
 .playwright-cli/
 coverage/
+**/coverage/
 reports/
+*.log
 
 # Generated documentation
 apps/docs/public/
 
-# Generic generated artifacts
-coverage/
-**/coverage/
-*.log
+# Agents configuration & skills
+.agents/
 
-.agents
