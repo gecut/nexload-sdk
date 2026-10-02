@@ -1,17 +1,17 @@
 # Graph Report - nexload-sdk  (2026-10-02)
 
 ## Corpus Check
-- 639 files · ~150,282 words
+- 670 files · ~167,957 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 10 file(s) not represented in the graph (top: .css 6, (none) 3, .scss 1)
 
 ## Summary
-- 3129 nodes · 4223 edges · 312 communities (169 shown, 143 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 59 edges (avg confidence: 0.87)
+- 3388 nodes · 4476 edges · 320 communities (176 shown, 144 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 58 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `70ed2009`
+- Built from commit: `dd3ce20d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -50,7 +50,7 @@
 - next/src/index.ts
 - devDependencies
 - exports
-- plugin.ts
+- format-slug.ts
 - peerDependencies
 - compilerOptions
 - @astrojs/starlight
@@ -75,14 +75,14 @@
 - response.ts
 - execute-operation.ts
 - Base TypeScript Config
-- readContainerResourceSnapshot
+- test/consumer-smoke.mjs
 - ./plugins/timeout
 - tasks
 - compilerOptions
 - @nexload-sdk/eslint-config
 - next/tsconfig.json
 - exports
-- test/consumer-smoke.mjs
+- ref_payload
 - Product Schema Definition
 - peerDependencies
 - scripts
@@ -99,7 +99,7 @@
 - core/tsconfig.json
 - node/tsconfig.json
 - prometheus/tsconfig.json
-- payload-fields.ts
+- @nexload-sdk/payload-fields
 - exports
 - publishConfig
 - payload-editor/tsconfig.json
@@ -120,12 +120,18 @@
 - 4.0.0
 - serializers.ts
 - publishConfig
-- ref_payload
+- 2. Boundary-Specific Anti-Patterns
+- ref_zod
 - choobinooo.mjs
 - tests/types/tsconfig.json
+- Evaluation State Machine
 - @nexload-sdk/healthcheck
+- Nexload Reasoning: Investigation
 - @nexload-sdk/bundler
 - HealthManager
+- Nexload Reasoning: Discovery
+- 2. Failure Classification Taxonomy
+- Nexload Reasoning: Ideation
 - ./admin/money-field
 - ./date
 - Payload Schema Documentation
@@ -136,16 +142,19 @@
 - ./money
 - ref_node_assert
 - Nexload Package Engineering
-- agy-worker/SKILL.md
+- plugin.ts
 - ./slug
 - scripts
+- Design State Machine
 - TypeScript Config Metadata
 - Nexload Code
+- jalali-picker.test.mjs
 - Node Healthcheck Documentation
 - Payload Fields Guides
 - Payload Schema Reference
 - Graphify Query Logic
 - 1.0.0
+- package.test.mjs
 - Healthcheck Core Skill
 - payload-schema-develop
 - Bun Healthcheck Compatibility
@@ -259,6 +268,7 @@
 - Documentation Workflow
 - Payload Healthcheck Changelog
 - Payload Healthcheck README
+- compiler-adapter.test.mjs
 - 1.0.1
 - 1.0.2
 - 1.0.3
@@ -296,7 +306,6 @@
 - support.mdx
 - abstraction-proposal.md
 - interop-seam.md
-- get
 - public-export-request.md
 - webhook-handler.md
 - browser-leak.md
@@ -337,51 +346,51 @@
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Repository Governance and Documentation** — agents, readme, pnpm_workspace, changeset_readme [EXTRACTED 1.00]
+- **Graphify Query Execution Flow** — codex_skills_graphify_references_query_step0, codex_skills_graphify_references_query_step1, codex_skills_graphify_references_query_path, codex_skills_graphify_references_query_explain [EXTRACTED 1.00]
 - **Graphify Skill Documentation Set** — codex_skills_graphify_skill, codex_skills_graphify_references_add_watch, codex_skills_graphify_references_exports [EXTRACTED 1.00]
 - **Graphify Skill Documentation Suite** — codex_skills_graphify_references_extraction_spec, codex_skills_graphify_references_github_and_merge, codex_skills_graphify_references_hooks [EXTRACTED 1.00]
-- **Graphify Query Execution Flow** — codex_skills_graphify_references_query_step0, codex_skills_graphify_references_query_step1, codex_skills_graphify_references_query_path, codex_skills_graphify_references_query_explain [EXTRACTED 1.00]
 - **Graphify Update Pipeline** — graphify_detect, graphify_build, graphify_cli, graphify_analyze [EXTRACTED 1.00]
-- **Documentation Navigation Flow** — apps_docs_src_content_docs_index, apps_docs_src_content_docs_agents_index, apps_docs_src_content_docs_packages_index [INFERRED 0.80]
 - **Healthcheck Bun Documentation Suite** — apps_docs_src_content_docs_packages_healthcheck_bun_compatibility, apps_docs_src_content_docs_packages_healthcheck_bun_concepts, apps_docs_src_content_docs_packages_healthcheck_bun_examples, apps_docs_src_content_docs_packages_healthcheck_bun_guides, apps_docs_src_content_docs_packages_healthcheck_bun_index, apps_docs_src_content_docs_packages_healthcheck_bun_installation, apps_docs_src_content_docs_packages_healthcheck_bun_migration, apps_docs_src_content_docs_packages_healthcheck_bun_quick_start, apps_docs_src_content_docs_packages_healthcheck_bun_troubleshooting [EXTRACTED 1.00]
+- **Healthcheck Container Resources Documentation** — skills_healthcheck_container_resources_skill, skills_healthcheck_container_resources_references_cgroup_contract, skills_healthcheck_container_resources_references_operational_policy, skills_healthcheck_container_resources_references_test_fixtures [EXTRACTED 1.00]
 - **Healthcheck Core Documentation Suite** — apps_docs_src_content_docs_packages_healthcheck_core_api, apps_docs_src_content_docs_packages_healthcheck_core_compatibility, apps_docs_src_content_docs_packages_healthcheck_core_concepts, apps_docs_src_content_docs_packages_healthcheck_core_examples, apps_docs_src_content_docs_packages_healthcheck_core_guides, apps_docs_src_content_docs_packages_healthcheck_core_index [EXTRACTED 1.00]
+- **Healthcheck Documentation Suite** — skills_healthcheck_core_references_api_contract, skills_healthcheck_core_references_implementation_playbook, skills_healthcheck_core_references_scopes_status_and_profiles [EXTRACTED 1.00]
+- **Monitoring Exporters Documentation Suite** — skills_healthcheck_monitoring_exporters_skill, skills_healthcheck_monitoring_exporters_references_exporter_contracts, skills_healthcheck_monitoring_exporters_references_metric_names_and_labels, skills_healthcheck_monitoring_exporters_references_verification [EXTRACTED 1.00]
 - **Healthcheck Next.js Documentation Suite** — apps_docs_src_content_docs_packages_healthcheck_next_index, apps_docs_src_content_docs_packages_healthcheck_next_installation, apps_docs_src_content_docs_packages_healthcheck_next_quick_start, apps_docs_src_content_docs_packages_healthcheck_next_concepts, apps_docs_src_content_docs_packages_healthcheck_next_guides, apps_docs_src_content_docs_packages_healthcheck_next_api, apps_docs_src_content_docs_packages_healthcheck_next_examples, apps_docs_src_content_docs_packages_healthcheck_next_troubleshooting, apps_docs_src_content_docs_packages_healthcheck_next_migration, apps_docs_src_content_docs_packages_healthcheck_next_compatibility [EXTRACTED 1.00]
 - **Healthcheck Node Documentation Set** — apps_docs_src_content_docs_packages_healthcheck_node_compatibility, apps_docs_src_content_docs_packages_healthcheck_node_concepts, apps_docs_src_content_docs_packages_healthcheck_node_examples, apps_docs_src_content_docs_packages_healthcheck_node_guides, apps_docs_src_content_docs_packages_healthcheck_node_index, apps_docs_src_content_docs_packages_healthcheck_node_installation, apps_docs_src_content_docs_packages_healthcheck_node_migration, apps_docs_src_content_docs_packages_healthcheck_node_quick_start, apps_docs_src_content_docs_packages_healthcheck_node_troubleshooting [EXTRACTED 1.00]
 - **Healthcheck OpenTelemetry Documentation Set** — apps_docs_src_content_docs_packages_healthcheck_otel_api, apps_docs_src_content_docs_packages_healthcheck_otel_compatibility, apps_docs_src_content_docs_packages_healthcheck_otel_concepts, apps_docs_src_content_docs_packages_healthcheck_otel_examples, apps_docs_src_content_docs_packages_healthcheck_otel_guides, apps_docs_src_content_docs_packages_healthcheck_otel_index, apps_docs_src_content_docs_packages_healthcheck_otel_installation, apps_docs_src_content_docs_packages_healthcheck_otel_migration [EXTRACTED 1.00]
-- **Payload Package Documentation** — apps_docs_src_content_docs_packages_healthcheck_payload_api, apps_docs_src_content_docs_packages_healthcheck_payload_compatibility, apps_docs_src_content_docs_packages_healthcheck_payload_concepts, apps_docs_src_content_docs_packages_healthcheck_payload_examples, apps_docs_src_content_docs_packages_healthcheck_payload_guides, apps_docs_src_content_docs_packages_healthcheck_payload_index, apps_docs_src_content_docs_packages_healthcheck_payload_installation, apps_docs_src_content_docs_packages_healthcheck_payload_migration, apps_docs_src_content_docs_packages_healthcheck_payload_quick_start, apps_docs_src_content_docs_packages_healthcheck_payload_troubleshooting [EXTRACTED 1.00]
-- **Prometheus Package Documentation** — apps_docs_src_content_docs_packages_healthcheck_prometheus_api, apps_docs_src_content_docs_packages_healthcheck_prometheus_compatibility, apps_docs_src_content_docs_packages_healthcheck_prometheus_concepts, apps_docs_src_content_docs_packages_healthcheck_prometheus_examples, apps_docs_src_content_docs_packages_healthcheck_prometheus_guides [EXTRACTED 1.00]
 - **Healthcheck Prometheus Documentation Set** — apps_docs_src_content_docs_packages_healthcheck_prometheus_index, apps_docs_src_content_docs_packages_healthcheck_prometheus_installation, apps_docs_src_content_docs_packages_healthcheck_prometheus_migration, apps_docs_src_content_docs_packages_healthcheck_prometheus_quick_start, apps_docs_src_content_docs_packages_healthcheck_prometheus_troubleshooting [EXTRACTED 1.00]
+- **Jalali Date Documentation Suite** — skills_payload_fields_jalali_date_skill, skills_payload_fields_jalali_date_references_persistence_and_timezone, skills_payload_fields_jalali_date_references_picker_modes, skills_payload_fields_jalali_date_references_ui_test_matrix [EXTRACTED 1.00]
+- **Payload Design Doctrine Suite** — skills_payload_collection_design_skill, skills_payload_collection_design_references_doctrine_and_workflow, skills_payload_collection_design_references_collection_naming_standard, skills_payload_collection_design_references_constraints_deletion_and_snapshots [EXTRACTED 1.00]
 - **Payload Editor Documentation Set** — apps_docs_src_content_docs_packages_payload_editor_api, apps_docs_src_content_docs_packages_payload_editor_compatibility, apps_docs_src_content_docs_packages_payload_editor_concepts, apps_docs_src_content_docs_packages_payload_editor_examples, apps_docs_src_content_docs_packages_payload_editor_guides, apps_docs_src_content_docs_packages_payload_editor_index [EXTRACTED 1.00]
 - **Payload Editor Documentation Set** — apps_docs_src_content_docs_packages_payload_editor_installation, apps_docs_src_content_docs_packages_payload_editor_migration, apps_docs_src_content_docs_packages_payload_editor_quick_start, apps_docs_src_content_docs_packages_payload_editor_troubleshooting [EXTRACTED 1.00]
-- **Payload Fields Documentation Set** — apps_docs_src_content_docs_packages_payload_fields_api, apps_docs_src_content_docs_packages_payload_fields_compatibility, apps_docs_src_content_docs_packages_payload_fields_concepts, apps_docs_src_content_docs_packages_payload_fields_examples [EXTRACTED 1.00]
-- **Payload Fields Documentation Suite** — apps_docs_src_content_docs_packages_payload_fields_index, apps_docs_src_content_docs_packages_payload_fields_installation, apps_docs_src_content_docs_packages_payload_fields_quick_start, apps_docs_src_content_docs_packages_payload_fields_guides, apps_docs_src_content_docs_packages_payload_fields_migration, apps_docs_src_content_docs_packages_payload_fields_troubleshooting [EXTRACTED 1.00]
-- **Payload Operations Documentation Suite** — apps_docs_src_content_docs_packages_payload_operations_compatibility, apps_docs_src_content_docs_packages_payload_operations_concepts, apps_docs_src_content_docs_packages_payload_operations_examples, apps_docs_src_content_docs_packages_payload_operations_guides, apps_docs_src_content_docs_packages_payload_operations_index, apps_docs_src_content_docs_packages_payload_operations_installation, apps_docs_src_content_docs_packages_payload_operations_migration [EXTRACTED 1.00]
-- **Payload Operations Documentation** — apps_docs_src_content_docs_packages_payload_operations_quick_start, apps_docs_src_content_docs_packages_payload_operations_troubleshooting [EXTRACTED 1.00]
-- **Payload Schema Documentation** — apps_docs_src_content_docs_packages_payload_schema_api, apps_docs_src_content_docs_packages_payload_schema_compatibility, apps_docs_src_content_docs_packages_payload_schema_concepts, apps_docs_src_content_docs_packages_payload_schema_examples, apps_docs_src_content_docs_packages_payload_schema_guides [EXTRACTED 1.00]
-- **Payload Schema Documentation Set** — apps_docs_src_content_docs_packages_payload_schema_index, apps_docs_src_content_docs_packages_payload_schema_installation, apps_docs_src_content_docs_packages_payload_schema_migration, apps_docs_src_content_docs_packages_payload_schema_quick_start, apps_docs_src_content_docs_packages_payload_schema_troubleshooting [EXTRACTED 1.00]
-- **Nexload Healthcheck Ecosystem** — packages_healthcheck_core_readme, packages_healthcheck_next_readme, packages_healthcheck_node_readme, packages_healthcheck_otel_readme [INFERRED 0.90]
-- **Nexload Healthcheck Ecosystem** — packages_healthcheck_payload_readme, packages_healthcheck_prometheus_readme, packages_healthcheck_prometheus_changelog [INFERRED 0.90]
-- **Healthcheck Container Resources Documentation** — skills_healthcheck_container_resources_skill, skills_healthcheck_container_resources_references_cgroup_contract, skills_healthcheck_container_resources_references_operational_policy, skills_healthcheck_container_resources_references_test_fixtures [EXTRACTED 1.00]
-- **Healthcheck Documentation Suite** — skills_healthcheck_core_references_api_contract, skills_healthcheck_core_references_implementation_playbook, skills_healthcheck_core_references_scopes_status_and_profiles [EXTRACTED 1.00]
-- **Healthcheck Documentation Suite** — skills_healthcheck_custom_checks_references_check_vs_collector, skills_healthcheck_custom_checks_references_testing_patterns, skills_healthcheck_custom_checks_references_timeout_retry_and_errors [INFERRED 0.90]
-- **Diagnostics Security Documentation Suite** — skills_healthcheck_diagnostics_security_skill, skills_healthcheck_diagnostics_security_references_exposure_matrix, skills_healthcheck_diagnostics_security_references_redaction_and_error_policy [INFERRED 0.90]
-- **Monitoring Exporters Documentation Suite** — skills_healthcheck_monitoring_exporters_skill, skills_healthcheck_monitoring_exporters_references_exporter_contracts, skills_healthcheck_monitoring_exporters_references_metric_names_and_labels, skills_healthcheck_monitoring_exporters_references_verification [EXTRACTED 1.00]
-- **Payload Healthcheck Documentation Set** — skills_healthcheck_payload_skill, skills_healthcheck_payload_references_integration_playbook, skills_healthcheck_payload_references_query_contract, skills_healthcheck_payload_references_testing [EXTRACTED 1.00]
-- **Payload Design Doctrine Suite** — skills_payload_collection_design_skill, skills_payload_collection_design_references_doctrine_and_workflow, skills_payload_collection_design_references_collection_naming_standard, skills_payload_collection_design_references_constraints_deletion_and_snapshots [EXTRACTED 1.00]
-- **Payload Collection Design Standards** — skills_payload_collection_design_references_events_access_and_payload_rules, skills_payload_collection_design_references_field_naming_standard, skills_payload_collection_design_references_industry_naming_patterns, skills_payload_collection_design_references_relation_decision_guide, skills_payload_collection_design_references_review_algorithm_prohibitions_and_sources [INFERRED 0.90]
-- **Payload Editor Documentation Suite** — skills_payload_editor_core_skill, skills_payload_editor_extensions_skill [INFERRED 0.90]
 - **Payload Editor Preset System** — skills_payload_editor_presets_skill, skills_payload_editor_presets_references_preset_matrix, skills_payload_editor_presets_references_override_rules, skills_payload_editor_presets_references_versioning [EXTRACTED 1.00]
 - **Payload Fields Core System** — skills_payload_fields_core_skill, skills_payload_fields_core_references_factory_contracts, skills_payload_fields_core_references_overrides_and_import_map, skills_payload_fields_core_references_migration_and_validation [EXTRACTED 1.00]
-- **Jalali Date Documentation Suite** — skills_payload_fields_jalali_date_skill, skills_payload_fields_jalali_date_references_persistence_and_timezone, skills_payload_fields_jalali_date_references_picker_modes, skills_payload_fields_jalali_date_references_ui_test_matrix [EXTRACTED 1.00]
+- **Payload Fields Documentation Set** — apps_docs_src_content_docs_packages_payload_fields_api, apps_docs_src_content_docs_packages_payload_fields_compatibility, apps_docs_src_content_docs_packages_payload_fields_concepts, apps_docs_src_content_docs_packages_payload_fields_examples [EXTRACTED 1.00]
+- **Payload Fields Documentation Suite** — apps_docs_src_content_docs_packages_payload_fields_index, apps_docs_src_content_docs_packages_payload_fields_installation, apps_docs_src_content_docs_packages_payload_fields_quick_start, apps_docs_src_content_docs_packages_payload_fields_guides, apps_docs_src_content_docs_packages_payload_fields_migration, apps_docs_src_content_docs_packages_payload_fields_troubleshooting [EXTRACTED 1.00]
+- **Payload Healthcheck Documentation Set** — skills_healthcheck_payload_skill, skills_healthcheck_payload_references_integration_playbook, skills_healthcheck_payload_references_query_contract, skills_healthcheck_payload_references_testing [EXTRACTED 1.00]
+- **Payload Operations Documentation** — apps_docs_src_content_docs_packages_payload_operations_quick_start, apps_docs_src_content_docs_packages_payload_operations_troubleshooting [EXTRACTED 1.00]
+- **Payload Operations Documentation Suite** — apps_docs_src_content_docs_packages_payload_operations_compatibility, apps_docs_src_content_docs_packages_payload_operations_concepts, apps_docs_src_content_docs_packages_payload_operations_examples, apps_docs_src_content_docs_packages_payload_operations_guides, apps_docs_src_content_docs_packages_payload_operations_index, apps_docs_src_content_docs_packages_payload_operations_installation, apps_docs_src_content_docs_packages_payload_operations_migration [EXTRACTED 1.00]
+- **Payload Operations Server Documentation** — skills_payload_operations_server_skill, skills_payload_operations_server_references_access_and_local_api, skills_payload_operations_server_references_endpoint_assembly, skills_payload_operations_server_references_server_error_boundary [EXTRACTED 1.00]
+- **Payload Package Documentation** — apps_docs_src_content_docs_packages_healthcheck_payload_api, apps_docs_src_content_docs_packages_healthcheck_payload_compatibility, apps_docs_src_content_docs_packages_healthcheck_payload_concepts, apps_docs_src_content_docs_packages_healthcheck_payload_examples, apps_docs_src_content_docs_packages_healthcheck_payload_guides, apps_docs_src_content_docs_packages_healthcheck_payload_index, apps_docs_src_content_docs_packages_healthcheck_payload_installation, apps_docs_src_content_docs_packages_healthcheck_payload_migration, apps_docs_src_content_docs_packages_healthcheck_payload_quick_start, apps_docs_src_content_docs_packages_healthcheck_payload_troubleshooting [EXTRACTED 1.00]
+- **Payload Schema Develop Documentation** — skills_payload_schema_develop_skill, skills_payload_schema_develop_evals_fixtures_adapter_review, skills_payload_schema_develop_evals_fixtures_clone_review, skills_payload_schema_develop_evals_fixtures_error_review [EXTRACTED 1.00]
+- **Payload Schema Documentation** — apps_docs_src_content_docs_packages_payload_schema_api, apps_docs_src_content_docs_packages_payload_schema_compatibility, apps_docs_src_content_docs_packages_payload_schema_concepts, apps_docs_src_content_docs_packages_payload_schema_examples, apps_docs_src_content_docs_packages_payload_schema_guides [EXTRACTED 1.00]
+- **Payload Schema Documentation Set** — apps_docs_src_content_docs_packages_payload_schema_index, apps_docs_src_content_docs_packages_payload_schema_installation, apps_docs_src_content_docs_packages_payload_schema_migration, apps_docs_src_content_docs_packages_payload_schema_quick_start, apps_docs_src_content_docs_packages_payload_schema_troubleshooting [EXTRACTED 1.00]
+- **Payload Schema Documentation Suite** — skills_payload_schema_develop_references_architecture_invariants, skills_payload_schema_develop_references_factory_error_contract, skills_payload_schema_develop_references_release_matrix [EXTRACTED 1.00]
+- **Prometheus Package Documentation** — apps_docs_src_content_docs_packages_healthcheck_prometheus_api, apps_docs_src_content_docs_packages_healthcheck_prometheus_compatibility, apps_docs_src_content_docs_packages_healthcheck_prometheus_concepts, apps_docs_src_content_docs_packages_healthcheck_prometheus_examples, apps_docs_src_content_docs_packages_healthcheck_prometheus_guides [EXTRACTED 1.00]
+- **Repository Governance and Documentation** — agents, readme, pnpm_workspace, changeset_readme [EXTRACTED 1.00]
 - **Money Field Documentation** — skills_payload_fields_money_references_currency_and_validation, skills_payload_fields_money_references_migration_and_testing, skills_payload_fields_money_references_minor_unit_contract [EXTRACTED]
 - **Slug Field Documentation** — skills_payload_fields_slug_skill, skills_payload_fields_slug_references_generator_security, skills_payload_fields_slug_references_synchronization_contract [EXTRACTED]
+- **Documentation Navigation Flow** — apps_docs_src_content_docs_index, apps_docs_src_content_docs_agents_index, apps_docs_src_content_docs_packages_index [INFERRED 0.80]
+- **Diagnostics Security Documentation Suite** — skills_healthcheck_diagnostics_security_skill, skills_healthcheck_diagnostics_security_references_exposure_matrix, skills_healthcheck_diagnostics_security_references_redaction_and_error_policy [INFERRED 0.90]
+- **Healthcheck Documentation Suite** — skills_healthcheck_custom_checks_references_check_vs_collector, skills_healthcheck_custom_checks_references_testing_patterns, skills_healthcheck_custom_checks_references_timeout_retry_and_errors [INFERRED 0.90]
+- **Nexload Healthcheck Ecosystem** — packages_healthcheck_core_readme, packages_healthcheck_next_readme, packages_healthcheck_node_readme, packages_healthcheck_otel_readme [INFERRED 0.90]
+- **Nexload Healthcheck Ecosystem** — packages_healthcheck_payload_readme, packages_healthcheck_prometheus_readme, packages_healthcheck_prometheus_changelog [INFERRED 0.90]
+- **Payload Collection Design Standards** — skills_payload_collection_design_references_events_access_and_payload_rules, skills_payload_collection_design_references_field_naming_standard, skills_payload_collection_design_references_industry_naming_patterns, skills_payload_collection_design_references_relation_decision_guide, skills_payload_collection_design_references_review_algorithm_prohibitions_and_sources [INFERRED 0.90]
+- **Payload Editor Documentation Suite** — skills_payload_editor_core_skill, skills_payload_editor_extensions_skill [INFERRED 0.90]
 - **Payload Operations Documentation Structure** — skills_payload_operations_client_skill, skills_payload_operations_core_skill [INFERRED 0.90]
-- **Payload Operations Server Documentation** — skills_payload_operations_server_skill, skills_payload_operations_server_references_access_and_local_api, skills_payload_operations_server_references_endpoint_assembly, skills_payload_operations_server_references_server_error_boundary [EXTRACTED 1.00]
-- **Payload Schema Develop Documentation** — skills_payload_schema_develop_skill, skills_payload_schema_develop_evals_fixtures_adapter_review, skills_payload_schema_develop_evals_fixtures_clone_review, skills_payload_schema_develop_evals_fixtures_error_review [EXTRACTED 1.00]
-- **Payload Schema Documentation Suite** — skills_payload_schema_develop_references_architecture_invariants, skills_payload_schema_develop_references_factory_error_contract, skills_payload_schema_develop_references_release_matrix [EXTRACTED 1.00]
 - **Payload Schema Documentation Suite** — skills_payload_schema_use_references_consumer_contract, skills_payload_schema_use_references_field_selection, skills_payload_schema_use_references_integration_checklist [INFERRED 0.90]
 
-## Communities (312 total, 143 thin omitted)
+## Communities (320 total, 144 thin omitted)
 
 ### Community 0 - "payload-editor/src/types.ts"
 Cohesion: 0.08
@@ -408,8 +417,8 @@ Cohesion: 0.14
 Nodes (14): dependencies, eslint-config-prettier, @eslint/js, eslint-plugin-import, eslint-plugin-only-warn, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-turbo (+6 more)
 
 ### Community 7 - "payload-schema/package.json"
-Cohesion: 0.08
-Nodes (24): author, description, files, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config, @nexload-sdk/typescript-config, payload (+16 more)
+Cohesion: 0.07
+Nodes (26): author, description, files, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config, @nexload-sdk/typescript-config, payload (+18 more)
 
 ### Community 8 - "payload-fields/package.json"
 Cohesion: 0.11
@@ -432,8 +441,8 @@ Cohesion: 0.06
 Nodes (37): PayloadSchemaErrorCode, PayloadSchemaErrorDataMap, PayloadSchemaErrorPhase, SafeIssueSummary, SerializedPayloadSchemaError, ArrayFieldOptions, ArrayItem, BooleanFieldOptions (+29 more)
 
 ### Community 13 - "jalali-date-field.tsx"
-Cohesion: 0.24
-Nodes (12): JalaliDateCell(), JalaliDateFieldComponent(), Props, canonicalizeJalaliPickerDate(), formatJalaliDate(), JalaliDateDisplayOptions, JalaliDateValue, JalaliDateFieldOptions (+4 more)
+Cohesion: 0.25
+Nodes (11): JalaliDateCell(), JalaliDateFieldComponent(), Props, canonicalizeJalaliPickerDate(), formatJalaliDate(), JalaliDateDisplayOptions, JalaliDateValue, JalaliDateFieldOptions (+3 more)
 
 ### Community 14 - "generate-api.mjs"
 Cohesion: 0.17
@@ -444,8 +453,8 @@ Cohesion: 0.06
 Nodes (27): AllValuesOf, astro:content, CollectionEntry, CollectionKey, ContentConfig, DataEntryMap, ExtractCollectionFilterType, ExtractDataType (+19 more)
 
 ### Community 16 - "node/src/index.ts"
-Cohesion: 0.17
-Nodes (7): health, ContainerResourceOptions, finitePositive(), nodeMemory(), nodeRuntimeAdapter(), processMetricsCollector(), tcpCheck()
+Cohesion: 0.14
+Nodes (10): health, ContainerResourceOptions, containerMetricsCollector(), containerResourceCheck(), finitePositive(), nodeMemory(), nodeRuntimeAdapter(), processMetricsCollector() (+2 more)
 
 ### Community 17 - "devDependencies"
 Cohesion: 0.20
@@ -468,8 +477,8 @@ Cohesion: 0.11
 Nodes (29): appendCanonicalHook(), assertFieldName(), bindSeed(), canonicalHook(), commonReserved, compileField(), createInspection(), dataFieldTypes (+21 more)
 
 ### Community 22 - "cgroup.ts"
-Cohesion: 0.31
-Nodes (14): ContainerCpuSnapshot, ContainerMemorySnapshot, ContainerResourceSnapshot, emptyCpu(), getAvailableParallelism(), getHostCpuCount(), minFinite(), parseCpuList() (+6 more)
+Cohesion: 0.29
+Nodes (16): ContainerCpuSnapshot, ContainerMemorySnapshot, ContainerResourceSnapshot, emptyCpu(), emptyMemory(), getAvailableParallelism(), getHostCpuCount(), minFinite() (+8 more)
 
 ### Community 23 - "prometheus/src/index.ts"
 Cohesion: 0.11
@@ -496,8 +505,8 @@ Cohesion: 0.52
 Nodes (5): serializeOperationError(), createCorsHeaders(), createErrorResponse(), createPreflightResponse(), createSuccessResponse()
 
 ### Community 29 - "money/index.ts"
-Cohesion: 0.24
-Nodes (12): MoneyFieldComponent(), Props, formatMoney(), IRR, IRT, MoneyCurrency, MoneyCurrencyDefinition, MoneyDisplayOptions (+4 more)
+Cohesion: 0.23
+Nodes (13): MoneyFieldComponent(), Props, formatMoney(), IRR, IRT, MoneyCurrency, MoneyCurrencyDefinition, MoneyDisplayOptions (+5 more)
 
 ### Community 30 - "paths"
 Cohesion: 0.09
@@ -508,8 +517,8 @@ Cohesion: 0.05
 Nodes (42): author, dependencies, @nexload-sdk/healthcheck, description, devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config (+34 more)
 
 ### Community 32 - "next/src/index.ts"
-Cohesion: 0.09
-Nodes (22): GET, HEAD, health, baseHeaders(), cidrContains(), constantTimeEquals(), createNextHealthRoute(), handle() (+14 more)
+Cohesion: 0.11
+Nodes (19): baseHeaders(), cidrContains(), constantTimeEquals(), createNextHealthRoute(), handle(), createNextMetricsRoute(), getRequestIp(), invalidConfig() (+11 more)
 
 ### Community 33 - "devDependencies"
 Cohesion: 0.12
@@ -519,9 +528,9 @@ Nodes (17): devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-c
 Cohesion: 0.11
 Nodes (18): default, import, types, default, import, types, default, import (+10 more)
 
-### Community 35 - "plugin.ts"
-Cohesion: 0.15
-Nodes (16): failure(), payloadFieldsPlugin(), PayloadFieldsPluginOptions, SlugGenerationAccess, SlugGenerator, SlugGeneratorContext, SlugGeneratorInput, formatSlug() (+8 more)
+### Community 35 - "format-slug.ts"
+Cohesion: 0.16
+Nodes (11): fields, jalaliDateField(), formatSlug(), formatSlugHook(), getPath(), hasPath(), normalizeDigits(), SlugHookOptions (+3 more)
 
 ### Community 36 - "peerDependencies"
 Cohesion: 0.40
@@ -619,9 +628,9 @@ Nodes (15): CMSOperationContract, createPayloadEndpoints(), ExecuteOperationOpti
 Cohesion: 0.12
 Nodes (15): compilerOptions, declaration, declarationMap, esModuleInterop, isolatedModules, module, moduleDetection, moduleResolution (+7 more)
 
-### Community 60 - "readContainerResourceSnapshot"
-Cohesion: 0.50
-Nodes (5): emptyMemory(), readContainerResourceSnapshot(), containerMetricsCollector(), containerResourceCheck(), Policy fixtures
+### Community 60 - "test/consumer-smoke.mjs"
+Cohesion: 0.20
+Nodes (6): packageRoot, payloadVersion, resolveVersion(), run(), sourceManifest, packageDirectory
 
 ### Community 61 - "./plugins/timeout"
 Cohesion: 0.50
@@ -647,9 +656,9 @@ Nodes (9): compilerOptions, declaration, emitDeclarationOnly, lib, outDir, exclu
 Cohesion: 0.22
 Nodes (9): import, require, types, import, require, types, exports, ./admin/jalali-date-cell (+1 more)
 
-### Community 67 - "test/consumer-smoke.mjs"
-Cohesion: 0.08
-Nodes (15): packageRoutes, packageRoot, payloadVersion, resolveVersion(), run(), sourceManifest, distRoot, packageRoot (+7 more)
+### Community 67 - "ref_payload"
+Cohesion: 0.15
+Nodes (7): categoryEntity, createFixtureConfig(), mediaEntity, productEntity, expectedSkills, requiredCategories, skillsDir
 
 ### Community 68 - "Product Schema Definition"
 Cohesion: 0.15
@@ -692,8 +701,8 @@ Cohesion: 0.22
 Nodes (9): health, BunGlobalShape, bunRuntimeAdapter(), BunServerLike, bunServerMetricsCheck(), finitePositive(), getBun(), getProcess() (+1 more)
 
 ### Community 80 - "payload/src/index.ts"
-Cohesion: 0.18
-Nodes (5): health, PayloadFindArgs, payloadHealthCheck(), PayloadHealthCheckOptions, PayloadLike
+Cohesion: 0.13
+Nodes (8): GET, HEAD, health, health, PayloadFindArgs, payloadHealthCheck(), PayloadHealthCheckOptions, PayloadLike
 
 ### Community 81 - "core/tsconfig.json"
 Cohesion: 0.22
@@ -707,9 +716,9 @@ Nodes (8): compilerOptions, declaration, emitDeclarationOnly, outDir, exclude, e
 Cohesion: 0.22
 Nodes (8): compilerOptions, declaration, emitDeclarationOnly, outDir, exclude, extends, include, @nexload-sdk/typescript-config/node.json
 
-### Community 84 - "payload-fields.ts"
-Cohesion: 0.17
-Nodes (7): fields, Install, Migration from 2.x, @nexload-sdk/payload-fields, Usage, jalaliDateField(), moneyField()
+### Community 84 - "@nexload-sdk/payload-fields"
+Cohesion: 0.40
+Nodes (4): Install, Migration from 2.x, @nexload-sdk/payload-fields, Usage
 
 ### Community 87 - "payload-editor/tsconfig.json"
 Cohesion: 0.22
@@ -767,8 +776,12 @@ Nodes (8): access, baseBranch, changelog, commit, fixed, linked, $schema, update
 Cohesion: 0.22
 Nodes (9): health, DEFAULT_REDACTION, HealthJsonOptions, redactUrl(), sanitizeObject(), sanitizeValue(), stringifyHealthJson(), toHealthJson() (+1 more)
 
-### Community 106 - "ref_payload"
-Cohesion: 0.17
+### Community 105 - "2. Boundary-Specific Anti-Patterns"
+Cohesion: 0.04
+Nodes (41): 1. Global & Kernel Anti-Patterns, 2. Boundary-Specific Anti-Patterns, AP-01: Ritualized Over-Routing, AP-02: Specialist Stacking, AP-03: Reopening Settled Decisions (Re-Litigation), AP-04: Solution-First Framing (Discovery Failure), AP-05: Question Outsourcing (Discovery/Investigation Failure), AP-06: Symptom Patching (Investigation Failure) (+33 more)
+
+### Community 106 - "ref_zod"
+Cohesion: 0.18
 Nodes (9): DefaultIdSchema, FieldDefinition, InferEntityFields, entity, raw, rows, settings, tags (+1 more)
 
 ### Community 107 - "choobinooo.mjs"
@@ -779,13 +792,33 @@ Nodes (6): categoryEntity, collectionStubs, createProductSchema, editor, product
 Cohesion: 0.25
 Nodes (7): compilerOptions, noEmit, rootDir, exclude, extends, include, ../../tsconfig.json
 
+### Community 109 - "Evaluation State Machine"
+Cohesion: 0.05
+Nodes (40): 1. Operational & Maintenance Burden, 1. The Fallacy of Scoring Theater, 2. Pareto Pruning (Elimination of Dominated Options), 2. Runtime & Resource Footprint, 3. Complexity & Architectural Debt, 3. The 5 Material Evaluation Dimensions, 4. Blast Radius & Security Exposure, 4. The Decisive Delta (+32 more)
+
 ### Community 110 - "@nexload-sdk/healthcheck"
 Cohesion: 0.05
 Nodes (38): 1.0.0, 1.0.1, 1.0.2, 2.0.0, 2.0.1, 2.0.2, 2.0.3, 2.1.0 (+30 more)
 
+### Community 111 - "Nexload Reasoning: Investigation"
+Cohesion: 0.05
+Nodes (35): 1. The Epistemic Evidence Hierarchy, 2. Epistemic Tagging Protocol, 3. Detecting Pseudo-Evidence, A. The "Version Drift" Illusion, B. The "Outdated Comment" Trap, C. The "Stale Cache / Build" Mirage, Evidence Audit & Grounding Discipline, 1. The Falsification Principle (+27 more)
+
 ### Community 112 - "@nexload-sdk/bundler"
 Cohesion: 0.05
 Nodes (37): 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4, 2.0.0, 2.0.1, 2.0.2 (+29 more)
+
+### Community 114 - "Nexload Reasoning: Discovery"
+Cohesion: 0.05
+Nodes (34): 1. Problem Space vs. Solution Space, 2. Intent Extraction (Jobs-to-be-Done), 3. Dissecting Technology-Framed Requests, 4. Canvas Template, Problem Framing Canvas, 1. The Question Gate Principle, 2. Gating Decision Logic, 3. Dissecting Question Types (+26 more)
+
+### Community 115 - "2. Failure Classification Taxonomy"
+Cohesion: 0.05
+Nodes (34): 1. The Core Invariant: Claim $\equiv$ Evidence, 2. Anti-Patterns in Verification, 3. The 3-Step Verification Report Format, A. Completion by Assertion, B. Mismatched Verification Tier, C. The Stale Test Illusion, Claim-Matched Verification: Empirical Proof Standards, 1. The Principle of Earliest Invalid State (+26 more)
+
+### Community 116 - "Nexload Reasoning: Ideation"
+Cohesion: 0.05
+Nodes (33): 1. The Dominant Idea Trap, 2. Assumption Inversion (The Reverse Vector), 3. Collision-Zone Thinking (Cross-Domain Transfer), 4. Subtraction (Via Negativa), Collision & Escape: Breaking Fixation, Example: High-Throughput Audit Logging, 1. The 3-Tier Fan Structure, 2. Abstraction Laddering (+25 more)
 
 ### Community 117 - "./admin/money-field"
 Cohesion: 0.50
@@ -816,16 +849,16 @@ Cohesion: 0.50
 Nodes (4): ./money, import, require, types
 
 ### Community 125 - "ref_node_assert"
-Cohesion: 0.21
-Nodes (4): CustomFeature, featureMap(), resolveEditor(), preset
+Cohesion: 0.22
+Nodes (5): packageRoutes, CustomFeature, featureMap(), resolveEditor(), preset
 
 ### Community 126 - "Nexload Package Engineering"
 Cohesion: 0.06
 Nodes (30): Delivery proof, Dependency ownership, Documentation and release, Manifest truth, Metadata, compatibility, and delivery, Primary sources, Choose the owner, Dependency direction (+22 more)
 
-### Community 127 - "agy-worker/SKILL.md"
-Cohesion: 0.09
-Nodes (17): Invocation and models, Permissions and execution limits, Results and continuation, Verified AGY capabilities, Structured result, Supervisor → worker contract, Worker obligations, Launch and integrate (+9 more)
+### Community 127 - "plugin.ts"
+Cohesion: 0.29
+Nodes (7): failure(), payloadFieldsPlugin(), PayloadFieldsPluginOptions, SlugGenerationAccess, SlugGenerator, SlugGeneratorContext, SlugGeneratorInput
 
 ### Community 128 - "./slug"
 Cohesion: 0.50
@@ -834,6 +867,10 @@ Nodes (4): ./slug, import, require, types
 ### Community 129 - "scripts"
 Cohesion: 0.50
 Nodes (4): scripts, build, lint, test
+
+### Community 130 - "Design State Machine"
+Cohesion: 0.06
+Nodes (32): 1. Deep Modules vs. Shallow Modules, 2. Defining Architectural Seams, 3. The Nearest Credible Extension (Anti-Astronautics), Architectural Boundaries & Deep Modules, Audit Questions:, 1. Happy-Path Bias in Architecture, 2. The Resilience Triad, 3. Graceful Degradation Patterns (+24 more)
 
 ### Community 131 - "TypeScript Config Metadata"
 Cohesion: 0.33
@@ -991,6 +1028,10 @@ Nodes (3): 3.1.0, Minor Changes, Patch Changes
 Cohesion: 0.13
 Nodes (14): DEFAULT_HTTP_STATUS_POLICY, STRICT_READINESS_HTTP_STATUS_POLICY, EnvironmentIdentity, HealthCheckRunResult, HealthDetails, HealthErrorInfo, HealthHttpStatusPolicy, HealthLinks (+6 more)
 
+### Community 291 - "compiler-adapter.test.mjs"
+Cohesion: 0.23
+Nodes (3): get(), Metrics parser request, Valid abstraction with implementation request
+
 ### Community 335 - "@nexload-sdk/typescript-config"
 Cohesion: 0.07
 Nodes (29): 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.1.0, 1.1.1, 2.0.0, 2.0.1 (+21 more)
@@ -1055,26 +1096,22 @@ Nodes (3): 1.0.1, docs, Patch Changes
 Cohesion: 0.50
 Nodes (4): exports, ./*.js, default, types
 
-### Community 431 - "get"
-Cohesion: 0.40
-Nodes (3): get(), Metrics parser request, Valid abstraction with implementation request
-
 ## Knowledge Gaps
-- **1623 isolated node(s):** `$schema`, `changelog`, `commit`, `fixed`, `linked` (+1618 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1931 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **143 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **1804 isolated node(s):** `$schema`, `changelog`, `commit`, `fixed`, `linked` (+1799 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2112 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **144 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `@payloadcms/sdk` connect `payload-operations/src/index.ts` to `payload-operations/package.json`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
 - **Why does `@payloadcms/ui` connect `ref_react` to `payload-fields/package.json`, `money/index.ts`, `jalali-date-field.tsx`?**
-  _High betweenness centrality (0.025) - this node is a cross-community bridge._
-- **Why does `@payloadcms/db-postgres` connect `test/consumer-smoke.mjs` to `payload-schema/package.json`?**
-  _High betweenness centrality (0.025) - this node is a cross-community bridge._
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Why does `@payloadcms/db-postgres` connect `payload-schema/package.json` to `ref_payload`?**
+  _High betweenness centrality (0.020) - this node is a cross-community bridge._
 - **What connects `$schema`, `changelog`, `commit` to the rest of the system?**
-  _1623 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1804 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `payload-editor/src/types.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.07672634271099744 - nodes in this community are weakly interconnected._
 - **Should `create-global.ts` be split into smaller, more focused modules?**

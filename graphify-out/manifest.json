@@ -18,8 +18,8 @@
     "semantic_hash": "1493c10929e50690e30a0fb286672608"
   },
   "apps/docs/.astro/collections/docs.schema.json": {
-    "mtime": 1790893424.0023162,
-    "seen": 1790893968.230515,
+    "mtime": 1790957942.7730205,
+    "seen": 1790957956.027627,
     "ast_hash": "40d98bc9ca6e392fc893cf5bbadea29a",
     "semantic_hash": ""
   },
@@ -36,14 +36,14 @@
     "semantic_hash": ""
   },
   "apps/docs/.astro/content.d.ts": {
-    "mtime": 1790893424.0291948,
-    "seen": 1790893968.230518,
+    "mtime": 1790957942.7974637,
+    "seen": 1790957956.0276291,
     "ast_hash": "f9e491c33ee04e4ea2d245263c4ae3bb",
     "semantic_hash": "f9e491c33ee04e4ea2d245263c4ae3bb"
   },
   "apps/docs/.astro/types.d.ts": {
-    "mtime": 1790893424.029332,
-    "seen": 1790893968.23052,
+    "mtime": 1790957942.7976754,
+    "seen": 1790957956.027631,
     "ast_hash": "f3d48b2aa569815a445d3509aa161559",
     "semantic_hash": "f3d48b2aa569815a445d3509aa161559"
   },
@@ -1416,21 +1416,21 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1789034896.8590205,
-    "seen": 1790893968.230731,
-    "ast_hash": "9633f79ea534dc4bf5ef698db2749eb1",
-    "semantic_hash": "9633f79ea534dc4bf5ef698db2749eb1"
+    "mtime": 1790956599.9307141,
+    "seen": 1790956717.485456,
+    "ast_hash": "054af371bb29e3e46c9e4a90475bfa2d",
+    "semantic_hash": ""
   },
   "apps/docs/src/content/docs/agents/index.mdx": {
-    "mtime": 1789034896.872879,
-    "seen": 1790893968.230732,
-    "ast_hash": "f0918723b323017520bd551413e3ab80",
+    "mtime": 1790957896.8596585,
+    "seen": 1790957956.027843,
+    "ast_hash": "ea3ac29826345587ea67b33fa5093499",
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/agents/install.mdx": {
-    "mtime": 1789034896.8730075,
-    "seen": 1790893968.2307332,
-    "ast_hash": "8aa7210af97e4994dffb98a6cda46f61",
+    "mtime": 1790956579.93092,
+    "seen": 1790956717.485458,
+    "ast_hash": "7f893adb67a95622d1a40fcee50283f1",
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/index.mdx": {
@@ -3161,36 +3161,6 @@
     "ast_hash": "105458cb2d9767c593b82005c6176c2a",
     "semantic_hash": ""
   },
-  "skills/agy-worker/SKILL.md": {
-    "mtime": 1789035682.2037032,
-    "seen": 1790893968.2308228,
-    "ast_hash": "8f443beba60e79b4c11f2b22a16c5442",
-    "semantic_hash": ""
-  },
-  "skills/agy-worker/references/agy-capabilities.md": {
-    "mtime": 1789035562.315333,
-    "seen": 1790893968.230824,
-    "ast_hash": "e0c5d82758212b3f5113de15f5d518e8",
-    "semantic_hash": ""
-  },
-  "skills/agy-worker/references/communication-contract.md": {
-    "mtime": 1789035562.3813293,
-    "seen": 1790893968.230825,
-    "ast_hash": "4dd4b934803627bcdc748fe889a8924d",
-    "semantic_hash": ""
-  },
-  "skills/agy-worker/references/multi-worker.md": {
-    "mtime": 1789035562.4439356,
-    "seen": 1790893968.230825,
-    "ast_hash": "ea763877b11aee6e09f0251fea5bfbd5",
-    "semantic_hash": ""
-  },
-  "skills/agy-worker/references/review-and-recovery.md": {
-    "mtime": 1789035562.5072007,
-    "seen": 1790893968.230826,
-    "ast_hash": "0b9fad62900ecd8d8043367b3383a274",
-    "semantic_hash": ""
-  },
   "packages/refactoring/env/esbuild.config.mjs": {
     "mtime": 1789034896.9037793,
     "seen": 1790893968.2306502,
@@ -3558,8 +3528,8 @@
     "semantic_hash": ""
   },
   "apps/docs/src/generated/api-catalog.json": {
-    "mtime": 1790893416.9729285,
-    "seen": 1790893968.230541,
+    "mtime": 1790957935.218965,
+    "seen": 1790957956.027649,
     "ast_hash": "8c3b5d6ade6194e77e5f6a400faea075",
     "semantic_hash": ""
   },
@@ -3861,6 +3831,222 @@
     "mtime": 1789034896.9486182,
     "seen": 1790893968.2307148,
     "ast_hash": "d31e1b8c76cc7accbfe9d7d5e27e24fe",
+    "semantic_hash": ""
+  },
+  "scripts/audit-reasoning-skills.mjs": {
+    "mtime": 1790955990.578783,
+    "seen": 1790956027.781172,
+    "ast_hash": "488ac62aac902b36c1bcd1fd25bd1956",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-design/evals/evals.json": {
+    "mtime": 1790955767.4700897,
+    "seen": 1790956027.781183,
+    "ast_hash": "43984eea8ba58f89331d0d995ee424c8",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-discovery/evals/evals.json": {
+    "mtime": 1790955451.527243,
+    "seen": 1790956027.781184,
+    "ast_hash": "1d1e9182e69fb91dbf587bb535935127",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-evaluation/evals/evals.json": {
+    "mtime": 1790955855.7983456,
+    "seen": 1790956027.781184,
+    "ast_hash": "aa5a22510cd26beeaa03d8bffaf25e8a",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-execution/evals/evals.json": {
+    "mtime": 1790955947.3780107,
+    "seen": 1790956027.781185,
+    "ast_hash": "76a1c5f0a726ce0ce9d589652a5a6512",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-ideation/evals/evals.json": {
+    "mtime": 1790955677.28579,
+    "seen": 1790956027.781186,
+    "ast_hash": "9f51ac208235149e01eed076ae76c1df",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-investigation/evals/evals.json": {
+    "mtime": 1790955534.0733535,
+    "seen": 1790956027.781186,
+    "ast_hash": "e533ea8513a03978c27bf1dd9db192b8",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning/evals/evals.json": {
+    "mtime": 1790955363.9398105,
+    "seen": 1790956027.781187,
+    "ast_hash": "b6677fd6a176441dc750401acfdbd169",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-design/SKILL.md": {
+    "mtime": 1790955700.5656502,
+    "seen": 1790956027.7813451,
+    "ast_hash": "26ca6ab6f4df56b5d296cdf653c10818",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-design/references/architectural-boundaries.md": {
+    "mtime": 1790955714.2298865,
+    "seen": 1790956027.781346,
+    "ast_hash": "55d2fb41cc715ed8d523271f0b7b5f53",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-design/references/failure-path-modeling.md": {
+    "mtime": 1790955746.067612,
+    "seen": 1790956027.781346,
+    "ast_hash": "28bcf3fd55f83e4cfb0d43d56fbcb449",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-design/references/state-ownership.md": {
+    "mtime": 1790955725.3453677,
+    "seen": 1790956027.781347,
+    "ast_hash": "c9ac191515c9b08d04b821a78310d3e3",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-discovery/SKILL.md": {
+    "mtime": 1790955390.0218577,
+    "seen": 1790956027.781348,
+    "ast_hash": "c64b0aebba59df2748647181146c60dc",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-discovery/references/problem-framing-canvas.md": {
+    "mtime": 1790955405.8509765,
+    "seen": 1790956027.781348,
+    "ast_hash": "813e1ef20926705bd54902edcaa28c57",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-discovery/references/question-gate.md": {
+    "mtime": 1790955418.3332605,
+    "seen": 1790956027.7813492,
+    "ast_hash": "35a177f814d598ce3c90fdf6d956762f",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-discovery/references/scope-contract.md": {
+    "mtime": 1790955433.2821753,
+    "seen": 1790956027.7813492,
+    "ast_hash": "3433364da8198c4b564131f7e986bae9",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-evaluation/SKILL.md": {
+    "mtime": 1790955797.9706085,
+    "seen": 1790956027.78135,
+    "ast_hash": "dfb61eaccc2b52618f73d6ac6cc15c1e",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-evaluation/references/material-criteria-matrix.md": {
+    "mtime": 1790955812.6359315,
+    "seen": 1790956027.7813509,
+    "ast_hash": "4741a10b6d409e5261a2ffd99cf53c2f",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-evaluation/references/pre-mortem-stress-test.md": {
+    "mtime": 1790955826.521935,
+    "seen": 1790956027.7813509,
+    "ast_hash": "ddc3d04544a85eb06cc9555154ba7354",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-evaluation/references/reversibility-ladder.md": {
+    "mtime": 1790955842.3325186,
+    "seen": 1790956027.781352,
+    "ast_hash": "680cfdf8c6a64954ab3fba71a876f426",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-execution/SKILL.md": {
+    "mtime": 1790955890.4656327,
+    "seen": 1790956027.781352,
+    "ast_hash": "af0156aaf52acfed24892c766d1ea8ee",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-execution/references/claim-verification.md": {
+    "mtime": 1790955916.4397373,
+    "seen": 1790956027.781353,
+    "ast_hash": "32d82879c0ab97af58dc444b0a525720",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-execution/references/failure-recovery-router.md": {
+    "mtime": 1790955929.7362547,
+    "seen": 1790956027.781353,
+    "ast_hash": "d138a4b30b0d6f4a521fd6eb4e524c65",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-execution/references/plan-decomposition.md": {
+    "mtime": 1790955905.3544786,
+    "seen": 1790956027.781354,
+    "ast_hash": "21b74a8a577f462a43ce5ca88c88804a",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-ideation/SKILL.md": {
+    "mtime": 1790955560.116951,
+    "seen": 1790956027.781354,
+    "ast_hash": "a68d1593120161c2454270c6c94a67cb",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-ideation/references/collision-escape.md": {
+    "mtime": 1790955643.1895542,
+    "seen": 1790956027.781355,
+    "ast_hash": "cebaa2d0aa2f8ed433878a7acfc840ca",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-ideation/references/concept-fan.md": {
+    "mtime": 1790955632.708987,
+    "seen": 1790956027.781355,
+    "ast_hash": "bcc5d6fc23117b0a142b9a766ca354c2",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-ideation/references/divergence-engine.md": {
+    "mtime": 1790955618.6769612,
+    "seen": 1790956027.781356,
+    "ast_hash": "575083bcd5b931976c135a3eaa0e3e06",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-investigation/SKILL.md": {
+    "mtime": 1790955479.6001346,
+    "seen": 1790956027.781356,
+    "ast_hash": "8d22b4cceb645ce8f48f9aafcf37dbc2",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-investigation/references/evidence-audit.md": {
+    "mtime": 1790955523.52942,
+    "seen": 1790956027.781357,
+    "ast_hash": "daf1b994c75a39c4af79e09a81bf0093",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-investigation/references/hypothesis-discriminator.md": {
+    "mtime": 1790955495.3316267,
+    "seen": 1790956027.781357,
+    "ast_hash": "395e3b25e002fc82bdcd100111598887",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning-investigation/references/systematic-debugging.md": {
+    "mtime": 1790955511.9957414,
+    "seen": 1790956027.781358,
+    "ast_hash": "6e92965a17875de9484fb972df524f4c",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning/SKILL.md": {
+    "mtime": 1790955310.56028,
+    "seen": 1790956027.781358,
+    "ast_hash": "58f20f7ae4b16c27735cfa5df4683ac0",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning/references/anti-patterns.md": {
+    "mtime": 1790955351.4793375,
+    "seen": 1790956027.7813592,
+    "ast_hash": "860a3bfc66b18e39a26fb157c4a73593",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning/references/depth-heuristics.md": {
+    "mtime": 1790955339.121023,
+    "seen": 1790956027.7813592,
+    "ast_hash": "f409302c01b3f1f4ce480bbe62ec9a22",
+    "semantic_hash": ""
+  },
+  "skills/nexload-reasoning/nexload-reasoning/references/routing-matrix.md": {
+    "mtime": 1790955325.9953728,
+    "seen": 1790956027.7813601,
+    "ast_hash": "f1183847bae28c3e85b1458186590464",
     "semantic_hash": ""
   }
 }
