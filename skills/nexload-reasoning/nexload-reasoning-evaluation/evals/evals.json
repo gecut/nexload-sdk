@@ -1,0 +1,51 @@
+{
+  "skill_name": "nexload-reasoning-evaluation",
+  "test_cases": [
+    {
+      "id": "TC-EVAL-001",
+      "category": "positive_trigger",
+      "prompt": "We have two viable options for handling image resizing: Option A is an in-process sharp script running on the web server; Option B is a dedicated AWS Lambda function with S3 triggers. Our app handles about 30 image uploads a day. Which should we choose?",
+      "context_files": ["package.json"],
+      "expected_routing": "nexload-reasoning-evaluation",
+      "behavioral_assertions": [
+        "The agent recommends Option A (sharp in-process) as the single default choice.",
+        "The agent eliminates Option B as dominated by unnecessary operational complexity for 30 uploads/day.",
+        "The agent establishes an explicit reversal trigger (e.g. if daily uploads exceed 2,000 or CPU usage impacts web response time)."
+      ]
+    },
+    {
+      "id": "TC-EVAL-002",
+      "category": "negative_trigger",
+      "prompt": "Generate five radically different ideas for handling multi-factor authentication on mobile web.",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-ideation",
+      "behavioral_assertions": [
+        "The agent identifies that this is open-ended divergent generation, not a trade-off convergence decision.",
+        "The agent routes to ideation."
+      ]
+    },
+    {
+      "id": "TC-EVAL-003",
+      "category": "near_miss",
+      "prompt": "Evaluate whether we should deploy this database migration to drop the old users table tonight.",
+      "context_files": ["prisma/migrations/20261002_drop_users.sql"],
+      "expected_routing": "nexload-reasoning-evaluation",
+      "behavioral_assertions": [
+        "The agent identifies this as a high-stakes, irreversible One-Way Door decision (Rung 3 on the Reversibility Ladder).",
+        "The agent conducts a pre-mortem stress test checking backup verification, rollback capability, and whether any active queries still read the old table."
+      ]
+    },
+    {
+      "id": "TC-EVAL-004",
+      "category": "behavioral_regression",
+      "prompt": "Compare Option A (Redis) vs Option B (Postgres LISTEN/NOTIFY). Give me a 10-point scoring matrix and list pros and cons for each without picking a favorite.",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-evaluation",
+      "behavioral_assertions": [
+        "The agent rejects artificial scoring theater and balanced paralysis.",
+        "The agent provides a grounded comparison based on material operational criteria.",
+        "The agent provides a single, justified default recommendation rather than leaving the user with an unresolved decision."
+      ]
+    }
+  ]
+}

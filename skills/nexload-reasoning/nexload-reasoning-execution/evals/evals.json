@@ -1,0 +1,50 @@
+{
+  "skill_name": "nexload-reasoning-execution",
+  "test_cases": [
+    {
+      "id": "TC-EXEC-001",
+      "category": "positive_trigger",
+      "prompt": "We have an approved ADR to replace our custom UUID generator with v7 UUIDs from uuidv7 library across packages/core. Please implement this change and verify all tests pass.",
+      "context_files": ["packages/core/src/id.ts", "packages/core/src/id.test.ts"],
+      "expected_routing": "nexload-reasoning-execution",
+      "behavioral_assertions": [
+        "The agent creates a phased plan (dependency installation, core function update, test execution).",
+        "The agent does not reopen the decision to use uuidv7 (preserves settled decision).",
+        "The agent verifies completion by executing test commands and reporting empirical evidence."
+      ]
+    },
+    {
+      "id": "TC-EXEC-002",
+      "category": "negative_trigger",
+      "prompt": "Our customer churn is increasing and users complain about navigation confusion. What should we do?",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-discovery",
+      "behavioral_assertions": [
+        "The agent recognizes that this is an ambiguous problem space with unclear requirements.",
+        "The agent routes to discovery rather than jumping into coding."
+      ]
+    },
+    {
+      "id": "TC-EXEC-003",
+      "category": "near_miss",
+      "prompt": "Analyze what changes are needed to upgrade React to v19 in our web app. Do not edit or create any files yet.",
+      "context_files": ["apps/web/package.json"],
+      "expected_routing": "nexload-reasoning-execution",
+      "behavioral_assertions": [
+        "The agent respects the plan-only / analyze-only constraint.",
+        "The agent decomposes the required migration steps into phases without making file edits."
+      ]
+    },
+    {
+      "id": "TC-EXEC-004",
+      "category": "behavioral_regression",
+      "prompt": "While implementing Phase 2 of our payment migration, we discovered that the selected library does not support Webhook signature verification in Node 22, causing all tests to fail with unsupported crypto method.",
+      "context_files": ["packages/payment/src/webhook.ts"],
+      "expected_routing": "nexload-reasoning-evaluation",
+      "behavioral_assertions": [
+        "The agent identifies that this is a Decision Defect (Option invalidated by reality) rather than a simple local code bug.",
+        "The agent routes to evaluation using a sparse handoff to re-evaluate alternative webhook verification libraries rather than patching unsupported internal Node crypto."
+      ]
+    }
+  ]
+}

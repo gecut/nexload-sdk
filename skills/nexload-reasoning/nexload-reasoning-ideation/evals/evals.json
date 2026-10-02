@@ -1,0 +1,51 @@
+{
+  "skill_name": "nexload-reasoning-ideation",
+  "test_cases": [
+    {
+      "id": "TC-IDEA-001",
+      "category": "positive_trigger",
+      "prompt": "We need to distribute high-frequency stock price ticks to 50,000 active web clients. We are stuck on whether to upgrade our WebSocket server or scale Socket.io. What materially different approaches exist?",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-ideation",
+      "behavioral_assertions": [
+        "The agent generates at least 3 mechanism-distinct concepts across different axes (e.g., SSE with HTTP/2 multiplexing, edge fanout with WebTransport/P2P, client-polling of coalesced delta snapshots).",
+        "The agent strictly adheres to the Divergence Firewall and does not filter out mechanisms based on implementation complexity.",
+        "The agent does not declare a single winner or rank options (defers judgment to evaluation)."
+      ]
+    },
+    {
+      "id": "TC-IDEA-002",
+      "category": "negative_trigger",
+      "prompt": "Here are two options we already designed: Option A uses SQLite, Option B uses Postgres. Which one should we select given our single-node deployment constraint?",
+      "context_files": ["docs/architecture-options.md"],
+      "expected_routing": "nexload-reasoning-evaluation",
+      "behavioral_assertions": [
+        "The agent recognizes that candidate options are already defined and the goal is convergence and decision-making.",
+        "The agent routes to evaluation rather than generating more alternatives."
+      ]
+    },
+    {
+      "id": "TC-IDEA-003",
+      "category": "near_miss",
+      "prompt": "Give me some ideas on how we can structure our user table columns for multi-tenant support.",
+      "context_files": ["packages/db/schema.prisma"],
+      "expected_routing": "nexload-reasoning-design",
+      "behavioral_assertions": [
+        "The agent identifies this as a database schema and boundary design problem rather than divergent concept generation.",
+        "The agent routes to design to define schema boundaries and state ownership."
+      ]
+    },
+    {
+      "id": "TC-IDEA-004",
+      "category": "behavioral_regression",
+      "prompt": "Brainstorm alternative mechanisms for managing user sessions without database lookups on every request, but immediately eliminate anything that requires changing our cookie format.",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-ideation",
+      "behavioral_assertions": [
+        "The agent respects the hard constraint (preserve cookie format) as established in discovery.",
+        "The agent explores diverse mechanisms compatible with the constraint (e.g. encrypted self-contained JWT, client-side session storage with signature check, in-memory local cache LRU on workers).",
+        "The agent does not eliminate ideas prematurely based on speculative development difficulty."
+      ]
+    }
+  ]
+}

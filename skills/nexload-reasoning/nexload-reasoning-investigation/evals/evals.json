@@ -1,0 +1,51 @@
+{
+  "skill_name": "nexload-reasoning-investigation",
+  "test_cases": [
+    {
+      "id": "TC-INVG-001",
+      "category": "positive_trigger",
+      "prompt": "Our Node server container crashes immediately on startup on a bare-metal server with 'Illegal instruction (core dumped)' without any JavaScript stack trace.",
+      "context_files": ["Dockerfile", "docker-compose.yml"],
+      "expected_routing": "nexload-reasoning-investigation",
+      "behavioral_assertions": [
+        "The agent investigates CPU instruction set compatibility (such as AVX / AVX2 / SSE4) and binary architecture rather than Node.js syntax errors.",
+        "The agent formulates competing hypotheses (AVX requirement in MongoDB/Node build vs glibc mismatch vs OOM).",
+        "The agent checks container base image and host cpuinfo before proposing fixes."
+      ]
+    },
+    {
+      "id": "TC-INVG-002",
+      "category": "negative_trigger",
+      "prompt": "Design an interface for our new payment provider gateway that supports both Zarinpal and Stripe.",
+      "context_files": ["packages/payment/src/types.ts"],
+      "expected_routing": "nexload-reasoning-design",
+      "behavioral_assertions": [
+        "The agent identifies that this is an interface contract design task, not an anomaly or bug investigation.",
+        "The agent routes to design rather than investigation."
+      ]
+    },
+    {
+      "id": "TC-INVG-003",
+      "category": "near_miss",
+      "prompt": "Our users report that checkout is sometimes slow. Should we add an index to the orders table or put Redis in front of it?",
+      "context_files": ["packages/database/schema.prisma"],
+      "expected_routing": "nexload-reasoning-investigation",
+      "behavioral_assertions": [
+        "The agent rejects guessing solutions (adding an index vs Redis) before measuring query times and profiling checkout.",
+        "The agent formulates a plan to inspect slow query logs or profile the request path to isolate the actual bottleneck."
+      ]
+    },
+    {
+      "id": "TC-INVG-004",
+      "category": "behavioral_regression",
+      "prompt": "I applied a fix where I wrapped the failing order processing in a try/catch, but now orders silently disappear without errors. What happened?",
+      "context_files": ["src/order.ts"],
+      "expected_routing": "nexload-reasoning-investigation",
+      "behavioral_assertions": [
+        "The agent identifies symptom patching (AP-06) as the cause of silent failure.",
+        "The agent traces backwards to find the earliest invalid system state in order processing instead of adding more try/catches.",
+        "The agent formulates discriminator tests to identify why the order failed originally."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "skill_name": "nexload-reasoning-discovery",
+  "test_cases": [
+    {
+      "id": "TC-DISC-001",
+      "category": "positive_trigger",
+      "prompt": "Our sales team wants us to build a full custom 3D kitchen designer tool for our e-commerce site so customers can design cabinets.",
+      "context_files": ["apps/web/package.json"],
+      "expected_routing": "nexload-reasoning-discovery",
+      "behavioral_assertions": [
+        "The agent does not immediately recommend Three.js, WebGL, or Canvas libraries.",
+        "The agent excavates intent to determine whether customers need freeform 3D drafting or constrained modular configuration with consultation.",
+        "The agent separates hard constraints (device compatibility, mobile performance) from soft preferences."
+      ]
+    },
+    {
+      "id": "TC-DISC-002",
+      "category": "negative_trigger",
+      "prompt": "Here is the stack trace from our worker node: TypeError: Cannot read property 'id' of undefined at processOrder (src/order.ts:42). Fix it.",
+      "context_files": ["src/order.ts"],
+      "expected_routing": "nexload-reasoning-investigation",
+      "behavioral_assertions": [
+        "The agent recognizes this is a causal bug with a stack trace, not an ambiguous feature request.",
+        "The agent routes to investigation instead of asking requirements questions."
+      ]
+    },
+    {
+      "id": "TC-DISC-003",
+      "category": "near_miss",
+      "prompt": "We need to replace our current internal monitoring tool with something better.",
+      "context_files": ["docker-compose.yml"],
+      "expected_routing": "nexload-reasoning-discovery",
+      "behavioral_assertions": [
+        "The agent inspects docker-compose.yml before asking what monitoring tool is currently deployed.",
+        "The agent discovers the actual job (alerting channels, target types, uptime reporting, regional network constraints) instead of immediately suggesting Grafana or Prometheus."
+      ]
+    },
+    {
+      "id": "TC-DISC-004",
+      "category": "behavioral_regression",
+      "prompt": "We need to implement a user subscription renewal system with Stripe.",
+      "context_files": ["package.json"],
+      "expected_routing": "nexload-reasoning-discovery",
+      "behavioral_assertions": [
+        "The agent checks package.json to verify if a Stripe SDK or payment adapter is already installed before asking.",
+        "The agent identifies that grace periods, retry intervals, and cancellation rules are commercial decisions requiring owner clarification.",
+        "The agent presents at most 2-3 focused owner questions with safe defaults rather than a long questionnaire."
+      ]
+    }
+  ]
+}

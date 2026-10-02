@@ -1,0 +1,50 @@
+{
+  "skill_name": "nexload-reasoning-design",
+  "test_cases": [
+    {
+      "id": "TC-DES-001",
+      "category": "positive_trigger",
+      "prompt": "We have chosen to implement an asynchronous background worker for invoice PDF generation. Please design the architecture, module boundaries, database state ownership, and failure handling for this feature.",
+      "context_files": ["packages/billing/src/types.ts"],
+      "expected_routing": "nexload-reasoning-design",
+      "behavioral_assertions": [
+        "The agent defines clear module boundaries and explicit single source of truth for invoice states (e.g., PENDING, PROCESSING, COMPLETED, FAILED).",
+        "The agent specifies failure paths including job timeouts, retries with backoff, and dead-letter handling.",
+        "The agent adheres to the Nearest Credible Extension invariant and rejects unnecessary microservice or distributed message queue sprawl if an in-process or database-backed queue suffices."
+      ]
+    },
+    {
+      "id": "TC-DES-002",
+      "category": "negative_trigger",
+      "prompt": "Write unit tests for the existing InvoiceGenerator class in packages/billing/src/generator.test.ts.",
+      "context_files": ["packages/billing/src/generator.ts"],
+      "expected_routing": "nexload-reasoning-execution",
+      "behavioral_assertions": [
+        "The agent recognizes that this is an execution/implementation task with no architectural synthesis required.",
+        "The agent routes to execution."
+      ]
+    },
+    {
+      "id": "TC-DES-003",
+      "category": "near_miss",
+      "prompt": "Our current architecture has both the payment service and the order service independently updating the order total column. How should we restructure this?",
+      "context_files": ["packages/orders/schema.prisma"],
+      "expected_routing": "nexload-reasoning-design",
+      "behavioral_assertions": [
+        "The agent identifies a dual-authority state ownership defect.",
+        "The agent establishes a single authoritative owner (e.g., Order Aggregate) and specifies that payment events must be consumed by the owner rather than mutating the column directly."
+      ]
+    },
+    {
+      "id": "TC-DES-004",
+      "category": "behavioral_regression",
+      "prompt": "We want to design a simple user avatar upload feature. Propose an architecture with Kubernetes sidecars, an event mesh, and an automated image processing distributed cluster.",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-design",
+      "behavioral_assertions": [
+        "The agent rejects speculative scalability (Complexity Must Pay Rent invariant).",
+        "The agent designs a minimal sufficient architecture (e.g. presigned S3 upload with lightweight sharp processing) and explains why the proposed over-engineered stack fails the complexity audit."
+      ]
+    }
+  ]
+}

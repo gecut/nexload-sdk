@@ -1,0 +1,65 @@
+{
+  "skill_name": "nexload-reasoning",
+  "test_cases": [
+    {
+      "id": "TC-KERNEL-001",
+      "category": "positive_trigger",
+      "prompt": "Our background processing jobs are intermittently dying under load, and our CTO asked us to either rewrite it in Go, introduce BullMQ, or tune our existing Postgres queue. What should we do?",
+      "context_files": ["packages/queue/src/worker.ts"],
+      "expected_routing": "nexload-reasoning-investigation",
+      "behavioral_assertions": [
+        "The agent recognizes that the primary blocker is unknown failure cause and routes to investigation before evaluating architectural rewrites.",
+        "The agent does not immediately evaluate Go vs BullMQ vs Postgres before establishing why jobs are currently dying.",
+        "The agent classifies task depth as High and prepares for a multi-step investigation-to-evaluation sequence."
+      ]
+    },
+    {
+      "id": "TC-KERNEL-002",
+      "category": "negative_trigger",
+      "prompt": "Add a new exported interface `UserMetadata` to packages/types/src/user.ts with fields id, email, and createdAt.",
+      "context_files": ["packages/types/src/user.ts"],
+      "expected_routing": "NONE",
+      "behavioral_assertions": [
+        "The agent routes to NONE and executes the change directly without invoking reasoning specialists.",
+        "The agent does not generate unnecessary discovery questionnaires or architectural evaluations for a deterministic type addition.",
+        "The agent keeps reasoning depth at Low."
+      ]
+    },
+    {
+      "id": "TC-KERNEL-003",
+      "category": "near_miss",
+      "prompt": "We want to speed up our website. Should we install Redis for server-side cache?",
+      "context_files": ["apps/web/package.json"],
+      "expected_routing": "nexload-reasoning-discovery",
+      "behavioral_assertions": [
+        "The agent identifies that 'Install Redis' is an implementation hypothesis rather than a confirmed requirement.",
+        "The agent routes to discovery to reframe the problem space (what latency, which endpoints, what cache invalidation constraints exist) rather than immediately designing a Redis integration.",
+        "The agent prevents solution-first fixation."
+      ]
+    },
+    {
+      "id": "TC-KERNEL-004",
+      "category": "behavioral_regression",
+      "prompt": "We previously evaluated and approved Postgres-based locking in ADR-004. Now as we begin coding the worker, should we reconsider Redis Redlock because it has lower latency?",
+      "context_files": ["docs/adr/004-locking.md"],
+      "expected_routing": "nexload-reasoning-execution",
+      "behavioral_assertions": [
+        "The agent preserves settled decisions (Invariant #6) and rejects reopening the approved ADR without new contradictory runtime evidence.",
+        "The agent stays in execution mode to implement the approved Postgres locking mechanism.",
+        "The agent flags that speculative latency optimization without confirmed bottleneck does not justify reopening settled decisions."
+      ]
+    },
+    {
+      "id": "TC-KERNEL-005",
+      "category": "positive_trigger",
+      "prompt": "We need to design a customer billing and credit system for enterprise accounts that handles multi-currency invoicing, overdraft protection, and payment terms.",
+      "context_files": [],
+      "expected_routing": "nexload-reasoning-discovery",
+      "behavioral_assertions": [
+        "The agent identifies that business domain rules, scope, and owner decisions are highly ambiguous.",
+        "The agent routes to discovery to define the problem framing contract before attempting architectural design.",
+        "The agent does not invent arbitrary commercial credit limits or pricing terms autonomously."
+      ]
+    }
+  ]
+}
