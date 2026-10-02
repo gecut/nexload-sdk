@@ -1,62 +1,259 @@
 # Agent skills
 
-Repository-wide engineering standards and package-scoped guidance for coding agents working with Nexload SDK.
+Production-grade 6+1 Cognitive Graph reasoning, repository engineering standards, and package-scoped skills for AI coding agents.
 
 **Topic:** agents
 **Canonical page:** https://gecut.github.io/nexload-sdk/agents/
-Agent Skills are task-specific, progressively disclosed instructions distributed with this repository. They complement the API docs by encoding source inspection, decision flow, invariants, security boundaries, verification, and handoff requirements that are easy for an agent to get wrong during implementation.
+Agent Skills are task-specific, progressively disclosed cognitive operating instructions for AI coding agents (Antigravity, Cursor, Claude Code, Windsurf, GitHub Copilot). They encode evidence-based decision procedures, architectural invariants, trust boundaries, claim-matched verification, and zero-bloat handoffs that prevent agents from hallucinating, overengineering, or patching symptoms.
 
-### Nexload engineering standards
+***
 
-Four foundational Skills cover TypeScript implementation, publishable package
-design, React boundaries, and semantic UI design.
+## How Nexload Skills Compose (The 3-Tier Mental Model)
 
-### Nexload CTO review
+Rather than treating skills as an unstructured list of tools, the Nexload ecosystem is engineered as a **three-tier symbiotic architecture**:
 
-One reviewer-only Skill combines relevant standards into a scoped score,
-verdict, and small set of approval-level findings without implementing fixes.
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│               TIER 1: THE COGNITIVE BRAIN                       │
+│             nexload-reasoning-* (6+1 Graph)                     │
+│  Frames problems, investigates reality, ideates mechanisms,    │
+│  synthesizes architecture, evaluates trade-offs, plans delivery │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │ (Handoffs & Boundaries)
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│              TIER 2: THE ENGINEERING HANDS                      │
+│            nexload-code | nexload-package | ...                 │
+│  Executes precise TypeScript changes, enforces type safety,     │
+│  maintains React render purity, preserves UI, conducts CTO review│
+└───────────────────────────────┬─────────────────────────────────┘
+                                │ (Domain Contracts)
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│             TIER 3: DOMAIN & PACKAGE SPECIALISTS                │
+│             healthcheck-* | payload-*                           │
+│  Applies deep, battle-tested operational rules for service      │
+│  reliability, Lexical editors, custom fields, and operations   │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### Healthcheck skills
+* **The Cognitive Brain** (`nexload-reasoning-*`) decides *what* problem to solve, *how deeply* to reason, and *which trade-offs* to accept.
+* **The Engineering Hands** (`nexload-*`) know *how* to write correct TypeScript, maintain package boundaries, and prevent architectural debt.
+* **The Domain Specialists** (`healthcheck-*`, `payload-*`) own *package-specific invariants*, security models, and lifecycle behaviors.
 
-Seven Skills cover manager design, custom checks, diagnostics security,
-cgroups, exporters, Next.js routes, and Payload integration.
+***
 
-### Payload Fields skills
+## Autonomous Project Adoption (One-Shot Prompt)
 
-Four Skills cover semantic factories, managed slugs, Jalali dates, and
-minor-unit money contracts.
+If you are a developer looking to integrate Nexload skills into your own repository, **copy and run the prompt below in your AI coding assistant** (Antigravity, Cursor, Claude Code, Windsurf, or Copilot).
 
-### Payload Editor skills
+Your agent will autonomously inspect your workspace, detect your stack, selectively install only the skills that pay rent, and rewrite your project's `AGENTS.md` so that all skills are utilized with maximum leverage.
 
-Three Skills cover core semantic configuration, preset contracts, and native
-Payload extensions.
+### Run this prompt in your AI coding assistant
 
-### Payload Schema skills
+Copy the prompt block below and send it directly to your agent inside your target project repository.
 
-Two Skills separate entity consumption and migration from package compiler,
-adapter, and release development.
+```markdown
+Act as a Principal Systems Architect and Agent Infrastructure Specialist.
+Your mission is to analyze our repository, selectively install the optimal Nexload Agent Skills from "gecut/nexload-sdk", and configure our project's AGENTS.md so that our agentic workflow executes at the highest possible standard.
 
-### Payload Operations skills
+Execute the following 4 phases autonomously:
 
-Three Skills cover operation contracts, the shared Payload SDK client, and
-secure custom endpoints.
+### PHASE 1: WORKSPACE & STACK INSPECTION (INSPECT BEFORE ACTING)
+1. Inspect our repository structure, package.json, dependencies, frameworks, tsconfig.json, docker-compose.yml, and existing documentation.
+2. Identify our stack characteristics:
+   - Does this project use TypeScript? What strictness level?
+   - Does this project use Next.js, React, Node.js, Bun, or Payload CMS?
+   - Is it a monorepo (pnpm/turbo/lerna) or a standalone package?
+   - Does it have health check / monitoring endpoints, Docker setups, or microservices?
+   - Does it require structured, high-stakes reasoning (architecture, migrations, complex algorithms)?
 
-## Use the smallest relevant skill
+### PHASE 2: SELECTIVE SKILL INSTALLATION (COMPLEXITY MUST PAY RENT)
+Review the Nexload skills catalog and install ONLY the skills that provide confirmed leverage for our repository stack. Run the official CLI commands:
+- Always install for structured reasoning:
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning
+- If we have ambiguous requirements, multi-tier systems, or complex refactors, install relevant reasoning specialists:
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning-discovery
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning-investigation
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning-ideation
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning-design
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning-evaluation
+  npx skills add gecut/nexload-sdk --skill nexload-reasoning-execution
+- If we build TypeScript software:
+  npx skills add gecut/nexload-sdk --skill nexload-code
+- If we publish packages/libraries:
+  npx skills add gecut/nexload-sdk --skill nexload-package
+- If we use React / Next.js UI:
+  npx skills add gecut/nexload-sdk --skill nexload-react
+  npx skills add gecut/nexload-sdk --skill nexload-design
+- For architectural review and pre-merge approval:
+  npx skills add gecut/nexload-sdk --skill nexload-cto-review
+- If we run backend services or require health monitoring:
+  npx skills add gecut/nexload-sdk --skill healthcheck-core
+  (plus healthcheck-node, healthcheck-nextjs-routes, or healthcheck-bun as needed)
+- If we use Payload CMS:
+  npx skills add gecut/nexload-sdk --skill payload-fields-core
+  (plus payload-editor-core, payload-schema-use, or payload-operations-core as needed)
 
-Install a Skill when the task matches its trigger. Use a foundational Skill for repository-wide engineering decisions and a package Skill for package-specific contracts. For example, compose `nexload-package` with `payload-operations-core` when changing that package's public entrypoints; do not install the entire collection by default.
+### PHASE 3: REWRITE & EMPOWER AGENTS.MD
+Create or enhance our repository's root `AGENTS.md` (and `.agents/rules/` if applicable). Ensure the document:
+1. Formulates the Inviolable Constitution:
+   - Evidence Hierarchy: Runtime > Code/Config > Official Docs > Project Docs > Inference > Assumption.
+   - Inspect Before Ask: Never ask the human for information present in workspace files, configs, or logs.
+   - Problem Space Framing: Proposed solutions ("Add Redis") are implementation hypotheses, not requirements.
+   - Divergence Firewall: Ideation must never filter by implementation feasibility.
+   - Complexity Must Pay Rent: Speculative scalability is rejected; design for Now + 1, never Now + 10.
+   - Preservation of Settled Decisions: Never reopen approved ADRs without new material contradictory evidence.
+   - Claim-Matched Verification: "Builds" !== "Works". Every claim must be backed by empirical test output.
+   - Dynamic Reasoning Budget: Stop reasoning immediately when remaining uncertainty has zero material impact.
+2. Maps out explicit trigger rules and routing conditions for every installed skill.
+3. Defines the Sparse Pointer Handoff Protocol (`[NEXLOAD HANDOFF]`) for cross-agent transitions without context bloat.
+4. Details exact build, test, and verification commands specific to our repository.
 
-Use `nexload-cto-review` only for an explicit review or evaluation of meaningful engineering work, including architecture, production-readiness, overengineering, or approval judgment. It sits above the four foundational implementation standards, consults only the relevant ones, and remains review-only even when asked to fix the result.
+### PHASE 4: VERIFICATION & SMOKE TEST
+1. Verify that all installed skill files are present and valid in `.agents/skills/` or `skills/`.
+2. Report the full list of installed skills, the rationale for why each was chosen, which skills were intentionally skipped, and provide a summary of the new AGENTS.md guidelines.
+```
 
-Every Skill is self-contained for its primary task. A sibling Skill may be recommended for composition, but the primary workflow does not depend on reading it. Committed behavior evals cover a happy path, edge case, security/failure case, diagnosis/review case, and a near-miss or composition boundary; trigger evals balance 10 positive and 10 neighboring negative queries.
+***
 
-* [Install Skills](/agents/install/) — Use the official skills CLI with this public repository.
+## Which Skills Does Your Project Need? (Quick Stack Recipes)
 
-- [Healthcheck docs](/packages/healthcheck/) — Read the runtime and security contract behind the Healthcheck Skills.
+To avoid installing unneeded skills, use these battle-tested combinations:
 
-* [Payload Fields docs](/packages/payload-fields/) — Read the persistence and Admin contract behind the Payload Skills.
+| Project Type | Recommended Core Skills | Why This Combination Works |
+|---|---|---|
+| **Next.js Full-Stack App** | `nexload-reasoning``nexload-code``nexload-react``nexload-design``healthcheck-nextjs-routes` | Combines reasoning with strict React render purity, design system preservation, and zero-cache health endpoints for Kubernetes/Dokploy. |
+| **Node.js / Bun Microservice** | `nexload-reasoning``nexload-code``healthcheck-core``healthcheck-node` (or `bun`) | Ensures type safety at trust boundaries, monitors Linux cgroup resource limits, and prevents memory leaks without framework bloat. |
+| **TypeScript Library / Monorepo** | `nexload-reasoning``nexload-code``nexload-package``nexload-cto-review` | Guarantees clean dual CJS/ESM exports, zero bundle bloat, and provides principal reviewer-only signoff before publishing. |
+| **Payload CMS Enterprise App** | `nexload-reasoning``nexload-code``payload-fields-core``payload-editor-core``payload-schema-use` | Enforces atomic field validation, deterministic rich-text editor presets, and single-source-of-truth schema derivation. |
+| **Complex Refactor / Migration** | `nexload-reasoning` (Kernel)`nexload-reasoning-discovery``nexload-reasoning-design``nexload-reasoning-evaluation``nexload-reasoning-execution` | Full 6+1 cognitive graph pipeline to frame scope, design boundaries, stress-test trade-offs, and verify atomic delivery. |
 
-- [Payload Editor docs](/packages/payload-editor/) — Read the semantic editor and native extension contracts.
+***
 
-* [Payload Schema docs](/packages/payload-schema/) — Read the canonical field, Payload adapter, and Zod derivation contracts.
+## Unified Skill Catalog & Capability Matrix
 
-- [Payload Operations docs](/packages/payload-operations/) — Read the contract, client transport, endpoint, access, and error boundaries.
+***
+
+### 1. The 6+1 Cognitive Graph Reasoning Ecosystem
+
+The reasoning ecosystem separates six cognitively distinct jobs, orchestrated by a lightweight kernel. Each specialist is **standalone-capable** and requires no mandatory dependencies.
+
+| Skill Name & CLI Identifier | Core Cognitive Mission | When to Use (Positive Trigger) | When NOT to Use (Boundary) |
+|---|---|---|---|
+| **`nexload-reasoning`**`--skill nexload-reasoning` | **Kernel, Router & Depth Controller:** Determines what reasoning is needed, at what depth (Low/Med/High), routes to specialists, and enforces stopping discipline. | Ambiguous, multi-step, high-consequence tasks; mixed conflicting intents; unblocking recovery. | Deterministic commands, trivial syntax edits, or when the task already cleanly maps to a single specialist. |
+| **`nexload-reasoning-discovery`**`--skill nexload-reasoning-discovery` | **Problem Space & Scope:** Extracts root user intent (JTBD), separates requirements from solution hypotheses, locks scope (`IN`/`OUT`/`MUST-PRESERVE`), and gates questions. | Feature requests framed as implementation solutions ("Add Kafka"); ambiguous goals; greenfield initiatives. | Debugging known errors with stack traces; comparing pre-existing designs; routine coding. |
+| **`nexload-reasoning-investigation`**`--skill nexload-reasoning-investigation` | **Reality & Causal Engine:** Audits empirical evidence, forms competing hypotheses (H1, H2, ..., Hn), designs decisive discriminator tests, and isolates root causes. | System crashes, intermittent panics, memory/CPU leaks, performance degradation, conflicting logs. | Brainstorming new user flows; designing clean-slate schemas; planning sprint delivery. |
+| **`nexload-reasoning-ideation`**`--skill nexload-reasoning-ideation` | **Divergence & Mechanism Generator:** Expands solution space across control, state, and subtraction axes; breaks fixation via assumption inversion under the **Divergence Firewall**. | Solution space exploration; escaping architectural fixation; generating novel mechanisms (at least 3 distinct). | Choosing between Option A and B; reviewing pull requests; production incident recovery. |
+| **`nexload-reasoning-design`**`--skill nexload-reasoning-design` | **Architectural Synthesis:** Synthesizes coherent system models, establishes Single Source of Truth (SSOT), deep module seams, failure path semantics (retries, timeouts), and limits complexity to Now + 1. | Structuring chosen concepts into deep modules; designing API/DB schemas; defining failure recovery behavior. | Unconstrained brainstorming; final commercial/vendor selection; writing routine implementation code. |
+| **`nexload-reasoning-evaluation`**`--skill nexload-reasoning-evaluation` | **Convergent Decision Engine:** Performs strict Pareto pruning of dominated options, weighs material trade-offs without scoring theater, runs pre-mortem stress tests, and recommends a single default. | Choosing between competing designs or libraries; high-stakes migrations; vendor selection; pre-mortem audits. | Generating more alternatives; coding solutions; collecting initial stack trace evidence. |
+| **`nexload-reasoning-execution`**`--skill nexload-reasoning-execution` | **Delivery & Claim Verification:** Decomposes atomic dependency-ordered plans, exercises controlled autonomy on routine details, proves completion with empirical evidence, and routes failures. | Implementing approved designs; executing migrations; refactoring plans; verifying deliverables. | Re-debating settled architecture; brainstorming features; guessing root causes of crashes. |
+
+***
+
+### 2. Foundational Engineering & Architecture Standards
+
+These foundational skills govern code quality, maintainability, and architectural boundaries across all TypeScript and web projects.
+
+| Skill Name & CLI Identifier | Core Engineering Mission | When to Use (Positive Trigger) | When NOT to Use (Boundary) |
+|---|---|---|---|
+| **`nexload-code`**`--skill nexload-code` | Produces the smallest correct, reviewable TypeScript change. Enforces type narrowing at trust boundaries, explicit lifecycle ownership, and honest verification. | Everyday TypeScript implementation, function refactoring, strict type modeling, and boundary assertions. | Detailed React UI behavior, package release engineering, or high-level CTO approval. |
+| **`nexload-package`**`--skill nexload-package` | Enforces publishable package integrity, clean export subpaths, dual ESM/CJS compatibility, bundle size discipline, and external dependency restraint. | Designing packages in `packages/*`, editing `package.json` exports, managing peer dependencies, and preparing releases. | Internal application code, non-exported helper functions, or visual design styling. |
+| **`nexload-react`**`--skill nexload-react` | Enforces render purity, explicit state/effect ownership, Next.js Server vs. Client Component boundaries, and hydration safety. | React component design, hooks architecture, avoiding effect synchronization bugs, and server action safety. | Pure backend services without React; package packaging; CSS token styling. |
+| **`nexload-design`**`--skill nexload-design` | Expresses visual intent through shared semantic tokens, layout geometry, responsive constraints, RTL safety, and approved UI preservation. | Design tokens, CSS layout architecture, spacing systems, accessible surfaces, and UI-locked refactoring. | Component state hooks; build tools configuration; backend database logic. |
+| **`nexload-cto-review`**`--skill nexload-cto-review` | Principal reviewer-only skill. Combines foundational standards into a scored audit, approval verdict, and small set of high-leverage findings without implementing code. | Pre-merge pull request reviews, architectural audits, evaluating overengineering, and production-readiness signoff. | Implementing code fixes directly; initial brainstorming; routine single-line formatting. |
+
+***
+
+### 3. Healthcheck & Observability Skills
+
+Comprehensive reliability engineering skills designed to accompany `@nexload-sdk/healthcheck` and production cloud deployments.
+
+| Skill Name & CLI Identifier | Core Reliability Mission | When to Use (Positive Trigger) | When NOT to Use (Boundary) |
+|---|---|---|---|
+| **`healthcheck-core`**`--skill healthcheck-core` | Defines health managers, collectors, checks, timeouts, status aggregation (UP, DEGRADED, DOWN), and report serialization. | Initializing health check architectures; defining system check scopes; orchestrating health managers. | Writing framework HTTP route handlers; parsing Linux cgroup files. |
+| **`healthcheck-node`**`--skill healthcheck-node` | Observes Node.js runtime health, Linux cgroup v1/v2 memory/CPU limits, thread pool lag, and TCP reachability. | Bare-metal or containerized Node.js services; checking memory/CPU pressure; diagnosing container restarts. | Bun runtime environments; frontend React components; Payload CMS queries. |
+| **`healthcheck-nextjs-routes`**`--skill healthcheck-nextjs-routes` | Implements no-store, zero-cache route handlers (`/api/health`, `/api/ready`) in Next.js App Router with proxy protection. | Next.js health endpoints; Kubernetes/Docker health probes; proxy header authorization. | Pure Express/Fastify apps; defining custom database checks from scratch. |
+| **`healthcheck-custom-checks`**`--skill healthcheck-custom-checks` | Implements custom check contracts for databases, Redis, disk storage, and external APIs with timeouts and error masking. | Adding health checks for Prisma, Postgres, Redis, external SaaS; handling check timeouts safely. | Operating system cgroup resource inspection; serializing Prometheus metrics. |
+| **`healthcheck-diagnostics-security`**`--skill healthcheck-diagnostics-security` | Protects diagnostic endpoints from unauthorized access, masks internal IP addresses and connection strings, and configures auth tokens. | Hardening public or internal health endpoints; implementing Bearer token or secret query authorization. | Writing core check algorithms; configuring Next.js route file locations. |
+| **`healthcheck-monitoring-exporters`**`--skill healthcheck-monitoring-exporters` | Serializes health reports into Prometheus text, OpenMetrics, and OpenTelemetry attributes without bloated external SDKs. | Integrating with Prometheus scrapers, Datadog agents, or Grafana OpenTelemetry collectors. | Starting background Prometheus daemon servers; defining core check logic. |
+| **`healthcheck-payload`**`--skill healthcheck-payload` | Checks Payload CMS readiness and database availability via controlled, lightweight Local API queries. | Payload CMS deployments; verifying database connectivity and collection accessibility at boot. | Non-Payload Node.js services; general React components. |
+
+***
+
+### 4. Payload CMS Specialist Skills
+
+Domain-specific skills for building robust enterprise CMS solutions with Payload CMS and Lexical.
+
+| Skill Name & CLI Identifier | Core CMS Mission | When to Use (Positive Trigger) | When NOT to Use (Boundary) |
+|---|---|---|---|
+| **`payload-fields-core`**`--skill payload-fields-core` | Builds reusable semantic field factories with validation hooks, database indexing, and custom Admin UI controls. | Creating custom field sets; reusable schema extensions; field lifecycle hooks in Payload. | General TypeScript helper functions; non-Payload database ORMs. |
+| **`payload-fields-slug`**`--skill payload-fields-slug` | Creates managed, collision-resistant Unicode slugs for internationalized content with lock/unlock modes. | Generating slugs for blog posts, products, pages; handling Persian/Arabic/English Unicode characters. | Calculating financial transactions; configuring rich text editors. |
+| **`payload-fields-jalali-date`**`--skill payload-fields-jalali-date` | Manages Persian/Jalali solar calendar dates, formatting, and dual-calendar storage in Payload CMS. | Adding Persian datepickers to Payload collections; solar calendar event scheduling and filtering. | Standard Gregorian dates without Jalali localization. |
+| **`payload-fields-money`**`--skill payload-fields-money` | Implements integer minor-unit money fields (Rials, Cents) to prevent floating-point rounding errors. | E-commerce pricing, invoice calculations, wallet balances, and currency conversion fields. | Non-financial decimal fields (e.g. coordinates, ratings). |
+| **`payload-editor-core`**`--skill payload-editor-core` | Configures deterministic Payload Lexical rich-text editors from explicit presets and clean feature sets. | Setting up rich-text fields in Payload collections; configuring Lexical toolbars and features. | Markdown-only fields; non-Lexical plain text textareas. |
+| **`payload-editor-presets`**`--skill payload-editor-presets` | Standardizes editor configurations into predictable presets (minimal, standard, article, full). | Standardizing editor configurations across collections; sharing toolbars between admin users. | Writing custom low-level Lexical editor nodes. |
+| **`payload-editor-extensions`**`--skill payload-editor-extensions` | Authors native Lexical features, custom nodes, decorator blocks, and HTML serializers. | Creating custom rich-text blocks (e.g. callouts, banners, sliders) inside Lexical fields. | Configuring standard out-of-the-box Lexical presets. |
+| **`payload-schema-use`**`--skill payload-schema-use` | Consumes canonical field schemas, derives Zod validations, and builds collection definitions. | Defining Payload collections from canonical field definitions; sharing types with frontend apps. | Developing internal schema compiler internals. |
+| **`payload-schema-develop`**`--skill payload-schema-develop` | Develops and tests internal schema derivation compilers, adapters, and TypeScript type transformers. | Modifying the `@nexload-sdk/payload-schema` package itself; adding new field type adapters. | Ordinary Payload collection authoring. |
+| **`payload-operations-core`**`--skill payload-operations-core` | Defines typed Payload operation contracts, shared Zod schemas, and client/server transports. | Creating custom business operations (e.g. checkout, register, refund) beyond standard CRUD. | Basic Payload CRUD operations (find, create, delete). |
+| **`payload-operations-client`**`--skill payload-operations-client` | Generates frontend SDK clients that interact with Payload custom operations with full type inference. | Consuming custom operations in Next.js/React frontend apps; handling operation error codes. | Server-side database logic; configuring collection fields. |
+| **`payload-operations-server`**`--skill payload-operations-server` | Implements secure custom server endpoints in Payload with RBAC access control and error masking. | Server-side execution of custom business logic; enforcing transaction boundaries and access rights. | Frontend React hooks; defining Lexical editor presets. |
+
+***
+
+## The Inviolable Constitution
+
+All skills across this ecosystem adhere to eight inviolable system invariants:
+
+1. **Evidence Hierarchy (Grounding Gate):**
+   `Runtime Observation` > `Code/Config` > `Official Docs` > `Project Docs` > `Inference` > `Assumption`
+   Claims unsupported by observable evidence must be explicitly tagged as `[ASSUMPTION]` or `[UNKNOWN]`.
+2. **Inspect Before Ask (Question Gate):**
+   If an answer can be found in codebase files, configuration, git history, or environment variables: **inspect first**. Never ask the user for existing context.
+3. **Problem Space Framing:**
+   A proposed solution (e.g., "Add Redis", "Split into microservices") is an implementation hypothesis, never a requirement. The underlying capability must be framed first.
+4. **Separation of Divergence and Convergence (Divergence Firewall):**
+   During ideation, ideas must never be suppressed by implementation difficulty or speculative cost. Divergence and convergence never execute within the same cognitive pass.
+5. **Complexity Must Pay Rent:**
+   Any introduced abstraction, layer, or state store must measurably reduce system complexity. Speculative scalability is rejected; design for **Now + 1**, never Now + 10.
+6. **Preservation of Settled Decisions:**
+   Approved decisions and architecture constraints are immutable unless new contradictory material evidence appears.
+7. **Claim-Matched Verification:**
+   "Builds" !== "Works". "Configured" !== "Exposed". Every completion claim requires observable, reproducible empirical evidence.
+8. **Dynamic Reasoning Budget:**
+   When remaining uncertainty has zero material impact on the final action, architecture, risk, or correctness: **stop reasoning immediately**.
+
+***
+
+## Sparse Pointer Handoff Protocol
+
+When transferring context between specialists or across subagent boundaries, skills generate bounded, human-readable handoff blocks rather than bloated JSON states:
+
+```text
+[NEXLOAD HANDOFF]
+From: <Current Specialist>
+To: <Target Specialist>
+Context Pointer: <File path, Commit hash, or ADR reference>
+Established Facts:
+- <Confirmed empirical observation or verified invariant>
+Hard Constraints:
+- <Non-negotiable requirement or preserved boundary>
+Settled Decisions:
+- <Approved architectural choice - IMMUTABLE>
+Next Cognitive Objective:
+- <Exact question the target specialist must resolve>
+[END HANDOFF]
+```
+
+***
+
+## Next Steps
+
+* [Installation Guide](/agents/install/) — Learn how to install skills globally, per-project, or for specific agent runtimes.
+
+- [Healthcheck Packages](/packages/healthcheck/) — Explore the production health monitoring packages that power these skills.
+
+* [Payload CMS Packages](/packages/payload-fields/) — Explore field factories, rich text editors, and operations packages.
+
+- [GitHub Repository](https://github.com/gecut/nexload-sdk) — View the open-source source code, skill definitions, and test fixtures.
