@@ -1,4 +1,4 @@
-# Payload Fields: API Reference & Compatibility | Nexload SDK
+# API Reference & Compatibility
 
 Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields.
 

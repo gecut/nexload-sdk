@@ -1,4 +1,4 @@
-# Healthcheck OpenTelemetry: Telemetry & Traces | Nexload SDK
+# Overview & Quick Start
 
 Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata.
 

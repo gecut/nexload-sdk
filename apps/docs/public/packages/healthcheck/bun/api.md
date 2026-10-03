@@ -1,4 +1,4 @@
-# Healthcheck Bun: API Reference & Compatibility | Nexload SDK
+# API Reference & Compatibility
 
 Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
 

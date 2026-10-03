@@ -1,4 +1,4 @@
-# Payload Editor: API Reference & Compatibility | Nexload SDK
+# API Reference & Compatibility
 
 Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
 

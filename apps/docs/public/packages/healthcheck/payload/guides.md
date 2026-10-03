@@ -1,4 +1,4 @@
-# Healthcheck Payload: Production Guides & Readiness Probes | Nexload SDK
+# Production Guides & Recipes
 
 Probing Payload collections, database latency, lightweight health queries, and troubleshooting.
 

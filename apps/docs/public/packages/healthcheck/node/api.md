@@ -1,4 +1,4 @@
-# Healthcheck Node: API Reference & Compatibility | Nexload SDK
+# API Reference & Compatibility
 
 Public API symbol reference, functions, and compatibility matrix for Healthcheck Node.
 

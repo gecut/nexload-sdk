@@ -1,4 +1,4 @@
-# Healthcheck Prometheus: API Reference & Compatibility | Nexload SDK
+# API Reference & Compatibility
 
 Public API symbol reference and compatibility matrix for Healthcheck Prometheus.
 

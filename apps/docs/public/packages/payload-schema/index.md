@@ -1,4 +1,4 @@
-# Payload Schema: Overview & Quick Start | Nexload SDK
+# Overview & Quick Start
 
 Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas.
 

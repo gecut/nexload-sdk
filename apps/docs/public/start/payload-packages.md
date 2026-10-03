@@ -1,4 +1,4 @@
-# Payload CMS Suite: Extension Ecosystem | Nexload SDK
+# Payload Suite Overview
 
 Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations by responsibility.
 

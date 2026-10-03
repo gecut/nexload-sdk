@@ -1,4 +1,4 @@
-# Healthcheck Prometheus: Production Guides & Scraping Setup | Nexload SDK
+# Production Guides & Recipes
 
 Configuring Prometheus endpoints, metric labels, Grafana alerts, and troubleshooting.
 

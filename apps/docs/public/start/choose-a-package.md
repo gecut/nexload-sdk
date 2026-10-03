@@ -1,4 +1,4 @@
-# Choose a Package: Interactive Decision Guide | Nexload SDK
+# Choose a Package: Interactive Decision Guide
 
 Match a service-health or Payload CMS task to one of the eleven packages documented here.
 

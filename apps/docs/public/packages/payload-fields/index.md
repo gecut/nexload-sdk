@@ -1,4 +1,4 @@
-# Payload Fields: Overview & Quick Start | Nexload SDK
+# Overview & Quick Start
 
 Semantic Payload field factories for Unicode slugs, Jalali dates, and integer minor-unit money values.
 

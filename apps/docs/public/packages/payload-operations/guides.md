@@ -1,4 +1,4 @@
-# Payload Operations: Production Guides & Recipes | Nexload SDK
+# Production Guides & Recipes
 
 Advanced multi-resource contract patterns, Payload server endpoints with RBAC, transport plugins, safe error matching, Next.js server actions, and troubleshooting.
 

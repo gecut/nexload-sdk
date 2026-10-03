@@ -1,4 +1,4 @@
-# Healthcheck Next.js: Production Guides & Route Handlers | Nexload SDK
+# Production Guides & Recipes
 
 Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router.
 

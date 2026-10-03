@@ -1,4 +1,4 @@
-# Healthcheck Payload: Payload CMS Health Readiness | Nexload SDK
+# Overview & Quick Start
 
 Verify Payload CMS database connectivity, collection accessibility, and initialization state.
 

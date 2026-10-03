@@ -1,4 +1,4 @@
-# Payload Schema: Production Recipes & Modeling Guides | Nexload SDK
+# Production Guides & Recipes
 
 Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, and troubleshooting.
 

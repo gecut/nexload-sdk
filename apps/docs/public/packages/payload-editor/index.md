@@ -1,4 +1,4 @@
-# Payload Editor: Overview & Quick Start | Nexload SDK
+# Overview & Quick Start
 
 Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor.
 

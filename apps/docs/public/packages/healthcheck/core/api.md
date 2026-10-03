@@ -1,4 +1,4 @@
-# Healthcheck Core: API Reference & Compatibility | Nexload SDK
+# API Reference & Compatibility
 
 Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core.
 

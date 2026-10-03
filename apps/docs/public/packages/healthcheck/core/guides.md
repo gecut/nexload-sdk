@@ -1,4 +1,4 @@
-# Healthcheck Core: Production Guides & Architecture | Nexload SDK
+# Production Guides & Recipes
 
 Authoring custom checks, configuring timeouts and retries, status aggregation rules, and troubleshooting.
 

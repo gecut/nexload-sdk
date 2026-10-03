@@ -1,4 +1,4 @@
-# Healthcheck OpenTelemetry: Production Guides & Tracing | Nexload SDK
+# Production Guides & Recipes
 
 Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting.
 

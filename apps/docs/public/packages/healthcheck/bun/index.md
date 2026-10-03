@@ -1,4 +1,4 @@
-# Healthcheck Bun: Bun Runtime Integration | Nexload SDK
+# Overview & Quick Start
 
 Bun runtime adapter and server metrics health check integration for Bun HTTP services.
 

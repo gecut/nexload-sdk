@@ -1,4 +1,4 @@
-# Payload Operations: Overview & Quick Start | Nexload SDK
+# Overview & Quick Start
 
 Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK.
 
