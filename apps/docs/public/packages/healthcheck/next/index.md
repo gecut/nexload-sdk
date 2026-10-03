@@ -1,10 +1,71 @@
-# Healthcheck Next.js
+# Healthcheck Next.js: App Router Route Handlers | Nexload SDK
 
-App Router health and metrics route factories.
+Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router.
 
 **Topic:** overview
 **Package:** `@nexload-sdk/healthcheck-next` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
-`@nexload-sdk/healthcheck-next` turns a core manager into Next.js App Router `GET` and `HEAD` handlers. It supports JSON/summary health responses, Prometheus/OpenMetrics/JSON metrics, HTTP status policies, and route protection.
+**Package:** `@nexload-sdk/healthcheck-next`
 
-It does not create checks or choose a runtime adapter. Use core plus Node checks for Node runtime observations. Keep diagnostics and metrics protected when they expose operational detail.
+**Current released version:** `2.1.0`
+
+Next.js App Router route factories for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-next) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/next)
+
+`@nexload-sdk/healthcheck-next` binds `@nexload-sdk/healthcheck` to Next.js App Router Route Handlers. It automatically enforces `Cache-Control: no-store` headers, prevents static optimization of health endpoints, maps status codes to Kubernetes expectations, and provides token-based proxy protection.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+// app/api/health/route.ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+const health = createHealthManager({
+  service: { name: "web-storefront" },
+});
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "readiness",
+});
+```
+
+***
+
+## What You Get
+
+* **Next.js App Router Handlers**: Export `GET` and `HEAD` handlers compliant with Next.js 14, 15, and canary.
+* **Zero-Cache Guarantees**: Forces `force-dynamic` behavior with `Cache-Control: no-store, no-cache, must-revalidate` to prevent CDN and browser caching.
+* **HTTP Status Code Mapping**: Returns `200 OK` for `"ok"` and `"degraded"`, and `503 Service Unavailable` for `"unhealthy"`.
+* **Diagnostics Authorization**: Protect operational details behind Bearer tokens or secret headers when exposing internal metrics.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+
+# bun
+bun add @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+```
+
+Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all exported route creators and options.

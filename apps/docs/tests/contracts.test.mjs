@@ -40,18 +40,11 @@ test("canonical Markdown contains every public export", () => {
   assert.ok(symbolCount > 163);
 });
 
-test("each package exposes all ten canonical Markdown topics", () => {
+test("each package exposes all three canonical Markdown topics", () => {
   const topics = [
     "index",
-    "installation",
-    "quick-start",
-    "concepts",
     "guides",
     "api",
-    "examples",
-    "troubleshooting",
-    "migration",
-    "compatibility",
   ];
   for (const route of Object.values(packageRoutes)) {
     for (const topic of topics) {

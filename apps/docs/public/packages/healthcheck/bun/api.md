@@ -1,10 +1,12 @@
-# Healthcheck Bun API
+# Healthcheck Bun: API Reference & Compatibility | Nexload SDK
 
-Public Bun runtime exports.
+Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `bunRuntimeAdapter`
@@ -61,9 +63,12 @@ Public interface exported by @nexload-sdk/healthcheck-bun.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L15)
 
-* `bunRuntimeAdapter()` returns the core runtime adapter.
-* `bunRuntimeInfoCheck(options?)` creates the `bun.runtime` diagnostic check.
-* `bunServerMetricsCheck(server, options?)` creates `bun.server.metrics`.
-* `BunServerLike` is the minimal server shape: pending request/WebSocket counters and optional subscribers.
+***
 
-Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts).
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

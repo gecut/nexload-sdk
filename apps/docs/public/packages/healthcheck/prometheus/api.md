@@ -1,10 +1,12 @@
-# Healthcheck Prometheus API
+# Healthcheck Prometheus: API Reference & Compatibility | Nexload SDK
 
-Public Prometheus and OpenMetrics serializer exports.
+Public API symbol reference and compatibility matrix for Healthcheck Prometheus.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `toOpenMetricsText`
@@ -63,9 +65,13 @@ Public type exported by @nexload-sdk/healthcheck-prometheus.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L14)
 
-* `toPrometheusText(report, options?)` returns newline-terminated text.
-* `toOpenMetricsText(report, options?)` appends the OpenMetrics EOF marker.
-* `PrometheusExportOptions` supports `prefix`, `defaultLabels`, and `includeDescriptions`.
-* `OpenMetricsExportOptions` aliases the same options.
+***
 
-Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts).
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

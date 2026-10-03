@@ -1,52 +1,158 @@
-# Guides
+# Payload Fields: Production Guides & Custom Fields | Nexload SDK
 
-Configure slugs, Jalali presentation, money storage, and server-side slug generation.
+Deep recipes for managed Unicode slugs, Jalali solar datepickers, integer money fields, generator plugins, and troubleshooting.
 
 **Topic:** guides
 **Package:** `@nexload-sdk/payload-fields` v3.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/guides/
-## Managed Unicode slugs
+## Managed Unicode Slugs
+
+The `slugField` factory generates URL-friendly slugs while preserving non-Latin scripts (such as Persian and Arabic):
 
 ```ts
-...slugField({
-  name: "slug",
-  lockName: "slugLock",
-  source: "title",
-  regenerateOnSourceChange: true,
-  overrides: {
-    slug: { required: true, unique: true, localized: true },
-    lock: { localized: true },
-  },
-})
+import { slugField } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  { name: "title", type: "text", required: true },
+  ...slugField({
+    source: "title",
+    overrides: {
+      admin: {
+        position: "sidebar",
+        description: "Auto-generated from title. Unlock to manually edit.",
+      },
+    },
+  }),
+];
 ```
 
-`formatSlug` normalizes Unicode, lowercases text, replaces separator runs with `-`, and trims edge hyphens. Use the exported formatter when imports or migrations must produce the same value.
+### Slug Locking Mechanism
 
-## Jalali date presentation
+* When a document is first created, `slugLock` defaults to `true`.
+* Editing the `title` field automatically updates `slug`.
+* Once the user clicks the lock icon to lock the slug, future changes to `title` will never alter `slug`.
+* This prevents unintentional breakage of indexed search engine URLs.
+
+***
+
+## Jalali (Persian Solar) Datepicker
+
+Store standard ISO datetimes while providing a rich Persian Solar calendar widget in Payload Admin:
 
 ```ts
-jalaliDateField({
-  name: "publishedAt",
-  pickerAppearance: "dayOnly",
-  display: { digits: "persian", dateStyle: "long" },
-  overrides: { required: true },
-})
+import { jalaliDateField } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  jalaliDateField({
+    name: "eventDate",
+    pickerAppearance: "dayAndTime", // Options: "dayOnly" | "dayAndTime"
+    overrides: {
+      required: true,
+      admin: {
+        description: "Select date in Iranian Solar (Shamsi) calendar.",
+      },
+    },
+  }),
+];
 ```
 
-The picker supports Payload date appearances. Day-only and month-only choices use deterministic native date values; consumers still receive Payload's ISO representation. `withJalaliTimestamps(fields)` appends virtual, read-only `createdAtJalali` and `updatedAtJalali` text fields.
+### Date Storage Guarantees
 
-## Money
+* The database always stores standard UTC ISO 8601 strings (e.g. `2026-07-24T12:00:00.000Z`).
+* Date ranges, GraphQL queries, and database sorting (`sort: "-eventDate"`) operate natively without custom database adapters.
+
+***
+
+## Safe-Integer Money Fields
+
+Prevent JavaScript floating point inaccuracies (e.g. `0.1 + 0.2 === 0.30000000000000004`) by storing currency in integer minor units:
 
 ```ts
-const price = moneyField({
-  name: "price",
-  currency: { code: "USD", label: "$", fractionDigits: 2 },
-  minMinorUnits: 0,
+import { moneyField } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  moneyField({
+    name: "unitPrice",
+    currency: "USD", // Stored in cents (e.g. $19.99 is stored as 1999)
+    minMinorUnits: 0,
+    maxMinorUnits: 10_000_000,
+    overrides: {
+      required: true,
+    },
+  }),
+  moneyField({
+    name: "rialPrice",
+    currency: "IRR", // Stored in Rials
+    minMinorUnits: 0,
+  }),
+];
+```
+
+### Read & Write Contract
+
+* **Payload Admin UI**: The user types human-readable amounts (e.g. `19.99`). The custom Admin component formats the input with thousands separators.
+* **REST / GraphQL / Local API**: Callers must always send and receive the raw integer minor unit (`1999`).
+
+***
+
+## Custom Server-Side Slug Generators
+
+When slug generation requires asynchronous database checks or business rules:
+
+```ts
+import { payloadFieldsPlugin, slugField } from "@nexload-sdk/payload-fields";
+import { buildConfig } from "payload";
+
+export default buildConfig({
+  collections: [
+    {
+      slug: "posts",
+      fields: [
+        { name: "title", type: "text", required: true },
+        ...slugField({ source: "title", generator: "postSlug" }),
+      ],
+    },
+  ],
+  plugins: [
+    payloadFieldsPlugin({
+      // Protect the generation endpoint
+      generateSlugAccess: ({ req }) => Boolean(req.user),
+      slugGenerators: {
+        postSlug: async ({ sourceValue, req }) => {
+          const baseSlug = sourceValue.trim().toLowerCase().replace(/\s+/g, "-");
+          // Check for existing slug collision
+          const count = await req.payload.count({
+            collection: "posts",
+            where: { slug: { equals: baseSlug } },
+          });
+
+          return count.totalDocs > 0 ? `${baseSlug}-${Date.now()}` : baseSlug;
+        },
+      },
+    }),
+  ],
 });
 ```
 
-`parseMoneyToMinorUnits("12.50", currency)` returns `1250`. `formatMoney(1250, currency)` formats the stored integer. Both reject unsafe values; the parser also rejects excess precision.
+***
 
-## Custom slug generation
+## Troubleshooting & Common Pitfalls
 
-Register a generator using `payloadFieldsPlugin`, reference its exact key in `slugField({ generator })`, and set `generateSlugAccess` for role or tenant checks. Generators receive `{ sourceValue, currentSlug }` plus `{ req }`. They must return a string; the package applies `formatSlug` before responding.
+### 1. Custom Admin Controls Do Not Render (Fallback to Standard Inputs)
+
+If Payload Admin displays plain number or text inputs instead of the Jalali datepicker or formatted money input:
+
+* Regenerate Payload's Import Map by running your Payload build command:
+  ```bash
+  pnpm payload generate:importmap
+  ```
+* Verify that React and React-DOM are version `^19.0.0` to match Payload 3.
+
+### 2. Money Field Validation Failure on Local API Write
+
+If `payload.create({ data: { price: 19.99 } })` fails validation:
+Remember that the database field accepts **only integers**. Pass `1999` (in minor units) instead of `19.99`.
+
+### 3. Generator Endpoint Returns 401
+
+The generator endpoint requires an authenticated user session by default. Ensure the browser request includes credentials (`credentials: "include"`) or pass an explicit `generateSlugAccess` handler in `payloadFieldsPlugin`.

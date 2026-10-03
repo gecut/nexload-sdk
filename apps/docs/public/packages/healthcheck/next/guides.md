@@ -1,18 +1,74 @@
-# Healthcheck Next.js guides
+# Healthcheck Next.js: Production Guides & Route Handlers | Nexload SDK
 
-Design public probes and protected operational routes.
+Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router.
 
 **Topic:** guides
 **Package:** `@nexload-sdk/healthcheck-next` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/guides/
-Expose simple unauthenticated `/livez` and `/readyz` routes for your orchestrator. Keep `includeDetails` false. Create a separate protected diagnostics route:
+## Dual Route Pattern (Liveness & Readiness)
+
+In Kubernetes and container platforms, configure two separate route handlers:
 
 ```ts
-export const { GET, HEAD } = createNextHealthRoute(health, {
-  scope: "diagnostics",
-  includeDetails: true,
-  protect: { bearerToken: process.env.HEALTH_TOKEN! },
+// app/api/health/live/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "liveness",
 });
 ```
 
-Do not combine bearer and Basic authentication. Only trust forwarded IP headers when a known reverse proxy overwrites them. Use secret comparison supplied by the factory, not query-string tokens.
+```ts
+// app/api/health/ready/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "readiness",
+});
+```
+
+***
+
+## Protecting Diagnostics Endpoints
+
+Detailed diagnostic reports should not be public. Protect them with secret tokens:
+
+```ts
+// app/api/health/diagnostics/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "diagnostics",
+  security: {
+    token: process.env.DIAGNOSTICS_SECRET_TOKEN,
+  },
+});
+```
+
+Requests must include either:
+
+* `Authorization: Bearer <token>`
+* Header `X-Health-Token: <token>`
+* Query parameter `?token=<token>`
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Next.js Static Compilation Stale Responses
+
+If Next.js attempts to statically pre-render the route at build time, ensure you export `dynamic = 'force-dynamic'` or let `createNextHealthRoute` set dynamic runtime headers automatically:
+
+```ts
+export const dynamic = "force-dynamic";
+```
+
+### 2. Edge Runtime Incompatibility with Node Checks
+
+If your Next.js route uses `export const runtime = 'edge'`, do not include Node-specific checks (like `containerResourceCheck` or `dnsCheck`) in your health manager. Use edge-safe core checks or run the health route on the standard Node runtime.

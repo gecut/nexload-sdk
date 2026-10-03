@@ -1,57 +1,114 @@
 ---
-title: Guides
-description: Select presets, define organization policies, and extend Payload Editor safely.
+title: "Payload Editor: Production Guides & Presets | Nexload SDK"
+description: "Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting."
 sidebar:
-  order: 5
+  order: 2
 package: payload-editor
 topic: guides
 ---
 
-## Choose a built-in preset
+## Built-In Presets Catalog
 
-- `compact`: short formatted text with inline tools.
-- `standard`: general rich text with lists, blockquote, and fixed toolbar.
-- `structured-content`: headings, horizontal rule, uploads, and richer formatting.
-- `article`: structured content plus inline code and relationships.
-- `product-description`: constrained headings, lists, links, and uploads.
+`@nexload-sdk/payload-editor` provides five curated presets designed for distinct content creation needs:
 
-Treat these as contracts. Override only the differences your content model requires.
-
-## Define an organization preset
+| Preset Name | Target Use Case | Included Highlights |
+|---|---|---|
+| `compact` | Comments, brief bios, small callouts | Bold, italic, underline, link, inline toolbar only. No headings or blocks. |
+| `standard` | General descriptions, standard rich-text | Paragraphs, lists, blockquotes, links, basic formatting with sticky toolbar. |
+| `structured-content` | Marketing landing pages, documentation | Headings (H1-H6), horizontal rules, image/file uploads, alignment tools. |
+| `article` | Full blog posts, publications | Structured content plus inline code blocks, relationship embeds, and sub/superscript. |
+| `product-description` | E-commerce product catalogs | Constrained headings (H2-H4), bullet lists, links, image gallery embeds. |
 
 ```ts
-import {
-  createEditor,
-  defineEditorPreset,
-} from "@nexload-sdk/payload-editor";
+import { createEditor } from "@nexload-sdk/payload-editor";
 
-const landingPage = defineEditorPreset({
+export const standardEditor = createEditor({ preset: "standard" });
+export const articleEditor = createEditor({ preset: "article" });
+```
+
+---
+
+## Defining an Organization Preset
+
+Standardize rich-text behavior across multiple projects or collections using `defineEditorPreset`:
+
+```ts
+import { createEditor, defineEditorPreset } from "@nexload-sdk/payload-editor";
+
+// 1. Create a reusable corporate preset
+export const corporateArticlePreset = defineEditorPreset({
   features: {
     paragraph: true,
-    heading: { sizes: ["h2", "h3"] },
+    heading: {
+      sizes: ["h2", "h3"], // Forbid H1 to maintain page SEO hierarchy
+    },
     bold: true,
-    link: { autoLink: true, maxDepth: 1 },
-    inlineToolbar: true,
+    italic: true,
+    link: {
+      autoLink: true,
+      maxDepth: 1,
+    },
+    upload: {
+      allowedCollections: ["media"],
+      maxDepth: 1,
+    },
+    blockquote: true,
   },
 });
 
-export const editor = createEditor({ preset: landingPage });
+// 2. Consume across collections
+export const editor = createEditor({ preset: corporateArticlePreset });
 ```
 
-## Add native Blocks
+---
+
+## Extending with Native Lexical Blocks
+
+When you need custom Lexical features that aren't part of the core preset (such as Payload's native `BlocksFeature`), use `extendFeatures`:
 
 ```ts
 import { BlocksFeature } from "@payloadcms/richtext-lexical";
 import { createEditor } from "@nexload-sdk/payload-editor";
+import { CalloutBlock, GalleryBlock } from "@/blocks";
 
-createEditor({
+export const richArticleEditor = createEditor({
   preset: "article",
-  extendFeatures: [BlocksFeature({ blocks: [Callout, Gallery] })],
+  extendFeatures: [
+    BlocksFeature({
+      blocks: [CalloutBlock, GalleryBlock],
+    }),
+  ],
 });
 ```
 
-Extensions append after managed features. If a native provider replaces a managed feature, first set the managed key to `false`.
+`extendFeatures` appends providers after managed features. If a native provider replaces a built-in feature, set the managed key to `false` in `features`.
 
-## Restrict relationships
+---
 
-Set `allowedCollections` and `maxDepth` on `link`, `upload`, or `relationship`. These options constrain editor feature configuration; Payload access control still decides what the user may read or select.
+## Troubleshooting & Common Pitfalls
+
+### 1. Editor Renders with Default Payload Controls Instead of Preset
+- Ensure you assign the returned editor provider to the `editor` property of the `richText` field or Payload's root `editor` configuration:
+  ```ts
+  {
+    name: "content",
+    type: "richText",
+    editor: myConfiguredEditor, // Must be assigned here
+  }
+  ```
+
+### 2. Heading Sizes In Toolbar Don't Match Override
+Remember that arrays in `features` **replace** rather than concatenate:
+```ts
+// Toolbar will ONLY offer H2 and H3
+features: {
+  heading: { sizes: ["h2", "h3"] },
+}
+```
+
+### 3. Missing Peer Dependency Error
+`@payloadcms/richtext-lexical` must be explicitly installed in your application:
+```bash
+pnpm add @payloadcms/richtext-lexical
+```
+Ensure its version matches your `payload` core version (`3.85.0` or higher).

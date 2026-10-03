@@ -1,11 +1,64 @@
 ---
-title: Healthcheck Bun
-description: Bun runtime identity, memory, and server activity checks.
-sidebar: { order: 1 }
+title: "Healthcheck Bun: Bun Runtime Integration | Nexload SDK"
+description: "Bun runtime adapter and server metrics health check integration for Bun HTTP services."
+sidebar:
+  order: 1
 package: healthcheck-bun
 topic: overview
 ---
 
-`@nexload-sdk/healthcheck-bun` connects core to Bun. It reports Bun identity and process memory and can observe pending requests and WebSockets from a `Bun.serve()` server.
+import PackageHero from "../../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../../lib/package-catalog";
 
-It does not create health URLs or export metrics to a monitoring backend. Start with [Installation](./installation/) and [Quick start](./quick-start/).
+<PackageHero entry={packageByName("@nexload-sdk/healthcheck-bun")} eyebrow="Bun Runtime Health Integration" />
+
+`@nexload-sdk/healthcheck-bun` connects `@nexload-sdk/healthcheck` to the Bun JavaScript runtime and `Bun.serve()` HTTP server metrics.
+
+---
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+import { bunRuntimeAdapter, bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+const server = Bun.serve({
+  fetch: (req) => {
+    if (new URL(req.url).pathname === "/health") {
+      return health.run("readiness").then((r) => Response.json(r));
+    }
+    return new Response("OK");
+  },
+});
+
+export const health = createHealthManager({
+  service: { name: "bun-service" },
+  runtime: bunRuntimeAdapter(),
+  checks: [shutdownCheck(), bunServerMetricsCheck(server)],
+});
+```
+
+---
+
+## What You Get
+
+- **Native Bun Runtime Adapter**: Queries JavaScriptCore heap statistics, Bun process uptime, and platform architecture.
+- **`Bun.serve()` Server Metrics**: Observes pending requests and active WebSocket connections directly from the native Bun server handle.
+- **Zero Node Dependencies**: Implemented cleanly against Bun global APIs without unnecessary Node.js polyfills.
+
+---
+
+## Installation & Requirements
+
+```bash
+bun add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
+```
+
+Requires Bun `>=1.0.0`.
+
+---
+
+## Next Steps
+
+- Explore [Production Guides & Server Recipes](./guides/) for Bun HTTP servers, WebSocket counters, and troubleshooting.
+- Check the [API Reference & Signatures](./api/) for all exported checks and adapters.

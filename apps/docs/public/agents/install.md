@@ -1,4 +1,4 @@
-# Install agent skills
+# Install Agent Skills: CLI & Quick Setup | Nexload SDK
 
 Install Nexload reasoning, engineering standards, and package Skills with the official skills CLI for a project, globally, or for Codex.
 

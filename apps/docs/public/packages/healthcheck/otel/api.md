@@ -1,10 +1,12 @@
-# Healthcheck OpenTelemetry API
+# Healthcheck OpenTelemetry: API Reference & Compatibility | Nexload SDK
 
-Public transform and metric-record exports.
+Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `toOtelMetricRecords`
@@ -52,8 +54,13 @@ Public interface exported by @nexload-sdk/healthcheck-otel.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L7)
 
-* `toOtelResourceAttributes(report)` returns semantic resource attributes.
-* `toOtelMetricRecords(report)` returns `OtelMetricRecord[]`.
-* `OtelMetricRecord` contains name, value, attributes, optional unit/type, and `observedAt`.
+***
 
-The functions do not mutate the report or call an exporter. Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts).
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

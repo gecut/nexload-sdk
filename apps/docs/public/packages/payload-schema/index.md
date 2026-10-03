@@ -1,6 +1,6 @@
-# Payload Schema
+# Payload Schema: Overview & Quick Start | Nexload SDK
 
-Define canonical field validation once for Payload and reusable Zod schemas.
+Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas.
 
 **Topic:** overview
 **Package:** `@nexload-sdk/payload-schema` v2.0.0
@@ -13,25 +13,140 @@ Canonical Payload field definitions with reusable Zod schemas.
 
 [npm](https://www.npmjs.com/package/@nexload-sdk/payload-schema) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema)
 
-`@nexload-sdk/payload-schema` 1.1.0 defines intrinsic validation and normalization once, compiles it to ordinary Payload fields, and exposes the same Zod schemas to application boundaries.
+`@nexload-sdk/payload-schema` eliminates double-declaration of data validation rules in Payload CMS applications. Define intrinsic validation and normalization once, compile it into ordinary Payload collection fields, and expose the identical Zod schemas to client forms, server actions, and API boundaries.
 
-Use it for reusable data-field contracts. It does not create collections, infer CRUD schemas, model populated relationship documents, own access control or collection hooks, provide an editor, or replace Payload-generated persistence types.
+***
 
-## What you get
+## 10-Second Code Snippet
 
-* scalar, relationship, upload, container, rich-text, and native field factories;
-* a closed entity facade for Payload compilation and schema derivation;
-* canonical normalization in Payload `beforeValidate`;
-* structured configuration errors and safe inspection metadata.
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
 
-The facade and exposed definition containers are frozen. However, nested option objects supplied by the caller are not a guaranteed immutable snapshot before compilation. Treat all factory input as write-once and do not mutate it after `defineEntity`.
+// 1. Define intrinsic fields once
+export const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 3 }),
+    slug: field.slug({ required: true }),
+    price: field.money({ currency: "USD", required: true }),
+    stock: field.number({ integer: true, safe: true, defaultValue: 0 }),
+  },
+});
 
-## Learning path
+// 2. Export directly to Payload Collection
+export const Products = {
+  slug: "products",
+  fields: productEntity.payload.all(),
+};
 
-1. [Install Payload and Zod peers](./installation/).
-2. Follow the [quick start](./quick-start/).
-3. Learn ownership, schema availability, and lifecycle in [concepts](./concepts/).
-4. Use [guides](./guides/) for defaults, relationships, native fields, and derivation.
-5. Consult [API](./api/) and [troubleshooting](./troubleshooting/).
+// 3. Derive Zod schemas for forms, Next.js server actions, or RPC
+export const createProductSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "slug", "price", "stock"], { optional: ["stock"] })
+);
+export type CreateProductInput = z.infer<typeof createProductSchema>;
+```
 
-See [source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema/src), [tests](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema/tests), and [issues](https://github.com/gecut/nexload-sdk/issues). These docs cover the current version only.
+***
+
+## What You Get
+
+* **Single Source of Truth**: Eliminate discrepancies between frontend Zod validation schemas and backend Payload collection rules.
+* **14 Built-In Field Factories**: Native factories for `text`, `textarea`, `slug`, `number`, `money`, `boolean`, `date`, `select`, `relationship`, `upload`, `group`, `array`, `richText`, and `native`.
+* **Automatic Payload Normalization**: Injected `beforeValidate` hooks guarantee that string trimming, case conversions, and slug formats execute even on writes through the Payload Admin UI and Local API.
+* **Flexible Schema Derivation**: Extract custom DTOs (`pick`, `omit`), add custom transformations (`.transform()`), and perform cross-field validations (`.refine()`).
+* **Zero Framework Leakage**: Outputted schemas are ordinary Zod objects and outputted fields are standard Payload field definitions.
+* **Compile-Time Immutability**: All entity facades and compiled field definitions are frozen to guarantee deterministic runtime behavior.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-schema payload zod
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-schema payload zod
+
+# bun
+bun add @nexload-sdk/payload-schema payload zod
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Server/config safe |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Collection fields engine |
+| **Zod** | `>=4.0.0 <5.0.0` | Schema derivation engine |
+| **Module Format** | ESM only | Server and configuration safe |
+
+***
+
+## Core Concepts & Invariants
+
+### 1. One Intrinsic Contract
+
+A field definition owns only the rules intrinsic to that field's value (e.g. "a product title must be 3-120 characters and trimmed"). Application-specific workflow rules (e.g. "is this field optional during draft creation?") belong in derived schemas, not in the core entity definition.
+
+### 2. Dual Boundary Compilation
+
+When you run `defineEntity()`:
+
+* `entity.payload.all()` compiles standard Payload fields with canonical normalization appended to `beforeValidate`.
+* `entity.schema()` produces pure Zod schemas reflecting the exact same constraints.
+
+### 3. Synchronous Canonical Schemas
+
+Canonical schemas must execute synchronously. Asynchronous refinements are rejected at definition time with `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED` to ensure compatibility with Payload's synchronous field validation lifecycle.
+
+### 4. Non-Goals
+
+The package does not create collections, own access control, replace Payload-generated types, or manage database migrations. Payload remains authoritative for persistence types and database schema.
+
+***
+
+## Quick Start: Building a Complete Entity
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+
+export const articleEntity = defineEntity({
+  name: "Article",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 5 }),
+    slug: field.slug({ required: true }),
+    content: field.textarea({ required: true, maxLength: 10_000 }),
+    status: field.select({
+      values: ["draft", "published", "archived"] as const,
+      defaultValue: "draft",
+    }),
+    author: field.relationship({
+      relationTo: "users",
+      required: true,
+    }),
+  },
+});
+
+// Use in Payload Collection
+export const ArticlesCollection = {
+  slug: "articles",
+  fields: articleEntity.payload.all(),
+};
+
+// Derive input validation schema
+export const createArticleSchema = articleEntity.schema(({ pick }) =>
+  pick(["title", "slug", "content", "author"], { strict: true })
+);
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Recipes & Modeling Guides](./guides/) for the full 14-field catalog, polymorphic relationships, static vs dynamic defaults, and error diagnostics.
+* View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.

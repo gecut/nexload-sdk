@@ -1,10 +1,12 @@
-# Healthcheck Next.js API
+# Healthcheck Next.js: API Reference & Compatibility | Nexload SDK
 
-Public App Router factories and option contracts.
+Public API symbol reference and compatibility matrix for Healthcheck Next.js.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck-next` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `createNextHealthRoute`
@@ -93,10 +95,13 @@ Public interface exported by @nexload-sdk/healthcheck-next.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L42)
 
-* `createNextHealthRoute(manager, options)` returns `{ GET, HEAD }`.
-* `createNextMetricsRoute(manager, options)` returns `{ GET, HEAD }`.
-* `NextHealthRouteOptions` requires a health scope and supports format, status policy, details, protection, headers, and no-store cache.
-* `NextMetricsRouteOptions` requires `prometheus`, `openmetrics`, or `json` format and supports scope, protection, prefix, and default labels.
-* `NextHealthRouteProtection` supports bearer, Basic, IPv4/CIDR allowlists, and proxy-header configuration.
+***
 
-Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts).
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Next.js** | `>=14.0.0` | Verified on Next.js 14 & 15 App Router |
+| **Node.js** | `>=20.9.0` | Node.js Route Handler runtime |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

@@ -1,29 +1,116 @@
-# Healthcheck Core
+# Healthcheck Core: Multi-Scope Reliability Engine | Nexload SDK
 
-Runtime-neutral health orchestration for production services.
+Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration.
 
 **Topic:** overview
 **Package:** `@nexload-sdk/healthcheck` v4.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
-`@nexload-sdk/healthcheck` runs checks and collectors and returns a stable `HealthReport`. Use it for liveness, readiness, startup, protected diagnostics, and exporter input.
+**Package:** `@nexload-sdk/healthcheck`
 
-It owns orchestration: scope selection, timeouts, cancellation, retries, status aggregation, redaction, and JSON serialization. Runtime, framework, Payload, Prometheus, and OpenTelemetry behavior live in separate packages.
+**Current released version:** `4.1.0`
 
-In plain language: a **check** can change service health, while a **collector**
-only adds measurements. A **scope** is the question being asked: liveness asks
-whether the process should restart, readiness asks whether it can receive
-traffic, startup asks whether initialization finished, and diagnostics exposes
-protected operational detail.
+Runtime-neutral health orchestration and monitoring report foundation for production services.
 
-## Choose the next page
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/core)
 
-* New project: [Installation](./installation/) then [Quick start](./quick-start/).
-* Designing probes: [Concepts](./concepts/) and [Guides](./guides/).
-* Looking up a symbol: [API](./api/).
-* A check is timing out or changing status: [Troubleshooting](./troubleshooting/).
+`@nexload-sdk/healthcheck` provides a runtime-neutral health orchestration engine for modern backend services. It manages checks, collectors, timeouts, cancellation, and status aggregation, returning a deterministic `HealthReport`.
 
-## Non-goals
+***
 
-Core does not start an HTTP server, inspect Node/Bun-specific resources, query Payload, or publish telemetry. It does not make dependency failures part of liveness unless you explicitly assign them there.
+## 10-Second Code Snippet
 
-This site documents the current package version only. Use the package changelog for release history.
+```ts
+import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
+
+export const health = createHealthManager({
+  service: { name: "api-service", version: "1.0.0" },
+  checks: [shutdownCheck(), memoryCheck()],
+});
+
+// Run readiness probe for Kubernetes / Dokploy / Docker
+const report = await health.run("readiness");
+console.log(report.status); // "ok" | "degraded" | "unhealthy"
+```
+
+***
+
+## What You Get
+
+* **Multi-Scope Orchestration**: Native support for `liveness`, `readiness`, `startup`, and protected `diagnostics` scopes.
+* **Checks vs. Collectors**:
+  * **Check**: Can impact aggregate service status (e.g. database connectivity, Redis ping, shutdown signals).
+  * **Collector**: Observational only; captures telemetry and measurements (e.g. CPU load, memory RSS) without triggering container restarts.
+* **Resilient Execution**: Enforces per-check timeouts, retry policies, and graceful degradation.
+* **Sensitive Data Redaction**: Automatic masking of database credentials, authorization tokens, and private hostnames in error outputs.
+* **Runtime Neutrality**: Pure TypeScript core with zero Node-only assumptions; runs seamlessly on Node.js, Bun, and edge runtimes.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/healthcheck
+
+# bun
+bun add @nexload-sdk/healthcheck
+```
+
+Requires Node `>=20.9.0` or Bun `>=1.0.0`. The package is ESM-only and side-effect free.
+
+***
+
+## Core Concepts: The Four Scopes
+
+| Scope | Probe Question | Failure Consequence | Recommended Checks |
+|---|---|---|---|
+| **`liveness`** | Is the process deadlocked or stuck in an unrecoverable state? | Container / process restart | Memory leak thresholds, shutdown signal, event loop freeze. **Never downstream databases!** |
+| **`readiness`** | Can this replica accept incoming client traffic? | Temporarily removed from load balancer pool | Database availability, Redis connection, cache warm status. |
+| **`startup`** | Has slow initialization or schema migration finished? | Delays liveness evaluation during boot | Database migrations, asset pre-compilation. |
+| **`diagnostics`** | What is the detailed operational health state? | Protected behind auth token | Detailed memory breakdown, active connections, queue depth. |
+
+***
+
+## Quick Start: Creating a Production Manager
+
+```ts
+import {
+  createHealthManager,
+  memoryCheck,
+  runtimeInfoCheck,
+  shutdownCheck,
+} from "@nexload-sdk/healthcheck";
+
+export const health = createHealthManager({
+  service: {
+    name: "user-service",
+    version: process.env.APP_VERSION ?? "1.0.0",
+  },
+  checks: [
+    shutdownCheck(),
+    runtimeInfoCheck(),
+    memoryCheck({
+      heapUsedPercent: 90, // Degraded above 90%
+    }),
+  ],
+});
+
+// Execute readiness probe
+const report = await health.run("readiness");
+if (report.status === "unhealthy") {
+  process.exitCode = 1;
+}
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Custom Checks](./guides/) for database checks, timeout policies, and status aggregation rules.
+* View the complete [API Reference & Signatures](./api/) for all exported symbols and configuration types.

@@ -1,0 +1,34 @@
+---
+import TableOfContentsList from './TableOfContentsList.astro';
+
+const locals = Astro.locals as unknown as {
+	starlightRoute?: { toc?: { minHeadingLevel: number; maxHeadingLevel: number; items: any[] } };
+	t?: (key: string) => string;
+};
+
+const toc = locals.starlightRoute?.toc ?? (Astro.props as any).toc;
+const title = locals.t ? locals.t('tableOfContents.onThisPage') : 'On this page';
+---
+
+{
+	toc && (
+		<starlight-toc data-min-h={toc.minHeadingLevel} data-max-h={toc.maxHeadingLevel}>
+			<nav aria-labelledby="starlight__on-this-page">
+				<p id="starlight__on-this-page" class="toc-title">{title}</p>
+				<TableOfContentsList toc={toc.items} />
+			</nav>
+		</starlight-toc>
+	)
+}
+
+<style>
+	.toc-title {
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		line-height: var(--sl-line-height-headings);
+		margin-bottom: 0.5rem;
+	}
+</style>
+
+<script src="./starlight-toc.ts"></script>

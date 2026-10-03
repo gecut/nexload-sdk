@@ -1,11 +1,58 @@
 ---
-title: Healthcheck Prometheus
-description: Serialize health reports as Prometheus or OpenMetrics text.
-sidebar: { order: 1 }
+title: "Healthcheck Prometheus: Metrics & OpenMetrics Exporter | Nexload SDK"
+description: "Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs."
+sidebar:
+  order: 1
 package: healthcheck-prometheus
 topic: overview
 ---
 
-`@nexload-sdk/healthcheck-prometheus` converts a completed core report to Prometheus or OpenMetrics text. It does not start a metrics server or push data.
+import PackageHero from "../../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../../lib/package-catalog";
 
-Install it separately from core and expose its output through your framework. Exporters read report-level collector metrics; check-local metrics stay in JSON.
+<PackageHero entry={packageByName("@nexload-sdk/healthcheck-prometheus")} eyebrow="Prometheus & OpenMetrics Exporter" />
+
+`@nexload-sdk/healthcheck-prometheus` serializes `@nexload-sdk/healthcheck` reports directly into Prometheus text exposition and OpenMetrics format without requiring bloated third-party metric client libraries.
+
+---
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { prometheusExporter } from "@nexload-sdk/healthcheck-prometheus";
+
+const health = createHealthManager({ service: { name: "api" } });
+const exporter = prometheusExporter({ prefix: "app" });
+
+const report = await health.run("readiness");
+const metricsText = exporter.export(report);
+
+// Return Prometheus text in your HTTP endpoint
+// Content-Type: text/plain; version=0.0.4; charset=utf-8
+```
+
+---
+
+## What You Get
+
+- **Lightweight Metric Formatting**: Fast string serialization with zero dependencies on `prom-client`.
+- **Status Gauges & Check Durations**: Exports `health_status`, `health_check_status`, and `health_check_duration_seconds`.
+- **Standard OpenMetrics Support**: Fully compliant with Prometheus scrapers, VictoriaMetrics, and Grafana Agent.
+
+---
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-prometheus @nexload-sdk/healthcheck
+```
+
+Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
+
+---
+
+## Next Steps
+
+- Explore [Production Guides & Scraping Setup](./guides/) for metric names, label conventions, and scraping routes.
+- Check the [API Reference & Signatures](./api/) for exporter configuration options.

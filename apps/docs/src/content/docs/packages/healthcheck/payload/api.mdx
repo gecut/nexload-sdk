@@ -1,17 +1,25 @@
 ---
-title: Healthcheck Payload API
-description: Public Payload readiness-check exports.
-sidebar: { order: 6 }
+title: "Healthcheck Payload: API Reference & Compatibility | Nexload SDK"
+description: "Public API symbol reference and compatibility matrix for Healthcheck Payload."
+sidebar:
+  order: 3
 package: healthcheck-payload
 topic: api
 ---
 
 import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
 
+The complete public API symbol inventory is generated automatically from package source exports:
+
 <ApiInventory packageId="healthcheck-payload" />
 
-`payloadHealthCheck(payload, options)` returns `HealthCheckDefinition<"payload">`.
+---
 
-`PayloadHealthCheckOptions` requires `collection` and supports `limit`, `timeoutMs`, `where`, `depth`, `expectedMinDocuments`, and `scopes`. Defaults are `limit: 1`, `depth: 0`, and `scopes: ["readiness"]`.
+## Runtime Compatibility Matrix
 
-Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts).
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

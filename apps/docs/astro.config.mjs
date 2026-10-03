@@ -9,14 +9,39 @@ const packageSidebar = (label, directory) => ({
   items: [{ autogenerate: { directory } }],
 });
 
+const retiredPackageRedirects = {};
+const packagePaths = [
+  "healthcheck/core",
+  "healthcheck/node",
+  "healthcheck/bun",
+  "healthcheck/next",
+  "healthcheck/prometheus",
+  "healthcheck/otel",
+  "healthcheck/payload",
+  "payload-fields",
+  "payload-editor",
+  "payload-schema",
+  "payload-operations",
+];
+
+for (const pkg of packagePaths) {
+  retiredPackageRedirects[`/packages/${pkg}/installation/`] = `${docsBase}/packages/${pkg}/`;
+  retiredPackageRedirects[`/packages/${pkg}/quick-start/`] = `${docsBase}/packages/${pkg}/`;
+  retiredPackageRedirects[`/packages/${pkg}/concepts/`] = `${docsBase}/packages/${pkg}/guides/`;
+  retiredPackageRedirects[`/packages/${pkg}/examples/`] = `${docsBase}/packages/${pkg}/guides/`;
+  retiredPackageRedirects[`/packages/${pkg}/troubleshooting/`] = `${docsBase}/packages/${pkg}/guides/`;
+  retiredPackageRedirects[`/packages/${pkg}/migration/`] = `${docsBase}/packages/${pkg}/guides/`;
+  retiredPackageRedirects[`/packages/${pkg}/compatibility/`] = `${docsBase}/packages/${pkg}/api/`;
+}
+
 export default defineConfig({
   site: "https://gecut.github.io",
   base: docsBase,
   redirects: {
     "/getting-started/": `${docsBase}/start/choose-a-package/`,
-    "/concepts/liveness-readiness-startup/": `${docsBase}/packages/healthcheck/core/concepts/`,
-    "/concepts/checks-vs-collectors/": `${docsBase}/packages/healthcheck/core/concepts/`,
-    "/concepts/status-model/": `${docsBase}/packages/healthcheck/core/concepts/`,
+    "/concepts/liveness-readiness-startup/": `${docsBase}/packages/healthcheck/core/guides/`,
+    "/concepts/checks-vs-collectors/": `${docsBase}/packages/healthcheck/core/guides/`,
+    "/concepts/status-model/": `${docsBase}/packages/healthcheck/core/guides/`,
     "/guides/node-service/": `${docsBase}/packages/healthcheck/node/guides/`,
     "/guides/bun-service/": `${docsBase}/packages/healthcheck/bun/guides/`,
     "/guides/nextjs-route-handlers/": `${docsBase}/packages/healthcheck/next/guides/`,
@@ -28,15 +53,15 @@ export default defineConfig({
     "/api/check-contract/": `${docsBase}/packages/healthcheck/core/api/`,
     "/api/runtime-adapter/": `${docsBase}/packages/healthcheck/core/api/`,
     "/api/exporters/": `${docsBase}/packages/healthcheck/prometheus/api/`,
-    "/reference/result-schema/": `${docsBase}/packages/healthcheck/core/concepts/`,
+    "/reference/result-schema/": `${docsBase}/packages/healthcheck/core/guides/`,
     "/reference/error-codes/": `${docsBase}/packages/healthcheck/core/api/`,
     "/reference/metric-names/": `${docsBase}/packages/healthcheck/prometheus/api/`,
-    "/reference/security/": `${docsBase}/packages/healthcheck/core/troubleshooting/`,
+    "/reference/security/": `${docsBase}/packages/healthcheck/core/guides/`,
     "/packages/healthcheck/": `${docsBase}/packages/healthcheck/core/`,
-    "/packages/healthcheck/quick-start/": `${docsBase}/packages/healthcheck/core/quick-start/`,
-    "/packages/healthcheck/concepts/scopes/": `${docsBase}/packages/healthcheck/core/concepts/`,
-    "/packages/healthcheck/concepts/checks-and-collectors/": `${docsBase}/packages/healthcheck/core/concepts/`,
-    "/packages/healthcheck/concepts/reports-and-status/": `${docsBase}/packages/healthcheck/core/concepts/`,
+    "/packages/healthcheck/quick-start/": `${docsBase}/packages/healthcheck/core/`,
+    "/packages/healthcheck/concepts/scopes/": `${docsBase}/packages/healthcheck/core/guides/`,
+    "/packages/healthcheck/concepts/checks-and-collectors/": `${docsBase}/packages/healthcheck/core/guides/`,
+    "/packages/healthcheck/concepts/reports-and-status/": `${docsBase}/packages/healthcheck/core/guides/`,
     "/packages/healthcheck/guides/node/": `${docsBase}/packages/healthcheck/node/`,
     "/packages/healthcheck/guides/bun/": `${docsBase}/packages/healthcheck/bun/`,
     "/packages/healthcheck/guides/nextjs/": `${docsBase}/packages/healthcheck/next/`,
@@ -49,34 +74,38 @@ export default defineConfig({
     "/payload-fields/slug/": `${docsBase}/packages/payload-fields/guides/`,
     "/payload-fields/jalali-date/": `${docsBase}/packages/payload-fields/guides/`,
     "/payload-fields/money/": `${docsBase}/packages/payload-fields/guides/`,
-    "/payload-fields/migration/": `${docsBase}/packages/payload-fields/migration/`,
+    "/payload-fields/migration/": `${docsBase}/packages/payload-fields/guides/`,
     "/payload-editor/": `${docsBase}/packages/payload-editor/`,
     "/payload-operations/": `${docsBase}/packages/payload-operations/`,
     "/payload-schema/": `${docsBase}/packages/payload-schema/`,
     "/packages/payload-fields/slug/": `${docsBase}/packages/payload-fields/guides/`,
     "/packages/payload-fields/jalali-dates/": `${docsBase}/packages/payload-fields/guides/`,
     "/packages/payload-fields/money/": `${docsBase}/packages/payload-fields/guides/`,
-    "/packages/payload-fields/plugin-and-admin/": `${docsBase}/packages/payload-fields/concepts/`,
+    "/packages/payload-fields/plugin-and-admin/": `${docsBase}/packages/payload-fields/guides/`,
     "/packages/payload-fields/reference-api/": `${docsBase}/packages/payload-fields/api/`,
-    "/packages/payload-editor/features/": `${docsBase}/packages/payload-editor/concepts/`,
+    "/packages/payload-editor/features/": `${docsBase}/packages/payload-editor/guides/`,
     "/packages/payload-editor/presets/": `${docsBase}/packages/payload-editor/guides/`,
     "/packages/payload-editor/extensions/": `${docsBase}/packages/payload-editor/guides/`,
     "/packages/payload-editor/reference-api/": `${docsBase}/packages/payload-editor/api/`,
-    "/packages/payload-schema/architecture/": `${docsBase}/packages/payload-schema/concepts/`,
-    "/packages/payload-schema/errors/": `${docsBase}/packages/payload-schema/troubleshooting/`,
+    "/packages/payload-schema/architecture/": `${docsBase}/packages/payload-schema/guides/`,
+    "/packages/payload-schema/errors/": `${docsBase}/packages/payload-schema/guides/`,
     "/packages/payload-schema/fields/": `${docsBase}/packages/payload-schema/guides/`,
     "/packages/payload-schema/native-fields/": `${docsBase}/packages/payload-schema/guides/`,
     "/packages/payload-schema/payload-integration/": `${docsBase}/packages/payload-schema/guides/`,
-    "/packages/payload-schema/projections/": `${docsBase}/packages/payload-schema/examples/`,
+    "/packages/payload-schema/projections/": `${docsBase}/packages/payload-schema/guides/`,
     "/packages/payload-schema/reference-api/": `${docsBase}/packages/payload-schema/api/`,
-    "/packages/payload-schema/schema-derivation/": `${docsBase}/packages/payload-schema/concepts/`,
-    "/packages/payload-schema/testing-compatibility/": `${docsBase}/packages/payload-schema/compatibility/`,
+    "/packages/payload-schema/schema-derivation/": `${docsBase}/packages/payload-schema/guides/`,
+    "/packages/payload-schema/testing-compatibility/": `${docsBase}/packages/payload-schema/api/`,
     "/llm/overview/": `${docsBase}/agents/`,
     "/llm/agent-skills/": `${docsBase}/agents/install/`,
+    ...retiredPackageRedirects,
   },
   integrations: [
     starlight({
       title: "Nexload SDK",
+      components: {
+        TableOfContents: "./src/components/starlight/TableOfContents.astro",
+      },
       head: [
         {
           tag: "meta",
@@ -116,36 +145,39 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Start",
+          label: "🚀 Getting Started",
           items: [
-            { label: "Landing", slug: "" },
             { label: "Introduction", slug: "start/introduction" },
-            { label: "Choose a package", slug: "start/choose-a-package" },
+            { label: "Choose a Package", slug: "start/choose-a-package" },
+            { label: "Architecture Glossary", slug: "start/glossary" },
+            { label: "Payload Suite Overview", slug: "start/payload-packages" },
+            { label: "Package Catalog", slug: "packages" },
           ],
         },
         {
-          label: "Packages",
+          label: "🛡️ Healthcheck & Observability",
           items: [
-            {
-              label: "Package catalog",
-              slug: "packages",
-            },
             packageSidebar("Healthcheck Core", "packages/healthcheck/core"),
-            packageSidebar("Healthcheck Node", "packages/healthcheck/node"),
-            packageSidebar("Healthcheck Bun", "packages/healthcheck/bun"),
-            packageSidebar("Healthcheck Next.js", "packages/healthcheck/next"),
+            packageSidebar("Node Probes", "packages/healthcheck/node"),
+            packageSidebar("Bun Probes", "packages/healthcheck/bun"),
+            packageSidebar("Next.js Integration", "packages/healthcheck/next"),
             packageSidebar(
-              "Healthcheck Prometheus",
+              "Prometheus / OpenMetrics",
               "packages/healthcheck/prometheus",
             ),
             packageSidebar(
-              "Healthcheck OpenTelemetry",
+              "OpenTelemetry Exporter",
               "packages/healthcheck/otel",
             ),
             packageSidebar(
-              "Healthcheck Payload",
+              "Payload CMS Healthcheck",
               "packages/healthcheck/payload",
             ),
+          ],
+        },
+        {
+          label: "📦 Payload CMS Extensions",
+          items: [
             packageSidebar("Payload Fields", "packages/payload-fields"),
             packageSidebar("Payload Editor", "packages/payload-editor"),
             packageSidebar("Payload Schema", "packages/payload-schema"),
@@ -153,11 +185,17 @@ export default defineConfig({
           ],
         },
         {
-          label: "Agents and community",
+          label: "🤖 AI Coding Skills (Agents)",
           items: [
-            { label: "Agent skills", slug: "agents" },
-            { label: "Install skills", slug: "agents/install" },
-            { label: "Support", slug: "community/support" },
+            { label: "Agent Skills Ecosystem", slug: "agents" },
+            { label: "Installation & Setup", slug: "agents/install" },
+          ],
+        },
+        {
+          label: "Community",
+          collapsed: true,
+          items: [
+            { label: "Support & Discussions", slug: "community/support" },
           ],
         },
       ],

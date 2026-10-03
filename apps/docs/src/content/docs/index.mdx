@@ -1,41 +1,112 @@
 ---
-title: Nexload SDK
-description: Current documentation for eleven focused Healthcheck and Payload CMS TypeScript packages.
+title: "Nexload SDK: Service Observability & Payload CMS Superpowers"
+description: "Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers. Modular, independently installable packages."
 sidebar:
   order: 1
 topic: ecosystem
 ---
 
-import { LinkButton } from "@astrojs/starlight/components";
+import { Card, CardGrid, Code, LinkButton, Tabs, TabItem } from "@astrojs/starlight/components";
 import PackageGrid from "../../components/docs/PackageGrid.astro";
 import { packageCatalog } from "../../lib/package-catalog";
 
-Nexload SDK provides focused TypeScript packages for service health and Payload CMS. Install only the package that owns your task.
+**Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers.**
+
+Nexload SDK is a collection of modular, independent packages engineered for mission-critical TypeScript systems. Install only the specific package your service requires—zero mandatory lock-in, zero runtime bloat.
 
 <p class="sl-flex sl-flex-wrap sl-gap-2">
-  <LinkButton href="./start/choose-a-package/" icon="right-arrow">
+  <LinkButton href="/nexload-sdk/start/choose-a-package/" icon="right-arrow">
     Choose a package
   </LinkButton>
-  <LinkButton href="./packages/" variant="secondary">
-    Browse all eleven packages
+  <LinkButton href="/nexload-sdk/packages/" variant="secondary">
+    Browse all packages
   </LinkButton>
-  <LinkButton href="./agents/install/" variant="minimal" icon="bot">
-    Install agent skills
+  <LinkButton href="/nexload-sdk/agents/" variant="minimal" icon="bot">
+    AI Coding Agent Skills
   </LinkButton>
 </p>
 
-## Healthcheck packages
+---
+
+## Immediate 10-Second Quick Start
+
+<Tabs>
+  <TabItem label="Payload Schema (Validation & Sync)">
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+// Define intrinsic fields once: Payload collection fields + reusable Zod schemas
+export const product = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 3 }),
+    slug: field.slug({ required: true }),
+    price: field.money({ currency: "USD", required: true }),
+    stock: field.number({ integer: true, safe: true, defaultValue: 0 }),
+  },
+});
+
+// Export to Payload Collection
+export const Products = { slug: "products", fields: product.payload.all() };
+
+// Derive Next.js / API form schema
+export const createProductDTO = product.schema(({ pick }) =>
+  pick(["title", "slug", "price", "stock"], { optional: ["stock"] })
+);
+```
+  </TabItem>
+  <TabItem label="Healthcheck Core (Kubernetes / Dokploy)">
+```ts
+import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
+
+export const health = createHealthManager({
+  service: { name: "api-service", version: "1.0.0" },
+  checks: [
+    shutdownCheck(),
+    memoryCheck({ heapUsedPercent: 90 }),
+  ],
+});
+
+// Execute non-blocking probe (200 OK / 503 Unhealthy)
+const report = await health.run("readiness");
+console.log(report.status); // "ok" | "degraded" | "unhealthy"
+```
+  </TabItem>
+</Tabs>
+
+---
+
+## Two Core Ecosystem Pillars
+
+<CardGrid>
+  <Card title="🛡️ Observability & Health Engine" icon="shield">
+    Lightweight, runtime-neutral health orchestration. Multi-scope probes (`liveness`, `readiness`, `startup`, `diagnostics`), cgroup v1/v2 container limits, Next.js App Router zero-cache route handlers, Prometheus text exposition, and OpenTelemetry semantic attributes.
+    <div style="margin-top: 1rem;">
+      <a href="/nexload-sdk/packages/healthcheck/core/">Explore Healthcheck Core →</a>
+    </div>
+  </Card>
+
+  <Card title="📦 Payload CMS Superpowers" icon="puzzle">
+    Deterministic, enterprise extensions for Payload CMS 3. Managed Unicode slugs with lock protection, Jalali (Persian Solar) datepickers, minor-unit money arithmetic, declarative Lexical presets, dual Zod-to-Payload schema derivation, and type-safe RPC operations.
+    <div style="margin-top: 1rem;">
+      <a href="/nexload-sdk/start/payload-packages/">Explore Payload Suite →</a>
+    </div>
+  </Card>
+</CardGrid>
+
+---
+
+## Healthcheck Packages
 
 <PackageGrid
   entries={packageCatalog.filter((entry) => entry.family === "healthcheck")}
 />
 
-## Payload packages
+---
+
+## Payload CMS Packages
 
 <PackageGrid
   entries={packageCatalog.filter((entry) => entry.family === "payload")}
 />
-
-## How to read these docs
-
-Every package follows the same route: overview, installation, quick start, concepts, guides, API, examples, troubleshooting, migration, and compatibility. The displayed version is the current released version documented by this site.

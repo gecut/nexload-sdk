@@ -1,6 +1,6 @@
-# Payload Operations
+# Payload Operations: Overview & Quick Start | Nexload SDK
 
-Define typed application operations across Payload server endpoints and the native Payload SDK.
+Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK.
 
 **Topic:** overview
 **Package:** `@nexload-sdk/payload-operations` v1.0.0
@@ -13,31 +13,235 @@ Typed custom operations for Payload CMS with the native Payload REST SDK.
 
 [npm](https://www.npmjs.com/package/@nexload-sdk/payload-operations) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations)
 
-`@nexload-sdk/payload-operations` 0.1.0 defines a shared Zod contract, turns it into Payload endpoints, and exposes matching client methods beside the native `PayloadSDK`.
+`@nexload-sdk/payload-operations` defines a single shared Zod contract, mounts it as secure Payload CMS REST endpoints, and exposes matching, fully typed RPC client methods beside the native `PayloadSDK`.
 
-Use it for application commands and workflows that do not fit Payload's collection CRUD API. Keep ordinary document reads and writes on `cms.payload`; put only project-owned operations under `cms.operations`.
+Use it for application commands, domain actions, and multi-step workflows that do not fit Payload's default collection CRUD API. Keep ordinary document reads and writes on `cms.payload`; put project-owned business operations under `cms.operations`.
 
-## What you get
+***
 
-* recursive, statically typed operation namespaces;
-* asynchronous Zod parsing at client and server boundaries;
-* exact handler and partial access-control trees;
-* typed domain errors plus safe framework-error downgrade;
-* one plugin-aware transport shared by operations and Payload SDK calls;
-* POST endpoints with matching CORS preflight endpoints.
+## 10-Second Code Snippet
 
-## Boundaries
+```ts
+import { createCMSClient, defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { z } from "zod";
 
-The package does not add query/command categories, custom HTTP verbs, batching, retries, caching, uploads, transaction wrappers, or authentication parsing. Payload remains responsible for authentication and Local API behavior. Operation handlers receive the original `PayloadRequest`.
+// 1. Define shared contract
+export const operations = defineCMSOperations({
+  inventory: {
+    check: operation({
+      input: z.object({ sku: z.string() }),
+      output: z.object({ available: z.number().int() }),
+    }),
+  },
+});
 
-Client-safe APIs are available from the root and dedicated subpaths. Import `createPayloadEndpoints` only from `@nexload-sdk/payload-operations/server`.
+// 2. Consume from frontend or server action with full type inference
+const cms = createCMSClient({
+  operations,
+  payload: { baseURL: "https://cms.example.com/api" },
+});
 
-## Learning path
+const stock = await cms.operations.inventory.check({ sku: "TSHIRT-BLK-M" });
+console.log(stock.available); // typed as number
+```
 
-1. [Install the Payload, SDK, and Zod peers](./installation/).
-2. Build one shared contract in the [quick start](./quick-start/).
-3. Understand parse and error boundaries in [concepts](./concepts/).
-4. Apply access, transport, and Local API patterns from [guides](./guides/).
-5. Consult the [API](./api/) and [troubleshooting](./troubleshooting/) references.
+***
 
-See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations/src), [manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/package.json), and [issues](https://github.com/gecut/nexload-sdk/issues). These pages document the current version only.
+## What You Get
+
+* **Single Source of Truth**: Define input, output, and domain error schemas once; TypeScript infers both client and server types automatically.
+* **Hierarchical Operation Trees**: Group operations logically (`auth.login`, `orders.create`, `inventory.reserve`) without flat route chaos.
+* **Asynchronous Zod Parsing**: Full support for input transformations, client-side pre-flight sanitization, and output projections.
+* **Discriminated Domain Errors**: Explicit error definitions with typed data payloads, status codes, and deterministic client pattern matching.
+* **Native Payload Integration**: Handlers receive the authentic `PayloadRequest`, providing full access to `req.payload.find`, `req.payload.create`, and user session context.
+* **Shared Transport Pipeline**: A unified fetch client with plugin support (timeouts, custom Bearer authentication, distributed tracing) shared between custom operations and the official Payload SDK.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+
+# bun
+bun add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Required for server runtime and AbortSignal support |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Server endpoints & Local API engine |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Native REST SDK companion |
+| **Zod** | `>=4.0.0 <5.0.0` | Contract schema validation |
+
+Keep `payload` and `@payloadcms/sdk` pinned to the exact same version. The package is ESM-only and side-effect free.
+
+***
+
+## Core Concepts & Architecture
+
+### 1. The Contract Model (`@nexload-sdk/payload-operations/contract`)
+
+The contract is a shared, platform-neutral module containing only Zod schemas and metadata. It has **zero dependencies on Payload server internals**, making it 100% safe to import in browser bundles, Next.js Server Components, mobile clients, and worker threads.
+
+### 2. Dual Boundary Validation
+
+* **Client Boundary**: Validates input before sending a network request. If invalid, fails immediately with `INPUT_VALIDATION_FAILED` without unnecessary HTTP traffic.
+* **Server Boundary**: Re-validates input inside the Payload endpoint before executing the handler, protecting backend business logic. Output is validated and serialized back safely.
+
+### 3. Server Endpoints Mount (`@nexload-sdk/payload-operations/server`)
+
+`createPayloadEndpoints` transforms your contract into Payload-compatible `Endpoint` definitions. It registers:
+
+* `POST` handlers for each operation route (e.g. `/api/operations/inventory/reserve`).
+* `OPTIONS` handlers to support CORS pre-flight across frontend origins.
+* Default RBAC protection requiring an authenticated session (`Boolean(req.user)`), with granular per-operation access overrides.
+
+***
+
+## Quick Start: End-to-End Implementation
+
+### Step 1: Define the Shared Contract
+
+Create `src/operations/contract.ts` (shared between client and server):
+
+```ts
+import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { z } from "zod";
+
+export const cmsOperations = defineCMSOperations({
+  orders: {
+    create: operation({
+      input: z.object({
+        sku: z.string().min(1),
+        quantity: z.number().int().positive(),
+      }),
+      output: z.object({
+        orderId: z.string(),
+        createdAt: z.string(),
+        totalAmount: z.number(),
+      }),
+      errors: {
+        OUT_OF_STOCK: {
+          status: 409,
+          message: "Selected product is out of stock.",
+          data: z.object({ available: z.number().int().nonnegative() }),
+        },
+      },
+    }),
+  },
+});
+```
+
+### Step 2: Implement Handlers in Payload Config
+
+In `src/payload.config.ts`, mount the operations into Payload's `endpoints` array:
+
+```ts
+import { buildConfig } from "payload";
+import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
+import { cmsOperations } from "./operations/contract";
+
+const operationEndpoints = createPayloadEndpoints({
+  operations: cmsOperations,
+  basePath: "/api/operations",
+  access: {
+    // Default: Must be logged in
+    default: ({ req }) => Boolean(req.user),
+  },
+  handlers: {
+    orders: {
+      create: async ({ input, errors, req }) => {
+        // Query database via Payload Local API
+        const item = await req.payload.find({
+          collection: "inventory",
+          where: { sku: { equals: input.sku } },
+          limit: 1,
+        });
+
+        const stock = item.docs[0]?.stock ?? 0;
+        if (stock < input.quantity) {
+          throw errors.OUT_OF_STOCK({ data: { available: stock } });
+        }
+
+        // Create order document
+        const order = await req.payload.create({
+          collection: "orders",
+          data: {
+            sku: input.sku,
+            quantity: input.quantity,
+            customer: req.user?.id,
+          },
+        });
+
+        return {
+          orderId: String(order.id),
+          createdAt: new Date().toISOString(),
+          totalAmount: input.quantity * 25,
+        };
+      },
+    },
+  },
+});
+
+export default buildConfig({
+  // Mount custom operations endpoints
+  endpoints: [...operationEndpoints],
+  // ... collections, db adapter, etc.
+});
+```
+
+### Step 3: Instantiate and Call from Client
+
+In your frontend application or Next.js App Router:
+
+```ts
+import { createCMSClient, safe, isDefinedError } from "@nexload-sdk/payload-operations";
+import { cmsOperations } from "./operations/contract";
+
+const cms = createCMSClient({
+  operations: cmsOperations,
+  basePath: "/api/operations",
+  payload: {
+    baseURL: "https://cms.example.com",
+    baseInit: { credentials: "include" },
+  },
+});
+
+export async function submitOrder() {
+  const [error, order, isDefined] = await safe(
+    cms.operations.orders.create({
+      sku: "ITEM-100",
+      quantity: 2,
+    })
+  );
+
+  if (isDefined && isDefinedError(error, "OUT_OF_STOCK")) {
+    alert(`Only ${error.data.available} items left in stock.`);
+    return;
+  }
+
+  if (error) {
+    alert("Unexpected order failure.");
+    return;
+  }
+
+  console.log("Order confirmed:", order.orderId);
+}
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Recipes](./guides/) for multi-resource trees, plugins, transactions, and Next.js Server Actions.
+* View the complete [API Reference & Signatures](./api/) for all exported types and functions.

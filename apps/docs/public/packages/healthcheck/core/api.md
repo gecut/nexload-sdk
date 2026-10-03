@@ -1,10 +1,12 @@
-# Healthcheck Core API
+# Healthcheck Core: API Reference & Compatibility | Nexload SDK
 
-Public runtime and type exports of the health orchestration package.
+Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck` v4.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `aggregateStatus`
@@ -877,18 +879,14 @@ Public type exported by @nexload-sdk/healthcheck.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L1)
 
-## Primary runtime exports
+***
 
-* `createHealthManager(options)` creates a manager with `run`, shutdown-state, and registration operations.
-* `defineHealthCheck()` and `defineMetricCollector()` preserve typed definitions.
-* `runtimeInfoCheck`, `shutdownCheck`, `startupCheck`, `timerLagCheck`, `memoryCheck`, and `httpCheck` create built-in checks.
-* `runtimeMetricsCollector()` produces report-level runtime metrics.
-* `toHealthJson()` and `stringifyHealthJson()` serialize reports with detail and redaction controls.
-* `aggregateStatus()` and `summarizeChecks()` operate on completed results.
-* `statusToHttpStatus()` applies `DEFAULT_HTTP_STATUS_POLICY` or `STRICT_READINESS_HTTP_STATUS_POLICY`.
-* `genericRuntimeAdapter()` and `autoRuntimeAdapter()` avoid importing a runtime integration.
-* `createAbortSignal()` and `sleep()` support cancellation-aware checks.
+## Runtime Compatibility Matrix
 
-`HEALTH_ERROR_CODES` is the stable error-code vocabulary. Public types include manager, report, check, collector, runtime, retry, redaction, metric, HTTP-policy, and serialization contracts.
-
-Source: [`packages/healthcheck/core/src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/index.ts)
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Edge Runtimes** | V8 / Cloudflare Workers | Core orchestration is edge-safe |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

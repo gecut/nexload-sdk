@@ -1,10 +1,16 @@
-# Agent skills
+# AI Agent Skills: Supercharge Coding Assistants | Nexload SDK
 
-Production-grade 6+1 Cognitive Graph reasoning, repository engineering standards, and package-scoped skills for AI coding agents.
+Equip Cursor, Claude Code, Antigravity, and Codex with automated knowledge of Nexload SDK standards, preventing hallucinations and ensuring zero-shot compliance.
 
 **Topic:** agents
 **Canonical page:** https://gecut.github.io/nexload-sdk/agents/
-Agent Skills are task-specific, progressively disclosed cognitive operating instructions for AI coding agents (Antigravity, Cursor, Claude Code, Windsurf, GitHub Copilot). They encode evidence-based decision procedures, architectural invariants, trust boundaries, claim-matched verification, and zero-bloat handoffs that prevent agents from hallucinating, overengineering, or patching symptoms.
+**Equip Cursor, Claude Code, Antigravity, Windsurf, and Copilot with automated knowledge of Nexload SDK standards.**
+
+Nexload Agent Skills are lightweight, standardized instructions for AI coding assistants. When installed in your repository, your AI assistant gains immediate, zero-shot compliance with production invariants:
+
+* **Zero-Hallucination Health Routes**: Your agent automatically avoids the dreaded liveness database cascade, configures no-store Next.js route handlers, and monitors cgroup limits correctly.
+* **Deterministic Payload Schemas**: Your agent crafts unified Payload collection fields and Zod schemas without double-declaring types or violating synchronous validation rules.
+* **Clean Architecture & Boundary Narrowing**: Your agent writes minimal, reviewable TypeScript changes that respect trust boundaries and package export seams.
 
 ***
 

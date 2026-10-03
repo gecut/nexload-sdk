@@ -1,10 +1,12 @@
-# Healthcheck Payload API
+# Healthcheck Payload: API Reference & Compatibility | Nexload SDK
 
-Public Payload readiness-check exports.
+Public API symbol reference and compatibility matrix for Healthcheck Payload.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `payloadHealthCheck`
@@ -41,8 +43,13 @@ Public interface exported by @nexload-sdk/healthcheck-payload.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L10)
 
-`payloadHealthCheck(payload, options)` returns `HealthCheckDefinition<"payload">`.
+***
 
-`PayloadHealthCheckOptions` requires `collection` and supports `limit`, `timeoutMs`, `where`, `depth`, `expectedMinDocuments`, and `scopes`. Defaults are `limit: 1`, `depth: 0`, and `scopes: ["readiness"]`.
+## Runtime Compatibility Matrix
 
-Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts).
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

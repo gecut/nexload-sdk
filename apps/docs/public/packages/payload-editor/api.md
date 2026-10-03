@@ -1,10 +1,12 @@
-# API reference
+# Payload Editor: API Reference & Compatibility | Nexload SDK
 
-Public exports for Payload Editor 1.1.0.
+Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
 
 **Topic:** api
 **Package:** `@nexload-sdk/payload-editor` v1.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `createEditor`
@@ -250,30 +252,23 @@ Public type exported by @nexload-sdk/payload-editor.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L33)
 
-## Runtime exports
+***
 
-`createEditor(options)` validates and merges one definition, creates managed feature providers in deterministic order, appends native extensions, and returns Payload's Lexical editor provider.
+## Functions Reference
 
-`defineEditorPreset(options)` validates and snapshots a reusable feature definition. Only presets created by this function or built-in preset names are accepted.
+| Function | Return Type | Description |
+|---|---|---|
+| `createEditor(options)` | `RichTextAdapterProvider` | Compiles an explicit feature definition into Payload's official Lexical editor provider. |
+| `defineEditorPreset(options)` | `EditorPreset` | Defines an immutable, reusable editor preset for team-wide policy sharing. |
 
-`PayloadEditorConfigError` extends `TypeError` with stable `code`, exact `path`, and optional `hint`.
+***
 
-## Type exports
+## Runtime Compatibility Matrix
 
-The root exports the option, preset, feature, heading, link, upload, relationship, and native-provider types. `EditorPresetName` is the five-name built-in union. `FeatureOption<T>` represents `boolean | options`.
-
-## Error codes
-
-* `PAYLOAD_EDITOR_DEFINITION_REQUIRED`
-* `PAYLOAD_EDITOR_UNKNOWN_PRESET`
-* `PAYLOAD_EDITOR_UNKNOWN_FEATURE`
-* `PAYLOAD_EDITOR_INVALID_FEATURE_OPTIONS`
-* `PAYLOAD_EDITOR_INVALID_HEADING_SIZES`
-* `PAYLOAD_EDITOR_INVALID_COLLECTIONS`
-* `PAYLOAD_EDITOR_INVALID_MAX_DEPTH`
-* `PAYLOAD_EDITOR_INVALID_EXTENSION`
-* `PAYLOAD_EDITOR_DUPLICATE_FEATURE`
-
-All are configuration-time errors. Do not expose their messages directly as end-user content.
-
-See the [root entrypoint](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/index.ts) for the live export surface.
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **`@payloadcms/richtext-lexical`** | `>=3.85.0 <4.0.0` | Verified on Lexical 3.86.0 |
+| **Module Format** | ESM only | Server and configuration safe |
+| **Side Effects** | `false` | Fully tree-shakeable |

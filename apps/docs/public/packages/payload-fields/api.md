@@ -1,10 +1,12 @@
-# API reference
+# Payload Fields: API Reference & Compatibility | Nexload SDK
 
-Public exports for Payload Fields 3.1.0.
+Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields.
 
 **Topic:** api
 **Package:** `@nexload-sdk/payload-fields` v3.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `formatJalaliDate`
@@ -419,25 +421,25 @@ Public type exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L3)
 
-## Field factories
+***
 
-* `slugField(options?)` returns `[TextField, CheckboxField]`; spread it into `fields`.
-* `jalaliDateField(options)` returns one native Payload date field.
-* `withJalaliTimestamps(fields, options?)` returns a new field array with virtual Jalali timestamp fields.
-* `moneyField(options)` returns one native number field with safe-integer validation.
-* `payloadFieldsPlugin(options?)` returns a Payload plugin and adds the slug-generator endpoint.
+## Exported Factories Summary
 
-## Pure helpers and constants
+| Function | Output | Description |
+|---|---|---|
+| `slugField(options)` | `[Field, Field]` | Returns `[slug, slugLock]` fields configured with Unicode slugifier and sync logic. |
+| `jalaliDateField(options)` | `DateField` | Returns a Payload `date` field configured with the Jalali solar calendar Admin component. |
+| `moneyField(options)` | `NumberField` | Returns an integer `number` field configured with formatted currency Admin component. |
+| `payloadFieldsPlugin(options)` | `Plugin` | Registers custom server-side slug generator REST endpoints. |
 
-* `formatSlug` and `formatSlugHook` share slug normalization.
-* `formatJalaliDate` formats date-like input or returns `null`.
-* `parseMoneyToMinorUnits`, `formatMoney`, and `resolveCurrency` own money conversion and presentation.
-* `IRR` and `IRT` are frozen zero-fraction currency definitions.
+***
 
-Public option and value types are exported from the root and semantic subpaths. Import Admin components only through the package's declared `./admin/*` subpaths, normally via Payload's Import Map.
+## Runtime Compatibility Matrix
 
-## Failure model
-
-Factory configuration errors throw synchronously. Field validation returns Payload validation strings. Pure money parsers throw `TypeError` for malformed input and `RangeError` for precision or safe-integer violations. The plugin endpoint returns structured HTTP failures with codes from `PAYLOAD_FIELDS_UNAUTHENTICATED` through `PAYLOAD_FIELDS_GENERATION_FAILED`.
-
-See the [source entrypoint](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/index.ts) for the current export surface.
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **React / React-DOM** | `^19.0.0` | Required for Payload 3 Admin UI |
+| **Module Format** | ESM only | Server and Admin Import Map safe |
+| **Side Effects** | `false` | Fully tree-shakeable |

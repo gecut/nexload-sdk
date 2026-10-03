@@ -1,18 +1,25 @@
 ---
-title: Healthcheck Prometheus API
-description: Public Prometheus and OpenMetrics serializer exports.
-sidebar: { order: 6 }
+title: "Healthcheck Prometheus: API Reference & Compatibility | Nexload SDK"
+description: "Public API symbol reference and compatibility matrix for Healthcheck Prometheus."
+sidebar:
+  order: 3
 package: healthcheck-prometheus
 topic: api
 ---
 
 import ApiInventory from "../../../../../components/docs/ApiInventory.astro";
 
+The complete public API symbol inventory is generated automatically from package source exports:
+
 <ApiInventory packageId="healthcheck-prometheus" />
 
-- `toPrometheusText(report, options?)` returns newline-terminated text.
-- `toOpenMetricsText(report, options?)` appends the OpenMetrics EOF marker.
-- `PrometheusExportOptions` supports `prefix`, `defaultLabels`, and `includeDescriptions`.
-- `OpenMetricsExportOptions` aliases the same options.
+---
 
-Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts).
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |

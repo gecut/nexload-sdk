@@ -1,4 +1,4 @@
-# Glossary
+# Glossary: Terms & Architecture Invariants | Nexload SDK
 
 Shared terms used across Healthcheck and Payload package documentation.
 

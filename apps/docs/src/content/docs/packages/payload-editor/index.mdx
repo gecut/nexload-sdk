@@ -1,6 +1,6 @@
 ---
-title: Payload Editor
-description: Deterministic semantic configuration for Payload's Lexical editor.
+title: "Payload Editor: Overview & Quick Start | Nexload SDK"
+description: "Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor."
 sidebar:
   order: 1
 package: payload-editor
@@ -12,29 +12,84 @@ import { packageByName } from "../../../../lib/package-catalog";
 
 <PackageHero entry={packageByName("@nexload-sdk/payload-editor")} eyebrow="Payload Lexical configuration" />
 
-`@nexload-sdk/payload-editor` 1.1.0 turns an explicit semantic feature definition into the official Payload Lexical editor provider. It gives teams named presets, deterministic merge rules, validation, and a safe extension seam without owning editor UI.
+`@nexload-sdk/payload-editor` transforms an explicit semantic feature definition into the official Payload CMS Lexical editor provider. It provides teams with named presets, deterministic feature merge rules, and safe extension seams without cluttering collection configurations with verbose Lexical boilerplate.
 
-Use it when multiple collections need a reviewable editor policy. Use `lexicalEditor` directly when each collection needs unrelated native configuration.
+---
 
-## Boundaries
+## 10-Second Code Snippet
 
-The package runs in server/config code and is ESM-only. It has no React, CSS, browser-global, theme, AI-provider, or Admin component runtime. Actual editing behavior and persistence remain owned by `@payloadcms/richtext-lexical`.
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+import type { CollectionConfig } from "payload";
 
-It does not define Payload fields. Assign the returned provider to a rich-text field or Payload's root `editor` option.
+// 1. Define explicit editor policy from preset
+const blogEditor = createEditor({
+  preset: "article",
+  features: {
+    heading: { sizes: ["h2", "h3"] }, // Restrict heading sizes
+    upload: { allowedCollections: ["media"], maxDepth: 1 },
+  },
+});
 
-## Learning path
+// 2. Attach directly to Payload RichText field
+export const Posts: CollectionConfig = {
+  slug: "posts",
+  fields: [
+    { name: "content", type: "richText", editor: blogEditor },
+  ],
+};
+```
 
-1. [Install matched Payload peers](./installation/).
-2. Build an explicit editor in the [quick start](./quick-start/).
-3. Learn [feature state, preset, merge, and extension concepts](./concepts/).
-4. Apply task-focused [guides](./guides/).
-5. Use the [API](./api/) and [troubleshooting](./troubleshooting/) pages as references.
+---
 
-## Source of truth
+## What You Get
 
-- [Package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor/src)
-- [Tests](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor/test)
-- [Package manifest](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/package.json)
-- [Report an issue](https://github.com/gecut/nexload-sdk/issues)
+- **Ready-to-Use Presets**: Built-in presets for common editorial workflows: `compact`, `standard`, `structured-content`, `article`, and `product-description`.
+- **Deterministic Feature Merging**: Clear override semantics: `false` disables, `true` enables with defaults, objects shallow-merge, and array options replace.
+- **Custom Organization Presets**: Define reusable corporate editor standards using `defineEditorPreset()`.
+- **Native Extension Seam**: Seamlessly attach native Lexical features like `BlocksFeature` or custom AST nodes via `extendFeatures`.
+- **Zero UI Bloat**: The package runs in server/config code, has no client React runtime, and declares no side effects.
 
-These pages document the current package version; historical documentation is not hosted.
+---
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+
+# bun
+bun add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Server/config safe |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Core headless CMS |
+| **`@payloadcms/richtext-lexical`** | `>=3.85.0 <4.0.0` | Native Lexical editor provider |
+| **Module Format** | ESM only | Declarative config safe |
+
+---
+
+## Feature State Semantics
+
+In `createEditor({ features: { ... } })`:
+- **Omitted key**: Inherits configuration from the active preset (or disabled if no preset is used).
+- **`false`**: Completely disables and removes the feature from the editor toolbar.
+- **`true`**: Enables the feature with default recommended options.
+- **`{ ...options }`**: Enables the feature and shallow-merges your specific options. Any provided arrays replace preset arrays rather than appending.
+
+---
+
+## Next Steps
+
+- Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
+- Check the [API Reference & Signatures](./api/) for all supported features and options.

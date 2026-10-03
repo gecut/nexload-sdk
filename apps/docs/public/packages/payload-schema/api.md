@@ -1,10 +1,12 @@
-# API reference
+# Payload Schema: API Reference & Field Catalog | Nexload SDK
 
-Public runtime and type exports for Payload Schema 1.1.0.
+Complete public API symbol reference, field factory signatures, and runtime compatibility matrix for Payload Schema.
 
 **Topic:** api
 **Package:** `@nexload-sdk/payload-schema` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `defineEntity`
@@ -614,24 +616,35 @@ Public type exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L203)
 
-## Runtime exports
+***
 
-* `defineEntity(options)` validates and binds a named field map, then returns the entity facade.
-* `field` is a frozen namespace of 14 field factories.
-* `defaultIdSchema` accepts a non-empty string or safe integer.
-* `PayloadSchemaError` represents package definition, compilation, derivation, and invariant failures.
-* `isPayloadSchemaError(error, code?)` narrows any package error or one exact code.
+## Field Factory Reference
 
-## Entity facade
+| Factory | Core Options | Default Value Support | Output Payload Type |
+|---|---|---|---|
+| `field.text()` | `required`, `trim`, `lowercase`, `uppercase`, `minLength`, `maxLength`, `pattern` | Static & Dynamic | `TextField` |
+| `field.slug()` | `required`, `minLength`, `maxLength`, Unicode NFKC normalization | Static & Dynamic | `TextField` |
+| `field.textarea()` | `required`, `trim`, `minLength`, `maxLength` | Static & Dynamic | `TextareaField` |
+| `field.number()` | `required`, `integer`, `safe`, `minimum`, `maximum`, `multipleOf` | Static & Dynamic | `NumberField` |
+| `field.money()` | `currency`, `minimum`, `maximum` (Always safe integer minor units) | Static & Dynamic | `NumberField` |
+| `field.boolean()` | `required` (Payload checkbox) | Static & Dynamic | `CheckboxField` |
+| `field.date()` | `required`, `minimum`, `maximum` (ISO string with timezone offset) | Static & Dynamic | `DateField` |
+| `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
+| `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
+| `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
+| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` | Static & Dynamic | `NamedGroupField` |
+| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `ArrayField` |
+| `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
+| `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
 
-`entity.payload.all()`, `.field(key)`, and `.pick(keys)` return ordinary Payload fields. `entity.schema(factory)` supplies `{ fields, pick, z }` and accepts any Zod schema result. `entity.inspect()` returns deterministic safe metadata without raw configs, schemas, functions, or values.
+***
 
-## Types
+## Runtime Compatibility Matrix
 
-The root exports field option types, entity/context/picker types, inference helpers, and the structured error map. `PayloadSchemaErrorCode` is exactly `keyof PayloadSchemaErrorDataMap`. `InferEntityField` and `InferEntityFields` infer canonical schema outputs, not Payload documents.
-
-## Error phases
-
-`PayloadSchemaErrorPhase` is `definition | payload-compilation | schema-derivation | internal`. Ordinary invalid field data is a Payload `ValidationError`, not a `PayloadSchemaError`.
-
-See the [root entrypoint](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/index.ts) and [public types](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts).
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **Zod** | `>=4.0.0 <5.0.0` | Verified on Zod 4.4.3 |
+| **Module Format** | ESM only | Server and configuration safe |
+| **Side Effects** | `false` | Fully tree-shakeable |

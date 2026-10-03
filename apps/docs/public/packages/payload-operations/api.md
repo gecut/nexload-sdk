@@ -1,10 +1,12 @@
-# API reference
+# Payload Operations: API Reference & Compatibility | Nexload SDK
 
-Public root and subpath exports for Payload Operations 0.1.0.
+Complete public API symbol reference, entrypoint exports, and runtime compatibility matrix for Payload Operations.
 
 **Topic:** api
 **Package:** `@nexload-sdk/payload-operations` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `createCMSClient`
@@ -673,39 +675,30 @@ Public type exported by @nexload-sdk/payload-operations.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L81)
 
-## Entrypoints
+***
 
-| Subpath            | Purpose                                                             |
-| ------------------ | ------------------------------------------------------------------- |
-| package root       | Universal contract, client, error, and timeout helpers              |
-| `/contract`        | `operation`, `defineCMSOperations`, and contract types              |
-| `/client`          | `createCMSClient`, `defineClientPlugin`, and client/transport types |
-| `/errors`          | `CMSOperationError`, guards, `safe`, and error types                |
-| `/plugins/timeout` | `timeoutPlugin`, `isTimeoutError`, and timeout options              |
-| `/server`          | `createPayloadEndpoints`, `CMSOperationError`, and server types     |
+## Exported Subpaths
 
-## Contract
+To preserve clean bundle boundaries and prevent leaking Payload server code into client applications, `@nexload-sdk/payload-operations` exposes explicit subpaths:
 
-`operation({ input, output, errors? })` brands one immutable operation definition while preserving schema identity. Error codes must be uppercase snake case, status must be 400–599, and messages must be non-empty.
+| Subpath | Target Environment | Description |
+|---|---|---|
+| `@nexload-sdk/payload-operations` | Universal (Browser/Node) | Root entrypoint exporting `createCMSClient`, `defineCMSOperations`, `operation`, `safe`, `isDefinedError`, `timeoutPlugin`. |
+| `@nexload-sdk/payload-operations/contract` | Universal (Browser/Node) | Pure contract modeling: `defineCMSOperations`, `operation`, and type inference helpers. Zero dependencies on Payload. |
+| `@nexload-sdk/payload-operations/client` | Universal (Browser/Node) | Client factory and RPC proxy generator: `createCMSClient`, `defineClientPlugin`, `InferOperationsClient`. |
+| `@nexload-sdk/payload-operations/errors` | Universal (Browser/Node) | Error boundaries and pattern matching: `CMSOperationError`, `safe`, `isDefinedError`. |
+| `@nexload-sdk/payload-operations/plugins/timeout` | Universal (Browser/Node) | Timeout plugin: `timeoutPlugin`, `isTimeoutError`. |
+| `@nexload-sdk/payload-operations/server` | **Node.js / Payload Server Only** | Server endpoint generator: `createPayloadEndpoints`. Never import in client bundles! |
 
-`defineCMSOperations(tree)` validates and snapshots a direct recursive namespace. It accepts no `query` or `command` wrapper.
+***
 
-## Client
+## Runtime Compatibility Matrix
 
-`createCMSClient(options)` returns `{ payload, operations }`. `payload` is the actual `PayloadSDK<Config>` instance. `operations` mirrors the supplied contract.
-
-`CMSClientOptions` accepts `operations`, `payload`, optional `plugins`, and optional operation `basePath`. `payload.baseInit` is merged before per-call options. Operation calls accept `Omit<RequestInit, "body" | "method">`; the package always supplies POST and the serialized body.
-
-`defineClientPlugin(plugin)` validates and freezes a named transport wrapper. Plugin names must be unique; the first plugin is outermost.
-
-## Errors
-
-`safe(promise)` resolves to `[null, data, false]`, `[definedError, undefined, true]`, or `[unknownError, undefined, false]`.
-
-`isDefinedError(error, code?)` validates the shared error brand and optionally narrows the declared code. `isTimeoutError(error)` recognizes operation timeout errors.
-
-## Server
-
-`createPayloadEndpoints(options)` returns Payload `Endpoint[]` containing a POST endpoint and matching OPTIONS preflight endpoint for each contract leaf. Options include exact `handlers`, partial access overrides, an optional default access policy, and `basePath`.
-
-See the [package source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations/src) for the live export surface.
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Verified on SDK 3.86.0 |
+| **Zod** | `>=4.0.0 <5.0.0` | Verified on Zod 4.4.3 |
+| **Module Format** | ESM only | Native ECMAScript Modules (`"type": "module"`) |
+| **Side Effects** | `false` | Tree-shaking enabled across all bundlers |

@@ -1,10 +1,12 @@
-# Healthcheck Node API
+# Healthcheck Node: API Reference & Compatibility | Nexload SDK
 
-Public exports for Node runtime and operational checks.
+Public API symbol reference, functions, and compatibility matrix for Healthcheck Node.
 
 **Topic:** api
 **Package:** `@nexload-sdk/healthcheck-node` v2.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
 ## Functions
 
 ### `containerMetricsCollector`
@@ -185,11 +187,13 @@ Public interface exported by @nexload-sdk/healthcheck-node.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L27)
 
-* `nodeRuntimeAdapter()` returns a core `RuntimeAdapter`.
-* `containerResourceCheck()` evaluates container memory thresholds.
-* `processMetricsCollector()` and `containerMetricsCollector()` produce report metrics.
-* `tcpCheck(name, options)` and `dnsCheck(name, options)` create readiness checks.
-* `readContainerResourceSnapshot()` reads cgroup/process/OS resources.
-* `parseCpuList()` parses Linux cpuset lists.
+***
 
-The package exports container snapshot and options interfaces. Source: [`src/index.ts`](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts).
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Linux Cgroups** | v1 & v2 | Verified in Docker & Kubernetes |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
