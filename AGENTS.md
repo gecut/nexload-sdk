@@ -14,13 +14,20 @@ This file applies to the whole repository unless a deeper `AGENTS.md` overrides 
 - Demo app lives in `apps/web`
 - Releases use Changesets (`.changeset`)
 
+## Mandatory Architecture & Documentation Reading
+
+Before starting any architectural, package, or reasoning task, agents MUST consult:
+1. [`docs/architecture/PROJECT-KNOWLEDGE-BASE.md`](./docs/architecture/PROJECT-KNOWLEDGE-BASE.md): The authoritative compact cross-domain LLM map.
+2. [`docs/README.md`](./docs/README.md): Full documentation suite index and reading pathways.
+3. [`docs/workflows/AGENT-GUIDELINES.md`](./docs/workflows/AGENT-GUIDELINES.md): Rules of engagement and safe modification protocols.
+
 ## Preferred Workflow
 
-1. Read the target package `README.md` and `package.json` first.
+1. Read [`docs/architecture/PROJECT-KNOWLEDGE-BASE.md`](./docs/architecture/PROJECT-KNOWLEDGE-BASE.md) and target package `README.md` first.
 2. Inspect `src/index.ts` (and exported subpaths) before changing docs or APIs.
 3. Keep package docs aligned with actual exports and runtime behavior.
 4. Avoid editing generated outputs in `dist/`.
-5. If behavior changes, update the relevant package `README.md` in the same change.
+5. If behavior changes, update the relevant package `README.md` and technical guide in `docs/packages/` in the same change.
 
 ## Build / Lint Commands
 
