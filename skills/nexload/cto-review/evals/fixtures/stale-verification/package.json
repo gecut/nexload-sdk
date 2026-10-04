@@ -1,0 +1,9 @@
+{
+  "name": "@nexload-sdk/event-emitter",
+  "version": "2.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./wildcard": "./dist/wildcard.mjs"
+  }
+}

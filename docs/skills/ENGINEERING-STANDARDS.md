@@ -19,14 +19,18 @@ This document outlines the specialized engineering standards and gatekeeping ski
 ## 2. Key Standards in Detail
 
 ### A. `nexload-cto-review` (The Architecture Gatekeeper)
-- **Role:** High-judgment technical evaluation of proposed or completed architectural changes.
-- **Strict Invariant:** This skill is strictly **review-only**. Even if the user asks "Review and fix this", the CTO review skill only evaluates, scores, and describes the required architectural properties that must become true—it never writes patch code or implementation steps.
+- **Role:** High-judgment technical evaluation and final approval layer for architecture proposals, packages, public APIs, refactors, and production-readiness decisions.
+- **Strict Invariant:** This skill is strictly **review-only**. Even on mixed requests ("Review and fix this"), the CTO review skill only evaluates, scores, and describes the required architectural properties that must become true—it never writes patch code, replacement APIs, shell commands, or implementation steps.
+- **Review Modes:** Automatically binds one of four review modes: `proposal`, `implementation`, `change`, or `readiness`.
+- **Traceable Evidence & Authority:** Every finding must have a concrete evidence anchor (file, line, symbol, manifest, or runtime trace). Distinguishes Instruction Authority from Factual Authority, enforces version-aware technical truth, and evaluates verification freshness (`Fresh`, `Existing`, `Stale`, `Missing`).
 - **Scoring & Verdict:**
-  - **Verdict:** `Approved`, `Changes Requested`, or `Rejected`.
+  - **Verdict:** `Approved`, `Approved with minor issues`, `Needs revision`, `Blocked` (fixable blocker), `Rejected` (fundamentally wrong direction), or `Withheld` (missing decisive evidence).
+  - **Score:** Calibrated discrete scores (e.g., 9.5, 9.0, 8.5 ... or `Not assessable`).
   - **Priorities:**
-    - `P0`: Blocker (security vulnerability, data corruption, broken public contract).
-    - `P1`: Material architecture flaw, significant boundary leak, or maintainability risk.
-    - `P2`: Minor gap or non-blocking technical debt.
+    - `P0`: Blocker (trust/security failure, data corruption, materially false public/runtime contract, or invalid direction).
+    - `P1`: Material architecture flaw, unjustified speculative complexity, boundary leak, or business invariant gap.
+    - `P2`: Minor non-blocking improvement or public contract polish with local blast radius.
+
 
 ### B. `nexload-code` (TypeScript Excellence)
 - **Rules:**

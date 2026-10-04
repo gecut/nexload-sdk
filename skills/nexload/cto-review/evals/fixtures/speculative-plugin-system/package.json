@@ -1,0 +1,12 @@
+{
+  "name": "@nexload-sdk/timeout-platform",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md"]
+}

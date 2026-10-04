@@ -1,0 +1,17 @@
+{
+  "name": "@nexload-sdk/lru-cache",
+  "version": "1.0.0",
+  "description": "Deterministic in-memory LRU cache with explicit consumer lifecycle",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --format=esm --outfile=dist/index.mjs",
+    "test": "node --test"
+  }
+}

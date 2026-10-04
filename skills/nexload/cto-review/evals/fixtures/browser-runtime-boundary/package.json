@@ -1,0 +1,16 @@
+{
+  "name": "@nexload-sdk/token-formatter",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./browser": {
+      "import": "./dist/browser.mjs",
+      "types": "./dist/browser.d.ts"
+    }
+  },
+  "files": ["dist", "README.md"]
+}

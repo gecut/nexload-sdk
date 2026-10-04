@@ -1,0 +1,12 @@
+{
+  "name": "@nexload-sdk/partition-migrator",
+  "version": "2.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md"]
+}

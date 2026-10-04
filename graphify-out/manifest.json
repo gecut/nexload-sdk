@@ -2646,57 +2646,9 @@
     "semantic_hash": ""
   },
   "skills/nexload/cto-review/SKILL.md": {
-    "mtime": 1789034896.9362395,
-    "seen": 1790893968.230853,
-    "ast_hash": "dab0c3dfea9abc638405e157b09f9651",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/evals/fixtures/browser-secret-leak.md": {
-    "mtime": 1789034896.9365356,
-    "seen": 1790893968.2308538,
-    "ast_hash": "8b7026986b25362ac05fbfdc8258c321",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/evals/fixtures/minimal-runtime-adapter.md": {
-    "mtime": 1789034896.9366047,
-    "seen": 1790893968.2308538,
-    "ast_hash": "7e830824f673b01894e4f39b3871baae",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/evals/fixtures/narrow-react-review.md": {
-    "mtime": 1789034896.9366682,
-    "seen": 1790893968.230855,
-    "ast_hash": "db092b3e3161865676fca8880e0f4882",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/evals/fixtures/timeout-plugin-system.md": {
-    "mtime": 1789034896.9367282,
-    "seen": 1790893968.230855,
-    "ast_hash": "734ac0ea6684f7c1175cd8205f8c1cce",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/evals/fixtures/valid-adapter-code-request.md": {
-    "mtime": 1789034896.9368036,
-    "seen": 1790893968.230856,
-    "ast_hash": "faeb8f22d4c39b416b91374eff3239b7",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/references/architecture-and-standards-routing.md": {
-    "mtime": 1789034896.9369752,
-    "seen": 1790893968.230856,
-    "ast_hash": "4bdb6b9316f5ca9efc6766d5914253fe",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/references/priority-score-and-verdict.md": {
-    "mtime": 1789034896.9370432,
-    "seen": 1790893968.230857,
-    "ast_hash": "39b7cea27dc571ead492d3d07163dfac",
-    "semantic_hash": ""
-  },
-  "skills/nexload/cto-review/references/scope-evidence-and-restraint.md": {
-    "mtime": 1789034896.9371095,
-    "seen": 1790893968.230858,
-    "ast_hash": "105458cb2d9767c593b82005c6176c2a",
+    "mtime": 1791103014.1650317,
+    "seen": 1791103523.9286568,
+    "ast_hash": "2b97c50aae17bc7a1b3a2c4487d9aafb",
     "semantic_hash": ""
   },
   "packages/refactoring/env/esbuild.config.mjs": {
@@ -3168,15 +3120,15 @@
     "semantic_hash": ""
   },
   "skills/nexload/cto-review/evals/evals.json": {
-    "mtime": 1789034896.9363883,
-    "seen": 1790893968.2306921,
-    "ast_hash": "9f59645af2de63637a9bb39e2af18312",
+    "mtime": 1791103447.717581,
+    "seen": 1791103523.9285,
+    "ast_hash": "30d9e454ef244e14ea128e406c20706f",
     "semantic_hash": ""
   },
   "skills/nexload/cto-review/evals/trigger-evals.json": {
-    "mtime": 1789034896.9368699,
-    "seen": 1790893968.2306921,
-    "ast_hash": "dc9b8fd59fae58f6f39ce908cf4c72c2",
+    "mtime": 1791103031.434776,
+    "seen": 1791103523.9285178,
+    "ast_hash": "20a1acee8e7c7ad0cdbf31088fd81954",
     "semantic_hash": ""
   },
   "skills/nexload/design/evals/evals.json": {
@@ -3648,9 +3600,9 @@
     "semantic_hash": ""
   },
   "docs/skills/ENGINEERING-STANDARDS.md": {
-    "mtime": 1791021211.6908813,
-    "seen": 1791021284.93832,
-    "ast_hash": "99bcdc7e1310c983faac3c8384c83a66",
+    "mtime": 1791103468.810829,
+    "seen": 1791103523.928592,
+    "ast_hash": "04535456ff08767346d37a18f27351e3",
     "semantic_hash": ""
   },
   "docs/skills/REASONING-ECOSYSTEM.md": {
@@ -3693,6 +3645,300 @@
     "mtime": 1791023666.3144283,
     "seen": 1791023819.705139,
     "ast_hash": "8d6026dcbfb930d3f9f96cddfa678346",
+    "semantic_hash": ""
+  },
+  "scripts/test-cto-review-v2.mjs": {
+    "mtime": 1791103494.9631321,
+    "seen": 1791103523.928483,
+    "ast_hash": "de64458622c5c56122eeb37e35bc8c45",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-clean-package/package.json": {
+    "mtime": 1791103054.9793384,
+    "seen": 1791103523.9285,
+    "ast_hash": "bbebc5fafd2c72619ad703d1e588461e",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-clean-package/src/index.ts": {
+    "mtime": 1791103063.2378128,
+    "seen": 1791103523.928501,
+    "ast_hash": "ea935880cb47fc1b6c1a6ec73218f7e2",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-clean-package/test/cache.test.ts": {
+    "mtime": 1791103073.1677692,
+    "seen": 1791103523.928502,
+    "ast_hash": "a86c8c9a65bf93636100f895937ab388",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-valid-abstraction/package.json": {
+    "mtime": 1791103084.0193791,
+    "seen": 1791103523.928502,
+    "ast_hash": "863db7bdd1eb3c97010f62c0500ad989",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-valid-abstraction/src/bun/index.ts": {
+    "mtime": 1791103099.8884933,
+    "seen": 1791103523.928503,
+    "ast_hash": "d82b3c7930f3e1023c1d1fab603a4716",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-valid-abstraction/src/core/index.ts": {
+    "mtime": 1791103089.4329839,
+    "seen": 1791103523.928503,
+    "ast_hash": "f0f77b5911b575e4bfc58bfbb19afd9a",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-valid-abstraction/src/node/index.ts": {
+    "mtime": 1791103095.3790646,
+    "seen": 1791103523.928504,
+    "ast_hash": "69a774288688e3cd78d0469fb1570931",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/browser-runtime-boundary/package.json": {
+    "mtime": 1791103174.4171767,
+    "seen": 1791103523.928504,
+    "ast_hash": "76d001059d59420a61dc8c08407fc2d7",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/browser-runtime-boundary/src/browser.ts": {
+    "mtime": 1791103189.3928273,
+    "seen": 1791103523.9285052,
+    "ast_hash": "66140ce668cf7af5eacc1e5187a6f359",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/browser-runtime-boundary/src/index.ts": {
+    "mtime": 1791103184.7700057,
+    "seen": 1791103523.9285052,
+    "ast_hash": "486632f12347c79654a369bed02000e3",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/browser-runtime-boundary/src/token.ts": {
+    "mtime": 1791103179.1480777,
+    "seen": 1791103523.9285061,
+    "ast_hash": "4ac70ad8da5aa600ec3e28ffba9b6564",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/change-with-existing-debt/base/src/logger.ts": {
+    "mtime": 1791103304.5370798,
+    "seen": 1791103523.9285061,
+    "ast_hash": "429600416e01d79b7add2b33be8cb721",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/conflicting-authorities/package.json": {
+    "mtime": 1791103389.085153,
+    "seen": 1791103523.9285069,
+    "ast_hash": "786dec295345dfe821f85529d6958323",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/conflicting-authorities/src/route.ts": {
+    "mtime": 1791103394.048186,
+    "seen": 1791103523.9285069,
+    "ast_hash": "5d174c1192e14b2cfb6494d9d178a25a",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/false-security-positive/src/query-clauses.ts": {
+    "mtime": 1791103369.3792586,
+    "seen": 1791103523.9285078,
+    "ast_hash": "dca2622a0ca2ced1e3c0a7b9f401c240",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/minor-public-api-issue/package.json": {
+    "mtime": 1791103115.2806332,
+    "seen": 1791103523.9285078,
+    "ast_hash": "62abd5d2d06cb36cd3479ee7e7bbbf35",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/minor-public-api-issue/src/index.ts": {
+    "mtime": 1791103123.1169486,
+    "seen": 1791103523.928509,
+    "ast_hash": "68fd7de8fadc98bde3af5341c11e2be3",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/misleading-repository-docs/package.json": {
+    "mtime": 1791103280.9934256,
+    "seen": 1791103523.928509,
+    "ast_hash": "4cc65cc676e3b62bf44d0c90bbbbd3df",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/misleading-repository-docs/src/index.ts": {
+    "mtime": 1791103296.8594098,
+    "seen": 1791103523.92851,
+    "ast_hash": "07b4bd22b24a65db879d7501973b082c",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/missing-decisive-evidence/package.json": {
+    "mtime": 1791103233.2719526,
+    "seen": 1791103523.928511,
+    "ast_hash": "300ae53f120935cc7a2b3df520681b89",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/missing-decisive-evidence/src/migrator.ts": {
+    "mtime": 1791103243.5913255,
+    "seen": 1791103523.928511,
+    "ast_hash": "6b1ed7330c944d58ea7d2b8ba929c4cc",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/re-review-fixed-findings/src/browser.ts": {
+    "mtime": 1791103348.9517233,
+    "seen": 1791103523.928512,
+    "ast_hash": "4fbc771367a942178484f942b1cad761",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/re-review-fixed-findings/src/server.ts": {
+    "mtime": 1791103355.4612505,
+    "seen": 1791103523.928512,
+    "ast_hash": "05bc641ea9d7ce8d6934b8147c3dd696",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/re-review-fixed-findings/src/token.ts": {
+    "mtime": 1791103338.2253218,
+    "seen": 1791103523.928513,
+    "ast_hash": "3a25c38278b8ed673616f07a926bb4b8",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/speculative-plugin-system/package.json": {
+    "mtime": 1791103137.9118555,
+    "seen": 1791103523.928513,
+    "ast_hash": "378265bceebe457108450e142a031315",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/speculative-plugin-system/src/index.ts": {
+    "mtime": 1791103143.2203813,
+    "seen": 1791103523.928514,
+    "ast_hash": "4be0ef31769610f9b065e8cd2b89e6a8",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/speculative-plugin-system/src/plugin-dsl.ts": {
+    "mtime": 1791103157.3325179,
+    "seen": 1791103523.928514,
+    "ast_hash": "2182c114b500448e534c6d938c93eb40",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/speculative-plugin-system/src/registry.ts": {
+    "mtime": 1791103149.002537,
+    "seen": 1791103523.928515,
+    "ast_hash": "382c9e3c5d0849d201651895797f0e77",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/stale-verification/package.json": {
+    "mtime": 1791103258.6030774,
+    "seen": 1791103523.928515,
+    "ast_hash": "b4a33ec2df44c4438276960f97170110",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/stale-verification/src/index.ts": {
+    "mtime": 1791103265.1017263,
+    "seen": 1791103523.9285161,
+    "ast_hash": "f6fe6974daeb8157242fe71c0a0a117b",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/wrong-business-invariant/package.json": {
+    "mtime": 1791103203.343644,
+    "seen": 1791103523.9285161,
+    "ast_hash": "918672a5eaaf772d49f0fce66b7b9d89",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/wrong-business-invariant/src/payment-service.ts": {
+    "mtime": 1791103215.4959652,
+    "seen": 1791103523.9285161,
+    "ast_hash": "fe3d22217b06960ece0fd6f34c00f053",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/wrong-business-invariant/src/types.ts": {
+    "mtime": 1791103207.295053,
+    "seen": 1791103523.928517,
+    "ast_hash": "bd3e280c9751d33d754b6d3a1eb48c82",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-clean-package/README.md": {
+    "mtime": 1791103067.1669474,
+    "seen": 1791103523.928658,
+    "ast_hash": "a1a328b5a952004d0a0ceffb7fc44660",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/approved-valid-abstraction/README.md": {
+    "mtime": 1791103103.9633245,
+    "seen": 1791103523.928658,
+    "ast_hash": "54ecb03d08f7205159e20c2365320b09",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/browser-runtime-boundary/README.md": {
+    "mtime": 1791103192.9884968,
+    "seen": 1791103523.928659,
+    "ast_hash": "9bbad2d41afe6379e2ca669c035ab4f8",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/change-with-existing-debt/REVIEW_REQUEST.md": {
+    "mtime": 1791103318.1053836,
+    "seen": 1791103523.92866,
+    "ast_hash": "fb189ecdc02d9601a2a4cb4ef29b0020",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/conflicting-authorities/REVIEW_REQUEST.md": {
+    "mtime": 1791103404.3906531,
+    "seen": 1791103523.92866,
+    "ast_hash": "91a18f461cc7b74c692a40fd325e7ed4",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/false-security-positive/REVIEW_REQUEST.md": {
+    "mtime": 1791103376.0354137,
+    "seen": 1791103523.928661,
+    "ast_hash": "3863019b651d50bceba007a1c634daff",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/minor-public-api-issue/README.md": {
+    "mtime": 1791103128.362584,
+    "seen": 1791103523.928661,
+    "ast_hash": "1e39cbd602f702a9bfff3a92bee48da6",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/misleading-repository-docs/README.md": {
+    "mtime": 1791103289.7138155,
+    "seen": 1791103523.928662,
+    "ast_hash": "d6a6279611ea445bd9a5dff0d7de7e8c",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/missing-decisive-evidence/REVIEW_REQUEST.md": {
+    "mtime": 1791103254.3038497,
+    "seen": 1791103523.928662,
+    "ast_hash": "4aa072fcb4d18aceca745ba70e1616e2",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/re-review-fixed-findings/PREVIOUS_REVIEW.md": {
+    "mtime": 1791103327.7671962,
+    "seen": 1791103523.928663,
+    "ast_hash": "2e60352e905bedc4a1ced936978941ec",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/speculative-plugin-system/README.md": {
+    "mtime": 1791103162.5572646,
+    "seen": 1791103523.928663,
+    "ast_hash": "035e0748a73e33250f904eb0db39fbfb",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/evals/fixtures/wrong-business-invariant/README.md": {
+    "mtime": 1791103222.2591834,
+    "seen": 1791103523.928664,
+    "ast_hash": "860edd7cc7568aa8e132c1505eb338d6",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/references/architecture-and-decision-lenses.md": {
+    "mtime": 1791102975.8296962,
+    "seen": 1791103523.9286652,
+    "ast_hash": "b88ca81b9178f96c4d9a94f021df7d9b",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/references/priority-verdict-and-output.md": {
+    "mtime": 1791102947.3303635,
+    "seen": 1791103523.9286652,
+    "ast_hash": "9823f6df98929341c82e9e7f324a34d5",
+    "semantic_hash": ""
+  },
+  "skills/nexload/cto-review/references/scope-evidence-and-review-contract.md": {
+    "mtime": 1791102921.5534794,
+    "seen": 1791103523.928666,
+    "ast_hash": "801fda1ad5fbfa2c698a198997324230",
     "semantic_hash": ""
   }
 }
