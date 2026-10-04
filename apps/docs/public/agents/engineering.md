@@ -1,0 +1,91 @@
+# Engineering Standards (Tier 2) | Nexload SDK
+
+Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review.
+
+**Topic:** agents
+**Canonical page:** https://gecut.github.io/nexload-sdk/agents/engineering/
+Tier 2 skills serve as the **Engineering Hands** of the ecosystem. While Tier 1 decides *what* problem to tackle, Tier 2 enforces *how* code is implemented, structured, and reviewed across TypeScript and web codebases.
+
+***
+
+## The Foundational Engineering Skills
+
+### 1. TypeScript Implementation Standard (`nexload-code`)
+
+The primary standard for writing and refactoring TypeScript.
+
+* **Core Engineering Mission**: Produces the smallest correct, reviewable TypeScript change. Enforces type narrowing at trust boundaries, explicit lifecycle ownership, minimal abstraction debt, and honest verification.
+* **When to Use**: Everyday TypeScript implementation, function refactoring, strict type modeling, boundary assertions, and local bug fixes.
+* **When NOT to Use**: Detailed React UI hooks/state; package release publishing; high-level CTO architecture approval.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-code
+```
+
+***
+
+### 2. Publishable Package Integrity (`nexload-package`)
+
+Governs packages intended for npm publication or monorepo sharing.
+
+* **Core Engineering Mission**: Enforces dual ESM/CJS compatibility, clean `package.json` `exports` subpaths, external dependency restraint, and bundle size discipline.
+* **When to Use**: Designing or refactoring packages in `packages/*`, editing package exports, managing peer dependencies, preparing releases, and diagnosing bundling issues.
+* **When NOT to Use**: Internal non-exported application code, feature styling, or database schemas.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-package
+```
+
+***
+
+### 3. React & Next.js Render Purity (`nexload-react`)
+
+Governs component architecture and lifecycle safety in React applications.
+
+* **Core Engineering Mission**: Enforces render purity, explicit state and effect ownership, Next.js Server vs. Client Component boundaries, and hydration safety.
+* **When to Use**: React component design, custom hooks architecture, eliminating effect synchronization loops, and Server Action security.
+* **When NOT to Use**: Backend microservices without React; bundler configurations; pure CSS styling.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-react
+```
+
+***
+
+### 4. Layout & Design System Preservation (`nexload-design`)
+
+Governs user interface presentation and design token systems.
+
+* **Core Engineering Mission**: Expresses visual intent through shared semantic design tokens, layout geometry, responsive constraints, RTL safety, and approved UI preservation during refactoring.
+* **When to Use**: Design tokens, CSS layout architecture, spacing systems, accessible surfaces, and UI-locked refactoring.
+* **When NOT to Use**: Component state management; backend business logic; build tooling.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-design
+```
+
+***
+
+### 5. Principal CTO Architectural Review (`nexload-cto-review`)
+
+A **reviewer-only** skill that acts as an architectural gate before merging.
+
+* **Core Engineering Mission**: Combines all foundational standards into a scored audit, approval verdict, and small set of high-leverage findings without writing code directly.
+* **When to Use**: Pre-merge pull request reviews, architectural audits, evaluating overengineering, and production-readiness signoff.
+* **When NOT to Use**: Writing code fixes directly; initial brainstorming; routine single-line formatting.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-cto-review
+```
+
+***
+
+## Standards Capability Matrix
+
+| Skill Name | CLI Identifier | Primary Engineering Focus | Boundary Rule |
+|---|---|---|---|
+| **nexload-code** | `nexload-code` | Smallest correct change, type narrowing | Delegate React/UI to sibling skills |
+| **nexload-package** | `nexload-package` | Clean dual exports, zero bundle bloat | Package boundaries only |
+| **nexload-react** | `nexload-react` | Render purity, RSC/Client boundaries | React UI layer only |
+| **nexload-design** | `nexload-design` | Semantic tokens, responsive/RTL safety | Styling and layout only |
+| **nexload-cto-review** | `nexload-cto-review` | Principal audit, approval verdicts | Reviewer only — never writes code |

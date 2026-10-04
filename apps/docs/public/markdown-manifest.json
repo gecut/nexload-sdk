@@ -1,7 +1,11 @@
 {
   "files": [
+    "agents/domain-skills.md",
+    "agents/engineering.md",
     "agents/index.md",
     "agents/install.md",
+    "agents/protocols.md",
+    "agents/reasoning.md",
     "community/support.md",
     "index.md",
     "packages/healthcheck/bun/api.md",

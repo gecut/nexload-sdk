@@ -1,0 +1,112 @@
+---
+title: "Governance & Protocols | Nexload SDK"
+description: "The 8 Inviolable Laws of the Constitution and Sparse Pointer Handoff Protocol for multi-agent workflows."
+sidebar:
+  order: 6
+topic: agents
+---
+
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../components/docs/DocLinkCard.astro";
+
+All skills in the Nexload ecosystem adhere to a shared governance constitution and communicate using standardized, token-efficient handoff protocols.
+
+---
+
+## The Inviolable Constitution
+
+The Constitution defines eight non-negotiable operational invariants across all agents and specialists:
+
+### 1. Evidence Hierarchy (Grounding Gate)
+```text
+Runtime Observation  >  Code / Config  >  Official Docs  >  Project Docs  >  Inference  >  Assumption
+```
+- **Rule**: Claims unsupported by observable evidence must be explicitly marked as `[ASSUMPTION]` or `[UNKNOWN]`.
+- **Impact**: Eliminates speculative hallucinations and aligns agent actions with empirical reality.
+
+### 2. Inspect Before Ask (Question Gate)
+- **Rule**: If an answer can be extracted from codebase files, configuration, git history, or environment variables: **inspect first**. Never prompt the human for information present in the workspace.
+- **Impact**: Maximizes developer leverage and eliminates trivial conversational interrupts.
+
+### 3. Problem Space Framing
+- **Rule**: A proposed solution (e.g. *"Add Redis"* or *"Split into microservices"*) is an implementation hypothesis, never a requirement. The underlying Jobs-to-be-Done (JTBD) capability must be isolated first.
+- **Impact**: Prevents premature architectural lock-in.
+
+### 4. Divergence Firewall
+- **Rule**: During ideation, ideas must never be suppressed by implementation difficulty or speculative cost. Divergence and convergence never execute within the same cognitive pass.
+- **Impact**: Breaks architectural fixation and produces genuine mechanism diversity before pruning.
+
+### 5. Complexity Must Pay Rent
+- **Rule**: Any introduced abstraction, layer, or state store must measurably reduce system complexity. Speculative scalability is rejected; design for **Now + 1**, never Now + 10.
+- **Impact**: Protects repositories against premature abstraction and accidental complexity.
+
+### 6. Preservation of Settled Decisions
+- **Rule**: Approved architectural decisions, closed ADRs, and established constraints are immutable unless new contradictory material evidence appears.
+- **Impact**: Eliminates regression churn and decision paralysis across agent iterations.
+
+### 7. Claim-Matched Verification
+- **Rule**: *"Builds"* !== *"Works"*. *"Configured"* !== *"Exposed"*. Every completion claim requires observable, reproducible empirical evidence (e.g. test runner output or HTTP probe responses).
+- **Impact**: Enforces rigorous proof-of-work before declaring tasks complete.
+
+### 8. Dynamic Reasoning Budget
+- **Rule**: When remaining uncertainty has zero material impact on the final action, architecture, risk, or correctness: **terminate reasoning immediately**.
+- **Impact**: Halts overthinking and saves token budget.
+
+---
+
+## Sparse Pointer Handoff Protocol
+
+When transferring context between specialists or across subagent boundaries, full conversational transcripts quickly exhaust context windows and degrade model attention. Nexload skills communicate via **Sparse Pointers**:
+
+```text
+[NEXLOAD HANDOFF]
+From: <Current Specialist>
+To: <Target Specialist>
+Context Pointer: <File path, Commit hash, or ADR reference>
+Established Facts:
+- <Confirmed empirical observation or verified invariant>
+Hard Constraints:
+- <Non-negotiable requirement or preserved boundary>
+Settled Decisions:
+- <Approved architectural choice - IMMUTABLE>
+Next Cognitive Objective:
+- <Exact question the target specialist must resolve>
+[END HANDOFF]
+```
+
+### Example: Discovery to Design Transition
+
+```text
+[NEXLOAD HANDOFF]
+From: nexload-reasoning-discovery
+To: nexload-reasoning-design
+Context Pointer: apps/web/src/app/api/health/route.ts
+Established Facts:
+- Service runs inside Kubernetes with 512MB cgroup v2 memory limit.
+- Database connection panics currently cause Kubernetes liveness probes to kill the pod.
+Hard Constraints:
+- Must not touch existing Prisma client initialization.
+- Must return HTTP 200 on /api/health even when DB is degraded (readiness check must handle DB).
+Settled Decisions:
+- Keep /api/health dedicated strictly to process liveness; separate /api/ready for database readiness.
+Next Cognitive Objective:
+- Synthesize route handler architecture with zero-cache headers and proxy protection.
+[END HANDOFF]
+```
+
+---
+
+## Next Steps
+
+<CardGrid>
+  <DocLinkCard
+    title="Overview & Mental Model"
+    href="/agents/"
+    description="Review how Tier 1, Tier 2, and Tier 3 skills compose."
+  />
+  <DocLinkCard
+    title="Setup & Quickstart"
+    href="/agents/install/"
+    description="Run the One-Shot Adoption Prompt in your repository."
+  />
+</CardGrid>

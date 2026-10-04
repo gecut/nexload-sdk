@@ -66,13 +66,13 @@ console.log(report.status); // "ok" | "degraded" | "unhealthy"
 
 ## Two Core Ecosystem Pillars
 
-### 🛡️ Observability & Health Engine
+### Observability & Health Engine
 
 Lightweight, runtime-neutral health orchestration. Multi-scope probes (`liveness`, `readiness`, `startup`, `diagnostics`), cgroup v1/v2 container limits, Next.js App Router zero-cache route handlers, Prometheus text exposition, and OpenTelemetry semantic attributes.
 
 Explore Healthcheck Core →
 
-### 📦 Payload CMS Superpowers
+### Payload CMS Superpowers
 
 Deterministic, enterprise extensions for Payload CMS 3. Managed Unicode slugs with lock protection, Jalali (Persian Solar) datepickers, minor-unit money arithmetic, declarative Lexical presets, dual Zod-to-Payload schema derivation, and type-safe RPC operations.
 

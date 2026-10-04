@@ -1,0 +1,136 @@
+# Cognitive Graph Reasoning (Tier 1) | Nexload SDK
+
+Orchestrate deep AI reasoning with the 6+1 cognitive graph: Kernel router and specialized discovery, investigation, ideation, design, evaluation, and execution skills.
+
+**Topic:** agents
+**Canonical page:** https://gecut.github.io/nexload-sdk/agents/reasoning/
+The Nexload Cognitive Graph separates six cognitively distinct jobs, orchestrated by a lightweight kernel. Rather than asking a model to "think hard" in an unstructured stream, each specialist is **standalone-capable**, possesses bounded input/output contracts, and adheres to strict operational boundaries.
+
+***
+
+## The 6+1 Cognitive Graph Topology
+
+```text
+               ┌─────────────────────────────────┐
+               │        nexload-reasoning        │
+               │   (Kernel, Router & Budget)     │
+               └────────────────┬────────────────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        ▼                       ▼                       ▼
+ ┌──────────────┐       ┌───────────────┐       ┌──────────────┐
+ │  Discovery   │       │ Investigation │       │   Ideation   │
+ │ (Scope/JTBD) │       │(Empirical Bug)│       │ (Divergence) │
+ └──────┬───────┘       └───────┬───────┘       └──────┬───────┘
+        │                       │                      │
+        └───────────────────────┼──────────────────────┘
+                                ▼
+                        ┌───────────────┐
+                        │    Design     │
+                        │(Arch/SSOT/Seam│
+                        └───────┬───────┘
+                                ▼
+                        ┌───────────────┐
+                        │  Evaluation   │
+                        │(Pareto Pruning│
+                        └───────┬───────┘
+                                ▼
+                        ┌───────────────┐
+                        │   Execution   │
+                        │(Atomic Verify)│
+                        └───────────────┘
+```
+
+***
+
+## 1. The Kernel: Router & Depth Controller
+
+### `nexload-reasoning`
+
+The cognitive kernel determines *what* reasoning is needed, at what depth, routes to specialists, and enforces stopping discipline.
+
+* **Core Mission**: Assesses task complexity (Low, Medium, High), provisions a cognitive budget, and halts reasoning immediately once remaining uncertainty has zero material impact on architecture or risk.
+* **When to Use (Positive Trigger)**: Ambiguous requests, multi-step engineering initiatives, high-consequence refactors, or recovery from implementation deadlocks.
+* **When NOT to Use (Boundary)**: Deterministic single-step edits, trivial formatting, syntax fixes, or when the request already cleanly maps to a single specialist.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning
+```
+
+***
+
+## 2. The 6 Reasoning Specialists
+
+### Discovery Specialist (`nexload-reasoning-discovery`)
+
+* **Mission**: Problem space framing. Extracts root user intent (Jobs-to-be-Done), separates requirements from solution hypotheses, locks scope (`IN`, `OUT`, `MUST-PRESERVE`), and gates user questions.
+* **Positive Trigger**: Feature requests disguised as implementation solutions (e.g. *"Add Kafka"* or *"Migrate to Microservices"*); greenfield initiatives.
+* **Negative Boundary**: Debugging known errors with existing stack traces; comparing pre-existing designs; routine coding.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning-discovery
+```
+
+### Investigation Specialist (`nexload-reasoning-investigation`)
+
+* **Mission**: Reality and causal engine. Audits empirical evidence, forms competing hypotheses ($H\_1, H\_2, \dots, H\_n$), designs decisive discriminator tests, and isolates verified root causes.
+* **Positive Trigger**: System crashes, intermittent panics, memory/CPU leaks, performance degradation, contradictory log statements.
+* **Negative Boundary**: Brainstorming new user flows; designing clean-slate schemas; planning sprint delivery.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning-investigation
+```
+
+### Ideation Specialist (`nexload-reasoning-ideation`)
+
+* **Mission**: Divergence mechanism generator. Expands solution space across control, state, and subtraction axes; breaks mental fixation via assumption inversion under the **Divergence Firewall**.
+* **Positive Trigger**: Architectural fixation; exploring novel mechanisms; generating at least 3 distinct conceptual alternatives.
+* **Negative Boundary**: Choosing between Option A and Option B; reviewing pull requests; production incident recovery.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning-ideation
+```
+
+### Design Specialist (`nexload-reasoning-design`)
+
+* **Mission**: Architectural synthesis. Synthesizes coherent system models, establishes Single Source of Truth (SSOT), deep module seams, failure path semantics (retries, timeouts, circuit breakers), and enforces complexity limit to **Now + 1**.
+* **Positive Trigger**: Structuring chosen concepts into deep modules; designing API/DB schemas; defining failure recovery behavior.
+* **Negative Boundary**: Unconstrained brainstorming; final commercial/vendor selection; writing routine implementation code.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning-design
+```
+
+### Evaluation Specialist (`nexload-reasoning-evaluation`)
+
+* **Mission**: Convergent decision engine. Performs strict Pareto pruning of dominated options, weighs material trade-offs without scoring theater, runs pre-mortem stress tests, and recommends a single actionable default.
+* **Positive Trigger**: Choosing between competing designs or libraries; high-stakes migrations; vendor selection; pre-mortem audits.
+* **Negative Boundary**: Generating more alternatives; coding solutions; collecting initial stack trace evidence.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning-evaluation
+```
+
+### Execution Specialist (`nexload-reasoning-execution`)
+
+* **Mission**: Delivery and claim verification. Decomposes atomic dependency-ordered plans, exercises controlled autonomy on routine details, proves completion with empirical evidence, and routes failures.
+* **Positive Trigger**: Implementing approved designs; executing migrations; structured refactoring plans; verifying deliverables.
+* **Negative Boundary**: Re-debating settled architecture; brainstorming features; guessing root causes of crashes.
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-reasoning-execution
+```
+
+***
+
+## Capability & Trigger Matrix
+
+| Specialist | CLI Identifier | Primary Objective | Key Output Contract |
+|---|---|---|---|
+| **Kernel** | `nexload-reasoning` | Route & Depth Control | Cognitive routing decision & stopping check |
+| **Discovery** | `nexload-reasoning-discovery` | Frame Problem Space | Bounded scope (`IN`/`OUT`/`PRESERVE`) & JTBD |
+| **Investigation** | `nexload-reasoning-investigation` | Isolate Causal Root | Discriminated hypothesis & empirical proof |
+| **Ideation** | `nexload-reasoning-ideation` | Divergent Mechanisms | 3+ distinct approaches behind firewall |
+| **Design** | `nexload-reasoning-design` | Architectural Synthesis | SSOT data flow, deep module seams, failure modes |
+| **Evaluation** | `nexload-reasoning-evaluation` | Convergent Decision | Pareto frontier & pre-mortem winner |
+| **Execution** | `nexload-reasoning-execution` | Delivery & Verification | Atomic phases, verified test claims |

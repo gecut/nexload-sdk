@@ -1,7 +1,11 @@
 
 export default new Map([
+["src/content/docs/agents/domain-skills.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fagents%2Fdomain-skills.mdx&astroContentModuleFlag=true")],
+["src/content/docs/agents/engineering.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fagents%2Fengineering.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/agents/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fagents%2Findex.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/agents/install.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fagents%2Finstall.mdx&astroContentModuleFlag=true")],
+["src/content/docs/agents/protocols.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fagents%2Fprotocols.mdx&astroContentModuleFlag=true")],
+["src/content/docs/agents/reasoning.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fagents%2Freasoning.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/community/support.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcommunity%2Fsupport.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/packages/healthcheck/bun/api.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fpackages%2Fhealthcheck%2Fbun%2Fapi.mdx&astroContentModuleFlag=true")],

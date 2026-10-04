@@ -1,160 +1,156 @@
 ---
-title: "Install Agent Skills: CLI & Quick Setup | Nexload SDK"
-description: "Install Nexload reasoning, engineering standards, and package Skills with the official skills CLI for a project, globally, or for Codex."
+title: "Agent Setup & Quickstart | Nexload SDK"
+description: "Install Nexload reasoning, engineering standards, and package Skills autonomously via One-Shot Prompt or selectively with the official skills CLI."
 sidebar:
   order: 2
 topic: agents
 ---
 
-import { Aside, FileTree, Steps } from "@astrojs/starlight/components";
+import { Aside, Card, CardGrid, Code, Steps, TabItem, Tabs } from "@astrojs/starlight/components";
+import DocLinkCard from "../../../components/docs/DocLinkCard.astro";
 import SkillInstall from "../../../components/docs/SkillInstall.astro";
 
-The repository ships validated, self-contained Skills adhering to the Agent Skills Specification v1.0. The official `skills` CLI discovers the current `skills/**/SKILL.md` files, so the list command is the source of truth instead of a hard-coded count. Each Skill keeps its core workflow in `SKILL.md` (< 400 lines), routes deeper package contracts through `references/`, and commits behavior plus trigger cases under `evals/`.
+Nexload Agent Skills can be integrated into your workspace either autonomously via our **One-Shot Project Adoption Prompt** or manually using the **official skills CLI**.
 
-<Steps>
+---
 
-1. Inspect the available Skills before installing:
+## Choose Your Setup Method
 
-   ```bash
-   npx skills add gecut/nexload-sdk --list
-   ```
+<Tabs>
+  <TabItem label="Autonomous Setup (One-Shot Prompt)">
+    Copy the prompt below and send it directly to your AI coding assistant (Cursor, Claude Code, Antigravity, Windsurf, or Codex) inside your target project workspace.
 
-2. Install reasoning skills for complex architectural and critical thinking:
+    <Aside type="tip" title="Designed for Frontier Reasoning Models">
+      This prompt is structured for high-agency models (Claude 3.7 Sonnet, GPT-4.5/o1/o3, Gemini 2.5/3 Pro). It audits your stack, installs only matching skills, non-destructively merges with existing project rules, and queries <code>skills.sh</code> for relevant community tools.
+    </Aside>
 
-   ```bash
-   # Install the Cognitive Graph Kernel
-   npx skills add gecut/nexload-sdk --skill nexload-reasoning
+```markdown
+Act as a Principal Systems Architect. Inspect this repository, selectively install matching Nexload Agent Skills ("gecut/nexload-sdk"), integrate our project AGENTS.md, and recommend relevant non-Nexload ecosystem skills via skills.sh.
 
-   # Or install a specific specialist directly (e.g. Investigation for root-cause debugging)
-   npx skills add gecut/nexload-sdk --skill nexload-reasoning-investigation
-   ```
+Execute these 5 phases autonomously:
 
-3. Install foundational engineering standards:
+### PHASE 1: STACK INFERENCE (INSPECT BEFORE ACTING)
+Audit repository configuration files (package.json, tsconfig.json, docker-compose.yml, directories, lockfiles):
+- Runtime & Engine: Node.js vs Bun | Monorepo vs Standalone.
+- Frameworks & UI: Next.js (App/Pages router), React, Tailwind, Payload CMS.
+- Reliability & Cloud: Health endpoints, Docker, Kubernetes/Dokploy probes.
+- Quality Harness: Test runner (Vitest, Jest), linters, TypeScript strictness.
 
-   ```bash
-   # Strict TypeScript and boundary narrowing
-   npx skills add gecut/nexload-sdk --skill nexload-code
+### PHASE 2: PRUNED SKILL INSTALLATION (COMPLEXITY MUST PAY RENT)
+Install ONLY skills with confirmed leverage for this stack using official CLI (`npx skills add gecut/nexload-sdk --skill <name>`):
+- Core Reasoning: `nexload-reasoning` (Always install).
+  If complex system/refactor: add `nexload-reasoning-discovery`, `nexload-reasoning-investigation`, `nexload-reasoning-ideation`, `nexload-reasoning-design`, `nexload-reasoning-evaluation`, `nexload-reasoning-execution`.
+- TypeScript / Library: `nexload-code` (If TS codebase) | `nexload-package` + `nexload-cto-review` (If publishing npm package/monorepo).
+- React / Next.js: `nexload-react` + `nexload-design`.
+- Reliability / Probes: `healthcheck-core` + runtime adapter (`healthcheck-nextjs-routes`, `healthcheck-node`, or `healthcheck-bun`).
+- Payload CMS: `payload-fields-core` + (`payload-editor-core`, `payload-schema-use`, or `payload-operations-core` as needed).
 
-   # Publishable package integrity
-   npx skills add gecut/nexload-sdk --skill nexload-package
+### PHASE 3: NON-DESTRUCTIVE AGENTS.MD BINDING
+Create or append to root `AGENTS.md` (never erase existing project conventions):
+1. Embed The Inviolable Constitution:
+   - Grounding: Runtime > Code > Official Docs > Inferences > Assumptions.
+   - Inspect Before Ask: Zero queries for data present in codebase.
+   - Problem Space: Feature requests are hypotheses, not constraints.
+   - Divergence Firewall: Ideation never self-censors on implementation difficulty.
+   - Complexity Rent: Reject speculative scalability; build for Now + 1.
+   - Immutability: Never reopen settled ADRs without material contradictory evidence.
+   - Verification: "Builds" !== "Works". Claim requires empirical test evidence.
+   - Budget: Terminate reasoning when residual uncertainty has zero design impact.
+2. Bind explicit triggers for installed skills and define Sparse Handoff (`[NEXLOAD HANDOFF]`).
+3. Record exact repo build/lint/test commands.
 
-   # Reviewer-only CTO architectural judgment
-   npx skills add gecut/nexload-sdk --skill nexload-cto-review
-   ```
+### PHASE 4: VERIFICATION & AUDIT
+Verify installed skill files in `.agents/skills/`. Report:
+- Installed skills and precise leverage rationale.
+- Intentionally pruned/skipped skills.
+- Summary of additions to AGENTS.md.
 
-4. Install package-specific operational skills:
+### PHASE 5: ECOSYSTEM RECONNAISSANCE (SKILLS.SH NON-NEXLOAD SKILLS)
+Query `skills.sh` via `npx skills find <stack-keyword>` or web search for non-Nexload community skills matching this stack (e.g., Tailwind, Prisma, Drizzle, Better Auth, Supabase, Vitest, Playwright, Zod, Git):
+- Audit top packages matching detected technologies.
+- Provide a curated recommendations table: Skill Name, Source (`owner/repo@skill`), Install Command (`npx skills add <source>`), and Target Leverage.
+- Ask user confirmation before installing any external skills.
+```
 
-   ```bash
-   # Healthcheck core or route handlers
-   npx skills add gecut/nexload-sdk --skill healthcheck-core
-   npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
+  </TabItem>
 
-   # Payload CMS fields or operations
-   npx skills add gecut/nexload-sdk --skill payload-fields-core
-   npx skills add gecut/nexload-sdk --skill payload-operations-core
-   ```
+  <TabItem label="Manual CLI Installation">
+    Install skills individually into your project using the official `skills` CLI.
 
-5. Update installed Skills when you intentionally want newer guidance:
+    <Steps>
+    1. Inspect all available skills directly from GitHub:
+       ```bash
+       npx skills add gecut/nexload-sdk --list
+       ```
 
-   ```bash
-   npx skills update
-   ```
+    2. Install the cognitive reasoning kernel:
+       ```bash
+       npx skills add gecut/nexload-sdk --skill nexload-reasoning
+       ```
 
-</Steps>
+    3. Install foundational engineering standards:
+       ```bash
+       npx skills add gecut/nexload-sdk --skill nexload-code
+       ```
 
-## Example: Cognitive Reasoning Kernel
+    4. Install domain-specific packages as needed:
+       ```bash
+       # Next.js Health Routes
+       npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
 
-<SkillInstall skill="nexload-reasoning" />
+       # Payload CMS Fields
+       npx skills add gecut/nexload-sdk --skill payload-fields-core
+       ```
 
-## Source layout
+    5. Keep skills updated over time:
+       ```bash
+       npx skills update
+       ```
+    </Steps>
 
-<FileTree>
+    ### Agent Target Scopes
 
-- skills
-  - nexload-reasoning
-    - nexload-reasoning
-      - SKILL.md
-      - references
-        - routing-matrix.md
-        - depth-heuristics.md
-        - anti-patterns.md
-      - evals
-        - evals.json
-    - nexload-reasoning-discovery
-      - SKILL.md
-      - references
-      - evals
-    - nexload-reasoning-investigation
-      - SKILL.md
-      - references
-      - evals
-    - nexload-reasoning-ideation
-      - SKILL.md
-      - references
-      - evals
-    - nexload-reasoning-design
-      - SKILL.md
-      - references
-      - evals
-    - nexload-reasoning-evaluation
-      - SKILL.md
-      - references
-      - evals
-    - nexload-reasoning-execution
-      - SKILL.md
-      - references
-      - evals
-  - nexload
-    - code
-      - SKILL.md
-      - references
-      - evals
-    - package
-      - SKILL.md
-      - references
-      - evals
-    - react
-      - SKILL.md
-      - references
-      - evals
-    - design
-      - SKILL.md
-      - references
-      - evals
-    - cto-review
-      - SKILL.md
-      - references
-      - evals
-  - healthcheck
-    - nextjs-routes
-      - SKILL.md
-      - references
-      - evals
-  - payload-fields
-    - money
-      - SKILL.md
-      - references
-      - evals
-  - payload-editor
-    - core
-      - SKILL.md
-      - references
-      - evals
-  - payload-schema
-    - use
-      - SKILL.md
-      - references
-      - evals
-  - payload-operations
-    - core
-      - SKILL.md
-      - references
-      - evals
+    <SkillInstall skill="nexload-reasoning" />
+  </TabItem>
+</Tabs>
 
-</FileTree>
+---
 
-<Aside type="caution" title="Review before broad installation">
-  `--all` can install every Skill for every detected agent. Prefer a specific
-  Skill or the interactive command unless the repository is intentionally your
-  shared agent baseline. Use the <strong>One-Shot Project Adoption Prompt</strong> on the <a href="/nexload-sdk/agents/">Agent Skills overview page</a> to let an agent install only the skills that pay rent.
-</Aside>
+## Quick Stack Recipes
+
+To avoid installing unneeded skills, use these battle-tested combinations:
+
+| Project Type | Recommended Core Skills | Why This Combination Works |
+|---|---|---|
+| **Next.js Full-Stack App** | `nexload-reasoning`<br/>`nexload-code`<br/>`nexload-react`<br/>`nexload-design`<br/>`healthcheck-nextjs-routes` | Combines structured reasoning with strict React render purity, semantic tokens, and zero-cache health endpoints for Kubernetes or Dokploy. |
+| **Node.js / Bun Microservice** | `nexload-reasoning`<br/>`nexload-code`<br/>`healthcheck-core`<br/>`healthcheck-node` (or `bun`) | Ensures boundary narrowing, monitors Linux cgroup resource limits, and prevents container OOM restarts. |
+| **TypeScript Library / Monorepo** | `nexload-reasoning`<br/>`nexload-code`<br/>`nexload-package`<br/>`nexload-cto-review` | Enforces dual CJS/ESM exports, minimal dependencies, bundle discipline, and principal reviewer-only signoff. |
+| **Payload CMS Enterprise App** | `nexload-reasoning`<br/>`nexload-code`<br/>`payload-fields-core`<br/>`payload-editor-core`<br/>`payload-schema-use` | Enforces atomic field validation, deterministic rich-text presets, and single-source-of-truth Zod schema derivation. |
+| **Complex Refactor / Migration** | `nexload-reasoning`<br/>`nexload-reasoning-discovery`<br/>`nexload-reasoning-design`<br/>`nexload-reasoning-evaluation`<br/>`nexload-reasoning-execution` | Full 6+1 cognitive graph pipeline to frame scope, design boundaries, stress-test trade-offs, and verify atomic delivery. |
+
+---
+
+## Next Steps
+
+<CardGrid>
+  <DocLinkCard
+    title="Cognitive Graph (Tier 1)"
+    href="/agents/reasoning/"
+    description="Discover the 6+1 reasoning ecosystem: router, discovery, investigation, and design."
+  />
+  <DocLinkCard
+    title="Engineering Standards (Tier 2)"
+    href="/agents/engineering/"
+    description="Inspect rules for TypeScript boundary narrowing, React purity, and package releases."
+  />
+  <DocLinkCard
+    title="Domain Specialists (Tier 3)"
+    href="/agents/domain-skills/"
+    description="Browse specialized skills for @nexload-sdk/healthcheck and Payload CMS."
+  />
+  <DocLinkCard
+    title="Governance & Protocols"
+    href="/agents/protocols/"
+    description="Read the 8 inviolable laws of the Constitution and Sparse Pointer Handoff specifications."
+  />
+</CardGrid>

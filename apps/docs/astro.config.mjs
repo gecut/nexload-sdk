@@ -145,7 +145,7 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "🚀 Getting Started",
+          label: "Getting Started",
           items: [
             { label: "Introduction", slug: "start/introduction" },
             { label: "Choose a Package", slug: "start/choose-a-package" },
@@ -155,7 +155,7 @@ export default defineConfig({
           ],
         },
         {
-          label: "🛡️ Healthcheck & Observability",
+          label: "Healthcheck & Observability",
           items: [
             packageSidebar("Healthcheck Core", "packages/healthcheck/core"),
             packageSidebar("Node Probes", "packages/healthcheck/node"),
@@ -176,7 +176,7 @@ export default defineConfig({
           ],
         },
         {
-          label: "📦 Payload CMS Extensions",
+          label: "Payload CMS Extensions",
           items: [
             packageSidebar("Payload Fields", "packages/payload-fields"),
             packageSidebar("Payload Editor", "packages/payload-editor"),
@@ -185,10 +185,14 @@ export default defineConfig({
           ],
         },
         {
-          label: "🤖 AI Coding Skills (Agents)",
+          label: "AI Coding Skills",
           items: [
-            { label: "Agent Skills Ecosystem", slug: "agents" },
-            { label: "Installation & Setup", slug: "agents/install" },
+            { label: "Overview", slug: "agents" },
+            { label: "Quickstart & Setup", slug: "agents/install" },
+            { label: "Cognitive Graph (Tier 1)", slug: "agents/reasoning" },
+            { label: "Engineering Standards (Tier 2)", slug: "agents/engineering" },
+            { label: "Domain Specialists (Tier 3)", slug: "agents/domain-skills" },
+            { label: "Governance & Protocols", slug: "agents/protocols" },
           ],
         },
         {

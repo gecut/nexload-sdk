@@ -2,8 +2,12 @@
 
 Current-version documentation for 11 released Healthcheck and Payload CMS packages.
 
-- [AI Agent Skills: Supercharge Coding Assistants | Nexload SDK](/agents/) — Equip Cursor, Claude Code, Antigravity, and Codex with automated knowledge of Nexload SDK standards, preventing hallucinations and ensuring zero-shot compliance. [topic: agents]
-- [Install Agent Skills: CLI & Quick Setup | Nexload SDK](/agents/install.md) — Install Nexload reasoning, engineering standards, and package Skills with the official skills CLI for a project, globally, or for Codex. [topic: agents]
+- [Domain Specialists (Tier 3) | Nexload SDK](/agents/domain-skills.md) — Production package skills for Healthcheck observability and Payload CMS enterprise suites. [topic: agents]
+- [Engineering Standards (Tier 2) | Nexload SDK](/agents/engineering.md) — Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review. [topic: agents]
+- [AI Agent Skills: Overview & Mental Model | Nexload SDK](/agents/) — Equip Cursor, Claude Code, Antigravity, and Codex with automated knowledge of Nexload SDK standards, preventing hallucinations and ensuring zero-shot compliance. [topic: agents]
+- [Agent Setup & Quickstart | Nexload SDK](/agents/install.md) — Install Nexload reasoning, engineering standards, and package Skills autonomously via One-Shot Prompt or selectively with the official skills CLI. [topic: agents]
+- [Governance & Protocols | Nexload SDK](/agents/protocols.md) — The 8 Inviolable Laws of the Constitution and Sparse Pointer Handoff Protocol for multi-agent workflows. [topic: agents]
+- [Cognitive Graph Reasoning (Tier 1) | Nexload SDK](/agents/reasoning.md) — Orchestrate deep AI reasoning with the 6+1 cognitive graph: Kernel router and specialized discovery, investigation, ideation, design, evaluation, and execution skills. [topic: agents]
 - [Support and contribution](/community/support.md) — Use GitHub Issues for Nexload SDK bug reports, documentation corrections, and feature requests. [topic: community]
 - [Nexload SDK: Service Observability & Payload CMS Superpowers](/) — Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers. Modular, independently installable packages. [topic: ecosystem]
 - [API Reference & Compatibility](/packages/healthcheck/bun/api.md) — Public API symbol reference and runtime compatibility matrix for Healthcheck Bun. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: api]

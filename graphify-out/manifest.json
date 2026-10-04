@@ -18,8 +18,8 @@
     "semantic_hash": "1493c10929e50690e30a0fb286672608"
   },
   "apps/docs/.astro/collections/docs.schema.json": {
-    "mtime": 1791025316.289141,
-    "seen": 1791025342.908297,
+    "mtime": 1791105049.8842473,
+    "seen": 1791105090.7310321,
     "ast_hash": "40d98bc9ca6e392fc893cf5bbadea29a",
     "semantic_hash": ""
   },
@@ -30,27 +30,27 @@
     "semantic_hash": "8aeea624d36ca2b4c7d0e0748b76ba28"
   },
   "apps/docs/.astro/content-modules.mjs": {
-    "mtime": 1791023735.658753,
-    "seen": 1791023819.705117,
-    "ast_hash": "e6a87fe0d1c58f9988089b36fbfc6d28",
+    "mtime": 1791104983.1199727,
+    "seen": 1791105090.731033,
+    "ast_hash": "a75ac7bf71633d0f80b9ff990535f409",
     "semantic_hash": ""
   },
   "apps/docs/.astro/content.d.ts": {
-    "mtime": 1791025316.3081875,
-    "seen": 1791025342.908299,
+    "mtime": 1791105049.902996,
+    "seen": 1791105090.731034,
     "ast_hash": "f9e491c33ee04e4ea2d245263c4ae3bb",
     "semantic_hash": "f9e491c33ee04e4ea2d245263c4ae3bb"
   },
   "apps/docs/.astro/types.d.ts": {
-    "mtime": 1791025316.308316,
-    "seen": 1791025342.908301,
+    "mtime": 1791105049.9032218,
+    "seen": 1791105090.731036,
     "ast_hash": "f3d48b2aa569815a445d3509aa161559",
     "semantic_hash": "f3d48b2aa569815a445d3509aa161559"
   },
   "apps/docs/astro.config.mjs": {
-    "mtime": 1791023702.389768,
-    "seen": 1791023819.70512,
-    "ast_hash": "a0184c9e67593b5f8694d37b263b61bf",
+    "mtime": 1791104858.086126,
+    "seen": 1791105090.731037,
+    "ast_hash": "e5a72fa298c5f69f0d9a791d9450aff1",
     "semantic_hash": ""
   },
   "apps/docs/examples/healthcheck-bun.ts": {
@@ -1422,21 +1422,21 @@
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/agents/index.mdx": {
-    "mtime": 1791023472.066334,
-    "seen": 1791023819.705336,
-    "ast_hash": "8444e134f9292e0ddeb7d33a7f584f6a",
+    "mtime": 1791104886.1968262,
+    "seen": 1791105090.7312782,
+    "ast_hash": "ed377591bac680d46fd3517a1b4fb16b",
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/agents/install.mdx": {
-    "mtime": 1791023492.72749,
-    "seen": 1791023819.705337,
-    "ast_hash": "8bc687d780246abc45257dab6a887f12",
+    "mtime": 1791105034.0150924,
+    "seen": 1791105090.7312782,
+    "ast_hash": "8e2f99264d076bbad05654b7b3664048",
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/index.mdx": {
-    "mtime": 1791023444.701751,
-    "seen": 1791023819.705338,
-    "ast_hash": "c3884c41f7603b44b301ee8bca735a54",
+    "mtime": 1791104866.4934676,
+    "seen": 1791105090.7312808,
+    "ast_hash": "82867000fa3645ff0a668378e65f4a14",
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/packages/healthcheck/bun/api.mdx": {
@@ -3018,8 +3018,8 @@
     "semantic_hash": ""
   },
   "apps/docs/src/generated/api-catalog.json": {
-    "mtime": 1791025308.7549596,
-    "seen": 1791025342.908322,
+    "mtime": 1791105042.6376214,
+    "seen": 1791105090.731057,
     "ast_hash": "8c3b5d6ade6194e77e5f6a400faea075",
     "semantic_hash": ""
   },
@@ -3939,6 +3939,30 @@
     "mtime": 1791102921.5534794,
     "seen": 1791103523.928666,
     "ast_hash": "801fda1ad5fbfa2c698a198997324230",
+    "semantic_hash": ""
+  },
+  "apps/docs/src/content/docs/agents/domain-skills.mdx": {
+    "mtime": 1791104998.1843479,
+    "seen": 1791105090.731276,
+    "ast_hash": "1eaa5ab17ddb82f3ab064e8cb6af7108",
+    "semantic_hash": ""
+  },
+  "apps/docs/src/content/docs/agents/engineering.mdx": {
+    "mtime": 1791104935.6571403,
+    "seen": 1791105090.731277,
+    "ast_hash": "917465d0369b726295fe020107b24518",
+    "semantic_hash": ""
+  },
+  "apps/docs/src/content/docs/agents/protocols.mdx": {
+    "mtime": 1791104970.7435825,
+    "seen": 1791105090.7312791,
+    "ast_hash": "a1e1b700215735a0fb123022d1fd0168",
+    "semantic_hash": ""
+  },
+  "apps/docs/src/content/docs/agents/reasoning.mdx": {
+    "mtime": 1791104923.1322372,
+    "seen": 1791105090.7312791,
+    "ast_hash": "78754b5300c4f5d9ffe26382ee4e38f9",
     "semantic_hash": ""
   }
 }
