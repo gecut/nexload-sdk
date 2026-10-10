@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/eslint-config",
-  "version": "4.0.1",
+  "version": "9.39.2",
   "description": "Shared authoritative ESLint configurations for the Nexload SDK monorepo",
   "license": "MIT",
   "type": "module",

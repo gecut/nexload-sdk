@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/typescript-config",
-  "version": "4.0.1",
+  "version": "5.9.3",
   "description": "Shared TypeScript configurations for the Nexload SDK monorepo",
   "license": "MIT",
   "files": [
