@@ -13,6 +13,7 @@ This document outlines the specialized engineering standards and gatekeeping ski
 | **`nexload-package`** | Package & Module Architecture | Enforces clean package boundaries, explicit `package.json` exports, dependency direction, and prevention of cyclical or hidden coupling. |
 | **`nexload-react`** | React Render Safety & Lifecycle | Enforces React 19 rules, hook dependencies, prevention of unnecessary re-renders, and proper Server Component / Client Component boundaries. |
 | **`nexload-design`** | Visual Design Systems & Layout | Enforces design system consistency, layout tokens, responsive design, Solar Icons, and typography rules. |
+| **`nexload-design-context`** | Pre-design Context | Compiles source-grounded product, brand, experience and page contracts into validated JSON; no UI design or implementation. |
 
 ---
 
@@ -52,3 +53,7 @@ This document outlines the specialized engineering standards and gatekeeping ski
   2. Never synchronize props to state unless implementing an intentional reset pattern.
   3. Stable callback references with `useCallback` when passed to memoized children.
   4. Strict adherence to React 19 concurrent features.
+
+### Pre-design context compilation
+
+Use [nexload-design-context](../../skills/nexload/design-context/SKILL.md) before handing a project or scoped flow to a separate design agent. It produces `.design-context/` with sources, claims, observed codebase, brief, brand, experience, layered IA, page contracts, semantic tokens, assets, unknowns and a handoff index. Its bundled JSON Schema validator checks integrity and computes ready/conditional/blocked separately from structural validity. It requires Python 3.10+ and the pinned validator dependency; it does not implement UI or select components. See the skill references for authority, provenance, repeat invocation and validation limits.

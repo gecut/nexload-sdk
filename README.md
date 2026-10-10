@@ -50,7 +50,7 @@ Payload CRUD or the other packages.
 This repository distributes production-grade, progressively disclosed [Agent Skills](https://gecut.github.io/nexload-sdk/agents/) compliant with the Agent Skills Specification v1.0.
 
 - **The 6+1 Cognitive Graph (`nexload-reasoning-*`):** Kernel router, depth controller, and 6 standalone-capable specialists (Discovery, Investigation, Ideation, Design, Evaluation, Execution) enforcing evidence-first reasoning and the Divergence Firewall.
-- **Engineering Standards (`nexload-*`):** Core standards for TypeScript precision (`nexload-code`), package boundaries (`nexload-package`), React render safety (`nexload-react`), visual systems (`nexload-design`), and principal architecture reviews (`nexload-cto-review`).
+- **Engineering Standards (`nexload-*`):** Core standards for TypeScript precision (`nexload-code`), package boundaries (`nexload-package`), React render safety (`nexload-react`), visual systems (`nexload-design`), pre-design context compilation ([`nexload-design-context`](skills/nexload/design-context/SKILL.md)), and principal architecture reviews (`nexload-cto-review`).
 - **Domain Specialists:** Operational skills for Healthcheck reliability and Payload CMS enterprise development.
 
 Install skills directly into any project using the official CLI:

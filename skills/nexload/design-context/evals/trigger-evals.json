@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Before designing our Persian SaaS onboarding, compile repository product, brand, route, state, and preservation context into a grounded handoff.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build a pre-design context package from our ecommerce docs and source; keep toman variant prices and existing checkout rules. No UI yet.",
+    "should_trigger": true
+  },
+  {
+    "query": "We have only an approved product brief and no code. Prepare design context with unknown brand and proposed information architecture clearly labeled.",
+    "should_trigger": true
+  },
+  {
+    "query": "The old return code disagrees with a newer approved policy. Compile intended versus current behavior before a designer starts.",
+    "should_trigger": true
+  },
+  {
+    "query": "Prepare password-reset-only design context and list everything outside that flow the redesign must preserve.",
+    "should_trigger": true
+  },
+  {
+    "query": "Tell the designer what this app does, its user roles, routes, states, assets, and constraints by examining the repo before any mockups.",
+    "should_trigger": true
+  },
+  {
+    "query": "Refresh the existing .design-context package: source docs changed and the prior manifest may be stale or malformed. Preserve provenance.",
+    "should_trigger": true
+  },
+  {
+    "query": "Compile a source-backed design brief from brand guidelines, product requirements, and code; record conflicts and missing runtime evidence.",
+    "should_trigger": true
+  },
+  {
+    "query": "Use nexload-design-context to inventory our product context and produce an auditable handoff, without implementing screens.",
+    "should_trigger": true
+  },
+  {
+    "query": "Our request is vague but docs are rich: extract the product purpose and design constraints, keep unapproved roadmap ideas separate, and prepare context.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build the approved checkout mockup as responsive React components now; the brief and tokens are already settled.",
+    "should_trigger": false
+  },
+  {
+    "query": "Fix a race condition in the product-search useEffect and add a regression test.",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a new teal and coral brand identity, logo, and eleven-page brand book for our launch.",
+    "should_trigger": false
+  },
+  {
+    "query": "Audit this screenshot for contrast, hierarchy, spacing, and mobile usability.",
+    "should_trigger": false
+  },
+  {
+    "query": "Refactor duplicate CSS values into semantic tokens while preserving the approved screenshot.",
+    "should_trigger": false
+  },
+  {
+    "query": "Configure Next.js caching and image optimization for faster catalog LCP.",
+    "should_trigger": false
+  },
+  {
+    "query": "Generate three visual mockup alternatives for this dashboard from the selected reference image.",
+    "should_trigger": false
+  },
+  {
+    "query": "Implement the specified Figma motion with reduced-motion behavior and keyboard focus handling.",
+    "should_trigger": false
+  },
+  {
+    "query": "Publish our SDK package using Changesets and update the release changelog.",
+    "should_trigger": false
+  },
+  {
+    "query": "Translate this supplied product description into Persian; do not inspect the repository or create artifacts.",
+    "should_trigger": false
+  }
+]

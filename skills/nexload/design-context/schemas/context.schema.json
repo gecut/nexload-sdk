@@ -1,0 +1,2968 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nexload Design Context 1.0.0",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/manifest"
+    },
+    {
+      "$ref": "#/$defs/sources"
+    },
+    {
+      "$ref": "#/$defs/claims"
+    },
+    {
+      "$ref": "#/$defs/brief"
+    },
+    {
+      "$ref": "#/$defs/brand"
+    },
+    {
+      "$ref": "#/$defs/experience"
+    },
+    {
+      "$ref": "#/$defs/information-architecture"
+    },
+    {
+      "$ref": "#/$defs/tokens"
+    },
+    {
+      "$ref": "#/$defs/assets"
+    },
+    {
+      "$ref": "#/$defs/unknowns"
+    },
+    {
+      "$ref": "#/$defs/page"
+    },
+    {
+      "$ref": "#/$defs/handoff"
+    },
+    {
+      "$ref": "#/$defs/codebase"
+    }
+  ],
+  "$defs": {
+    "claimId": {
+      "type": "string",
+      "pattern": "^c-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "evidenceId": {
+      "type": "string",
+      "pattern": "^e-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^s-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "pageId": {
+      "type": "string",
+      "pattern": "^p-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "assetId": {
+      "type": "string",
+      "pattern": "^a-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "unknownId": {
+      "type": "string",
+      "pattern": "^u-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 128
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "status": {
+          "enum": [
+            "covered",
+            "not-applicable",
+            "unknown"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unknownId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "topic",
+        "status",
+        "reason",
+        "evidenceIds",
+        "unknownId"
+      ],
+      "additionalProperties": false
+    },
+    "route": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^/[^\\s?#]*$",
+          "maxLength": 1000
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stateName": {
+      "enum": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "partial",
+        "success",
+        "disabled",
+        "unauthorized",
+        "forbidden",
+        "offline",
+        "validation",
+        "destructive-confirmation",
+        "hover",
+        "focus",
+        "active"
+      ]
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/stateName"
+        },
+        "condition": {
+          "$ref": "#/$defs/claimId"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "name",
+        "condition",
+        "requirements"
+      ],
+      "additionalProperties": false
+    },
+    "section": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^sec-[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "maxLength": 128
+        },
+        "semanticRole": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "purpose": {
+          "$ref": "#/$defs/claimId"
+        },
+        "contentIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^sec-[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 128
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "semanticRole",
+        "purpose",
+        "contentIds",
+        "priority",
+        "dependencies"
+      ],
+      "additionalProperties": false
+    },
+    "iaNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ia-[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "maxLength": 128
+        },
+        "pageId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pageId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "route": {
+          "$ref": "#/$defs/route"
+        },
+        "contextKey": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "layer": {
+          "enum": [
+            "observed",
+            "required",
+            "recommended"
+          ]
+        },
+        "purpose": {
+          "$ref": "#/$defs/claimId"
+        },
+        "audience": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "entryConditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "parentId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^ia-[a-z0-9]+(?:-[a-z0-9]+)*$",
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "navigationIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ia-[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 128
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "contentHierarchy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "primaryTask": {
+          "$ref": "#/$defs/claimId"
+        },
+        "secondaryTasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "dataNeeds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ia-[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 128
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "duplicateRouteReason": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/claimId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "pageId",
+        "route",
+        "contextKey",
+        "layer",
+        "purpose",
+        "audience",
+        "entryConditions",
+        "parentId",
+        "navigationIds",
+        "contentHierarchy",
+        "primaryTask",
+        "secondaryTasks",
+        "dataNeeds",
+        "transitions",
+        "duplicateRouteReason"
+      ],
+      "additionalProperties": false
+    },
+    "conflict": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^x-[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "maxLength": 128
+        },
+        "domain": {
+          "enum": [
+            "business",
+            "behavior",
+            "brand",
+            "content",
+            "technical",
+            "accessibility"
+          ]
+        },
+        "claimIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 2,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "resolution": {
+          "enum": [
+            "authority",
+            "unresolved",
+            "intentional-change"
+          ]
+        },
+        "winnerClaimId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/claimId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceId"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "domain",
+        "claimIds",
+        "resolution",
+        "winnerClaimId",
+        "reason",
+        "evidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "unknown": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/unknownId"
+        },
+        "topic": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "classification": {
+          "enum": [
+            "blocking",
+            "important",
+            "nonBlocking",
+            "safeToInfer",
+            "requiresHumanDecision"
+          ]
+        },
+        "status": {
+          "enum": [
+            "open",
+            "inferred",
+            "resolved"
+          ]
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "pageIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pageId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "claimIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "nextAction": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "topic",
+        "question",
+        "classification",
+        "status",
+        "impact",
+        "pageIds",
+        "evidenceIds",
+        "claimIds",
+        "nextAction",
+        "sourceIds"
+      ],
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "runId": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "scopeKey": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "requestEvidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceId"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "sourceRoots": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S",
+            "maxLength": 200000
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "codebaseExists": {
+          "type": "boolean"
+        },
+        "pageIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pageId"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S",
+            "maxLength": 200000
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 13
+              },
+              "outcome": {
+                "enum": [
+                  "complete",
+                  "not-applicable",
+                  "unavailable"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/evidenceId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "number",
+              "outcome",
+              "reason",
+              "evidenceIds"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 14,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "changeSummary": {
+          "type": "object",
+          "properties": {
+            "addedPageIds": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/pageId"
+              },
+              "minItems": 0,
+              "maxItems": 10000,
+              "uniqueItems": true
+            },
+            "removedPageIds": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/pageId"
+              },
+              "minItems": 0,
+              "maxItems": 10000,
+              "uniqueItems": true
+            },
+            "invalidatedClaims": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/claimId"
+              },
+              "minItems": 0,
+              "maxItems": 10000,
+              "uniqueItems": true
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "minItems": 0,
+              "maxItems": 10000,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "addedPageIds",
+            "removedPageIds",
+            "invalidatedClaims",
+            "notes"
+          ],
+          "additionalProperties": false
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "runId",
+        "scopeKey",
+        "requestEvidenceIds",
+        "sourceRoots",
+        "codebaseExists",
+        "pageIds",
+        "artifacts",
+        "phases",
+        "changeSummary",
+        "coverage"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/sourceId"
+              },
+              "type": {
+                "enum": [
+                  "user-request",
+                  "document",
+                  "source-code",
+                  "runtime",
+                  "figma",
+                  "screenshot",
+                  "image",
+                  "brand-asset",
+                  "design-token",
+                  "website",
+                  "reference",
+                  "inference",
+                  "previous-context"
+                ]
+              },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "local",
+                      "context",
+                      "remote",
+                      "inference"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S",
+                    "maxLength": 200000
+                  }
+                },
+                "required": [
+                  "kind",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "authority": {
+                "type": "object",
+                "properties": {
+                  "business": {
+                    "enum": [
+                      "explicit",
+                      "official",
+                      "primary",
+                      "supporting",
+                      "legacy",
+                      "none"
+                    ]
+                  },
+                  "behavior": {
+                    "enum": [
+                      "explicit",
+                      "official",
+                      "primary",
+                      "supporting",
+                      "legacy",
+                      "none"
+                    ]
+                  },
+                  "brand": {
+                    "enum": [
+                      "explicit",
+                      "official",
+                      "primary",
+                      "supporting",
+                      "legacy",
+                      "none"
+                    ]
+                  },
+                  "content": {
+                    "enum": [
+                      "explicit",
+                      "official",
+                      "primary",
+                      "supporting",
+                      "legacy",
+                      "none"
+                    ]
+                  },
+                  "technical": {
+                    "enum": [
+                      "explicit",
+                      "official",
+                      "primary",
+                      "supporting",
+                      "legacy",
+                      "none"
+                    ]
+                  },
+                  "accessibility": {
+                    "enum": [
+                      "explicit",
+                      "official",
+                      "primary",
+                      "supporting",
+                      "legacy",
+                      "none"
+                    ]
+                  }
+                },
+                "required": [
+                  "business",
+                  "behavior",
+                  "brand",
+                  "content",
+                  "technical",
+                  "accessibility"
+                ],
+                "additionalProperties": false
+              },
+              "scope": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S",
+                  "maxLength": 200000
+                },
+                "minItems": 1,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "status": {
+                "enum": [
+                  "current",
+                  "historical",
+                  "stale",
+                  "unavailable",
+                  "unknown"
+                ]
+              },
+              "inspection": {
+                "enum": [
+                  "inspected",
+                  "unavailable"
+                ]
+              },
+              "observedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "fingerprint": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "notes": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "location",
+              "authority",
+              "scope",
+              "status",
+              "inspection",
+              "observedAt",
+              "fingerprint",
+              "notes"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/evidenceId"
+              },
+              "sourceId": {
+                "$ref": "#/$defs/sourceId"
+              },
+              "locator": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "excerpt": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "modality": {
+                "enum": [
+                  "text",
+                  "visual",
+                  "runtime",
+                  "metadata"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "sourceId",
+              "locator",
+              "excerpt",
+              "modality"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "sources",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/claimId"
+              },
+              "key": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+              },
+              "domain": {
+                "enum": [
+                  "business",
+                  "behavior",
+                  "brand",
+                  "content",
+                  "technical",
+                  "accessibility"
+                ]
+              },
+              "kind": {
+                "enum": [
+                  "fact",
+                  "requirement",
+                  "assumption",
+                  "decision"
+                ]
+              },
+              "view": {
+                "enum": [
+                  "observed",
+                  "required",
+                  "recommended"
+                ]
+              },
+              "disposition": {
+                "enum": [
+                  "canonical",
+                  "superseded",
+                  "unresolved"
+                ]
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/evidenceId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "basisIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "confidence": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "changePolicy": {
+                "enum": [
+                  "locked",
+                  "preserve",
+                  "open"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "key",
+              "domain",
+              "kind",
+              "view",
+              "disposition",
+              "value",
+              "evidenceIds",
+              "basisIds",
+              "reason",
+              "confidence",
+              "changePolicy"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "claims"
+      ],
+      "additionalProperties": false
+    },
+    "brief": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/claimId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "product": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/claimId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "problem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "jobsToBeDone": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "businessGoals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "userGoals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "primaryActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "secondaryActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "requiredCapabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "requiredContent": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "businessRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "responsiveRequirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "accessibility": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "technicalConstraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "explicitRequirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "explicitExclusions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "subject",
+        "product",
+        "scope",
+        "problem",
+        "users",
+        "jobsToBeDone",
+        "businessGoals",
+        "userGoals",
+        "primaryActions",
+        "secondaryActions",
+        "requiredCapabilities",
+        "requiredContent",
+        "businessRules",
+        "roles",
+        "permissions",
+        "constraints",
+        "platforms",
+        "responsiveRequirements",
+        "accessibility",
+        "technicalConstraints",
+        "explicitRequirements",
+        "explicitExclusions",
+        "assumptions",
+        "unknownIds"
+      ],
+      "additionalProperties": false
+    },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "state": {
+          "enum": [
+            "established",
+            "partial",
+            "implicit",
+            "absent",
+            "conflicted"
+          ]
+        },
+        "stateEvidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "identity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "positioning": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "personality": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "voice": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "tone": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "visualDirection": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "colorStrategy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "typographyDirection": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "imagery": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "iconography": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "illustration": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "logoUsage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "layoutPrinciples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "density": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "shapeLanguage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "surfaceLanguage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "motionDirection": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "signatureCharacteristics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "restraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "avoid": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "antiPatterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "state",
+        "stateEvidenceIds",
+        "identity",
+        "positioning",
+        "personality",
+        "voice",
+        "tone",
+        "values",
+        "visualDirection",
+        "colorStrategy",
+        "typographyDirection",
+        "imagery",
+        "iconography",
+        "illustration",
+        "logoUsage",
+        "layoutPrinciples",
+        "density",
+        "shapeLanguage",
+        "surfaceLanguage",
+        "motionDirection",
+        "signatureCharacteristics",
+        "restraints",
+        "avoid",
+        "antiPatterns",
+        "unknownIds"
+      ],
+      "additionalProperties": false
+    },
+    "experience": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "personas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "jobsToBeDone": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "entryPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "decisionPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "navigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "contentHierarchy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "interactionPrinciples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "feedback": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "systemStates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "responsiveBehavior": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "accessibilityBehavior": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "criticalEdgeCases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "journeys": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^j-[a-z0-9]+(?:-[a-z0-9]+)*$",
+                "maxLength": 128
+              },
+              "kind": {
+                "enum": [
+                  "primary",
+                  "secondary"
+                ]
+              },
+              "purpose": {
+                "$ref": "#/$defs/claimId"
+              },
+              "actorIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "pageId": {
+                      "$ref": "#/$defs/pageId"
+                    },
+                    "actionId": {
+                      "$ref": "#/$defs/claimId"
+                    },
+                    "outcomeIds": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/claimId"
+                      },
+                      "minItems": 1,
+                      "maxItems": 10000,
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "pageId",
+                    "actionId",
+                    "outcomeIds"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "maxItems": 10000,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "purpose",
+              "actorIds",
+              "steps"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "actors",
+        "personas",
+        "jobsToBeDone",
+        "entryPoints",
+        "decisionPoints",
+        "navigation",
+        "contentHierarchy",
+        "interactionPrinciples",
+        "feedback",
+        "systemStates",
+        "permissions",
+        "responsiveBehavior",
+        "accessibilityBehavior",
+        "criticalEdgeCases",
+        "journeys",
+        "unknownIds"
+      ],
+      "additionalProperties": false
+    },
+    "information-architecture": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/iaNode"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "terminology": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "changeReasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "nodes",
+        "terminology",
+        "changeReasons",
+        "unknownIds"
+      ],
+      "additionalProperties": false
+    },
+    "tokens": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "applicability": {
+          "enum": [
+            "useful",
+            "not-useful",
+            "unknown"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^t-[a-z0-9]+(?:-[a-z0-9]+)*$",
+                "maxLength": 128
+              },
+              "group": {
+                "enum": [
+                  "color",
+                  "typography",
+                  "spacing",
+                  "radius",
+                  "border",
+                  "shadow",
+                  "motion",
+                  "breakpoints",
+                  "layers"
+                ]
+              },
+              "semanticRole": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "claimId": {
+                "$ref": "#/$defs/claimId"
+              },
+              "value": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S",
+                    "maxLength": 200000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "unit": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S",
+                    "maxLength": 200000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "aliasId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^t-[a-z0-9]+(?:-[a-z0-9]+)*$",
+                    "maxLength": 128
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "mode": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "\\S",
+                    "maxLength": 200000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "group",
+              "semanticRole",
+              "claimId",
+              "value",
+              "unit",
+              "aliasId",
+              "mode"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "applicability",
+        "reason",
+        "tokens",
+        "unknownIds"
+      ],
+      "additionalProperties": false
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/assetId"
+              },
+              "kind": {
+                "enum": [
+                  "image",
+                  "logo",
+                  "icon",
+                  "font",
+                  "video",
+                  "illustration",
+                  "data"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "existing",
+                  "provided",
+                  "required",
+                  "optional",
+                  "missing",
+                  "replaceable",
+                  "generated-later"
+                ]
+              },
+              "semanticRole": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S",
+                "maxLength": 200000
+              },
+              "purpose": {
+                "$ref": "#/$defs/claimId"
+              },
+              "sourceId": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/sourceId"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/evidenceId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "licenseKnowledge": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "known",
+                      "unknown",
+                      "restricted"
+                    ]
+                  },
+                  "evidenceIds": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/evidenceId"
+                    },
+                    "minItems": 0,
+                    "maxItems": 10000,
+                    "uniqueItems": true
+                  },
+                  "terms": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S",
+                        "maxLength": 200000
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "status",
+                  "evidenceIds",
+                  "terms"
+                ],
+                "additionalProperties": false
+              },
+              "consumers": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/pageId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "aspectRatio": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*(?:\\.[0-9]+)?:[1-9][0-9]*(?:\\.[0-9]+)?$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "composition": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "contentRequirements": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "responsiveRequirements": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              },
+              "unknownIds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/unknownId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "status",
+              "semanticRole",
+              "purpose",
+              "sourceId",
+              "evidenceIds",
+              "licenseKnowledge",
+              "consumers",
+              "aspectRatio",
+              "composition",
+              "contentRequirements",
+              "responsiveRequirements",
+              "constraints",
+              "unknownIds"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "assets"
+      ],
+      "additionalProperties": false
+    },
+    "unknowns": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknown"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conflict"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "unknowns",
+        "conflicts",
+        "risks"
+      ],
+      "additionalProperties": false
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "id": {
+          "$ref": "#/$defs/pageId"
+        },
+        "route": {
+          "$ref": "#/$defs/route"
+        },
+        "name": {
+          "$ref": "#/$defs/claimId"
+        },
+        "purpose": {
+          "$ref": "#/$defs/claimId"
+        },
+        "userQuestion": {
+          "$ref": "#/$defs/claimId"
+        },
+        "entryState": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "primaryGoal": {
+          "$ref": "#/$defs/claimId"
+        },
+        "primaryAction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/claimId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "audience": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "secondaryActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "requiredContent": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "contentPriority": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "informationHierarchy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "functionalRequirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "validation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "feedback": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "responsiveBehavior": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "accessibilityRequirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "dataNeeds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "stateRequirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stateName"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/state"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "capabilities": {
+          "type": "object",
+          "properties": {
+            "asyncData": {
+              "type": "boolean"
+            },
+            "form": {
+              "type": "boolean"
+            },
+            "gated": {
+              "type": "boolean"
+            },
+            "destructive": {
+              "type": "boolean"
+            },
+            "offlineSupported": {
+              "type": "boolean"
+            },
+            "mutation": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "asyncData",
+            "form",
+            "gated",
+            "destructive",
+            "offlineSupported",
+            "mutation"
+          ],
+          "additionalProperties": false
+        },
+        "capabilityEvidenceIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "assetNeeds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/assetId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pageId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "toPageId": {
+                "$ref": "#/$defs/pageId"
+              },
+              "trigger": {
+                "$ref": "#/$defs/claimId"
+              },
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/claimId"
+                },
+                "minItems": 0,
+                "maxItems": 10000,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "toPageId",
+              "trigger",
+              "conditions"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "route",
+        "name",
+        "purpose",
+        "userQuestion",
+        "entryState",
+        "primaryGoal",
+        "primaryAction",
+        "audience",
+        "secondaryActions",
+        "requiredContent",
+        "contentPriority",
+        "informationHierarchy",
+        "functionalRequirements",
+        "interactions",
+        "validation",
+        "feedback",
+        "permissions",
+        "responsiveBehavior",
+        "accessibilityRequirements",
+        "dataNeeds",
+        "constraints",
+        "acceptanceCriteria",
+        "sections",
+        "stateRequirements",
+        "states",
+        "capabilities",
+        "capabilityEvidenceIds",
+        "assetNeeds",
+        "relationships",
+        "transitions",
+        "unknownIds"
+      ],
+      "additionalProperties": false
+    },
+    "handoff": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "readiness": {
+          "enum": [
+            "ready",
+            "conditional",
+            "blocked"
+          ]
+        },
+        "readOrder": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S",
+            "maxLength": 200000
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "pageIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pageId"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "canonicalClaimIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "lockedClaimIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "observedArtifact": {
+          "const": "codebase.json"
+        },
+        "unknownIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unknownId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "conflictIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^x-[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 128
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "creativeFreedom": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S",
+            "maxLength": 200000
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "nextAction": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "maxLength": 200000
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "readiness",
+        "readOrder",
+        "pageIds",
+        "canonicalClaimIds",
+        "lockedClaimIds",
+        "observedArtifact",
+        "unknownIds",
+        "conflictIds",
+        "creativeFreedom",
+        "nextAction"
+      ],
+      "additionalProperties": false
+    },
+    "codebase": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "analysisStatus": {
+          "enum": [
+            "complete",
+            "no-code",
+            "unavailable"
+          ]
+        },
+        "application": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "layouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "navigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "styling": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "fonts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "localization": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "accessibility": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "responsivePatterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "uiLibraries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "importantDomainModels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "existingStates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "relevantConstraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          },
+          "minItems": 0,
+          "maxItems": 10000,
+          "uniqueItems": true
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage"
+          },
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "analysisStatus",
+        "application",
+        "stack",
+        "routing",
+        "routes",
+        "layouts",
+        "navigation",
+        "styling",
+        "tokens",
+        "fonts",
+        "assets",
+        "localization",
+        "accessibility",
+        "responsivePatterns",
+        "uiLibraries",
+        "importantDomainModels",
+        "roles",
+        "permissions",
+        "existingStates",
+        "relevantConstraints",
+        "coverage"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

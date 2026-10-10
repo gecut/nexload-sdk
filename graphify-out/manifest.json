@@ -1266,9 +1266,9 @@
     "semantic_hash": "f116c25ef88f52b1d4814cf974f5764d"
   },
   "tools/eslint-config/package.json": {
-    "mtime": 1791627878.2921884,
-    "seen": 1791629146.931187,
-    "ast_hash": "8ff4e0256246ba73691f7336badd610c",
+    "mtime": 1791644509.864672,
+    "seen": 1791655112.447236,
+    "ast_hash": "edab07b326d8c3c7312e60466182ff88",
     "semantic_hash": ""
   },
   "tools/eslint-config/src/base.ts": {
@@ -1314,9 +1314,9 @@
     "semantic_hash": ""
   },
   "tools/typescript-config/package.json": {
-    "mtime": 1791627514.5593834,
-    "seen": 1791629146.931194,
-    "ast_hash": "7fc46561bb6912eeeb61d10be1b6932f",
+    "mtime": 1791644503.6336958,
+    "seen": 1791655112.447244,
+    "ast_hash": "9cb8ffafe9a0d4045190454d4d858e28",
     "semantic_hash": ""
   },
   "tools/typescript-config/react.json": {
@@ -1356,9 +1356,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1790956599.9307141,
-    "seen": 1790956717.485456,
-    "ast_hash": "054af371bb29e3e46c9e4a90475bfa2d",
+    "mtime": 1791654995.8904622,
+    "seen": 1791655112.447249,
+    "ast_hash": "2a54cc9f65faca3a32c1cd07e0a144fe",
     "semantic_hash": ""
   },
   "apps/docs/src/content/docs/agents/index.mdx": {
@@ -3540,9 +3540,9 @@
     "semantic_hash": ""
   },
   "docs/skills/ENGINEERING-STANDARDS.md": {
-    "mtime": 1791103468.810829,
-    "seen": 1791103523.928592,
-    "ast_hash": "04535456ff08767346d37a18f27351e3",
+    "mtime": 1791654995.889691,
+    "seen": 1791655112.447296,
+    "ast_hash": "a7638990700ed21e4c319cab145481d3",
     "semantic_hash": ""
   },
   "docs/skills/REASONING-ECOSYSTEM.md": {
@@ -3987,6 +3987,132 @@
     "mtime": 1791632910.9066434,
     "seen": 1791633005.661772,
     "ast_hash": "fd0d2e3187d3fd8593721a95f0741fea",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/evals.json": {
+    "mtime": 1791660200.2045782,
+    "seen": 1791660464.567987,
+    "ast_hash": "097e9b5474b6ec58abc3f9cf35b9687e",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/trigger-evals.json": {
+    "mtime": 1791654451.8329206,
+    "seen": 1791655112.4472032,
+    "ast_hash": "13569bb971103e17589c985428d7d6b4",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/schemas/context.schema.json": {
+    "mtime": 1791655161.9046793,
+    "seen": 1791655462.898092,
+    "ast_hash": "cf71be02766f8aa046641047978e6b5a",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/scripts/test_validate.py": {
+    "mtime": 1791655457.7575588,
+    "seen": 1791655462.898093,
+    "ast_hash": "cae6aea83add43d2a7454651040d9a39",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/scripts/validate.py": {
+    "mtime": 1791655457.757281,
+    "seen": 1791655462.8980942,
+    "ast_hash": "ecde8b183dde83382fa69ab0a95a7877",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/SKILL.md": {
+    "mtime": 1791660249.3015702,
+    "seen": 1791660464.568139,
+    "ast_hash": "7ecffcf763eba50209b03799d7eb452d",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/fixtures/ecommerce-rules-brand-routes.md": {
+    "mtime": 1791654721.2877698,
+    "seen": 1791655112.447383,
+    "ast_hash": "5966ef908245324628224ce8a6e59587",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/fixtures/legacy-newer-spec-conflict.md": {
+    "mtime": 1791654721.2880402,
+    "seen": 1791655112.447384,
+    "ast_hash": "e9a122ce649ddde2ed6aa45e06cea234",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/fixtures/new-document-only-product.md": {
+    "mtime": 1791654721.2895193,
+    "seen": 1791655112.447384,
+    "ast_hash": "48495223aa338e9bc4b1c83d3276873d",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/fixtures/one-flow-preserve-rest.md": {
+    "mtime": 1791654721.2899833,
+    "seen": 1791655112.447385,
+    "ast_hash": "3f72fc4259e55f74fa592e803b71a493",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/fixtures/saas-incomplete-docs.md": {
+    "mtime": 1791654721.2891207,
+    "seen": 1791655112.447385,
+    "ast_hash": "64a1228f0d29fe269d50723e26cd8dc0",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/fixtures/weak-request-rich-repository.md": {
+    "mtime": 1791654721.289789,
+    "seen": 1791655112.447386,
+    "ast_hash": "a2235a726653b52f5e794007ddbd9b4d",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/references/artifact-contracts.md": {
+    "mtime": 1791660104.4559317,
+    "seen": 1791660464.5681438,
+    "ast_hash": "4688ced713517123d90f9bc52adf2e81",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/references/codebase-analysis.md": {
+    "mtime": 1791655047.6434467,
+    "seen": 1791655112.447387,
+    "ast_hash": "e69c48d52e80779636d8ecdc8d350f9c",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/references/evidence-model.md": {
+    "mtime": 1791655264.089568,
+    "seen": 1791655462.898259,
+    "ast_hash": "06b2a1c8cc0da314a57eadb50d1d75be",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/references/pipeline.md": {
+    "mtime": 1791660151.3801646,
+    "seen": 1791660464.5681448,
+    "ast_hash": "926b39b72a56551bfe28b0ec68bac446",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/references/research.md": {
+    "mtime": 1791655350.707985,
+    "seen": 1791655462.898261,
+    "ast_hash": "d979722a0fdce5a89775326d59afb168",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/references/validation.md": {
+    "mtime": 1791660306.122842,
+    "seen": 1791660464.568147,
+    "ast_hash": "1dddc682dd3dff24437df14b61246680",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/scripts/requirements.txt": {
+    "mtime": 1791654453.1005473,
+    "seen": 1791655112.4473972,
+    "ast_hash": "bb3a56eaa3a815ed7ae1677340736bf1",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/results.md": {
+    "mtime": 1791660459.5691946,
+    "seen": 1791660464.5681431,
+    "ast_hash": "4d5d32b6c69a080a69a877017e40e434",
+    "semantic_hash": ""
+  },
+  "skills/nexload/design-context/evals/agent-results.json": {
+    "mtime": 1791660434.0343502,
+    "seen": 1791660464.567986,
+    "ast_hash": "ed07d005b60e9f6cba4793901a98313d",
     "semantic_hash": ""
   }
 }
