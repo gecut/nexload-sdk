@@ -1,11 +1,11 @@
-import { defineHealthCheck } from "./core/define";
-import { HEALTH_ERROR_CODES } from "./core/errors";
-
 import type {
   HealthCheckDefinition,
   HealthMetrics,
   HealthScope
 } from "./core/types";
+
+import { defineHealthCheck } from "./core/define";
+import { HEALTH_ERROR_CODES } from "./core/errors";
 
 export interface HttpCheckOptions {
   scopes?: readonly HealthScope[]
@@ -24,6 +24,7 @@ function isExpectedStatus (
   if (typeof expected === "number") return status === expected;
   if (Array.isArray(expected)) return expected.includes(status);
   if (!("min" in expected)) return false;
+
   return status >= expected.min && status <= expected.max;
 }
 

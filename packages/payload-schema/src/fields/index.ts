@@ -1,8 +1,18 @@
-import { z } from "zod";
+import type {
+  ArrayField,
+  CheckboxField,
+  DateField,
+  NamedGroupField,
+  NumberField,
+  RelationshipField,
+  RichTextField,
+  SelectField,
+  TextareaField,
+  TextField,
+  UploadField
+} from "payload";
 
-import { defaultIdSchema } from "../default-id.js";
-import { PayloadSchemaError } from "../errors.js";
-import { createFieldDefinition, fieldEntries, type FieldSeed } from "../internal/field-definition.js";
+import { z } from "zod";
 
 import type {
   AnyCanonicalSchema,
@@ -25,19 +35,10 @@ import type {
   TextFieldOptions,
   UploadFieldOptions
 } from "../types.js";
-import type {
-  ArrayField,
-  CheckboxField,
-  DateField,
-  NamedGroupField,
-  NumberField,
-  RelationshipField,
-  RichTextField,
-  SelectField,
-  TextareaField,
-  TextField,
-  UploadField
-} from "payload";
+
+import { defaultIdSchema } from "../default-id.js";
+import { PayloadSchemaError } from "../errors.js";
+import { createFieldDefinition, fieldEntries, type FieldSeed } from "../internal/field-definition.js";
 
 type NullableSchema<TValue, TNullable extends boolean> = z.ZodType<MaybeNullable<TValue, TNullable>>;
 type SchemaLessKey<TFields extends EntityFieldMap> = {
@@ -134,6 +135,7 @@ function buildTextSchema<TNullable extends boolean> (
   );
 
   let schema: z.ZodType<string, string> = z.string();
+
   if (slug) {
     schema = schema.transform((value) => value
       .normalize("NFKC")
@@ -155,11 +157,13 @@ function buildTextSchema<TNullable extends boolean> (
   }
 
   let constraints = z.string();
+
   if (options.minLength !== undefined) constraints = constraints.min(options.minLength);
   if (options.maxLength !== undefined) constraints = constraints.max(options.maxLength);
   if (options.pattern) constraints = constraints.regex(options.pattern);
   schema = schema.pipe(constraints);
   if (options.schema) schema = options.schema(schema);
+
   return applyNullable(
     schema, options.nullable
   );
@@ -170,6 +174,7 @@ FieldDefinition<"text", NullableSchema<string, TNullable>, TextField> {
   const schema = buildTextSchema(
     options as unknown as TextFieldOptions<TNullable>, false
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "text",
@@ -193,6 +198,7 @@ FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField> {
   const schema = buildTextSchema(
     options as unknown as TextFieldOptions<TNullable>, false
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "textarea",
@@ -216,6 +222,7 @@ FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField> {
   const schema = buildTextSchema(
     options, true
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "slug",
@@ -244,13 +251,16 @@ function buildNumberSchema<TNullable extends boolean> (
   let schema = z.number().refine(
     Number.isFinite, { error: "Expected a finite number", }
   );
+
   if (forceSafeInteger || options.integer) schema = schema.int();
   if (forceSafeInteger || options.safe) schema = schema.safe();
   if (options.minimum !== undefined) schema = schema.min(options.minimum);
   if (options.maximum !== undefined) schema = schema.max(options.maximum);
   if (options.multipleOf !== undefined) schema = schema.multipleOf(options.multipleOf);
   let output: z.ZodType<number, number> = schema;
+
   if (options.schema) output = options.schema(output);
+
   return applyNullable(
     output, options.nullable
   );
@@ -259,6 +269,7 @@ function buildNumberSchema<TNullable extends boolean> (
 function number<TNullable extends boolean = false> (options: NumberFieldOptions<TNullable> = {} as NumberFieldOptions<TNullable>):
 FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField> {
   const schema = buildNumberSchema(options);
+
   return createFieldDefinition(withDefaults(
     {
       kind: "number",
@@ -290,6 +301,7 @@ function money<TNullable extends boolean = false> (options: MoneyFieldOptions<TN
   const schema = buildNumberSchema(
     options, true
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "money",
@@ -312,10 +324,12 @@ function money<TNullable extends boolean = false> (options: MoneyFieldOptions<TN
 function boolean<TNullable extends boolean = false> (options: BooleanFieldOptions<TNullable> = {} as BooleanFieldOptions<TNullable>):
 FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField> {
   let base: z.ZodType<boolean, boolean> = z.boolean();
+
   if (options.schema) base = options.schema(base);
   const schema = applyNullable(
     base, options.nullable
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "boolean",
@@ -338,6 +352,7 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
   ): number | undefined => {
     if (value === undefined) return undefined;
     const parsed = iso.safeParse(value);
+
     if (!parsed.success) {
       throw new PayloadSchemaError(
         "INVALID_FIELD_CONFIGURATION", {
@@ -347,6 +362,7 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
         }
       );
     }
+
     return Date.parse(parsed.data);
   };
   const minimum = parseBound(
@@ -359,6 +375,7 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
     "date", "instant", minimum, maximum
   );
   let base: z.ZodType<string, string> = iso.transform((value) => new Date(value).toISOString());
+
   if (minimum !== undefined) base = base.refine(
     (value) => Date.parse(value) >= minimum, { error: "Date is before minimum", }
   );
@@ -369,6 +386,7 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
   const schema = applyNullable(
     base, options.nullable
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "date",
@@ -393,6 +411,7 @@ function select<
   SelectField
 > {
   const values = [...options.values];
+
   if (!values.length) {
     throw new PayloadSchemaError(
       "EMPTY_SELECT_VALUES", {
@@ -421,6 +440,7 @@ function select<
   const payloadOptions = values.map((value) => (options.labels?.[value] === undefined
     ? value
     : { label: options.labels[value] as string, value, }));
+
   return createFieldDefinition(withDefaults(
     {
       kind: "select",
@@ -453,6 +473,7 @@ export function createRelationshipSchema (
       })) as unknown as Parameters<typeof z.discriminatedUnion>[1]
     )
     : idSchema;
+
   return hasMany ? z.array(base) : base;
 }
 
@@ -498,6 +519,7 @@ function relationship<
     RelationshipValue<TRelationTo, THasMany, TIdSchema extends AnyCanonicalSchema ? TIdSchema : typeof defaultIdSchema>,
     TNullable
   >;
+
   return createFieldDefinition(withDefaults(
     {
       kind: "relationship",
@@ -543,6 +565,7 @@ function upload<
     RelationshipValue<TRelationTo, THasMany, TIdSchema extends AnyCanonicalSchema ? TIdSchema : typeof defaultIdSchema>,
     TNullable
   >;
+
   return createFieldDefinition(withDefaults(
     {
       kind: "upload",
@@ -567,6 +590,7 @@ function upload<
 function composeObject (fields: EntityFieldMap): { schema?: AnyCanonicalSchema, children: ReadonlyArray<readonly [string, FieldSeed]>, blocking?: string } {
   const children = fieldEntries(fields);
   const blocking = children.find(([, seed]) => !seed.schema)?.[0];
+
   if (blocking) return { children, blocking, };
   const shape = Object.fromEntries(children.map(([
     name,
@@ -575,6 +599,7 @@ function composeObject (fields: EntityFieldMap): { schema?: AnyCanonicalSchema, 
     name,
     seed.schema
   ])) as Record<string, AnyCanonicalSchema>;
+
   return { children, schema: z.strictObject(shape), };
 }
 
@@ -591,6 +616,7 @@ FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupFie
       z.string(), z.unknown()
     ), options.nullable
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "group",
@@ -620,11 +646,13 @@ FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField> {
     )
     : undefined;
   let container = z.array(z.unknown());
+
   if (options.minRows !== undefined) container = container.min(options.minRows);
   if (options.maxRows !== undefined) container = container.max(options.maxRows);
   const runtimeSchema = applyNullable(
     container, options.nullable
   );
+
   return createFieldDefinition(withDefaults(
     {
       kind: "array",
@@ -649,6 +677,7 @@ FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField> {
 function richText<TSchema extends AnyCanonicalSchema, TNullable extends boolean = false> (options: RichTextFieldOptions<TSchema, TNullable>):
 FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField> {
   const schema = options.nullable ? options.schema.nullable() : options.schema;
+
   return createFieldDefinition(withDefaults(
     {
       kind: "richText",
@@ -669,6 +698,7 @@ function native<
 > (options: NativeFieldOptions<TPayloadField, TSchema>): FieldDefinition<"native", TSchema, TPayloadField> {
   const payload = options.payload as unknown as Record<string, unknown>;
   const payloadType = typeof payload.type === "string" ? payload.type : "unknown";
+
   return createFieldDefinition<"native", TSchema, TPayloadField>(withDefaults(
     {
       kind: "native",

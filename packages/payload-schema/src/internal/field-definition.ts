@@ -1,7 +1,8 @@
+import type { z } from "zod";
+
 import type {
   AnyCanonicalSchema, AnyFieldDefinition, EntityFieldMap, FieldDefinition, PayloadDataField
 } from "../types.js";
-import type { z } from "zod";
 
 export const fieldSeedSymbol: unique symbol = Symbol("payload-schema.field-seed");
 
@@ -42,12 +43,15 @@ export function createFieldDefinition<
   Object.defineProperty(
     definition, fieldSeedSymbol, { value: seed, enumerable: false, }
   );
+
   return Object.freeze(definition) as unknown as FieldDefinition<TKind, TSchema, TPayloadField>;
 }
 
 export function getFieldSeed (field: AnyFieldDefinition): FieldSeed {
   const seed = (field as InternalFieldDefinition)[fieldSeedSymbol];
+
   if (!seed) throw new TypeError("Value is not a payload-schema field definition.");
+
   return seed;
 }
 

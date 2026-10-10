@@ -1,15 +1,7 @@
+import type { Field, FieldHook } from "payload";
+
 import { ValidationError } from "payload";
 import { z } from "zod";
-
-import { defaultIdSchema } from "../default-id.js";
-import { PayloadSchemaError, isPayloadSchemaError, type SafeIssueSummary } from "../errors.js";
-import { createRelationshipSchema } from "../fields/index.js";
-import { cloneConfig } from "../internal/clone.js";
-import {
-  createFieldDefinition,
-  fieldEntries,
-  type FieldSeed
-} from "../internal/field-definition.js";
 
 import type {
   AnyCanonicalSchema,
@@ -24,7 +16,16 @@ import type {
   PayloadDataField,
   ZodObjectForPickedFields
 } from "../types.js";
-import type { Field, FieldHook } from "payload";
+
+import { defaultIdSchema } from "../default-id.js";
+import { isPayloadSchemaError, PayloadSchemaError, type SafeIssueSummary } from "../errors.js";
+import { createRelationshipSchema } from "../fields/index.js";
+import { cloneConfig } from "../internal/clone.js";
+import {
+  createFieldDefinition,
+  fieldEntries,
+  type FieldSeed
+} from "../internal/field-definition.js";
 
 const reservedFieldNames = new Set([
   "__v",
@@ -250,6 +251,7 @@ function bindSeed (
   }
 
   const payloadCore = { ...source.payloadCore, };
+
   if (source.staticDefaultConfigured) {
     if (!schema) {
       throw new PayloadSchemaError(
@@ -263,6 +265,7 @@ function bindSeed (
     const result = parseCanonical(
       schema, source.staticDefault, { entity, fieldPath, fieldKind: source.kind, }
     );
+
     if (!result.success) {
       throw new PayloadSchemaError(
         "INVALID_DEFAULT_VALUE", {
@@ -304,6 +307,7 @@ function canonicalHook (
     const result = parseCanonical(
       seed.runtimeSchema, value, { entity, fieldPath, fieldKind: seed.kind, }
     );
+
     if (result.success) return result.data;
     const basePath = Array.isArray(path) && path.length ? path : fieldPath.split(".");
     throw new ValidationError({
@@ -327,6 +331,7 @@ function appendCanonicalHook (
   const descriptor = Object.getOwnPropertyDescriptor(
     hooks, "beforeValidate"
   );
+
   if (descriptor && !("value" in descriptor)) {
     Object.defineProperty(
       hooks, "beforeValidate", {
@@ -334,6 +339,7 @@ function appendCanonicalHook (
         get: descriptor.get
           ? function (this: unknown) {
             const consumerHooks = descriptor.get?.call(this);
+
             return [
               ...(Array.isArray(consumerHooks) ? consumerHooks : []),
               hook
@@ -342,6 +348,7 @@ function appendCanonicalHook (
           : () => [hook],
       }
     );
+
     return hooks;
   }
   const consumerHooks = descriptor && "value" in descriptor && Array.isArray(descriptor.value)
@@ -358,6 +365,7 @@ function appendCanonicalHook (
       writable: true,
     }
   );
+
   return hooks;
 }
 
@@ -399,6 +407,7 @@ function compileField (
       const hook = canonicalHook(
         seed, entity, fieldPath
       );
+
       if (hooksDescriptor && !("value" in hooksDescriptor)) {
         Object.defineProperty(
           compiled, "hooks", {
@@ -440,6 +449,7 @@ function compileField (
         }
       );
     }
+
     return compiled as unknown as PayloadDataField;
   } catch (error) {
     if (isPayloadSchemaError(error)) throw error;
@@ -512,6 +522,7 @@ function createInspection (
       ...(seed.blockingFieldPath ? { blockingFieldPath: seed.blockingFieldPath, } : {}),
     }
   ]));
+
   return { name, fields: inspectFields(seeds), };
 }
 
@@ -541,6 +552,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
     assertFieldName(
       options.name, name
     );
+
     return [
       name,
       bindSeed(
@@ -560,6 +572,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
 
   const getEntry = (key: PropertyKey): readonly [string, FieldSeed] => {
     const entry = boundEntries.find(([name]) => name === key);
+
     if (!entry) {
       throw new PayloadSchemaError(
         "UNKNOWN_FIELD", {
@@ -569,6 +582,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
         }
       );
     }
+
     return entry;
   };
 
@@ -584,6 +598,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
         name,
         seed
       ] = getEntry(key);
+
       return compileField(
         seed, name, options.name, name, "field"
       );
@@ -593,6 +608,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
         name,
         seed
       ] = getEntry(key);
+
       return compileField(
         seed, name, options.name, name, "pick"
       );
@@ -609,11 +625,13 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
     const required = new Set<PropertyKey>(pickOptions?.required ?? []);
     const optional = pickOptions?.optional;
     const shape: Record<string, AnyCanonicalSchema> = {};
+
     for (const key of keys) {
       const [
         name,
         seed
       ] = getEntry(key);
+
       if (!seed.schema) {
         throw new PayloadSchemaError(
           "SCHEMA_UNAVAILABLE", {
@@ -633,6 +651,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
         && (optional === "all" || (Array.isArray(optional) && optional.includes(key)));
       shape[name] = makeOptional ? seed.schema.optional() : seed.schema;
     }
+
     return (pickOptions?.strict === false ? z.object(shape) : z.strictObject(shape)) as ZodObjectForPickedFields<BoundFields, TKeys>;
   }) as EntitySchemaContext<BoundFields>["pick"];
 
@@ -645,6 +664,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
     schema<TSchema extends AnyCanonicalSchema>(factory: (value: EntitySchemaContext<BoundFields>) => TSchema): TSchema {
       try {
         const result = factory(context);
+
         if (!result || typeof result !== "object" || typeof result.safeParse !== "function") {
           throw new PayloadSchemaError(
             "INVALID_SCHEMA_FACTORY_RESULT", {
@@ -654,6 +674,7 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
             }
           );
         }
+
         return result;
       } catch (error) {
         if (isPayloadSchemaError(error)) throw error;
@@ -671,5 +692,6 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
       options.name, boundEntries
     ),
   });
+
   return entity;
 }

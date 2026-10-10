@@ -1,6 +1,6 @@
-import { isCMSOperationError } from "./cms-operation-error.js";
-
 import type { CMSOperationError } from "./cms-operation-error.js";
+
+import { isCMSOperationError } from "./cms-operation-error.js";
 
 export function isDefinedError<
   TError extends CMSOperationError<string, unknown, true>

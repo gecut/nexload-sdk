@@ -654,7 +654,9 @@
             "payload-fields",
             "payload-editor",
             "payload-operations",
-            "payload-schema"
+            "payload-schema",
+            "typescript-config",
+            "eslint-config"
           ]
         },
         "topic": {

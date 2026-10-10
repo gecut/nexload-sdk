@@ -19,7 +19,7 @@ containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readon
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L172)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L174)
 
 ### `containerResourceCheck`
 
@@ -31,7 +31,7 @@ containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { u
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L105)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L107)
 
 ### `dnsCheck`
 
@@ -43,7 +43,7 @@ dnsCheck(name: string, options: { hostname: string; recordType?: "A" | "AAAA" | 
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L254)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L256)
 
 ### `nodeRuntimeAdapter`
 
@@ -55,7 +55,7 @@ nodeRuntimeAdapter() => RuntimeAdapter
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L59)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L60)
 
 ### `parseCpuList`
 
@@ -67,7 +67,7 @@ parseCpuList(value: string | null) => number | null
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L81)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L84)
 
 ### `processMetricsCollector`
 
@@ -79,7 +79,7 @@ processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => Metri
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L147)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L149)
 
 ### `readContainerResourceSnapshot`
 
@@ -91,7 +91,7 @@ readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<Con
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L307)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L313)
 
 ### `tcpCheck`
 
@@ -103,7 +103,7 @@ tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly 
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L196)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L198)
 
 ## Interfaces
 

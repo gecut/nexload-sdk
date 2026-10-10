@@ -1,11 +1,12 @@
+import type { z } from "zod";
+
+import type { CMSOperationContract } from "../contract/types.js";
+
 import { createInternalError } from "../errors/built-in-errors.js";
 import { CMSOperationError } from "../errors/cms-operation-error.js";
 import { parseErrorEnvelope } from "../errors/error-envelope.js";
 import { CMSClientTimeoutError } from "../plugins/timeout/cms-client-timeout-error.js";
 import { isTimeoutError } from "../plugins/timeout/is-timeout-error.js";
-
-import type { CMSOperationContract } from "../contract/types.js";
-import type { z } from "zod";
 
 export async function parseOperationResponse (
   response: Response,
@@ -62,6 +63,7 @@ async function parseFailureResponse (
   }
 
   const envelope = parseErrorEnvelope(value);
+
   if (
     envelope === undefined
     || envelope.status !== response.status
@@ -80,6 +82,7 @@ async function parseFailureResponse (
   }
 
   const definition = operation.errors[envelope.code];
+
   if (
     definition === undefined
     || definition.status !== envelope.status
@@ -91,6 +94,7 @@ async function parseFailureResponse (
   const data = await parseDefinedData(
     definition.data, envelope.data
   );
+
   if (!data.success) {
     return createInternalError(value);
   }
@@ -118,6 +122,7 @@ async function parseDefinedData (
   }
 
   const result = await schema.safeParseAsync(value);
+
   return result.success
     ? { data: result.data, success: true, }
     : { success: false, };

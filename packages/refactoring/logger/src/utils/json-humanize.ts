@@ -1,16 +1,15 @@
 import {
-  cyan,
-  green,
-  yellow,
-  red,
-  magenta,
-  gray,
-  white,
   bold,
+  cyan,
   dim,
+  gray,
+  green,
+  magenta,
+  white,
+  yellow,
 } from "colorette";
 
-const styleValue = (value: any): string => {
+const styleValue = (value: unknown): string => {
   if (value === null) return bold(gray("null"));
   if (value === undefined) return bold(gray("undefined"));
 
@@ -26,7 +25,7 @@ const styleValue = (value: any): string => {
   }
 };
 
-export function jsonHumanize(data: any, indentLevel = 0): string {
+export function jsonHumanize(data: unknown, indentLevel = 0): string {
   const indent = "  ".repeat(indentLevel);
 
   if (data === null || typeof data !== "object") {

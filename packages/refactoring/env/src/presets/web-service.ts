@@ -1,4 +1,4 @@
-import { EnvPreset } from "../manager/types";
+import { type EnvPreset } from "../manager/types";
 
 export const $WebServicePreset = {
   NEXT_PUBLIC_API_URL: { type: "string", },

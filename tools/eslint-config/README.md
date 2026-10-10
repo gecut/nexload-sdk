@@ -1,39 +1,93 @@
 # @nexload-sdk/eslint-config
 
-Shared flat ESLint configurations used across the Nexload SDK monorepo.
+Authoritative, modern ESLint 9 Flat Configurations for the Nexload SDK monorepo and ecosystem.
 
-## Exports
+## Features
 
-- `@nexload-sdk/eslint-config/base.js`
-- `@nexload-sdk/eslint-config/nextjs.js`
+- **ESLint 9 Flat Config Native**: Full support for ESLint 9 and modern flat config composition.
+- **`projectService` Integration**: Type-aware linting powered by `typescript-eslint` v8 without fragile manual `tsconfig.json` paths.
+- **Enforced Kebab-Case**: Complete repository file naming enforcement via `eslint-plugin-unicorn`.
+- **Deterministic Imports**: Automated, natural alphabetical import/export grouping with zero resolver lag via `eslint-plugin-perfectionist`.
+- **Type Boundaries**: Strict zero-`any` policy and inline `import type` enforcement (`@typescript-eslint/consistent-type-imports`).
+- **Semantic Spacing**: Intentional line padding between statement phases (`@stylistic/padding-line-between-statements`) without fighting Prettier.
+- **Zero Prettier Conflicts**: Prettier compatibility (`eslint-config-prettier`) cleanly terminates every preset.
+- **Modular Presets & Factory**: Tailored configs for Base, Node, React 19, Next.js, and Payload CMS.
 
-## Usage (Flat Config)
+## Usage
+
+### 1. Using the Universal Factory (Recommended)
+
+In `eslint.config.mjs`:
 
 ```js
-import { baseConfig } from "@nexload-sdk/eslint-config/base.js";
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
 
-export default baseConfig;
+export default nexloadConfig({
+  // options: node | react | next | payload
+});
 ```
 
-Next.js projects:
+For a React UI library:
 
 ```js
-import nextJsConfig from "@nexload-sdk/eslint-config/nextjs.js";
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
 
-export default nextJsConfig;
+export default nexloadConfig({
+  react: true,
+});
 ```
 
-## What is included
+For Next.js:
 
-- ESLint core recommended rules
-- TypeScript ESLint recommended config
-- Stylistic rules (`@stylistic`)
-- import ordering rules
-- turbo env var checks (`turbo/no-undeclared-env-vars`)
-- React/Hooks/Next.js rules in the Next config
-- Prettier compatibility via `eslint-config-prettier`
+```js
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
 
-## Notes
+export default nexloadConfig({
+  next: true,
+});
+```
 
-- The base config expects a local `tsconfig.json` (`parserOptions.project`)
-- The base config enforces `no-console` by default
+For Payload CMS:
+
+```js
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  payload: true,
+});
+```
+
+With custom rules or ignores:
+
+```js
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig(
+  { react: true },
+  {
+    rules: {
+      // package-specific overrides
+    },
+  }
+);
+```
+
+### 2. Using Composable Presets Directly
+
+```js
+import { base, react, node, nextjs, payload } from "@nexload-sdk/eslint-config";
+
+export default [
+  ...base,
+  ...react,
+];
+```
+
+## Available Subpath Exports
+
+- `@nexload-sdk/eslint-config`
+- `@nexload-sdk/eslint-config/base`
+- `@nexload-sdk/eslint-config/node`
+- `@nexload-sdk/eslint-config/react`
+- `@nexload-sdk/eslint-config/nextjs`
+- `@nexload-sdk/eslint-config/payload`

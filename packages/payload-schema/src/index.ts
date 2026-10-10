@@ -1,15 +1,15 @@
 export { defaultIdSchema } from "./default-id.js";
-export { defineEntity } from "./entity/define-entity.js";
-export { PayloadSchemaError, isPayloadSchemaError } from "./errors.js";
-export { field } from "./fields/index.js";
-
 export type { DefaultIdSchema } from "./default-id.js";
+export { defineEntity } from "./entity/define-entity.js";
+export { isPayloadSchemaError, PayloadSchemaError } from "./errors.js";
+
 export type {
   PayloadSchemaErrorCode,
   PayloadSchemaErrorDataMap,
   PayloadSchemaErrorPhase,
   SerializedPayloadSchemaError
 } from "./errors.js";
+export { field } from "./fields/index.js";
 export type {
   ArrayFieldOptions,
   BooleanFieldOptions,

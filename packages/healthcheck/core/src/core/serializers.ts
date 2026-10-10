@@ -19,10 +19,12 @@ function redactUrl (
 
   try {
     const url = new URL(value);
+
     if (mode === "full") return "[redacted-url]";
     if (mode === "origin") return url.origin;
     url.search = "";
     url.hash = "";
+
     return url.toString();
   } catch {
     return value;

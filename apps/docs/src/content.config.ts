@@ -23,6 +23,8 @@ export const collections: { docs: DocsCollection } = {
             "payload-editor",
             "payload-operations",
             "payload-schema",
+            "typescript-config",
+            "eslint-config",
           ])
           .optional(),
         topic: z

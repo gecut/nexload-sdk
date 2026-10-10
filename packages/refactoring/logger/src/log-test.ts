@@ -73,13 +73,14 @@ export async function test(logger: NexloadLogger) {
   try {
     // شبیه‌سازی یک خطای غیرمنتظره
     simulateCriticalFailure();
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const error = err instanceof Error ? err : new Error(String(err));
     // پاس دادن آبجکت خطا به لاگر
     logger.error(
       {
-        errorName: err.name,
-        errorMessage: err.message,
-        stack: err.stack, // لاگر باید بتواند استک‌تریس را هندل کند
+        errorName: error.name,
+        errorMessage: error.message,
+        stack: error.stack, // لاگر باید بتواند استک‌تریس را هندل کند
         failedModule: "PaymentGateway",
       },
       "Transaction failed unexpectedly"

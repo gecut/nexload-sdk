@@ -130,8 +130,8 @@
         "signature": "httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => HealthCheckDefinition<string>",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/http-check.ts",
-        "line": 30,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L30",
+        "line": 31,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L31",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -142,8 +142,8 @@
         "signature": "memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degraded: number; unhealthy: number; }; usedRatio?: { degraded: number; unhealthy: number; }; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<\"memory\">",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/checks.ts",
-        "line": 125,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L125",
+        "line": 127,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L127",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -154,8 +154,8 @@
         "signature": "runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean; }) => HealthCheckDefinition<\"runtime.info\">",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/checks.ts",
-        "line": 29,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L29",
+        "line": 31,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L31",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -178,8 +178,8 @@
         "signature": "shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<\"shutdown\">",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/checks.ts",
-        "line": 49,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L49",
+        "line": 51,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L51",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -202,8 +202,8 @@
         "signature": "startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<\"startup\">",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/checks.ts",
-        "line": 69,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L69",
+        "line": 71,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L71",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -226,8 +226,8 @@
         "signature": "stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/core/serializers.ts",
-        "line": 122,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L122",
+        "line": 124,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L124",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -250,8 +250,8 @@
         "signature": "timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; thresholds?: { degradedMs: number; unhealthyMs: number; }; critical?: boolean; }) => HealthCheckDefinition<\"timer.lag\">",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/checks.ts",
-        "line": 90,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L90",
+        "line": 92,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L92",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -262,8 +262,8 @@
         "signature": "toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport",
         "description": "Public function exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/core/serializers.ts",
-        "line": 87,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L87",
+        "line": 89,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L89",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -346,8 +346,8 @@
         "signature": "interface HealthJsonOptions {\n  includeDetails?: boolean\n  redact?: boolean\n  redaction?: Partial<RedactionPolicy>\n}",
         "description": "Public interface exported by @nexload-sdk/healthcheck.",
         "source": "packages/healthcheck/core/src/core/serializers.ts",
-        "line": 81,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L81",
+        "line": 83,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L83",
         "exportPaths": [
           "@nexload-sdk/healthcheck"
         ]
@@ -677,8 +677,8 @@
         "signature": "containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<\"container.metrics\">",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/index.ts",
-        "line": 172,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L172",
+        "line": 174,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L174",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -689,8 +689,8 @@
         "signature": "containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { usageRatio?: { degraded: number; unhealthy: number; }; }; root?: string; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<\"container.resources\">",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/index.ts",
-        "line": 105,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L105",
+        "line": 107,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L107",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -701,8 +701,8 @@
         "signature": "dnsCheck(name: string, options: { hostname: string; recordType?: \"A\" | \"AAAA\" | \"CNAME\" | \"TXT\" | \"MX\"; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/index.ts",
-        "line": 254,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L254",
+        "line": 256,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L256",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -713,8 +713,8 @@
         "signature": "nodeRuntimeAdapter() => RuntimeAdapter",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/index.ts",
-        "line": 59,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L59",
+        "line": 60,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L60",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -725,8 +725,8 @@
         "signature": "parseCpuList(value: string | null) => number | null",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/cgroup.ts",
-        "line": 81,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L81",
+        "line": 84,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L84",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -737,8 +737,8 @@
         "signature": "processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<\"process.metrics\">",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/index.ts",
-        "line": 147,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L147",
+        "line": 149,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L149",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -749,8 +749,8 @@
         "signature": "readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<ContainerResourceSnapshot>",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/cgroup.ts",
-        "line": 307,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L307",
+        "line": 313,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L313",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -761,8 +761,8 @@
         "signature": "tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>",
         "description": "Public function exported by @nexload-sdk/healthcheck-node.",
         "source": "packages/healthcheck/node/src/index.ts",
-        "line": 196,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L196",
+        "line": 198,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L198",
         "exportPaths": [
           "@nexload-sdk/healthcheck-node"
         ]
@@ -883,8 +883,8 @@
         "signature": "createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) => { GET: (request: Request) => Promise<Response>; HEAD: (request: Request) => Promise<Response>; }",
         "description": "Public function exported by @nexload-sdk/healthcheck-next.",
         "source": "packages/healthcheck/next/src/index.ts",
-        "line": 280,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L280",
+        "line": 288,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L288",
         "exportPaths": [
           "@nexload-sdk/healthcheck-next"
         ]
@@ -895,8 +895,8 @@
         "signature": "createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions) => { GET: (request: Request) => Promise<Response>; }",
         "description": "Public function exported by @nexload-sdk/healthcheck-next.",
         "source": "packages/healthcheck/next/src/index.ts",
-        "line": 334,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L334",
+        "line": 342,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L342",
         "exportPaths": [
           "@nexload-sdk/healthcheck-next"
         ]
@@ -950,8 +950,8 @@
         "signature": "toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => string",
         "description": "Public function exported by @nexload-sdk/healthcheck-prometheus.",
         "source": "packages/healthcheck/prometheus/src/index.ts",
-        "line": 259,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L259",
+        "line": 262,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L262",
         "exportPaths": [
           "@nexload-sdk/healthcheck-prometheus"
         ]
@@ -962,8 +962,8 @@
         "signature": "toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => string",
         "description": "Public function exported by @nexload-sdk/healthcheck-prometheus.",
         "source": "packages/healthcheck/prometheus/src/index.ts",
-        "line": 233,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L233",
+        "line": 236,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L236",
         "exportPaths": [
           "@nexload-sdk/healthcheck-prometheus"
         ]
@@ -1005,8 +1005,8 @@
         "signature": "toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]",
         "description": "Public function exported by @nexload-sdk/healthcheck-otel.",
         "source": "packages/healthcheck/otel/src/index.ts",
-        "line": 35,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L35",
+        "line": 36,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L36",
         "exportPaths": [
           "@nexload-sdk/healthcheck-otel"
         ]
@@ -1017,8 +1017,8 @@
         "signature": "toOtelResourceAttributes(report: HealthReport) => Record<string, string | number | boolean>",
         "description": "Public function exported by @nexload-sdk/healthcheck-otel.",
         "source": "packages/healthcheck/otel/src/index.ts",
-        "line": 22,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L22",
+        "line": 23,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L23",
         "exportPaths": [
           "@nexload-sdk/healthcheck-otel"
         ]
@@ -1048,8 +1048,8 @@
         "signature": "payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => HealthCheckDefinition<\"payload\">",
         "description": "Public function exported by @nexload-sdk/healthcheck-payload.",
         "source": "packages/healthcheck/payload/src/index.ts",
-        "line": 32,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L32",
+        "line": 34,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L34",
         "exportPaths": [
           "@nexload-sdk/healthcheck-payload"
         ]
@@ -1060,8 +1060,8 @@
         "signature": "interface PayloadHealthCheckOptions {\n  collection: string\n  limit?: number\n  timeoutMs?: number\n  where?: Record<string, unknown>\n  depth?: number\n  expectedMinDocuments?: number\n  scopes?: readonly HealthScope[]\n}",
         "description": "Public interface exported by @nexload-sdk/healthcheck-payload.",
         "source": "packages/healthcheck/payload/src/index.ts",
-        "line": 10,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L10",
+        "line": 11,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L11",
         "exportPaths": [
           "@nexload-sdk/healthcheck-payload"
         ]
@@ -1103,8 +1103,8 @@
         "signature": "formatSlugHook(options: SlugHookOptions) => FieldHook",
         "description": "Public constant exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/slug/format-slug.ts",
-        "line": 70,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L70",
+        "line": 73,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L73",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1127,8 +1127,8 @@
         "signature": "formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?: MoneyDisplayOptions) => string | null",
         "description": "Public function exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/money/index.ts",
-        "line": 78,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L78",
+        "line": 85,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L85",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1139,8 +1139,8 @@
         "signature": "formatSlug(value: string) => string",
         "description": "Public function exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/slug/format-slug.ts",
-        "line": 45,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L45",
+        "line": 48,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L48",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1151,8 +1151,8 @@
         "signature": "jalaliDateField(options: JalaliDateFieldOptions) => DateField",
         "description": "Public function exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/date/index.ts",
-        "line": 21,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L21",
+        "line": 22,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L22",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1163,8 +1163,8 @@
         "signature": "moneyField(options: MoneyFieldOptions) => NumberField",
         "description": "Public function exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/money/index.ts",
-        "line": 94,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L94",
+        "line": 102,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L102",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1175,8 +1175,8 @@
         "signature": "parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number",
         "description": "Public function exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/money/index.ts",
-        "line": 56,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L56",
+        "line": 59,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L59",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1223,8 +1223,8 @@
         "signature": "withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOptions) => Field[]",
         "description": "Public function exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/date/index.ts",
-        "line": 53,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L53",
+        "line": 56,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L56",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1247,8 +1247,8 @@
         "signature": "type JalaliDateFieldOptions = {\n  name: string\n  pickerAppearance?: JalaliPickerAppearance\n  display?: import(\"./format-date\").JalaliDateDisplayOptions\n  overrides?: Partial<DateField>\n};",
         "description": "Public type exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/date/index.ts",
-        "line": 8,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L8",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L9",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1283,8 +1283,8 @@
         "signature": "type JalaliTimestampsOptions = {\n  createdAt?: boolean\n  updatedAt?: boolean\n  display?: import(\"./format-date\").JalaliDateDisplayOptions\n  overrides?: { createdAt?: Partial<TextField>, updatedAt?: Partial<TextField> }\n};",
         "description": "Public type exported by @nexload-sdk/payload-fields.",
         "source": "packages/refactoring/payload-fields/src/date/index.ts",
-        "line": 14,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L14",
+        "line": 15,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L15",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
         ]
@@ -1458,8 +1458,8 @@
         "signature": "createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>",
         "description": "Public function exported by @nexload-sdk/payload-editor.",
         "source": "packages/payload-editor/src/create-editor.ts",
-        "line": 54,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L54",
+        "line": 57,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L57",
         "exportPaths": [
           "@nexload-sdk/payload-editor"
         ]
@@ -1470,8 +1470,8 @@
         "signature": "defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset",
         "description": "Public function exported by @nexload-sdk/payload-editor.",
         "source": "packages/payload-editor/src/define-editor-preset.ts",
-        "line": 38,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L38",
+        "line": 40,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L40",
         "exportPaths": [
           "@nexload-sdk/payload-editor"
         ]
@@ -1669,8 +1669,8 @@
         "signature": "field: Readonly<{ text: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<\"text\", NullableSchema<string, TNullable>, TextField>; textarea: <TNullable extends boolean = false>(options?: TextareaFieldOptions<TNullable>) => FieldDefinition<\"textarea\", NullableSchema<string, TNullable>, TextareaField>; slug: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<\"slug\", NullableSchema<string, TNullable>, TextField>; number: <TNullable extends boolean = false>(options?: NumberFieldOptions<TNullable>) => FieldDefinition<\"number\", NullableSchema<number, TNullable>, NumberField>; money: <TNullable extends boolean = false>(options: MoneyFieldOptions<TNullable>) => FieldDefinition<\"money\", NullableSchema<number, TNullable>, NumberField>; boolean: <TNullable extends boolean = false>(options?: BooleanFieldOptions<TNullable>) => FieldDefinition<\"boolean\", NullableSchema<boolean, TNullable>, CheckboxField>; date: <TNullable extends boolean = false>(options?: DateFieldOptions<TNullable>) => FieldDefinition<\"date\", NullableSchema<string, TNullable>, DateField>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable>) => FieldDefinition<\"select\", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<\"relationship\", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<\"upload\", TRelationTo, THasMany, TNullable, TIdSchema, UploadField>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: GroupFieldOptions<TFields, TNullable>) => FieldDefinition<\"group\", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable>) => FieldDefinition<\"array\", ArrayCanonicalSchema<TFields, TNullable>, ArrayField>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable>) => FieldDefinition<\"richText\", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField>; native: <TPayloadField extends PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<\"native\", TSchema, TPayloadField>; }>",
         "description": "Public constant exported by @nexload-sdk/payload-schema.",
         "source": "packages/payload-schema/src/fields/index.ts",
-        "line": 686,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L686",
+        "line": 716,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L716",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1681,8 +1681,8 @@
         "signature": "defineEntity<const TName extends string, const TFields extends EntityFieldMap, TIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>, TRelationshipIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>>(options: DefineEntityOptions<TName, TFields, TIdSchema, TRelationshipIdSchema>) => EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>, TIdSchema>",
         "description": "Public function exported by @nexload-sdk/payload-schema.",
         "source": "packages/payload-schema/src/entity/define-entity.ts",
-        "line": 518,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L518",
+        "line": 529,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L529",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -2049,8 +2049,8 @@
         "signature": "createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: CMSClientOptions<TOperations>) => CMSClient<TPayloadConfig, TOperations>",
         "description": "Public function exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/client/create-cms-client.ts",
-        "line": 19,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L19",
+        "line": 20,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L20",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
@@ -2062,8 +2062,8 @@
         "signature": "createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: CreatePayloadEndpointsOptions<TOperations>) => Endpoint[]",
         "description": "Public function exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/create-payload-endpoints.ts",
-        "line": 22,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L22",
+        "line": 23,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L23",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2138,8 +2138,8 @@
         "signature": "operation<const TInput extends z.ZodType, const TOutput extends z.ZodType, const TErrors extends CMSOperationErrorDefinitions = Readonly<Record<string, never>>>(definition: { errors?: TErrors; input: TInput; output: TOutput; }) => CMSOperation<TInput, TOutput, TErrors>",
         "description": "Public function exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/operation.ts",
-        "line": 15,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L15",
+        "line": 16,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L16",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2177,8 +2177,8 @@
         "signature": "interface CMSClient<\n  TPayloadConfig extends PayloadTypesShape = PayloadTypes,\n  TOperations extends CMSOperationsTree = CMSOperationsTree\n> {\n  readonly operations: InferOperationsClient<TOperations>\n  readonly payload: PayloadSDK<TPayloadConfig>\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/client/types.ts",
-        "line": 49,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L49",
+        "line": 50,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L50",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
@@ -2190,8 +2190,8 @@
         "signature": "interface CMSClientOptions<\n  TOperations extends CMSOperationsTree\n> {\n  basePath?: string\n  operations: TOperations\n  payload: CMSPayloadClientOptions\n  plugins?: readonly CMSClientPlugin[]\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/client/types.ts",
-        "line": 23,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L23",
+        "line": 24,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L24",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
@@ -2229,8 +2229,8 @@
         "signature": "interface CMSOperation<\n  TInputSchema extends z.ZodType = z.ZodType,\n  TOutputSchema extends z.ZodType = z.ZodType,\n  TErrors extends CMSOperationErrorDefinitions = CMSOperationErrorDefinitions\n> {\n  readonly [CMS_OPERATION_SYMBOL]: true\n  readonly errors: TErrors\n  readonly input: TInputSchema\n  readonly output: TOutputSchema\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 19,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L19",
+        "line": 20,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L20",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2242,8 +2242,8 @@
         "signature": "interface CMSOperationAccessContext<\n  TOperation extends CMSOperationContract = CMSOperationContract\n> {\n  readonly operation: CMSOperationMetadata<TOperation>\n  readonly req: PayloadRequest\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 21,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L21",
+        "line": 22,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L22",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2254,8 +2254,8 @@
         "signature": "interface CMSOperationErrorJSON {\n  code: string\n  data?: unknown\n  defined: boolean\n  message: string\n  status: number\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/errors/types.ts",
-        "line": 8,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L8",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L9",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/errors"
@@ -2267,8 +2267,8 @@
         "signature": "interface CMSOperationHandlerContext<\n  TOperation extends CMSOperationContract\n> {\n  readonly errors: CMSDefinedErrorFactories<TOperation>\n  readonly input: InferParsedOperationInput<TOperation>\n  readonly operation: CMSOperationMetadata<TOperation>\n  readonly req: PayloadRequest\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 34,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L34",
+        "line": 35,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L35",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2279,8 +2279,8 @@
         "signature": "interface CMSOperationMetadata<\n  TOperation extends CMSOperationContract = CMSOperationContract\n> {\n  readonly definition: TOperation\n  readonly name: string\n  readonly path: string\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 13,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L13",
+        "line": 14,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L14",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2291,8 +2291,8 @@
         "signature": "interface CMSPayloadClientOptions {\n  baseInit?: RequestInit\n  baseURL: string\n  fetch?: typeof fetch\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/client/types.ts",
-        "line": 17,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L17",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L18",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
@@ -2304,8 +2304,8 @@
         "signature": "interface CMSValidationErrorData {\n  issues: Array<{\n    code?: string\n    message: string\n    path: Array<number | string>\n  }>\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/errors/types.ts",
-        "line": 16,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L16",
+        "line": 17,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L17",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/errors"
@@ -2317,8 +2317,8 @@
         "signature": "interface CreatePayloadEndpointsOptions<\n  TOperations extends CMSOperationsTree\n> {\n  access?: {\n    default?: CMSOperationAccess\n    overrides?: CMSOperationAccessOverrides<TOperations>\n  }\n  basePath?: string\n  handlers: CMSOperationHandlers<TOperations>\n  operations: TOperations\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 69,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L69",
+        "line": 70,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L70",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2355,8 +2355,8 @@
         "signature": "type CMSDefinedErrorFactories<\n  TOperation extends CMSOperationContract\n> = {\n  readonly [TCode in keyof TOperation[\"errors\"] & string]:\n  ErrorFactoryFromDefinition<TCode, TOperation[\"errors\"][TCode]>;\n};",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/errors/types.ts",
-        "line": 52,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L52",
+        "line": 53,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L53",
         "exportPaths": [
           "@nexload-sdk/payload-operations/errors"
         ]
@@ -2367,8 +2367,8 @@
         "signature": "type CMSDefinedOperationError<\n  TOperation extends CMSOperationContract = CMSOperationContract\n> = {\n  [TCode in keyof TOperation[\"errors\"] & string]: DefinedErrorFromDefinition<\n    TCode,\n    TOperation[\"errors\"][TCode]\n  >;\n}[keyof TOperation[\"errors\"] & string];",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/errors/types.ts",
-        "line": 31,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L31",
+        "line": 32,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L32",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/errors"
@@ -2380,8 +2380,8 @@
         "signature": "type CMSOperationAccess<\n  TOperation extends CMSOperationContract = CMSOperationContract\n> = (\n  context: CMSOperationAccessContext<TOperation>\n) => boolean | Promise<boolean>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 28,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L28",
+        "line": 29,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L29",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2392,8 +2392,8 @@
         "signature": "type CMSOperationAccessOverrides<\n  TOperations extends CMSOperationsTree\n> = {\n  readonly [TKey in keyof TOperations]?:\n  TOperations[TKey] extends CMSOperationContract\n    ? CMSOperationAccess<TOperations[TKey]>\n    : TOperations[TKey] extends CMSOperationsTree\n      ? CMSOperationAccessOverrides<TOperations[TKey]>\n      : never;\n};",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 58,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L58",
+        "line": 59,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L59",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2404,8 +2404,8 @@
         "signature": "type CMSOperationCallOptions = Omit<RequestInit, \"body\" | \"method\">;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 34,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L34",
+        "line": 35,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L35",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2417,8 +2417,8 @@
         "signature": "type CMSOperationContract = CMSOperation;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 30,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L30",
+        "line": 31,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L31",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2430,8 +2430,8 @@
         "signature": "type CMSOperationErrorDefinition<\n  TDataSchema extends z.ZodType | undefined = z.ZodType | undefined\n> = Readonly<{\n  data?: TDataSchema\n  message: string\n  status: number\n}>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 7,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L7",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L8",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2443,8 +2443,8 @@
         "signature": "type CMSOperationErrorDefinitions = Readonly<\n  Record<string, CMSOperationErrorDefinition<z.ZodType | undefined>>\n>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 15,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L15",
+        "line": 16,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L16",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2456,8 +2456,8 @@
         "signature": "type CMSOperationHandler<\n  TOperation extends CMSOperationContract\n> = (\n  context: CMSOperationHandlerContext<TOperation>\n) => Promise<InferHandlerOutput<TOperation>>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 43,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L43",
+        "line": 44,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L44",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2468,8 +2468,8 @@
         "signature": "type CMSOperationHandlers<TOperations extends CMSOperationsTree> = {\n  readonly [TKey in keyof TOperations]:\n  TOperations[TKey] extends CMSOperationContract\n    ? CMSOperationHandler<TOperations[TKey]>\n    : TOperations[TKey] extends CMSOperationsTree\n      ? CMSOperationHandlers<TOperations[TKey]>\n      : never;\n};",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 49,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L49",
+        "line": 50,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L50",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2480,8 +2480,8 @@
         "signature": "type CMSOperationsTree = Readonly<{ [key: string]: CMSOperationContract | CMSOperationsTree }>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 32,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L32",
+        "line": 33,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L33",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
@@ -2493,8 +2493,8 @@
         "signature": "type CMSSafeResult<TData, TDefinedError>\n  = | readonly [error: null, data: TData, isDefined: false]\n    | readonly [\n      error: TDefinedError,\n      data: undefined,\n      isDefined: true\n    ]\n    | readonly [error: unknown, data: undefined, isDefined: false];",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/errors/types.ts",
-        "line": 59,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L59",
+        "line": 60,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L60",
         "exportPaths": [
           "@nexload-sdk/payload-operations/errors"
         ]
@@ -2505,8 +2505,8 @@
         "signature": "type InferHandlerOutput<TOperation extends CMSOperationContract>\n  = z.input<TOperation[\"output\"]>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 48,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L48",
+        "line": 49,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L49",
         "exportPaths": [
           "@nexload-sdk/payload-operations/contract"
         ]
@@ -2517,8 +2517,8 @@
         "signature": "type InferOperationInput<TOperation extends CMSOperationContract>\n  = z.input<TOperation[\"input\"]>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 38,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L38",
+        "line": 39,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L39",
         "exportPaths": [
           "@nexload-sdk/payload-operations/contract"
         ]
@@ -2529,8 +2529,8 @@
         "signature": "type InferOperationOutput<TOperation extends CMSOperationContract>\n  = z.output<TOperation[\"output\"]>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 45,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L45",
+        "line": 46,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L46",
         "exportPaths": [
           "@nexload-sdk/payload-operations/contract"
         ]
@@ -2541,8 +2541,8 @@
         "signature": "type InferOperationsClient<TOperations extends CMSOperationsTree> = {\n  readonly [TKey in keyof TOperations]:\n  TOperations[TKey] extends CMSOperationContract\n    ? CMSOperationMethod<TOperations[TKey]>\n    : TOperations[TKey] extends CMSOperationsTree\n      ? InferOperationsClient<TOperations[TKey]>\n      : never;\n};",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/client/types.ts",
-        "line": 40,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L40",
+        "line": 41,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L41",
         "exportPaths": [
           "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
@@ -2554,8 +2554,8 @@
         "signature": "type InferParsedOperationInput<\n  TOperation extends CMSOperationContract\n> = z.output<TOperation[\"input\"]>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
-        "line": 41,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L41",
+        "line": 42,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L42",
         "exportPaths": [
           "@nexload-sdk/payload-operations/contract"
         ]
@@ -2566,8 +2566,8 @@
         "signature": "type PayloadOperationEndpoints = readonly Endpoint[];",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 81,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L81",
+        "line": 82,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L82",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]

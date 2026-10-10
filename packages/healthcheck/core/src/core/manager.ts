@@ -1,8 +1,3 @@
-import { aggregateStatus, summarizeChecks } from "./aggregate";
-import { HEALTH_ERROR_CODES } from "./errors";
-import { autoRuntimeAdapter } from "./runtime";
-import { createAbortSignal, sleep } from "./timeout";
-
 import type {
   HealthCheckDefinition,
   HealthCheckResult,
@@ -13,10 +8,15 @@ import type {
   HealthRunContext,
   HealthRunScope,
   HealthScope,
-  MetricCollectorDefinition,
   MetricCollectionResult,
+  MetricCollectorDefinition,
   RuntimeAdapter
 } from "./types";
+
+import { aggregateStatus, summarizeChecks } from "./aggregate";
+import { HEALTH_ERROR_CODES } from "./errors";
+import { autoRuntimeAdapter } from "./runtime";
+import { createAbortSignal, sleep } from "./timeout";
 
 const DEFAULT_TIMEOUT_MS = 1_000;
 const DEFAULT_CONCURRENCY = 8;
@@ -120,12 +120,14 @@ export function createHealthManager (options: HealthManagerOptions): HealthManag
       checks.set(
         check.name, check
       );
+
       return manager;
     },
     registerCollector (collector) {
       collectors.set(
         collector.name, collector
       );
+
       return manager;
     },
     unregister (name) {
@@ -286,6 +288,7 @@ export function createHealthManager (options: HealthManagerOptions): HealthManag
           const { signal, dispose, } = createAbortSignal(
             collector.timeoutMs ?? defaults.timeoutMs ?? DEFAULT_TIMEOUT_MS, runOptions.signal
           );
+
           try {
             const collection: MetricCollectionResult = await collector.collect(makeContext(signal));
             metrics.push(...collection.metrics);

@@ -14,6 +14,7 @@ function normalizeDigits (value: string): string {
   return value.replace(
     /[۰-۹٠-٩]/g, (digit) => {
       const index = persianDigits.indexOf(digit);
+
       return String(index >= 0 ? index : arabicDigits.indexOf(digit));
     }
   );
@@ -27,6 +28,7 @@ function getPath (
       current, key
     ) => {
       if (current && typeof current === "object") return (current as Record<string, unknown>)[key];
+
       return undefined;
     }, value
   );
@@ -38,6 +40,7 @@ function hasPath (
   return path.split(".").every((key) => {
     if (!value || typeof value !== "object" || !(key in value)) return false;
     value = (value as Record<string, unknown>)[key];
+
     return true;
   });
 }
@@ -105,5 +108,6 @@ export const formatSlugHook = (options: SlugHookOptions): FieldHook => ({
 
   if (lock !== false && operation === "update" && previousSlug !== undefined) return previousSlug;
   if (typeof value === "string") return formatSlug(value);
+
   return value;
 };

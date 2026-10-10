@@ -3,25 +3,26 @@ import net from "node:net";
 import os from "node:os";
 import process from "node:process";
 
+import type {
+  HealthCheckDefinition,
+  HealthCheckRunResult,
+  HealthMetric,
+  HealthMetrics,
+  HealthScope,
+  RuntimeAdapter,
+  RuntimeCpuSnapshot,
+  RuntimeMemorySnapshot
+} from "@nexload-sdk/healthcheck";
+
 import {
   defineHealthCheck,
   defineMetricCollector,
   HEALTH_ERROR_CODES
 } from "@nexload-sdk/healthcheck";
 
-import { readContainerResourceSnapshot } from "./cgroup";
-
 import type { ContainerResourceOptions } from "./cgroup";
-import type {
-  HealthCheckDefinition,
-  HealthCheckRunResult,
-  HealthMetrics,
-  HealthMetric,
-  HealthScope,
-  RuntimeAdapter,
-  RuntimeCpuSnapshot,
-  RuntimeMemorySnapshot
-} from "@nexload-sdk/healthcheck";
+
+import { readContainerResourceSnapshot } from "./cgroup";
 
 export * from "./cgroup";
 
@@ -88,6 +89,7 @@ export function nodeRuntimeAdapter (): RuntimeAdapter {
         process.on(
           signal, handler
         );
+
         return { signal, handler, };
       });
 

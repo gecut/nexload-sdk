@@ -1,6 +1,6 @@
-import { PayloadEditorConfigError } from "../errors.js";
-
 import type { EditorFeatureConfig, HeadingSize } from "../types.js";
+
+import { PayloadEditorConfigError } from "../errors.js";
 
 const featureKeys = new Set<keyof EditorFeatureConfig>([
   "paragraph",
@@ -59,6 +59,7 @@ function validateRelationalOptions (
     "allowedCollections",
     "maxDepth"
   ]);
+
   if (extraAllowedKey) allowedKeys.add(extraAllowedKey);
   for (const key of Object.keys(value)) {
     if (!allowedKeys.has(key)) invalidOptions(`${path}.${key}`);
@@ -90,6 +91,7 @@ export function validateDefinition (
       );
     }
     const featurePath = `${path}.${key}`;
+
     if (typeof featureValue === "boolean" || featureValue === undefined) continue;
     if (featureValue === null || typeof featureValue !== "object" || Array.isArray(featureValue)) {
       invalidOptions(featurePath);
@@ -97,6 +99,7 @@ export function validateDefinition (
     if (!optionFeatureKeys.has(key)) invalidOptions(featurePath);
 
     const options = featureValue as Record<string, unknown>;
+
     if (key === "heading") {
       for (const optionKey of Object.keys(options)) {
         if (optionKey !== "sizes") invalidOptions(`${featurePath}.${optionKey}`);

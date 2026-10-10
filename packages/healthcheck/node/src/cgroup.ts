@@ -52,6 +52,7 @@ async function readText (
     )).trim();
   } catch (error) {
     const err = error as NodeJS.ErrnoException;
+
     if (err.code === "EACCES" || err.code === "EPERM") {
       warnings.push(`permission-denied:${path}`);
     }
@@ -64,11 +65,13 @@ function parsePositiveNumber (value: string | null): number | null {
   if (!value || value === "max") return null;
 
   const parsed = Number(value);
+
   return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
 }
 
 function parseV1Limit (value: string | null): number | null {
   const parsed = parsePositiveNumber(value);
+
   return parsed && parsed < V1_UNLIMITED_MEMORY ? parsed : null;
 }
 
@@ -85,6 +88,7 @@ export function parseCpuList (value: string | null): number | null {
 
   for (const part of value.split(",")) {
     const trimmed = part.trim();
+
     if (!trimmed) continue;
     const [
       startRaw,
@@ -105,6 +109,7 @@ export function parseCpuList (value: string | null): number | null {
 
 function minFinite (values: Array<number | null>): number | null {
   const finite = values.filter((value): value is number => typeof value === "number" && Number.isFinite(value) && value > 0);
+
   return finite.length > 0 ? Math.min(...finite) : null;
 }
 
@@ -114,6 +119,7 @@ function getAvailableParallelism (): number | null {
 
 function getHostCpuCount (): number | null {
   const cpus = os.cpus();
+
   return cpus.length > 0 ? cpus.length : null;
 }
 
@@ -326,6 +332,7 @@ export async function readContainerResourceSnapshot (options: ContainerResourceO
   const v2 = await readCgroupV2(
     root, warnings
   );
+
   if (v2) {
     return {
       detected: true,
@@ -343,6 +350,7 @@ export async function readContainerResourceSnapshot (options: ContainerResourceO
   const v1 = await readCgroupV1(
     root, warnings
   );
+
   if (v1) {
     return {
       detected: true,

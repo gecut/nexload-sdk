@@ -1,7 +1,3 @@
-import { requestOperation } from "./request-operation.js";
-import { flattenCMSOperations } from "../contract/traversal.js";
-
-import type { InferOperationsClient } from "./types.js";
 import type {
   CMSOperationCallOptions,
   CMSOperationPromise,
@@ -9,6 +5,10 @@ import type {
 } from "../contract/types.js";
 import type { CMSDefinedOperationError } from "../errors/types.js";
 import type { CMSClientTransport } from "../transport/types.js";
+import type { InferOperationsClient } from "./types.js";
+
+import { flattenCMSOperations } from "../contract/traversal.js";
+import { requestOperation } from "./request-operation.js";
 
 export function createOperationsClient<
   TOperations extends CMSOperationsTree
@@ -79,6 +79,7 @@ function defineOperationMethod (
   }
 
   const operationName = segments.at(-1);
+
   if (operationName === undefined) {
     throw new TypeError("Operation path must not be empty.");
   }

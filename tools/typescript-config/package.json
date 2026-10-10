@@ -1,7 +1,19 @@
 {
   "name": "@nexload-sdk/typescript-config",
   "version": "4.0.1",
+  "description": "Shared TypeScript configurations for the Nexload SDK monorepo",
   "license": "MIT",
+  "files": [
+    "*.json",
+    "README.md"
+  ],
+  "exports": {
+    "./base.json": "./base.json",
+    "./node.json": "./node.json",
+    "./react.json": "./react.json",
+    "./next.json": "./next.json",
+    "./vite.json": "./vite.json"
+  },
   "publishConfig": {
     "access": "public"
   }

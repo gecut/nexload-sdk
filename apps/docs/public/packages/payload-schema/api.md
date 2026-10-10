@@ -19,7 +19,7 @@ defineEntity<const TName extends string, const TFields extends EntityFieldMap, T
 
 Public function exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L518)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L529)
 
 ### `isPayloadSchemaError`
 
@@ -72,7 +72,7 @@ field: Readonly<{ text: <TNullable extends boolean = false>(options?: TextFieldO
 
 Public constant exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L686)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L716)
 
 ## Interfaces
 

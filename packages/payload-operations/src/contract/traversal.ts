@@ -1,10 +1,10 @@
-import { assertSafeSegment, isRecord } from "./validation.js";
-import { CMS_OPERATION_SYMBOL } from "../internal/symbols.js";
-
 import type {
   CMSOperationContract,
   CMSOperationsTree
 } from "./types.js";
+
+import { CMS_OPERATION_SYMBOL } from "../internal/symbols.js";
+import { assertSafeSegment, isRecord } from "./validation.js";
 
 export interface FlattenedCMSOperation {
   readonly definition: CMSOperationContract
@@ -73,6 +73,7 @@ function visitTree (
   }
 
   const entries = Object.entries(node);
+
   if (entries.length === 0) {
     throw new TypeError("Operations namespace must not be empty.");
   }

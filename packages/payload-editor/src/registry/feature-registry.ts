@@ -1,10 +1,3 @@
-import { featureOrder } from "./feature-order.js";
-import { createBooleanFeature } from "../adapters/boolean.js";
-import { createHeadingFeature } from "../adapters/heading.js";
-import { createLinkFeature } from "../adapters/link.js";
-import { createRelationshipFeature } from "../adapters/relationship.js";
-import { createUploadFeature } from "../adapters/upload.js";
-
 import type {
   EditorFeatureConfig,
   HeadingOptions,
@@ -14,11 +7,19 @@ import type {
   UploadOptions
 } from "../types.js";
 
+import { createBooleanFeature } from "../adapters/boolean.js";
+import { createHeadingFeature } from "../adapters/heading.js";
+import { createLinkFeature } from "../adapters/link.js";
+import { createRelationshipFeature } from "../adapters/relationship.js";
+import { createUploadFeature } from "../adapters/upload.js";
+import { featureOrder } from "./feature-order.js";
+
 export function createManagedFeatures (config: Readonly<EditorFeatureConfig>): NativeEditorFeature[] {
   const providers: NativeEditorFeature[] = [];
 
   for (const key of featureOrder) {
     const value = config[key];
+
     if (!value) continue;
     if (key === "heading") providers.push(createHeadingFeature(value as true | Readonly<HeadingOptions>));
     else if (key === "link") providers.push(createLinkFeature(value as true | Readonly<LinkOptions>));

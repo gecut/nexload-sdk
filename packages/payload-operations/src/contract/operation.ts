@@ -1,14 +1,15 @@
-import {
-  assertErrorDefinitions,
-  isRecord
-} from "./validation.js";
-import { CMS_OPERATION_SYMBOL } from "../internal/symbols.js";
+import type { z } from "zod";
 
 import type {
   CMSOperation,
   CMSOperationErrorDefinitions
 } from "./types.js";
-import type { z } from "zod";
+
+import { CMS_OPERATION_SYMBOL } from "../internal/symbols.js";
+import {
+  assertErrorDefinitions,
+  isRecord
+} from "./validation.js";
 
 const EMPTY_ERRORS = Object.freeze({});
 

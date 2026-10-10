@@ -1,13 +1,13 @@
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 
+import type { CreateEditorOptions, EditorPreset, NativeEditorFeature } from "./types.js";
+
 import { isEditorPreset } from "./define-editor-preset.js";
 import { mergeDefinition } from "./definition/merge-definition.js";
 import { validateDefinition } from "./definition/validate-definition.js";
 import { PayloadEditorConfigError } from "./errors.js";
 import { getBuiltInPreset } from "./presets/definitions.js";
 import { createManagedFeatures } from "./registry/feature-registry.js";
-
-import type { CreateEditorOptions, EditorPreset, NativeEditorFeature } from "./types.js";
 
 function appendExtensions (
   managed: NativeEditorFeature[],
@@ -22,11 +22,13 @@ function appendExtensions (
 
   const keys = new Set(managed.map((feature) => feature.key));
   const result = [...managed];
+
   for (const [
     index,
     extension
   ] of extensions.entries()) {
     const path = `extendFeatures[${index}]`;
+
     if (
       typeof extension !== "object"
       || extension === null
@@ -48,6 +50,7 @@ function appendExtensions (
     keys.add(extension.key);
     result.push(extension);
   }
+
   return result;
 }
 
@@ -58,6 +61,7 @@ export function createEditor (options: CreateEditorOptions): ReturnType<typeof l
     );
   }
   let preset: EditorPreset | undefined;
+
   if (typeof options.preset === "string") {
     preset = getBuiltInPreset(options.preset);
     if (!preset) {

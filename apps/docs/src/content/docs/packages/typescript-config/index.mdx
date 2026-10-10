@@ -1,0 +1,70 @@
+---
+title: "Overview & Quick Start"
+description: "Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications."
+sidebar:
+  label: "Overview & Quick Start"
+  order: 1
+package: typescript-config
+topic: overview
+---
+
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/typescript-config")} eyebrow="TypeScript compiler standards" />
+
+`@nexload-sdk/typescript-config` provides battle-tested, strict TypeScript configurations tailored for modern TypeScript 5.9+ runtimes and frameworks. It eliminates boilerplate and enforces strict type boundaries across libraries, microservices, and web applications.
+
+---
+
+## 10-Second Code Snippet
+
+Extend the target preset directly in your project's `tsconfig.json`:
+
+```json title="tsconfig.json"
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"]
+}
+```
+
+---
+
+## Available Presets Catalog
+
+The package ships explicit subpath exports for each runtime archetype:
+
+| Preset Subpath | Target Environment | Key Compiler Options |
+|---|---|---|
+| `@nexload-sdk/typescript-config/base.json` | Universal base for all TypeScript projects | `target: ES2022`, `moduleResolution: NodeNext`, `moduleDetection: force`, `strict: true` |
+| `@nexload-sdk/typescript-config/node.json` | Node.js backend services and CLI tools | Extends base, `lib: ["ES2023"]`, typed Node globals |
+| `@nexload-sdk/typescript-config/react.json` | Client React libraries and single-page apps | `jsx: react-jsx`, `lib: ["DOM", "DOM.Iterable", "ES2023"]` |
+| `@nexload-sdk/typescript-config/next.json` | Next.js App Router applications | `jsx: preserve`, `plugins: [{ name: "next" }]`, isolated module safety |
+| `@nexload-sdk/typescript-config/vite.json` | Vite frontend applications | `moduleResolution: Bundler`, `jsx: react-jsx`, client DOM types |
+
+---
+
+## Core Guarantees & Strictness Flags
+
+All presets inherit from `base.json` with maximum compiler safety enabled:
+
+- **`moduleDetection: "force"`**: Treats every TypeScript file as a module automatically, preventing ambient global scope pollution without needing empty `export {}` statements.
+- **`forceConsistentCasingInFileNames: true"`**: Prevents subtle filesystem case-sensitivity crashes between macOS/Windows and Linux CI containers.
+- **`noImplicitOverride: true`**: Guarantees that subclass method overrides are explicitly marked with the `override` keyword.
+- **`noImplicitReturns: true`**: Ensures all code paths within a function explicitly return a value.
+- **`noFallthroughCasesInSwitch: true`**: Catches accidental switch fallthrough bugs during compilation.
+- **`exactOptionalPropertyTypes: true`**: Distinguishes between omitted properties and properties explicitly assigned `undefined`.
+
+---
+
+## Installation & Requirements
+
+```bash
+pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
+```
+
+Peer requirement: `typescript >= 5.0.0`.

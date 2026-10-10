@@ -1,3 +1,11 @@
-export { default as baseConfig, baseConfig as config } from "./base.js";
-export { default as nextJsConfig } from "./nextjs.js";
-export { default } from "./base.js";
+import { nexloadConfig } from "./factory.js";
+
+export { default as base, baseConfig } from "./base.js";
+export { baseConfig as config } from "./base.js";
+export { nexloadConfig, type NexloadConfigOptions } from "./factory.js";
+export { default as nextjs, nextJsConfig } from "./nextjs.js";
+export { default as node, nodeConfig } from "./node.js";
+export { default as payload, payloadConfig } from "./payload.js";
+export { default as react, reactConfig } from "./react.js";
+
+export default nexloadConfig;

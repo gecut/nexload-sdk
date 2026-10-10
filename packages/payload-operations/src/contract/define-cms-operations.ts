@@ -1,12 +1,13 @@
+import type { CMSOperationsTree } from "./types.js";
+
 import {
   flattenCMSOperations,
   isCMSOperation
 } from "./traversal.js";
 
-import type { CMSOperationsTree } from "./types.js";
-
 export function defineCMSOperations<const TOperations extends CMSOperationsTree> (operations: TOperations): TOperations {
   flattenCMSOperations(operations);
+
   return freezeOperationsTree(operations);
 }
 

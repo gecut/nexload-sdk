@@ -1,4 +1,12 @@
-import { createErrorResponse, createSuccessResponse } from "./responses.js";
+import type { PayloadRequest } from "payload";
+
+import type { CMSOperationContract } from "../contract/types.js";
+import type {
+  CMSOperationAccess,
+  CMSOperationHandler,
+  CMSOperationMetadata
+} from "./types.js";
+
 import {
   createFrameworkError,
   createInputValidationError,
@@ -10,14 +18,7 @@ import {
   validateDefinedError
 } from "../errors/defined-error.js";
 import { sanitizeZodIssues } from "../errors/validation-error.js";
-
-import type {
-  CMSOperationAccess,
-  CMSOperationHandler,
-  CMSOperationMetadata
-} from "./types.js";
-import type { CMSOperationContract } from "../contract/types.js";
-import type { PayloadRequest } from "payload";
+import { createErrorResponse, createSuccessResponse } from "./responses.js";
 
 export interface ExecuteOperationOptions {
   access: CMSOperationAccess
@@ -136,6 +137,7 @@ async function normalizeHandlerError (
     const definedError = await validateDefinedError(
       error, operation
     );
+
     if (definedError !== undefined) {
       return definedError;
     }

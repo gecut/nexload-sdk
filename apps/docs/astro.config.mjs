@@ -185,6 +185,15 @@ export default defineConfig({
           ],
         },
         {
+          label: "Tooling & Standards",
+          items: [
+            packageSidebar("TypeScript Config", "packages/typescript-config"),
+            packageSidebar("ESLint Config", "packages/eslint-config"),
+            { label: "File & Directory Structure", slug: "standards/file-structure" },
+            { label: "Agent Config Setup Prompt", slug: "standards/agent-setup-prompt" },
+          ],
+        },
+        {
           label: "AI Coding Skills",
           items: [
             { label: "Overview", slug: "agents" },

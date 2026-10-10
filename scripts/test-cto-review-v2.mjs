@@ -139,6 +139,7 @@ const expectedCategories = new Set([
   "near_miss_composition",
 ]);
 const foundCategories = new Set(evalsData.evals.map((e) => e.category));
+
 for (const cat of expectedCategories) {
   assert(foundCategories.has(cat), `evals.json covers category '${cat}'`);
 }
@@ -179,6 +180,7 @@ const leakRegexes = [
 
 for (const file of [skillPath, ...expectedRefs.map((r) => path.join(refsDir, r))]) {
   const content = fs.readFileSync(file, "utf8");
+
   for (const regex of leakRegexes) {
     assert(!regex.test(content), `No leaked implementation/diff found in ${path.basename(file)}`);
   }

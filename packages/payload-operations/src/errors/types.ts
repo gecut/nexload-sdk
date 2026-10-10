@@ -1,9 +1,10 @@
-import type { CMSOperationError } from "./cms-operation-error.js";
+import type { z } from "zod";
+
 import type {
   CMSOperationContract,
   CMSOperationErrorDefinition
 } from "../contract/types.js";
-import type { z } from "zod";
+import type { CMSOperationError } from "./cms-operation-error.js";
 
 export interface CMSOperationErrorJSON {
   code: string

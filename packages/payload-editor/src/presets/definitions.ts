@@ -1,6 +1,6 @@
-import { defineEditorPreset } from "../define-editor-preset.js";
-
 import type { EditorPreset, EditorPresetName } from "../types.js";
+
+import { defineEditorPreset } from "../define-editor-preset.js";
 
 const compact = defineEditorPreset({
   features: {

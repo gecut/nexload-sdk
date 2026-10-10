@@ -1,31 +1,44 @@
 # @nexload-sdk/typescript-config
 
-Shared TypeScript configuration presets for the Nexload SDK monorepo.
+Shared, authoritative TypeScript configuration presets for the Nexload SDK monorepo and ecosystem.
 
 ## Presets
 
-- `base.json`: strict shared defaults
-- `node.json`: Node.js library/package preset
-- `react.json`: React library preset (declaration-only emit)
-- `next.json`: Next.js app preset
-- `vite.json`: Vite app preset
+- **`base.json`**: Strict shared foundation (`strict: true`, `noUncheckedIndexedAccess: true`, `target: ES2022`, `moduleResolution: Bundler`, `declaration: true`, `declarationMap: true`).
+- **`node.json`**: For Node.js / Bun library packages and backend services.
+- **`react.json`**: For React 19 UI component libraries (`jsx: react-jsx`, `emitDeclarationOnly: true`).
+- **`next.json`**: For Next.js App Router applications (`jsx: preserve`, `plugins: [{ name: "next" }]`, `noEmit: true`).
+- **`vite.json`**: For Vite-based client applications (`noEmit: true`, DOM lib enabled).
 
 ## Usage
 
-`tsconfig.json` example:
+In your package or app `tsconfig.json`:
 
 ```json
 {
   "extends": "@nexload-sdk/typescript-config/node.json",
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
     "outDir": "dist"
   }
 }
 ```
 
-## Notes
+For a React UI library:
 
-- `base.json` enables strict mode and declaration generation defaults
-- `react.json` uses `jsx: react-jsx`
-- `next.json` is app-oriented (`noEmit: true`)
-- `vite.json` is app-oriented (`noEmit: true`, DOM libs enabled)
+```json
+{
+  "extends": "@nexload-sdk/typescript-config/react.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "dist"
+  }
+}
+```
+
+## Compiler Invariants
+
+- Modern module resolution via `Bundler`
+- Explicit trust boundaries via `noUncheckedIndexedAccess: true`
+- Complete declaration output with maps (`declaration: true`, `declarationMap: true`)
+- Strict type-checking rules enabled across all presets

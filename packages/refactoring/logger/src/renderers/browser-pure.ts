@@ -1,7 +1,7 @@
-import { LogLevel, LogRendererFunc } from "@/types";
+import { type LogLevel, type LogRendererFunc } from "@/types";
 
 export const browserPureRenderer: LogRendererFunc = (line) => {
-  const { level, time, message, name, pid, ...extras } = line as any;
+  const { level, message = "", name = "", pid: _pid, time: _time, ...extras } = line;
 
   const nameStr = name.padEnd(6);
   const levelStr = level.padEnd(5);

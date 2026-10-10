@@ -6,7 +6,16 @@ export type LogLevel =
   | "ERROR"
   | "FATAL"
   | "DEBUG";
-export type LogRendererFunc = (line: object) => void;
+export interface LogEntry {
+  level: LogLevel;
+  name: string;
+  message?: string;
+  time?: number;
+  pid?: number;
+  [key: string]: unknown;
+}
+
+export type LogRendererFunc = (line: LogEntry) => void;
 export type LogRenderer = { node: LogRendererFunc; browser: LogRendererFunc };
 
 export const isBrowser = () =>

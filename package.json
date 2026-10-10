@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
+    "@nexload-sdk/eslint-config": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "turbo": "^2.6.3"

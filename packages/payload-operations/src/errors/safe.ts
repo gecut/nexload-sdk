@@ -1,7 +1,7 @@
-import { isDefinedError } from "./is-defined-error.js";
-import { CMS_OPERATION_PROMISE_ERROR_SYMBOL } from "../internal/symbols.js";
-
 import type { CMSSafeResult } from "./types.js";
+
+import { type CMS_OPERATION_PROMISE_ERROR_SYMBOL } from "../internal/symbols.js";
+import { isDefinedError } from "./is-defined-error.js";
 
 type AwaitedData<TPromise> = TPromise extends PromiseLike<infer TData>
   ? Awaited<TData>

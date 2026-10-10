@@ -1,6 +1,6 @@
-import { CMSOperationError } from "./cms-operation-error.js";
-
 import type { CMSValidationErrorData } from "./types.js";
+
+import { CMSOperationError } from "./cms-operation-error.js";
 
 export const BUILT_IN_ERROR_STATUS = Object.freeze({
   BAD_GATEWAY: 502,

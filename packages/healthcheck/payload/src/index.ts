@@ -1,11 +1,12 @@
-import { defineHealthCheck, HEALTH_ERROR_CODES } from "@nexload-sdk/healthcheck";
+import type { Payload } from "payload";
 
 import type {
   HealthCheckDefinition,
   HealthMetrics,
   HealthScope
 } from "@nexload-sdk/healthcheck";
-import type { Payload } from "payload";
+
+import { defineHealthCheck, HEALTH_ERROR_CODES } from "@nexload-sdk/healthcheck";
 
 export interface PayloadHealthCheckOptions {
   collection: string
@@ -23,6 +24,7 @@ type PayloadFindArgs = Parameters<Payload["find"]>[0];
 function getTotalDocs (result: unknown): number | null {
   if (result && typeof result === "object" && "totalDocs" in result) {
     const totalDocs = (result as { totalDocs?: unknown }).totalDocs;
+
     return typeof totalDocs === "number" ? totalDocs : null;
   }
 

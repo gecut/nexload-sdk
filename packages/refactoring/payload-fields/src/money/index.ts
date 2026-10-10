@@ -27,6 +27,7 @@ export const IRT: Readonly<MoneyCurrencyDefinition> = { code: "IRT", label: "ت�
 
 export function resolveCurrency (currency: MoneyCurrency): MoneyCurrencyDefinition {
   const result = currency === "IRR" ? IRR : currency === "IRT" ? IRT : currency;
+
   if (
     !result.code.trim()
     || !result.label.trim()
@@ -34,12 +35,14 @@ export function resolveCurrency (currency: MoneyCurrency): MoneyCurrencyDefiniti
     || result.fractionDigits < 0
     || result.fractionDigits > 20
   ) throw new Error("Invalid money currency definition.");
+
   return result;
 }
 
 function normalizedNumber (value: string): string {
   const persian = "۰۱۲۳۴۵۶۷۸۹";
   const arabic = "٠١٢٣٤٥٦٧٨٩";
+
   return value.trim().replace(
     /[۰-۹٠-٩]/g, (digit) => String(Math.max(
       persian.indexOf(digit), arabic.indexOf(digit)
@@ -58,12 +61,14 @@ export function parseMoneyToMinorUnits (
 ): number {
   const definition = resolveCurrency(currency);
   const value = normalizedNumber(input);
+
   if (!(/^-?\d+(?:\.\d+)?$/).test(value)) throw new TypeError("Invalid money input.");
   const negative = value.startsWith("-");
   const [
     whole,
     fraction = ""
   ] = (negative ? value.slice(1) : value).split(".");
+
   if (fraction.length > definition.fractionDigits) throw new RangeError("Money input has unsupported precision.");
   const digits = `${whole}${fraction.padEnd(
     definition.fractionDigits, "0"
@@ -71,7 +76,9 @@ export function parseMoneyToMinorUnits (
     /^0+(?=\d)/, ""
   ) || "0";
   const minor = Number(`${negative ? "-" : ""}${digits}`);
+
   if (!Number.isSafeInteger(minor)) throw new RangeError("Money value is outside the safe integer range.");
+
   return minor;
 }
 
@@ -88,14 +95,17 @@ export function formatMoney (
   const formatted = new Intl.NumberFormat(
     locale, { useGrouping: display.grouping ?? true, minimumFractionDigits: definition.fractionDigits, maximumFractionDigits: definition.fractionDigits, }
   ).format(major);
+
   return display.showCurrency ?? true ? `${formatted} ${definition.label}` : formatted;
 }
 
 export function moneyField (options: MoneyFieldOptions): NumberField {
   const overrides = options.overrides ?? {};
+
   if (overrides.name && overrides.name !== options.name) throw new Error("Money field name is protected.");
   if (overrides.type && overrides.type !== "number") throw new Error("Money field type is protected.");
   const currency = resolveCurrency(options.currency);
+
   if (
     options.minMinorUnits !== undefined
     && (
@@ -116,6 +126,7 @@ export function moneyField (options: MoneyFieldOptions): NumberField {
     if (!options.allowNegative && value < 0) return "مبلغ منفی مجاز نیست.";
     if (options.minMinorUnits !== undefined && value < options.minMinorUnits) return "مبلغ کمتر از حد مجاز است.";
     if (options.maxMinorUnits !== undefined && value > options.maxMinorUnits) return "مبلغ بیشتر از حد مجاز است.";
+
     return consumerValidate
       ? (consumerValidate as (value: number, args: unknown) => string | true)(
         value, args
@@ -125,6 +136,7 @@ export function moneyField (options: MoneyFieldOptions): NumberField {
   const display = {
     locale: "fa-IR", digits: "persian" as const, grouping: true, showCurrency: true, ...options.display,
   };
+
   return {
     ...overrides,
     name: options.name,

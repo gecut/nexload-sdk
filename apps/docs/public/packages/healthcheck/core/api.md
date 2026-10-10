@@ -103,7 +103,7 @@ httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => Health
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L30)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L31)
 
 ### `memoryCheck`
 
@@ -115,7 +115,7 @@ memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degr
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L125)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L127)
 
 ### `runtimeInfoCheck`
 
@@ -127,7 +127,7 @@ runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L29)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L31)
 
 ### `runtimeMetricsCollector`
 
@@ -151,7 +151,7 @@ shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefi
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L49)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L51)
 
 ### `sleep`
 
@@ -175,7 +175,7 @@ startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: re
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L69)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L71)
 
 ### `statusToHttpStatus`
 
@@ -199,7 +199,7 @@ stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L122)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L124)
 
 ### `summarizeChecks`
 
@@ -223,7 +223,7 @@ timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; th
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L90)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L92)
 
 ### `toHealthJson`
 
@@ -235,7 +235,7 @@ toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L87)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L89)
 
 ## Constants
 
@@ -406,7 +406,7 @@ interface HealthJsonOptions {
 
 Public interface exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L81)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L83)
 
 ### `HealthLinks`
 

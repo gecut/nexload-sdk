@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src",
     "test": "pnpm build && node --test tests/unit/*.test.mjs",
     "test:types": "tsc --project tests/types/tsconfig.json",
     "test:sqlite": "pnpm build && node --test tests/integration/sqlite.test.mjs",

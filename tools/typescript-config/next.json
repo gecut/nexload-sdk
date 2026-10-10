@@ -2,23 +2,22 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./base.json",
   "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "isolatedModules": true,
     "allowJs": true,
     "jsx": "preserve",
     "noEmit": true,
-    "allowImportingTsExtensions": true
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

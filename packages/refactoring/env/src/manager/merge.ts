@@ -1,4 +1,4 @@
-import { EnvDefinition, UnionToIntersection } from "./types";
+import { type EnvDefinition, type UnionToIntersection } from "./types";
 
 export function merge<
   const T extends readonly Record<string, EnvDefinition>[]

@@ -19,7 +19,7 @@ createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, 
 
 Public function exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L19)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L20)
 
 ### `createPayloadEndpoints`
 
@@ -31,7 +31,7 @@ createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: Cre
 
 Public function exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L22)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L23)
 
 ### `defineCMSOperations`
 
@@ -105,7 +105,7 @@ operation<const TInput extends z.ZodType, const TOutput extends z.ZodType, const
 
 Public function exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L15)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L16)
 
 ### `safe`
 
@@ -163,7 +163,7 @@ interface CMSClient<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L49)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L50)
 
 ### `CMSClientOptions`
 
@@ -182,7 +182,7 @@ interface CMSClientOptions<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L23)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L24)
 
 ### `CMSClientPlugin`
 
@@ -238,7 +238,7 @@ interface CMSOperation<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L19)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L20)
 
 ### `CMSOperationAccessContext`
 
@@ -255,7 +255,7 @@ interface CMSOperationAccessContext<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L21)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L22)
 
 ### `CMSOperationErrorJSON`
 
@@ -273,7 +273,7 @@ interface CMSOperationErrorJSON {
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L8)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L9)
 
 ### `CMSOperationHandlerContext`
 
@@ -292,7 +292,7 @@ interface CMSOperationHandlerContext<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L34)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L35)
 
 ### `CMSOperationMetadata`
 
@@ -310,7 +310,7 @@ interface CMSOperationMetadata<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L13)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L14)
 
 ### `CMSPayloadClientOptions`
 
@@ -326,7 +326,7 @@ interface CMSPayloadClientOptions {
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L17)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L18)
 
 ### `CMSValidationErrorData`
 
@@ -344,7 +344,7 @@ interface CMSValidationErrorData {
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L16)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L17)
 
 ### `CreatePayloadEndpointsOptions`
 
@@ -366,7 +366,7 @@ interface CreatePayloadEndpointsOptions<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L69)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L70)
 
 ### `TimeoutPluginOptions`
 
@@ -411,7 +411,7 @@ type CMSDefinedErrorFactories<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L52)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L53)
 
 ### `CMSDefinedOperationError`
 
@@ -430,7 +430,7 @@ type CMSDefinedOperationError<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L31)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L32)
 
 ### `CMSOperationAccess`
 
@@ -446,7 +446,7 @@ type CMSOperationAccess<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L28)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L29)
 
 ### `CMSOperationAccessOverrides`
 
@@ -467,7 +467,7 @@ type CMSOperationAccessOverrides<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L58)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L59)
 
 ### `CMSOperationCallOptions`
 
@@ -479,7 +479,7 @@ type CMSOperationCallOptions = Omit<RequestInit, "body" | "method">;
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L34)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L35)
 
 ### `CMSOperationContract`
 
@@ -491,7 +491,7 @@ type CMSOperationContract = CMSOperation;
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L30)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L31)
 
 ### `CMSOperationErrorDefinition`
 
@@ -509,7 +509,7 @@ type CMSOperationErrorDefinition<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L7)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L8)
 
 ### `CMSOperationErrorDefinitions`
 
@@ -523,7 +523,7 @@ type CMSOperationErrorDefinitions = Readonly<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L15)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L16)
 
 ### `CMSOperationHandler`
 
@@ -539,7 +539,7 @@ type CMSOperationHandler<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L43)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L44)
 
 ### `CMSOperationHandlers`
 
@@ -558,7 +558,7 @@ type CMSOperationHandlers<TOperations extends CMSOperationsTree> = {
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L49)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L50)
 
 ### `CMSOperationsTree`
 
@@ -570,7 +570,7 @@ type CMSOperationsTree = Readonly<{ [key: string]: CMSOperationContract | CMSOpe
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L32)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L33)
 
 ### `CMSSafeResult`
 
@@ -589,7 +589,7 @@ type CMSSafeResult<TData, TDefinedError>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L59)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L60)
 
 ### `InferHandlerOutput`
 
@@ -602,7 +602,7 @@ type InferHandlerOutput<TOperation extends CMSOperationContract>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L48)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L49)
 
 ### `InferOperationInput`
 
@@ -615,7 +615,7 @@ type InferOperationInput<TOperation extends CMSOperationContract>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L38)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L39)
 
 ### `InferOperationOutput`
 
@@ -628,7 +628,7 @@ type InferOperationOutput<TOperation extends CMSOperationContract>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L45)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L46)
 
 ### `InferOperationsClient`
 
@@ -647,7 +647,7 @@ type InferOperationsClient<TOperations extends CMSOperationsTree> = {
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L40)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L41)
 
 ### `InferParsedOperationInput`
 
@@ -661,7 +661,7 @@ type InferParsedOperationInput<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L41)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L42)
 
 ### `PayloadOperationEndpoints`
 
@@ -673,7 +673,7 @@ type PayloadOperationEndpoints = readonly Endpoint[];
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L81)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L82)
 
 ***
 

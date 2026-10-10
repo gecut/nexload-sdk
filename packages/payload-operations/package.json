@@ -60,7 +60,7 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "peerDependencies": {

@@ -2,8 +2,9 @@ import {
   isBrowser,
   isNode,
   levelPriorities,
-  LogLevel,
-  LogRenderer,
+  type LogEntry,
+  type LogLevel,
+  type LogRenderer,
 } from "./types";
 
 export class NexloadLogger {
@@ -44,7 +45,7 @@ export class NexloadLogger {
     if (levelPriorities[level] < this.threshold) return;
     const normalized = this.normalizeInput(objOrMessage, message);
 
-    const payload: any = {
+    const payload: LogEntry = {
       ...this.baseObject,
       ...normalized.obj,
       name: this.name,

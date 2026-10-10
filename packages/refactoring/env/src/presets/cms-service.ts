@@ -1,4 +1,4 @@
-import { EnvPreset } from "../manager/types";
+import { type EnvPreset } from "../manager/types";
 
 export const $CmsServicePreset = {
   NEXT_PUBLIC_SITE_URL: { type: "string", },

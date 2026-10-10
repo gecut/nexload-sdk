@@ -1,6 +1,7 @@
 {
   "name": "@nexload-sdk/eslint-config",
   "version": "4.0.1",
+  "description": "Shared authoritative ESLint configurations for the Nexload SDK monorepo",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
@@ -8,6 +9,46 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./base": {
+      "types": "./dist/base.d.ts",
+      "default": "./dist/base.js"
+    },
+    "./base.js": {
+      "types": "./dist/base.d.ts",
+      "default": "./dist/base.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "default": "./dist/node.js"
+    },
+    "./node.js": {
+      "types": "./dist/node.d.ts",
+      "default": "./dist/node.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    },
+    "./react.js": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    },
+    "./nextjs": {
+      "types": "./dist/nextjs.d.ts",
+      "default": "./dist/nextjs.js"
+    },
+    "./nextjs.js": {
+      "types": "./dist/nextjs.d.ts",
+      "default": "./dist/nextjs.js"
+    },
+    "./payload": {
+      "types": "./dist/payload.d.ts",
+      "default": "./dist/payload.js"
+    },
+    "./payload.js": {
+      "types": "./dist/payload.d.ts",
+      "default": "./dist/payload.js"
     },
     "./*": {
       "types": "./dist/*.d.ts",
@@ -27,7 +68,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm tsc"
+    "build": "pnpm tsc",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@eslint/js": "^9.39.2",
@@ -36,11 +78,11 @@
     "@typescript-eslint/eslint-plugin": "^8.50.0",
     "@typescript-eslint/parser": "^8.50.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-perfectionist": "^5.12.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-turbo": "^2.6.3",
+    "eslint-plugin-unicorn": "^57.0.0",
     "globals": "^16.5.0",
     "typescript-eslint": "^8.50.0"
   },

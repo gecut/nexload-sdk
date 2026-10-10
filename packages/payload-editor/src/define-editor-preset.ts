@@ -1,10 +1,10 @@
-import { validateDefinition } from "./definition/validate-definition.js";
-
 import type {
   DefineEditorPresetOptions,
   EditorFeatureConfig,
   EditorPreset
 } from "./types.js";
+
+import { validateDefinition } from "./definition/validate-definition.js";
 
 const presets = new WeakSet<object>();
 
@@ -21,11 +21,13 @@ function snapshotFeatures (features: Readonly<EditorFeatureConfig>): EditorFeatu
         optionKey,
         Array.isArray(optionValue) ? Object.freeze([...optionValue]) : optionValue
       ]));
+
       return [
         key,
         Object.freeze(options)
       ];
     }
+
     return [
       key,
       value
@@ -40,6 +42,7 @@ export function defineEditorPreset (options: DefineEditorPresetOptions): EditorP
   validateDefinition(options.features);
   const preset = Object.freeze({ features: snapshotFeatures(options.features), }) as EditorPreset;
   presets.add(preset);
+
   return preset;
 }
 

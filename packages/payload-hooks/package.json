@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@nexload-sdk/logger": "^4.1.0",

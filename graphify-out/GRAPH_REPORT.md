@@ -1,17 +1,17 @@
-# Graph Report - nexload-sdk  (2026-10-04)
+# Graph Report - nexload-sdk  (2026-10-10)
 
 ## Corpus Check
-- 656 files · ~179,933 words
+- 660 files · ~174,762 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 10 file(s) not represented in the graph (top: .css 6, (none) 3, .scss 1)
+- Unclassified: 9 file(s) not represented in the graph (top: .css 6, (none) 2, .scss 1)
 
 ## Summary
-- 3708 nodes · 4871 edges · 322 communities (205 shown, 117 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 67 edges (avg confidence: 0.88)
+- 3792 nodes · 5003 edges · 334 communities (215 shown, 119 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 67 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f5599aa2`
+- Built from commit: `e31185e6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,6 @@
 - @nexload-sdk/env
 - manager/types.ts
 - @nexload-sdk/payload-fields
-- dependencies
 - payload-schema/package.json
 - payload-fields/package.json
 - generate-markdown.mjs
@@ -52,8 +51,8 @@
 - exports
 - plugin.ts
 - peerDependencies
-- compilerOptions
-- PackageHero.astro
+- node.json
+- package-catalog.ts
 - logger/tsconfig.json
 - checks.ts
 - Nexload CTO Review
@@ -74,11 +73,11 @@
 - manager.ts
 - payload-operations.ts
 - execute-operation.ts
-- Base TypeScript Config
+- compilerOptions
 - 1. `@nexload-sdk/bundler`
 - SystemProbe
 - tasks
-- compilerOptions
+- react.json
 - @nexload-sdk/eslint-config
 - next/tsconfig.json
 - exports
@@ -90,8 +89,8 @@
 - payload/src/index.ts
 - payload-hooks/package.json
 - Scope, Evidence, and Review Contract
-- compilerOptions
-- compilerOptions
+- vite.json
+- eslint-config/tsconfig.json
 - docs.schema.json
 - engines
 - TimeoutPlugin
@@ -105,7 +104,7 @@
 - payload-editor/tsconfig.json
 - payload-fields/tsconfig.json
 - payload-operations/tsconfig.json
-- public-api.ts
+- field-definition.ts
 - payload-schema/tsconfig.json
 - docs/tsconfig.json
 - bun/tsconfig.json
@@ -119,7 +118,7 @@
 - Dependency Update Configuration
 - 4.0.0
 - serializers.ts
-- publishConfig
+- factory.ts
 - 2. Boundary-Specific Anti-Patterns
 - Priority, Verdict, and Output Contract
 - choobinooo.mjs
@@ -136,7 +135,7 @@
 - bun/src/index.ts
 - Choose a Package
 - web/tsconfig.json
-- Graphify Analysis Tools
+- dependencies
 - Nexload Design Engineering
 - Runtime Adapter Interface
 - The Inviolable Constitution
@@ -146,13 +145,13 @@
 - 2. The 6 Reasoning Specialists
 - 2. Payload CMS Specialist Skills
 - Design State Machine
-- TypeScript Config Metadata
+- typescript-config/package.json
 - Nexload Code
 - 4. The 11 Core CTO Decision Lenses
 - Healthcheck Node
 - Guides
 - Payload Schema API Reference
-- Graphify Query Logic
+- 2. Canonical Archetypes
 - 1.0.0
 - 1. Domain Skills Catalog
 - Healthcheck Core Skill
@@ -180,13 +179,14 @@
 - Payload Operations Client
 - Payload Operations Core
 - Payload Operations Server
-- base.ts
+- Migrating from Legacy `.eslintrc.js`
 - docs/README.md
 - Nexload React Engineering
 - tests/contracts.test.mjs
 - Agent Skills Index
 - 1. Core Operating Principles
-- Graphify Integration Reference
+- Behavior and correctness
+- Clean code and readability
 - Bun Runtime Adapter
 - The Nexload Modular Monolith Architecture
 - Next.js Health Routes
@@ -218,7 +218,6 @@
 - metrics-parser.md
 - core/types.ts
 - Graphify Build Script
-- EntityPayloadFacade
 - conflicting-authorities/package.json
 - ApiSymbol.astro
 - CompatibilityMatrix.astro
@@ -266,13 +265,25 @@
 - wrong-business-invariant/README.md
 - Prometheus Guides
 - Prometheus Overview
-- @nexload-sdk/payload-fields
+- Type and trust boundaries
 - ./plugins/timeout
-- package.test.mjs
-- misleading-repository-docs/src/index.ts
+- The Enforced Mental Model
+- The Four Production Archetypes
+- typescript-config/guides.mdx
+- devDependencies
+- typescript-config/index.mdx
+- devDependencies
+- Dependencies and verification
 - Payload Operations API
+- Module ownership and filenames
+- scripts
+- EntityPayloadFacade
 - Package Documentation
+- @nexload-sdk/payload-fields
+- agent-setup-prompt.mdx
 - Documentation Workflow
+- scripts
+- agent-config-setup.md
 - Payload Healthcheck Changelog
 - Payload Healthcheck README
 - 1.0.1
@@ -295,7 +306,6 @@
 - behavior-correctness.md
 - cohesion-and-extraction.md
 - readability-grouping.md
-- package-catalog.ts
 - payload-editor/package.json
 - @nexload-sdk/healthcheck-bun
 - @nexload-sdk/healthcheck-next
@@ -305,10 +315,9 @@
 - scripts
 - web
 - peerDependencies
-- devDependencies
 - @nexload-sdk/payload-editor
 - 1.0.1
-- ./*.js
+- exports
 - support.mdx
 - abstraction-proposal.md
 - interop-seam.md
@@ -348,10 +357,6 @@
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Graphify Query Execution Flow** — codex_skills_graphify_references_query_step0, codex_skills_graphify_references_query_step1, codex_skills_graphify_references_query_path, codex_skills_graphify_references_query_explain [EXTRACTED 1.00]
-- **Graphify Skill Documentation Set** — codex_skills_graphify_skill, codex_skills_graphify_references_add_watch, codex_skills_graphify_references_exports [EXTRACTED 1.00]
-- **Graphify Skill Documentation Suite** — codex_skills_graphify_references_extraction_spec, codex_skills_graphify_references_github_and_merge, codex_skills_graphify_references_hooks [EXTRACTED 1.00]
-- **Graphify Update Pipeline** — graphify_detect, graphify_build, graphify_cli, graphify_analyze [EXTRACTED 1.00]
 - **Healthcheck Container Resources Documentation** — skills_healthcheck_container_resources_skill, skills_healthcheck_container_resources_references_cgroup_contract, skills_healthcheck_container_resources_references_operational_policy, skills_healthcheck_container_resources_references_test_fixtures [EXTRACTED 1.00]
 - **Healthcheck Documentation Suite** — skills_healthcheck_core_references_api_contract, skills_healthcheck_core_references_implementation_playbook, skills_healthcheck_core_references_scopes_status_and_profiles [EXTRACTED 1.00]
 - **Monitoring Exporters Documentation Suite** — skills_healthcheck_monitoring_exporters_skill, skills_healthcheck_monitoring_exporters_references_exporter_contracts, skills_healthcheck_monitoring_exporters_references_metric_names_and_labels, skills_healthcheck_monitoring_exporters_references_verification [EXTRACTED 1.00]
@@ -376,15 +381,15 @@
 - **Payload Operations Documentation Structure** — skills_payload_operations_client_skill, skills_payload_operations_core_skill [INFERRED 0.90]
 - **Payload Schema Documentation Suite** — skills_payload_schema_use_references_consumer_contract, skills_payload_schema_use_references_field_selection, skills_payload_schema_use_references_integration_checklist [INFERRED 0.90]
 
-## Communities (322 total, 117 thin omitted)
+## Communities (334 total, 119 thin omitted)
 
 ### Community 0 - "payload-editor/src/types.ts"
 Cohesion: 0.08
 Nodes (50): editor, BooleanFeatureKey, createBooleanFeature(), factories, createHeadingFeature(), createLinkFeature(), createRelationshipFeature(), createUploadFeature() (+42 more)
 
 ### Community 1 - "create-global.ts"
-Cohesion: 0.08
-Nodes (39): Key Capabilities:, API, Child Logger, Environment Variables (global logger), Exports, Install, @nexload-sdk/logger, `NexloadLogger` (+31 more)
+Cohesion: 0.07
+Nodes (40): Key Capabilities:, API, Child Logger, Environment Variables (global logger), Exports, Install, @nexload-sdk/logger, `NexloadLogger` (+32 more)
 
 ### Community 2 - "@nexload-sdk/env"
 Cohesion: 0.04
@@ -397,10 +402,6 @@ Nodes (23): HookReturnType, HookType, API, `env.$(key, cache = true)`, Exports, 
 ### Community 5 - "@nexload-sdk/payload-fields"
 Cohesion: 0.08
 Nodes (23): 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.0.5, 1.0.6, 2.0.0 (+15 more)
-
-### Community 6 - "dependencies"
-Cohesion: 0.14
-Nodes (14): dependencies, eslint-config-prettier, @eslint/js, eslint-plugin-import, eslint-plugin-only-warn, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-turbo (+6 more)
 
 ### Community 7 - "payload-schema/package.json"
 Cohesion: 0.07
@@ -424,7 +425,7 @@ Nodes (30): bundler, bundler, bundler, bundler, bundler, bundler, bundler, bundl
 
 ### Community 12 - "payload-schema/src/types.ts"
 Cohesion: 0.07
-Nodes (36): PayloadSchemaErrorCode, PayloadSchemaErrorDataMap, PayloadSchemaErrorPhase, SafeIssueSummary, SerializedPayloadSchemaError, ArrayFieldOptions, ArrayItem, BooleanFieldOptions (+28 more)
+Nodes (37): DefaultIdSchema, PayloadSchemaErrorCode, PayloadSchemaErrorDataMap, PayloadSchemaErrorPhase, SafeIssueSummary, SerializedPayloadSchemaError, ArrayFieldOptions, ArrayItem (+29 more)
 
 ### Community 13 - "jalali-date-field.tsx"
 Cohesion: 0.24
@@ -439,8 +440,8 @@ Cohesion: 0.07
 Nodes (25): AllValuesOf, astro:content, CollectionEntry, CollectionKey, ContentConfig, DataEntryMap, ExtractCollectionFilterType, ExtractDataType (+17 more)
 
 ### Community 16 - "node/src/index.ts"
-Cohesion: 0.16
-Nodes (11): health, emptyMemory(), readContainerResourceSnapshot(), containerMetricsCollector(), containerResourceCheck(), finitePositive(), nodeMemory(), nodeRuntimeAdapter() (+3 more)
+Cohesion: 0.15
+Nodes (12): health, ContainerResourceOptions, emptyMemory(), readContainerResourceSnapshot(), containerMetricsCollector(), containerResourceCheck(), finitePositive(), nodeMemory() (+4 more)
 
 ### Community 17 - "devDependencies"
 Cohesion: 0.20
@@ -459,8 +460,8 @@ Cohesion: 0.10
 Nodes (19): author, description, files, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config, @nexload-sdk/typescript-config, payload (+11 more)
 
 ### Community 21 - "define-entity.ts"
-Cohesion: 0.08
-Nodes (39): DefaultIdSchema, appendCanonicalHook(), assertFieldName(), bindSeed(), canonicalHook(), commonReserved, compileField(), createInspection() (+31 more)
+Cohesion: 0.11
+Nodes (28): appendCanonicalHook(), assertFieldName(), bindSeed(), canonicalHook(), commonReserved, compileField(), createInspection(), dataFieldTypes (+20 more)
 
 ### Community 22 - "test-cto-review-v2.mjs"
 Cohesion: 0.07
@@ -475,8 +476,8 @@ Cohesion: 0.29
 Nodes (10): parseDefinedData(), parseFailureResponse(), parseOperationResponse(), createInternalError(), parseErrorEnvelope(), CMSClientTimeoutError, isTimeoutError(), assertTimeout() (+2 more)
 
 ### Community 25 - "package.json"
-Cohesion: 0.10
-Nodes (20): devDependencies, @changesets/cli, eslint, prettier, turbo, eslint, name, packageManager (+12 more)
+Cohesion: 0.09
+Nodes (22): devDependencies, @changesets/cli, eslint, @nexload-sdk/eslint-config, prettier, turbo, eslint, @nexload-sdk/eslint-config (+14 more)
 
 ### Community 26 - "errors/types.ts"
 Cohesion: 0.16
@@ -491,8 +492,8 @@ Cohesion: 0.20
 Nodes (6): packagePaths, retiredPackageRedirects, collections, DocsCollection, astro, starlight-theme-flexoki
 
 ### Community 29 - "money/index.ts"
-Cohesion: 0.23
-Nodes (13): MoneyFieldComponent(), Props, formatMoney(), IRR, IRT, MoneyCurrency, MoneyCurrencyDefinition, MoneyDisplayOptions (+5 more)
+Cohesion: 0.21
+Nodes (14): Migration from 2.x, MoneyFieldComponent(), Props, formatMoney(), IRR, IRT, MoneyCurrency, MoneyCurrencyDefinition (+6 more)
 
 ### Community 30 - "paths"
 Cohesion: 0.09
@@ -503,8 +504,8 @@ Cohesion: 0.05
 Nodes (42): author, dependencies, @nexload-sdk/healthcheck, description, devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config (+34 more)
 
 ### Community 32 - "next/src/index.ts"
-Cohesion: 0.11
-Nodes (19): baseHeaders(), cidrContains(), constantTimeEquals(), createNextHealthRoute(), handle(), createNextMetricsRoute(), getRequestIp(), invalidConfig() (+11 more)
+Cohesion: 0.09
+Nodes (22): GET, HEAD, health, baseHeaders(), cidrContains(), constantTimeEquals(), createNextHealthRoute(), handle() (+14 more)
 
 ### Community 33 - "devDependencies"
 Cohesion: 0.12
@@ -522,13 +523,13 @@ Nodes (16): failure(), payloadFieldsPlugin(), PayloadFieldsPluginOptions, SlugGe
 Cohesion: 0.40
 Nodes (5): peerDependencies, payload, @payloadcms/ui, react, react-dom
 
-### Community 37 - "compilerOptions"
-Cohesion: 0.08
-Nodes (24): compilerOptions, allowImportingTsExtensions, allowJs, declaration, declarationMap, isolatedModules, lib, module (+16 more)
+### Community 37 - "node.json"
+Cohesion: 0.17
+Nodes (11): compilerOptions, allowImportingTsExtensions, allowJs, lib, outDir, types, exclude, extends (+3 more)
 
-### Community 38 - "PackageHero.astro"
-Cohesion: 0.22
-Nodes (8): Props, Props, Props, Props, siblings, packageCatalog, PackageCatalogEntry, withBase()
+### Community 38 - "package-catalog.ts"
+Cohesion: 0.13
+Nodes (13): Props, Props, Props, Props, siblings, packageCatalog, PackageCatalogEntry, PackageFamily (+5 more)
 
 ### Community 39 - "logger/tsconfig.json"
 Cohesion: 0.20
@@ -563,8 +564,8 @@ Cohesion: 0.05
 Nodes (37): author, dependencies, @nexload-sdk/healthcheck, @nexload-sdk/healthcheck-prometheus, description, devDependencies, eslint, @nexload-sdk/bundler (+29 more)
 
 ### Community 47 - "node/package.json"
-Cohesion: 0.06
-Nodes (35): author, dependencies, @nexload-sdk/healthcheck, description, devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config (+27 more)
+Cohesion: 0.08
+Nodes (24): author, dependencies, @nexload-sdk/healthcheck, description, exports, ./package.json, files, eslint (+16 more)
 
 ### Community 48 - "otel/package.json"
 Cohesion: 0.06
@@ -591,8 +592,8 @@ Cohesion: 0.06
 Nodes (31): author, description, devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config, @nexload-sdk/typescript-config, @types/node (+23 more)
 
 ### Community 54 - "compilerOptions"
-Cohesion: 0.13
-Nodes (14): compilerOptions, allowImportingTsExtensions, allowJs, isolatedModules, jsx, module, moduleResolution, noEmit (+6 more)
+Cohesion: 0.15
+Nodes (12): compilerOptions, allowJs, incremental, jsx, lib, noEmit, plugins, exclude (+4 more)
 
 ### Community 55 - "devDependencies"
 Cohesion: 0.20
@@ -610,9 +611,9 @@ Nodes (12): AppClient, appEndpoints, AppOperations, authBearerPlugin(), cmsClien
 Cohesion: 0.14
 Nodes (26): createOperationInit(), requestOperation(), RequestOperationOptions, joinOperationURL(), CMSOperationCallOptions, CMSOperationContract, createFrameworkError(), createInputValidationError() (+18 more)
 
-### Community 59 - "Base TypeScript Config"
-Cohesion: 0.12
-Nodes (15): compilerOptions, declaration, declarationMap, esModuleInterop, isolatedModules, module, moduleDetection, moduleResolution (+7 more)
+### Community 59 - "compilerOptions"
+Cohesion: 0.10
+Nodes (20): compilerOptions, declaration, declarationMap, esModuleInterop, forceConsistentCasingInFileNames, isolatedModules, module, moduleDetection (+12 more)
 
 ### Community 60 - "1. `@nexload-sdk/bundler`"
 Cohesion: 0.15
@@ -626,9 +627,9 @@ Nodes (8): @nexload-sdk/system-probes, BunNanotimeProbe, ProbeManager, ProbeResu
 Cohesion: 0.14
 Nodes (13): dependsOn, inputs, outputs, cache, persistent, dependsOn, $schema, tasks (+5 more)
 
-### Community 63 - "compilerOptions"
-Cohesion: 0.14
-Nodes (13): compilerOptions, declaration, declarationMap, emitDeclarationOnly, isolatedModules, jsx, jsxImportSource, noEmit (+5 more)
+### Community 63 - "react.json"
+Cohesion: 0.17
+Nodes (11): compilerOptions, emitDeclarationOnly, jsx, jsxImportSource, lib, noEmit, exclude, extends (+3 more)
 
 ### Community 64 - "@nexload-sdk/eslint-config"
 Cohesion: 0.04
@@ -643,12 +644,12 @@ Cohesion: 0.07
 Nodes (29): import, require, types, import, require, types, import, require (+21 more)
 
 ### Community 67 - "ref_payload"
-Cohesion: 0.10
-Nodes (13): packageRoot, payloadVersion, resolveVersion(), run(), sourceManifest, packageDirectory, categoryEntity, createFixtureConfig() (+5 more)
+Cohesion: 0.09
+Nodes (14): packageRoot, payloadVersion, resolveVersion(), run(), sourceManifest, packageDirectory, categoryEntity, createFixtureConfig() (+6 more)
 
 ### Community 68 - "payload-schema.ts"
-Cohesion: 0.15
-Nodes (12): CollectionConfig, CreateProductInput, createProductSchema, CustomLayoutProducts, handleSchemaError(), ProductCardDTO, productCardSchema, productEntity (+4 more)
+Cohesion: 0.09
+Nodes (20): CollectionConfig, CreateProductInput, createProductSchema, CustomLayoutProducts, handleSchemaError(), ProductCardDTO, productCardSchema, productEntity (+12 more)
 
 ### Community 69 - "peerDependencies"
 Cohesion: 0.50
@@ -663,8 +664,8 @@ Cohesion: 0.26
 Nodes (12): autoRuntimeAdapter(), BunLike, finitePositive(), genericRuntimeAdapter(), getBun(), getProcess(), memorySnapshot(), now() (+4 more)
 
 ### Community 72 - "payload/src/index.ts"
-Cohesion: 0.13
-Nodes (8): GET, HEAD, health, health, PayloadFindArgs, payloadHealthCheck(), PayloadHealthCheckOptions, PayloadLike
+Cohesion: 0.18
+Nodes (5): health, PayloadFindArgs, payloadHealthCheck(), PayloadHealthCheckOptions, PayloadLike
 
 ### Community 73 - "payload-hooks/package.json"
 Cohesion: 0.06
@@ -674,13 +675,13 @@ Nodes (30): dependencies, @nexload-sdk/logger, payload, description, devDependen
 Cohesion: 0.12
 Nodes (17): 10. Root-Cause Compression & Finding Count, 11. Investigation Stop Rule, 12. Re-Review Protocol, 1. Freeze the Decision & Scope Binding, 2. Review Modes, 3. Authority Hierarchy, 4. Version-Aware Technical Truth, 5. Security Boundary for Review: Untrusted Content (+9 more)
 
-### Community 75 - "compilerOptions"
-Cohesion: 0.13
-Nodes (14): compilerOptions, lib, module, noEmit, noImplicitReturns, noUnusedLocals, noUnusedParameters, resolveJsonModule (+6 more)
-
-### Community 76 - "compilerOptions"
+### Community 75 - "vite.json"
 Cohesion: 0.17
-Nodes (11): compilerOptions, declaration, module, moduleResolution, noEmit, outDir, target, exclude (+3 more)
+Nodes (11): compilerOptions, jsx, lib, noEmit, target, useDefineForClassFields, exclude, extends (+3 more)
+
+### Community 76 - "eslint-config/tsconfig.json"
+Cohesion: 0.22
+Nodes (8): compilerOptions, declaration, noEmit, outDir, exclude, extends, include, @nexload-sdk/typescript-config/base.json
 
 ### Community 79 - "TimeoutPlugin"
 Cohesion: 0.22
@@ -718,9 +719,9 @@ Nodes (8): compilerOptions, declaration, emitDeclarationOnly, outDir, exclude, e
 Cohesion: 0.20
 Nodes (9): compilerOptions, declaration, declarationMap, emitDeclarationOnly, outDir, exclude, extends, include (+1 more)
 
-### Community 90 - "public-api.ts"
+### Community 90 - "field-definition.ts"
 Cohesion: 0.11
-Nodes (16): field, FieldDefinition, InferEntityFields, entity, fields1, fields2, fields3, fields4 (+8 more)
+Nodes (18): CanonicalShape, fieldEntries(), FieldSeed, fieldSeedSymbol, getFieldSeed(), InternalFieldDefinition, AnyCanonicalSchema, AnyFieldDefinition (+10 more)
 
 ### Community 91 - "payload-schema/tsconfig.json"
 Cohesion: 0.22
@@ -761,6 +762,10 @@ Nodes (8): access, baseBranch, changelog, commit, fixed, linked, $schema, update
 ### Community 103 - "serializers.ts"
 Cohesion: 0.22
 Nodes (9): health, DEFAULT_REDACTION, HealthJsonOptions, redactUrl(), sanitizeObject(), sanitizeValue(), stringifyHealthJson(), toHealthJson() (+1 more)
+
+### Community 104 - "factory.ts"
+Cohesion: 0.44
+Nodes (7): typescript-eslint, baseConfig, NexloadConfigOptions, nextJsConfig, nodeConfig, payloadConfig, reactConfig
 
 ### Community 105 - "2. Boundary-Specific Anti-Patterns"
 Cohesion: 0.04
@@ -807,8 +812,8 @@ Cohesion: 0.05
 Nodes (33): 1. The Dominant Idea Trap, 2. Assumption Inversion (The Reverse Vector), 3. Collision-Zone Thinking (Cross-Domain Transfer), 4. Subtraction (Via Negativa), Collision & Escape: Breaking Fixation, Example: High-Throughput Audit Logging, 1. The 3-Tier Fan Structure, 2. Abstraction Laddering (+25 more)
 
 ### Community 117 - "cgroup.ts"
-Cohesion: 0.28
-Nodes (15): ContainerCpuSnapshot, ContainerMemorySnapshot, ContainerResourceOptions, ContainerResourceSnapshot, emptyCpu(), getAvailableParallelism(), getHostCpuCount(), minFinite() (+7 more)
+Cohesion: 0.31
+Nodes (14): ContainerCpuSnapshot, ContainerMemorySnapshot, ContainerResourceSnapshot, emptyCpu(), getAvailableParallelism(), getHostCpuCount(), minFinite(), parseCpuList() (+6 more)
 
 ### Community 118 - "bun/src/index.ts"
 Cohesion: 0.22
@@ -822,9 +827,9 @@ Nodes (4): Payload Schema Overview, Choose a Package, Glossary, Introduction
 Cohesion: 0.33
 Nodes (5): compilerOptions, moduleResolution, extends, include, @nexload-sdk/typescript-config/vite.json
 
-### Community 121 - "Graphify Analysis Tools"
-Cohesion: 0.29
-Nodes (7): Transcribe Reference, Update Reference, graphify.analyze, graphify.build, graphify.cli, graphify.detect, graphify.transcribe
+### Community 121 - "dependencies"
+Cohesion: 0.14
+Nodes (14): dependencies, eslint-config-prettier, @eslint/js, eslint-plugin-perfectionist, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-turbo, eslint-plugin-unicorn (+6 more)
 
 ### Community 122 - "Nexload Design Engineering"
 Cohesion: 0.06
@@ -836,7 +841,7 @@ Nodes (12): 1. Evidence Hierarchy (Grounding Gate), 2. Inspect Before Ask (Quest
 
 ### Community 125 - "ref_node_assert"
 Cohesion: 0.21
-Nodes (4): CustomFeature, featureMap(), resolveEditor(), preset
+Nodes (6): CustomFeature, featureMap(), resolveEditor(), distRoot, packageRoot, preset
 
 ### Community 126 - "Nexload Package Engineering"
 Cohesion: 0.06
@@ -854,21 +859,21 @@ Nodes (8): 1. Healthcheck & Observability Skills, 2. Payload CMS Specialist Skil
 Cohesion: 0.06
 Nodes (32): 1. Deep Modules vs. Shallow Modules, 2. Defining Architectural Seams, 3. The Nearest Credible Extension (Anti-Astronautics), Architectural Boundaries & Deep Modules, Audit Questions:, 1. Happy-Path Bias in Architecture, 2. The Resilience Triad, 3. Graceful Degradation Patterns (+24 more)
 
-### Community 131 - "TypeScript Config Metadata"
-Cohesion: 0.33
-Nodes (5): license, name, publishConfig, access, version
+### Community 131 - "typescript-config/package.json"
+Cohesion: 0.14
+Nodes (13): description, exports, ./base.json, ./next.json, ./node.json, ./react.json, ./vite.json, files (+5 more)
 
 ### Community 132 - "Nexload Code"
-Cohesion: 0.05
-Nodes (39): Asynchronous work, Behavior and correctness, Concurrency and data integrity, Contracts, Error integrity, Resource lifecycle, Review questions, Basis and deliberate adaptations (+31 more)
+Cohesion: 0.17
+Nodes (12): Decision flow, Handoff requirements, Implementation workflow, Invariants, Nexload Code, Purpose, Reference routing, Required inspection (+4 more)
 
 ### Community 133 - "4. The 11 Core CTO Decision Lenses"
 Cohesion: 0.17
 Nodes (12): 4. The 11 Core CTO Decision Lenses, Lens 10: Operational Readiness, Lens 11: Consumer Impact, Lens 1: Correctness, Lens 2: Requirement Fidelity, Lens 3: Ownership, Lens 4: Boundary Integrity, Lens 5: Single Source of Truth (SSOT) (+4 more)
 
-### Community 137 - "Graphify Query Logic"
-Cohesion: 0.40
-Nodes (5): graphify query reference, Explanation Logic, Path Finding Logic, Query Expansion Logic, Traversal Logic
+### Community 137 - "2. Canonical Archetypes"
+Cohesion: 0.22
+Nodes (8): 1. Core Principles, 2. Canonical Archetypes, 3. Anti-Patterns to Prevent during Refactors, Archetype A: Zero-Dependency Core Library, Archetype B: Multi-Platform / Adapter Packages, Archetype C: React UI & Component Library, Archetype D: Payload CMS Extension Suite, File and Directory Structure Architecture
 
 ### Community 138 - "1.0.0"
 Cohesion: 0.67
@@ -970,9 +975,9 @@ Nodes (4): Contract Model, Error Model, Package Boundaries, Payload Operations C
 Cohesion: 0.50
 Nodes (4): access-and-local-api, endpoint-assembly, server-error-boundary, payload-operations-server
 
-### Community 165 - "base.ts"
-Cohesion: 0.18
-Nodes (11): eslint-config-prettier, @eslint/js, eslint-plugin-import, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-turbo, @next/eslint-plugin-next, @stylistic/eslint-plugin (+3 more)
+### Community 165 - "Migrating from Legacy `.eslintrc.js`"
+Cohesion: 0.17
+Nodes (11): Benefits of `projectService`, Customizing Rules with `nexloadConfig`, Migrating from Legacy `.eslintrc.js`, Prettier Integration & Zero Conflicts, Step 1: Remove Deprecated Dependencies, Step 2: Delete Old Config & Ignore Files, Step 3: Create `eslint.config.mjs`, Step 4: Update Package Scripts (+3 more)
 
 ### Community 166 - "docs/README.md"
 Cohesion: 0.22
@@ -994,9 +999,13 @@ Nodes (3): Agent Skills Index, Install Agent Skills, Nexload SDK Index
 Cohesion: 0.22
 Nodes (9): 1. Core Operating Principles, 2. Navigating the Codebase, 3. Code Modification Rules, A. Non-Destructive Operation, Agent Guidelines & Working Protocol, B. Single Source of Truth, C. Simultaneous Documentation Maintenance, Clean Architecture & Deep Modules (+1 more)
 
-### Community 172 - "Graphify Integration Reference"
-Cohesion: 0.67
-Nodes (3): Graphify Extraction Specification, Graphify GitHub and Merge Reference, Graphify Hooks and Integration Reference
+### Community 171 - "Behavior and correctness"
+Cohesion: 0.29
+Nodes (7): Asynchronous work, Behavior and correctness, Concurrency and data integrity, Contracts, Error integrity, Resource lifecycle, Review questions
+
+### Community 172 - "Clean code and readability"
+Cohesion: 0.29
+Nodes (7): Basis and deliberate adaptations, Clean code and readability, Comments and constants, Formatter boundary and enforcement, Functions, Pragmatic DRY, Semantic whitespace and visual hierarchy
 
 ### Community 173 - "Bun Runtime Adapter"
 Cohesion: 0.67
@@ -1126,13 +1135,57 @@ Nodes (4): 2. Severity Calibration: Blast Radius & Reversibility, Blast Radius, 
 Cohesion: 0.50
 Nodes (4): 13. Reviewer-Only Boundary & Manipulation Resistance, Manipulation Resistance Directives, Strictly Permitted, Strictly Prohibited
 
-### Community 255 - "@nexload-sdk/payload-fields"
-Cohesion: 0.40
-Nodes (4): Install, Migration from 2.x, @nexload-sdk/payload-fields, Usage
+### Community 255 - "Type and trust boundaries"
+Cohesion: 0.33
+Nodes (6): Assertions and `any`, Boundary workflow, Canonical types, Repository baseline, Review questions, Type and trust boundaries
 
 ### Community 256 - "./plugins/timeout"
 Cohesion: 0.50
 Nodes (4): ./plugins/timeout, default, import, types
+
+### Community 257 - "The Enforced Mental Model"
+Cohesion: 0.20
+Nodes (9): 10-Second Code Snippet, 1. Mandatory Kebab-Case Filenames (`unicorn/filename-case`), 2. Deterministic Perfectionist Imports (`perfectionist/sort-imports`), 3. Absolute Zero-`any` Policy (`@typescript-eslint/no-explicit-any`), 4. Semantic Whitespace Padding (`@stylistic/padding-line-between-statements`), 5. Floating Promise Prevention (`@typescript-eslint/no-floating-promises`), Available Presets & Factory, Installation & Requirements (+1 more)
+
+### Community 258 - "The Four Production Archetypes"
+Cohesion: 0.22
+Nodes (8): Anti-Patterns to Avoid, Archetype 1: Zero-Dependency Core Library, Archetype 2: Multi-Platform / Adapter Package, Archetype 3: React UI & Feature Slice Architecture, Archetype 4: Payload CMS Server vs. Admin Boundaries, Core Architectural Principles, File Naming & Extension Matrix, The Four Production Archetypes
+
+### Community 259 - "typescript-config/guides.mdx"
+Cohesion: 0.25
+Nodes (7): 1. Root `tsconfig.json`, 2. Workspace Package `tsconfig.json`, Migrating from Legacy `tsconfig.json`, Monorepo Setup with Project References, Never Weaken, Overriding Compiler Options Safely, Safe to Customize
+
+### Community 260 - "devDependencies"
+Cohesion: 0.29
+Nodes (7): devDependencies, eslint, @nexload-sdk/bundler, @nexload-sdk/eslint-config, @nexload-sdk/typescript-config, @types/node, typescript
+
+### Community 261 - "typescript-config/index.mdx"
+Cohesion: 0.40
+Nodes (4): 10-Second Code Snippet, Available Presets Catalog, Core Guarantees & Strictness Flags, Installation & Requirements
+
+### Community 262 - "devDependencies"
+Cohesion: 0.40
+Nodes (5): devDependencies, eslint, @nexload-sdk/typescript-config, @types/node, typescript
+
+### Community 263 - "Dependencies and verification"
+Cohesion: 0.50
+Nodes (4): Dependencies and verification, Handoff evidence, Native and existing capability first, Verification ladder
+
+### Community 265 - "Module ownership and filenames"
+Cohesion: 0.67
+Nodes (3): Cohesion and dependency direction, File naming, Module ownership and filenames
+
+### Community 267 - "scripts"
+Cohesion: 0.50
+Nodes (4): scripts, build, lint, test
+
+### Community 270 - "@nexload-sdk/payload-fields"
+Cohesion: 0.50
+Nodes (3): Install, @nexload-sdk/payload-fields, Usage
+
+### Community 278 - "scripts"
+Cohesion: 0.67
+Nodes (3): scripts, build, lint
 
 ### Community 335 - "@nexload-sdk/typescript-config"
 Cohesion: 0.07
@@ -1141,10 +1194,6 @@ Nodes (29): 1.0.0, 1.0.1, 1.0.2, 1.0.3, 1.1.0, 1.1.1, 2.0.0, 2.0.1 (+21 more)
 ### Community 337 - "ref_react"
 Cohesion: 0.11
 Nodes (7): Props, @payloadcms/ui, CartItem, CheckoutPage(), Product, VendorMap(), Window
-
-### Community 345 - "package-catalog.ts"
-Cohesion: 0.25
-Nodes (5): PackageFamily, PackageManifest, PackageMaturity, PackageReleaseStatus, stableRelease
 
 ### Community 346 - "payload-editor/package.json"
 Cohesion: 0.05
@@ -1167,8 +1216,8 @@ Cohesion: 0.20
 Nodes (9): 2.0.0, 2.0.1, 2.1.0, Major Changes, Minor Changes, @nexload-sdk/healthcheck-otel, Patch Changes, Patch Changes (+1 more)
 
 ### Community 353 - "eslint-config/package.json"
-Cohesion: 0.11
-Nodes (17): eslint-plugin-only-warn, globals, @typescript-eslint/eslint-plugin, files, eslint, @nexload-sdk/typescript-config, @types/node, typescript (+9 more)
+Cohesion: 0.08
+Nodes (27): eslint-config-prettier, @eslint/js, eslint-plugin-perfectionist, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-turbo, eslint-plugin-unicorn, globals (+19 more)
 
 ### Community 356 - "scripts"
 Cohesion: 0.22
@@ -1182,10 +1231,6 @@ Nodes (7): 0.0.1, 1.0.0, 1.0.1, Major Changes, Patch Changes, Patch Changes, web
 Cohesion: 0.67
 Nodes (3): peerDependencies, payload, zod
 
-### Community 364 - "devDependencies"
-Cohesion: 0.40
-Nodes (5): devDependencies, eslint, @nexload-sdk/typescript-config, @types/node, typescript
-
 ### Community 365 - "@nexload-sdk/payload-editor"
 Cohesion: 0.33
 Nodes (5): 1.0.0, 1.1.0, Major Changes, Minor Changes, @nexload-sdk/payload-editor
@@ -1194,29 +1239,29 @@ Nodes (5): 1.0.0, 1.1.0, Major Changes, Minor Changes, @nexload-sdk/payload-edit
 Cohesion: 0.50
 Nodes (3): 1.0.1, docs, Patch Changes
 
-### Community 392 - "./*.js"
-Cohesion: 0.50
-Nodes (4): exports, ./*.js, default, types
+### Community 392 - "exports"
+Cohesion: 0.06
+Nodes (34): default, default, types, types, exports, ./base, ./base.js, ./*.js (+26 more)
 
 ## Knowledge Gaps
-- **2005 isolated node(s):** `$schema`, `changelog`, `commit`, `fixed`, `linked` (+2000 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2281 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **117 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **2044 isolated node(s):** `$schema`, `changelog`, `commit`, `fixed`, `linked` (+2039 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2319 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **119 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `@payloadcms/sdk` connect `payload-operations/src/index.ts` to `payload-operations/package.json`?**
   _High betweenness centrality (0.034) - this node is a cross-community bridge._
-- **Why does `Key Capabilities:` connect `create-global.ts` to `compiler-adapter.test.mjs`, `1. `@nexload-sdk/env``?**
-  _High betweenness centrality (0.030) - this node is a cross-community bridge._
-- **Why does `2. `@nexload-sdk/logger`` connect `1. `@nexload-sdk/env`` to `create-global.ts`?**
-  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **What connects `$schema`, `changelog`, `commit` to the rest of the system?**
-  _2005 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _2044 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `payload-editor/src/types.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.07672634271099744 - nodes in this community are weakly interconnected._
+- **Why does `Key Capabilities:` connect `create-global.ts` to `ref_zod`, `1. `@nexload-sdk/env``?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **Should `create-global.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.07627118644067797 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07486338797814207 - nodes in this community are weakly interconnected._
+- **Why does `2. `@nexload-sdk/logger`` connect `1. `@nexload-sdk/env`` to `create-global.ts`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **Should `@nexload-sdk/env` be split into smaller, more focused modules?**
   _Cohesion score 0.044444444444444446 - nodes in this community are weakly interconnected._

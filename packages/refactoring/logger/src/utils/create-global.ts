@@ -3,7 +3,7 @@ import { browserPrettyRenderer } from "@/renderers/browser-pretty";
 import { browserPureRenderer } from "@/renderers/browser-pure";
 import { nodePrettyRenderer } from "@/renderers/node-pretty";
 import { nodePureJsonRenderer } from "@/renderers/node-pure-json";
-import { isBrowser, levelPriorities, LogLevel, LogRenderer } from "@/types";
+import { isBrowser, levelPriorities, type LogLevel, type LogRenderer } from "@/types";
 
 const safeLocalStorageGet = (key: string): string | null => {
   try {

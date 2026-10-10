@@ -1,11 +1,12 @@
-import { featureOrder } from "../registry/feature-order.js";
-
 import type { EditorFeatureConfig } from "../types.js";
+
+import { featureOrder } from "../registry/feature-order.js";
 
 type FeatureValue = EditorFeatureConfig[keyof EditorFeatureConfig];
 
 function cloneValue (value: FeatureValue): FeatureValue {
   if (!value || typeof value !== "object") return value;
+
   return Object.fromEntries(Object.entries(value).map(([
     key,
     option

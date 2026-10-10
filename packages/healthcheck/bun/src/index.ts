@@ -1,11 +1,11 @@
-import { defineHealthCheck } from "@nexload-sdk/healthcheck";
-
 import type {
   HealthCheckDefinition,
   HealthScope,
   RuntimeAdapter,
   RuntimeMemorySnapshot
 } from "@nexload-sdk/healthcheck";
+
+import { defineHealthCheck } from "@nexload-sdk/healthcheck";
 
 interface BunGlobalShape {
   version?: string

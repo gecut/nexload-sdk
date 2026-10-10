@@ -1,5 +1,6 @@
 import logger from "@nexload-sdk/logger";
-import { EnvSchema, EnvReturnType } from "./types";
+
+import { type EnvReturnType, type EnvSchema } from "./types";
 
 declare global {
   var envFirstLogging: boolean;
@@ -25,7 +26,7 @@ export class EnvManager<TVariables extends EnvSchema> {
       const value = process.env[key];
       const hasDefault = this.hasDefault(variable);
 
-      if (value == undefined) {
+      if (value === undefined) {
         if (hasDefault) {
           globalThis.envFirstLogging &&
             logger.warn(
@@ -149,6 +150,7 @@ export class EnvManager<TVariables extends EnvSchema> {
     variable?: { default?: unknown } | null
   ): variable is { default: unknown } {
     if (variable == null) return false;
+
     return Object.prototype.hasOwnProperty.call(variable, "default");
   }
 }

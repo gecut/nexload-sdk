@@ -19,7 +19,7 @@ createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>
 
 Public function exported by @nexload-sdk/payload-editor.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L54)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L57)
 
 ### `defineEditorPreset`
 
@@ -31,7 +31,7 @@ defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset
 
 Public function exported by @nexload-sdk/payload-editor.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L38)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L40)
 
 ## Classes
 

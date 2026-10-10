@@ -36,6 +36,7 @@ for (const skillName of expectedSkills) {
 
   // 1. Check SKILL.md
   const skillFile = path.join(dir, 'SKILL.md');
+
   if (!fs.existsSync(skillFile)) {
     console.error(`❌ SKILL.md missing in ${skillName}`);
     failed = true;
@@ -60,6 +61,7 @@ for (const skillName of expectedSkills) {
   }
 
   const frontmatterEnd = content.indexOf('\n---\n', 4);
+
   if (frontmatterEnd === -1) {
     console.error(`❌ ${skillName}/SKILL.md missing frontmatter end`);
     failed = true;
@@ -67,6 +69,7 @@ for (const skillName of expectedSkills) {
 
   const frontmatter = content.slice(4, frontmatterEnd);
   const nameMatch = frontmatter.match(/name:\s*([^\n]+)/);
+
   if (!nameMatch || nameMatch[1].trim() !== skillName) {
     console.error(`❌ ${skillName}/SKILL.md frontmatter name mismatch: found "${nameMatch?.[1]}", expected "${skillName}"`);
     failed = true;
@@ -75,6 +78,7 @@ for (const skillName of expectedSkills) {
   }
 
   const descMatch = frontmatter.match(/description:\s*([^\n]+)/);
+
   if (!descMatch || !descMatch[1].trim()) {
     console.error(`❌ ${skillName}/SKILL.md frontmatter description missing`);
     failed = true;
@@ -84,11 +88,13 @@ for (const skillName of expectedSkills) {
 
   // 2. Check references
   const refsDir = path.join(dir, 'references');
+
   if (!fs.existsSync(refsDir)) {
     console.error(`❌ ${skillName}/references missing`);
     failed = true;
   } else {
     const refFiles = fs.readdirSync(refsDir).filter(f => f.endsWith('.md'));
+
     if (refFiles.length < 3) {
       console.error(`❌ ${skillName}/references contains only ${refFiles.length} files (expected 3)`);
       failed = true;
@@ -106,12 +112,14 @@ for (const skillName of expectedSkills) {
 
   // 3. Check evals/evals.json
   const evalsFile = path.join(dir, 'evals', 'evals.json');
+
   if (!fs.existsSync(evalsFile)) {
     console.error(`❌ ${skillName}/evals/evals.json missing`);
     failed = true;
   } else {
     try {
       const evalsJson = JSON.parse(fs.readFileSync(evalsFile, 'utf8'));
+
       if (evalsJson.skill_name !== skillName) {
         console.error(`❌ ${skillName} evals.json skill_name mismatch: found "${evalsJson.skill_name}", expected "${skillName}"`);
         failed = true;
@@ -121,6 +129,7 @@ for (const skillName of expectedSkills) {
         failed = true;
       } else {
         const foundCategories = new Set(evalsJson.test_cases.map(tc => tc.category));
+
         for (const cat of requiredCategories) {
           if (!foundCategories.has(cat)) {
             console.error(`❌ ${skillName} evals.json missing category "${cat}"`);

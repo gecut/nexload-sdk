@@ -34,7 +34,7 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src",
     "test": "pnpm build && PAYLOAD_DISABLE_DEPENDENCY_CHECKER=true node --test test/*.test.mjs && pnpm test:types",
     "test:types": "tsc --project test/types/tsconfig.json",
     "test:consumer": "pnpm build && node test/consumer-smoke.mjs 3.68.5",

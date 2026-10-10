@@ -121,6 +121,7 @@ Tier 2 skills serve as the **Engineering Hands** of the ecosystem. While Tier 1 
 The primary standard for writing and refactoring TypeScript.
 
 * **Core Engineering Mission**: Produces the smallest correct, reviewable TypeScript change. Enforces type narrowing at trust boundaries, explicit lifecycle ownership, minimal abstraction debt, and honest verification.
+* **Mandatory Configuration & Standards**: Requires strict adherence to [`@nexload-sdk/eslint-config`](/nexload-sdk/packages/eslint-config/) and [`@nexload-sdk/typescript-config`](/nexload-sdk/packages/typescript-config/). Enforces canonical folder layouts defined in the [Canonical File & Directory Structure Standard](/nexload-sdk/standards/file-structure/). Can be initialized across any project using the [Universal Agent Setup Prompt](/nexload-sdk/standards/agent-setup-prompt/).
 * **When to Use**: Everyday TypeScript implementation, function refactoring, strict type modeling, boundary assertions, and local bug fixes.
 * **When NOT to Use**: Detailed React UI hooks/state; package release publishing; high-level CTO architecture approval.
 
@@ -775,6 +776,210 @@ Explore Payload Suite →
 
 ---
 
+# Configuration Guides & Recipes
+
+Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc.
+
+**Topic:** guides
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/guides/
+## Type-Aware Linting with `projectService`
+
+`@nexload-sdk/eslint-config` uses `typescript-eslint` v8's `projectService: true` instead of static `project: "./tsconfig.json"` arrays.
+
+### Benefits of `projectService`
+
+* **Dynamic Project Discovery**: Resolves `tsconfig.json` contexts automatically per file without parsing slow monolithic solution files.
+* **Standalone Script Safety**: Standalone configuration scripts (`eslint.config.mjs`, `esbuild.config.mjs`) are automatically parsed without triggering type-information crashes.
+* **Zero Configuration Boilerplate**: No need to maintain manual tsconfig path lists in your lint config.
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  typeAware: true, // Enables full type-checked rules
+});
+```
+
+***
+
+## Customizing Rules with `nexloadConfig`
+
+The `nexloadConfig` factory accepts custom rules, extra flat configs, and custom ignore patterns:
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "next",
+  ignores: [
+    "dist/**",
+    ".next/**",
+    "public/static/**",
+  ],
+  rules: {
+    // Override or add project-specific rules safely
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+  },
+  extraConfigs: [
+    {
+      files: ["scripts/**/*.mjs"],
+      rules: {
+        "no-console": "off",
+      },
+    },
+  ],
+});
+```
+
+***
+
+## Prettier Integration & Zero Conflicts
+
+Many teams experience conflicts between ESLint stylistic rules and Prettier. `@nexload-sdk/eslint-config` handles this deterministically:
+
+1. **Semantic Padding Preserved**: `@stylistic/padding-line-between-statements` handles logical separation lines between statements and returns.
+2. **Prettier Conflict Termination**: `eslint-config-prettier` is applied as the final configuration object in the flat config chain. It turns off all formatting rules that might fight Prettier (quotes, semicolons, indentations).
+3. **Format Separation**: Use Prettier for syntax formatting (`prettier --write .`) and ESLint for structural, semantic, and type rules (`eslint --fix .`).
+
+***
+
+## Migrating from Legacy `.eslintrc.js`
+
+To migrate a repository from ESLint 8 (`.eslintrc.*`) to `@nexload-sdk/eslint-config`:
+
+### Step 1: Remove Deprecated Dependencies
+
+```bash
+pnpm remove eslint-plugin-import eslint-plugin-only-warn @typescript-eslint/parser @typescript-eslint/eslint-plugin
+```
+
+### Step 2: Delete Old Config & Ignore Files
+
+Remove legacy files from the repository root:
+
+* `.eslintrc.js`, `.eslintrc.json`, or `.eslintrc.yml`
+* `.eslintignore` (migrated to `ignores` in flat config)
+
+### Step 3: Create `eslint.config.mjs`
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "node", // Select: "node", "react", "next", or "payload"
+});
+```
+
+### Step 4: Update Package Scripts
+
+ESLint 9 Flat Config lints JavaScript and TypeScript by default. Remove deprecated `--ext` flags from `package.json`:
+
+```json title="package.json"
+{
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  }
+}
+```
+
+### Step 5: Run Automated Fixes
+
+```bash
+pnpm lint:fix
+```
+
+This automatically sorts imports according to perfectionist groupings, normalizes statement spacing, and surfaces any remaining strictness errors.
+
+---
+
+# Overview & Quick Start
+
+Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deterministic imports, and zero-any rules.
+
+**Topic:** overview
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
+`@nexload-sdk/eslint-config` provides a unified, strict ESLint 9 Flat Config system for TypeScript repositories. Built on `typescript-eslint` v8, `eslint-plugin-perfectionist`, and `eslint-plugin-unicorn`, it enforces clean architectural discipline, deterministic import order, semantic whitespace padding, and zero-`any` type safety.
+
+***
+
+## 10-Second Code Snippet
+
+Create `eslint.config.mjs` in your project root using the `nexloadConfig()` universal factory:
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "next", // "next" | "react" | "node" | "payload" | "none"
+  typeAware: true,
+});
+```
+
+***
+
+## The Enforced Mental Model
+
+This configuration enforces unambiguous, production-grade engineering standards:
+
+### 1. Mandatory Kebab-Case Filenames (`unicorn/filename-case`)
+
+Every file in your source tree must use `kebab-case.ts`. CamelCase, PascalCase, or snake\_case file names trigger compile-blocking linter errors.
+
+```text
+✅ src/user-profile.ts
+✅ src/auth-guard.spec.ts
+❌ src/UserProfile.ts
+❌ src/user_profile.ts
+```
+
+### 2. Deterministic Perfectionist Imports (`perfectionist/sort-imports`)
+
+Imports are automatically organized alphabetically into strict semantic groups separated by blank lines:
+
+1. Type imports (`import type { ... }`)
+2. Node.js built-ins (`node:fs`, `node:path`)
+3. External dependencies (`react`, `zod`, `payload`)
+4. Internal ecosystem packages (`@nexload-sdk/*`)
+5. Parent & sibling relative imports (`../`, `./`)
+
+### 3. Absolute Zero-`any` Policy (`@typescript-eslint/no-explicit-any`)
+
+Using `any` is treated as a hard error. Types must be properly narrowed at boundary points using unknown, generics, type guards, or Zod schemas.
+
+### 4. Semantic Whitespace Padding (`@stylistic/padding-line-between-statements`)
+
+Blank lines are enforced around returns, classes, exports, and multi-line declarations to eliminate visual clutter and ensure code remains human-readable and AI-friendly.
+
+### 5. Floating Promise Prevention (`@typescript-eslint/no-floating-promises`)
+
+Async operations must be explicitly awaited or handled with `.catch()`. Unhandled background promises fail CI immediately.
+
+***
+
+## Available Presets & Factory
+
+| Preset Export | Target Environment | Included Plugins |
+|---|---|---|
+| `baseConfig` | Universal TypeScript foundation | `typescript-eslint`, `perfectionist`, `unicorn`, `@stylistic`, `prettier` |
+| `nodeConfig` | Node.js backend services | Base + Node globals and environment rules |
+| `reactConfig` | React libraries & SPAs | Base + `react-hooks` |
+| `nextjsConfig` | Next.js App Router | Base + `react-hooks` + `@next/eslint-plugin-next` |
+| `payloadConfig` | Payload CMS applications | Base + `react-hooks` + Payload-specific admin & server boundary rules |
+| `nexloadConfig(options)` | Universal configurable factory | Combines presets, custom rules, ignores, and overrides in one call |
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add -D @nexload-sdk/eslint-config eslint@^9.0.0 typescript
+```
+
+Peer requirements: `eslint >= 9.0.0`, `typescript >= 5.0.0`.
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
@@ -1065,7 +1270,7 @@ httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => Health
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L30)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L31)
 
 ### `memoryCheck`
 
@@ -1077,7 +1282,7 @@ memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degr
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L125)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L127)
 
 ### `runtimeInfoCheck`
 
@@ -1089,7 +1294,7 @@ runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L29)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L31)
 
 ### `runtimeMetricsCollector`
 
@@ -1113,7 +1318,7 @@ shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefi
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L49)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L51)
 
 ### `sleep`
 
@@ -1137,7 +1342,7 @@ startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: re
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L69)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L71)
 
 ### `statusToHttpStatus`
 
@@ -1161,7 +1366,7 @@ stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L122)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L124)
 
 ### `summarizeChecks`
 
@@ -1185,7 +1390,7 @@ timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; th
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L90)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L92)
 
 ### `toHealthJson`
 
@@ -1197,7 +1402,7 @@ toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport
 
 Public function exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L87)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L89)
 
 ## Constants
 
@@ -1368,7 +1573,7 @@ interface HealthJsonOptions {
 
 Public interface exported by @nexload-sdk/healthcheck.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L81)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L83)
 
 ### `HealthLinks`
 
@@ -2080,7 +2285,7 @@ createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) =
 
 Public function exported by @nexload-sdk/healthcheck-next.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L280)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L288)
 
 ### `createNextMetricsRoute`
 
@@ -2092,7 +2297,7 @@ createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions)
 
 Public function exported by @nexload-sdk/healthcheck-next.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L334)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L342)
 
 ## Interfaces
 
@@ -2341,7 +2546,7 @@ containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readon
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L172)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L174)
 
 ### `containerResourceCheck`
 
@@ -2353,7 +2558,7 @@ containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { u
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L105)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L107)
 
 ### `dnsCheck`
 
@@ -2365,7 +2570,7 @@ dnsCheck(name: string, options: { hostname: string; recordType?: "A" | "AAAA" | 
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L254)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L256)
 
 ### `nodeRuntimeAdapter`
 
@@ -2377,7 +2582,7 @@ nodeRuntimeAdapter() => RuntimeAdapter
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L59)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L60)
 
 ### `parseCpuList`
 
@@ -2389,7 +2594,7 @@ parseCpuList(value: string | null) => number | null
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L81)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L84)
 
 ### `processMetricsCollector`
 
@@ -2401,7 +2606,7 @@ processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => Metri
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L147)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L149)
 
 ### `readContainerResourceSnapshot`
 
@@ -2413,7 +2618,7 @@ readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<Con
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L307)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L313)
 
 ### `tcpCheck`
 
@@ -2425,7 +2630,7 @@ tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly 
 
 Public function exported by @nexload-sdk/healthcheck-node.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L196)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L198)
 
 ## Interfaces
 
@@ -2683,7 +2888,7 @@ toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]
 
 Public function exported by @nexload-sdk/healthcheck-otel.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L35)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L36)
 
 ### `toOtelResourceAttributes`
 
@@ -2695,7 +2900,7 @@ toOtelResourceAttributes(report: HealthReport) => Record<string, string | number
 
 Public function exported by @nexload-sdk/healthcheck-otel.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L22)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L23)
 
 ## Interfaces
 
@@ -2867,7 +3072,7 @@ payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => 
 
 Public function exported by @nexload-sdk/healthcheck-payload.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L32)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L34)
 
 ## Interfaces
 
@@ -2889,7 +3094,7 @@ interface PayloadHealthCheckOptions {
 
 Public interface exported by @nexload-sdk/healthcheck-payload.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L10)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L11)
 
 ***
 
@@ -3034,7 +3239,7 @@ toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => s
 
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L259)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L262)
 
 ### `toPrometheusText`
 
@@ -3046,7 +3251,7 @@ toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => str
 
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L233)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L236)
 
 ## Interfaces
 
@@ -3246,6 +3451,22 @@ Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zo
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
 * [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
 
+## Developer Tooling & Standards
+
+Shared TypeScript compiler configurations, ESLint 9 Flat Config presets, and canonical architectural standards.
+
+* [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
+* [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck-next](/packages/healthcheck/next/) — Next.js App Router route factories for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck-prometheus](/packages/healthcheck/prometheus/) — Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports. (v2.1.0)
+* [@nexload-sdk/healthcheck-otel](/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
+* [@nexload-sdk/healthcheck-payload](/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
+* [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
+* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
+* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
+
 ## Documentation policy
 
 The site describes the current released version shown on each package page. Historical versioned pages are not hosted. Use each package changelog and migration page when upgrading.
@@ -3273,7 +3494,7 @@ createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>
 
 Public function exported by @nexload-sdk/payload-editor.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L54)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L57)
 
 ### `defineEditorPreset`
 
@@ -3285,7 +3506,7 @@ defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset
 
 Public function exported by @nexload-sdk/payload-editor.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L38)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L40)
 
 ## Classes
 
@@ -3783,7 +4004,7 @@ formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?:
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L78)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L85)
 
 ### `formatSlug`
 
@@ -3795,7 +4016,7 @@ formatSlug(value: string) => string
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L45)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L48)
 
 ### `jalaliDateField`
 
@@ -3807,7 +4028,7 @@ jalaliDateField(options: JalaliDateFieldOptions) => DateField
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L21)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L22)
 
 ### `moneyField`
 
@@ -3819,7 +4040,7 @@ moneyField(options: MoneyFieldOptions) => NumberField
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L94)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L102)
 
 ### `parseMoneyToMinorUnits`
 
@@ -3831,7 +4052,7 @@ parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L56)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L59)
 
 ### `payloadFieldsPlugin`
 
@@ -3879,7 +4100,7 @@ withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOpt
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L53)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L56)
 
 ## Constants
 
@@ -3917,7 +4138,7 @@ formatSlugHook(options: SlugHookOptions) => FieldHook
 
 Public constant exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L70)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L73)
 
 ## Types
 
@@ -3953,7 +4174,7 @@ type JalaliDateFieldOptions = {
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L8)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L9)
 
 ### `JalaliDateValue`
 
@@ -3998,7 +4219,7 @@ type JalaliTimestampsOptions = {
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L14)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L15)
 
 ### `MoneyCurrency`
 
@@ -4507,7 +4728,7 @@ createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, 
 
 Public function exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L19)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L20)
 
 ### `createPayloadEndpoints`
 
@@ -4519,7 +4740,7 @@ createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: Cre
 
 Public function exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L22)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L23)
 
 ### `defineCMSOperations`
 
@@ -4593,7 +4814,7 @@ operation<const TInput extends z.ZodType, const TOutput extends z.ZodType, const
 
 Public function exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L15)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L16)
 
 ### `safe`
 
@@ -4651,7 +4872,7 @@ interface CMSClient<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L49)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L50)
 
 ### `CMSClientOptions`
 
@@ -4670,7 +4891,7 @@ interface CMSClientOptions<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L23)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L24)
 
 ### `CMSClientPlugin`
 
@@ -4726,7 +4947,7 @@ interface CMSOperation<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L19)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L20)
 
 ### `CMSOperationAccessContext`
 
@@ -4743,7 +4964,7 @@ interface CMSOperationAccessContext<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L21)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L22)
 
 ### `CMSOperationErrorJSON`
 
@@ -4761,7 +4982,7 @@ interface CMSOperationErrorJSON {
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L8)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L9)
 
 ### `CMSOperationHandlerContext`
 
@@ -4780,7 +5001,7 @@ interface CMSOperationHandlerContext<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L34)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L35)
 
 ### `CMSOperationMetadata`
 
@@ -4798,7 +5019,7 @@ interface CMSOperationMetadata<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L13)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L14)
 
 ### `CMSPayloadClientOptions`
 
@@ -4814,7 +5035,7 @@ interface CMSPayloadClientOptions {
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L17)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L18)
 
 ### `CMSValidationErrorData`
 
@@ -4832,7 +5053,7 @@ interface CMSValidationErrorData {
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L16)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L17)
 
 ### `CreatePayloadEndpointsOptions`
 
@@ -4854,7 +5075,7 @@ interface CreatePayloadEndpointsOptions<
 
 Public interface exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L69)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L70)
 
 ### `TimeoutPluginOptions`
 
@@ -4899,7 +5120,7 @@ type CMSDefinedErrorFactories<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L52)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L53)
 
 ### `CMSDefinedOperationError`
 
@@ -4918,7 +5139,7 @@ type CMSDefinedOperationError<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L31)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L32)
 
 ### `CMSOperationAccess`
 
@@ -4934,7 +5155,7 @@ type CMSOperationAccess<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L28)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L29)
 
 ### `CMSOperationAccessOverrides`
 
@@ -4955,7 +5176,7 @@ type CMSOperationAccessOverrides<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L58)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L59)
 
 ### `CMSOperationCallOptions`
 
@@ -4967,7 +5188,7 @@ type CMSOperationCallOptions = Omit<RequestInit, "body" | "method">;
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L34)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L35)
 
 ### `CMSOperationContract`
 
@@ -4979,7 +5200,7 @@ type CMSOperationContract = CMSOperation;
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L30)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L31)
 
 ### `CMSOperationErrorDefinition`
 
@@ -4997,7 +5218,7 @@ type CMSOperationErrorDefinition<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L7)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L8)
 
 ### `CMSOperationErrorDefinitions`
 
@@ -5011,7 +5232,7 @@ type CMSOperationErrorDefinitions = Readonly<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L15)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L16)
 
 ### `CMSOperationHandler`
 
@@ -5027,7 +5248,7 @@ type CMSOperationHandler<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L43)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L44)
 
 ### `CMSOperationHandlers`
 
@@ -5046,7 +5267,7 @@ type CMSOperationHandlers<TOperations extends CMSOperationsTree> = {
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L49)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L50)
 
 ### `CMSOperationsTree`
 
@@ -5058,7 +5279,7 @@ type CMSOperationsTree = Readonly<{ [key: string]: CMSOperationContract | CMSOpe
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L32)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L33)
 
 ### `CMSSafeResult`
 
@@ -5077,7 +5298,7 @@ type CMSSafeResult<TData, TDefinedError>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L59)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L60)
 
 ### `InferHandlerOutput`
 
@@ -5090,7 +5311,7 @@ type InferHandlerOutput<TOperation extends CMSOperationContract>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L48)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L49)
 
 ### `InferOperationInput`
 
@@ -5103,7 +5324,7 @@ type InferOperationInput<TOperation extends CMSOperationContract>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L38)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L39)
 
 ### `InferOperationOutput`
 
@@ -5116,7 +5337,7 @@ type InferOperationOutput<TOperation extends CMSOperationContract>
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L45)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L46)
 
 ### `InferOperationsClient`
 
@@ -5135,7 +5356,7 @@ type InferOperationsClient<TOperations extends CMSOperationsTree> = {
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L40)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L41)
 
 ### `InferParsedOperationInput`
 
@@ -5149,7 +5370,7 @@ type InferParsedOperationInput<
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L41)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L42)
 
 ### `PayloadOperationEndpoints`
 
@@ -5161,7 +5382,7 @@ type PayloadOperationEndpoints = readonly Endpoint[];
 
 Public type exported by @nexload-sdk/payload-operations.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L81)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L82)
 
 ***
 
@@ -5828,7 +6049,7 @@ defineEntity<const TName extends string, const TFields extends EntityFieldMap, T
 
 Public function exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L518)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L529)
 
 ### `isPayloadSchemaError`
 
@@ -5881,7 +6102,7 @@ field: Readonly<{ text: <TNullable extends boolean = false>(options?: TextFieldO
 
 Public constant exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L686)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L716)
 
 ## Interfaces
 
@@ -6921,6 +7142,394 @@ export const createArticleSchema = articleEntity.schema(({ pick }) =>
 
 * Explore [Production Recipes & Modeling Guides](./guides/) for the full 14-field catalog, polymorphic relationships, static vs dynamic defaults, and error diagnostics.
 * View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.
+
+---
+
+# Configuration Guides & Recipes
+
+Monorepo project references, overriding compiler options safely, and library declaration builds.
+
+**Topic:** guides
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/guides/
+## Monorepo Setup with Project References
+
+In high-performance monorepos (Turborepo or pnpm workspaces), use a root orchestrator configuration and extend specific presets in each workspace package.
+
+### 1. Root `tsconfig.json`
+
+The root configuration acts as the solution orchestrator without compiling files directly:
+
+```json title="tsconfig.json"
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/ui" },
+    { "path": "apps/web" }
+  ]
+}
+```
+
+### 2. Workspace Package `tsconfig.json`
+
+Inside individual packages, point `extends` to the preset matching that package's runtime archetype:
+
+```json title="packages/core/tsconfig.json"
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["src/**/*"]
+}
+```
+
+***
+
+## Overriding Compiler Options Safely
+
+Presets are designed to be composable. When overriding options in your local `tsconfig.json`, follow these guidelines:
+
+### Safe to Customize
+
+* **`rootDir` and `outDir`**: Configure directory output paths according to your build tool (esbuild, tsup, tsc).
+* **`declaration` and `declarationMap`**: Enable when publishing dual packages with source-linked `.d.ts.map` files.
+* **`paths` / `baseUrl`**: Add path aliases (e.g., `~/*` or `@/*`) if required by your framework bundler.
+
+### Never Weaken
+
+* **`strict`**: Do not disable `strict: false`. Narrow types explicitly at trust boundaries instead.
+* **`moduleDetection`**: Keep `"force"` to guarantee proper module scoping in all environments.
+* **`forceConsistentCasingInFileNames`**: Never disable; required to prevent cross-OS deployment failures.
+
+***
+
+## Migrating from Legacy `tsconfig.json`
+
+If upgrading an existing codebase with many loose types or legacy CommonJS options:
+
+1. **Update Dependencies**: Install `typescript@^5.9.0` and `@nexload-sdk/typescript-config`.
+2. **Replace `extends`**: Replace local compiler flags with `"extends": "@nexload-sdk/typescript-config/<target>.json"`.
+3. **Run Typecheck**: Run `pnpm tsc --noEmit` to surface type discrepancies.
+4. **Fix Module Imports**: Ensure all relative imports use modern ESM file extensions (`.js` in import paths when targeting `NodeNext`).
+5. **Resolve Strictness Issues**: Add explicit return types on recursive functions and eliminate switch statement fallthroughs.
+
+---
+
+# Overview & Quick Start
+
+Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications.
+
+**Topic:** overview
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
+`@nexload-sdk/typescript-config` provides battle-tested, strict TypeScript configurations tailored for modern TypeScript 5.9+ runtimes and frameworks. It eliminates boilerplate and enforces strict type boundaries across libraries, microservices, and web applications.
+
+***
+
+## 10-Second Code Snippet
+
+Extend the target preset directly in your project's `tsconfig.json`:
+
+```json title="tsconfig.json"
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"]
+}
+```
+
+***
+
+## Available Presets Catalog
+
+The package ships explicit subpath exports for each runtime archetype:
+
+| Preset Subpath | Target Environment | Key Compiler Options |
+|---|---|---|
+| `@nexload-sdk/typescript-config/base.json` | Universal base for all TypeScript projects | `target: ES2022`, `moduleResolution: NodeNext`, `moduleDetection: force`, `strict: true` |
+| `@nexload-sdk/typescript-config/node.json` | Node.js backend services and CLI tools | Extends base, `lib: ["ES2023"]`, typed Node globals |
+| `@nexload-sdk/typescript-config/react.json` | Client React libraries and single-page apps | `jsx: react-jsx`, `lib: ["DOM", "DOM.Iterable", "ES2023"]` |
+| `@nexload-sdk/typescript-config/next.json` | Next.js App Router applications | `jsx: preserve`, `plugins: [{ name: "next" }]`, isolated module safety |
+| `@nexload-sdk/typescript-config/vite.json` | Vite frontend applications | `moduleResolution: Bundler`, `jsx: react-jsx`, client DOM types |
+
+***
+
+## Core Guarantees & Strictness Flags
+
+All presets inherit from `base.json` with maximum compiler safety enabled:
+
+* **`moduleDetection: "force"`**: Treats every TypeScript file as a module automatically, preventing ambient global scope pollution without needing empty `export {}` statements.
+* **`forceConsistentCasingInFileNames: true"`**: Prevents subtle filesystem case-sensitivity crashes between macOS/Windows and Linux CI containers.
+* **`noImplicitOverride: true`**: Guarantees that subclass method overrides are explicitly marked with the `override` keyword.
+* **`noImplicitReturns: true`**: Ensures all code paths within a function explicitly return a value.
+* **`noFallthroughCasesInSwitch: true`**: Catches accidental switch fallthrough bugs during compilation.
+* **`exactOptionalPropertyTypes: true`**: Distinguishes between omitted properties and properties explicitly assigned `undefined`.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
+```
+
+Peer requirement: `typescript >= 5.0.0`.
+
+---
+
+# Autonomous Agent Config Setup Prompt
+
+A battle-tested copy-pasteable prompt that empowers any AI agent in any repository to configure and enforce strict ESLint 9 Flat Config and TypeScript 5.
+
+**Topic:** ecosystem
+**Canonical page:** https://gecut.github.io/nexload-sdk/standards/agent-setup-prompt/
+Use the battle-tested prompt below with any AI coding agent (Claude Code, Cursor Agent, GitHub Copilot, Gemini CLI, Antigravity) to automatically set up `@nexload-sdk/typescript-config` and `@nexload-sdk/eslint-config` in any existing or greenfield project.
+
+You can paste this entire prompt directly into your agent's chat interface. The prompt instructs the agent to audit the codebase, install dependencies, configure `tsconfig.json` and `eslint.config.mjs`, run automated fixes, and verify that the build is green before concluding.
+
+***
+
+## The Universal Setup Prompt
+
+````markdown title="Universal Agent Prompt"
+You are tasked with modernizing and standardizing this repository's TypeScript and ESLint configurations using @nexload-sdk/typescript-config and @nexload-sdk/eslint-config.
+
+Follow this phased protocol systematically:
+
+### Phase 1: Environment & Dependency Audit
+1. Inspect package.json and project files to identify:
+   - Package manager: pnpm, npm, yarn, or bun.
+   - Project type: Next.js (App Router/Pages), React/Vite, Node.js backend/CLI, Payload CMS, or Monorepo.
+   - Existing lint/TypeScript configs: .eslintrc*, .eslintignore, tsconfig.json.
+2. Remove deprecated or conflicting packages:
+   - Uninstall: eslint-plugin-import, eslint-plugin-only-warn, @typescript-eslint/parser (if legacy), @typescript-eslint/eslint-plugin (if legacy).
+   - Remove legacy config files: .eslintrc.js, .eslintrc.json, .eslintrc.yml, and .eslintignore.
+
+### Phase 2: Install Modern Tooling
+Install the required modern configuration packages using the detected package manager:
+- @nexload-sdk/typescript-config
+- @nexload-sdk/eslint-config
+- eslint@^9.0.0
+- typescript@^5.9.0
+- prettier (if not already installed)
+
+### Phase 3: Modernize tsconfig.json
+Update the project's tsconfig.json (or workspace package tsconfigs):
+1. Set "extends" to the appropriate preset:
+   - For Next.js: "@nexload-sdk/typescript-config/next.json"
+   - For React/Vite: "@nexload-sdk/typescript-config/vite.json" (or "/react.json")
+   - For Node.js: "@nexload-sdk/typescript-config/node.json"
+   - For core libraries/shared: "@nexload-sdk/typescript-config/base.json"
+2. Keep local paths, outDir, rootDir, and include/exclude definitions intact.
+3. Verify strictness flags are active (moduleDetection: "force", forceConsistentCasingInFileNames: true).
+
+### Phase 4: Configure ESLint 9 Flat Config (eslint.config.mjs)
+Create or replace eslint.config.mjs in the project root:
+```js
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "<DETECTED_FRAMEWORK>", // "next" | "react" | "node" | "payload" | "none"
+  typeAware: true,
+  ignores: [
+    "dist/**",
+    ".next/**",
+    "build/**",
+    "node_modules/**",
+  ],
+});
+```
+
+### Phase 5: Modernize package.json Scripts
+1. Update lint scripts to remove deprecated flags (such as --ext):
+   - "lint": "eslint ."
+   - "lint:fix": "eslint --fix ."
+2. Ensure a typecheck script exists:
+   - "typecheck": "tsc --noEmit"
+
+### Phase 6: Codebase Normalization & Safe Remediation
+1. Run the automatic fixer:
+   `[package-manager] run lint:fix` (or `[package-manager] exec eslint --fix .`)
+   This automatically applies perfectionist import groupings and stylistic statement spacing.
+2. Audit remaining lint failures:
+   - Filename errors (unicorn/filename-case): Safely rename files to kebab-case (e.g., UserProfile.tsx -> user-profile.tsx) and update all references.
+   - Any-types (@typescript-eslint/no-explicit-any): Narrow types cleanly using domain types, unknown, or Zod schemas. Do NOT suppress with // eslint-disable unless strictly required and justified.
+   - Floating promises (@typescript-eslint/no-floating-promises): Ensure promises are awaited or explicitly handled.
+
+### Phase 7: Verification
+Before completing:
+1. Run the linter: Verify exit code is 0 with 0 errors.
+2. Run the typechecker: Verify tsc --noEmit passes with 0 errors.
+3. Run the test suite: Verify all tests pass without regressions.
+4. Run the project build: Verify clean compilation.
+Report a concise summary of changes made and verification results.
+````
+
+***
+
+## Agent Capability Checklist
+
+When an agent executes this prompt, it will verify and achieve:
+
+* \[x] ESLint 9 Flat Config with native ESM support (`eslint.config.mjs`).
+* \[x] TypeScript 5.9 strict compiler options (`moduleDetection: "force"`).
+* \[x] Zero-`any` compliance across all public and internal boundaries.
+* \[x] Deterministic import sorting with `@nexload-sdk/*` groupings.
+* \[x] File and folder naming standardized to `kebab-case`.
+* \[x] Clean termination with `eslint-config-prettier` preventing formatting wars.
+
+---
+
+# Canonical File & Directory Structure Standard
+
+Architectural directory layout archetypes, naming conventions, and file placement rules for engineering teams and autonomous agents.
+
+**Topic:** ecosystem
+**Canonical page:** https://gecut.github.io/nexload-sdk/standards/file-structure/
+This standard defines canonical file and directory layouts across the Nexload SDK ecosystem. Autonomous agents and human engineers must adhere to these archetypes when creating, refactoring, or modernizing packages and applications.
+
+***
+
+## Core Architectural Principles
+
+1. **Predictable Discovery**: A developer or agent inspecting `src/` should grasp module boundaries within 10 seconds.
+2. **Explicit Dependency Flow**: Dependencies flow inward; internal helper utilities never leak through root barrel exports.
+3. **Mandatory Kebab-Case**: Every file and folder name uses `kebab-case`. Never use `camelCase` or `PascalCase` filenames.
+4. **Co-location of Tests**: Unit tests live directly adjacent to the unit under test (e.g., `manager.ts` and `manager.spec.ts`) or in a dedicated `test/` folder for integration suites.
+5. **Private Boundary Markers**: Internal submodules or implementation details not meant for consumer import are prefixed with `_` or placed in `internal/`.
+
+***
+
+## The Four Production Archetypes
+
+### Archetype 1: Zero-Dependency Core Library
+
+Used for pure business logic, algorithmic engines, parsers, or serialization kernels (e.g., `@nexload-sdk/healthcheck`).
+
+```text
+packages/<package-name>/
+├── package.json
+├── tsconfig.json
+├── README.md
+├── src/
+│   ├── index.ts               # Public barrel: only exports public APIs & types
+│   ├── types.ts               # Shared domain interfaces and schemas
+│   ├── errors.ts              # Custom error hierarchy
+│   ├── <domain-module>/
+│   │   ├── index.ts           # Domain submodule public facade
+│   │   ├── <feature>.ts       # Core logic
+│   │   ├── <feature>.spec.ts  # Co-located unit tests
+│   │   └── types.ts           # Submodule-specific types
+│   └── internal/              # Strictly unexported helpers
+│       ├── assertions.ts
+│       └── clone.ts
+```
+
+***
+
+### Archetype 2: Multi-Platform / Adapter Package
+
+Used for packages supporting multiple runtimes (Node, Bun, Edge, Deno) or multiple monitoring exporters (Prometheus, OpenTelemetry).
+
+```text
+packages/<package-name>/
+├── package.json               # Defines subpath exports: "./node", "./bun", "./otel"
+├── tsconfig.json
+├── src/
+│   ├── index.ts               # Runtime-agnostic core entry
+│   ├── node/                  # Node.js specific implementation
+│   │   ├── index.ts
+│   │   └── cgroup.ts
+│   ├── bun/                   # Bun runtime specific implementation
+│   │   └── index.ts
+│   ├── otel/                  # OpenTelemetry exporter
+│   │   ├── index.ts
+│   │   └── serializers.ts
+│   └── shared/                # Cross-adapter shared utilities
+│       ├── formatting.ts
+│       └── types.ts
+```
+
+***
+
+### Archetype 3: React UI & Feature Slice Architecture
+
+Used for frontend applications (Next.js, Vite) and React component libraries.
+
+```text
+src/
+├── components/
+│   ├── ui/                    # Reusable primitive tokens (Button, Dialog, Input)
+│   │   ├── button/
+│   │   │   ├── index.ts
+│   │   │   ├── button.tsx
+│   │   │   ├── button.styles.css
+│   │   │   └── button.spec.tsx
+│   │   └── dialog/
+│   └── layout/                # Shell, Navigation, Footer
+├── features/                  # Domain feature slices (Self-contained)
+│   ├── auth/
+│   │   ├── api/               # Feature data-fetching / server actions
+│   │   ├── components/        # Feature-scoped UI components
+│   │   ├── hooks/             # Custom hooks
+│   │   ├── types.ts
+│   │   └── index.ts           # Public boundary for other features
+│   └── dashboard/
+└── lib/                       # Global singleton utilities (fetcher, env)
+```
+
+***
+
+### Archetype 4: Payload CMS Server vs. Admin Boundaries
+
+Used for Payload CMS plugins and custom fields (e.g., `@nexload-sdk/payload-fields`).
+
+```text
+packages/<package-name>/
+├── package.json               # Dual exports: "./" (server), "./client" (admin)
+├── src/
+│   ├── index.ts               # Server-safe entrypoint (CollectionConfig, Hooks)
+│   ├── plugin.ts              # Main plugin initialization
+│   ├── fields/                # Server field definitions
+│   │   ├── index.ts
+│   │   ├── slug-field.ts
+│   │   └── money-field.ts
+│   ├── admin/                 # Client-safe React admin components
+│   │   ├── index.ts
+│   │   ├── slug-cell.tsx
+│   │   └── money-cell.tsx
+│   └── errors/
+│       └── index.ts
+```
+
+***
+
+## File Naming & Extension Matrix
+
+| Artifact Type | Convention | Example |
+|---|---|---|
+| Source implementation | `kebab-case.ts` | `health-manager.ts` |
+| React component | `kebab-case.tsx` | `status-badge.tsx` |
+| Co-located unit test | `<name>.spec.ts` | `health-manager.spec.ts` |
+| Submodule types | `types.ts` | `types.ts` |
+| Submodule entry | `index.ts` | `index.ts` |
+| Configuration file | `kebab-case.<ext>` | `eslint.config.mjs`, `esbuild.config.mjs` |
+
+***
+
+## Anti-Patterns to Avoid
+
+* ❌ **Deep Relative Import Leaks**: Importing across sibling boundaries like `../../../../feature-a/internal/utils`. Always import via published subpath or feature index.
+* ❌ **Mixed Case Filenames**: Files like `UserProfile.tsx` or `dataFetcher.ts`. Use `user-profile.tsx` and `data-fetcher.ts`.
+* ❌ **Barrel Bloat**: Re-exporting every private function in `src/index.ts`. Only export public interfaces, contracts, and entry functions.
+* ❌ **Circular Dependencies**: Cycles between `types.ts` and implementation files. Types must remain leaf nodes.
 
 ---
 

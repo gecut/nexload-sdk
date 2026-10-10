@@ -19,7 +19,7 @@ createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) =
 
 Public function exported by @nexload-sdk/healthcheck-next.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L280)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L288)
 
 ### `createNextMetricsRoute`
 
@@ -31,7 +31,7 @@ createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions)
 
 Public function exported by @nexload-sdk/healthcheck-next.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L334)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L342)
 
 ## Interfaces
 

@@ -13,7 +13,7 @@ This is the foundational implementation standard. Compose it with a domain skill
 
 ## Source of truth
 
-Follow the user's authorized scope and applicable `AGENTS.md` first, then established package contracts and effective TypeScript/ESLint/Prettier configuration. Current code and tests establish behavior, not automatic design precedent. This skill fills gaps; external guides do not override local contracts. Report conflicts instead of spreading legacy patterns.
+Follow the user's authorized scope and applicable `AGENTS.md` first, then established package contracts and repository-standard `@nexload-sdk/eslint-config` and `@nexload-sdk/typescript-config` presets. Compliance with these configurations is mandatory across all packages, rewrites, and new code. Arbitrary rule suppression (`eslint-disable` or disabling rules in `eslint.config.mjs`) is strictly forbidden without explicit, documented architectural justification. Current code and tests establish behavior, not automatic design precedent. This skill fills gaps; external guides do not override local contracts. Report conflicts instead of spreading legacy patterns.
 
 ## Trigger boundary
 
@@ -40,7 +40,9 @@ Trace the current path, derive types from the canonical model, keep implementati
 ## Invariants
 
 - Preserve unrelated behavior and local architecture; remove only dead code made obsolete by the change.
+- Adhere strictly to the canonical archetypes defined in [File and directory structure](references/file-directory-structure.md). Select the matching archetype before generating files or refactoring.
 - Derive types from canonical schemas, factories, constants, or public contracts where practical. Account for strict TypeScript and `noUncheckedIndexedAccess`; use `import type` for erased dependencies. Do not conceal missing modeling or validation with `any` or assertions; contained, justified exceptions follow the type reference.
+- Modified or newly authored code MUST pass `@nexload-sdk/eslint-config` and `@nexload-sdk/typescript-config` checks clean with zero errors.
 - Keep one primary responsibility per module and make state creation, mutation, concurrency, and cleanup ownership visible. Do not split trivial code into layers or files.
 - Use project-authored kebab-case filenames, including component files, unless an exact framework, tool, protocol, generated, vendored, or publication name is required.
 - Prefer direct internal imports when a package's own barrel would obscure dependency direction or create a cycle.
@@ -53,6 +55,7 @@ Treat network, storage, environment, parsed JSON, process output, and untyped li
 
 ## Reference routing
 
+- [File and directory structure](references/file-directory-structure.md): canonical package archetypes, feature slicing, anti-patterns, and directory hierarchies.
 - [Clean code and readability](references/clean-code.md): names, functions, pragmatic DRY, comments, semantic whitespace, and tooling limits.
 - [Behavior and correctness](references/behavior-and-correctness.md): contracts, errors, async work, concurrency, data integrity, resources, and behavior preservation.
 - [Type and trust boundaries](references/type-trust-boundaries.md): `unknown`, runtime narrowing, canonical types, assertions, and interoperability.

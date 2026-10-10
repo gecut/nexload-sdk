@@ -19,7 +19,7 @@ toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]
 
 Public function exported by @nexload-sdk/healthcheck-otel.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L35)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L36)
 
 ### `toOtelResourceAttributes`
 
@@ -31,7 +31,7 @@ toOtelResourceAttributes(report: HealthReport) => Record<string, string | number
 
 Public function exported by @nexload-sdk/healthcheck-otel.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L22)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L23)
 
 ## Interfaces
 

@@ -43,6 +43,7 @@ function metricName (
       /^_+|_+$/g, ""
     )
     .toLowerCase();
+
   return `${prefix}_${normalized}`;
 }
 
@@ -50,6 +51,7 @@ function metricValue (value: HealthMetricValue): number | null {
   if (typeof value === "number") return Number.isFinite(value) ? value : null;
   if (typeof value === "boolean") return value ? 1 : 0;
   if (typeof value === "string") return 1;
+
   return null;
 }
 
@@ -83,6 +85,7 @@ function appendMetric (
   lines: string[], name: string, labelsInput: Record<string, string | undefined>, value: HealthMetricValue
 ): void {
   const numeric = metricValue(value);
+
   if (numeric === null) return;
 
   lines.push(`${name}${labels(labelsInput)} ${numeric}`);

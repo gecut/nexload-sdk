@@ -1,7 +1,7 @@
-import { isRecord } from "../contract/validation.js";
-
 import type { CMSOperationError } from "./cms-operation-error.js";
 import type { CMSOperationErrorJSON } from "./types.js";
+
+import { isRecord } from "../contract/validation.js";
 
 export function parseErrorEnvelope (value: unknown): CMSOperationErrorJSON | undefined {
   if (

@@ -1,4 +1,4 @@
-import { LogLevel, LogRendererFunc } from "@/types";
+import { type LogLevel, type LogRendererFunc } from "@/types";
 
 const reset = "color:inherit;font-weight:inherit;";
 const dimStyle = "color:#808080cc;font-weight:100;";
@@ -24,7 +24,7 @@ export const levelSymbols = {
 } as const;
 
 export const browserPrettyRenderer: LogRendererFunc = (line) => {
-  const { level, time, message, name, pid, ...extras } = line as any;
+  const { level, message = "", name = "", pid: _pid, time: _time, ...extras } = line;
 
   const symbol = levelSymbols[level as LogLevel];
   const colorStyle = levelColors[level as LogLevel];

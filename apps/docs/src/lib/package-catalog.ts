@@ -9,8 +9,10 @@ import payloadEditor from "../../../../packages/payload-editor/package.json";
 import payloadFields from "../../../../packages/refactoring/payload-fields/package.json";
 import payloadOperations from "../../../../packages/payload-operations/package.json";
 import payloadSchema from "../../../../packages/payload-schema/package.json";
+import eslintConfig from "../../../../tools/eslint-config/package.json";
+import typescriptConfig from "../../../../tools/typescript-config/package.json";
 
-export type PackageFamily = "healthcheck" | "payload";
+export type PackageFamily = "healthcheck" | "payload" | "tooling";
 export type PackageMaturity = "stable";
 export type PackageReleaseStatus = "released";
 
@@ -160,6 +162,28 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/payload-operations/",
     runtimes: ["Payload CMS", "Node.js", "Browser", "ESM"],
     skills: ["payload-operations-core", "payload-operations-client", "payload-operations-server"],
+    ...stableRelease,
+  },
+  {
+    id: "typescript-config",
+    label: "TypeScript Config",
+    manifest: typescriptConfig,
+    family: "tooling",
+    sourcePath: "tools/typescript-config",
+    docsPath: "/packages/typescript-config/",
+    runtimes: ["TypeScript 5+", "Node.js", "Browser", "Next.js"],
+    skills: ["nexload-code", "nexload-package"],
+    ...stableRelease,
+  },
+  {
+    id: "eslint-config",
+    label: "ESLint Config",
+    manifest: eslintConfig,
+    family: "tooling",
+    sourcePath: "tools/eslint-config",
+    docsPath: "/packages/eslint-config/",
+    runtimes: ["ESLint 9", "Node.js", "TypeScript", "React", "Next.js", "Payload CMS"],
+    skills: ["nexload-code", "nexload-package"],
     ...stableRelease,
   },
 ];

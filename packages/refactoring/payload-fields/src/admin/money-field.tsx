@@ -1,11 +1,11 @@
 "use client";
 
+import type { NumberFieldClientProps } from "payload";
+
 import { FieldLabel, useField } from "@payloadcms/ui";
 import { useEffect, useState } from "react";
 
-import { formatMoney, parseMoneyToMinorUnits, type MoneyCurrencyDefinition, type MoneyDisplayOptions } from "../money";
-
-import type { NumberFieldClientProps } from "payload";
+import { formatMoney, type MoneyCurrencyDefinition, type MoneyDisplayOptions, parseMoneyToMinorUnits } from "../money";
 
 type Props = { currency: MoneyCurrencyDefinition, display: MoneyDisplayOptions, allowNegative: boolean };
 
@@ -37,6 +37,7 @@ export const MoneyFieldComponent = ({
       ));
     } catch { setValue(next); }
   };
+
   return (
     <div className="field-type money-field">
       <FieldLabel htmlFor={`field-${path}`} label={field.label} required={field.required} />

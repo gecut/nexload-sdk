@@ -1,4 +1,4 @@
-import { LogRendererFunc, isBrowser, isNode } from "@/types";
+import { isBrowser, isNode, type LogRendererFunc } from "@/types";
 
 export const nodePureJsonRenderer: LogRendererFunc = (line) => {
   if (isBrowser() || !isNode()) return;

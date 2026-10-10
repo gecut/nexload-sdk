@@ -19,7 +19,7 @@ payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => 
 
 Public function exported by @nexload-sdk/healthcheck-payload.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L32)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L34)
 
 ## Interfaces
 
@@ -41,7 +41,7 @@ interface PayloadHealthCheckOptions {
 
 Public interface exported by @nexload-sdk/healthcheck-payload.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L10)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L11)
 
 ***
 

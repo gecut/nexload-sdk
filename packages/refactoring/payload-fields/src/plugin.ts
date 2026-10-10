@@ -1,6 +1,6 @@
-import { formatSlug } from "./slug/format-slug";
-
 import type { PayloadRequest, Plugin } from "payload";
+
+import { formatSlug } from "./slug/format-slug";
 
 export type SlugGeneratorInput = { sourceValue: string, currentSlug?: string };
 export type SlugGeneratorContext = { req: PayloadRequest };
@@ -32,6 +32,7 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
             "PAYLOAD_FIELDS_FORBIDDEN", "اجازه تولید اسلاگ را ندارید.", 403
           );
           let body: unknown;
+
           try {
             body = await req.json?.();
           } catch {
@@ -47,6 +48,7 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
             sourceValue?: unknown
             currentSlug?: unknown
           };
+
           if (
             typeof input.generator !== "string"
             || typeof input.sourceValue !== "string"
@@ -59,6 +61,7 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
           )
             ? options.slugGenerators[input.generator]
             : undefined;
+
           if (!generator) return failure(
             "PAYLOAD_FIELDS_GENERATOR_NOT_FOUND", "تولیدکننده اسلاگ پیدا نشد.", 404
           );
@@ -66,6 +69,7 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
             const result = await generator(
               { sourceValue: input.sourceValue, currentSlug: input.currentSlug, }, { req, }
             );
+
             return Response.json({ slug: formatSlug(result), });
           } catch {
             return failure(

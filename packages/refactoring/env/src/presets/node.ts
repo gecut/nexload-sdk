@@ -1,4 +1,4 @@
-import { EnvPreset } from "../manager/types";
+import { type EnvPreset } from "../manager/types";
 
 export const $NodePreset = {
   NODE_ENV: { type: "string", default: "development", },

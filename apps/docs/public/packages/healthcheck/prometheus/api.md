@@ -19,7 +19,7 @@ toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => s
 
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L259)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L262)
 
 ### `toPrometheusText`
 
@@ -31,7 +31,7 @@ toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => str
 
 Public function exported by @nexload-sdk/healthcheck-prometheus.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L233)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L236)
 
 ## Interfaces
 

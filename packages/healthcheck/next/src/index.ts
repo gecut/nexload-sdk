@@ -1,3 +1,11 @@
+import type {
+  HealthHttpStatusPolicy,
+  HealthManager,
+  HealthReport,
+  HealthRunScope,
+  HealthScope
+} from "@nexload-sdk/healthcheck";
+
 import {
   DEFAULT_HTTP_STATUS_POLICY,
   statusToHttpStatus,
@@ -8,14 +16,6 @@ import {
   toOpenMetricsText,
   toPrometheusText
 } from "@nexload-sdk/healthcheck-prometheus";
-
-import type {
-  HealthHttpStatusPolicy,
-  HealthManager,
-  HealthReport,
-  HealthRunScope,
-  HealthScope
-} from "@nexload-sdk/healthcheck";
 
 export interface NextHealthRouteProtection {
   bearerToken?: string
@@ -71,6 +71,7 @@ function parseBasicAuth (value: string | null): { username: string, password: st
   try {
     const decoded = atob(value.slice("Basic ".length));
     const separator = decoded.indexOf(":");
+
     if (separator === -1) return null;
 
     return {
@@ -86,6 +87,7 @@ function parseBasicAuth (value: string | null): { username: string, password: st
 
 function ipToNumber (ip: string): number | null {
   const parts = ip.split(".").map(Number);
+
   if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) {
     return null;
   }
@@ -109,6 +111,7 @@ function cidrContains (
   }
 
   const mask = bits === 0 ? 0 : (0xffffffff << (32 - bits)) >>> 0;
+
   return (rangeNumber & mask) === (ipNumber & mask);
 }
 
@@ -128,6 +131,7 @@ function isValidCidr (cidr: string): boolean {
 function invalidConfig (message: string): Error {
   const error = new Error(message);
   error.name = "HEALTHCHECK_INVALID_CONFIG";
+
   return error;
 }
 
@@ -175,6 +179,7 @@ function getRequestIp (
 
   const header = protection.proxyHeader ?? "x-forwarded-for";
   const value = request.headers.get(header);
+
   if (!value) return null;
 
   return value.split(",")[0]?.trim() ?? null;
@@ -189,6 +194,7 @@ function isAuthorized (
     const token = request.headers.get("authorization")?.replace(
       /^Bearer\s+/i, ""
     ) ?? "";
+
     if (!constantTimeEquals(
       token, protection.bearerToken
     )) {
@@ -198,6 +204,7 @@ function isAuthorized (
 
   if (protection.basicAuth) {
     const parsed = parseBasicAuth(request.headers.get("authorization"));
+
     if (!parsed || !constantTimeEquals(
       parsed.username, protection.basicAuth.username
     ) || !constantTimeEquals(
@@ -210,6 +217,7 @@ function isAuthorized (
   const ip = getRequestIp(
     request, protection
   );
+
   if (protection.allowIps?.length && (!ip || !protection.allowIps.includes(ip))) {
     return false;
   }

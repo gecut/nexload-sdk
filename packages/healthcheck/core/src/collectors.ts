@@ -1,10 +1,10 @@
-import { defineMetricCollector } from "./core/define";
-
 import type {
   HealthMetric,
   HealthScope,
   MetricCollectorDefinition
 } from "./core/types";
+
+import { defineMetricCollector } from "./core/define";
 
 export function runtimeMetricsCollector (options: { scopes?: readonly HealthScope[] } = {}): MetricCollectorDefinition<"runtime.metrics"> {
   return defineMetricCollector({

@@ -1,5 +1,5 @@
-import { CMSClientTimeoutError } from "./cms-client-timeout-error.js";
 import { isCMSOperationError } from "../../errors/cms-operation-error.js";
+import { CMSClientTimeoutError } from "./cms-client-timeout-error.js";
 
 export function isTimeoutError (error: unknown): boolean {
   if (

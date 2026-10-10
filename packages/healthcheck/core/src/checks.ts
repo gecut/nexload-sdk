@@ -1,7 +1,3 @@
-import { defineHealthCheck } from "./core/define";
-import { HEALTH_ERROR_CODES } from "./core/errors";
-import { sleep } from "./core/timeout";
-
 import type {
   HealthCheckDefinition,
   HealthCheckRunResult,
@@ -9,6 +5,10 @@ import type {
   HealthScope,
   HealthStatus
 } from "./core/types";
+
+import { defineHealthCheck } from "./core/define";
+import { HEALTH_ERROR_CODES } from "./core/errors";
+import { sleep } from "./core/timeout";
 
 function thresholdStatus (
   value: number | null, degraded: number, unhealthy: number, direction: "above" | "below"
@@ -18,11 +18,13 @@ function thresholdStatus (
   if (direction === "above") {
     if (value >= unhealthy) return "unhealthy";
     if (value >= degraded) return "degraded";
+
     return "ok";
   }
 
   if (value <= unhealthy) return "unhealthy";
   if (value <= degraded) return "degraded";
+
   return "ok";
 }
 

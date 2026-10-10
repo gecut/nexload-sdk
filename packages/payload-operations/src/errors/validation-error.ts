@@ -1,5 +1,6 @@
-import type { CMSValidationErrorData } from "./types.js";
 import type { z } from "zod";
+
+import type { CMSValidationErrorData } from "./types.js";
 
 export function sanitizeZodIssues (issues: readonly z.core.$ZodIssue[]): CMSValidationErrorData["issues"] {
   return issues.map((issue) => ({

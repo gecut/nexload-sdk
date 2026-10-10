@@ -11,8 +11,10 @@ export function formatJalaliDate (
 ): string | null {
   if (value === null || value === undefined) return null;
   const date = value instanceof Date ? value : new Date(value);
+
   if (Number.isNaN(date.getTime())) return null;
   const locale = options.digits === "latin" ? "fa-IR-u-ca-persian-nu-latn" : "fa-IR-u-ca-persian";
+
   return new Intl.DateTimeFormat(
     locale, {
       dateStyle: options.dateStyle ?? "medium",

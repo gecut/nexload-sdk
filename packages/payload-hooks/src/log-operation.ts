@@ -1,11 +1,11 @@
-import logger from "@nexload-sdk/logger";
-
 import type {
   CollectionAfterChangeHook,
-  CollectionBeforeChangeHook,
   CollectionAfterDeleteHook,
-  CollectionAfterReadHook
+  CollectionAfterReadHook,
+  CollectionBeforeChangeHook
 } from "payload";
+
+import logger from "@nexload-sdk/logger";
 
 type HookType = "beforeChange" | "afterChange" | "afterDelete" | "afterRead";
 

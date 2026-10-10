@@ -1,7 +1,8 @@
-import { formatJalaliDate } from "./format-date";
+import type { DateField, Field, TextField } from "payload";
 
 import type { JalaliPickerAppearance } from "./picker-types";
-import type { DateField, Field, TextField } from "payload";
+
+import { formatJalaliDate } from "./format-date";
 
 export type { JalaliDateDisplayOptions, JalaliDateValue } from "./format-date";
 export type { JalaliPickerAppearance } from "./picker-types";
@@ -20,6 +21,7 @@ export type JalaliTimestampsOptions = {
 
 export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
   const overrides = options.overrides ?? {};
+
   if (overrides.name && overrides.name !== options.name) throw new Error("Jalali date field name is protected.");
   if (overrides.type && overrides.type !== "date") throw new Error("Jalali date field type is protected.");
   const appearance = options.pickerAppearance ?? "dayOnly";
@@ -33,6 +35,7 @@ export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
     ),
     ...options.display,
   };
+
   return {
     ...overrides,
     name: options.name,
@@ -74,12 +77,14 @@ export function withJalaliTimestamps<T extends Field[]> (
       },
     } as TextField);
   };
+
   if (options.createdAt !== false) add(
     "createdAtJalali", "createdAt", options.overrides?.createdAt
   );
   if (options.updatedAt !== false) add(
     "updatedAtJalali", "updatedAt", options.overrides?.updatedAt
   );
+
   return output;
 }
 

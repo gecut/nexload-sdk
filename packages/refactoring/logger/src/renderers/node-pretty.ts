@@ -1,17 +1,17 @@
 import {
   bold,
-  yellow,
-  redBright,
-  red,
-  gray,
-  dim,
-  magentaBright,
-  greenBright,
-  green,
   cyanBright,
+  dim,
+  gray,
+  green,
+  magentaBright,
+  red,
+  redBright,
+  yellow,
 } from "colorette";
+
+import { type LogLevel, type LogRendererFunc } from "@/types";
 import { jsonHumanize } from "@/utils/json-humanize";
-import { LogLevel, LogRendererFunc } from "@/types";
 
 const levelColors = {
   TRACE: gray,
@@ -33,7 +33,7 @@ export const levelSymbols = {
   FATAL: "✝",
 } as const;
 
-const extrasFromatter = (extras: any) => {
+const extrasFromatter = (extras: unknown) => {
   if (
     extras == null ||
     typeof extras !== "object" ||
@@ -53,11 +53,11 @@ const levelToSymbol = (level: LogLevel) => {
 
 export const nodePrettyRenderer: LogRendererFunc = (line) => {
   const columns =
-    typeof process !== "undefined" ? process?.stdout?.columns : 80;
+    typeof process !== "undefined" ? process.stdout.columns : 80;
 
-  const { level, time, message, name, pid, ...extras } = line as any;
+  const { level, message = "", name = "", pid: _pid, time = Date.now(), ...extras } = line;
 
-  const dateTime = new Date(time ?? undefined);
+  const dateTime = new Date(time);
 
   const levelColor = levelColors[level as LogLevel];
   const symbol = levelToSymbol(level as LogLevel);

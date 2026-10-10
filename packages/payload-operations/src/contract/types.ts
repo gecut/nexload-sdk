@@ -1,8 +1,9 @@
+import type { z } from "zod";
+
 import type {
   CMS_OPERATION_PROMISE_ERROR_SYMBOL,
   CMS_OPERATION_SYMBOL
 } from "../internal/symbols.js";
-import type { z } from "zod";
 
 export type CMSOperationErrorDefinition<
   TDataSchema extends z.ZodType | undefined = z.ZodType | undefined

@@ -15,6 +15,7 @@ Tier 2 skills serve as the **Engineering Hands** of the ecosystem. While Tier 1 
 The primary standard for writing and refactoring TypeScript.
 
 * **Core Engineering Mission**: Produces the smallest correct, reviewable TypeScript change. Enforces type narrowing at trust boundaries, explicit lifecycle ownership, minimal abstraction debt, and honest verification.
+* **Mandatory Configuration & Standards**: Requires strict adherence to [`@nexload-sdk/eslint-config`](/nexload-sdk/packages/eslint-config/) and [`@nexload-sdk/typescript-config`](/nexload-sdk/packages/typescript-config/). Enforces canonical folder layouts defined in the [Canonical File & Directory Structure Standard](/nexload-sdk/standards/file-structure/). Can be initialized across any project using the [Universal Agent Setup Prompt](/nexload-sdk/standards/agent-setup-prompt/).
 * **When to Use**: Everyday TypeScript implementation, function refactoring, strict type modeling, boundary assertions, and local bug fixes.
 * **When NOT to Use**: Detailed React UI hooks/state; package release publishing; high-level CTO architecture approval.
 

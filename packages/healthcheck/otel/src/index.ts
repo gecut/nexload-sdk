@@ -16,6 +16,7 @@ export interface OtelMetricRecord {
 function statusValue (status: string): number {
   if (status === "ok") return 1;
   if (status === "degraded") return 0.5;
+
   return 0;
 }
 
@@ -98,7 +99,7 @@ export function toOtelMetricRecords (report: HealthReport): OtelMetricRecord[] {
       attributes: {
         service: report.service.name,
         scope: report.scope,
-        ...(metric.labels ?? {}),
+        ...metric.labels,
       },
     });
   }

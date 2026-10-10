@@ -8,5 +8,5 @@ export * from "./core/manager";
 export * from "./core/runtime";
 export * from "./core/serializers";
 export * from "./core/timeout";
-export * from "./core/types";
+export type * from "./core/types";
 export * from "./http-check";

@@ -1,21 +1,22 @@
+import type { Endpoint } from "payload";
+
+import type {
+  CMSOperationContract,
+  CMSOperationsTree
+} from "../contract/types.js";
+import type {
+  CMSOperationAccess,
+  CMSOperationHandler,
+  CreatePayloadEndpointsOptions
+} from "./types.js";
+
+import { flattenCMSOperations } from "../contract/traversal.js";
 import { executeOperation } from "./execute-operation.js";
 import { createPreflightResponse } from "./responses.js";
 import {
   assertTreeLeaves,
   getTreeValue
 } from "./tree.js";
-import { flattenCMSOperations } from "../contract/traversal.js";
-
-import type {
-  CMSOperationAccess,
-  CMSOperationHandler,
-  CreatePayloadEndpointsOptions
-} from "./types.js";
-import type {
-  CMSOperationContract,
-  CMSOperationsTree
-} from "../contract/types.js";
-import type { Endpoint } from "payload";
 
 const DEFAULT_ACCESS: CMSOperationAccess = ({ req, }) => Boolean(req.user);
 

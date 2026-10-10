@@ -1,11 +1,12 @@
-import { CMSOperationError } from "./cms-operation-error.js";
+import type { z } from "zod";
 
-import type { CMSDefinedErrorFactories } from "./types.js";
 import type {
   CMSOperationContract,
   CMSOperationErrorDefinition
 } from "../contract/types.js";
-import type { z } from "zod";
+import type { CMSDefinedErrorFactories } from "./types.js";
+
+import { CMSOperationError } from "./cms-operation-error.js";
 
 export function createDefinedErrorFactories<
   TOperation extends CMSOperationContract
@@ -54,6 +55,7 @@ export async function validateDefinedError (
   }
 
   const definition = operation.errors[error.code];
+
   if (
     definition === undefined
     || definition.status !== error.status
@@ -65,6 +67,7 @@ export async function validateDefinedError (
   const parsedData = await parseDefinedErrorData(
     definition, error.data
   );
+
   if (!parsedData.success) {
     return undefined;
   }

@@ -1,14 +1,15 @@
 import type {
+  Endpoint,
+  PayloadRequest
+} from "payload";
+
+import type {
   CMSOperationContract,
   CMSOperationsTree,
   InferHandlerOutput,
   InferParsedOperationInput
 } from "../contract/types.js";
 import type { CMSDefinedErrorFactories } from "../errors/types.js";
-import type {
-  Endpoint,
-  PayloadRequest
-} from "payload";
 
 export interface CMSOperationMetadata<
   TOperation extends CMSOperationContract = CMSOperationContract

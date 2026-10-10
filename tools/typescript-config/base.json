@@ -10,9 +10,14 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "declarationMap": true,
-    "noEmit": false,
-    "moduleDetection": "force"
+    "sourceMap": true,
+    "noEmit": false
   }
 }

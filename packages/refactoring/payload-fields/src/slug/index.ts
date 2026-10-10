@@ -1,6 +1,6 @@
-import { formatSlugHook } from "./format-slug";
-
 import type { CheckboxField, TextField } from "payload";
+
+import { formatSlugHook } from "./format-slug";
 
 export type SlugFieldOptions = {
   name?: string
@@ -18,6 +18,7 @@ export function slugField (options: SlugFieldOptions = {}): SlugFieldResult {
   const lockName = options.lockName ?? `${name}Lock`;
   const source = options.source ?? "title";
   const localized = options.overrides?.slug?.localized === true;
+
   if (options.overrides?.slug?.name && options.overrides.slug.name !== name) throw new Error("Slug field name is protected.");
   if (options.overrides?.lock?.name && options.overrides.lock.name !== lockName) throw new Error("Slug lock name is protected.");
   if (options.overrides?.lock?.localized !== undefined && options.overrides.lock.localized !== localized) throw new Error("Slug lock localization must match slug localization.");
@@ -60,6 +61,7 @@ export function slugField (options: SlugFieldOptions = {}): SlugFieldResult {
     defaultValue: true,
     admin: { ...lockOverrides.admin, hidden: true, position: lockOverrides.admin?.position ?? "sidebar", },
   } as CheckboxField;
+
   return [
     slug,
     lock

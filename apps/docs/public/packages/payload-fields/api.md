@@ -31,7 +31,7 @@ formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?:
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L78)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L85)
 
 ### `formatSlug`
 
@@ -43,7 +43,7 @@ formatSlug(value: string) => string
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L45)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L48)
 
 ### `jalaliDateField`
 
@@ -55,7 +55,7 @@ jalaliDateField(options: JalaliDateFieldOptions) => DateField
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L21)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L22)
 
 ### `moneyField`
 
@@ -67,7 +67,7 @@ moneyField(options: MoneyFieldOptions) => NumberField
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L94)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L102)
 
 ### `parseMoneyToMinorUnits`
 
@@ -79,7 +79,7 @@ parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L56)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/money/index.ts#L59)
 
 ### `payloadFieldsPlugin`
 
@@ -127,7 +127,7 @@ withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOpt
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L53)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L56)
 
 ## Constants
 
@@ -165,7 +165,7 @@ formatSlugHook(options: SlugHookOptions) => FieldHook
 
 Public constant exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L70)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/slug/format-slug.ts#L73)
 
 ## Types
 
@@ -201,7 +201,7 @@ type JalaliDateFieldOptions = {
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L8)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L9)
 
 ### `JalaliDateValue`
 
@@ -246,7 +246,7 @@ type JalaliTimestampsOptions = {
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L14)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/refactoring/payload-fields/src/date/index.ts#L15)
 
 ### `MoneyCurrency`
 

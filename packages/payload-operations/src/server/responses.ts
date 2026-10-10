@@ -1,9 +1,10 @@
+import type { PayloadRequest } from "payload";
+
 import { headersWithCors } from "payload";
 
-import { serializeOperationError } from "../errors/error-envelope.js";
-
 import type { CMSOperationError } from "../errors/cms-operation-error.js";
-import type { PayloadRequest } from "payload";
+
+import { serializeOperationError } from "../errors/error-envelope.js";
 
 export function createErrorResponse (
   req: PayloadRequest,
