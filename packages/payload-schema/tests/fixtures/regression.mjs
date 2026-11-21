@@ -191,4 +191,40 @@ export async function runRegressionCases(payload) {
       return true;
     },
   );
+
+  // (i) publishedAt with valid Date stores ISO string
+  const dateDoc = await payload.create({
+    collection: "posts",
+    data: {
+      title: "Post with Date",
+      meta: { tag: "tag-date" },
+      publishedAt: new Date("2026-01-01T00:00:00Z"),
+    },
+  });
+  assert.equal(dateDoc.publishedAt, "2026-01-01T00:00:00.000Z");
+
+  const reReadDateDoc = await payload.findByID({
+    collection: "posts",
+    id: dateDoc.id,
+  });
+  assert.equal(reReadDateDoc.publishedAt, "2026-01-01T00:00:00.000Z");
+
+  // (j) publishedAt with new Date("nope") rejects with ValidationError at path publishedAt
+  await assert.rejects(
+    payload.create({
+      collection: "posts",
+      data: {
+        title: "Post with invalid Date",
+        meta: { tag: "tag-invalid-date" },
+        publishedAt: new Date("nope"),
+      },
+    }),
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const dateError = error.data?.errors?.find((e) => e.path === "publishedAt");
+      assert.ok(dateError, "expected error at path publishedAt");
+      assert.equal(dateError.message, "Invalid date");
+      return true;
+    },
+  );
 }

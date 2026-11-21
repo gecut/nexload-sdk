@@ -59,3 +59,162 @@ test("money currency is safe inspection metadata only", () => {
   });
   assert.equal("currency" in payloadFields(entity).field("amount"), false);
 });
+
+test("date field runtime hook accepts Date objects, converts to UTC ISO, and enforces constraints", async () => {
+  const entity = defineEntity({
+    name: "DateRuntimeFixture",
+    fields: {
+      publishedAt: field.date(),
+      boundedAt: field.date({
+        minimum: "2026-01-01T00:00:00Z",
+        maximum: "2026-12-31T23:59:59Z",
+        schema: (canonical) => canonical.refine((v) => v.startsWith("2026-06"), "must be June"),
+      }),
+      optionalAt: field.date({ nullable: true }),
+    },
+  });
+
+  const fields = payloadFields(entity);
+  const publishedHook = fields.field("publishedAt").hooks.beforeValidate.at(-1);
+  const boundedHook = fields.field("boundedAt").hooks.beforeValidate.at(-1);
+  const optionalHook = fields.field("optionalAt").hooks.beforeValidate.at(-1);
+
+  // Point 1: Valid Date converted to UTC ISO string
+  const validDate = new Date("2026-01-01T00:00:00Z");
+  assert.equal(
+    await publishedHook({ value: validDate, path: ["publishedAt"], req: {} }),
+    "2026-01-01T00:00:00.000Z",
+  );
+
+  // Point 1: ISO strings keep working unchanged
+  assert.equal(
+    await publishedHook({ value: "2026-07-20T16:00:00+03:30", path: ["publishedAt"], req: {} }),
+    "2026-07-20T12:30:00.000Z",
+  );
+
+  // Point 1: Date objects respect minimum, maximum, and options.schema refinement
+  assert.equal(
+    await boundedHook({ value: new Date("2026-06-15T12:00:00Z"), path: ["boundedAt"], req: {} }),
+    "2026-06-15T12:00:00.000Z",
+  );
+  await assert.rejects(
+    async () => {
+      await boundedHook({ value: new Date("2025-06-15T12:00:00Z"), path: ["boundedAt"], req: {} });
+    },
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const issue = error.data?.errors?.find((e) => e.path === "boundedAt");
+      assert.ok(issue, "expected error at boundedAt");
+      assert.equal(issue.message, "Date is before minimum");
+      return true;
+    },
+  );
+  await assert.rejects(
+    async () => {
+      await boundedHook({ value: new Date("2027-06-15T12:00:00Z"), path: ["boundedAt"], req: {} });
+    },
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const issue = error.data?.errors?.find((e) => e.path === "boundedAt");
+      assert.ok(issue, "expected error at boundedAt");
+      assert.equal(issue.message, "Date is after maximum");
+      return true;
+    },
+  );
+  await assert.rejects(
+    async () => {
+      await boundedHook({ value: new Date("2026-07-15T12:00:00Z"), path: ["boundedAt"], req: {} });
+    },
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const issue = error.data?.errors?.find((e) => e.path === "boundedAt");
+      assert.ok(issue, "expected error at boundedAt");
+      assert.equal(issue.message, "must be June");
+      return true;
+    },
+  );
+
+  // Point 1: Nullable date hook handles null
+  assert.equal(
+    await optionalHook({ value: null, path: ["optionalAt"], req: {} }),
+    null,
+  );
+  assert.equal(
+    await optionalHook({ value: new Date("2026-01-01T00:00:00Z"), path: ["optionalAt"], req: {} }),
+    "2026-01-01T00:00:00.000Z",
+  );
+
+  // Point 2: Invalid Date rejected with "Invalid date"
+  await assert.rejects(
+    async () => {
+      await publishedHook({ value: new Date("nope"), path: ["publishedAt"], req: {} });
+    },
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const issue = error.data?.errors?.find((e) => e.path === "publishedAt");
+      assert.ok(issue, "expected error at publishedAt");
+      assert.equal(issue.message, "Invalid date");
+      return true;
+    },
+  );
+
+  // Nullable date hook still rejects new Date("nope") with "Invalid date"
+  await assert.rejects(
+    async () => {
+      await optionalHook({ value: new Date("nope"), path: ["optionalAt"], req: {} });
+    },
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const issue = error.data?.errors?.find((e) => e.path === "optionalAt");
+      assert.ok(issue, "expected error at optionalAt");
+      assert.equal(issue.message, "Invalid date");
+      return true;
+    },
+  );
+
+  // Spoofed Date object rejected as ValidationError, not TypeError
+  await assert.rejects(
+    async () => {
+      await publishedHook({
+        value: { [Symbol.toStringTag]: "Date" },
+        path: ["publishedAt"],
+        req: {},
+      });
+    },
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      assert.notEqual(error?.name, "TypeError");
+      const issue = error.data?.errors?.find((e) => e.path === "publishedAt");
+      assert.ok(issue, "expected error at publishedAt");
+      assert.equal(issue.message, "Invalid input: expected string, received object");
+      return true;
+    },
+  );
+
+  // Point 3: Canonical schema rejects Date objects and accepts only ISO strings
+  const derived = entity.schema(({ pick }) => pick(["publishedAt"]));
+  assert.throws(
+    () => entity.fields.publishedAt.schema.parse(new Date("2026-01-01T00:00:00Z")),
+    (error) => {
+      assert.equal(error?.name, "ZodError");
+      assert.match(error.message, /expected string, received Date/u);
+      return true;
+    },
+  );
+  assert.throws(
+    () => derived.parse({ publishedAt: new Date("2026-01-01T00:00:00Z") }),
+    (error) => {
+      assert.equal(error?.name, "ZodError");
+      assert.match(error.message, /expected string, received Date/u);
+      return true;
+    },
+  );
+  assert.equal(
+    entity.fields.publishedAt.schema.parse("2026-01-01T00:00:00Z"),
+    "2026-01-01T00:00:00.000Z",
+  );
+  assert.equal(
+    derived.parse({ publishedAt: "2026-01-01T00:00:00Z" }).publishedAt,
+    "2026-01-01T00:00:00.000Z",
+  );
+});

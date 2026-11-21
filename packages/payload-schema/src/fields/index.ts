@@ -386,13 +386,32 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
   const schema = applyNullable(
     base, options.nullable
   );
+  const runtimeDate = z.unknown().transform((value, ctx) => {
+    if (value instanceof Date) {
+      const dateValue = value as Date;
+
+      if (Number.isNaN(dateValue.getTime())) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Invalid date",
+        });
+
+        return z.NEVER;
+      }
+
+      return dateValue.toISOString();
+    }
+
+    return value;
+  });
+  const runtimeSchema = runtimeDate.pipe(schema);
 
   return createFieldDefinition(withDefaults(
     {
       kind: "date",
       payloadType: "date",
       schema,
-      runtimeSchema: schema,
+      runtimeSchema,
       payloadCore: options.required === undefined ? {} : { required: options.required, },
       payloadExtras: asPayloadExtras(options.payload),
       required: options.required ?? false,
