@@ -1,7 +1,7 @@
+import type { PayloadDataField } from "../core/types.js";
 import type { FieldSeed } from "../internal/field-definition.js";
-import type { PayloadDataField } from "../types.js";
 
-import { isPayloadSchemaError, PayloadSchemaError } from "../errors.js";
+import { isPayloadSchemaError, PayloadSchemaError } from "../core/errors.js";
 import { errorName } from "../internal/canonical-parse.js";
 import { cloneConfig } from "../internal/clone.js";
 import { dataFieldTypes } from "../internal/data-field-types.js";

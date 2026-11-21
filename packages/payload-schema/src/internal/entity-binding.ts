@@ -1,6 +1,6 @@
 import type { FieldSeed } from "./field-definition.js";
 
-import { PayloadSchemaError } from "../errors.js";
+import { PayloadSchemaError } from "../core/errors.js";
 
 export const entityBindingSymbol: unique symbol = Symbol("payload-schema.entity-binding");
 

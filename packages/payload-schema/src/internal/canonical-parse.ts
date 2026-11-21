@@ -1,8 +1,8 @@
 import type { z } from "zod";
 
-import type { AnyCanonicalSchema } from "../types.js";
+import type { AnyCanonicalSchema } from "../core/types.js";
 
-import { PayloadSchemaError, type SafeIssueSummary } from "../errors.js";
+import { PayloadSchemaError, type SafeIssueSummary } from "../core/errors.js";
 
 export function errorName (error: unknown): string | undefined {
   return error instanceof Error ? error.name : undefined;

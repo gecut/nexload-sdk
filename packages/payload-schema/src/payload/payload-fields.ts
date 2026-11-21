@@ -1,12 +1,12 @@
 import type { Field } from "payload";
 
-import type { FieldSeed } from "../internal/field-definition.js";
 import type {
   AnyCanonicalSchema,
   EntityDefinition,
   EntityFieldMap,
   EntityPayloadFacade
-} from "../types.js";
+} from "../core/types.js";
+import type { FieldSeed } from "../internal/field-definition.js";
 
 import { findEntityEntry, getEntityBinding } from "../internal/entity-binding.js";
 import { compileField } from "./compile-field.js";

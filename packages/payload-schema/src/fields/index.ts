@@ -34,10 +34,10 @@ import type {
   TextareaFieldOptions,
   TextFieldOptions,
   UploadFieldOptions
-} from "../types.js";
+} from "../core/types.js";
 
-import { defaultIdSchema } from "../default-id.js";
-import { PayloadSchemaError } from "../errors.js";
+import { defaultIdSchema } from "../core/default-id.js";
+import { PayloadSchemaError } from "../core/errors.js";
 import { createFieldDefinition, fieldEntries, type FieldSeed } from "../internal/field-definition.js";
 
 type NullableSchema<TValue, TNullable extends boolean> = z.ZodType<MaybeNullable<TValue, TNullable>>;

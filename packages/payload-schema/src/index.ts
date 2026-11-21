@@ -1,15 +1,13 @@
-export { defaultIdSchema } from "./default-id.js";
-export type { DefaultIdSchema } from "./default-id.js";
-export { defineEntity } from "./entity/define-entity.js";
-export { isPayloadSchemaError, PayloadSchemaError } from "./errors.js";
+export { defaultIdSchema } from "./core/default-id.js";
+export type { DefaultIdSchema } from "./core/default-id.js";
+export { isPayloadSchemaError, PayloadSchemaError } from "./core/errors.js";
 
 export type {
   PayloadSchemaErrorCode,
   PayloadSchemaErrorDataMap,
   PayloadSchemaErrorPhase,
   SerializedPayloadSchemaError
-} from "./errors.js";
-export { field } from "./fields/index.js";
+} from "./core/errors.js";
 export type {
   ArrayFieldOptions,
   BooleanFieldOptions,
@@ -33,4 +31,6 @@ export type {
   TextareaFieldOptions,
   TextFieldOptions,
   UploadFieldOptions
-} from "./types.js";
+} from "./core/types.js";
+export { defineEntity } from "./entity/define-entity.js";
+export { field } from "./fields/index.js";

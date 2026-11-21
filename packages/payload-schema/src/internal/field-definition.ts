@@ -2,7 +2,7 @@ import type { z } from "zod";
 
 import type {
   AnyCanonicalSchema, AnyFieldDefinition, EntityFieldMap, FieldDefinition, PayloadDataField
-} from "../types.js";
+} from "../core/types.js";
 
 export const fieldSeedSymbol: unique symbol = Symbol("payload-schema.field-seed");
 

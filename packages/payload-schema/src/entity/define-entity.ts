@@ -11,10 +11,10 @@ import type {
   EntityInspectionFieldMap,
   EntitySchemaContext,
   ZodObjectForPickedFields
-} from "../types.js";
+} from "../core/types.js";
 
-import { defaultIdSchema } from "../default-id.js";
-import { isPayloadSchemaError, PayloadSchemaError } from "../errors.js";
+import { defaultIdSchema } from "../core/default-id.js";
+import { isPayloadSchemaError, PayloadSchemaError } from "../core/errors.js";
 import { createRelationshipSchema } from "../fields/index.js";
 import { errorName, issueSummaries, parseCanonical } from "../internal/canonical-parse.js";
 import { dataFieldTypes } from "../internal/data-field-types.js";
