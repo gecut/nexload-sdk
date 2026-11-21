@@ -2,12 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { PayloadSchemaError, defineEntity, field, isPayloadSchemaError } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 
 test("static defaults are canonicalized for Payload without changing consumer schema", () => {
   const definition = field.text({ trim: true, lowercase: true, defaultValue: " READY " });
   const entity = defineEntity({ name: "Defaults", fields: { state: definition } });
 
-  assert.equal(entity.payload.field("state").defaultValue, "ready");
+  assert.equal(payloadFields(entity).field("state").defaultValue, "ready");
   assert.equal(definition.schema.safeParse(undefined).success, false);
 });
 
@@ -21,8 +22,8 @@ test("dynamic defaults are forwarded opaquely and schema-less native fields allo
     },
   });
 
-  assert.equal(entity.payload.field("generated").defaultValue, dynamicDefaultValue);
-  assert.equal(entity.payload.field("raw").defaultValue, dynamicDefaultValue);
+  assert.equal(payloadFields(entity).field("generated").defaultValue, dynamicDefaultValue);
+  assert.equal(payloadFields(entity).field("raw").defaultValue, dynamicDefaultValue);
 });
 
 test("default invariants fail at entity definition with safe structured data", () => {

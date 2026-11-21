@@ -354,7 +354,6 @@ export interface EntityDefinition<
   readonly name: TName
   readonly idSchema: TIdSchema
   readonly fields: TFields
-  readonly payload: EntityPayloadFacade<TFields>
   schema<TSchema extends AnyCanonicalSchema>(factory: (context: EntitySchemaContext<TFields>) => TSchema): TSchema
   inspect(): EntityInspection
 }

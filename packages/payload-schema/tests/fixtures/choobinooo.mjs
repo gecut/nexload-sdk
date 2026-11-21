@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { defineEntity, field } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 
 const editor = Object.freeze({ lexical: true });
 const synchronizeSlug = ({ value }) => value;
@@ -48,7 +49,7 @@ export const productCardSchema = productEntity.schema(({ fields, z: contextZ }) 
 }));
 
 export const collectionStubs = [
-  { slug: "categories", fields: categoryEntity.payload.all() },
+  { slug: "categories", fields: payloadFields(categoryEntity).all() },
   { slug: "media", upload: true, fields: [] },
-  { slug: "products", fields: productEntity.payload.all() },
+  { slug: "products", fields: payloadFields(productEntity).all() },
 ];

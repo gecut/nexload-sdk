@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { defineEntity, field, isPayloadSchemaError } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 
 test("scalar factories apply canonical normalization and constraints", () => {
   assert.equal(field.text({ trim: true, lowercase: true, pattern: /^[a-z]+$/u }).schema.parse("  ABC "), "abc");
@@ -56,5 +57,5 @@ test("money currency is safe inspection metadata only", () => {
     hasSchema: true,
     currency: "IRR",
   });
-  assert.equal("currency" in entity.payload.field("amount"), false);
+  assert.equal("currency" in payloadFields(entity).field("amount"), false);
 });

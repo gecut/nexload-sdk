@@ -25,6 +25,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./payload": {
+      "types": "./dist/payload/index.d.ts",
+      "import": "./dist/payload/index.js",
+      "default": "./dist/payload/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { defaultIdSchema, defineEntity, field, isPayloadSchemaError } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 import { z } from "zod";
 
 test("default IDs and mono/poly relationship and upload shapes are canonical", () => {
@@ -67,7 +68,7 @@ test("schema-less descendants preserve Payload compilation and block canonical p
   });
 
   assert.equal(entity.fields.content.schema, undefined);
-  assert.equal(entity.payload.field("content").fields.length, 2);
+  assert.equal(payloadFields(entity).field("content").fields.length, 2);
   assert.throws(
     () => entity.schema(({ pick }) => pick(["content"])),
     (error) => isPayloadSchemaError(error, "SCHEMA_UNAVAILABLE")

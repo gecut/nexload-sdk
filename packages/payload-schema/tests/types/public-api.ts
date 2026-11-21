@@ -1,4 +1,4 @@
-import type { TextField } from "payload";
+import type { Field, TextField } from "payload";
 import { z } from "zod";
 
 import {
@@ -8,6 +8,7 @@ import {
   type FieldDefinition,
   type InferEntityFields,
 } from "../../src/index.js";
+import { type EntityPayloadFacade, payloadFields } from "../../src/payload/index.js";
 
 const entity = defineEntity({
   name: "Types",
@@ -42,8 +43,11 @@ const known: Values["known"] = "value";
 const raw: Values["raw"] = undefined as never;
 void [known, raw];
 
-entity.payload.field("title");
-entity.payload.pick(["rows", "title"]);
+const facade: EntityPayloadFacade<typeof entity.fields> = payloadFields(entity);
+const compiledTitle: Field = facade.field("title");
+const compiledPicked: Field[] = payloadFields(entity).pick(["rows", "title"]);
+const compiledAll: Field[] = payloadFields(entity).all();
+void [compiledTitle, compiledPicked, compiledAll];
 entity.schema(({ fields, pick, z: contextZ }) => contextZ.union([
   fields.title,
   pick(["status", "title"], { optional: "all", required: ["title"] }).transform(({ title }) => title),
@@ -52,7 +56,11 @@ entity.schema(({ fields, pick, z: contextZ }) => contextZ.union([
 defaultIdSchema.parse("id");
 
 // @ts-expect-error unknown payload key
-entity.payload.field("missing");
+payloadFields(entity).field("missing");
+// @ts-expect-error unknown payload key in pick
+payloadFields(entity).pick(["missing"]);
+// @ts-expect-error entities no longer carry a payload facade
+void entity.payload;
 // @ts-expect-error schema-less native field is omitted
 entity.schema(({ fields }) => fields.raw);
 // @ts-expect-error schema-less native field cannot be picked

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { defineEntity, field } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 
 test("a canonical text field compiles and derives schemas through the public interface", () => {
   const entity = defineEntity({
@@ -12,7 +13,7 @@ test("a canonical text field compiles and derives schemas through the public int
   });
 
   assert.equal(entity.fields.title.schema.parse("  Chair  "), "Chair");
-  const compiled = entity.payload.field("title");
+  const compiled = payloadFields(entity).field("title");
   assert.deepEqual({ ...compiled, hooks: undefined }, {
     name: "title",
     type: "text",

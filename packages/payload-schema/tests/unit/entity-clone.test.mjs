@@ -4,6 +4,7 @@ import test from "node:test";
 import { z } from "zod";
 
 import { defineEntity, field, isPayloadSchemaError } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 
 test("runtime root exports are intentionally small", async () => {
   const root = await import("../../dist/index.js");
@@ -27,10 +28,10 @@ test("payload facade preserves ordering and returns independent plain containers
     },
   });
 
-  assert.deepEqual(entity.payload.all().map(({ name }) => name), ["second", "first"]);
-  assert.deepEqual(entity.payload.pick(["first", "second"]).map(({ name }) => name), ["first", "second"]);
-  const a = entity.payload.field("second");
-  const b = entity.payload.field("second");
+  assert.deepEqual(payloadFields(entity).all().map(({ name }) => name), ["second", "first"]);
+  assert.deepEqual(payloadFields(entity).pick(["first", "second"]).map(({ name }) => name), ["first", "second"]);
+  const a = payloadFields(entity).field("second");
+  const b = payloadFields(entity).field("second");
   a.admin.custom.nested.push(2);
   assert.deepEqual(b.admin.custom.nested, [1]);
   assert.equal(a.admin.opaque, opaque);
@@ -48,7 +49,7 @@ test("cloning never invokes getters", () => {
     },
   });
   const entity = defineEntity({ name: "Getter", fields: { title: field.text({ payload: { admin } }) } });
-  const compiled = entity.payload.field("title");
+  const compiled = payloadFields(entity).field("title");
 
   assert.equal(reads, 0);
   assert.equal(Object.getOwnPropertyDescriptor(compiled.admin, "description").get !== undefined, true);
@@ -67,7 +68,7 @@ test("hook getters are composed lazily without running during compilation", () =
     },
   });
   const entity = defineEntity({ name: "HookGetter", fields: { title: field.text({ payload }) } });
-  const compiled = entity.payload.field("title");
+  const compiled = payloadFields(entity).field("title");
 
   assert.equal(reads, 0);
   assert.equal(compiled.hooks.beforeValidate.length, 1);
@@ -87,7 +88,7 @@ test("schema derivation accepts arbitrary Zod schemas and picker order/options a
   assert.deepEqual(picked.parse({ title: "x" }), { title: "x" });
   assert.throws(() => picked.parse({ title: "x", extra: true }));
   assert.throws(
-    () => entity.payload.field("missing"),
+    () => payloadFields(entity).field("missing"),
     (error) => isPayloadSchemaError(error, "UNKNOWN_FIELD"),
   );
 });

@@ -1,6 +1,7 @@
 import { buildConfig } from "payload";
 
 import { defineEntity, field } from "../../dist/index.js";
+import { payloadFields } from "../../dist/payload/index.js";
 
 const categoryEntity = defineEntity({
   name: "Category",
@@ -36,9 +37,9 @@ export async function createFixtureConfig({ databaseAdapter, generatedTypesPath,
     secret: "payload-schema-integration-secret-000000000000",
     db: databaseAdapter,
     collections: [
-      { slug: "categories", fields: categoryEntity.payload.all() },
-      { slug: "media", upload: { staticDir: uploadDirectory }, fields: mediaEntity.payload.all() },
-      { slug: "products", fields: productEntity.payload.all() },
+      { slug: "categories", fields: payloadFields(categoryEntity).all() },
+      { slug: "media", upload: { staticDir: uploadDirectory }, fields: payloadFields(mediaEntity).all() },
+      { slug: "products", fields: payloadFields(productEntity).all() },
     ],
     typescript: { outputFile: generatedTypesPath },
   });

@@ -1,6 +1,3 @@
-import type { Field, FieldHook } from "payload";
-
-import { ValidationError } from "payload";
 import { z } from "zod";
 
 import type {
@@ -13,14 +10,15 @@ import type {
   EntityInspection,
   EntityInspectionFieldMap,
   EntitySchemaContext,
-  PayloadDataField,
   ZodObjectForPickedFields
 } from "../types.js";
 
 import { defaultIdSchema } from "../default-id.js";
-import { isPayloadSchemaError, PayloadSchemaError, type SafeIssueSummary } from "../errors.js";
+import { isPayloadSchemaError, PayloadSchemaError } from "../errors.js";
 import { createRelationshipSchema } from "../fields/index.js";
-import { cloneConfig } from "../internal/clone.js";
+import { errorName, issueSummaries, parseCanonical } from "../internal/canonical-parse.js";
+import { dataFieldTypes } from "../internal/data-field-types.js";
+import { attachEntityBinding } from "../internal/entity-binding.js";
 import {
   createFieldDefinition,
   fieldEntries,
@@ -33,26 +31,6 @@ const reservedFieldNames = new Set([
   "hash",
   "salt"
 ]);
-const dataFieldTypes = new Set([
-  "array",
-  "blocks",
-  "checkbox",
-  "code",
-  "date",
-  "email",
-  "group",
-  "join",
-  "json",
-  "number",
-  "point",
-  "radio",
-  "relationship",
-  "richText",
-  "select",
-  "text",
-  "textarea",
-  "upload"
-]);
 const commonReserved = [
   "defaultValue",
   "localized",
@@ -61,45 +39,6 @@ const commonReserved = [
   "type",
   "virtual"
 ] as const;
-
-function errorName (error: unknown): string | undefined {
-  return error instanceof Error ? error.name : undefined;
-}
-
-function isAsyncParseError (error: unknown): boolean {
-  return error instanceof Error
-    && (error.constructor.name === "$ZodAsyncError" || error.message.includes("Encountered Promise during synchronous parse"));
-}
-
-function issueSummaries (error: z.ZodError): SafeIssueSummary[] {
-  return error.issues.map((issue) => ({
-    code: issue.code,
-    path: issue.path.map((part) => (typeof part === "symbol" ? part.description ?? part.toString() : part)),
-    message: issue.message,
-  }));
-}
-
-function parseCanonical (
-  schema: AnyCanonicalSchema,
-  value: unknown,
-  context: { entity?: string, fieldPath: string, fieldKind: string }
-): ReturnType<AnyCanonicalSchema["safeParse"]> {
-  try {
-    return schema.safeParse(value);
-  } catch (error) {
-    if (isAsyncParseError(error)) {
-      throw new PayloadSchemaError(
-        "ASYNC_CANONICAL_SCHEMA_UNSUPPORTED", {
-          phase: "definition",
-          message: `Canonical schema for field "${context.fieldPath}" must be synchronous.`,
-          data: context,
-          cause: error,
-        }
-      );
-    }
-    throw error;
-  }
-}
 
 function reservedKeys (seed: FieldSeed): readonly string[] {
   switch (seed.kind) {
@@ -290,182 +229,6 @@ function bindSeed (
   };
 }
 
-function validationPath (
-  basePath: Array<number | string>, issuePath: PropertyKey[]
-): string {
-  return [
-    ...basePath,
-    ...issuePath
-  ].map(String).join(".");
-}
-
-function canonicalHook (
-  seed: FieldSeed, entity: string, fieldPath: string
-): FieldHook {
-  return ({ path, req, value, }) => {
-    if (value === undefined || !seed.runtimeSchema) return value;
-    const result = parseCanonical(
-      seed.runtimeSchema, value, { entity, fieldPath, fieldKind: seed.kind, }
-    );
-
-    if (result.success) return result.data;
-    const basePath = Array.isArray(path) && path.length ? path : fieldPath.split(".");
-    throw new ValidationError({
-      req,
-      errors: result.error.issues.map((issue) => ({
-        path: validationPath(
-          basePath, issue.path
-        ),
-        message: issue.message,
-      })),
-    });
-  };
-}
-
-function appendCanonicalHook (
-  value: unknown, hook: FieldHook
-): Record<string, unknown> {
-  const hooks = value && typeof value === "object"
-    ? cloneConfig(value as Record<string, unknown>)
-    : {};
-  const descriptor = Object.getOwnPropertyDescriptor(
-    hooks, "beforeValidate"
-  );
-
-  if (descriptor && !("value" in descriptor)) {
-    Object.defineProperty(
-      hooks, "beforeValidate", {
-        ...descriptor,
-        get: descriptor.get
-          ? function (this: unknown) {
-            const consumerHooks = descriptor.get?.call(this);
-
-            return [
-              ...(Array.isArray(consumerHooks) ? consumerHooks : []),
-              hook
-            ];
-          }
-          : () => [hook],
-      }
-    );
-
-    return hooks;
-  }
-  const consumerHooks = descriptor && "value" in descriptor && Array.isArray(descriptor.value)
-    ? descriptor.value
-    : [];
-  Object.defineProperty(
-    hooks, "beforeValidate", {
-      configurable: true,
-      enumerable: true,
-      value: [
-        ...consumerHooks,
-        hook
-      ],
-      writable: true,
-    }
-  );
-
-  return hooks;
-}
-
-function compileField (
-  seed: FieldSeed,
-  name: string,
-  entity: string,
-  fieldPath: string,
-  operation: "all" | "field" | "pick"
-): PayloadDataField {
-  try {
-    const extras = cloneConfig(seed.payloadExtras);
-    const core = cloneConfig(seed.payloadCore);
-    const compiled = Object.create(Object.prototype) as Record<string, unknown>;
-    const extraDescriptors = Object.getOwnPropertyDescriptors(extras);
-    const hooksDescriptor = extraDescriptors.hooks;
-    delete extraDescriptors.hooks;
-    Object.defineProperties(
-      compiled, extraDescriptors
-    );
-    Object.defineProperties(
-      compiled, Object.getOwnPropertyDescriptors(core)
-    );
-    Object.defineProperties(
-      compiled, {
-        name: { configurable: true, enumerable: true, value: name, writable: true, },
-        type: { configurable: true, enumerable: true, value: seed.payloadType, writable: true, },
-      }
-    );
-    if (seed.children) {
-      compiled.fields = seed.children.map(([
-        childName,
-        child
-      ]) => compileField(
-        child, childName, entity, `${fieldPath}.${childName}`, operation
-      ));
-    }
-    if (seed.runtimeSchema) {
-      const hook = canonicalHook(
-        seed, entity, fieldPath
-      );
-
-      if (hooksDescriptor && !("value" in hooksDescriptor)) {
-        Object.defineProperty(
-          compiled, "hooks", {
-            ...hooksDescriptor,
-            get: hooksDescriptor.get
-              ? function (this: unknown) {
-                return appendCanonicalHook(
-                  hooksDescriptor.get?.call(this), hook
-                );
-              }
-              : () => appendCanonicalHook(
-                undefined, hook
-              ),
-          }
-        );
-      } else {
-        Object.defineProperty(
-          compiled, "hooks", {
-            configurable: true,
-            enumerable: true,
-            value: appendCanonicalHook(
-              hooksDescriptor && "value" in hooksDescriptor ? hooksDescriptor.value : undefined, hook
-            ),
-            writable: true,
-          }
-        );
-      }
-    } else if (hooksDescriptor) {
-      Object.defineProperty(
-        compiled, "hooks", hooksDescriptor
-      );
-    }
-    if (!dataFieldTypes.has(seed.payloadType)) {
-      throw new PayloadSchemaError(
-        "INVALID_PAYLOAD_FIELD", {
-          phase: "payload-compilation",
-          message: `Field "${fieldPath}" does not compile to a data-affecting Payload field.`,
-          data: { entity, fieldPath, fieldKind: seed.kind, reason: `unsupported type ${seed.payloadType}`, },
-        }
-      );
-    }
-
-    return compiled as unknown as PayloadDataField;
-  } catch (error) {
-    if (isPayloadSchemaError(error)) throw error;
-    throw new PayloadSchemaError(
-      "PAYLOAD_COMPILATION_FAILED", {
-        phase: "payload-compilation",
-        message: `Failed to compile Payload field "${fieldPath}".`,
-        data: {
-          entity, fieldPath, fieldKind: seed.kind, operation, causeName: errorName(error),
-        },
-        cause: error,
-      }
-    );
-  }
-}
-
 function assertFieldName (
   entity: string, name: string
 ): void {
@@ -586,35 +349,6 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
     return entry;
   };
 
-  const payload = Object.freeze({
-    all: (): Field[] => boundEntries.map(([
-      name,
-      seed
-    ]) => compileField(
-      seed, name, options.name, name, "all"
-    )),
-    field: (key: keyof BoundFields): Field => {
-      const [
-        name,
-        seed
-      ] = getEntry(key);
-
-      return compileField(
-        seed, name, options.name, name, "field"
-      );
-    },
-    pick: (keys: readonly (keyof BoundFields)[]): Field[] => keys.map((key) => {
-      const [
-        name,
-        seed
-      ] = getEntry(key);
-
-      return compileField(
-        seed, name, options.name, name, "pick"
-      );
-    }),
-  });
-
   const pick = (<
     const TKeys extends readonly (keyof CanonicalSchemaMap<BoundFields>)[]
   >(keys: TKeys, pickOptions?: {
@@ -656,11 +390,10 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
   }) as EntitySchemaContext<BoundFields>["pick"];
 
   const context = Object.freeze({ fields: fieldSchemas, pick, z, }) as EntitySchemaContext<BoundFields>;
-  const entity: EntityDefinition<TName, BoundFields, TIdSchema> = Object.freeze({
+  const entity: EntityDefinition<TName, BoundFields, TIdSchema> = {
     name: options.name,
     idSchema: (options.idSchema ?? defaultIdSchema) as TIdSchema,
     fields: boundFields,
-    payload,
     schema<TSchema extends AnyCanonicalSchema>(factory: (value: EntitySchemaContext<BoundFields>) => TSchema): TSchema {
       try {
         const result = factory(context);
@@ -691,7 +424,11 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
     inspect: (): EntityInspection => createInspection(
       options.name, boundEntries
     ),
-  });
+  };
 
-  return entity;
+  attachEntityBinding(
+    entity, { name: options.name, entries: boundEntries, }
+  );
+
+  return Object.freeze(entity);
 }

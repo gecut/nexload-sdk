@@ -49,6 +49,7 @@ try {
   }, null, 2));
   const program = `
 import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
 import { z } from "zod";
 
 const entity = defineEntity({
@@ -62,7 +63,7 @@ const entity = defineEntity({
 const schema = entity.schema(({ pick }) => pick(["title", "status"]));
 const value: z.infer<typeof schema> = { title: "ready", status: "live" };
 if (schema.parse(value).title !== "ready") throw new Error("schema parse failed");
-if (entity.payload.all().length !== 2) throw new Error("Payload compilation failed");
+if (payloadFields(entity).all().length !== 2) throw new Error("Payload compilation failed");
 `;
   await writeFile(path.join(directory, "smoke.ts"), program);
   await writeFile(path.join(directory, "smoke.mjs"), `${program
@@ -81,7 +82,7 @@ await import("@nexload-sdk/payload-schema/dist/entity/define-entity.js")
 
   const packageRoot = path.join(directory, "node_modules", "@nexload-sdk", "payload-schema");
   const installedManifest = JSON.parse(await readFile(path.join(packageRoot, "package.json"), "utf8"));
-  assert.deepEqual(Object.keys(installedManifest.exports), [".", "./package.json"]);
+  assert.deepEqual(Object.keys(installedManifest.exports), [".", "./payload", "./package.json"]);
 } finally {
   await rm(directory, { force: true, recursive: true });
 }

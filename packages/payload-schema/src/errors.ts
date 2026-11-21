@@ -6,6 +6,7 @@ export type SafeIssueSummary = {
 
 export interface PayloadSchemaErrorDataMap {
   INVALID_ENTITY_NAME: { received: string }
+  INVALID_ENTITY: { receivedType: string }
   INVALID_FIELD_NAME: { entity?: string, field: string }
   RESERVED_FIELD_NAME: { entity?: string, field: string, reservedName: string }
   INVALID_FIELD_CONFIGURATION: { entity?: string, fieldPath: string, fieldKind: string, reason: string }
