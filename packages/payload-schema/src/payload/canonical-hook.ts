@@ -20,7 +20,7 @@ export function canonicalHook (
   seed: FieldSeed, entity: string, fieldPath: string
 ): FieldHook {
   return ({ path, req, value, }) => {
-    if (value === undefined || !seed.runtimeSchema) return value;
+    if (value === undefined || value === null || !seed.runtimeSchema) return value;
     const result = parseCanonical(
       seed.runtimeSchema, value, { entity, fieldPath, fieldKind: seed.kind, }
     );

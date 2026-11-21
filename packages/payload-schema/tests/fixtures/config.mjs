@@ -2,6 +2,7 @@ import { buildConfig } from "payload";
 
 import { defineEntity, field } from "../../dist/index.js";
 import { payloadFields } from "../../dist/payload/index.js";
+import { createPostCollection } from "./regression.mjs";
 
 const categoryEntity = defineEntity({
   name: "Category",
@@ -40,6 +41,7 @@ export async function createFixtureConfig({ databaseAdapter, generatedTypesPath,
       { slug: "categories", fields: payloadFields(categoryEntity).all() },
       { slug: "media", upload: { staticDir: uploadDirectory }, fields: payloadFields(mediaEntity).all() },
       { slug: "products", fields: payloadFields(productEntity).all() },
+      createPostCollection(),
     ],
     typescript: { outputFile: generatedTypesPath },
   });

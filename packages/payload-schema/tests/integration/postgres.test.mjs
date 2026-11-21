@@ -9,6 +9,7 @@ import { getPayload } from "payload";
 import { generateTypes } from "payload/node";
 
 import { createFixtureConfig } from "../fixtures/config.mjs";
+import { runRegressionCases } from "../fixtures/regression.mjs";
 
 const databaseURL = process.env.PAYLOAD_SCHEMA_POSTGRES_URL;
 
@@ -46,6 +47,8 @@ test("Postgres boots, generates types, and persists IDs and relationships", { sk
     assert.equal(typeof category.id, "number");
     assert.equal(product.slug, "drill");
     assert.equal(typeof media.id, "number");
+
+    await runRegressionCases(payload);
   } finally {
     await payload.destroy();
     await rm(directory, { force: true, recursive: true });

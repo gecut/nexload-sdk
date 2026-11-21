@@ -9,6 +9,7 @@ import { generateTypes } from "payload/node";
 import { getPayload } from "payload";
 
 import { createFixtureConfig } from "../fixtures/config.mjs";
+import { runRegressionCases } from "../fixtures/regression.mjs";
 
 test("SQLite boots, generates types, and persists canonical normalized data", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "payload-schema-sqlite-"));
@@ -45,6 +46,8 @@ test("SQLite boots, generates types, and persists canonical normalized data", as
       payload.update({ collection: "products", id: product.id, data: { gallery: [{ alt: "x" }] } }),
       (error) => error?.name === "ValidationError",
     );
+
+    await runRegressionCases(payload);
   } finally {
     await payload.destroy();
     await rm(directory, { force: true, recursive: true });
