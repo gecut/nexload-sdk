@@ -137,7 +137,7 @@ function buildTextSchema<TNullable extends boolean> (
   let schema: z.ZodType<string, string> = z.string();
 
   if (slug) {
-    schema = schema.transform((value) => value
+    schema = schema.overwrite((value) => value
       .normalize("NFKC")
       .trim()
       .toLowerCase()
@@ -151,9 +151,9 @@ function buildTextSchema<TNullable extends boolean> (
         /^-|-$/gu, ""
       ));
   } else {
-    if (options.trim) schema = schema.transform((value) => value.trim());
-    if (options.lowercase) schema = schema.transform((value) => value.toLowerCase());
-    if (options.uppercase) schema = schema.transform((value) => value.toUpperCase());
+    if (options.trim) schema = schema.overwrite((value) => value.trim());
+    if (options.lowercase) schema = schema.overwrite((value) => value.toLowerCase());
+    if (options.uppercase) schema = schema.overwrite((value) => value.toUpperCase());
   }
 
   let constraints = z.string();
@@ -374,7 +374,7 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
   validateRange(
     "date", "instant", minimum, maximum
   );
-  let base: z.ZodType<string, string> = iso.transform((value) => new Date(value).toISOString());
+  let base: z.ZodType<string, string> = iso.overwrite((value) => new Date(value).toISOString());
 
   if (minimum !== undefined) base = base.refine(
     (value) => Date.parse(value) >= minimum, { error: "Date is before minimum", }
