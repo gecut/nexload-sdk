@@ -8,8 +8,7 @@ import type {
   EntityPayloadFacade
 } from "../types.js";
 
-import { PayloadSchemaError } from "../errors.js";
-import { getEntityBinding } from "../internal/entity-binding.js";
+import { findEntityEntry, getEntityBinding } from "../internal/entity-binding.js";
 import { compileField } from "./compile-field.js";
 
 /**
@@ -20,23 +19,9 @@ export function payloadFields<TFields extends EntityFieldMap> (
   entity: EntityDefinition<string, TFields, AnyCanonicalSchema>
 ): EntityPayloadFacade<TFields> {
   const { entries, name: entityName, } = getEntityBinding(entity);
-  const availableFields = entries.map(([name]) => name);
-
-  const getEntry = (key: PropertyKey): readonly [string, FieldSeed] => {
-    const entry = entries.find(([name]) => name === key);
-
-    if (!entry) {
-      throw new PayloadSchemaError(
-        "UNKNOWN_FIELD", {
-          phase: "schema-derivation",
-          message: `Unknown field "${String(key)}" in entity "${entityName}".`,
-          data: { entity: entityName, field: String(key), availableFields, },
-        }
-      );
-    }
-
-    return entry;
-  };
+  const getEntry = (key: PropertyKey): readonly [string, FieldSeed] => findEntityEntry(
+    entityName, entries, key
+  );
 
   return Object.freeze({
     all: (): Field[] => entries.map(([

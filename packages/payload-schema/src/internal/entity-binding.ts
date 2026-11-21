@@ -16,7 +16,16 @@ export function attachEntityBinding (
     target, entityBindingSymbol, {
       configurable: false,
       enumerable: false,
-      value: Object.freeze({ name: binding.name, entries: Object.freeze([...binding.entries]), }),
+      value: Object.freeze({
+        name: binding.name,
+        entries: Object.freeze(binding.entries.map(([
+          name,
+          seed
+        ]) => Object.freeze([
+          name,
+          seed
+        ] as const))),
+      }),
       writable: false,
     }
   );
@@ -46,4 +55,24 @@ export function getEntityBinding (value: unknown): EntityBinding {
   }
 
   return binding as EntityBinding;
+}
+
+export function findEntityEntry (
+  entityName: string,
+  entries: ReadonlyArray<readonly [string, FieldSeed]>,
+  key: PropertyKey
+): readonly [string, FieldSeed] {
+  const entry = entries.find(([name]) => name === key);
+
+  if (!entry) {
+    throw new PayloadSchemaError(
+      "UNKNOWN_FIELD", {
+        phase: "schema-derivation",
+        message: `Unknown field "${String(key)}" in entity "${entityName}".`,
+        data: { entity: entityName, field: String(key), availableFields: entries.map(([name]) => name), },
+      }
+    );
+  }
+
+  return entry;
 }

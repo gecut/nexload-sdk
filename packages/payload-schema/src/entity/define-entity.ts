@@ -18,7 +18,7 @@ import { isPayloadSchemaError, PayloadSchemaError } from "../errors.js";
 import { createRelationshipSchema } from "../fields/index.js";
 import { errorName, issueSummaries, parseCanonical } from "../internal/canonical-parse.js";
 import { dataFieldTypes } from "../internal/data-field-types.js";
-import { attachEntityBinding } from "../internal/entity-binding.js";
+import { attachEntityBinding, findEntityEntry } from "../internal/entity-binding.js";
 import {
   createFieldDefinition,
   fieldEntries,
@@ -331,23 +331,9 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
     createFieldDefinition(seed)
   ]))) as BoundFields;
   const fieldSchemas = schemaCapableFields(boundFields);
-  const availableFields = Object.keys(boundFields);
-
-  const getEntry = (key: PropertyKey): readonly [string, FieldSeed] => {
-    const entry = boundEntries.find(([name]) => name === key);
-
-    if (!entry) {
-      throw new PayloadSchemaError(
-        "UNKNOWN_FIELD", {
-          phase: "schema-derivation",
-          message: `Unknown field "${String(key)}" in entity "${options.name}".`,
-          data: { entity: options.name, field: String(key), availableFields, },
-        }
-      );
-    }
-
-    return entry;
-  };
+  const getEntry = (key: PropertyKey): readonly [string, FieldSeed] => findEntityEntry(
+    options.name, boundEntries, key
+  );
 
   const pick = (<
     const TKeys extends readonly (keyof CanonicalSchemaMap<BoundFields>)[]

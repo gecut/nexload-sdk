@@ -44,7 +44,7 @@ test("payloadFields compiles an entity", () => {
 });
 
 test("payloadFields rejects non-entities", () => {
-  for (const value of [{}, null, undefined, "Article", { ...createEntity() }]) {
+  for (const value of [{}, null, undefined, "Article", { ...createEntity() }, Object.create(createEntity())]) {
     assert.throws(
       () => payloadFields(value),
       (error) => isPayloadSchemaError(error)
