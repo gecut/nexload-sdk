@@ -191,6 +191,9 @@ void [plugin, customPlugin];
 
 // 6. Server endpoints (./server)
 const endpoints = createPayloadEndpoints({
+  access: {
+    default: () => true,
+  },
   operations,
   handlers: {
     ping: async ({ input }) => {
@@ -260,3 +263,9 @@ type _T26 = CMSOperationHandlers<typeof operations>;
 type _T27 = CMSOperationMetadata;
 type _T28 = CreatePayloadEndpointsOptions<typeof operations>;
 type _T29 = PayloadOperationEndpoints;
+
+// @ts-expect-error createPayloadEndpoints without access
+createPayloadEndpoints({ operations, handlers: { ping: async () => ({ reply: "" }), nested: { run: async () => true } } });
+
+// @ts-expect-error createPayloadEndpoints without access.default
+createPayloadEndpoints({ access: {}, operations, handlers: { ping: async () => ({ reply: "" }), nested: { run: async () => true } } });

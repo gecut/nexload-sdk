@@ -18,11 +18,20 @@ import {
   getTreeValue
 } from "./tree.js";
 
-const DEFAULT_ACCESS: CMSOperationAccess = ({ req, }) => Boolean(req.user);
-
 export function createPayloadEndpoints<
   const TOperations extends CMSOperationsTree
 > (options: CreatePayloadEndpointsOptions<TOperations>): Endpoint[] {
+  const accessConfig = options as {
+    access?: {
+      default?: unknown
+      overrides?: unknown
+    }
+  } | undefined;
+
+  if (typeof accessConfig?.access?.default !== "function") {
+    throw new TypeError("createPayloadEndpoints requires access.default.");
+  }
+
   const flattened = flattenCMSOperations(
     options.operations, options.basePath
   );
@@ -32,7 +41,7 @@ export function createPayloadEndpoints<
     options.handlers, operationNames, "handler", false
   );
 
-  if (options.access?.overrides !== undefined) {
+  if (options.access.overrides !== undefined) {
     assertTreeLeaves(
       options.access.overrides, operationNames, "access override", true
     );
@@ -43,7 +52,7 @@ export function createPayloadEndpoints<
       options.handlers, item.segments
     );
     const accessOverride = getTreeValue(
-      options.access?.overrides, item.segments
+      options.access.overrides, item.segments
     );
 
     if (typeof handler !== "function") {
@@ -59,8 +68,7 @@ export function createPayloadEndpoints<
 
     const access = (
       accessOverride
-      ?? options.access?.default
-      ?? DEFAULT_ACCESS
+      ?? options.access.default
     ) as CMSOperationAccess;
     const metadata = Object.freeze({
       definition: item.definition,

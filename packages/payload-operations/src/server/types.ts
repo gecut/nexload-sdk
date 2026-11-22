@@ -70,8 +70,8 @@ export type CMSOperationAccessOverrides<
 export interface CreatePayloadEndpointsOptions<
   TOperations extends CMSOperationsTree
 > {
-  access?: {
-    default?: CMSOperationAccess
+  access: {
+    default: CMSOperationAccess
     overrides?: CMSOperationAccessOverrides<TOperations>
   }
   basePath?: string
