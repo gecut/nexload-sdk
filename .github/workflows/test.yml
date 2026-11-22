@@ -1,0 +1,99 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Lint packages
+        run: pnpm lint
+
+      - name: Test payload-schema
+        run: pnpm -C packages/payload-schema test
+
+      - name: Type-check payload-schema
+        run: pnpm -C packages/payload-schema test:types
+
+      - name: Test payload-schema SQLite integration
+        run: pnpm -C packages/payload-schema test:sqlite
+
+      - name: Test payload-operations
+        run: pnpm -C packages/payload-operations test
+
+      - name: Type-check payload-operations
+        run: pnpm -C packages/payload-operations test:types
+
+      - name: Test payload-operations SQLite integration
+        run: pnpm -C packages/payload-operations test:sqlite
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      PAYLOAD_SCHEMA_POSTGRES_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test payload-schema Postgres integration
+        run: pnpm -C packages/payload-schema test:postgres
