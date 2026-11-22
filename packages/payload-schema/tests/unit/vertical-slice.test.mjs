@@ -27,3 +27,31 @@ test("a canonical text field compiles and derives schemas through the public int
   const schema = entity.schema(({ fields, z }) => z.strictObject({ title: fields.title }));
   assert.deepEqual(schema.parse({ title: "  Chair  " }), { title: "Chair" });
 });
+
+test("pick with optional: 'auto' keeps required fields required and makes optional fields optional", () => {
+  const entity = defineEntity({
+    name: "Article",
+    fields: {
+      title: field.text({ required: true }),
+      bio: field.text(),
+    },
+  });
+
+  const autoSchema = entity.schema(({ pick }) =>
+    pick(["title", "bio"], { optional: "auto" })
+  );
+  assert.deepEqual(autoSchema.parse({ title: "x" }), { title: "x" });
+  assert.throws(() => autoSchema.parse({ bio: "y" }));
+
+  const requiredBioSchema = entity.schema(({ pick }) =>
+    pick(["title", "bio"], { optional: "auto", required: ["bio"] })
+  );
+  assert.throws(() => requiredBioSchema.parse({ title: "x" }));
+  assert.deepEqual(requiredBioSchema.parse({ title: "x", bio: "y" }), { title: "x", bio: "y" });
+
+  assert.throws(() => autoSchema.parse({ title: "x", extra: "z" }));
+  const nonStrictSchema = entity.schema(({ pick }) =>
+    pick(["title", "bio"], { optional: "auto", strict: false })
+  );
+  assert.deepEqual(nonStrictSchema.parse({ title: "x", extra: "z" }), { title: "x" });
+});

@@ -37,14 +37,15 @@ type InternalFieldDefinition = AnyFieldDefinition & { readonly [fieldSeedSymbol]
 export function createFieldDefinition<
   TKind extends string,
   TSchema extends AnyCanonicalSchema | undefined,
-  TPayloadField extends PayloadDataField
-> (seed: FieldSeed): FieldDefinition<TKind, TSchema, TPayloadField> {
+  TPayloadField extends PayloadDataField,
+  TRequired extends boolean = boolean
+> (seed: FieldSeed): FieldDefinition<TKind, TSchema, TPayloadField, TRequired> {
   const definition = { kind: seed.kind, schema: seed.schema, } as Record<PropertyKey, unknown>;
   Object.defineProperty(
     definition, fieldSeedSymbol, { value: seed, enumerable: false, }
   );
 
-  return Object.freeze(definition) as unknown as FieldDefinition<TKind, TSchema, TPayloadField>;
+  return Object.freeze(definition) as unknown as FieldDefinition<TKind, TSchema, TPayloadField, TRequired>;
 }
 
 export function getFieldSeed (field: AnyFieldDefinition): FieldSeed {

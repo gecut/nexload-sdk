@@ -24,14 +24,16 @@ export type MaybeNullable<TValue, TNullable extends boolean> = TNullable extends
 export interface FieldDefinition<
   TKind extends string,
   TSchema extends AnyCanonicalSchema | undefined,
-  TPayloadField extends PayloadDataField
+  TPayloadField extends PayloadDataField,
+  TRequired extends boolean = boolean
 > {
   readonly kind: TKind
   readonly schema: TSchema
+  readonly __required?: TRequired
   readonly __payloadFieldType?: TPayloadField
 }
 
-export type AnyFieldDefinition = FieldDefinition<string, AnyCanonicalSchema | undefined, PayloadDataField>;
+export type AnyFieldDefinition = FieldDefinition<string, AnyCanonicalSchema | undefined, PayloadDataField, boolean>;
 export type EntityFieldMap = Readonly<Record<string, AnyFieldDefinition>>;
 
 type DynamicDefaultArguments = {
@@ -46,8 +48,13 @@ export type CanonicalSchemaCustomizer<TValue> = (schema: z.ZodType<TValue, TValu
 type CommonReserved = "defaultValue" | "localized" | "name" | "required" | "type" | "virtual";
 type NativePayloadExtras<TField, TReserved extends keyof TField = never> = Omit<TField, CommonReserved | TReserved>;
 
-export interface CommonFieldOptions<TValue, TNullable extends boolean, TPayloadExtras> {
-  required?: boolean
+export interface CommonFieldOptions<
+  TValue,
+  TNullable extends boolean,
+  TPayloadExtras,
+  TRequired extends boolean = false
+> {
+  required?: TRequired
   nullable?: TNullable
   defaultValue?: MaybeNullable<TValue, TNullable>
   dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<TValue, TNullable>>
@@ -55,10 +62,14 @@ export interface CommonFieldOptions<TValue, TNullable extends boolean, TPayloadE
   payload?: TPayloadExtras
 }
 
-export type TextFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
+export type TextFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
   string,
   TNullable,
-  NativePayloadExtras<TextField, "maxLength" | "minLength">
+  NativePayloadExtras<TextField, "maxLength" | "minLength">,
+  TRequired
 > & {
   trim?: boolean
   lowercase?: boolean
@@ -68,16 +79,24 @@ export type TextFieldOptions<TNullable extends boolean = false> = CommonFieldOpt
   pattern?: RegExp
 };
 
-export type TextareaFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
+export type TextareaFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
   string,
   TNullable,
-  NativePayloadExtras<TextareaField, "maxLength" | "minLength">
-> & Omit<TextFieldOptions<TNullable>, keyof CommonFieldOptions<string, TNullable, unknown> | "payload">;
+  NativePayloadExtras<TextareaField, "maxLength" | "minLength">,
+  TRequired
+> & Omit<TextFieldOptions<TNullable, TRequired>, keyof CommonFieldOptions<string, TNullable, unknown, TRequired> | "payload">;
 
-export type NumberFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
+export type NumberFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
   number,
   TNullable,
-  NativePayloadExtras<NumberField, "max" | "min">
+  NativePayloadExtras<NumberField, "max" | "min">,
+  TRequired
 > & {
   integer?: boolean
   safe?: boolean
@@ -86,32 +105,44 @@ export type NumberFieldOptions<TNullable extends boolean = false> = CommonFieldO
   multipleOf?: number
 };
 
-export type MoneyFieldOptions<TNullable extends boolean = false> = Omit<
-  NumberFieldOptions<TNullable>,
+export type MoneyFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = Omit<
+  NumberFieldOptions<TNullable, TRequired>,
   "integer" | "safe"
 > & { currency: string };
 
-export type BooleanFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
+export type BooleanFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
   boolean,
   TNullable,
-  NativePayloadExtras<CheckboxField>
+  NativePayloadExtras<CheckboxField>,
+  TRequired
 >;
 
-export type DateFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<
+export type DateFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
   string,
   TNullable,
-  NativePayloadExtras<DateField>
+  NativePayloadExtras<DateField>,
+  TRequired
 > & { minimum?: string, maximum?: string };
 
 export interface SelectFieldOptions<
   TValues extends readonly string[],
   THasMany extends boolean = false,
-  TNullable extends boolean = false
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
 > {
   values: TValues
   labels?: Partial<Record<TValues[number], string>>
   hasMany?: THasMany
-  required?: boolean
+  required?: TRequired
   nullable?: TNullable
   defaultValue?: MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>
   dynamicDefaultValue?: DynamicDefaultValue<
@@ -124,11 +155,12 @@ export interface RelationshipFieldOptions<
   TRelationTo extends string | readonly string[],
   THasMany extends boolean = false,
   TNullable extends boolean = false,
-  TIdSchema extends AnyCanonicalSchema | undefined = undefined
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  TRequired extends boolean = false
 > {
   relationTo: TRelationTo
   hasMany?: THasMany
-  required?: boolean
+  required?: TRequired
   nullable?: TNullable
   idSchema?: TIdSchema
   defaultValue?: MaybeNullable<
@@ -159,7 +191,8 @@ export type RelationshipFieldDefinition<
   THasMany extends boolean,
   TNullable extends boolean,
   TIdSchema extends AnyCanonicalSchema | undefined,
-  TPayloadField extends PayloadDataField
+  TPayloadField extends PayloadDataField,
+  TRequired extends boolean = boolean
 > = FieldDefinition<
   TKind,
   z.ZodType<MaybeNullable<RelationshipCanonicalValue<
@@ -167,7 +200,8 @@ export type RelationshipFieldDefinition<
     THasMany,
     TIdSchema extends AnyCanonicalSchema ? TIdSchema : typeof import("./default-id.js").defaultIdSchema
   >, TNullable>>,
-  TPayloadField
+  TPayloadField,
+  TRequired
 > & {
   readonly [relationshipDefinitionType]?: {
     relationTo: TRelationTo
@@ -187,7 +221,8 @@ export type BindRelationshipSchemas<
     infer THasMany,
     infer TNullable,
     infer TIdSchema,
-    infer TPayloadField
+    infer TPayloadField,
+    infer TRequired
   >
     ? RelationshipFieldDefinition<
       TKind,
@@ -195,7 +230,8 @@ export type BindRelationshipSchemas<
       THasMany,
       TNullable,
       TIdSchema extends AnyCanonicalSchema ? TIdSchema : TRelationshipIdSchema,
-      TPayloadField
+      TPayloadField,
+      TRequired
     >
     : TFields[TKey]
 };
@@ -204,21 +240,30 @@ export type UploadFieldOptions<
   TRelationTo extends string | readonly string[],
   THasMany extends boolean = false,
   TNullable extends boolean = false,
-  TIdSchema extends AnyCanonicalSchema | undefined = undefined
-> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>, "payload"> & { payload?: NativePayloadExtras<UploadField, "hasMany" | "relationTo"> };
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  TRequired extends boolean = false
+> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>, "payload"> & { payload?: NativePayloadExtras<UploadField, "hasMany" | "relationTo"> };
 
-export interface GroupFieldOptions<TFields extends EntityFieldMap, TNullable extends boolean = false> {
+export interface GroupFieldOptions<
+  TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
   fields: TFields
-  required?: boolean
+  required?: TRequired
   nullable?: TNullable
   defaultValue?: unknown
   dynamicDefaultValue?: DynamicDefaultValue<unknown>
   payload?: NativePayloadExtras<NamedGroupField, "fields">
 }
 
-export interface ArrayFieldOptions<TFields extends EntityFieldMap, TNullable extends boolean = false> {
+export interface ArrayFieldOptions<
+  TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
   fields: TFields
-  required?: boolean
+  required?: TRequired
   nullable?: TNullable
   minRows?: number
   maxRows?: number
@@ -229,10 +274,11 @@ export interface ArrayFieldOptions<TFields extends EntityFieldMap, TNullable ext
 
 export interface RichTextFieldOptions<
   TSchema extends AnyCanonicalSchema,
-  TNullable extends boolean = false
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
 > {
   schema: TSchema
-  required?: boolean
+  required?: TRequired
   nullable?: TNullable
   defaultValue?: MaybeNullable<z.input<TSchema>, TNullable>
   dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<z.input<TSchema>, TNullable>>
@@ -257,11 +303,17 @@ type RelationshipValueForOptions<
     ? Array<TIdSchema extends AnyCanonicalSchema ? z.input<TIdSchema> : string | number>
     : TIdSchema extends AnyCanonicalSchema ? z.input<TIdSchema> : string | number;
 
+export type NativePayloadInput = PayloadDataField extends infer F
+  ? F extends unknown ? Omit<F, "defaultValue" | "name"> : never
+  : never;
+
 export interface NativeFieldOptions<
-  TPayloadField extends PayloadDataField,
+  TPayloadField extends NativePayloadInput | PayloadDataField = PayloadDataField,
   TSchema extends AnyCanonicalSchema | undefined = undefined
 > {
-  payload: Omit<TPayloadField, "defaultValue" | "name">
+  payload: (TPayloadField extends PayloadDataField
+    ? Omit<TPayloadField, "defaultValue" | "name">
+    : TPayloadField) & { name?: never; defaultValue?: never }
   schema?: TSchema
   defaultValue?: TSchema extends AnyCanonicalSchema ? z.input<TSchema> : never
   dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>
@@ -290,18 +342,36 @@ export type CanonicalSchemaMap<TFields extends EntityFieldMap> = {
 
 type SelectedKey<TKeys extends readonly PropertyKey[]> = TKeys[number];
 type ArrayItem<TValue> = TValue extends readonly (infer TItem)[] ? TItem : never;
+type IsFieldRequired<TField> = TField extends FieldDefinition<
+  string,
+  AnyCanonicalSchema | undefined,
+  PayloadDataField,
+  infer TReq
+>
+  ? 0 extends 1 & TReq
+    ? false
+    : [TReq] extends [true]
+      ? true
+      : false
+  : false;
+
 type PickerSchema<
   TSchema extends AnyCanonicalSchema,
   TKey extends PropertyKey,
   TOptional,
-  TRequired
+  TRequired,
+  TField = unknown
 > = TKey extends ArrayItem<TRequired>
   ? TSchema
   : TOptional extends "all"
     ? z.ZodOptional<TSchema>
-    : TKey extends ArrayItem<TOptional>
-      ? z.ZodOptional<TSchema>
-      : TSchema;
+    : TOptional extends "auto"
+      ? IsFieldRequired<TField> extends true
+        ? TSchema
+        : z.ZodOptional<TSchema>
+      : TKey extends ArrayItem<TOptional>
+        ? z.ZodOptional<TSchema>
+        : TSchema;
 
 export type ZodObjectForPickedFields<
   TFields extends EntityFieldMap,
@@ -313,11 +383,16 @@ export type ZodObjectForPickedFields<
     Extract<CanonicalSchemaMap<TFields>[TKey], AnyCanonicalSchema>,
     TKey,
     TOptional,
-    TRequired
+    TRequired,
+    TFields[TKey]
   >
 }>;
 
-export interface SchemaPickOptions<TKey extends PropertyKey, TOptional = readonly TKey[] | "all", TRequired = readonly TKey[]> {
+export interface SchemaPickOptions<
+  TKey extends PropertyKey,
+  TOptional = readonly TKey[] | "all" | "auto",
+  TRequired = readonly TKey[]
+> {
   optional?: TOptional
   required?: TRequired
   strict?: boolean
@@ -326,7 +401,7 @@ export interface SchemaPickOptions<TKey extends PropertyKey, TOptional = readonl
 export interface EntitySchemaPicker<TFields extends EntityFieldMap> {
   <
     const TKeys extends readonly (keyof CanonicalSchemaMap<TFields>)[],
-    const TOptional extends readonly SelectedKey<TKeys>[] | "all" | undefined = undefined,
+    const TOptional extends readonly SelectedKey<TKeys>[] | "all" | "auto" | undefined = undefined,
     const TRequired extends readonly SelectedKey<TKeys>[] | undefined = undefined
   >(
     keys: TKeys,

@@ -76,3 +76,58 @@ field.native({ payload: { name: "x", type: "text" } });
 // @ts-expect-error layout fields are not data fields
 field.native({ payload: { type: "row", fields: [] } });
 void [invalidStatus, invalidTags, invalidOwner];
+
+type Exact<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2) ? true : false;
+
+const autoEntity = defineEntity({
+  name: "AutoTypes",
+  fields: {
+    title: field.text({ required: true }),
+    bio: field.text(),
+    summary: field.text({ required: false }),
+    notes: field.text({ required: false as boolean }),
+  },
+});
+
+const autoSchema = autoEntity.schema(({ pick }) =>
+  pick(["title", "bio"], { optional: "auto" })
+);
+type AutoInferred = z.infer<typeof autoSchema>;
+const assertAuto: Exact<AutoInferred, { title: string; bio?: string }> = true;
+void assertAuto;
+
+const allAutoSchema = autoEntity.schema(({ pick }) =>
+  pick(["title", "bio", "summary", "notes"], { optional: "auto" })
+);
+type AllAutoInferred = z.infer<typeof allAutoSchema>;
+const assertAllAuto: Exact<AllAutoInferred, {
+  title: string;
+  bio?: string;
+  summary?: string;
+  notes?: string;
+}> = true;
+void assertAllAuto;
+
+const autoWithRequiredBio = autoEntity.schema(({ pick }) =>
+  pick(["title", "bio"], { optional: "auto", required: ["bio"] })
+);
+type AutoWithRequiredBioInferred = z.infer<typeof autoWithRequiredBio>;
+const assertAutoWithRequiredBio: Exact<AutoWithRequiredBioInferred, { title: string; bio: string }> = true;
+void assertAutoWithRequiredBio;
+
+const nativeAutoEntity = defineEntity({
+  name: "NativeAutoTypes",
+  fields: {
+    reqNative: field.native({ payload: { type: "text", required: true }, schema: z.string() }),
+    optNative: field.native({ payload: { type: "text" }, schema: z.string() }),
+  },
+});
+
+const nativeAutoSchema = nativeAutoEntity.schema(({ pick }) =>
+  pick(["reqNative", "optNative"], { optional: "auto" })
+);
+type NativeAutoInferred = z.infer<typeof nativeAutoSchema>;
+const assertNativeAuto: Exact<NativeAutoInferred, { reqNative: string; optNative?: string }> = true;
+void assertNativeAuto;

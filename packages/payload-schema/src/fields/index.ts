@@ -25,6 +25,7 @@ import type {
   MaybeNullable,
   MoneyFieldOptions,
   NativeFieldOptions,
+  NativePayloadInput,
   NumberFieldOptions,
   PayloadDataField,
   RelationshipFieldDefinition,
@@ -117,8 +118,11 @@ function applyNullable<TValue, TNullable extends boolean> (
   return (nullable ? schema.nullable() : schema) as NullableSchema<TValue, TNullable>;
 }
 
-function buildTextSchema<TNullable extends boolean> (
-  options: TextFieldOptions<TNullable>,
+function buildTextSchema<
+  TNullable extends boolean,
+  TRequired extends boolean = boolean
+> (
+  options: TextFieldOptions<TNullable, TRequired>,
   slug: boolean
 ): NullableSchema<string, TNullable> {
   if (options.lowercase && options.uppercase) {
@@ -169,10 +173,13 @@ function buildTextSchema<TNullable extends boolean> (
   );
 }
 
-function text<TNullable extends boolean = false> (options: TextFieldOptions<TNullable> = {} as TextFieldOptions<TNullable>):
-FieldDefinition<"text", NullableSchema<string, TNullable>, TextField> {
+function text<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: TextFieldOptions<TNullable, TRequired> = {} as TextFieldOptions<TNullable, TRequired>):
+FieldDefinition<"text", NullableSchema<string, TNullable>, TextField, TRequired> {
   const schema = buildTextSchema(
-    options as unknown as TextFieldOptions<TNullable>, false
+    options as unknown as TextFieldOptions<TNullable, TRequired>, false
   );
 
   return createFieldDefinition(withDefaults(
@@ -193,10 +200,13 @@ FieldDefinition<"text", NullableSchema<string, TNullable>, TextField> {
   ));
 }
 
-function textarea<TNullable extends boolean = false> (options: TextareaFieldOptions<TNullable> = {} as TextareaFieldOptions<TNullable>):
-FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField> {
+function textarea<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: TextareaFieldOptions<TNullable, TRequired> = {} as TextareaFieldOptions<TNullable, TRequired>):
+FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField, TRequired> {
   const schema = buildTextSchema(
-    options as unknown as TextFieldOptions<TNullable>, false
+    options as unknown as TextFieldOptions<TNullable, TRequired>, false
   );
 
   return createFieldDefinition(withDefaults(
@@ -217,8 +227,11 @@ FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField> {
   ));
 }
 
-function slug<TNullable extends boolean = false> (options: TextFieldOptions<TNullable> = {} as TextFieldOptions<TNullable>):
-FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField> {
+function slug<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: TextFieldOptions<TNullable, TRequired> = {} as TextFieldOptions<TNullable, TRequired>):
+FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField, TRequired> {
   const schema = buildTextSchema(
     options, true
   );
@@ -241,8 +254,11 @@ FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField> {
   ));
 }
 
-function buildNumberSchema<TNullable extends boolean> (
-  options: NumberFieldOptions<TNullable>,
+function buildNumberSchema<
+  TNullable extends boolean,
+  TRequired extends boolean = boolean
+> (
+  options: NumberFieldOptions<TNullable, TRequired>,
   forceSafeInteger = false
 ): NullableSchema<number, TNullable> {
   validateRange(
@@ -266,8 +282,11 @@ function buildNumberSchema<TNullable extends boolean> (
   );
 }
 
-function number<TNullable extends boolean = false> (options: NumberFieldOptions<TNullable> = {} as NumberFieldOptions<TNullable>):
-FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField> {
+function number<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: NumberFieldOptions<TNullable, TRequired> = {} as NumberFieldOptions<TNullable, TRequired>):
+FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField, TRequired> {
   const schema = buildNumberSchema(options);
 
   return createFieldDefinition(withDefaults(
@@ -288,7 +307,10 @@ FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField> {
   ));
 }
 
-function money<TNullable extends boolean = false> (options: MoneyFieldOptions<TNullable>): FieldDefinition<"money", NullableSchema<number, TNullable>, NumberField> {
+function money<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: MoneyFieldOptions<TNullable, TRequired>): FieldDefinition<"money", NullableSchema<number, TNullable>, NumberField, TRequired> {
   if (!options.currency.trim()) {
     throw new PayloadSchemaError(
       "INVALID_FIELD_CONFIGURATION", {
@@ -321,8 +343,11 @@ function money<TNullable extends boolean = false> (options: MoneyFieldOptions<TN
   ));
 }
 
-function boolean<TNullable extends boolean = false> (options: BooleanFieldOptions<TNullable> = {} as BooleanFieldOptions<TNullable>):
-FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField> {
+function boolean<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: BooleanFieldOptions<TNullable, TRequired> = {} as BooleanFieldOptions<TNullable, TRequired>):
+FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField, TRequired> {
   let base: z.ZodType<boolean, boolean> = z.boolean();
 
   if (options.schema) base = options.schema(base);
@@ -344,8 +369,11 @@ FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField> {
   ));
 }
 
-function date<TNullable extends boolean = false> (options: DateFieldOptions<TNullable> = {} as DateFieldOptions<TNullable>):
-FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
+function date<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: DateFieldOptions<TNullable, TRequired> = {} as DateFieldOptions<TNullable, TRequired>):
+FieldDefinition<"date", NullableSchema<string, TNullable>, DateField, TRequired> {
   const iso = z.iso.datetime({ offset: true, });
   const parseBound = (
     value: string | undefined, name: string
@@ -423,11 +451,13 @@ FieldDefinition<"date", NullableSchema<string, TNullable>, DateField> {
 function select<
   const TValues extends readonly string[],
   THasMany extends boolean = false,
-  TNullable extends boolean = false
-> (options: SelectFieldOptions<TValues, THasMany, TNullable>): FieldDefinition<
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: SelectFieldOptions<TValues, THasMany, TNullable, TRequired>): FieldDefinition<
   "select",
   NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>,
-  SelectField
+  SelectField,
+  TRequired
 > {
   const values = [...options.values];
 
@@ -517,14 +547,16 @@ function relationship<
   const TRelationTo extends string | readonly string[],
   THasMany extends boolean = false,
   TNullable extends boolean = false,
-  TIdSchema extends AnyCanonicalSchema | undefined = undefined
-> (options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>): RelationshipFieldDefinition<
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  const TRequired extends boolean = false
+> (options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>): RelationshipFieldDefinition<
   "relationship",
   TRelationTo,
   THasMany,
   TNullable,
   TIdSchema,
-  RelationshipField
+  RelationshipField,
+  TRequired
 > {
   const relationTo = Array.isArray(options.relationTo) ? [...options.relationTo] : options.relationTo;
   validateRelationTo(relationTo);
@@ -557,21 +589,31 @@ function relationship<
       hasMany: options.hasMany ?? false,
       relation: { relationTo, hasMany: options.hasMany ?? false, idSchema: options.idSchema, },
     }, options
-  ));
+  )) as RelationshipFieldDefinition<
+    "relationship",
+    TRelationTo,
+    THasMany,
+    TNullable,
+    TIdSchema,
+    RelationshipField,
+    TRequired
+  >;
 }
 
 function upload<
   const TRelationTo extends string | readonly string[],
   THasMany extends boolean = false,
   TNullable extends boolean = false,
-  TIdSchema extends AnyCanonicalSchema | undefined = undefined
-> (options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>): RelationshipFieldDefinition<
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  const TRequired extends boolean = false
+> (options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>): RelationshipFieldDefinition<
   "upload",
   TRelationTo,
   THasMany,
   TNullable,
   TIdSchema,
-  UploadField
+  UploadField,
+  TRequired
 > {
   const relationTo = Array.isArray(options.relationTo) ? [...options.relationTo] : options.relationTo;
   validateRelationTo(relationTo);
@@ -603,7 +645,15 @@ function upload<
       hasMany: options.hasMany ?? false,
       relation: { relationTo, hasMany: options.hasMany ?? false, idSchema: options.idSchema, },
     }, options
-  ));
+  )) as RelationshipFieldDefinition<
+    "upload",
+    TRelationTo,
+    THasMany,
+    TNullable,
+    TIdSchema,
+    UploadField,
+    TRequired
+  >;
 }
 
 function composeObject (fields: EntityFieldMap): { schema?: AnyCanonicalSchema, children: ReadonlyArray<readonly [string, FieldSeed]>, blocking?: string } {
@@ -622,8 +672,12 @@ function composeObject (fields: EntityFieldMap): { schema?: AnyCanonicalSchema, 
   return { children, schema: z.strictObject(shape), };
 }
 
-function group<const TFields extends EntityFieldMap, TNullable extends boolean = false> (options: GroupFieldOptions<TFields, TNullable>):
-FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField> {
+function group<
+  const TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: GroupFieldOptions<TFields, TNullable, TRequired>):
+FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField, TRequired> {
   const composed = composeObject(options.fields);
   const schema = composed.schema
     ? applyNullable(
@@ -653,8 +707,12 @@ FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupFie
   ));
 }
 
-function array<const TFields extends EntityFieldMap, TNullable extends boolean = false> (options: ArrayFieldOptions<TFields, TNullable>):
-FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField> {
+function array<
+  const TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: ArrayFieldOptions<TFields, TNullable, TRequired>):
+FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField, TRequired> {
   validateRange(
     "array", "rows", options.minRows, options.maxRows
   );
@@ -693,8 +751,12 @@ FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField> {
   ));
 }
 
-function richText<TSchema extends AnyCanonicalSchema, TNullable extends boolean = false> (options: RichTextFieldOptions<TSchema, TNullable>):
-FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField> {
+function richText<
+  TSchema extends AnyCanonicalSchema,
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: RichTextFieldOptions<TSchema, TNullable, TRequired>):
+FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField, TRequired> {
   const schema = options.nullable ? options.schema.nullable() : options.schema;
 
   return createFieldDefinition(withDefaults(
@@ -712,13 +774,23 @@ FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TS
 }
 
 function native<
-  TPayloadField extends PayloadDataField,
+  const TPayloadField extends NativePayloadInput | PayloadDataField,
   TSchema extends AnyCanonicalSchema | undefined = undefined
-> (options: NativeFieldOptions<TPayloadField, TSchema>): FieldDefinition<"native", TSchema, TPayloadField> {
+> (options: NativeFieldOptions<TPayloadField, TSchema>): FieldDefinition<
+  "native",
+  TSchema,
+  TPayloadField extends PayloadDataField ? TPayloadField : Extract<PayloadDataField, { type: TPayloadField["type"] }>,
+  TPayloadField extends { required: true } ? true : false
+> {
   const payload = options.payload as unknown as Record<string, unknown>;
   const payloadType = typeof payload.type === "string" ? payload.type : "unknown";
 
-  return createFieldDefinition<"native", TSchema, TPayloadField>(withDefaults(
+  return createFieldDefinition<
+    "native",
+    TSchema,
+    TPayloadField extends PayloadDataField ? TPayloadField : Extract<PayloadDataField, { type: TPayloadField["type"] }>,
+    TPayloadField extends { required: true } ? true : false
+  >(withDefaults(
     {
       kind: "native",
       payloadType,

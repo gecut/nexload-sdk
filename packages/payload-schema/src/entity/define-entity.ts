@@ -10,6 +10,7 @@ import type {
   EntityInspection,
   EntityInspectionFieldMap,
   EntitySchemaContext,
+  SchemaPickOptions,
   ZodObjectForPickedFields
 } from "../core/types.js";
 
@@ -336,12 +337,13 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
   );
 
   const pick = (<
-    const TKeys extends readonly (keyof CanonicalSchemaMap<BoundFields>)[]
-  >(keys: TKeys, pickOptions?: {
-    optional?: readonly TKeys[number][] | "all"
-    required?: readonly TKeys[number][]
-    strict?: boolean
-  }): ZodObjectForPickedFields<BoundFields, TKeys> => {
+    const TKeys extends readonly (keyof CanonicalSchemaMap<BoundFields>)[],
+    const TOptional extends readonly TKeys[number][] | "all" | "auto" | undefined = undefined,
+    const TRequired extends readonly TKeys[number][] | undefined = undefined
+  >(
+    keys: TKeys,
+    pickOptions?: SchemaPickOptions<TKeys[number], TOptional, TRequired>
+  ): ZodObjectForPickedFields<BoundFields, TKeys, TOptional, TRequired> => {
     const required = new Set<PropertyKey>(pickOptions?.required ?? []);
     const optional = pickOptions?.optional;
     const shape: Record<string, AnyCanonicalSchema> = {};
@@ -368,11 +370,15 @@ EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>,
         );
       }
       const makeOptional = !required.has(key)
-        && (optional === "all" || (Array.isArray(optional) && optional.includes(key)));
+        && (
+          optional === "all"
+          || (optional === "auto" && !seed.required)
+          || (Array.isArray(optional) && optional.includes(key))
+        );
       shape[name] = makeOptional ? seed.schema.optional() : seed.schema;
     }
 
-    return (pickOptions?.strict === false ? z.object(shape) : z.strictObject(shape)) as ZodObjectForPickedFields<BoundFields, TKeys>;
+    return (pickOptions?.strict === false ? z.object(shape) : z.strictObject(shape)) as ZodObjectForPickedFields<BoundFields, TKeys, TOptional, TRequired>;
   }) as EntitySchemaContext<BoundFields>["pick"];
 
   const context = Object.freeze({ fields: fieldSchemas, pick, z, }) as EntitySchemaContext<BoundFields>;
