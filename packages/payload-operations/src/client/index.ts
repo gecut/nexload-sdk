@@ -1,12 +1,11 @@
 export { defineClientPlugin } from "../plugins/define-client-plugin.js";
-export { createCMSClient } from "./create-cms-client.js";
+export { createOperationsClient } from "./create-operations-client.js";
 
 export type {
-  CMSClient,
-  CMSClientOptions,
   CMSClientPlugin,
   CMSClientTransport,
   CMSClientTransportRequest,
-  CMSPayloadClientOptions,
-  InferOperationsClient
+  CreateOperationsClientOptions,
+  InferOperationsClient,
+  OperationsClientOptions
 } from "./types.js";

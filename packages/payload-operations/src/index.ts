@@ -1,17 +1,4 @@
 export {
-  createCMSClient,
-  defineClientPlugin
-} from "./client/index.js";
-export type {
-  CMSClient,
-  CMSClientOptions,
-  CMSClientPlugin,
-  CMSClientTransport,
-  CMSClientTransportRequest,
-  CMSPayloadClientOptions,
-  InferOperationsClient
-} from "./client/index.js";
-export {
   defineCMSOperations,
   operation
 } from "./contract/index.js";
@@ -21,7 +8,11 @@ export type {
   CMSOperationContract,
   CMSOperationErrorDefinition,
   CMSOperationErrorDefinitions,
-  CMSOperationsTree
+  CMSOperationsTree,
+  InferHandlerOutput,
+  InferOperationInput,
+  InferOperationOutput,
+  InferParsedOperationInput
 } from "./contract/index.js";
 
 export {
@@ -29,12 +20,11 @@ export {
   safe
 } from "./errors/index.js";
 export type {
+  CMSDefinedErrorFactories,
   CMSDefinedOperationError,
   CMSOperationErrorJSON,
+  CMSSafeResult,
   CMSValidationErrorData
 } from "./errors/index.js";
-export {
-  isTimeoutError,
-  timeoutPlugin
-} from "./plugins/timeout/index.js";
-export type { TimeoutPluginOptions } from "./plugins/timeout/index.js";
+
+export { isTimeoutError } from "./plugins/timeout/index.js";

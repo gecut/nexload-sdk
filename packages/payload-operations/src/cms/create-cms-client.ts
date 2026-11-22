@@ -12,10 +12,10 @@ import type {
   CMSClientOptions
 } from "./types.js";
 
+import { buildOperationsClient } from "../client/build-operations-client.js";
+import { assertAndNormalizeBaseURL } from "../client/url.js";
 import { composeClientPlugins } from "../transport/compose-plugins.js";
 import { createFetchTransport } from "../transport/fetch-transport.js";
-import { createOperationsClient } from "./create-operations-client.js";
-import { assertAndNormalizeBaseURL } from "./url.js";
 
 export function createCMSClient<
   TPayloadConfig extends PayloadTypesShape = PayloadTypes,
@@ -32,7 +32,7 @@ export function createCMSClient<
     baseURL,
     fetch: sdkFetch,
   });
-  const operations = createOperationsClient(
+  const operations = buildOperationsClient(
     options.operations, {
       baseInit: options.payload.baseInit,
       basePath: options.basePath,
@@ -47,16 +47,38 @@ export function createCMSClient<
   });
 }
 
-function createPayloadFetchAdapter (transport: CMSClientTransport): typeof fetch {
+export function createPayloadFetchAdapter (transport: CMSClientTransport): typeof fetch {
   return (
     input, init
-  ) => transport({
-    init: init ?? {},
-    source: "payload",
-    url: typeof input === "string"
-      ? input
-      : input instanceof URL
-        ? input.href
-        : input.url,
-  });
+  ) => {
+    let url: string;
+    let requestInit: RequestInit;
+
+    if (typeof input === "string") {
+      url = input;
+      requestInit = init ?? {};
+    } else if (input instanceof URL) {
+      url = input.href;
+      requestInit = init ?? {};
+    } else {
+      url = input.url;
+      const fromRequest: RequestInit = {
+        body: input.body,
+        credentials: input.credentials,
+        headers: input.headers,
+        method: input.method,
+        signal: input.signal,
+      };
+      requestInit = {
+        ...fromRequest,
+        ...init,
+      };
+    }
+
+    return transport({
+      init: requestInit,
+      source: "payload",
+      url,
+    });
+  };
 }

@@ -1,9 +1,3 @@
-import type { PayloadSDK } from "@payloadcms/sdk";
-import type {
-  PayloadTypes,
-  PayloadTypesShape
-} from "payload";
-
 import type {
   CMSOperationCallOptions,
   CMSOperationContract,
@@ -15,20 +9,20 @@ import type {
 import type { CMSDefinedOperationError } from "../errors/types.js";
 import type { CMSClientPlugin } from "../transport/types.js";
 
-export interface CMSPayloadClientOptions {
+export interface OperationsClientOptions<
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> {
   baseInit?: RequestInit
+  basePath?: string
   baseURL: string
   fetch?: typeof fetch
-}
-
-export interface CMSClientOptions<
-  TOperations extends CMSOperationsTree
-> {
-  basePath?: string
   operations: TOperations
-  payload: CMSPayloadClientOptions
   plugins?: readonly CMSClientPlugin[]
 }
+
+export type CreateOperationsClientOptions<
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> = OperationsClientOptions<TOperations>;
 
 type CMSOperationMethod<TOperation extends CMSOperationContract> = (
   input: InferOperationInput<TOperation>,
@@ -46,14 +40,6 @@ export type InferOperationsClient<TOperations extends CMSOperationsTree> = {
       ? InferOperationsClient<TOperations[TKey]>
       : never;
 };
-
-export interface CMSClient<
-  TPayloadConfig extends PayloadTypesShape = PayloadTypes,
-  TOperations extends CMSOperationsTree = CMSOperationsTree
-> {
-  readonly operations: InferOperationsClient<TOperations>
-  readonly payload: PayloadSDK<TPayloadConfig>
-}
 
 export type {
   CMSClientPlugin,

@@ -4,6 +4,7 @@ const bundler = createBundler(
   [
     "src/index.ts",
     "src/client/index.ts",
+    "src/cms/index.ts",
     "src/contract/index.ts",
     "src/errors/index.ts",
     "src/plugins/timeout/index.ts",
