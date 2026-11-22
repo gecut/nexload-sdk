@@ -1,4 +1,4 @@
-import type { z } from "zod";
+import { z } from "zod";
 
 import type {
   CMSOperationContract,
@@ -75,7 +75,7 @@ export async function validateDefinedError (
   return new CMSOperationError({
     cause: error.cause,
     code: error.code,
-    data: error.data,
+    data: parsedData.data,
     defined: true,
     message: definition.message,
     status: definition.status,
@@ -95,9 +95,13 @@ async function parseDefinedErrorData (
       : { success: false, };
   }
 
-  const result = await definition.data.safeParseAsync(data);
+  try {
+    const encoded = await z.encodeAsync(
+      definition.data, data
+    );
 
-  return result.success
-    ? { data: result.data, success: true, }
-    : { success: false, };
+    return { data: encoded, success: true, };
+  } catch {
+    return { success: false, };
+  }
 }

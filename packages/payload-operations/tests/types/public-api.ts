@@ -274,3 +274,41 @@ createPayloadEndpoints({ operations, handlers: { ping: async () => ({ reply: "" 
 
 // @ts-expect-error createPayloadEndpoints without access.default
 createPayloadEndpoints({ access: {}, operations, handlers: { ping: async () => ({ reply: "" }), nested: { run: async () => true } } });
+
+// 9. Codec handler output type assertions
+const codecDateOp = operation({
+  input: z.void(),
+  output: z.object({
+    createdAt: z.codec(z.iso.datetime(), z.date(), {
+      encode: (d) => d.toISOString(),
+      decode: (s) => new Date(s),
+    }),
+  }),
+});
+
+// A handler returning Date for a codec output compiles
+const _validCodecEndpoints = createPayloadEndpoints({
+  access: { default: () => true },
+  handlers: {
+    codecDate: async () => ({
+      createdAt: new Date(),
+    }),
+  },
+  operations: {
+    codecDate: codecDateOp,
+  },
+});
+void _validCodecEndpoints;
+
+createPayloadEndpoints({
+  access: { default: () => true },
+  handlers: {
+    // @ts-expect-error returning a string there is a @ts-expect-error
+    codecDate: async () => ({
+      createdAt: "2026-11-22T10:30:00.000Z",
+    }),
+  },
+  operations: {
+    codecDate: codecDateOp,
+  },
+});

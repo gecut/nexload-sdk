@@ -1,5 +1,7 @@
 import type { PayloadRequest } from "payload";
 
+import { z } from "zod";
+
 import type { CMSOperationContract } from "../contract/types.js";
 import type {
   CMSOperationAccess,
@@ -67,16 +69,20 @@ export async function executeOperation (options: ExecuteOperationOptions): Promi
       operation: options.metadata,
       req: options.req,
     });
-    const outputResult = await options.definition.output.safeParseAsync(handlerResult);
+    let encodedOutput: unknown;
 
-    if (!outputResult.success) {
+    try {
+      encodedOutput = await z.encodeAsync(
+        options.definition.output, handlerResult
+      );
+    } catch (error) {
       return createErrorResponse(
-        options.req, createInternalError(outputResult.error)
+        options.req, createInternalError(error)
       );
     }
 
     return createSuccessResponse(
-      options.req, handlerResult
+      options.req, encodedOutput
     );
   } catch (error) {
     return createErrorResponse(

@@ -47,4 +47,4 @@ export type InferOperationOutput<TOperation extends CMSOperationContract>
   = z.output<TOperation["output"]>;
 
 export type InferHandlerOutput<TOperation extends CMSOperationContract>
-  = z.input<TOperation["output"]>;
+  = z.output<TOperation["output"]>;

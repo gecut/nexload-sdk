@@ -44,8 +44,8 @@ type ErrorFactoryFromDefinition<
 > = TDefinition extends { readonly data: infer TSchema extends z.ZodType }
   ? (options: {
     cause?: unknown
-    data: z.input<TSchema>
-  }) => CMSOperationError<TCode, z.input<TSchema>, true>
+    data: z.output<TSchema>
+  }) => CMSOperationError<TCode, z.output<TSchema>, true>
   : (
     options?: { cause?: unknown }
   ) => CMSOperationError<TCode, undefined, true>;
