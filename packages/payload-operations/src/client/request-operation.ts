@@ -36,9 +36,9 @@ export async function requestOperation (options: RequestOperationOptions): Promi
   let body: string | undefined;
 
   try {
-    body = inputResult.data === undefined
+    body = options.input === undefined
       ? undefined
-      : JSON.stringify(inputResult.data);
+      : JSON.stringify(options.input);
   } catch (error) {
     throw createFrameworkError(
       "BAD_REQUEST", "Operation input is not JSON serializable.", { cause: error, }

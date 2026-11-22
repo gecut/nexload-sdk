@@ -1,4 +1,4 @@
-import type { z } from "zod";
+import { z } from "zod";
 
 import type { CMSOperationContract } from "../contract/types.js";
 
@@ -22,13 +22,10 @@ export async function parseOperationResponse (
     const value = response.status === 204
       ? undefined
       : await response.json();
-    const result = await operation.output.safeParseAsync(value);
 
-    if (!result.success) {
-      throw createInternalError(result.error);
-    }
-
-    return result.data;
+    return await z.decodeAsync(
+      operation.output, value
+    );
   } catch (error) {
     if (isTimeoutError(error)) {
       throw new CMSClientTimeoutError(
@@ -121,9 +118,13 @@ async function parseDefinedData (
       : { success: false, };
   }
 
-  const result = await schema.safeParseAsync(value);
+  try {
+    const data = await z.decodeAsync(
+      schema, value
+    );
 
-  return result.success
-    ? { data: result.data, success: true, }
-    : { success: false, };
+    return { data, success: true, };
+  } catch {
+    return { success: false, };
+  }
 }
