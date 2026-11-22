@@ -10,6 +10,8 @@ export type {
 } from "./core/errors.js";
 export type {
   ArrayFieldOptions,
+  BlockDefinitionOptions,
+  BlocksFieldOptions,
   BooleanFieldOptions,
   DateFieldOptions,
   DefineEntityOptions,

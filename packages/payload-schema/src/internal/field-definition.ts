@@ -6,6 +6,13 @@ import type {
 
 export const fieldSeedSymbol: unique symbol = Symbol("payload-schema.field-seed");
 
+export type BlockSeed = {
+  slug: string
+  payloadExtras: Record<string, unknown>
+  children: ReadonlyArray<readonly [string, FieldSeed]>
+  blockingFieldPath?: string
+};
+
 export type FieldSeed = {
   kind: string
   payloadType: string
@@ -19,6 +26,9 @@ export type FieldSeed = {
   hasMany?: boolean
   currency?: string
   children?: ReadonlyArray<readonly [string, FieldSeed]>
+  blocks?: ReadonlyArray<BlockSeed>
+  minRows?: number
+  maxRows?: number
   blockingFieldPath?: string
   relation?: {
     relationTo: string | readonly string[]

@@ -21,6 +21,15 @@ export const postEntity = defineEntity({
         hint: field.text(),
       },
     }),
+    layout: field.blocks({
+      blocks: {
+        hero: {
+          fields: {
+            title: field.text({ required: true }),
+          },
+        },
+      },
+    }),
   },
 });
 
@@ -227,4 +236,47 @@ export async function runRegressionCases(payload) {
       return true;
     },
   );
+
+  // (k) a hero row whose title is a number rejects with ValidationError at path "layout.0.title"
+  await assert.rejects(
+    payload.create({
+      collection: "posts",
+      data: {
+        title: "Post with Invalid Block Title",
+        meta: { tag: "tag-block-invalid" },
+        layout: [{ blockType: "hero", title: 123 }],
+      },
+    }),
+    (error) => {
+      assert.equal(error?.name, "ValidationError");
+      const titleError = error.data?.errors?.find((e) => e.path === "layout.0.title");
+      assert.ok(titleError, "expected error at path layout.0.title");
+      return true;
+    },
+  );
+
+  // (l) a valid layout saves and re-reads equal (ignoring id)
+  const validLayoutDoc = await payload.create({
+    collection: "posts",
+    data: {
+      title: "Post with Valid Layout",
+      meta: { tag: "tag-block-valid" },
+      layout: [{ blockType: "hero", title: "Hero Block Title" }],
+    },
+  });
+  assert.equal(validLayoutDoc.layout?.length, 1);
+  assert.equal(validLayoutDoc.layout[0].blockType, "hero");
+  assert.equal(validLayoutDoc.layout[0].title, "Hero Block Title");
+
+  const reReadLayoutDoc = await payload.findByID({
+    collection: "posts",
+    id: validLayoutDoc.id,
+  });
+  assert.equal(reReadLayoutDoc.layout?.length, 1);
+  assert.equal(reReadLayoutDoc.layout[0].blockType, "hero");
+  assert.equal(reReadLayoutDoc.layout[0].title, "Hero Block Title");
+
+  const cleanSaved = validLayoutDoc.layout.map(({ id, ...rest }) => rest);
+  const cleanReRead = reReadLayoutDoc.layout.map(({ id, ...rest }) => rest);
+  assert.deepEqual(cleanReRead, cleanSaved);
 }

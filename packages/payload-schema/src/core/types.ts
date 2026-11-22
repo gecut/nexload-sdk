@@ -1,5 +1,7 @@
 import type {
   ArrayField,
+  Block,
+  BlocksField,
   CheckboxField,
   DateField,
   DefaultValue,
@@ -270,6 +272,26 @@ export interface ArrayFieldOptions<
   defaultValue?: unknown
   dynamicDefaultValue?: DynamicDefaultValue<unknown>
   payload?: NativePayloadExtras<ArrayField, "fields" | "maxRows" | "minRows">
+}
+
+export interface BlockDefinitionOptions<TFields extends EntityFieldMap = EntityFieldMap> {
+  fields: TFields
+  payload?: NativePayloadExtras<Block, "fields" | "slug">
+}
+
+export interface BlocksFieldOptions<
+  TBlocks extends Record<string, BlockDefinitionOptions> = Record<string, BlockDefinitionOptions>,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  blocks: TBlocks
+  required?: TRequired
+  nullable?: TNullable
+  minRows?: number
+  maxRows?: number
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<BlocksField, "blocks" | "maxRows" | "minRows">
 }
 
 export interface RichTextFieldOptions<

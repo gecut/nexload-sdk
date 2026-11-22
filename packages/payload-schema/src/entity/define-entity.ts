@@ -17,10 +17,12 @@ import type {
 import { defaultIdSchema } from "../core/default-id.js";
 import { isPayloadSchemaError, PayloadSchemaError } from "../core/errors.js";
 import { createRelationshipSchema } from "../fields/index.js";
+import { buildBlocksSchema } from "../internal/blocks-schema.js";
 import { errorName, issueSummaries, parseCanonical } from "../internal/canonical-parse.js";
 import { dataFieldTypes } from "../internal/data-field-types.js";
 import { attachEntityBinding, findEntityEntry } from "../internal/entity-binding.js";
 import {
+  type BlockSeed,
   createFieldDefinition,
   fieldEntries,
   type FieldSeed
@@ -46,6 +48,12 @@ function reservedKeys (seed: FieldSeed): readonly string[] {
     case "array": return [
       ...commonReserved,
       "fields",
+      "maxRows",
+      "minRows"
+    ];
+    case "blocks": return [
+      ...commonReserved,
+      "blocks",
       "maxRows",
       "minRows"
     ];
@@ -190,6 +198,56 @@ function bindSeed (
     }
   }
 
+  let boundBlocks: BlockSeed[] | undefined;
+
+  if (source.blocks) {
+    boundBlocks = [];
+    let firstBlockingChild: string | undefined;
+
+    for (const block of source.blocks) {
+      const boundChildren = block.children.map(([
+        childName,
+        childSeed
+      ]) => [
+        childName,
+        bindSeed(
+          childSeed, entity, `${fieldPath}.${block.slug}.${childName}`, relationshipIdSchema
+        )
+      ] as const);
+
+      const blocking = boundChildren.find(([, child]) => !child.schema);
+      const blockingPath = blocking
+        ? (blocking[1].blockingFieldPath
+          ? (blocking[1].blockingFieldPath.startsWith(`${fieldPath}.${block.slug}.${blocking[0]}`)
+            ? blocking[1].blockingFieldPath
+            : `${fieldPath}.${block.slug}.${blocking[0]}.${blocking[1].blockingFieldPath}`)
+          : `${fieldPath}.${block.slug}.${blocking[0]}`)
+        : undefined;
+
+      if (blockingPath && !firstBlockingChild) {
+        firstBlockingChild = blockingPath;
+      }
+
+      boundBlocks.push({
+        slug: block.slug,
+        payloadExtras: block.payloadExtras,
+        children: boundChildren,
+        blockingFieldPath: blockingPath,
+      });
+    }
+
+    blockingFieldPath = firstBlockingChild;
+    schema = firstBlockingChild
+      ? undefined
+      : buildBlocksSchema(
+        boundBlocks, {
+          minRows: source.minRows,
+          maxRows: source.maxRows,
+          nullable: source.nullable,
+        }
+      );
+  }
+
   const payloadCore = { ...source.payloadCore, };
 
   if (source.staticDefaultConfigured) {
@@ -225,6 +283,7 @@ function bindSeed (
     schema,
     runtimeSchema,
     children,
+    blocks: boundBlocks ?? source.blocks,
     blockingFieldPath,
     payloadCore,
   };

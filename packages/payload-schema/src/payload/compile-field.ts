@@ -41,6 +41,24 @@ export function compileField (
         child, childName, entity, `${fieldPath}.${childName}`, operation
       ));
     }
+    if (seed.blocks) {
+      compiled.blocks = seed.blocks.map((block) => {
+        const blockExtras = cloneConfig(block.payloadExtras);
+        const compiledBlock = Object.create(Object.prototype) as Record<string, unknown>;
+        Object.defineProperties(
+          compiledBlock, Object.getOwnPropertyDescriptors(blockExtras)
+        );
+        compiledBlock.slug = block.slug;
+        compiledBlock.fields = block.children.map(([
+          childName,
+          child
+        ]) => compileField(
+          child, childName, entity, `${fieldPath}.${block.slug}.${childName}`, operation
+        ));
+
+        return compiledBlock;
+      });
+    }
     if (seed.runtimeSchema) {
       const hook = canonicalHook(
         seed, entity, fieldPath

@@ -1,5 +1,6 @@
 import type {
   ArrayField,
+  BlocksField,
   CheckboxField,
   DateField,
   NamedGroupField,
@@ -17,6 +18,8 @@ import { z } from "zod";
 import type {
   AnyCanonicalSchema,
   ArrayFieldOptions,
+  BlockDefinitionOptions,
+  BlocksFieldOptions,
   BooleanFieldOptions,
   DateFieldOptions,
   EntityFieldMap,
@@ -39,7 +42,13 @@ import type {
 
 import { defaultIdSchema } from "../core/default-id.js";
 import { PayloadSchemaError } from "../core/errors.js";
-import { createFieldDefinition, fieldEntries, type FieldSeed } from "../internal/field-definition.js";
+import { buildBlocksSchema } from "../internal/blocks-schema.js";
+import {
+  type BlockSeed,
+  createFieldDefinition,
+  fieldEntries,
+  type FieldSeed
+} from "../internal/field-definition.js";
 
 type NullableSchema<TValue, TNullable extends boolean> = z.ZodType<MaybeNullable<TValue, TNullable>>;
 type SchemaLessKey<TFields extends EntityFieldMap> = {
@@ -60,6 +69,33 @@ type ArrayCanonicalSchema<TFields extends EntityFieldMap, TNullable extends bool
       ? z.ZodNullable<z.ZodArray<ObjectSchemaForFields<TFields>>>
       : z.ZodArray<ObjectSchemaForFields<TFields>>
     : undefined;
+type BlocksHaveSchemaLessChild<TBlocks extends Record<string, BlockDefinitionOptions>> = {
+  [TSlug in keyof TBlocks]: SchemaLessKey<TBlocks[TSlug]["fields"]> extends never ? never : TSlug
+}[keyof TBlocks];
+type BlockMemberShape<TSlug extends string, TFields extends EntityFieldMap> = {
+  blockType: z.ZodLiteral<TSlug>
+  id: z.ZodOptional<z.ZodString>
+  blockName: z.ZodOptional<z.ZodNullable<z.ZodString>>
+} & {
+  [TKey in keyof TFields]: Extract<TFields[TKey]["schema"], AnyCanonicalSchema>
+};
+type BlockMemberSchema<TSlug extends string, TFields extends EntityFieldMap> = z.ZodObject<
+  BlockMemberShape<TSlug, TFields>
+>;
+type BlockUnionOutput<TBlocks extends Record<string, BlockDefinitionOptions>> = {
+  [TSlug in keyof TBlocks & string]: z.infer<BlockMemberSchema<TSlug, TBlocks[TSlug]["fields"]>>
+}[keyof TBlocks & string];
+type BlockUnionInput<TBlocks extends Record<string, BlockDefinitionOptions>> = {
+  [TSlug in keyof TBlocks & string]: z.input<BlockMemberSchema<TSlug, TBlocks[TSlug]["fields"]>>
+}[keyof TBlocks & string];
+type BlocksCanonicalSchema<
+  TBlocks extends Record<string, BlockDefinitionOptions>,
+  TNullable extends boolean
+> = BlocksHaveSchemaLessChild<TBlocks> extends never
+  ? TNullable extends true
+    ? z.ZodNullable<z.ZodArray<z.ZodType<BlockUnionOutput<TBlocks>, BlockUnionInput<TBlocks>>>>
+    : z.ZodArray<z.ZodType<BlockUnionOutput<TBlocks>, BlockUnionInput<TBlocks>>>
+  : undefined;
 type RelationshipValue<TRelationTo, THasMany extends boolean, TIdSchema extends AnyCanonicalSchema>
   = TRelationTo extends readonly string[]
     ? THasMany extends true
@@ -658,9 +694,15 @@ function upload<
 
 function composeObject (fields: EntityFieldMap): { schema?: AnyCanonicalSchema, children: ReadonlyArray<readonly [string, FieldSeed]>, blocking?: string } {
   const children = fieldEntries(fields);
-  const blocking = children.find(([, seed]) => !seed.schema)?.[0];
+  const blockingEntry = children.find(([, seed]) => !seed.schema);
 
-  if (blocking) return { children, blocking, };
+  if (blockingEntry) {
+    const blocking = blockingEntry[1].blockingFieldPath
+      ? `${blockingEntry[0]}.${blockingEntry[1].blockingFieldPath}`
+      : blockingEntry[0];
+
+    return { children, blocking, };
+  }
   const shape = Object.fromEntries(children.map(([
     name,
     seed
@@ -751,6 +793,120 @@ FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField, T
   ));
 }
 
+function blocks<
+  const TBlocks extends Record<string, BlockDefinitionOptions>,
+  TNullable extends boolean = false,
+  const TRequired extends boolean = false
+> (options: BlocksFieldOptions<TBlocks, TNullable, TRequired>):
+FieldDefinition<"blocks", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField, TRequired> {
+  validateRange(
+    "blocks", "rows", options.minRows, options.maxRows
+  );
+
+  if (!options.blocks || Object.keys(options.blocks).length === 0) {
+    throw new PayloadSchemaError(
+      "INVALID_FIELD_CONFIGURATION", {
+        phase: "definition",
+        message: "Blocks field must define at least one block.",
+        data: { fieldPath: unboundPath, fieldKind: "blocks", reason: "empty blocks configuration", },
+      }
+    );
+  }
+
+  const blockEntries = Object.entries(options.blocks);
+
+  for (const [slug, blockDef] of blockEntries) {
+    if (typeof slug !== "string" || !slug.trim()) {
+      throw new PayloadSchemaError(
+        "INVALID_FIELD_CONFIGURATION", {
+          phase: "definition",
+          message: "Block slug must be a non-empty string.",
+          data: { fieldPath: unboundPath, fieldKind: "blocks", reason: "empty block slug", },
+        }
+      );
+    }
+    if (blockDef.payload) {
+      for (const key of ["fields", "slug"] as const) {
+        if (Object.hasOwn(blockDef.payload, key)) {
+          throw new PayloadSchemaError(
+            "RESERVED_PAYLOAD_OPTION", {
+              phase: "definition",
+              message: `Block "${slug}" cannot configure reserved Payload option "${key}".`,
+              data: { fieldPath: `${unboundPath}.${slug}`, fieldKind: "blocks", option: key, },
+            }
+          );
+        }
+      }
+    }
+  }
+
+  const blockSeeds: BlockSeed[] = [];
+  let firstBlocking: string | undefined;
+
+  for (const [slug, blockDef] of blockEntries) {
+    const children = fieldEntries(blockDef.fields);
+    const blockingEntry = children.find(([, seed]) => !seed.schema);
+    const blockingChild = blockingEntry
+      ? (blockingEntry[1].blockingFieldPath
+        ? `${blockingEntry[0]}.${blockingEntry[1].blockingFieldPath}`
+        : blockingEntry[0])
+      : undefined;
+    const blockingPath = blockingChild ? `${slug}.${blockingChild}` : undefined;
+
+    if (blockingPath && !firstBlocking) {
+      firstBlocking = blockingPath;
+    }
+
+    blockSeeds.push({
+      slug,
+      payloadExtras: asPayloadExtras(blockDef.payload),
+      children,
+      blockingFieldPath: blockingPath,
+    });
+  }
+
+  const schema = firstBlocking
+    ? undefined
+    : buildBlocksSchema(
+      blockSeeds, {
+        minRows: options.minRows,
+        maxRows: options.maxRows,
+        nullable: options.nullable,
+      }
+    );
+
+  const slugs = blockEntries.map(([slug]) => slug) as [string, ...string[]];
+  const rowSchema = z.looseObject({
+    blockType: z.enum(slugs),
+  });
+  let container = z.array(rowSchema);
+
+  if (options.minRows !== undefined) container = container.min(options.minRows);
+  if (options.maxRows !== undefined) container = container.max(options.maxRows);
+  const runtimeSchema = applyNullable(container, options.nullable);
+
+  return createFieldDefinition(withDefaults(
+    {
+      kind: "blocks",
+      payloadType: "blocks",
+      schema,
+      runtimeSchema,
+      payloadCore: {
+        ...(options.required === undefined ? {} : { required: options.required, }),
+        ...(options.minRows === undefined ? {} : { minRows: options.minRows, }),
+        ...(options.maxRows === undefined ? {} : { maxRows: options.maxRows, }),
+      },
+      payloadExtras: asPayloadExtras(options.payload),
+      required: options.required ?? false,
+      nullable: options.nullable ?? false,
+      blocks: blockSeeds,
+      blockingFieldPath: firstBlocking,
+      minRows: options.minRows,
+      maxRows: options.maxRows,
+    }, options
+  )) as FieldDefinition<"blocks", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField, TRequired>;
+}
+
 function richText<
   TSchema extends AnyCanonicalSchema,
   TNullable extends boolean = false,
@@ -817,6 +973,7 @@ export const field = Object.freeze({
   upload,
   group,
   array,
+  blocks,
   richText,
   native,
 });

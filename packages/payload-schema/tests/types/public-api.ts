@@ -5,6 +5,8 @@ import {
   defaultIdSchema,
   defineEntity,
   field,
+  type BlockDefinitionOptions,
+  type BlocksFieldOptions,
   type FieldDefinition,
   type InferEntityFields,
 } from "../../src/index.js";
@@ -131,3 +133,54 @@ const nativeAutoSchema = nativeAutoEntity.schema(({ pick }) =>
 type NativeAutoInferred = z.infer<typeof nativeAutoSchema>;
 const assertNativeAuto: Exact<NativeAutoInferred, { reqNative: string; optNative?: string }> = true;
 void assertNativeAuto;
+
+const blocksEntity = defineEntity({
+  name: "BlocksEntity",
+  fields: {
+    layout: field.blocks({
+      blocks: {
+        hero: {
+          fields: {
+            title: field.text({ required: true }),
+          },
+        },
+        quote: {
+          fields: {
+            body: field.text({ required: true }),
+          },
+        },
+      },
+    }),
+  },
+});
+
+type InferredLayout = z.infer<typeof blocksEntity.fields.layout.schema>;
+
+const validHeroRow: InferredLayout = [
+  { blockType: "hero", title: "Hero Title" },
+];
+const validQuoteRowWithExtras: InferredLayout = [
+  { blockType: "quote", body: "Quote body", id: "row-id", blockName: "Named block" },
+];
+const validQuoteRowWithNullBlockName: InferredLayout = [
+  { blockType: "quote", body: "Quote body", id: "row-id", blockName: null },
+];
+void [validHeroRow, validQuoteRowWithExtras, validQuoteRowWithNullBlockName];
+
+// @ts-expect-error unknown blockType
+const invalidBlockType: InferredLayout = [{ blockType: "unknown" }];
+// @ts-expect-error missing required child title in hero block
+const missingRequiredChild: InferredLayout = [{ blockType: "hero" }];
+// @ts-expect-error wrong child type in hero block
+const wrongChildType: InferredLayout = [{ blockType: "hero", title: 123 }];
+// @ts-expect-error unknown property in hero block
+const unknownPropInBlock: InferredLayout = [{ blockType: "hero", title: "x", unknown: true }];
+void [invalidBlockType, missingRequiredChild, wrongChildType, unknownPropInBlock];
+
+const blockDefOptions: BlockDefinitionOptions = {
+  fields: { title: field.text() },
+};
+const blocksOptions: BlocksFieldOptions = {
+  blocks: { test: blockDefOptions },
+};
+void [blockDefOptions, blocksOptions];
