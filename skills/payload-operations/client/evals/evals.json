@@ -5,8 +5,9 @@
       "id": 1,
       "category": "happy_path",
       "prompt": "Create a typed CMS client for a shared operations contract with Payload config types, auth headers, and a timeout plugin.",
-      "expected_output": "A createCMSClient integration preserving the native SDK and typed operation tree.",
+      "expected_output": "A createCMSClient integration from @nexload-sdk/payload-operations/cms preserving the native SDK and typed operation tree.",
       "expectations": [
+        "Imports createCMSClient from @nexload-sdk/payload-operations/cms and timeoutPlugin from @nexload-sdk/payload-operations/plugins/timeout with { timeout }.",
         "Supplies both Config and typeof operations when explicit Payload typing is used.",
         "Places auth in baseInit and timeout in the public plugin API.",
         "Uses cms.payload and cms.operations without proxies or SDK internals."
@@ -54,6 +55,59 @@
         "Keeps timeout out of the contract and handler.",
         "Keeps authorization out of the transport plugin.",
         "Preserves shared operation metadata across both sides."
+      ]
+    },
+    {
+      "id": 6,
+      "category": "breaking_change_pure_operations_client",
+      "prompt": "Construct a pure RPC client for an operations contract in a frontend bundle where @payloadcms/sdk is not installed.",
+      "expected_output": "Uses createOperationsClient from @nexload-sdk/payload-operations/client without @payloadcms/sdk.",
+      "expectations": [
+        "Imports createOperationsClient from @nexload-sdk/payload-operations/client.",
+        "Does not import from or depend on @payloadcms/sdk.",
+        "Configures baseURL, operations, and optional plugins."
+      ]
+    },
+    {
+      "id": 7,
+      "category": "breaking_change_original_input_transmission",
+      "prompt": "An operation input schema defines a default or transform (e.g. z.string().trim()). Explain what value the client transmits over the wire.",
+      "expected_output": "Client validates with safeParseAsync but transmits the original input value; transforms/defaults execute on the server.",
+      "expectations": [
+        "Client validates caller input with safeParseAsync upfront but sends the original input value.",
+        "Client-side defaults and transforms are not applied to the wire payload.",
+        "Defaults and transforms execute once on the server handler."
+      ]
+    },
+    {
+      "id": 8,
+      "category": "breaking_change_response_decoding_codecs",
+      "prompt": "An operation output schema defines a Date codec via z.codec. Explain how the client reconstructs the Date instance from the JSON response.",
+      "expected_output": "The client decodes the JSON response with z.decodeAsync, reconstructing the Date instance.",
+      "expectations": [
+        "The client decodes the JSON response using z.decodeAsync with the output schema.",
+        "Reconstructs rich types (e.g. Date) on the client side from wire JSON strings.",
+        "Same decoding applies to typed defined error data."
+      ]
+    },
+    {
+      "id": 9,
+      "category": "breaking_change_cms_client_entry_split",
+      "prompt": "Migrate a 1.0 client importing createCMSClient from the root or client entry to 2.0.",
+      "expected_output": "Imports createCMSClient from @nexload-sdk/payload-operations/cms and explains optional peer dependency.",
+      "expectations": [
+        "Imports createCMSClient from @nexload-sdk/payload-operations/cms.",
+        "Explains @payloadcms/sdk is an optional peer dependency required only when using the ./cms entry."
+      ]
+    },
+    {
+      "id": 10,
+      "category": "breaking_change_timeout_plugin_entry_and_options",
+      "prompt": "Configure timeoutPlugin in 2.0 and explain the options and import change from 1.0.",
+      "expected_output": "Imports timeoutPlugin from @nexload-sdk/payload-operations/plugins/timeout using { timeout: number }.",
+      "expectations": [
+        "Imports timeoutPlugin from @nexload-sdk/payload-operations/plugins/timeout.",
+        "Uses { timeout: number } instead of { ms: number } or root import."
       ]
     }
   ]

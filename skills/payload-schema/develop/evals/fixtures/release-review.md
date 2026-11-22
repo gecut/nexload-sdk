@@ -2,8 +2,9 @@
 
 Current repository observations:
 
-- package manifest version is `1.1.0`;
-- peer ranges are Payload `>=3.85.0 <4` and Zod `>=4 <5`;
+- package manifest version is `3.0.0`;
+- peer ranges are Payload `>=3.85.0 <4` and Zod `>=4.1.0 <5`;
+- root export is browser-safe and Payload compilation is split into `./payload`;
 - `test:consumer` and `test:compat` run packed-consumer smoke;
 - `.github/scripts/payload-schema-compat.sh` exists;
 - `.github/workflows` contains no payload-schema compatibility workflow;

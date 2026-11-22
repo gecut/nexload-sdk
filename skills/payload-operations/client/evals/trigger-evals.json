@@ -1,8 +1,8 @@
 [
-  { "query": "Create an @nexload-sdk/payload-operations CMS client", "should_trigger": true },
+  { "query": "Create an @nexload-sdk/payload-operations client with createOperationsClient", "should_trigger": true },
   { "query": "Configure timeoutPlugin for payload-operations calls", "should_trigger": true },
   { "query": "Diagnose payload-operations client header precedence", "should_trigger": true },
-  { "query": "Add a transport plugin around createCMSClient", "should_trigger": true },
+  { "query": "Add a transport plugin around createCMSClient or createOperationsClient", "should_trigger": true },
   { "query": "Why does cms.operations reject a successful JSON response?", "should_trigger": true },
   { "query": "Preserve PayloadSDK native methods under cms.payload", "should_trigger": true },
   { "query": "Debug baseURL and basePath joining in payload-operations client", "should_trigger": true },

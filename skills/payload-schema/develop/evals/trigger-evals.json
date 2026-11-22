@@ -12,7 +12,7 @@
   { "query": "Migrate our products collection to payload-schema and preserve its tabs, access, hooks, drafts, and generated types.", "should_trigger": false },
   { "query": "Choose whether this consumer payload-schema point field needs a Zod tuple or should remain Payload-only.", "should_trigger": false },
   { "query": "Build a strict update schema from payload-schema fields and explain SCHEMA_UNAVAILABLE for one native child.", "should_trigger": false },
-  { "query": "Compose entity.payload.pick inside existing tabs without modifying the payload-schema package.", "should_trigger": false },
+  { "query": "Compose payloadFields(entity).pick inside existing tabs without modifying the payload-schema package.", "should_trigger": false },
   { "query": "Model polymorphic owner IDs and a populated category output in a consumer payload-schema entity.", "should_trigger": false },
   { "query": "Move a static inventory default and dynamic publishedAt default into consumer payload-schema factories.", "should_trigger": false },
   { "query": "A Local API write is untrimmed because our collection still uses a hand-written field instead of the payload-schema entity.", "should_trigger": false },

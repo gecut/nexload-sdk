@@ -5,10 +5,10 @@
       "id": 1,
       "category": "happy_path",
       "prompt": "Review the attached product migration fixture against the current @nexload-sdk/payload-schema public contract. Return an implementation outline with exact ownership, field order, and verification evidence.",
-      "expected_output": "A public-API migration that preserves collection lifecycle and proves both canonical parsing and real Payload writes.",
+      "expected_output": "A public-API migration that preserves collection lifecycle and proves both canonical parsing and real Payload writes using payloadFields from @nexload-sdk/payload-schema/payload.",
       "files": ["evals/fixtures/migration-review.md"],
       "expectations": [
-        "Uses defineEntity and public field factories while keeping hooks, access, drafts, localization, layout, and generated persistence types in the collection.",
+        "Uses defineEntity and public field factories, and compiles fields with payloadFields from @nexload-sdk/payload-schema/payload while keeping hooks, access, drafts, localization, layout, and generated persistence types in the collection.",
         "Preserves declaration order title, slug, inventory, category and compiles only the migrated fields without absorbing internalNotes.",
         "Requires direct canonical parsing, consumer typecheck, and a real Payload Local API write as observable verification."
       ]
@@ -21,7 +21,7 @@
       "files": ["evals/fixtures/schema-unavailable.md"],
       "expectations": [
         "Reports SCHEMA_UNAVAILABLE with phase schema-derivation, reason schema-less-descendant, and blockingFieldPath details.metadata.",
-        "States that Payload compilation remains available while the parent canonical schema is unavailable.",
+        "States that Payload compilation remains available via payloadFields while the parent canonical schema is unavailable.",
         "Offers schema attachment or explicit ownership/container restructuring without silently dropping metadata."
       ]
     },
@@ -41,7 +41,7 @@
       "id": 4,
       "category": "review_diagnosis",
       "prompt": "Diagnose the attached Local API normalization failure and specify a regression test with observable stored output.",
-      "expected_output": "The collection adopts compiled fields, preserves consumer hook ordering, and proves normalization through Local API.",
+      "expected_output": "The collection adopts compiled fields via payloadFields, preserves consumer hook ordering, and proves normalization through Local API.",
       "files": ["evals/fixtures/local-api-normalization.md"],
       "expectations": [
         "Identifies the hand-written collection field as the reason entity normalization does not run.",
@@ -59,6 +59,54 @@
         "Uses ID for category and Array<{ relationTo: users | teams, value: ID }> for owners; populated category documents stay outside canonical relationships.",
         "Explains that Payload row ids survive persistence lifecycle but strict canonical gallery items exclude and reject them.",
         "Keeps tabs and access in the collection and uses field.native with an explicit tuple schema for point."
+      ]
+    },
+    {
+      "id": 6,
+      "category": "breaking_change_compilation_entry",
+      "prompt": "Migrate an existing entity's field compilation from the 2.0 property to 3.0, and explain the browser-safe root entry invariant.",
+      "expected_output": "Compilation uses payloadFields(entity) from @nexload-sdk/payload-schema/payload and explains root browser safety.",
+      "files": [],
+      "expectations": [
+        "Imports payloadFields from @nexload-sdk/payload-schema/payload instead of accessing the removed entity payload property.",
+        "Explains that the root entry @nexload-sdk/payload-schema is pure and browser-safe with zero runtime Payload dependency.",
+        "Notes that payloadFields rejects non-entities at runtime with PayloadSchemaError (code: INVALID_ENTITY)."
+      ]
+    },
+    {
+      "id": 7,
+      "category": "breaking_change_null_semantics",
+      "prompt": "An application updates an article collection by writing { subtitle: null } for an optional field and { title: null } for a required field. Explain the canonical hook behavior in 3.0 versus 2.0.",
+      "expected_output": "Canonical beforeValidate hooks pass null through unchanged; optional fields clear cleanly while required fields fail Payload's check.",
+      "files": [],
+      "expectations": [
+        "Explains that canonical beforeValidate hooks pass null through unchanged for all field types, matching undefined.",
+        "Optional subtitle without nullable: true clears cleanly in 3.0 without raising a Zod type error.",
+        "Required title fails Payload's built-in required check ('This field is required.') rather than a Zod ValidationError."
+      ]
+    },
+    {
+      "id": 8,
+      "category": "breaking_change_date_acceptance",
+      "prompt": "A service writes a JavaScript Date instance to a collection defined with field.date({ required: true }). Explain runtime hook normalization versus schema derivation in 3.0.",
+      "expected_output": "The runtime date hook accepts Date instances and normalizes them to ISO strings, while derived schemas remain strict ISO strings.",
+      "files": [],
+      "expectations": [
+        "The runtime Payload beforeValidate hook accepts valid Date instances and converts them to ISO 8601 strings.",
+        "Derived and canonical Zod schemas remain strict ISO datetime strings.",
+        "Invalid Date objects fail with a ValidationError in the runtime hook."
+      ]
+    },
+    {
+      "id": 9,
+      "category": "breaking_change_codec_and_blocks",
+      "prompt": "A team adopts field.blocks for polymorphic page sections and derives a schema using pick with optional: 'auto'. Explain codec safety and schema derivation.",
+      "expected_output": "field.blocks models discriminated block containers, pick optional: 'auto' respects field-level required flags, and built-in normalizations are codec-safe.",
+      "files": [],
+      "expectations": [
+        "Uses field.blocks({ blocks: { ... } }) to define discriminated blocks where each child field retains canonical validation.",
+        "Explains pick(keys, { optional: 'auto' }) automatically marks non-required fields optional in derived schemas.",
+        "Explains built-in field normalizations use .overwrite() so derived schemas can be encoded with z.encodeAsync for operation outputs."
       ]
     }
   ]

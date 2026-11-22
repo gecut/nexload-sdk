@@ -60,6 +60,18 @@
         "Treats test:consumer/test:compat as packed current-version smokes rather than proof of the full peer cross-product.",
         "Does not create an initial-major or other Changeset for a no-public-change skill review and still checks tar contents, declarations, root import, config load, and deep-import rejection as relevant evidence."
       ]
+    },
+    {
+      "id": 6,
+      "category": "breaking_change_browser_root_and_peer_floor",
+      "prompt": "Audit the release and packaging changes for @nexload-sdk/payload-schema 3.0, including Zod peer floor, entry points, and browser bundling.",
+      "expected_output": "Verifies Zod floor >=4.1.0, pure browser-safe root entry, and isolated /payload compilation subpath.",
+      "files": [],
+      "expectations": [
+        "Verifies peer dependency floor is Zod >=4.1.0 <5.0.0 to support codec methods.",
+        "Verifies entry points: root entry is pure browser-safe; /payload is Node/Payload config only.",
+        "Verifies esbuild browser-bundle test ensures root has zero Node built-in or runtime payload imports."
+      ]
     }
   ]
 }

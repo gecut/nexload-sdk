@@ -13,10 +13,14 @@
 
 Do not move collection lifecycle to an entity during migration.
 
-## Public facade
+## Public facade & entry split
+
+- `@nexload-sdk/payload-schema` (root): Pure and browser-safe. Contains `defineEntity`, `field`, `defaultIdSchema`, `PayloadSchemaError`, `isPayloadSchemaError`, and definition types.
+- `@nexload-sdk/payload-schema/payload`: Node and Payload config only. Exports `payloadFields(entity)`, which compiles entities into Payload fields carrying `beforeValidate` hooks.
 
 ```ts
 import { defineEntity, field } from "@nexload-sdk/payload-schema"
+import { payloadFields } from "@nexload-sdk/payload-schema/payload"
 
 const product = defineEntity({
   name: "Product",
@@ -30,15 +34,29 @@ const product = defineEntity({
   },
 })
 
-const fields = product.payload.pick(["title", "inventory"])
+const fields = payloadFields(product).pick(["title", "inventory"])
 const createSchema = product.schema(({ pick }) =>
-  pick(["title", "inventory"], { optional: ["inventory"] }),
+  pick(["title", "inventory"], { optional: "auto" }),
 )
 ```
 
-`payload.all()` preserves declaration order. `payload.pick()` preserves caller order. Every call returns fresh plain containers.
+`payloadFields(entity)` provides:
+- `.all()`: preserves declaration order.
+- `.field(key)`: compiles a single named field.
+- `.pick(keys)`: preserves caller order.
 
-`entity.schema()` may return any Zod schema. `pick` is strict and required by default. `optional` changes property presence only; it does not infer CRUD semantics.
+Every call returns fresh plain containers. Calling `payloadFields()` with a non-entity throws `PayloadSchemaError` with code `INVALID_ENTITY`.
+
+`entity.schema()` may return any Zod schema. `pick` is strict and required by default. Passing `{ optional: "auto" }` marks fields without `required: true` as optional automatically, while an explicit `required: [...]` array takes precedence.
+
+## Null semantics & Date handling
+
+- **Null pass-through:** Payload stores empty or cleared fields as `null`. Canonical `beforeValidate` hooks pass `null` through unchanged for all fields (matching `undefined`). Clearing optional fields with `null` succeeds cleanly. Required fields without a value fail Payload's built-in check ("This field is required.") rather than raising a Zod type error.
+- **Date acceptance:** In `field.date()`, the runtime Payload hook accepts JavaScript `Date` instances and converts valid dates to ISO 8601 strings. Canonical and derived schemas remain strict ISO strings.
+
+## Codec safety
+
+Built-in field normalizations (`trim`, `lowercase`, `uppercase`, `slug`, `date`) use Zod `.overwrite()` rather than unidirectional `.transform()`. This preserves codec reversibility so derived schemas can be encoded with `z.encode` (e.g., in operation outputs). User transforms in `options.schema(...)` are not codec-safe.
 
 ## Defaults
 
@@ -54,7 +72,7 @@ Neither default mode adds Zod `.default()`.
 
 ## Schema availability
 
-A native field without `schema` compiles for Payload but is absent from typed `context.fields`. Picking it in JavaScript fails; a schema-less descendant blocks its containing group/array.
+A native field without `schema` compiles for Payload but is absent from typed `context.fields`. Picking it in JavaScript fails; a schema-less descendant blocks its containing group/array/blocks container.
 
 Expected diagnostic:
 

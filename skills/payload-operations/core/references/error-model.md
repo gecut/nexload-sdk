@@ -1,6 +1,8 @@
 # Error model
 
-Declared errors live on an operation:
+## Declared errors
+
+Declared errors live on an operation definition:
 
 ```ts
 errors: {
@@ -12,7 +14,19 @@ errors: {
 }
 ```
 
-Codes use uppercase snake case, statuses are integers from 400 through 599, and messages are non-empty. A handler throws the generated `errors.EMAIL_TAKEN({ data })`; data is required only when its definition has a schema.
+Codes use uppercase snake case, statuses are integers from 400 through 599, and messages are non-empty strings. A handler throws the generated `errors.EMAIL_TAKEN({ data })`; data is required only when its definition has a schema.
+
+`data` schemas must be codec-safe: the server encodes error data with `z.encodeAsync(data, value)`, and the client decodes it with `z.decodeAsync(data, json)`.
+
+## CMSOperationError exports
+
+`CMSOperationError` is exported from:
+- `@nexload-sdk/payload-operations/errors`
+- `@nexload-sdk/payload-operations/server`
+
+`isCMSOperationError` is exported only from `@nexload-sdk/payload-operations/errors`.
+
+## Safe result handling
 
 `safe(operationPromise)` returns one of:
 

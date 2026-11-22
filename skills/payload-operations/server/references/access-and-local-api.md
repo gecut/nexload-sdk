@@ -1,10 +1,33 @@
 # Access and Local API
 
-The built-in default permits only `Boolean(req.user)`. Use an explicit override such as `() => true` for a public operation. A denial returns 401 when `req.user` is absent and 403 when an authenticated user is denied.
+## Required access.default
+
+`createPayloadEndpoints` strictly requires `access.default`. Omitting it throws `TypeError: createPayloadEndpoints requires access.default.` at configuration time:
+
+```ts
+const endpoints = createPayloadEndpoints({
+  operations,
+  handlers,
+  access: {
+    // REQUIRED: default access function for all operations
+    default: ({ req }) => !!req.user,
+    // Optional per-operation overrides
+    overrides: {
+      publicGroup: {
+        publicOp: () => true,
+      },
+    },
+  },
+});
+```
+
+A denial returns 401 when `req.user` is absent and 403 when an authenticated user is denied.
 
 Authentication remains Payload's responsibility. Do not decode cookies, JWTs, or API keys inside an operation handler.
 
-Handlers receive `req`, which carries Payload and transaction context. For caller-scoped Local API work, preserve that context and enforce access explicitly:
+## Local API overrideAccess caveat
+
+By default, Payload 3 `req.payload` Local API calls execute with `overrideAccess: true`. If collection-level access control must be enforced for the current caller, pass `{ overrideAccess: false, req }` explicitly:
 
 ```ts
 await req.payload.find({
@@ -15,4 +38,6 @@ await req.payload.find({
 });
 ```
 
-Do not add a transaction wrapper around handlers. Application workflow owns transaction boundaries and business authorization beyond the operation access gate.
+## Database transactions
+
+Operations do not automatically wrap database mutations in transactions. If multi-step database consistency or atomicity is required, manage transactions explicitly via Payload's transaction API (`await req.payload.db.beginTransaction()` / `commitTransaction()`).

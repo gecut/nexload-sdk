@@ -4,7 +4,7 @@
 
 Before planning or claiming release coverage, inspect:
 
-1. `packages/payload-schema/package.json` for current version, peers, scripts, files, and exports;
+1. `packages/payload-schema/package.json` for current version, peers (`payload: >=3.85.0 <4`, `zod: >=4.1.0 <5`), scripts, files, and exports (`.` and `./payload`);
 2. `CHANGELOG.md` and pending Changesets for released/pending impact;
 3. `.github/workflows` for automation that actually exists;
 4. compatibility helpers and fixtures for what they truly execute;
@@ -31,14 +31,16 @@ The compatibility shell helper installs matched Payload-family packages and runs
 
 For a public or packaging change verify, as relevant:
 
-- ESM root runtime import and the exact public runtime export set;
-- independent declaration compilation without workspace aliases;
+- Pure ESM root runtime import and the exact public runtime export set (`defineEntity`, `field`, `defaultIdSchema`, `PayloadSchemaError`, `isPayloadSchemaError`);
+- Browser bundle test: root entry bundles with esbuild `--platform=browser` with zero Node built-in or `payload` runtime imports;
+- Compilation subpath `@nexload-sdk/payload-schema/payload` loads in Node/Payload config;
+- Independent declaration compilation without workspace aliases;
 - Payload config loading in an external consumer;
 - `pnpm pack` contents and package size;
-- deep import rejection through package exports;
+- Deep import rejection through package exports;
 - `sideEffects: false`;
-- matched `payload` and every installed `@payloadcms/*` version;
-- supported minimum/current version lanes actually executed.
+- Matched `payload` and every installed `@payloadcms/*` version;
+- Supported minimum/current version lanes actually executed.
 
 Report each lane as passed, failed, skipped, or absent. A current-version smoke does not prove the peer range. An orphan helper does not prove workflow coverage.
 

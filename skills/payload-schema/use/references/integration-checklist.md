@@ -2,26 +2,28 @@
 
 ## Inspect the right environment
 
-Inside `nexload-sdk`, inspect the package root exports, relevant option types, public tests, docs, and consuming collection. For an installed npm consumer, inspect `package.json` exports, `dist/index.d.ts`, README/docs, lockfile versions, and local collection code. Do not require monorepo source from external consumers.
+Inside `nexload-sdk`, inspect the package root exports, `@nexload-sdk/payload-schema/payload` exports, relevant option types, public tests, docs, and consuming collection. For an installed npm consumer, inspect `package.json` exports, `dist/index.d.ts`, `dist/payload/index.d.ts`, README/docs, lockfile versions, and local collection code. Do not require monorepo source from external consumers.
 
 ## Incremental migration
 
 1. Record collection slug, field order, hooks, access, versions, upload, localization, layout, and generated type usage.
-2. Move one cohesive data group into `defineEntity`.
-3. Replace only those native field entries with ordered `entity.payload.pick(...)` or `all()`.
-4. Rebuild named application schemas through `entity.schema(...)`.
+2. Move one cohesive data group into `defineEntity` using pure root exports.
+3. In Payload collection configuration (Node-only), replace native field entries with `payloadFields(entity).pick(...)` or `payloadFields(entity).all()` from `@nexload-sdk/payload-schema/payload`.
+4. Rebuild named application schemas through `entity.schema(...)`, using `{ optional: "auto" }` when non-required fields should be optional.
 5. Keep tabs/access/hooks and populated projections in their current owners.
 6. Test both direct parsing and Local API create/update before moving another group.
 
-## Normalization diagnosis
+## Normalization and hook diagnosis
 
 If a Local API write stores an unnormalized value:
 
-1. Confirm the collection uses fields compiled by the same entity definition.
+1. Confirm the collection uses fields compiled by `payloadFields(entity)`.
 2. Inspect field `hooks.beforeValidate`: consumer hooks must run first and return the next value; the canonical adapter is appended last.
 3. Confirm the write does not use a separate hand-written field config.
-4. Reproduce with Local API and assert both stored and returned normalized values.
-5. Confirm all `payload` and `@payloadcms/*` packages use one exact version.
+4. Verify null semantics: passing `null` clears optional fields without error; required fields fail Payload's presence check.
+5. Verify Date handling: JavaScript `Date` instances are converted to ISO strings by the runtime date hook.
+6. Reproduce with Local API and assert both stored and returned normalized values.
+7. Confirm all `payload` and `@payloadcms/*` packages use one exact version.
 
 An application schema transform does not affect Payload writes unless the compiled field's canonical schema owns the same normalization.
 
@@ -37,6 +39,6 @@ pnpm -C packages/payload-schema test:consumer
 git diff --check
 ```
 
-Use Postgres only when the behavior touches its fixture or persistence boundary. `test:consumer` and `test:compat` are current packed-consumer smokes, not proof of the full supported version cross-product.
+Use Postgres only when the behavior touches its fixture or persistence boundary (`pnpm -C packages/payload-schema test:postgres`). `test:consumer` and `test:compat` are current packed-consumer smokes, not proof of the full supported version cross-product.
 
 Report unrun database lanes and external-service blockers explicitly. Never claim a compatibility matrix from one current-version smoke.

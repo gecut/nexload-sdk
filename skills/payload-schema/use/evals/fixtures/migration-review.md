@@ -10,4 +10,4 @@ The existing `products` collection has:
 
 Duplicated application schemas trim `title`, normalize `slug`, require safe integer inventory, and validate a category relationship ID.
 
-Review task: propose the smallest migration using only the public root API. The collection lifecycle, layout, generated persistence types, and `internalNotes` must remain owned by the collection. State the compiled field order and concrete runtime/type verification.
+Review task: propose the smallest migration using the public API (root entry for entity definition, `@nexload-sdk/payload-schema/payload` for collection field compilation via `payloadFields`). The collection lifecycle, layout, generated persistence types, and `internalNotes` must remain owned by the collection. State the compiled field order and concrete runtime/type verification.

@@ -5,10 +5,10 @@
       "id": 1,
       "category": "happy_path",
       "prompt": "Mount account operations in Payload with one public read operation and one authenticated mutation using Local API.",
-      "expected_output": "Exact handlers and scoped access overrides mounted through createPayloadEndpoints.",
+      "expected_output": "Exact handlers, required access.default, and scoped access overrides mounted through createPayloadEndpoints.",
       "expectations": [
-        "Provides every handler leaf and only overrides the public operation.",
-        "Uses req.payload with request and user context for caller-scoped access.",
+        "Provides every handler leaf, configures required access.default, and only overrides the public operation.",
+        "Uses req.payload with request and user context and overrideAccess false for caller-scoped access.",
         "Mounts the returned endpoints with a client-matching base path."
       ]
     },
@@ -26,7 +26,7 @@
     {
       "id": 3,
       "category": "failure_security",
-      "prompt": "Review a handler that decodes its own JWT, calls Local API with overrideAccess true, and returns raw exception details.",
+      "prompt": "Review a handler that decodes its own JWT, calls Local API with default overrideAccess, and returns raw exception details.",
       "expected_output": "Reject all three boundary violations and keep authentication, access, and error sanitization with their owners.",
       "expectations": [
         "Uses req.user rather than parsing credentials.",
@@ -54,6 +54,50 @@
         "Keeps declared error definition on the shared operation.",
         "Uses generated server error factories.",
         "Keeps timeout out of server handlers and access policy."
+      ]
+    },
+    {
+      "id": 6,
+      "category": "breaking_change_required_access_default",
+      "prompt": "Call createPayloadEndpoints without providing access.default and explain the runtime and type behavior in 2.0.",
+      "expected_output": "Explains that access.default is required at type level and throws TypeError at configuration time if missing.",
+      "expectations": [
+        "States that access.default is strictly required at both type and runtime levels in 2.0.",
+        "Throws TypeError at configuration time if access.default is omitted.",
+        "Demonstrates configuring access.default with optional per-operation overrides."
+      ]
+    },
+    {
+      "id": 7,
+      "category": "breaking_change_max_body_bytes",
+      "prompt": "A client sends a 2 MiB JSON body to an operation endpoint configured with default maxBodyBytes. Explain the server rejection mechanism and response.",
+      "expected_output": "Rejects body exceeding maxBodyBytes (1 MiB default) via Content-Length or stream check, returning 413 PAYLOAD_TOO_LARGE.",
+      "expectations": [
+        "Identifies default maxBodyBytes as 1_048_576 bytes (1 MiB).",
+        "Explains early Content-Length header rejection or streaming byte count abort.",
+        "Returns HTTP 413 with error code PAYLOAD_TOO_LARGE."
+      ]
+    },
+    {
+      "id": 8,
+      "category": "breaking_change_encoded_output_leak_prevention",
+      "prompt": "A handler returns an object containing passwordHash and internalTenantId not defined in the z.object output schema. Explain what the client receives.",
+      "expected_output": "Handler returns z.output<output> and server encodes via z.encodeAsync, stripping unmodeled keys.",
+      "expectations": [
+        "Explains the handler returns z.output<output> and the server encodes with z.encodeAsync.",
+        "Standard z.object encoding automatically strips unrecognized keys (passwordHash, internalTenantId).",
+        "The client receives only modeled keys, preventing sensitive internal leaks without manual filtering."
+      ]
+    },
+    {
+      "id": 9,
+      "category": "breaking_change_local_api_and_transactions",
+      "prompt": "Explain transaction ownership and the Local API overrideAccess behavior in Payload 3 operation handlers.",
+      "expected_output": "Operations have no automatic transactions and Local API defaults to overrideAccess: true, requiring explicit opt-in to user checks.",
+      "expectations": [
+        "States that operations do not provide automatic transactions; multi-step transactions must be managed explicitly via Payload's transaction API.",
+        "Explains that Payload 3 Local API calls run with overrideAccess: true by default.",
+        "Requires passing overrideAccess: false and req to Local API calls when user-scoped permissions must be enforced."
       ]
     }
   ]
