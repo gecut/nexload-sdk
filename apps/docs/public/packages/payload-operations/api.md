@@ -682,12 +682,13 @@ To preserve clean bundle boundaries and prevent leaking Payload server code into
 
 | Subpath | Target Environment | Description |
 |---|---|---|
-| `@nexload-sdk/payload-operations` | Universal (Browser/Node) | Root entrypoint exporting `createCMSClient`, `defineCMSOperations`, `operation`, `safe`, `isDefinedError`, `timeoutPlugin`. |
-| `@nexload-sdk/payload-operations/contract` | Universal (Browser/Node) | Pure contract modeling: `defineCMSOperations`, `operation`, and type inference helpers. Zero dependencies on Payload. |
-| `@nexload-sdk/payload-operations/client` | Universal (Browser/Node) | Client factory and RPC proxy generator: `createCMSClient`, `defineClientPlugin`, `InferOperationsClient`. |
-| `@nexload-sdk/payload-operations/errors` | Universal (Browser/Node) | Error boundaries and pattern matching: `CMSOperationError`, `safe`, `isDefinedError`. |
-| `@nexload-sdk/payload-operations/plugins/timeout` | Universal (Browser/Node) | Timeout plugin: `timeoutPlugin`, `isTimeoutError`. |
-| `@nexload-sdk/payload-operations/server` | **Node.js / Payload Server Only** | Server endpoint generator: `createPayloadEndpoints`. Never import in client bundles! |
+| `@nexload-sdk/payload-operations` | Universal (Browser/Node) | Root entrypoint exporting `operation`, `defineCMSOperations`, `safe`, `isDefinedError`, `isTimeoutError`, and types. Pure, depends only on `zod` (no client, no payload, no `@payloadcms/sdk`). |
+| `@nexload-sdk/payload-operations/contract` | Universal (Browser/Node) | Pure contract modeling: `defineCMSOperations`, `operation`, and type inference helpers (`InferOperationInput`, `InferOperationOutput`, etc.). |
+| `@nexload-sdk/payload-operations/errors` | Universal (Browser/Node) | Error boundaries and pattern matching: `safe`, `isDefinedError`, `CMSOperationError`, `isCMSOperationError`, and types. |
+| `@nexload-sdk/payload-operations/client` | Universal (Browser/Node) | Pure operations client: `createOperationsClient`, `defineClientPlugin`, `InferOperationsClient`, and transport types. Zero `@payloadcms/sdk` dependency. |
+| `@nexload-sdk/payload-operations/cms` | Universal (Browser/Node) | Integrated CMS client: `createCMSClient`, `createPayloadFetchAdapter`, and types. Requires `@payloadcms/sdk` (optional peer). |
+| `@nexload-sdk/payload-operations/plugins/timeout` | Universal (Browser/Node) | Timeout plugin: `timeoutPlugin`, `isTimeoutError`, and `TimeoutPluginOptions`. |
+| `@nexload-sdk/payload-operations/server` | **Node.js / Payload Server Only** | Server endpoint generator: `createPayloadEndpoints`, `CMSOperationError`, `DEFAULT_MAX_BODY_BYTES`, and server types. Never import in client bundles! |
 
 ***
 
@@ -697,7 +698,7 @@ To preserve clean bundle boundaries and prevent leaking Payload server code into
 |---|---|---|
 | **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
 | **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
-| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Verified on SDK 3.86.0 |
-| **Zod** | `>=4.0.0 <5.0.0` | Verified on Zod 4.4.3 |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Optional peer dependency (verified on SDK 3.86.0; required only for `./cms`) |
+| **Zod** | `>=4.1.0 <5.0.0` | Verified on Zod 4.4.3 |
 | **Module Format** | ESM only | Native ECMAScript Modules (`"type": "module"`) |
 | **Side Effects** | `false` | Tree-shaking enabled across all bundlers |

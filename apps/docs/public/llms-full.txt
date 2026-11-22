@@ -5392,12 +5392,13 @@ To preserve clean bundle boundaries and prevent leaking Payload server code into
 
 | Subpath | Target Environment | Description |
 |---|---|---|
-| `@nexload-sdk/payload-operations` | Universal (Browser/Node) | Root entrypoint exporting `createCMSClient`, `defineCMSOperations`, `operation`, `safe`, `isDefinedError`, `timeoutPlugin`. |
-| `@nexload-sdk/payload-operations/contract` | Universal (Browser/Node) | Pure contract modeling: `defineCMSOperations`, `operation`, and type inference helpers. Zero dependencies on Payload. |
-| `@nexload-sdk/payload-operations/client` | Universal (Browser/Node) | Client factory and RPC proxy generator: `createCMSClient`, `defineClientPlugin`, `InferOperationsClient`. |
-| `@nexload-sdk/payload-operations/errors` | Universal (Browser/Node) | Error boundaries and pattern matching: `CMSOperationError`, `safe`, `isDefinedError`. |
-| `@nexload-sdk/payload-operations/plugins/timeout` | Universal (Browser/Node) | Timeout plugin: `timeoutPlugin`, `isTimeoutError`. |
-| `@nexload-sdk/payload-operations/server` | **Node.js / Payload Server Only** | Server endpoint generator: `createPayloadEndpoints`. Never import in client bundles! |
+| `@nexload-sdk/payload-operations` | Universal (Browser/Node) | Root entrypoint exporting `operation`, `defineCMSOperations`, `safe`, `isDefinedError`, `isTimeoutError`, and types. Pure, depends only on `zod` (no client, no payload, no `@payloadcms/sdk`). |
+| `@nexload-sdk/payload-operations/contract` | Universal (Browser/Node) | Pure contract modeling: `defineCMSOperations`, `operation`, and type inference helpers (`InferOperationInput`, `InferOperationOutput`, etc.). |
+| `@nexload-sdk/payload-operations/errors` | Universal (Browser/Node) | Error boundaries and pattern matching: `safe`, `isDefinedError`, `CMSOperationError`, `isCMSOperationError`, and types. |
+| `@nexload-sdk/payload-operations/client` | Universal (Browser/Node) | Pure operations client: `createOperationsClient`, `defineClientPlugin`, `InferOperationsClient`, and transport types. Zero `@payloadcms/sdk` dependency. |
+| `@nexload-sdk/payload-operations/cms` | Universal (Browser/Node) | Integrated CMS client: `createCMSClient`, `createPayloadFetchAdapter`, and types. Requires `@payloadcms/sdk` (optional peer). |
+| `@nexload-sdk/payload-operations/plugins/timeout` | Universal (Browser/Node) | Timeout plugin: `timeoutPlugin`, `isTimeoutError`, and `TimeoutPluginOptions`. |
+| `@nexload-sdk/payload-operations/server` | **Node.js / Payload Server Only** | Server endpoint generator: `createPayloadEndpoints`, `CMSOperationError`, `DEFAULT_MAX_BODY_BYTES`, and server types. Never import in client bundles! |
 
 ***
 
@@ -5407,8 +5408,8 @@ To preserve clean bundle boundaries and prevent leaking Payload server code into
 |---|---|---|
 | **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
 | **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
-| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Verified on SDK 3.86.0 |
-| **Zod** | `>=4.0.0 <5.0.0` | Verified on Zod 4.4.3 |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Optional peer dependency (verified on SDK 3.86.0; required only for `./cms`) |
+| **Zod** | `>=4.1.0 <5.0.0` | Verified on Zod 4.4.3 |
 | **Module Format** | ESM only | Native ECMAScript Modules (`"type": "module"`) |
 | **Side Effects** | `false` | Tree-shaking enabled across all bundlers |
 
@@ -5428,6 +5429,11 @@ In real-world applications, operations should be grouped by domain resources ins
 ```ts
 import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
 import { z } from "zod";
+
+const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (s) => new Date(s),
+  encode: (d) => d.toISOString(),
+});
 
 export const cmsOperations = defineCMSOperations({
   auth: {
@@ -5451,7 +5457,7 @@ export const cmsOperations = defineCMSOperations({
     }),
     reserve: operation({
       input: z.object({ sku: z.string(), quantity: z.number().int().positive() }),
-      output: z.object({ reservationId: z.string(), expiresAt: z.string() }),
+      output: z.object({ reservationId: z.string(), expiresAt: dateCodec }),
       errors: {
         OUT_OF_STOCK: {
           status: 409,
@@ -5484,9 +5490,9 @@ export const cmsOperations = defineCMSOperations({
 
 ## Role-Based Access Control (RBAC) & Overrides
 
-By default, `createPayloadEndpoints` applies `access.default` to all operations. If unspecified, it enforces `Boolean(req.user)`.
+`access.default` is **strictly required** by `createPayloadEndpoints`. If missing, it throws `TypeError: createPayloadEndpoints requires access.default.` at configuration time.
 
-You can override permissions on a per-operation basis:
+You can specify default permissions and override them on a per-operation basis:
 
 ```ts
 import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
@@ -5495,7 +5501,7 @@ import { cmsOperations } from "./contract";
 export const operationEndpoints = createPayloadEndpoints({
   operations: cmsOperations,
   access: {
-    // Default rule: Must be authenticated
+    // Required default rule: Must be authenticated
     default: ({ req }) => Boolean(req.user),
 
     // Granular overrides
@@ -5519,11 +5525,25 @@ export const operationEndpoints = createPayloadEndpoints({
 * When access returns `false` for an unauthenticated request, the endpoint returns **HTTP 401 Unauthorized**.
 * When access returns `false` for an authenticated request with insufficient rights, it returns **HTTP 403 Forbidden**.
 
+### Request Body Size Limiting (`maxBodyBytes`)
+
+`createPayloadEndpoints` limits incoming request bodies via `maxBodyBytes` (defaults to `1_048_576` bytes / 1 MiB):
+
+* Validates the incoming `Content-Length` header upfront to reject oversized requests before buffering.
+* Streams the request body while counting bytes, aborting if the limit is exceeded.
+* Oversized requests return **HTTP 413 Payload Too Large** (`PAYLOAD_TOO_LARGE`).
+
 ***
 
 ## Database Transactions & Local API Handlers
 
-Handlers receive the incoming `req: PayloadRequest`, giving you direct access to `req.payload` for transactional database queries:
+Handlers receive the incoming `req: PayloadRequest`, giving you direct access to `req.payload` for database queries:
+
+> \[!NOTE]
+> **Database Transactions & Local API Invariants:**
+>
+> * **No automatic transactions:** Operations do not automatically begin or commit database transactions. If your operation requires transactional integrity, manage transactions explicitly using Payload's transaction API.
+> * **Local API `overrideAccess: true`:** By default, Payload 3 `req.payload` Local API calls run with `overrideAccess: true`. If collection-level access control must be enforced for the current user, pass `{ overrideAccess: false, req }` in each Local API call.
 
 ```ts
 handlers: {
@@ -5573,6 +5593,50 @@ handlers: {
 
 ***
 
+## Codec Wire Model & Serialization
+
+`@nexload-sdk/payload-operations` uses a bidirectional Zod codec architecture on the wire:
+
+* **Handler output is encoded:** The handler returns `z.output<output>`. The server encodes this output using `z.encodeAsync(output, result)`. Unknown keys on `z.object` schemas are automatically stripped, preventing database internals or secret properties from leaking to callers (`z.looseObject` or `.passthrough()` enables passing extra keys as an explicit opt-in).
+* **Client decodes:** The client decodes the JSON response with `z.decodeAsync(output, json)`, reconstructing rich types like `Date`.
+* **Defined errors are encoded/decoded identically:** Defined error `data` schemas undergo the same `z.encodeAsync` on the server and `z.decodeAsync` on the client.
+* **Client sends original input:** The client pre-validates input with `safeParseAsync` (rejecting invalid calls upfront with 422 `INPUT_VALIDATION_FAILED`), then serializes and sends the caller's original input value (`z.input`). Defaults and transforms execute once on the server. The caller's input must be JSON-serializable.
+
+### Codec Safety Rule for Outputs
+
+Because outputs are encoded via `z.encodeAsync`, output schemas and defined-error `data` schemas must be **codec-safe**:
+
+* Standard types (`z.string()`, `z.number()`, `z.boolean()`, `z.object()`, `z.array()`)
+* Checks and overwrites (`z.string().trim()`, `z.string().toLowerCase()`)
+* Symmetrical codecs (`z.codec(wireSchema, targetSchema, { decode, encode })`)
+
+> \[!CAUTION]
+> Unidirectional `.transform()` calls in output or error schemas cannot be encoded by `z.encodeAsync`. Returning such a schema from a handler causes the server to fail with **500 INTERNAL\_SERVER\_ERROR**. Always use `z.codec` for transformations in output schemas.
+
+### Handling Dates with `z.codec`
+
+To pass JavaScript `Date` instances between server handlers and client callers:
+
+```ts
+import { operation } from "@nexload-sdk/payload-operations";
+import { z } from "zod";
+
+export const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (isoString) => new Date(isoString),
+  encode: (dateObj) => dateObj.toISOString(),
+});
+
+export const getEvent = operation({
+  input: z.object({ id: z.string() }),
+  output: z.object({
+    id: z.string(),
+    scheduledAt: dateCodec, // Handler returns Date; wire sends ISO string; client receives Date
+  }),
+});
+```
+
+***
+
 ## Client Transport Plugins
 
 The client uses an extensible middleware pipeline (`CMSClientPlugin`) that wraps every fetch request for both custom operations and native Payload SDK methods:
@@ -5582,7 +5646,8 @@ The client uses an extensible middleware pipeline (`CMSClientPlugin`) that wraps
 Enforces strict client-side timeout thresholds with automatic `AbortSignal` management:
 
 ```ts
-import { createCMSClient, timeoutPlugin } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
 
 const cms = createCMSClient({
   operations: cmsOperations,
@@ -5598,7 +5663,7 @@ const cms = createCMSClient({
 Automatically attaches JWT tokens to outgoing requests:
 
 ```ts
-import { defineClientPlugin } from "@nexload-sdk/payload-operations";
+import { defineClientPlugin } from "@nexload-sdk/payload-operations/client";
 
 export const authBearerPlugin = (getToken: () => string | null) =>
   defineClientPlugin({
@@ -5623,6 +5688,8 @@ export const authBearerPlugin = (getToken: () => string | null) =>
 Inspect request latency and differentiate operation calls from native Payload SDK calls:
 
 ```ts
+import { defineClientPlugin } from "@nexload-sdk/payload-operations/client";
+
 export const tracingPlugin = defineClientPlugin({
   name: "tracing",
   wrapTransport: (next) => async (request) => {
@@ -5637,6 +5704,24 @@ export const tracingPlugin = defineClientPlugin({
     return response;
   },
 });
+```
+
+### 4. Pure Operations Client (Without Payload SDK)
+
+If your frontend or BFF only calls custom operations and does not need the native Payload SDK:
+
+```ts
+import { createOperationsClient } from "@nexload-sdk/payload-operations/client";
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
+
+const client = createOperationsClient({
+  baseURL: "https://cms.example.com",
+  basePath: "/api/operations",
+  operations: cmsOperations,
+  plugins: [timeoutPlugin({ timeout: 5_000 })],
+});
+
+const stock = await client.inventory.checkStock({ sku: "TSHIRT-1" });
 ```
 
 ***
@@ -5725,10 +5810,11 @@ Input validation happens on the client before the request is dispatched. If your
 
 ### 2. Endpoint Responds with 401 or 403
 
-The default access policy requires an authenticated user (`req.user`). If an endpoint should be public, add an explicit override in `createPayloadEndpoints`:
+`access.default` is required. The default access policy determines baseline permissions for all operations. If access returns `false` and `req.user` is absent, the endpoint returns **401 Unauthorized**. If `req.user` is present, it returns **403 Forbidden**. To make an operation publicly accessible, add an explicit override:
 
 ```ts
 access: {
+  default: ({ req }) => Boolean(req.user),
   overrides: {
     auth: { login: () => true },
   },
@@ -5737,7 +5823,7 @@ access: {
 
 ### 3. Route Returns 404 Not Found
 
-* Verify that both `createCMSClient` and `createPayloadEndpoints` use the identical `basePath` (e.g. `"/api/operations"`).
+* Verify that both client (`createCMSClient` or `createOperationsClient`) and `createPayloadEndpoints` use the identical `basePath` (e.g. `"/api/operations"`).
 * Make sure you spread `...operationEndpoints` into Payload's `endpoints` array in `payload.config.ts`.
 * Ensure `baseURL` contains only the origin and API mount, without query strings or trailing hash tags.
 
@@ -5764,6 +5850,262 @@ throw errors.OUT_OF_STOCK({ data: { available: 5 } });
 
 // Incorrect
 throw new Error("Out of stock");
+```
+
+### 6. Endpoint Responds with 413 Payload Too Large
+
+`createPayloadEndpoints` enforces `maxBodyBytes` (default 1 MiB / `1_048_576`). Requests exceeding this limit return `PAYLOAD_TOO_LARGE`. If your endpoint legitimately requires larger payloads, increase `maxBodyBytes`:
+
+```ts
+createPayloadEndpoints({
+  operations,
+  handlers,
+  access: { default: () => true },
+  maxBodyBytes: 10_485_760, // 10 MiB
+});
+```
+
+### 7. Server Responds with 500 During Response Encoding
+
+If your handler output schema uses a unidirectional `.transform()`, `z.encodeAsync` cannot invert it to JSON wire format and throws an error, resulting in a 500 `INTERNAL_SERVER_ERROR`. Replace unidirectional transforms in output schemas with `z.codec(wireSchema, targetSchema, { decode, encode })`.
+
+***
+
+## Migrating to 2.0
+
+`@nexload-sdk/payload-operations` 2.0 introduces secure-by-default execution, strict boundary isolation, bidirectional codecs, and a lightweight standalone client.
+
+### New in 2.0
+
+* **Pure client entry (`@nexload-sdk/payload-operations/client`):** Standalone RPC client via `createOperationsClient` with zero runtime dependency on `payload` or `@payloadcms/sdk`.
+* **Codec wire model:** Symmetrical output and defined-error encoding via `z.encodeAsync`, automatically dropping unknown `z.object` keys to prevent sensitive data leaks.
+* **Bidirectional Date handling:** Full support for `Date` instances using `z.codec(z.iso.datetime(), z.date(), { decode, encode })`.
+* **Request body limits:** Built-in `maxBodyBytes` (default 1 MiB) with fast-fail `Content-Length` checks and stream byte counting returning 413 `PAYLOAD_TOO_LARGE`.
+* **Enforced access control:** `access.default` is required at config time; missing it throws `TypeError`.
+* **Complete test coverage:** Full automated test suite for contract traversal, access evaluation, codec roundtrips, and SQLite integration.
+
+### Breaking Changes & Migration Steps
+
+#### 1. `createCMSClient` moved to `@nexload-sdk/payload-operations/cms`
+
+The integrated client that wraps the native `PayloadSDK` now lives in its own `./cms` subpath:
+
+Before (1.0):
+
+```ts
+// Exported from package root in 1.0 (removed from root in 2.0)
+// import { createCMSClient } from "<package-root>";
+```
+
+After (2.0):
+
+```ts
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
+```
+
+#### 2. `timeoutPlugin` moved to `@nexload-sdk/payload-operations/plugins/timeout`
+
+The timeout plugin is no longer exported from the package root:
+
+Before (1.0):
+
+```ts
+// Exported from package root in 1.0 (removed from root in 2.0)
+// import { timeoutPlugin } from "<package-root>";
+```
+
+After (2.0):
+
+```ts
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
+```
+
+#### 3. `createOperationsClient` is public in `@nexload-sdk/payload-operations/client`
+
+For clients that do not need the Payload REST SDK, import `createOperationsClient` from `./client`:
+
+Before (1.0):
+
+```ts
+// In 1.0, only createCMSClient was available (requiring @payloadcms/sdk)
+const cms = createCMSClient({
+  operations,
+  payload: { baseURL: "https://cms.example.com" },
+});
+```
+
+After (2.0):
+
+```ts
+// Pure RPC client with zero @payloadcms/sdk dependency
+import { createOperationsClient } from "@nexload-sdk/payload-operations/client";
+
+const client = createOperationsClient({
+  baseURL: "https://cms.example.com",
+  operations,
+});
+```
+
+#### 4. Client sends original input value
+
+Clients pre-validate input with `safeParseAsync` and then serialize and transmit the original input value (`z.input`). Defaults and transformations execute once on the server. Input values must be JSON-serializable:
+
+Before (1.0):
+
+```ts
+// Client transformed values before transmission
+const input = z.string().transform((val) => val.trim());
+```
+
+After (2.0):
+
+```ts
+// Transforms and defaults execute once on the server; caller passes original input
+const input = z.string().trim();
+```
+
+#### 5. `access.default` is required in `createPayloadEndpoints`
+
+Omitting `access.default` now throws a `TypeError` at config time instead of silently defaulting to `Boolean(req.user)`:
+
+Before (1.0):
+
+```ts
+// access.default was optional
+const endpoints = createPayloadEndpoints({
+  operations,
+  handlers,
+});
+```
+
+After (2.0):
+
+```ts
+// access.default is strictly required
+const endpoints = createPayloadEndpoints({
+  operations,
+  handlers,
+  access: {
+    default: ({ req }) => Boolean(req.user),
+  },
+});
+```
+
+#### 6. Handler return type is `z.output<output>` and is encoded
+
+Handlers must return `z.output<output>`. The server encodes the result with `z.encodeAsync`, and unrecognized keys on `z.object` schemas are dropped:
+
+Before (1.0):
+
+```ts
+// Handlers could return extra unmodeled fields that leaked to the client
+handlers: {
+  getUser: async () => ({
+    id: "user-1",
+    email: "user@example.com",
+    passwordHash: "$2b$10$...", // leaked!
+  }),
+}
+```
+
+After (2.0):
+
+```ts
+// Handler returns z.output<output>; server encodes and drops unmodeled keys
+handlers: {
+  getUser: async () => ({
+    id: "user-1",
+    email: "user@example.com",
+  }),
+}
+```
+
+#### 7. Output and error-data schemas must be codec-safe
+
+Unidirectional `.transform()` calls in output or error-data schemas cannot be encoded by `z.encodeAsync` (which causes a 500 error). Use `z.codec` instead:
+
+Before (1.0):
+
+```ts
+// One-way transform in output schema
+output: z.object({
+  expiresAt: z.iso.datetime().transform((s) => new Date(s)),
+})
+```
+
+After (2.0):
+
+```ts
+// Bidirectional codec using z.codec
+const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (s) => new Date(s),
+  encode: (d) => d.toISOString(),
+});
+
+output: z.object({
+  expiresAt: dateCodec,
+})
+```
+
+#### 8. Zod floor raised to `>=4.1.0 <5.0.0`
+
+Codec encoding and decoding require Zod 4.1+:
+
+Before (1.0):
+
+```json
+"peerDependencies": {
+  "zod": ">=4.0.0 <5.0.0"
+}
+```
+
+After (2.0):
+
+```json
+"peerDependencies": {
+  "zod": ">=4.1.0 <5.0.0"
+}
+```
+
+#### 9. `@payloadcms/sdk` is an optional peer dependency
+
+`@payloadcms/sdk` is only required if you import `@nexload-sdk/payload-operations/cms`:
+
+Before (1.0):
+
+```bash
+# @payloadcms/sdk was a required peer dependency for all use cases
+pnpm add @payloadcms/sdk
+```
+
+After (2.0):
+
+```bash
+# Install @payloadcms/sdk only if using createCMSClient from ./cms
+pnpm add @payloadcms/sdk
+```
+
+#### 10. Request body size limit (`maxBodyBytes`)
+
+Incoming request bodies exceeding `maxBodyBytes` (default 1 MiB) are now rejected with HTTP 413:
+
+Before (1.0):
+
+```ts
+// Unbounded body reads could cause server out-of-memory errors
+createPayloadEndpoints({ operations, handlers });
+```
+
+After (2.0):
+
+```ts
+// Bodies over maxBodyBytes (default 1_048_576 bytes) return 413 PAYLOAD_TOO_LARGE
+createPayloadEndpoints({
+  operations,
+  handlers,
+  access: { default: () => true },
+  maxBodyBytes: 2_097_152, // Custom 2 MiB limit (optional)
+});
 ```
 
 ***
@@ -5802,7 +6144,8 @@ Use it for application commands, domain actions, and multi-step workflows that d
 ## 10-Second Code Snippet
 
 ```ts
-import { createCMSClient, defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
 import { z } from "zod";
 
 // 1. Define shared contract
@@ -5860,10 +6203,10 @@ bun add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
 |---|---|---|
 | **Node.js** | `>=20.9.0` | Required for server runtime and AbortSignal support |
 | **Payload CMS** | `>=3.85.0 <4.0.0` | Server endpoints & Local API engine |
-| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Native REST SDK companion |
-| **Zod** | `>=4.0.0 <5.0.0` | Contract schema validation |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Optional peer dependency (required for `./cms`) |
+| **Zod** | `>=4.1.0 <5.0.0` | Contract schema validation |
 
-Keep `payload` and `@payloadcms/sdk` pinned to the exact same version. The package is ESM-only and side-effect free.
+Keep `payload` and `@payloadcms/sdk` pinned to compatible versions. The package is ESM-only and side-effect free.
 
 ***
 
@@ -5873,18 +6216,19 @@ Keep `payload` and `@payloadcms/sdk` pinned to the exact same version. The packa
 
 The contract is a shared, platform-neutral module containing only Zod schemas and metadata. It has **zero dependencies on Payload server internals**, making it 100% safe to import in browser bundles, Next.js Server Components, mobile clients, and worker threads.
 
-### 2. Dual Boundary Validation
+### 2. Dual Boundary Validation & Codec Wire Model
 
-* **Client Boundary**: Validates input before sending a network request. If invalid, fails immediately with `INPUT_VALIDATION_FAILED` without unnecessary HTTP traffic.
-* **Server Boundary**: Re-validates input inside the Payload endpoint before executing the handler, protecting backend business logic. Output is validated and serialized back safely.
+* **Client Boundary**: Validates input before sending a network request. If invalid, fails immediately with `INPUT_VALIDATION_FAILED` without unnecessary HTTP traffic. The client sends the original JSON-serializable input (`z.input`), ensuring defaults and transforms execute once, on the server.
+* **Server Boundary**: Re-validates the original input inside the Payload endpoint before executing the handler, protecting backend business logic. The handler returns `z.output<output>`. The server encodes output using `z.encodeAsync(output, result)`, dropping unknown keys so internal or secret fields never leak (`z.looseObject` allows extras as an explicit opt-in). Output and error-data schemas must be codec-safe (e.g. `z.codec` for dates). The client decodes the JSON response with `z.decodeAsync`.
 
 ### 3. Server Endpoints Mount (`@nexload-sdk/payload-operations/server`)
 
-`createPayloadEndpoints` transforms your contract into Payload-compatible `Endpoint` definitions. It registers:
+`createPayloadEndpoints` transforms your contract into Payload-compatible `Endpoint` definitions:
 
 * `POST` handlers for each operation route (e.g. `/api/operations/inventory/reserve`).
 * `OPTIONS` handlers to support CORS pre-flight across frontend origins.
-* Default RBAC protection requiring an authenticated session (`Boolean(req.user)`), with granular per-operation access overrides.
+* Required access control: `access.default` is required (e.g. `({ req }) => Boolean(req.user)`), throwing a `TypeError` at config time if omitted. Granular per-operation access overrides can be specified in `access.overrides`.
+* Request body limits: Incoming request bodies are bounded by `maxBodyBytes` (defaults to 1 MiB / `1_048_576`), rejecting oversized payloads with 413 `PAYLOAD_TOO_LARGE`.
 
 ***
 
@@ -5935,7 +6279,7 @@ const operationEndpoints = createPayloadEndpoints({
   operations: cmsOperations,
   basePath: "/api/operations",
   access: {
-    // Default: Must be logged in
+    // Required: access.default is mandatory
     default: ({ req }) => Boolean(req.user),
   },
   handlers: {
@@ -5985,7 +6329,8 @@ export default buildConfig({
 In your frontend application or Next.js App Router:
 
 ```ts
-import { createCMSClient, safe, isDefinedError } from "@nexload-sdk/payload-operations";
+import { isDefinedError, safe } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
 import { cmsOperations } from "./operations/contract";
 
 const cms = createCMSClient({
@@ -8011,6 +8356,6 @@ Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations b
 | `@nexload-sdk/payload-fields`     | Concrete semantic Payload field factories and matching Admin UI                                        | General schema derivation or editor feature policy                                                      |
 | `@nexload-sdk/payload-editor`     | Semantic Payload Lexical feature and preset configuration                                              | Rich-text fields, frontend rendering, Blocks schemas, or themes                                         |
 | `@nexload-sdk/payload-schema`     | Canonical field validation compiled into Payload fields and reusable Zod schemas                       | Collections, access control, populated documents, or CRUD DTO inference                                 |
-| `@nexload-sdk/payload-operations` | Typed custom operation contracts, Payload endpoints, SDK facade, transport plugins, and defined errors | CRUD replacement, collection definitions, transactions, retry, caching, batching, or custom serializers |
+| `@nexload-sdk/payload-operations` | Typed custom operation contracts, Payload endpoints, pure RPC client and CMS client facade, transport plugins, and defined errors | CRUD replacement, collection definitions, transactions, retry, caching, batching, or custom serializers |
 
 The packages can be composed, but they do not wrap one another. Keep collection lifecycle, access, drafts, localization, tabs, and application business rules in the Payload application.

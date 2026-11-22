@@ -25,7 +25,8 @@ Use it for application commands, domain actions, and multi-step workflows that d
 ## 10-Second Code Snippet
 
 ```ts
-import { createCMSClient, defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
 import { z } from "zod";
 
 // 1. Define shared contract
@@ -83,10 +84,10 @@ bun add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
 |---|---|---|
 | **Node.js** | `>=20.9.0` | Required for server runtime and AbortSignal support |
 | **Payload CMS** | `>=3.85.0 <4.0.0` | Server endpoints & Local API engine |
-| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Native REST SDK companion |
-| **Zod** | `>=4.0.0 <5.0.0` | Contract schema validation |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Optional peer dependency (required for `./cms`) |
+| **Zod** | `>=4.1.0 <5.0.0` | Contract schema validation |
 
-Keep `payload` and `@payloadcms/sdk` pinned to the exact same version. The package is ESM-only and side-effect free.
+Keep `payload` and `@payloadcms/sdk` pinned to compatible versions. The package is ESM-only and side-effect free.
 
 ---
 
@@ -95,15 +96,16 @@ Keep `payload` and `@payloadcms/sdk` pinned to the exact same version. The packa
 ### 1. The Contract Model (`@nexload-sdk/payload-operations/contract`)
 The contract is a shared, platform-neutral module containing only Zod schemas and metadata. It has **zero dependencies on Payload server internals**, making it 100% safe to import in browser bundles, Next.js Server Components, mobile clients, and worker threads.
 
-### 2. Dual Boundary Validation
-- **Client Boundary**: Validates input before sending a network request. If invalid, fails immediately with `INPUT_VALIDATION_FAILED` without unnecessary HTTP traffic.
-- **Server Boundary**: Re-validates input inside the Payload endpoint before executing the handler, protecting backend business logic. Output is validated and serialized back safely.
+### 2. Dual Boundary Validation & Codec Wire Model
+- **Client Boundary**: Validates input before sending a network request. If invalid, fails immediately with `INPUT_VALIDATION_FAILED` without unnecessary HTTP traffic. The client sends the original JSON-serializable input (`z.input`), ensuring defaults and transforms execute once, on the server.
+- **Server Boundary**: Re-validates the original input inside the Payload endpoint before executing the handler, protecting backend business logic. The handler returns `z.output<output>`. The server encodes output using `z.encodeAsync(output, result)`, dropping unknown keys so internal or secret fields never leak (`z.looseObject` allows extras as an explicit opt-in). Output and error-data schemas must be codec-safe (e.g. `z.codec` for dates). The client decodes the JSON response with `z.decodeAsync`.
 
 ### 3. Server Endpoints Mount (`@nexload-sdk/payload-operations/server`)
-`createPayloadEndpoints` transforms your contract into Payload-compatible `Endpoint` definitions. It registers:
+`createPayloadEndpoints` transforms your contract into Payload-compatible `Endpoint` definitions:
 - `POST` handlers for each operation route (e.g. `/api/operations/inventory/reserve`).
 - `OPTIONS` handlers to support CORS pre-flight across frontend origins.
-- Default RBAC protection requiring an authenticated session (`Boolean(req.user)`), with granular per-operation access overrides.
+- Required access control: `access.default` is required (e.g. `({ req }) => Boolean(req.user)`), throwing a `TypeError` at config time if omitted. Granular per-operation access overrides can be specified in `access.overrides`.
+- Request body limits: Incoming request bodies are bounded by `maxBodyBytes` (defaults to 1 MiB / `1_048_576`), rejecting oversized payloads with 413 `PAYLOAD_TOO_LARGE`.
 
 ---
 
@@ -154,7 +156,7 @@ const operationEndpoints = createPayloadEndpoints({
   operations: cmsOperations,
   basePath: "/api/operations",
   access: {
-    // Default: Must be logged in
+    // Required: access.default is mandatory
     default: ({ req }) => Boolean(req.user),
   },
   handlers: {
@@ -204,7 +206,8 @@ export default buildConfig({
 In your frontend application or Next.js App Router:
 
 ```ts
-import { createCMSClient, safe, isDefinedError } from "@nexload-sdk/payload-operations";
+import { isDefinedError, safe } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
 import { cmsOperations } from "./operations/contract";
 
 const cms = createCMSClient({

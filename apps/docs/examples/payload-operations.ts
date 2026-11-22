@@ -1,21 +1,30 @@
 import {
-  createCMSClient,
-  defineClientPlugin,
   defineCMSOperations,
   isDefinedError,
   isTimeoutError,
   operation,
   safe,
-  timeoutPlugin,
-  type InferOperationsClient,
 } from "@nexload-sdk/payload-operations";
+import {
+  defineClientPlugin,
+  type CMSClientPlugin,
+  type CMSClientTransport,
+  type CMSClientTransportRequest,
+  type InferOperationsClient,
+} from "@nexload-sdk/payload-operations/client";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
 import type {
   InferOperationInput,
   InferOperationOutput,
 } from "@nexload-sdk/payload-operations/contract";
-
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
 import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
 import { z } from "zod";
+
+const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (val) => new Date(val),
+  encode: (val) => val.toISOString(),
+});
 
 // ============================================================================
 // 1. Contract Definition: Multi-Resource Operations Tree
@@ -84,7 +93,7 @@ export const appOperations = defineCMSOperations({
         sku: z.string().min(1),
       }),
       output: z.object({
-        expiresAt: z.iso.datetime().transform((val) => new Date(val)),
+        expiresAt: dateCodec,
         reservationId: z.string().uuid(),
       }),
       errors: {
@@ -116,7 +125,7 @@ export const appOperations = defineCMSOperations({
         }),
       }),
       output: z.object({
-        createdAt: z.iso.datetime().transform((val) => new Date(val)),
+        createdAt: dateCodec,
         orderId: z.string(),
         status: z.enum(["pending_payment", "confirmed"]),
         totalCents: z.int().positive(),
@@ -140,7 +149,7 @@ export const appOperations = defineCMSOperations({
         reason: z.string().min(3),
       }),
       output: z.object({
-        cancelledAt: z.iso.datetime().transform((val) => new Date(val)),
+        cancelledAt: dateCodec,
         orderId: z.string(),
       }),
       errors: {
@@ -238,7 +247,7 @@ export const appEndpoints = createPayloadEndpoints({
         }
 
         return {
-          expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
+          expiresAt: new Date(Date.now() + 15 * 60 * 1000),
           reservationId: "123e4567-e89b-12d3-a456-426614174000",
         };
       },
@@ -258,7 +267,7 @@ export const appEndpoints = createPayloadEndpoints({
         );
 
         return {
-          createdAt: new Date().toISOString(),
+          createdAt: new Date(),
           orderId: `ORD-${Date.now()}`,
           status: "pending_payment" as const,
           totalCents,
@@ -273,7 +282,7 @@ export const appEndpoints = createPayloadEndpoints({
         }
 
         return {
-          cancelledAt: new Date().toISOString(),
+          cancelledAt: new Date(),
           orderId: input.orderId,
         };
       },
@@ -287,10 +296,10 @@ export const appEndpoints = createPayloadEndpoints({
 // ============================================================================
 
 // Custom plugin to inject authorization bearer header
-export const authBearerPlugin = (getToken: () => string | null) =>
+export const authBearerPlugin = (getToken: () => string | null): CMSClientPlugin =>
   defineClientPlugin({
     name: "auth-bearer",
-    wrapTransport: (next) => (request) => {
+    wrapTransport: (next: CMSClientTransport): CMSClientTransport => (request: CMSClientTransportRequest) => {
       const token = getToken();
       if (!token) return next(request);
 
@@ -305,9 +314,9 @@ export const authBearerPlugin = (getToken: () => string | null) =>
   });
 
 // Custom plugin to record operation request latency
-export const metricsTracingPlugin = defineClientPlugin({
+export const metricsTracingPlugin: CMSClientPlugin = defineClientPlugin({
   name: "metrics-tracing",
-  wrapTransport: (next) => async (request) => {
+  wrapTransport: (next: CMSClientTransport): CMSClientTransport => async (request: CMSClientTransportRequest) => {
     const start = performance.now();
     const response = await next(request);
     const duration = performance.now() - start;

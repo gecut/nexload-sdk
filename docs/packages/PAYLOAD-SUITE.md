@@ -58,12 +58,14 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 
 ### B. `@nexload-sdk/payload-operations`
 - **Location:** `packages/payload-operations`
-- **Problem Solved:** Securely invoking custom CMS business logic from other services (such as the Bun BFF in `apps/api`) without bypassing Payload access rules or resorting to untyped REST endpoints.
+- **Problem Solved:** Exposing typed custom operation contracts and mounting them as secure Payload CMS REST endpoints, with matching RPC client methods beside or independent of the native `PayloadSDK`.
 - **Core Mechanism:**
-  - Define an operation contract with an input schema, output schema, and operation identifier.
-  - In `apps/cms`: Register the operation with an execution handler using `createPayloadOperationEndpoint()`.
-  - In `apps/api`: Invoke the operation via the generated SDK client facade `createOperationClient()` with end-to-end type safety and automatic error decoding.
-- **Error Standard:** Standardizes domain errors (`ValidationError`, `NotFoundError`, `UnauthorizedError`, `ConflictError`) into predictable HTTP status codes and JSON envelopes.
+  - Define shared operation contracts using `defineCMSOperations` and `operation` from `@nexload-sdk/payload-operations` (or `./contract`) with Zod input, output, and defined domain errors.
+  - In Payload config (server / Node): mount endpoints using `createPayloadEndpoints` from `@nexload-sdk/payload-operations/server`. Requires `access.default` (enforces explicit access control; throws `TypeError` if omitted), with optional per-operation `access.overrides` and configurable request size limit `maxBodyBytes` (default 1 MiB / `1_048_576`, returning 413 `PAYLOAD_TOO_LARGE`).
+  - Codec wire model: Handlers return `z.output<output>`. The server encodes output using `z.encodeAsync(output, result)`, dropping unknown object keys so internal or secret fields never leak (`z.looseObject` allows extras as an explicit opt-in). Clients pre-validate and send original input (`z.input`, JSON-serializable; transforms/defaults execute once on the server) and decode responses with `z.decodeAsync`. Outputs and defined error data must be codec-safe (e.g. `z.codec` for `Date` objects).
+  - In frontend / BFF clients: Invoke operations with full type safety using `createOperationsClient` from `@nexload-sdk/payload-operations/client` (pure RPC client with zero Payload SDK dependency), or `createCMSClient` from `@nexload-sdk/payload-operations/cms` (unified transport shared between Payload REST SDK and custom operations; `@payloadcms/sdk` is an optional peer dependency).
+  - Error Standard & Handling: Safe error handling via `safe()`, `isDefinedError()`, and `isTimeoutError()`. Discriminated domain errors carry typed `data` payloads, and framework errors map to deterministic HTTP status codes (400, 401, 403, 404, 413, 415, 422, 500).
+- **Known Limitations:** No automatic database transactions (handlers manage transactions explicitly if needed); Payload Local API calls in handlers (`req.payload`) default to `overrideAccess: true` unless `overrideAccess: false` is passed.
 
 ### C. `@nexload-sdk/payload-editor`
 - **Location:** `packages/payload-editor`
