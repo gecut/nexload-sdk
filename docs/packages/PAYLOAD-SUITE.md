@@ -20,28 +20,40 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 
 ### A. `@nexload-sdk/payload-schema`
 - **Location:** `packages/payload-schema`
-- **Problem Solved:** Duplicating validation logic between Payload collection fields (which run server-side in CMS) and Zod contracts (which run client-side in forms or in BFF contracts).
-- **Core Mechanism:** Provides a builder API to declare canonical entity fields. Calling `.toPayload()` emits a complete Payload field definition with localized validation hooks; calling `.toZod()` emits an equivalent strict Zod validator.
+- **Problem Solved:** Duplicating validation logic between Payload collection fields (which run server-side in CMS) and Zod contracts (which run client-side in forms, BFF contracts, or server actions).
+- **Core Mechanism:**
+  - Define intrinsic entity fields once using `defineEntity` and `field` from the browser-safe root `@nexload-sdk/payload-schema`.
+  - Derive pure Zod schemas for forms, RPC, and server actions using `entity.schema(({ pick, fields, z }) => ...)`.
+  - In Node/Payload configuration, compile fields using `payloadFields(entity).all()` (or `.field(key)`, `.pick(keys)`) from `@nexload-sdk/payload-schema/payload` (Node-only), which appends canonical normalization and validation hooks to `beforeValidate`.
 - **Example:**
   ```typescript
-  import { defineStringField } from '@nexload-sdk/payload-schema';
+  import { defineEntity, field } from '@nexload-sdk/payload-schema';
+  import { payloadFields } from '@nexload-sdk/payload-schema/payload';
 
-  export const usernameField = defineStringField({
-    name: 'username',
-    label: 'Username',
-    required: true,
-    minLength: 3,
-    maxLength: 32,
-    pattern: /^[a-z0-9_-]+$/i,
+  export const userEntity = defineEntity({
+    name: 'User',
+    fields: {
+      username: field.text({
+        required: true,
+        trim: true,
+        minLength: 3,
+        maxLength: 32,
+        pattern: /^[a-z0-9_-]+$/i,
+      }),
+      email: field.text({ required: true, lowercase: true, trim: true }),
+    },
   });
 
-  // In Payload collection:
-  const fields = [usernameField.toPayload()];
+  // In Payload collection (Node / Payload config only):
+  export const UsersCollection = {
+    slug: 'users',
+    fields: payloadFields(userEntity).all(),
+  };
 
-  // In Zod contract:
-  const schema = z.object({
-    username: usernameField.toZod(),
-  });
+  // In Zod contract / API schema (browser or server):
+  export const createUserSchema = userEntity.schema(({ pick }) =>
+    pick(['username', 'email'], { optional: 'auto' })
+  );
   ```
 
 ### B. `@nexload-sdk/payload-operations`

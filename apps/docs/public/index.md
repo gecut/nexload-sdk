@@ -22,6 +22,7 @@ AI Coding Agent Skills
 
 ```ts
 import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
 import { z } from "zod";
 
 // Define intrinsic fields once: Payload collection fields + reusable Zod schemas
@@ -35,12 +36,12 @@ export const product = defineEntity({
   },
 });
 
-// Export to Payload Collection
-export const Products = { slug: "products", fields: product.payload.all() };
+// Export to Payload Collection (Node / Payload config only)
+export const Products = { slug: "products", fields: payloadFields(product).all() };
 
 // Derive Next.js / API form schema
 export const createProductDTO = product.schema(({ pick }) =>
-  pick(["title", "slug", "price", "stock"], { optional: ["stock"] })
+  pick(["title", "slug", "price", "stock"], { optional: "auto" })
 );
 ```
 

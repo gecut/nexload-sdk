@@ -1,6 +1,6 @@
 ---
 title: "API Reference & Compatibility"
-description: "Complete public API symbol reference, field factory signatures, and runtime compatibility matrix for Payload Schema."
+description: "Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema."
 sidebar:
   label: "API Reference & Compatibility"
   order: 3
@@ -16,6 +16,52 @@ The complete public API symbol inventory is generated automatically from package
 
 ---
 
+## Entry Points & Signatures
+
+### Root Entry: `@nexload-sdk/payload-schema`
+
+The root entry is pure and browser-safe. It does not import `payload` at runtime and can be used in client bundles, edge runtimes, or Node.
+
+```ts
+import {
+  defineEntity,
+  field,
+  defaultIdSchema,
+  PayloadSchemaError,
+  isPayloadSchemaError,
+} from "@nexload-sdk/payload-schema";
+import type {
+  BlockDefinitionOptions,
+  BlocksFieldOptions,
+  EntityDefinition,
+} from "@nexload-sdk/payload-schema";
+```
+
+An entity created by `defineEntity()` has:
+- `name: string`: The entity name.
+- `idSchema: AnyCanonicalSchema`: Canonical ID schema (defaults to `defaultIdSchema`).
+- `fields: BoundFields`: Frozen map of defined field definitions.
+- `schema(factory)`: Derives custom Zod schemas with access to `{ fields, pick, z }`.
+- `inspect()`: Returns structured entity and field inspection metadata.
+
+### Payload Compilation Entry: `@nexload-sdk/payload-schema/payload`
+
+This entry is Node/Payload configuration only. It imports Payload's `ValidationError` to construct canonical validation hooks.
+
+```ts
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+const facade = payloadFields(entity);
+facade.all();          // Returns all compiled Payload Field[] configs
+facade.field("title"); // Returns a single compiled Payload Field config
+facade.pick(["title"]); // Returns picked Payload Field[] configs
+```
+
+- **Safety Check:** Calling `payloadFields()` with anything other than an entity instance produced by `defineEntity()` throws a `PayloadSchemaError` with code `INVALID_ENTITY` (phase: `"payload-compilation"`).
+- **Fresh Containers:** Each compilation call produces fresh field configuration objects so mutations in Payload config do not pollute entity seeds.
+
+---
+
 ## Field Factory Reference
 
 | Factory | Core Options | Default Value Support | Output Payload Type |
@@ -26,12 +72,13 @@ The complete public API symbol inventory is generated automatically from package
 | `field.number()` | `required`, `integer`, `safe`, `minimum`, `maximum`, `multipleOf` | Static & Dynamic | `NumberField` |
 | `field.money()` | `currency`, `minimum`, `maximum` (Always safe integer minor units) | Static & Dynamic | `NumberField` |
 | `field.boolean()` | `required` (Payload checkbox) | Static & Dynamic | `CheckboxField` |
-| `field.date()` | `required`, `minimum`, `maximum` (ISO string with timezone offset) | Static & Dynamic | `DateField` |
+| `field.date()` | `required`, `minimum`, `maximum` (ISO string with timezone offset; hook accepts JS `Date`) | Static & Dynamic | `DateField` |
 | `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
 | `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
 | `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
 | `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` | Static & Dynamic | `NamedGroupField` |
 | `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `ArrayField` |
+| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `BlocksField` |
 | `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
 | `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
 
@@ -42,7 +89,7 @@ The complete public API symbol inventory is generated automatically from package
 | Runtime / Engine | Version Requirement | Verification Status |
 |---|---|---|
 | **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
-| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
-| **Zod** | `>=4.0.0 <5.0.0` | Verified on Zod 4.4.3 |
-| **Module Format** | ESM only | Server and configuration safe |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload >=3.85 |
+| **Zod** | `>=4.1.0 <5.0.0` | Verified on Zod 4.4.3 (requires codecs support) |
+| **Module Format** | ESM only | Root entry is browser-safe; `/payload` is Node/Payload-config only |
 | **Side Effects** | `false` | Fully tree-shakeable |

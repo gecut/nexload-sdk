@@ -4,6 +4,8 @@ import {
   isPayloadSchemaError,
   PayloadSchemaError,
 } from "@nexload-sdk/payload-schema";
+// @ts-ignore -- resolved via package exports at runtime in Node/Payload config
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
 import { z } from "zod";
 
 export interface CollectionConfig {
@@ -17,7 +19,7 @@ export interface CollectionConfig {
 
 
 // ============================================================================
-// 1. Full Entity Definition Covering All 14 Field Types
+// 1. Full Entity Definition Covering All 15 Field Types
 // ============================================================================
 
 export const productEntity = defineEntity({
@@ -87,26 +89,25 @@ export const productEntity = defineEntity({
       values: ["sale", "new", "eco", "limited"] as const,
     }),
 
-    // 9. Single relationship field
+    // 9. Relationship fields (single and polymorphic)
     category: field.relationship({
       relationTo: "categories",
       required: true,
     }),
 
-    // 10. Polymorphic relationship field with custom id schema
     authorOrBrand: field.relationship({
       hasMany: false,
       idSchema: z.string().uuid(),
       relationTo: ["authors", "brands"] as const,
     }),
 
-    // 11. Upload asset relationship field
+    // 10. Upload asset relationship field
     thumbnail: field.upload({
       relationTo: "media",
       required: true,
     }),
 
-    // 12. Nested group field container
+    // 11. Nested group field container
     seo: field.group({
       fields: {
         metaTitle: field.text({ maxLength: 70, trim: true }),
@@ -115,7 +116,7 @@ export const productEntity = defineEntity({
       },
     }),
 
-    // 13. Repeatable array field container with row constraints
+    // 12. Repeatable array field container with row constraints
     variants: field.array({
       maxRows: 20,
       minRows: 1,
@@ -125,6 +126,26 @@ export const productEntity = defineEntity({
         variantPrice: field.money({ currency: "USD", required: true }),
         barcode: field.text({ nullable: true }),
       },
+    }),
+
+    // 13. Blocks field container with discriminated block types
+    layout: field.blocks({
+      blocks: {
+        hero: {
+          fields: {
+            headline: field.text({ required: true }),
+            subheading: field.text({ nullable: true }),
+          },
+        },
+        banner: {
+          fields: {
+            message: field.textarea({ required: true }),
+            callToAction: field.text({ nullable: true }),
+          },
+        },
+      },
+      minRows: 1,
+      maxRows: 10,
     }),
 
     // 14. Rich text field with AST schema validation
@@ -148,12 +169,12 @@ export const productEntity = defineEntity({
 // 2. Schema Derivation Patterns (DTOs, Forms, Projections)
 // ============================================================================
 
-// Derive a strict creation DTO with optional fields
+// Derive a strict creation DTO with optional: "auto" (keys not required: true become optional)
 export const createProductSchema = productEntity.schema(({ pick }) =>
   pick(
     ["title", "slug", "description", "price", "stock", "category", "thumbnail"],
     {
-      optional: ["stock"],
+      optional: "auto",
       strict: true,
     },
   ),
@@ -189,7 +210,7 @@ export type ProductCardDTO = z.infer<typeof productCardSchema>;
 export type UpdateInventoryInput = z.infer<typeof updateInventorySchema>;
 
 // ============================================================================
-// 3. Payload CMS Collection Integration
+// 3. Payload CMS Collection Integration (Node / Payload config only)
 // ============================================================================
 
 export const ProductsCollection: CollectionConfig = {
@@ -199,24 +220,27 @@ export const ProductsCollection: CollectionConfig = {
     defaultColumns: ["title", "status", "price", "stock"],
   },
   // Export all compiled Payload fields directly
-  fields: productEntity.payload.all(),
+  fields: payloadFields(productEntity).all(),
 };
+
+// Export individual compiled fields
+export const titleField = payloadFields(productEntity).field("title");
 
 // Example of mixing selected entity fields with custom layout tabs
 export const CustomLayoutProducts: CollectionConfig = {
   slug: "custom-products",
   fields: [
-    ...productEntity.payload.pick(["title", "slug", "price", "category"]),
+    ...payloadFields(productEntity).pick(["title", "slug", "price", "category"]),
     {
       type: "tabs",
       tabs: [
         {
           label: "Inventory & Variants",
-          fields: productEntity.payload.pick(["stock", "variants"]),
+          fields: payloadFields(productEntity).pick(["stock", "variants"]),
         },
         {
           label: "SEO & Content",
-          fields: productEntity.payload.pick(["seo", "richContent"]),
+          fields: payloadFields(productEntity).pick(["seo", "richContent"]),
         },
       ],
     },

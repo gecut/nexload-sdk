@@ -1644,9 +1644,9 @@
         "category": "classes",
         "signature": "class PayloadSchemaError",
         "description": "Public classe exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/errors.ts",
-        "line": 75,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L75",
+        "source": "packages/payload-schema/src/core/errors.ts",
+        "line": 76,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L76",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1656,9 +1656,9 @@
         "category": "constants",
         "signature": "defaultIdSchema: z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>",
         "description": "Public constant exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/default-id.ts",
+        "source": "packages/payload-schema/src/core/default-id.ts",
         "line": 3,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/default-id.ts#L3",
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/default-id.ts#L3",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1666,11 +1666,11 @@
       {
         "name": "field",
         "category": "constants",
-        "signature": "field: Readonly<{ text: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<\"text\", NullableSchema<string, TNullable>, TextField>; textarea: <TNullable extends boolean = false>(options?: TextareaFieldOptions<TNullable>) => FieldDefinition<\"textarea\", NullableSchema<string, TNullable>, TextareaField>; slug: <TNullable extends boolean = false>(options?: TextFieldOptions<TNullable>) => FieldDefinition<\"slug\", NullableSchema<string, TNullable>, TextField>; number: <TNullable extends boolean = false>(options?: NumberFieldOptions<TNullable>) => FieldDefinition<\"number\", NullableSchema<number, TNullable>, NumberField>; money: <TNullable extends boolean = false>(options: MoneyFieldOptions<TNullable>) => FieldDefinition<\"money\", NullableSchema<number, TNullable>, NumberField>; boolean: <TNullable extends boolean = false>(options?: BooleanFieldOptions<TNullable>) => FieldDefinition<\"boolean\", NullableSchema<boolean, TNullable>, CheckboxField>; date: <TNullable extends boolean = false>(options?: DateFieldOptions<TNullable>) => FieldDefinition<\"date\", NullableSchema<string, TNullable>, DateField>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable>) => FieldDefinition<\"select\", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<\"relationship\", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>) => RelationshipFieldDefinition<\"upload\", TRelationTo, THasMany, TNullable, TIdSchema, UploadField>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: GroupFieldOptions<TFields, TNullable>) => FieldDefinition<\"group\", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable>) => FieldDefinition<\"array\", ArrayCanonicalSchema<TFields, TNullable>, ArrayField>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable>) => FieldDefinition<\"richText\", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField>; native: <TPayloadField extends PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<\"native\", TSchema, TPayloadField>; }>",
+        "signature": "field: Readonly<{ text: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<\"text\", NullableSchema<string, TNullable>, TextField, TRequired>; textarea: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextareaFieldOptions<TNullable, TRequired>) => FieldDefinition<\"textarea\", NullableSchema<string, TNullable>, TextareaField, TRequired>; slug: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<\"slug\", NullableSchema<string, TNullable>, TextField, TRequired>; number: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: NumberFieldOptions<TNullable, TRequired>) => FieldDefinition<\"number\", NullableSchema<number, TNullable>, NumberField, TRequired>; money: <TNullable extends boolean = false, const TRequired extends boolean = false>(options: MoneyFieldOptions<TNullable, TRequired>) => FieldDefinition<\"money\", NullableSchema<number, TNullable>, NumberField, TRequired>; boolean: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: BooleanFieldOptions<TNullable, TRequired>) => FieldDefinition<\"boolean\", NullableSchema<boolean, TNullable>, CheckboxField, TRequired>; date: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: DateFieldOptions<TNullable, TRequired>) => FieldDefinition<\"date\", NullableSchema<string, TNullable>, DateField, TRequired>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, const TRequired extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable, TRequired>) => FieldDefinition<\"select\", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField, TRequired>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<\"relationship\", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField, TRequired>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<\"upload\", TRelationTo, THasMany, TNullable, TIdSchema, UploadField, TRequired>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: GroupFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<\"group\", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField, TRequired>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<\"array\", ArrayCanonicalSchema<TFields, TNullable>, ArrayField, TRequired>; blocks: <const TBlocks extends Record<string, BlockDefinitionOptions>, TNullable extends boolean = false, const TRequired extends boolean = false>(options: BlocksFieldOptions<TBlocks, TNullable, TRequired>) => FieldDefinition<\"blocks\", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField, TRequired>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false, const TRequired extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable, TRequired>) => FieldDefinition<\"richText\", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField, TRequired>; native: <const TPayloadField extends NativePayloadInput | PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<\"native\", TSchema, TPayloadField extends PayloadDataField ? TPayloadField : Extract<PayloadDataField, { type: TPayloadField[\"type\"]; }>, TPayloadField extends { required: true; } ? true : false>; }>",
         "description": "Public constant exported by @nexload-sdk/payload-schema.",
         "source": "packages/payload-schema/src/fields/index.ts",
-        "line": 716,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L716",
+        "line": 963,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L963",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1681,8 +1681,8 @@
         "signature": "defineEntity<const TName extends string, const TFields extends EntityFieldMap, TIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>, TRelationshipIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>>(options: DefineEntityOptions<TName, TFields, TIdSchema, TRelationshipIdSchema>) => EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>, TIdSchema>",
         "description": "Public function exported by @nexload-sdk/payload-schema.",
         "source": "packages/payload-schema/src/entity/define-entity.ts",
-        "line": 529,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L529",
+        "line": 352,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L352",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1692,9 +1692,9 @@
         "category": "functions",
         "signature": "isPayloadSchemaError(error: unknown) => error is PayloadSchemaError<PayloadSchemaErrorCode>\nisPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code: TCode) => error is PayloadSchemaError<TCode>",
         "description": "Public function exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/errors.ts",
-        "line": 113,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L113",
+        "source": "packages/payload-schema/src/core/errors.ts",
+        "line": 114,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L114",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1702,11 +1702,35 @@
       {
         "name": "ArrayFieldOptions",
         "category": "interfaces",
-        "signature": "interface ArrayFieldOptions<TFields extends EntityFieldMap, TNullable extends boolean = false> {\n  fields: TFields\n  required?: boolean\n  nullable?: TNullable\n  minRows?: number\n  maxRows?: number\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<ArrayField, \"fields\" | \"maxRows\" | \"minRows\">\n}",
+        "signature": "interface ArrayFieldOptions<\n  TFields extends EntityFieldMap,\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> {\n  fields: TFields\n  required?: TRequired\n  nullable?: TNullable\n  minRows?: number\n  maxRows?: number\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<ArrayField, \"fields\" | \"maxRows\" | \"minRows\">\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 219,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L219",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 262,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L262",
+        "exportPaths": [
+          "@nexload-sdk/payload-schema"
+        ]
+      },
+      {
+        "name": "BlockDefinitionOptions",
+        "category": "interfaces",
+        "signature": "interface BlockDefinitionOptions<TFields extends EntityFieldMap = EntityFieldMap> {\n  fields: TFields\n  payload?: NativePayloadExtras<Block, \"fields\" | \"slug\">\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 277,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L277",
+        "exportPaths": [
+          "@nexload-sdk/payload-schema"
+        ]
+      },
+      {
+        "name": "BlocksFieldOptions",
+        "category": "interfaces",
+        "signature": "interface BlocksFieldOptions<\n  TBlocks extends Record<string, BlockDefinitionOptions> = Record<string, BlockDefinitionOptions>,\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> {\n  blocks: TBlocks\n  required?: TRequired\n  nullable?: TNullable\n  minRows?: number\n  maxRows?: number\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<BlocksField, \"blocks\" | \"maxRows\" | \"minRows\">\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-schema.",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 282,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L282",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1716,9 +1740,9 @@
         "category": "interfaces",
         "signature": "interface DefineEntityOptions<\n  TName extends string,\n  TFields extends EntityFieldMap,\n  TIdSchema extends AnyCanonicalSchema,\n  TRelationshipIdSchema extends AnyCanonicalSchema\n> {\n  name: TName\n  fields: TFields\n  idSchema?: TIdSchema\n  relationshipIdSchema?: TRelationshipIdSchema\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 362,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L362",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 458,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L458",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1726,11 +1750,11 @@
       {
         "name": "EntityDefinition",
         "category": "interfaces",
-        "signature": "interface EntityDefinition<\n  TName extends string,\n  TFields extends EntityFieldMap,\n  TIdSchema extends AnyCanonicalSchema\n> {\n  readonly name: TName\n  readonly idSchema: TIdSchema\n  readonly fields: TFields\n  readonly payload: EntityPayloadFacade<TFields>\n  schema<TSchema extends AnyCanonicalSchema>(factory: (context: EntitySchemaContext<TFields>) => TSchema): TSchema\n  inspect(): EntityInspection\n}",
+        "signature": "interface EntityDefinition<\n  TName extends string,\n  TFields extends EntityFieldMap,\n  TIdSchema extends AnyCanonicalSchema\n> {\n  readonly name: TName\n  readonly idSchema: TIdSchema\n  readonly fields: TFields\n  schema<TSchema extends AnyCanonicalSchema>(factory: (context: EntitySchemaContext<TFields>) => TSchema): TSchema\n  inspect(): EntityInspection\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 349,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L349",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 446,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L446",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1740,9 +1764,9 @@
         "category": "interfaces",
         "signature": "interface EntityInspection { name: string, fields: EntityInspectionFieldMap }",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 284,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L284",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 358,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L358",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1752,9 +1776,9 @@
         "category": "interfaces",
         "signature": "interface EntitySchemaContext<TFields extends EntityFieldMap> {\n  readonly fields: CanonicalSchemaMap<TFields>\n  readonly pick: EntitySchemaPicker<TFields>\n  readonly z: typeof import(\"zod\").z\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 337,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L337",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 434,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L434",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1762,11 +1786,11 @@
       {
         "name": "EntitySchemaPicker",
         "category": "interfaces",
-        "signature": "interface EntitySchemaPicker<TFields extends EntityFieldMap> {\n  <\n    const TKeys extends readonly (keyof CanonicalSchemaMap<TFields>)[],\n    const TOptional extends readonly SelectedKey<TKeys>[] | \"all\" | undefined = undefined,\n    const TRequired extends readonly SelectedKey<TKeys>[] | undefined = undefined\n  >(\n    keys: TKeys,\n    options?: SchemaPickOptions<SelectedKey<TKeys>, TOptional, TRequired>,\n  ): ZodObjectForPickedFields<TFields, TKeys, TOptional, TRequired>\n}",
+        "signature": "interface EntitySchemaPicker<TFields extends EntityFieldMap> {\n  <\n    const TKeys extends readonly (keyof CanonicalSchemaMap<TFields>)[],\n    const TOptional extends readonly SelectedKey<TKeys>[] | \"all\" | \"auto\" | undefined = undefined,\n    const TRequired extends readonly SelectedKey<TKeys>[] | undefined = undefined\n  >(\n    keys: TKeys,\n    options?: SchemaPickOptions<SelectedKey<TKeys>, TOptional, TRequired>,\n  ): ZodObjectForPickedFields<TFields, TKeys, TOptional, TRequired>\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 326,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L326",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 423,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L423",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1774,11 +1798,11 @@
       {
         "name": "FieldDefinition",
         "category": "interfaces",
-        "signature": "interface FieldDefinition<\n  TKind extends string,\n  TSchema extends AnyCanonicalSchema | undefined,\n  TPayloadField extends PayloadDataField\n> {\n  readonly kind: TKind\n  readonly schema: TSchema\n  readonly __payloadFieldType?: TPayloadField\n}",
+        "signature": "interface FieldDefinition<\n  TKind extends string,\n  TSchema extends AnyCanonicalSchema | undefined,\n  TPayloadField extends PayloadDataField,\n  TRequired extends boolean = boolean\n> {\n  readonly kind: TKind\n  readonly schema: TSchema\n  readonly __required?: TRequired\n  readonly __payloadFieldType?: TPayloadField\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 24,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L24",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 26,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L26",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1786,11 +1810,11 @@
       {
         "name": "GroupFieldOptions",
         "category": "interfaces",
-        "signature": "interface GroupFieldOptions<TFields extends EntityFieldMap, TNullable extends boolean = false> {\n  fields: TFields\n  required?: boolean\n  nullable?: TNullable\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<NamedGroupField, \"fields\">\n}",
+        "signature": "interface GroupFieldOptions<\n  TFields extends EntityFieldMap,\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> {\n  fields: TFields\n  required?: TRequired\n  nullable?: TNullable\n  defaultValue?: unknown\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<NamedGroupField, \"fields\">\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 210,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L210",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 249,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L249",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1798,11 +1822,11 @@
       {
         "name": "NativeFieldOptions",
         "category": "interfaces",
-        "signature": "interface NativeFieldOptions<\n  TPayloadField extends PayloadDataField,\n  TSchema extends AnyCanonicalSchema | undefined = undefined\n> {\n  payload: Omit<TPayloadField, \"defaultValue\" | \"name\">\n  schema?: TSchema\n  defaultValue?: TSchema extends AnyCanonicalSchema ? z.input<TSchema> : never\n  dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>\n}",
+        "signature": "interface NativeFieldOptions<\n  TPayloadField extends NativePayloadInput | PayloadDataField = PayloadDataField,\n  TSchema extends AnyCanonicalSchema | undefined = undefined\n> {\n  payload: (TPayloadField extends PayloadDataField\n    ? Omit<TPayloadField, \"defaultValue\" | \"name\">\n    : TPayloadField) & { name?: never; defaultValue?: never }\n  schema?: TSchema\n  defaultValue?: TSchema extends AnyCanonicalSchema ? z.input<TSchema> : never\n  dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 260,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L260",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 332,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L332",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1810,11 +1834,11 @@
       {
         "name": "PayloadSchemaErrorDataMap",
         "category": "interfaces",
-        "signature": "interface PayloadSchemaErrorDataMap {\n  INVALID_ENTITY_NAME: { received: string }\n  INVALID_FIELD_NAME: { entity?: string, field: string }\n  RESERVED_FIELD_NAME: { entity?: string, field: string, reservedName: string }\n  INVALID_FIELD_CONFIGURATION: { entity?: string, fieldPath: string, fieldKind: string, reason: string }\n  INVALID_CONSTRAINT_RANGE: {\n    entity?: string\n    fieldPath: string\n    constraint: string\n    minimum?: number | string\n    maximum?: number | string\n  }\n  INVALID_DEFAULT_VALUE: { entity?: string, fieldPath: string, fieldKind: string, issues: SafeIssueSummary[] }\n  CONFLICTING_DEFAULT_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    fieldType: string\n    configuredDefaults: readonly [\"defaultValue\", \"dynamicDefaultValue\"]\n  }\n  EMPTY_SELECT_VALUES: { entity?: string, fieldPath: string }\n  INVALID_RELATIONSHIP_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    reason: string\n    relationTo?: string[]\n  }\n  INVALID_NESTED_FIELD_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    reason: string\n    blockingFieldPath?: string\n  }\n  ASYNC_CANONICAL_SCHEMA_UNSUPPORTED: { entity?: string, fieldPath: string, fieldKind: string }\n  RESERVED_PAYLOAD_OPTION: { entity?: string, fieldPath: string, fieldKind: string, option: string }\n  DUPLICATE_PAYLOAD_FIELD_NAME: { entity: string, payloadName: string, fieldPaths: string[] }\n  INVALID_PAYLOAD_FIELD: { entity: string, fieldPath: string, fieldKind: string, reason: string }\n  PAYLOAD_COMPILATION_FAILED: {\n    entity: string\n    fieldPath?: string\n    fieldKind?: string\n    operation: \"all\" | \"field\" | \"pick\"\n    causeName?: string\n  }\n  UNKNOWN_FIELD: { entity: string, field: string, availableFields: string[] }\n  SCHEMA_UNAVAILABLE: {\n    entity: string\n    fieldPath: string\n    fieldKind: string\n    reason: \"native-without-schema\" | \"schema-less-descendant\"\n    blockingFieldPath?: string\n  }\n  INVALID_SCHEMA_FACTORY_RESULT: { entity: string, receivedType: string }\n  SCHEMA_DERIVATION_FAILED: { entity: string, causeName?: string }\n  INTERNAL_INVARIANT_VIOLATION: { invariant: string, entity?: string, fieldPath?: string }\n}",
+        "signature": "interface PayloadSchemaErrorDataMap {\n  INVALID_ENTITY_NAME: { received: string }\n  INVALID_ENTITY: { receivedType: string }\n  INVALID_FIELD_NAME: { entity?: string, field: string }\n  RESERVED_FIELD_NAME: { entity?: string, field: string, reservedName: string }\n  INVALID_FIELD_CONFIGURATION: { entity?: string, fieldPath: string, fieldKind: string, reason: string }\n  INVALID_CONSTRAINT_RANGE: {\n    entity?: string\n    fieldPath: string\n    constraint: string\n    minimum?: number | string\n    maximum?: number | string\n  }\n  INVALID_DEFAULT_VALUE: { entity?: string, fieldPath: string, fieldKind: string, issues: SafeIssueSummary[] }\n  CONFLICTING_DEFAULT_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    fieldType: string\n    configuredDefaults: readonly [\"defaultValue\", \"dynamicDefaultValue\"]\n  }\n  EMPTY_SELECT_VALUES: { entity?: string, fieldPath: string }\n  INVALID_RELATIONSHIP_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    reason: string\n    relationTo?: string[]\n  }\n  INVALID_NESTED_FIELD_CONFIGURATION: {\n    entity?: string\n    fieldPath: string\n    reason: string\n    blockingFieldPath?: string\n  }\n  ASYNC_CANONICAL_SCHEMA_UNSUPPORTED: { entity?: string, fieldPath: string, fieldKind: string }\n  RESERVED_PAYLOAD_OPTION: { entity?: string, fieldPath: string, fieldKind: string, option: string }\n  DUPLICATE_PAYLOAD_FIELD_NAME: { entity: string, payloadName: string, fieldPaths: string[] }\n  INVALID_PAYLOAD_FIELD: { entity: string, fieldPath: string, fieldKind: string, reason: string }\n  PAYLOAD_COMPILATION_FAILED: {\n    entity: string\n    fieldPath?: string\n    fieldKind?: string\n    operation: \"all\" | \"field\" | \"pick\"\n    causeName?: string\n  }\n  UNKNOWN_FIELD: { entity: string, field: string, availableFields: string[] }\n  SCHEMA_UNAVAILABLE: {\n    entity: string\n    fieldPath: string\n    fieldKind: string\n    reason: \"native-without-schema\" | \"schema-less-descendant\"\n    blockingFieldPath?: string\n  }\n  INVALID_SCHEMA_FACTORY_RESULT: { entity: string, receivedType: string }\n  SCHEMA_DERIVATION_FAILED: { entity: string, causeName?: string }\n  INTERNAL_INVARIANT_VIOLATION: { invariant: string, entity?: string, fieldPath?: string }\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/errors.ts",
+        "source": "packages/payload-schema/src/core/errors.ts",
         "line": 7,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L7",
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L7",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1822,11 +1846,11 @@
       {
         "name": "RelationshipFieldOptions",
         "category": "interfaces",
-        "signature": "interface RelationshipFieldOptions<\n  TRelationTo extends string | readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TIdSchema extends AnyCanonicalSchema | undefined = undefined\n> {\n  relationTo: TRelationTo\n  hasMany?: THasMany\n  required?: boolean\n  nullable?: TNullable\n  idSchema?: TIdSchema\n  defaultValue?: MaybeNullable<\n    RelationshipValueForOptions<TRelationTo, THasMany, TIdSchema>,\n    TNullable\n  >\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<RelationshipField, \"hasMany\" | \"relationTo\">\n}",
+        "signature": "interface RelationshipFieldOptions<\n  TRelationTo extends string | readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TIdSchema extends AnyCanonicalSchema | undefined = undefined,\n  TRequired extends boolean = false\n> {\n  relationTo: TRelationTo\n  hasMany?: THasMany\n  required?: TRequired\n  nullable?: TNullable\n  idSchema?: TIdSchema\n  defaultValue?: MaybeNullable<\n    RelationshipValueForOptions<TRelationTo, THasMany, TIdSchema>,\n    TNullable\n  >\n  dynamicDefaultValue?: DynamicDefaultValue<unknown>\n  payload?: NativePayloadExtras<RelationshipField, \"hasMany\" | \"relationTo\">\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 123,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L123",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 156,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L156",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1834,11 +1858,11 @@
       {
         "name": "RichTextFieldOptions",
         "category": "interfaces",
-        "signature": "interface RichTextFieldOptions<\n  TSchema extends AnyCanonicalSchema,\n  TNullable extends boolean = false\n> {\n  schema: TSchema\n  required?: boolean\n  nullable?: TNullable\n  defaultValue?: MaybeNullable<z.input<TSchema>, TNullable>\n  dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<z.input<TSchema>, TNullable>>\n  payload?: NativePayloadExtras<RichTextField>\n}",
+        "signature": "interface RichTextFieldOptions<\n  TSchema extends AnyCanonicalSchema,\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> {\n  schema: TSchema\n  required?: TRequired\n  nullable?: TNullable\n  defaultValue?: MaybeNullable<z.input<TSchema>, TNullable>\n  dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<z.input<TSchema>, TNullable>>\n  payload?: NativePayloadExtras<RichTextField>\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 230,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L230",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 297,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L297",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1846,11 +1870,11 @@
       {
         "name": "SelectFieldOptions",
         "category": "interfaces",
-        "signature": "interface SelectFieldOptions<\n  TValues extends readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false\n> {\n  values: TValues\n  labels?: Partial<Record<TValues[number], string>>\n  hasMany?: THasMany\n  required?: boolean\n  nullable?: TNullable\n  defaultValue?: MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>\n  dynamicDefaultValue?: DynamicDefaultValue<\n    MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>\n  >\n  payload?: NativePayloadExtras<SelectField, \"hasMany\" | \"options\">\n}",
+        "signature": "interface SelectFieldOptions<\n  TValues extends readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> {\n  values: TValues\n  labels?: Partial<Record<TValues[number], string>>\n  hasMany?: THasMany\n  required?: TRequired\n  nullable?: TNullable\n  defaultValue?: MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>\n  dynamicDefaultValue?: DynamicDefaultValue<\n    MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>\n  >\n  payload?: NativePayloadExtras<SelectField, \"hasMany\" | \"options\">\n}",
         "description": "Public interface exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 106,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L106",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 138,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L138",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1858,11 +1882,11 @@
       {
         "name": "BooleanFieldOptions",
         "category": "types",
-        "signature": "type BooleanFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  boolean,\n  TNullable,\n  NativePayloadExtras<CheckboxField>\n>;",
+        "signature": "type BooleanFieldOptions<\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> = CommonFieldOptions<\n  boolean,\n  TNullable,\n  NativePayloadExtras<CheckboxField>,\n  TRequired\n>;",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 94,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L94",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 118,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L118",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1870,11 +1894,11 @@
       {
         "name": "DateFieldOptions",
         "category": "types",
-        "signature": "type DateFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<DateField>\n> & { minimum?: string, maximum?: string };",
+        "signature": "type DateFieldOptions<\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<DateField>,\n  TRequired\n> & { minimum?: string, maximum?: string };",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 100,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L100",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 128,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L128",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1884,9 +1908,9 @@
         "category": "types",
         "signature": "type DefaultIdSchema = typeof defaultIdSchema;",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/default-id.ts",
+        "source": "packages/payload-schema/src/core/default-id.ts",
         "line": 8,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/default-id.ts#L8",
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/default-id.ts#L8",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1896,9 +1920,9 @@
         "category": "types",
         "signature": "type EntityFieldMap = Readonly<Record<string, AnyFieldDefinition>>;",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 35,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L35",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 39,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L39",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1908,9 +1932,9 @@
         "category": "types",
         "signature": "type InferEntityField<TField extends FieldDefinition<string, AnyCanonicalSchema, PayloadDataField>>\n  = z.infer<TField[\"schema\"]>;",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 374,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L374",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 470,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L470",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1920,9 +1944,9 @@
         "category": "types",
         "signature": "type InferEntityFields<TEntity extends EntityDefinition<string, EntityFieldMap, AnyCanonicalSchema>> = {\n  [TKey in keyof TEntity[\"fields\"]]: TEntity[\"fields\"][TKey][\"schema\"] extends AnyCanonicalSchema\n    ? z.infer<TEntity[\"fields\"][TKey][\"schema\"]>\n    : never\n};",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 377,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L377",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 473,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L473",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1930,11 +1954,11 @@
       {
         "name": "MoneyFieldOptions",
         "category": "types",
-        "signature": "type MoneyFieldOptions<TNullable extends boolean = false> = Omit<\n  NumberFieldOptions<TNullable>,\n  \"integer\" | \"safe\"\n> & { currency: string };",
+        "signature": "type MoneyFieldOptions<\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> = Omit<\n  NumberFieldOptions<TNullable, TRequired>,\n  \"integer\" | \"safe\"\n> & { currency: string };",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 89,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L89",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 110,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L110",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1942,11 +1966,11 @@
       {
         "name": "NumberFieldOptions",
         "category": "types",
-        "signature": "type NumberFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  number,\n  TNullable,\n  NativePayloadExtras<NumberField, \"max\" | \"min\">\n> & {\n  integer?: boolean\n  safe?: boolean\n  minimum?: number\n  maximum?: number\n  multipleOf?: number\n};",
+        "signature": "type NumberFieldOptions<\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> = CommonFieldOptions<\n  number,\n  TNullable,\n  NativePayloadExtras<NumberField, \"max\" | \"min\">,\n  TRequired\n> & {\n  integer?: boolean\n  safe?: boolean\n  minimum?: number\n  maximum?: number\n  multipleOf?: number\n};",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 77,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L77",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 94,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L94",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1956,9 +1980,9 @@
         "category": "types",
         "signature": "type PayloadSchemaErrorCode = keyof PayloadSchemaErrorDataMap;",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/errors.ts",
-        "line": 63,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L63",
+        "source": "packages/payload-schema/src/core/errors.ts",
+        "line": 64,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L64",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1968,9 +1992,9 @@
         "category": "types",
         "signature": "type PayloadSchemaErrorPhase = \"definition\" | \"internal\" | \"payload-compilation\" | \"schema-derivation\";",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/errors.ts",
-        "line": 65,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L65",
+        "source": "packages/payload-schema/src/core/errors.ts",
+        "line": 66,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L66",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1980,9 +2004,9 @@
         "category": "types",
         "signature": "type SerializedPayloadSchemaError<TCode extends PayloadSchemaErrorCode = PayloadSchemaErrorCode> = {\n  name: \"PayloadSchemaError\"\n  code: TCode\n  phase: PayloadSchemaErrorPhase\n  message: string\n  data: PayloadSchemaErrorDataMap[TCode]\n};",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/errors.ts",
-        "line": 67,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/errors.ts#L67",
+        "source": "packages/payload-schema/src/core/errors.ts",
+        "line": 68,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L68",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -1990,11 +2014,11 @@
       {
         "name": "TextFieldOptions",
         "category": "types",
-        "signature": "type TextFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<TextField, \"maxLength\" | \"minLength\">\n> & {\n  trim?: boolean\n  lowercase?: boolean\n  uppercase?: boolean\n  minLength?: number\n  maxLength?: number\n  pattern?: RegExp\n};",
+        "signature": "type TextFieldOptions<\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<TextField, \"maxLength\" | \"minLength\">,\n  TRequired\n> & {\n  trim?: boolean\n  lowercase?: boolean\n  uppercase?: boolean\n  minLength?: number\n  maxLength?: number\n  pattern?: RegExp\n};",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 58,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L58",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 67,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L67",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -2002,11 +2026,11 @@
       {
         "name": "TextareaFieldOptions",
         "category": "types",
-        "signature": "type TextareaFieldOptions<TNullable extends boolean = false> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<TextareaField, \"maxLength\" | \"minLength\">\n> & Omit<TextFieldOptions<TNullable>, keyof CommonFieldOptions<string, TNullable, unknown> | \"payload\">;",
+        "signature": "type TextareaFieldOptions<\n  TNullable extends boolean = false,\n  TRequired extends boolean = false\n> = CommonFieldOptions<\n  string,\n  TNullable,\n  NativePayloadExtras<TextareaField, \"maxLength\" | \"minLength\">,\n  TRequired\n> & Omit<TextFieldOptions<TNullable, TRequired>, keyof CommonFieldOptions<string, TNullable, unknown, TRequired> | \"payload\">;",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 71,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L71",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 84,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L84",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -2014,11 +2038,11 @@
       {
         "name": "UploadFieldOptions",
         "category": "types",
-        "signature": "type UploadFieldOptions<\n  TRelationTo extends string | readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TIdSchema extends AnyCanonicalSchema | undefined = undefined\n> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema>, \"payload\"> & { payload?: NativePayloadExtras<UploadField, \"hasMany\" | \"relationTo\"> };",
+        "signature": "type UploadFieldOptions<\n  TRelationTo extends string | readonly string[],\n  THasMany extends boolean = false,\n  TNullable extends boolean = false,\n  TIdSchema extends AnyCanonicalSchema | undefined = undefined,\n  TRequired extends boolean = false\n> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>, \"payload\"> & { payload?: NativePayloadExtras<UploadField, \"hasMany\" | \"relationTo\"> };",
         "description": "Public type exported by @nexload-sdk/payload-schema.",
-        "source": "packages/payload-schema/src/types.ts",
-        "line": 203,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/types.ts#L203",
+        "source": "packages/payload-schema/src/core/types.ts",
+        "line": 241,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L241",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]
@@ -2044,15 +2068,26 @@
         ]
       },
       {
-        "name": "createCMSClient",
-        "category": "functions",
-        "signature": "createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: CMSClientOptions<TOperations>) => CMSClient<TPayloadConfig, TOperations>",
-        "description": "Public function exported by @nexload-sdk/payload-operations.",
-        "source": "packages/payload-operations/src/client/create-cms-client.ts",
-        "line": 20,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-cms-client.ts#L20",
+        "name": "DEFAULT_MAX_BODY_BYTES",
+        "category": "constants",
+        "signature": "DEFAULT_MAX_BODY_BYTES: 1048576",
+        "description": "Public constant exported by @nexload-sdk/payload-operations.",
+        "source": "packages/payload-operations/src/server/constants.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/constants.ts#L1",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
+          "@nexload-sdk/payload-operations/server"
+        ]
+      },
+      {
+        "name": "createOperationsClient",
+        "category": "functions",
+        "signature": "createOperationsClient<const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: OperationsClientOptions<TOperations>) => InferOperationsClient<TOperations>",
+        "description": "Public function exported by @nexload-sdk/payload-operations.",
+        "source": "packages/payload-operations/src/client/create-operations-client.ts",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-operations-client.ts#L12",
+        "exportPaths": [
           "@nexload-sdk/payload-operations/client"
         ]
       },
@@ -2062,8 +2097,8 @@
         "signature": "createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: CreatePayloadEndpointsOptions<TOperations>) => Endpoint[]",
         "description": "Public function exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/create-payload-endpoints.ts",
-        "line": 23,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L23",
+        "line": 24,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L24",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
@@ -2090,7 +2125,6 @@
         "line": 3,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/define-client-plugin.ts#L3",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
         ]
       },
@@ -2164,37 +2198,10 @@
         "signature": "timeoutPlugin(options: TimeoutPluginOptions) => { readonly name: \"timeout\"; readonly wrapTransport: (next: CMSClientTransport) => (request: CMSClientTransportRequest) => Promise<Response>; }",
         "description": "Public function exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/plugins/timeout/timeout-plugin.ts",
-        "line": 6,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L6",
+        "line": 8,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L8",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/plugins/timeout"
-        ]
-      },
-      {
-        "name": "CMSClient",
-        "category": "interfaces",
-        "signature": "interface CMSClient<\n  TPayloadConfig extends PayloadTypesShape = PayloadTypes,\n  TOperations extends CMSOperationsTree = CMSOperationsTree\n> {\n  readonly operations: InferOperationsClient<TOperations>\n  readonly payload: PayloadSDK<TPayloadConfig>\n}",
-        "description": "Public interface exported by @nexload-sdk/payload-operations.",
-        "source": "packages/payload-operations/src/client/types.ts",
-        "line": 50,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L50",
-        "exportPaths": [
-          "@nexload-sdk/payload-operations",
-          "@nexload-sdk/payload-operations/client"
-        ]
-      },
-      {
-        "name": "CMSClientOptions",
-        "category": "interfaces",
-        "signature": "interface CMSClientOptions<\n  TOperations extends CMSOperationsTree\n> {\n  basePath?: string\n  operations: TOperations\n  payload: CMSPayloadClientOptions\n  plugins?: readonly CMSClientPlugin[]\n}",
-        "description": "Public interface exported by @nexload-sdk/payload-operations.",
-        "source": "packages/payload-operations/src/client/types.ts",
-        "line": 24,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L24",
-        "exportPaths": [
-          "@nexload-sdk/payload-operations",
-          "@nexload-sdk/payload-operations/client"
         ]
       },
       {
@@ -2206,7 +2213,6 @@
         "line": 15,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L15",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
         ]
       },
@@ -2219,7 +2225,6 @@
         "line": 1,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L1",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
         ]
       },
@@ -2286,19 +2291,6 @@
         ]
       },
       {
-        "name": "CMSPayloadClientOptions",
-        "category": "interfaces",
-        "signature": "interface CMSPayloadClientOptions {\n  baseInit?: RequestInit\n  baseURL: string\n  fetch?: typeof fetch\n}",
-        "description": "Public interface exported by @nexload-sdk/payload-operations.",
-        "source": "packages/payload-operations/src/client/types.ts",
-        "line": 18,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L18",
-        "exportPaths": [
-          "@nexload-sdk/payload-operations",
-          "@nexload-sdk/payload-operations/client"
-        ]
-      },
-      {
         "name": "CMSValidationErrorData",
         "category": "interfaces",
         "signature": "interface CMSValidationErrorData {\n  issues: Array<{\n    code?: string\n    message: string\n    path: Array<number | string>\n  }>\n}",
@@ -2314,7 +2306,7 @@
       {
         "name": "CreatePayloadEndpointsOptions",
         "category": "interfaces",
-        "signature": "interface CreatePayloadEndpointsOptions<\n  TOperations extends CMSOperationsTree\n> {\n  access?: {\n    default?: CMSOperationAccess\n    overrides?: CMSOperationAccessOverrides<TOperations>\n  }\n  basePath?: string\n  handlers: CMSOperationHandlers<TOperations>\n  operations: TOperations\n}",
+        "signature": "interface CreatePayloadEndpointsOptions<\n  TOperations extends CMSOperationsTree\n> {\n  access: {\n    default: CMSOperationAccess\n    overrides?: CMSOperationAccessOverrides<TOperations>\n  }\n  basePath?: string\n  handlers: CMSOperationHandlers<TOperations>\n  maxBodyBytes?: number\n  operations: TOperations\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
         "line": 70,
@@ -2324,15 +2316,26 @@
         ]
       },
       {
+        "name": "OperationsClientOptions",
+        "category": "interfaces",
+        "signature": "interface OperationsClientOptions<\n  TOperations extends CMSOperationsTree = CMSOperationsTree\n> {\n  baseInit?: RequestInit\n  basePath?: string\n  baseURL: string\n  fetch?: typeof fetch\n  operations: TOperations\n  plugins?: readonly CMSClientPlugin[]\n}",
+        "description": "Public interface exported by @nexload-sdk/payload-operations.",
+        "source": "packages/payload-operations/src/client/types.ts",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L12",
+        "exportPaths": [
+          "@nexload-sdk/payload-operations/client"
+        ]
+      },
+      {
         "name": "TimeoutPluginOptions",
         "category": "interfaces",
-        "signature": "interface TimeoutPluginOptions { timeout: number }",
+        "signature": "interface TimeoutPluginOptions {\n  timeout: number\n}",
         "description": "Public interface exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/plugins/timeout/timeout-plugin.ts",
         "line": 4,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L4",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/plugins/timeout"
         ]
       },
@@ -2345,7 +2348,6 @@
         "line": 11,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L11",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
         ]
       },
@@ -2358,6 +2360,7 @@
         "line": 53,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L53",
         "exportPaths": [
+          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/errors"
         ]
       },
@@ -2496,18 +2499,32 @@
         "line": 60,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L60",
         "exportPaths": [
+          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/errors"
+        ]
+      },
+      {
+        "name": "CreateOperationsClientOptions",
+        "category": "types",
+        "signature": "type CreateOperationsClientOptions<\n  TOperations extends CMSOperationsTree = CMSOperationsTree\n> = OperationsClientOptions<TOperations>;",
+        "description": "Public type exported by @nexload-sdk/payload-operations.",
+        "source": "packages/payload-operations/src/client/types.ts",
+        "line": 23,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L23",
+        "exportPaths": [
+          "@nexload-sdk/payload-operations/client"
         ]
       },
       {
         "name": "InferHandlerOutput",
         "category": "types",
-        "signature": "type InferHandlerOutput<TOperation extends CMSOperationContract>\n  = z.input<TOperation[\"output\"]>;",
+        "signature": "type InferHandlerOutput<TOperation extends CMSOperationContract>\n  = z.output<TOperation[\"output\"]>;",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/contract/types.ts",
         "line": 49,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L49",
         "exportPaths": [
+          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
         ]
       },
@@ -2520,6 +2537,7 @@
         "line": 39,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L39",
         "exportPaths": [
+          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
         ]
       },
@@ -2532,6 +2550,7 @@
         "line": 46,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L46",
         "exportPaths": [
+          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
         ]
       },
@@ -2541,10 +2560,9 @@
         "signature": "type InferOperationsClient<TOperations extends CMSOperationsTree> = {\n  readonly [TKey in keyof TOperations]:\n  TOperations[TKey] extends CMSOperationContract\n    ? CMSOperationMethod<TOperations[TKey]>\n    : TOperations[TKey] extends CMSOperationsTree\n      ? InferOperationsClient<TOperations[TKey]>\n      : never;\n};",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/client/types.ts",
-        "line": 41,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L41",
+        "line": 35,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L35",
         "exportPaths": [
-          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/client"
         ]
       },
@@ -2557,6 +2575,7 @@
         "line": 42,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L42",
         "exportPaths": [
+          "@nexload-sdk/payload-operations",
           "@nexload-sdk/payload-operations/contract"
         ]
       },
@@ -2566,8 +2585,8 @@
         "signature": "type PayloadOperationEndpoints = readonly Endpoint[];",
         "description": "Public type exported by @nexload-sdk/payload-operations.",
         "source": "packages/payload-operations/src/server/types.ts",
-        "line": 82,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L82",
+        "line": 83,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L83",
         "exportPaths": [
           "@nexload-sdk/payload-operations/server"
         ]
