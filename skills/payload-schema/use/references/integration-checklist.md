@@ -7,11 +7,11 @@ Inside `nexload-sdk`, inspect the package root exports, `@nexload-sdk/payload-sc
 ## Incremental migration
 
 1. Record collection slug, field order, hooks, access, versions, upload, localization, layout, and generated type usage.
-2. Move one cohesive data group into `defineEntity` using pure root exports.
+2. Move one cohesive data group into `defineEntity` using pure root exports. Non-required children in group/array/blocks are optional and nullable; block children cannot use reserved names (`id`, `blockName`, `blockType`).
 3. In Payload collection configuration (Node-only), replace native field entries with `payloadFields(entity).pick(...)` or `payloadFields(entity).all()` from `@nexload-sdk/payload-schema/payload`.
 4. Rebuild named application schemas through `entity.schema(...)`, using `{ optional: "auto" }` when non-required fields should be optional.
 5. Keep tabs/access/hooks and populated projections in their current owners.
-6. Test both direct parsing and Local API create/update before moving another group.
+6. Test both direct parsing and Local API create/update before moving another group. Under Migrating to 3.0, verify that stored documents with null optional fields or omitted composite children parse cleanly.
 
 ## Normalization and hook diagnosis
 

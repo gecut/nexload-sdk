@@ -50,7 +50,7 @@ Inspect only the seams affected by the request, plus package manifest and worktr
 - Canonical beforeValidate adapter passes `null` through unchanged for all fields (matching `undefined`); Payload's required validator handles presence.
 - Runtime date hook accepts valid `Date` instances and normalizes them to ISO strings; canonical and derived schemas remain strict ISO strings.
 - Built-in normalizations use `.overwrite()`, making derived schemas codec-safe for `z.encode`.
-- Group/array/blocks parent adapters validate containers and never recursively parse children.
+- Group/array/blocks parent adapters validate containers and never recursively parse children; non-required composite children are optional and nullable (`child.schema.nullable().optional()`). Block child names `id`, `blockName`, and `blockType` are reserved and rejected with `INVALID_FIELD_CONFIGURATION`.
 - Error data is bounded and deterministic and excludes raw values, schemas, functions, config, secrets, stack, and serialized cause.
 - Payload and Zod are peer dependencies (Payload `>=3.85.0 <4`, Zod `>=4.1.0 <5`); core has no Lexical runtime dependency.
 

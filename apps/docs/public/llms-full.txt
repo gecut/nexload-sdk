@@ -4719,6 +4719,18 @@ The complete public API symbol inventory is generated automatically from package
 
 ## Functions
 
+### `createCMSClient`
+
+```ts
+createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: CMSClientOptions<TOperations>) => CMSClient<TPayloadConfig, TOperations>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/create-cms-client.ts#L20)
+
 ### `createOperationsClient`
 
 ```ts
@@ -4742,6 +4754,18 @@ createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: Cre
 Public function exported by @nexload-sdk/payload-operations.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L24)
+
+### `createPayloadFetchAdapter`
+
+```ts
+createPayloadFetchAdapter(transport: CMSClientTransport) => typeof fetch
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/create-cms-client.ts#L50)
 
 ### `defineCMSOperations`
 
@@ -4871,6 +4895,43 @@ Public constant exported by @nexload-sdk/payload-operations.
 
 ## Interfaces
 
+### `CMSClient`
+
+```ts
+interface CMSClient<
+  TPayloadConfig extends PayloadTypesShape = PayloadTypes,
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> {
+  readonly operations: InferOperationsClient<TOperations>
+  readonly payload: PayloadSDK<TPayloadConfig>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L30)
+
+### `CMSClientOptions`
+
+```ts
+interface CMSClientOptions<
+  TOperations extends CMSOperationsTree
+> {
+  basePath?: string
+  operations: TOperations
+  payload: CMSPayloadClientOptions
+  plugins?: readonly CMSClientPlugin[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L21)
+
 ### `CMSClientPlugin`
 
 ```ts
@@ -4880,7 +4941,7 @@ interface CMSClientPlugin {
 }
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public interface exported by @nexload-sdk/payload-operations.
 
@@ -4900,7 +4961,7 @@ interface CMSClientTransportRequest {
 }
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public interface exported by @nexload-sdk/payload-operations.
 
@@ -4999,6 +5060,22 @@ Public interface exported by @nexload-sdk/payload-operations.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L14)
 
+### `CMSPayloadClientOptions`
+
+```ts
+interface CMSPayloadClientOptions {
+  baseInit?: RequestInit
+  baseURL: string
+  fetch?: typeof fetch
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L15)
+
 ### `CMSValidationErrorData`
 
 ```ts
@@ -5085,7 +5162,7 @@ type CMSClientTransport = (
 ) => Promise<Response>;
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public type exported by @nexload-sdk/payload-operations.
 
@@ -5352,7 +5429,7 @@ type InferOperationsClient<TOperations extends CMSOperationsTree> = {
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public type exported by @nexload-sdk/payload-operations.
 
@@ -6394,7 +6471,7 @@ defineEntity<const TName extends string, const TFields extends EntityFieldMap, T
 
 Public function exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L352)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L353)
 
 ### `isPayloadSchemaError`
 
@@ -6408,6 +6485,19 @@ isPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code:
 Public function exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L114)
+
+### `payloadFields`
+
+```ts
+payloadFields<TFields extends EntityFieldMap>(entity: EntityDefinition<string, TFields, AnyCanonicalSchema>) => EntityPayloadFacade<TFields>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Compiles an entity created by `defineEntity()` into Payload field configs.
+Node / Payload config only: the compiled fields carry hooks that throw Payload's `ValidationError`.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/payload/payload-fields.ts#L18)
 
 ## Classes
 
@@ -6447,7 +6537,7 @@ field: Readonly<{ text: <TNullable extends boolean = false, const TRequired exte
 
 Public constant exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L963)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L996)
 
 ## Interfaces
 
@@ -6571,6 +6661,22 @@ interface EntityInspection { name: string, fields: EntityInspectionFieldMap }
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L358)
+
+### `EntityPayloadFacade`
+
+```ts
+interface EntityPayloadFacade<TFields extends EntityFieldMap> {
+  all(): Field[]
+  field<TKey extends keyof TFields>(key: TKey): Field
+  pick<const TKeys extends readonly (keyof TFields)[]>(keys: TKeys): Field[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L440)
 
 ### `EntitySchemaContext`
 
@@ -7133,9 +7239,9 @@ facade.pick(["title"]); // Returns picked Payload Field[] configs
 | `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
 | `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
 | `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
-| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` | Static & Dynamic | `NamedGroupField` |
-| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `ArrayField` |
-| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `BlocksField` |
+| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `NamedGroupField` |
+| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `ArrayField` |
+| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable; child names `id`, `blockName`, `blockType` are reserved) | Static & Dynamic | `BlocksField` |
 | `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
 | `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
 
@@ -7530,6 +7636,8 @@ Version 3.0 brings browser safety, codec compatibility, blocks fields, and predi
 * **`field.blocks()`**: Discriminated polymorphic block containers with per-block schemas and child validation hooks.
 * **`pick(..., { optional: "auto" })`**: Automatically marks fields without `required: true` as optional in derived schemas while preserving explicit required overrides.
 * **`Date` accepted by the date hook**: The runtime `field.date()` hook accepts JavaScript `Date` instances and normalizes valid dates to ISO 8601 strings.
+* **Composite child optionality & nullability**: Inside `group`, `array`, and `blocks`, non-required child fields are automatically optional and accept `null` (`key?: T | null`), so stored Payload documents with empty fields or rows omitting optional children parse cleanly.
+* **Reserved block child names**: Block child fields cannot be named `id`, `blockName`, or `blockType`; doing so throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
 
 ### Breaking Changes
 
@@ -7695,6 +7803,72 @@ const productEntity = defineEntity({
 const productSchema = productEntity.schema(({ fields }) => fields.title);
 // Succeeds: .overwrite() produces codec-safe schemas for operation outputs
 const encoded = z.encode(productSchema, "  widget  ");
+```
+
+### 6. Composite Children Without `required: true` Are Optional and Nullable
+
+In 2.0, composite containers (`group`, `array`, `blocks`) constructed their canonical object schemas directly from child schemas, causing stored documents with `null` (Payload's empty field representation) or rows omitting optional children to fail validation. In 3.0, any child field not declared `required: true` inside a composite container is automatically optional and nullable (`child.schema.nullable().optional()`).
+
+**Before (2.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 2.0, note was required in canonical schema
+      },
+    }),
+  },
+});
+
+// Stored Payload document with empty note failed canonical parse:
+// "Invalid input: expected string, received null"
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null });
+```
+
+**After (3.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 3.0, non-required child is optional and nullable (key?: string | null)
+      },
+    }),
+  },
+});
+
+// Parses cleanly for both null and omitted values:
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null }); // { tag: "vip", note: null }
+userEntity.fields.meta.schema.parse({ tag: "vip" });             // { tag: "vip" }
+```
+
+### 7. Reserved Child Field Names in Blocks
+
+In 3.0, block definitions reject child fields named `id`, `blockName`, or `blockType` at definition time with `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`), as these names are reserved by Payload blocks runtime metadata.
+
+**Before (2.0):**
+Blocks were not supported in 2.0.
+
+**After (3.0):**
+
+```ts
+// Throws PayloadSchemaError (code: "INVALID_FIELD_CONFIGURATION"):
+field.blocks({
+  blocks: {
+    hero: {
+      fields: {
+        id: field.text(), // Reserved name: throws at definition time
+      },
+    },
+  },
+});
 ```
 
 ---

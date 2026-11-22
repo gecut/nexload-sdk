@@ -53,7 +53,8 @@ Prefer the installed package's exports and declarations, target package README, 
 - Static `defaultValue` is parsed at definition; `dynamicDefaultValue` is forwarded opaquely; neither adds Zod `.default()`.
 - Canonical relationship/upload values contain IDs or polymorphic references, never populated documents.
 - Group/array/blocks schemas are strict and unavailable when any data descendant lacks a schema.
-- Array item schemas exclude Payload row metadata, but field.blocks() member schemas accept optional id (string) and blockName (string | null).
+- Non-required child fields inside group/array/blocks are optional and nullable (`child.schema.nullable().optional()`).
+- Array item schemas exclude Payload row metadata, but field.blocks() member schemas accept optional id (string) and blockName (string | null); block child fields cannot be named id, blockName, or blockType.
 - Entity APIs do not create collections, persistence types, CRUD contracts, access rules, or layout.
 
 ## Security and edge cases

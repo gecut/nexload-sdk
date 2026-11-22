@@ -375,6 +375,8 @@ Version 3.0 brings browser safety, codec compatibility, blocks fields, and predi
 * **`field.blocks()`**: Discriminated polymorphic block containers with per-block schemas and child validation hooks.
 * **`pick(..., { optional: "auto" })`**: Automatically marks fields without `required: true` as optional in derived schemas while preserving explicit required overrides.
 * **`Date` accepted by the date hook**: The runtime `field.date()` hook accepts JavaScript `Date` instances and normalizes valid dates to ISO 8601 strings.
+* **Composite child optionality & nullability**: Inside `group`, `array`, and `blocks`, non-required child fields are automatically optional and accept `null` (`key?: T | null`), so stored Payload documents with empty fields or rows omitting optional children parse cleanly.
+* **Reserved block child names**: Block child fields cannot be named `id`, `blockName`, or `blockType`; doing so throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
 
 ### Breaking Changes
 
@@ -540,4 +542,70 @@ const productEntity = defineEntity({
 const productSchema = productEntity.schema(({ fields }) => fields.title);
 // Succeeds: .overwrite() produces codec-safe schemas for operation outputs
 const encoded = z.encode(productSchema, "  widget  ");
+```
+
+### 6. Composite Children Without `required: true` Are Optional and Nullable
+
+In 2.0, composite containers (`group`, `array`, `blocks`) constructed their canonical object schemas directly from child schemas, causing stored documents with `null` (Payload's empty field representation) or rows omitting optional children to fail validation. In 3.0, any child field not declared `required: true` inside a composite container is automatically optional and nullable (`child.schema.nullable().optional()`).
+
+**Before (2.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 2.0, note was required in canonical schema
+      },
+    }),
+  },
+});
+
+// Stored Payload document with empty note failed canonical parse:
+// "Invalid input: expected string, received null"
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null });
+```
+
+**After (3.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 3.0, non-required child is optional and nullable (key?: string | null)
+      },
+    }),
+  },
+});
+
+// Parses cleanly for both null and omitted values:
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null }); // { tag: "vip", note: null }
+userEntity.fields.meta.schema.parse({ tag: "vip" });             // { tag: "vip" }
+```
+
+### 7. Reserved Child Field Names in Blocks
+
+In 3.0, block definitions reject child fields named `id`, `blockName`, or `blockType` at definition time with `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`), as these names are reserved by Payload blocks runtime metadata.
+
+**Before (2.0):**
+Blocks were not supported in 2.0.
+
+**After (3.0):**
+
+```ts
+// Throws PayloadSchemaError (code: "INVALID_FIELD_CONFIGURATION"):
+field.blocks({
+  blocks: {
+    hero: {
+      fields: {
+        id: field.text(), // Reserved name: throws at definition time
+      },
+    },
+  },
+});
 ```

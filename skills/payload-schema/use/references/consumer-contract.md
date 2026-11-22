@@ -58,6 +58,12 @@ Every call returns fresh plain containers. Calling `payloadFields()` with a non-
 
 Built-in field normalizations (`trim`, `lowercase`, `uppercase`, `slug`, `date`) use Zod `.overwrite()` rather than unidirectional `.transform()`. This preserves codec reversibility so derived schemas can be encoded with `z.encode` (e.g., in operation outputs). User transforms in `options.schema(...)` are not codec-safe.
 
+## Composite child optionality & Migrating to 3.0
+
+- **Composite child optionality:** Inside `field.group()`, `field.array()`, and `field.blocks()`, any child field not declared `required: true` is automatically optional and nullable in the canonical schema (`key?: T | null`, via `child.schema.nullable().optional()`). This allows stored Payload documents with empty fields (`null`) or omitted keys to parse cleanly.
+- **Reserved block child names:** Block child fields cannot be named `id`, `blockName`, or `blockType`; attempting to do so throws `PayloadSchemaError` with code `INVALID_FIELD_CONFIGURATION` at definition time.
+- **Payload compilation subpath:** Replaces `entity.payload.*` with `payloadFields(entity).*` from `@nexload-sdk/payload-schema/payload`.
+
 ## Defaults
 
 | Configuration | Result |

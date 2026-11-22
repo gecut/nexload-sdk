@@ -279,4 +279,23 @@ export async function runRegressionCases(payload) {
   const cleanSaved = validLayoutDoc.layout.map(({ id, ...rest }) => rest);
   const cleanReRead = reReadLayoutDoc.layout.map(({ id, ...rest }) => rest);
   assert.deepEqual(cleanReRead, cleanSaved);
+
+  // (m) a document re-read with findByID parses with the entity's own meta / rows / layout canonical schemas
+  const docM = await payload.create({
+    collection: "posts",
+    data: {
+      title: "Post M",
+      meta: { tag: "tag-m" },
+      rows: [{ label: "Row M" }],
+      layout: [{ blockType: "hero", title: "Hero M" }],
+    },
+  });
+  const reReadM = await payload.findByID({
+    collection: "posts",
+    id: docM.id,
+  });
+  assert.ok(postEntity.fields.meta.schema.parse(reReadM.meta));
+  assert.ok(postEntity.fields.layout.schema.parse(reReadM.layout));
+  const cleanRowsM = reReadM.rows.map(({ id, ...rest }) => rest);
+  assert.ok(postEntity.fields.rows.schema.parse(cleanRowsM));
 }

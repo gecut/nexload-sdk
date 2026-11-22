@@ -556,3 +556,34 @@ test("end-to-end: server endpoints wired to client fetch (204 undefined & looseO
   assert.equal(looseResult.id, "item-42");
   assert.equal(looseResult.extraKey, "extra-value-from-handler", "extra key must reach client result");
 });
+
+test("client input: non-JSON-serializable input (function with z.any() input) rejects BAD_REQUEST and fetch is not called", async () => {
+  let fetchCalled = false;
+  const operations = defineCMSOperations({
+    evalFn: operation({
+      input: z.any(),
+      output: z.object({ ok: z.boolean() }),
+    }),
+  });
+
+  const client = createOperationsClient({
+    baseURL: "https://cms.example.com/api",
+    fetch: async () => {
+      fetchCalled = true;
+      return new Response(JSON.stringify({ ok: true }));
+    },
+    operations,
+  });
+
+  await assert.rejects(
+    async () => client.evalFn(() => {}),
+    (error) => {
+      assert.ok(isCMSOperationError(error));
+      assert.equal(error.code, "BAD_REQUEST");
+      assert.equal(error.message, "Operation input is not JSON serializable.");
+      return true;
+    }
+  );
+
+  assert.equal(fetchCalled, false);
+});

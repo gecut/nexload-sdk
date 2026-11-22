@@ -443,3 +443,43 @@ test("empty body produces undefined input", async () => {
   assert.equal(response.status, 200);
   assert.equal(receivedInput, undefined);
 });
+
+test("unsupported stream chunk type (plain object) returns 400 BAD_REQUEST", async () => {
+  let handlerCalled = false;
+  const endpoints = createPayloadEndpoints({
+    access: {
+      default: () => true,
+    },
+    handlers: {
+      greet: async () => {
+        handlerCalled = true;
+        return { message: "ok" };
+      },
+      ping: async () => ({ ok: true }),
+    },
+    operations,
+  });
+
+  const postEndpoint = endpoints.find(
+    (ep) => ep.method === "post" && ep.path === "/operations/greet"
+  );
+  assert.ok(postEndpoint);
+
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue({ plain: "object" });
+      controller.close();
+    },
+  });
+
+  const req = createFakeRequest({
+    bodyStream: stream,
+  });
+
+  const response = await postEndpoint.handler(req);
+  assert.equal(response.status, 400);
+  const data = await response.json();
+  assert.equal(data.code, "BAD_REQUEST");
+  assert.equal(data.message, "Unsupported request body chunk.");
+  assert.equal(handlerCalled, false);
+});

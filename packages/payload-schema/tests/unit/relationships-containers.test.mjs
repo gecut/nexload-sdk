@@ -54,6 +54,32 @@ test("group and array consumer schemas are strict and exclude Payload row IDs", 
   assert.throws(() => array.schema.parse([{ id: "row", alt: "x" }]));
 });
 
+test("group with required and optional children parses null and omitted optional children but rejects missing required", () => {
+  const group = field.group({
+    fields: {
+      tag: field.text({ required: true }),
+      note: field.text(),
+    },
+  });
+
+  assert.deepEqual(group.schema.parse({ tag: "t", note: null }), { tag: "t", note: null });
+  assert.deepEqual(group.schema.parse({ tag: "t" }), { tag: "t" });
+  assert.throws(() => group.schema.parse({ note: "n" }));
+});
+
+test("array items with required and optional children parse null and omitted optional children but reject missing required", () => {
+  const array = field.array({
+    fields: {
+      tag: field.text({ required: true }),
+      note: field.text(),
+    },
+  });
+
+  assert.deepEqual(array.schema.parse([{ tag: "t", note: null }]), [{ tag: "t", note: null }]);
+  assert.deepEqual(array.schema.parse([{ tag: "t" }]), [{ tag: "t" }]);
+  assert.throws(() => array.schema.parse([{ note: "n" }]));
+});
+
 test("schema-less descendants preserve Payload compilation and block canonical picking", () => {
   const entity = defineEntity({
     name: "Mixed",

@@ -76,9 +76,9 @@ facade.pick(["title"]); // Returns picked Payload Field[] configs
 | `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
 | `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
 | `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
-| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` | Static & Dynamic | `NamedGroupField` |
-| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `ArrayField` |
-| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `BlocksField` |
+| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `NamedGroupField` |
+| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `ArrayField` |
+| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable; child names `id`, `blockName`, `blockType` are reserved) | Static & Dynamic | `BlocksField` |
 | `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
 | `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
 

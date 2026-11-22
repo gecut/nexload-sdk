@@ -106,6 +106,22 @@ const content = field.blocks({
 
 The canonical schema parses an array of rows discriminated by `blockType`, accepting Payload-managed `id` (`string`) and `blockName` (`string | null`). Each child field retains its own canonical validation hook.
 
+Child fields inside a block cannot be named `id`, `blockName`, or `blockType` (these are reserved Payload block properties; configuring them throws `PayloadSchemaError` with code `INVALID_FIELD_CONFIGURATION` at definition time).
+
+## Composite Children Optionality
+
+Inside `field.group`, `field.array`, and `field.blocks`, child fields not declared `required: true` are automatically optional and nullable in the canonical schema (`key?: T | null`, wrapped via `child.schema.nullable().optional()`). Stored Payload documents returning `null` for empty fields or omitting optional child keys parse cleanly without requiring explicit `nullable: true` on every child. Required children (`required: true`) remain required and non-nullable.
+
+## Migrating to 3.0
+
+- **Composite child optionality & nullability:** Inside `group`, `array`, and `blocks`, non-required children are optional and nullable (`child.schema.nullable().optional()`), allowing stored documents with `null` or omitted optional child values to parse cleanly.
+- **Reserved block child names:** Child fields in `field.blocks()` cannot be named `id`, `blockName`, or `blockType`; configuring them throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
+- **Payload compilation subpath:** `entity.payload.*` is replaced with `payloadFields(entity).*` imported from `@nexload-sdk/payload-schema/payload`.
+- **Zod 4.1+ requirement:** Zod floor is `>=4.1.0` for codec support (`z.encode`/`z.decode`).
+- **Null pass-through:** Canonical hooks pass `null` through for all fields; Payload validates required presence.
+- **Date acceptance:** Runtime date hook accepts valid `Date` objects and normalizes them to ISO strings.
+- **Codec safety:** Built-in normalizations use `.overwrite()`.
+
 ## Null Semantics & Date Handling
 
 - **Null pass-through:** Payload stores empty fields as `null`. Canonical `beforeValidate` hooks pass `null` through unchanged for all fields, exactly like `undefined`. Required fields then fail Payload's own required check ("This field is required.") rather than raising a Zod type error.

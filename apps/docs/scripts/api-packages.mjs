@@ -56,7 +56,16 @@ export const apiPackages = [
   {
     id: "payload-schema",
     name: "@nexload-sdk/payload-schema",
-    entry: "../../packages/payload-schema/src/index.ts",
+    entries: [
+      {
+        exportPath: "@nexload-sdk/payload-schema",
+        entry: "../../packages/payload-schema/src/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/payload-schema/payload",
+        entry: "../../packages/payload-schema/src/payload/index.ts",
+      },
+    ],
     sourcePath: "packages/payload-schema",
   },
   {
@@ -74,6 +83,10 @@ export const apiPackages = [
       {
         exportPath: "@nexload-sdk/payload-operations/client",
         entry: "../../packages/payload-operations/src/client/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/payload-operations/cms",
+        entry: "../../packages/payload-operations/src/cms/index.ts",
       },
       {
         exportPath: "@nexload-sdk/payload-operations/errors",

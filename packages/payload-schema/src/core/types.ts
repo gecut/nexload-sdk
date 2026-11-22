@@ -364,7 +364,7 @@ export type CanonicalSchemaMap<TFields extends EntityFieldMap> = {
 
 type SelectedKey<TKeys extends readonly PropertyKey[]> = TKeys[number];
 type ArrayItem<TValue> = TValue extends readonly (infer TItem)[] ? TItem : never;
-type IsFieldRequired<TField> = TField extends FieldDefinition<
+export type IsFieldRequired<TField> = TField extends FieldDefinition<
   string,
   AnyCanonicalSchema | undefined,
   PayloadDataField,

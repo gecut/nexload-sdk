@@ -45,6 +45,12 @@ export async function requestOperation (options: RequestOperationOptions): Promi
     );
   }
 
+  if (options.input !== undefined && body === undefined) {
+    throw createFrameworkError(
+      "BAD_REQUEST", "Operation input is not JSON serializable."
+    );
+  }
+
   const response = await options.transport({
     init: createOperationInit(
       options.baseInit, options.callOptions, body

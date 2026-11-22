@@ -19,6 +19,7 @@ import { isPayloadSchemaError, PayloadSchemaError } from "../core/errors.js";
 import { createRelationshipSchema } from "../fields/index.js";
 import { buildBlocksSchema } from "../internal/blocks-schema.js";
 import { errorName, issueSummaries, parseCanonical } from "../internal/canonical-parse.js";
+import { compositeChildSchema } from "../internal/composite-child.js";
 import { dataFieldTypes } from "../internal/data-field-types.js";
 import { attachEntityBinding, findEntityEntry } from "../internal/entity-binding.js";
 import {
@@ -190,7 +191,7 @@ function bindSeed (
         child
       ]) => [
         name,
-        child.schema
+        compositeChildSchema(child)
       ])) as Record<string, AnyCanonicalSchema>;
       const objectSchema = z.strictObject(shape);
       schema = source.composite === "array" ? z.array(objectSchema) : objectSchema;

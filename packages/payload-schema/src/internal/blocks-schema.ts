@@ -3,6 +3,8 @@ import { z } from "zod";
 import type { AnyCanonicalSchema } from "../core/types.js";
 import type { BlockSeed } from "./field-definition.js";
 
+import { compositeChildSchema } from "./composite-child.js";
+
 export type BuildBlocksSchemaOptions = {
   minRows?: number
   maxRows?: number
@@ -20,7 +22,7 @@ export function buildBlocksSchema (
         child
       ]) => [
         name,
-        child.schema as AnyCanonicalSchema
+        compositeChildSchema(child)
       ])
     ) as Record<string, AnyCanonicalSchema>;
 

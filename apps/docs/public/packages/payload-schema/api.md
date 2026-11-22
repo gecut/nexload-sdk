@@ -19,7 +19,7 @@ defineEntity<const TName extends string, const TFields extends EntityFieldMap, T
 
 Public function exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L352)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L353)
 
 ### `isPayloadSchemaError`
 
@@ -33,6 +33,19 @@ isPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code:
 Public function exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L114)
+
+### `payloadFields`
+
+```ts
+payloadFields<TFields extends EntityFieldMap>(entity: EntityDefinition<string, TFields, AnyCanonicalSchema>) => EntityPayloadFacade<TFields>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Compiles an entity created by `defineEntity()` into Payload field configs.
+Node / Payload config only: the compiled fields carry hooks that throw Payload's `ValidationError`.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/payload/payload-fields.ts#L18)
 
 ## Classes
 
@@ -72,7 +85,7 @@ field: Readonly<{ text: <TNullable extends boolean = false, const TRequired exte
 
 Public constant exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L963)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L996)
 
 ## Interfaces
 
@@ -196,6 +209,22 @@ interface EntityInspection { name: string, fields: EntityInspectionFieldMap }
 Public interface exported by @nexload-sdk/payload-schema.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L358)
+
+### `EntityPayloadFacade`
+
+```ts
+interface EntityPayloadFacade<TFields extends EntityFieldMap> {
+  all(): Field[]
+  field<TKey extends keyof TFields>(key: TKey): Field
+  pick<const TKeys extends readonly (keyof TFields)[]>(keys: TKeys): Field[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L440)
 
 ### `EntitySchemaContext`
 
@@ -758,9 +787,9 @@ facade.pick(["title"]); // Returns picked Payload Field[] configs
 | `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
 | `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
 | `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
-| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` | Static & Dynamic | `NamedGroupField` |
-| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `ArrayField` |
-| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` | Static & Dynamic | `BlocksField` |
+| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `NamedGroupField` |
+| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `ArrayField` |
+| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable; child names `id`, `blockName`, `blockType` are reserved) | Static & Dynamic | `BlocksField` |
 | `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
 | `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
 

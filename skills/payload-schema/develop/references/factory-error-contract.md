@@ -15,7 +15,7 @@ poly one  -> { relationTo, value: ID }
 poly many -> Array<{ relationTo, value: ID }>
 ```
 
-Populated documents are never canonical relationship values. Group/array consumer schemas are strict and require every data descendant to have a schema.
+Populated documents are never canonical relationship values. Group/array consumer schemas are strict and require every data descendant to have a schema. Non-required children in composite containers (group, array, blocks) are optional and nullable (`child.schema.nullable().optional()`). Block child fields cannot be named `id`, `blockName`, or `blockType` (`INVALID_FIELD_CONFIGURATION` at definition time). Under Migrating to 3.0, stored documents with empty composite children parse cleanly.
 
 ## Default precedence
 

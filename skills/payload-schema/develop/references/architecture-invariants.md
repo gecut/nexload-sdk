@@ -36,7 +36,7 @@ Canonical data failures become Payload `ValidationError`:
 - use dot-based paths such as `gallery.0.alt` or `layout.0.headline`;
 - never become `PayloadSchemaError`.
 
-Native `validate` remains untouched. Group, array, and blocks parent adapters validate container shape, nullability, row bounds, and blockType discriminator; nested field adapters parse each child once. Payload row IDs survive lifecycle processing: array item schemas exclude Payload row metadata, but `field.blocks()` member schemas accept optional `id` (string) and `blockName` (string | null).
+Native `validate` remains untouched. Group, array, and blocks parent adapters validate container shape, nullability, row bounds, and blockType discriminator; nested field adapters parse each child once. Inside composite containers (group, array, blocks), child fields not declared `required: true` are optional and nullable (`child.schema.nullable().optional()`). Payload row IDs survive lifecycle processing: array item schemas exclude Payload row metadata, but `field.blocks()` member schemas accept optional `id` (string) and `blockName` (string | null). Block child fields cannot be named `id`, `blockName`, or `blockType`. Under Migrating to 3.0, stored documents containing null for empty fields or omitted optional rows parse cleanly.
 
 ## Async boundary
 

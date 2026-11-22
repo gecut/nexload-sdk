@@ -184,3 +184,50 @@ const blocksOptions: BlocksFieldOptions = {
   blocks: { test: blockDefOptions },
 };
 void [blockDefOptions, blocksOptions];
+
+const compositeTypesEntity = defineEntity({
+  name: "CompositeTypesEntity",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(),
+      },
+    }),
+    rows: field.array({
+      fields: {
+        label: field.text({ required: true }),
+        hint: field.text(),
+      },
+    }),
+    layout: field.blocks({
+      blocks: {
+        hero: {
+          fields: {
+            heading: field.text({ required: true }),
+            sub: field.text(),
+          },
+        },
+      },
+    }),
+  },
+});
+
+type InferredGroup = z.infer<typeof compositeTypesEntity.fields.meta.schema>;
+const assertCompositeGroup: Exact<InferredGroup, { tag: string; note?: string | null }> = true;
+void assertCompositeGroup;
+
+type InferredArray = z.infer<typeof compositeTypesEntity.fields.rows.schema>;
+const assertCompositeArray: Exact<InferredArray, Array<{ label: string; hint?: string | null }>> = true;
+void assertCompositeArray;
+
+type InferredBlocksType = z.infer<typeof compositeTypesEntity.fields.layout.schema>;
+type InferredHeroBlockMember = Extract<InferredBlocksType[number], { blockType: "hero" }>;
+const assertCompositeBlockMember: Exact<InferredHeroBlockMember, {
+  blockType: "hero";
+  heading: string;
+  sub?: string | null;
+  id?: string;
+  blockName?: string | null;
+}> = true;
+void assertCompositeBlockMember;

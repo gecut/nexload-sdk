@@ -240,7 +240,9 @@ function toUint8Array (value: unknown): Uint8Array {
     return new Uint8Array(value);
   }
 
-  return new Uint8Array();
+  throw createFrameworkError(
+    "BAD_REQUEST", "Unsupported request body chunk."
+  );
 }
 
 async function normalizeHandlerError (

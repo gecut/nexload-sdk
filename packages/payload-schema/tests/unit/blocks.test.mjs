@@ -109,6 +109,33 @@ test("canonical blocks schema parses valid rows, preserves id and blockName, rej
   assert.deepEqual(schema.parse(encoded), validRows);
 });
 
+test("blocks schema parses rows with omitted or null optional children (finding 1)", () => {
+  const entity = defineEntity({
+    name: "BlocksOptionalChildrenEntity",
+    fields: {
+      layout: field.blocks({
+        blocks: {
+          hero: {
+            fields: {
+              heading: field.text({ required: true }),
+              sub: field.text(),
+            },
+          },
+        },
+      }),
+    },
+  });
+
+  const schema = entity.fields.layout.schema;
+  assert.ok(schema);
+
+  const rowWithNull = [{ blockType: "hero", heading: "x", sub: null, id: "abc", blockName: null }];
+  assert.deepEqual(schema.parse(rowWithNull), rowWithNull);
+
+  const rowWithOmitted = [{ blockType: "hero", heading: "x" }];
+  assert.deepEqual(schema.parse(rowWithOmitted), rowWithOmitted);
+});
+
 test("blocks field nullable option applies to canonical schema", () => {
   const nullableEntity = defineEntity({
     name: "NullableBlocks",
@@ -275,6 +302,21 @@ test("blocks definition-time validation errors", () => {
     }),
     (error) => isPayloadSchemaError(error, "RESERVED_PAYLOAD_OPTION") && error.data.option === "blocks",
   );
+
+  for (const reserved of ["id", "blockName", "blockType"]) {
+    assert.throws(
+      () => field.blocks({
+        blocks: {
+          hero: {
+            fields: {
+              [reserved]: field.text(),
+            },
+          },
+        },
+      }),
+      (error) => isPayloadSchemaError(error, "INVALID_FIELD_CONFIGURATION"),
+    );
+  }
 });
 
 test("schema-less block child makes blocks canonical schema undefined and blocks pick", () => {

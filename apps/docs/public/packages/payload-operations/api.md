@@ -9,6 +9,18 @@ The complete public API symbol inventory is generated automatically from package
 
 ## Functions
 
+### `createCMSClient`
+
+```ts
+createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: CMSClientOptions<TOperations>) => CMSClient<TPayloadConfig, TOperations>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/create-cms-client.ts#L20)
+
 ### `createOperationsClient`
 
 ```ts
@@ -32,6 +44,18 @@ createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: Cre
 Public function exported by @nexload-sdk/payload-operations.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L24)
+
+### `createPayloadFetchAdapter`
+
+```ts
+createPayloadFetchAdapter(transport: CMSClientTransport) => typeof fetch
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/create-cms-client.ts#L50)
 
 ### `defineCMSOperations`
 
@@ -161,6 +185,43 @@ Public constant exported by @nexload-sdk/payload-operations.
 
 ## Interfaces
 
+### `CMSClient`
+
+```ts
+interface CMSClient<
+  TPayloadConfig extends PayloadTypesShape = PayloadTypes,
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> {
+  readonly operations: InferOperationsClient<TOperations>
+  readonly payload: PayloadSDK<TPayloadConfig>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L30)
+
+### `CMSClientOptions`
+
+```ts
+interface CMSClientOptions<
+  TOperations extends CMSOperationsTree
+> {
+  basePath?: string
+  operations: TOperations
+  payload: CMSPayloadClientOptions
+  plugins?: readonly CMSClientPlugin[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L21)
+
 ### `CMSClientPlugin`
 
 ```ts
@@ -170,7 +231,7 @@ interface CMSClientPlugin {
 }
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public interface exported by @nexload-sdk/payload-operations.
 
@@ -190,7 +251,7 @@ interface CMSClientTransportRequest {
 }
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public interface exported by @nexload-sdk/payload-operations.
 
@@ -289,6 +350,22 @@ Public interface exported by @nexload-sdk/payload-operations.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L14)
 
+### `CMSPayloadClientOptions`
+
+```ts
+interface CMSPayloadClientOptions {
+  baseInit?: RequestInit
+  baseURL: string
+  fetch?: typeof fetch
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L15)
+
 ### `CMSValidationErrorData`
 
 ```ts
@@ -375,7 +452,7 @@ type CMSClientTransport = (
 ) => Promise<Response>;
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public type exported by @nexload-sdk/payload-operations.
 
@@ -642,7 +719,7 @@ type InferOperationsClient<TOperations extends CMSOperationsTree> = {
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-operations/client`
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
 
 Public type exported by @nexload-sdk/payload-operations.
 

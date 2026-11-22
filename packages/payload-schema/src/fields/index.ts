@@ -17,6 +17,7 @@ import { z } from "zod";
 
 import type {
   AnyCanonicalSchema,
+  AnyFieldDefinition,
   ArrayFieldOptions,
   BlockDefinitionOptions,
   BlocksFieldOptions,
@@ -25,6 +26,7 @@ import type {
   EntityFieldMap,
   FieldDefinition,
   GroupFieldOptions,
+  IsFieldRequired,
   MaybeNullable,
   MoneyFieldOptions,
   NativeFieldOptions,
@@ -43,6 +45,7 @@ import type {
 import { defaultIdSchema } from "../core/default-id.js";
 import { PayloadSchemaError } from "../core/errors.js";
 import { buildBlocksSchema } from "../internal/blocks-schema.js";
+import { compositeChildSchema } from "../internal/composite-child.js";
 import {
   type BlockSeed,
   createFieldDefinition,
@@ -54,8 +57,16 @@ type NullableSchema<TValue, TNullable extends boolean> = z.ZodType<MaybeNullable
 type SchemaLessKey<TFields extends EntityFieldMap> = {
   [TKey in keyof TFields]: TFields[TKey]["schema"] extends AnyCanonicalSchema ? never : TKey
 }[keyof TFields];
+type CompositeChildZodSchema<TField extends AnyFieldDefinition> =
+  TField["schema"] extends AnyCanonicalSchema
+    ? IsFieldRequired<TField> extends true
+      ? TField["schema"]
+      : null extends z.infer<TField["schema"]>
+        ? z.ZodOptional<TField["schema"]>
+        : z.ZodOptional<z.ZodNullable<TField["schema"]>>
+    : never;
 type ObjectSchemaForFields<TFields extends EntityFieldMap> = z.ZodObject<{
-  [TKey in keyof TFields]: Extract<TFields[TKey]["schema"], AnyCanonicalSchema>
+  [TKey in keyof TFields]: CompositeChildZodSchema<TFields[TKey]>
 }>;
 type GroupCanonicalSchema<TFields extends EntityFieldMap, TNullable extends boolean>
   = SchemaLessKey<TFields> extends never
@@ -77,7 +88,7 @@ type BlockMemberShape<TSlug extends string, TFields extends EntityFieldMap> = {
   id: z.ZodOptional<z.ZodString>
   blockName: z.ZodOptional<z.ZodNullable<z.ZodString>>
 } & {
-  [TKey in keyof TFields]: Extract<TFields[TKey]["schema"], AnyCanonicalSchema>
+  [TKey in keyof TFields]: CompositeChildZodSchema<TFields[TKey]>
 };
 type BlockMemberSchema<TSlug extends string, TFields extends EntityFieldMap> = z.ZodObject<
   BlockMemberShape<TSlug, TFields>
@@ -708,7 +719,7 @@ function composeObject (fields: EntityFieldMap): { schema?: AnyCanonicalSchema, 
     seed
   ]) => [
     name,
-    seed.schema
+    compositeChildSchema(seed)
   ])) as Record<string, AnyCanonicalSchema>;
 
   return { children, schema: z.strictObject(shape), };
@@ -814,6 +825,11 @@ FieldDefinition<"blocks", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField
   }
 
   const blockEntries = Object.entries(options.blocks);
+  const reservedBlockChildNames = new Set([
+    "id",
+    "blockName",
+    "blockType"
+  ]);
 
   for (const [slug, blockDef] of blockEntries) {
     if (typeof slug !== "string" || !slug.trim()) {
@@ -824,6 +840,21 @@ FieldDefinition<"blocks", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField
           data: { fieldPath: unboundPath, fieldKind: "blocks", reason: "empty block slug", },
         }
       );
+    }
+    for (const childName of Object.keys(blockDef.fields)) {
+      if (reservedBlockChildNames.has(childName)) {
+        throw new PayloadSchemaError(
+          "INVALID_FIELD_CONFIGURATION", {
+            phase: "definition",
+            message: `Block "${slug}" child field cannot be named "${childName}".`,
+            data: {
+              fieldPath: `${unboundPath}.${slug}.${childName}`,
+              fieldKind: "blocks",
+              reason: `reserved block child name "${childName}"`,
+            },
+          }
+        );
+      }
     }
     if (blockDef.payload) {
       for (const key of ["fields", "slug"] as const) {
