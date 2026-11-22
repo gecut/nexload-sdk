@@ -11,12 +11,15 @@ import type {
 } from "./types.js";
 
 import { flattenCMSOperations } from "../contract/traversal.js";
+import { DEFAULT_MAX_BODY_BYTES } from "./constants.js";
 import { executeOperation } from "./execute-operation.js";
 import { createPreflightResponse } from "./responses.js";
 import {
   assertTreeLeaves,
   getTreeValue
 } from "./tree.js";
+
+export { DEFAULT_MAX_BODY_BYTES } from "./constants.js";
 
 export function createPayloadEndpoints<
   const TOperations extends CMSOperationsTree
@@ -26,11 +29,29 @@ export function createPayloadEndpoints<
       default?: unknown
       overrides?: unknown
     }
+    maxBodyBytes?: unknown
   } | undefined;
 
   if (typeof accessConfig?.access?.default !== "function") {
     throw new TypeError("createPayloadEndpoints requires access.default.");
   }
+
+  const rawMaxBodyBytes = accessConfig.maxBodyBytes;
+
+  if (
+    rawMaxBodyBytes !== undefined
+    && (
+      typeof rawMaxBodyBytes !== "number"
+      || !Number.isInteger(rawMaxBodyBytes)
+      || rawMaxBodyBytes <= 0
+    )
+  ) {
+    throw new TypeError("maxBodyBytes must be a positive integer.");
+  }
+
+  const maxBodyBytes = typeof rawMaxBodyBytes === "number"
+    ? rawMaxBodyBytes
+    : DEFAULT_MAX_BODY_BYTES;
 
   const flattened = flattenCMSOperations(
     options.operations, options.basePath
@@ -87,6 +108,7 @@ export function createPayloadEndpoints<
           access,
           definition: item.definition,
           handler: handler as CMSOperationHandler<CMSOperationContract>,
+          maxBodyBytes,
           metadata,
           req,
         }),

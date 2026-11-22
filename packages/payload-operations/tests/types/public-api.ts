@@ -57,6 +57,7 @@ import {
 import {
   CMSOperationError,
   createPayloadEndpoints,
+  DEFAULT_MAX_BODY_BYTES,
   type CMSOperationAccess,
   type CMSOperationAccessContext,
   type CMSOperationAccessOverrides,
@@ -190,10 +191,14 @@ const customPlugin: CMSClientPlugin = defineClientPlugin({
 void [plugin, customPlugin];
 
 // 6. Server endpoints (./server)
+const assertDefaultMaxBodyBytes: Exact<typeof DEFAULT_MAX_BODY_BYTES, 1_048_576> = true;
+void assertDefaultMaxBodyBytes;
+
 const endpoints = createPayloadEndpoints({
   access: {
     default: () => true,
   },
+  maxBodyBytes: 1048576,
   operations,
   handlers: {
     ping: async ({ input }) => {

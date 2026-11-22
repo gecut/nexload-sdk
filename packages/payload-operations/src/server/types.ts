@@ -76,6 +76,7 @@ export interface CreatePayloadEndpointsOptions<
   }
   basePath?: string
   handlers: CMSOperationHandlers<TOperations>
+  maxBodyBytes?: number
   operations: TOperations
 }
 

@@ -1,5 +1,8 @@
 export { CMSOperationError } from "../errors/cms-operation-error.js";
-export { createPayloadEndpoints } from "./create-payload-endpoints.js";
+export {
+  createPayloadEndpoints,
+  DEFAULT_MAX_BODY_BYTES
+} from "./create-payload-endpoints.js";
 
 export type {
   CMSOperationAccess,

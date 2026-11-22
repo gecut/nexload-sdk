@@ -1,0 +1,1 @@
+export const DEFAULT_MAX_BODY_BYTES = 1_048_576;

@@ -18,12 +18,14 @@ import {
   validateDefinedError
 } from "../errors/defined-error.js";
 import { sanitizeZodIssues } from "../errors/validation-error.js";
+import { DEFAULT_MAX_BODY_BYTES } from "./constants.js";
 import { createErrorResponse, createSuccessResponse } from "./responses.js";
 
 export interface ExecuteOperationOptions {
   access: CMSOperationAccess
   definition: CMSOperationContract
   handler: CMSOperationHandler<CMSOperationContract>
+  maxBodyBytes?: number
   metadata: CMSOperationMetadata
   req: PayloadRequest
 }
@@ -47,7 +49,8 @@ export async function executeOperation (options: ExecuteOperationOptions): Promi
       );
     }
 
-    const rawInput = await parseRequestInput(options.req);
+    const maxBodyBytes = options.maxBodyBytes ?? DEFAULT_MAX_BODY_BYTES;
+    const rawInput = await parseRequestInput(options.req, maxBodyBytes);
     const inputResult = await options.definition.input.safeParseAsync(rawInput);
 
     if (!inputResult.success) {
@@ -84,21 +87,57 @@ export async function executeOperation (options: ExecuteOperationOptions): Promi
   }
 }
 
-async function parseRequestInput (req: PayloadRequest): Promise<unknown> {
-  const contentType = req.headers.get("Content-Type");
-  const readText = req.text;
+async function parseRequestInput (
+  req: PayloadRequest,
+  maxBodyBytes: number
+): Promise<unknown> {
+  const contentLengthHeader = req.headers.get("content-length");
 
-  if (typeof readText !== "function") {
-    throw createFrameworkError(
-      "BAD_REQUEST", "Request body is unavailable."
-    );
+  if (contentLengthHeader !== null) {
+    const contentLength = Number(contentLengthHeader.trim());
+
+    if (Number.isFinite(contentLength) && contentLength > maxBodyBytes) {
+      throw createFrameworkError(
+        "PAYLOAD_TOO_LARGE", "Request payload exceeds size limit."
+      );
+    }
   }
 
-  const body = await readText.call(req);
+  let body: string;
+  const rawBody = req.body as unknown;
+
+  if (
+    rawBody !== null
+    && rawBody !== undefined
+    && typeof (rawBody as { getReader?: unknown }).getReader === "function"
+  ) {
+    body = await readBodyStream(rawBody as ReadableStream<Uint8Array>, maxBodyBytes);
+  } else {
+    const readText = req.text as unknown;
+
+    if (typeof readText !== "function") {
+      throw createFrameworkError(
+        "BAD_REQUEST", "Request body is unavailable."
+      );
+    }
+
+    body = await (readText as () => Promise<string>).call(req);
+    const bodyBytes = typeof Buffer !== "undefined"
+      ? Buffer.byteLength(body, "utf8")
+      : new TextEncoder().encode(body).byteLength;
+
+    if (bodyBytes > maxBodyBytes) {
+      throw createFrameworkError(
+        "PAYLOAD_TOO_LARGE", "Request payload exceeds size limit."
+      );
+    }
+  }
 
   if (body.length === 0) {
     return undefined;
   }
+
+  const contentType = req.headers.get("Content-Type");
 
   if (
     contentType === null
@@ -118,6 +157,86 @@ async function parseRequestInput (req: PayloadRequest): Promise<unknown> {
   }
 }
 
+async function readBodyStream (
+  bodyStream: ReadableStream<Uint8Array>,
+  maxBodyBytes: number
+): Promise<string> {
+  const reader = bodyStream.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+
+      if (done) {
+        break;
+      }
+
+      const chunkBytes = toUint8Array(value);
+      totalBytes += chunkBytes.byteLength;
+
+      if (totalBytes > maxBodyBytes) {
+        try {
+          await reader.cancel();
+        } catch {
+          // Ignore stream cancellation errors
+        }
+        throw createFrameworkError(
+          "PAYLOAD_TOO_LARGE", "Request payload exceeds size limit."
+        );
+      }
+
+      chunks.push(chunkBytes);
+    }
+  } finally {
+    try {
+      reader.releaseLock();
+    } catch {
+      // Ignored
+    }
+  }
+
+  if (chunks.length === 0) {
+    return "";
+  }
+
+  if (chunks.length === 1) {
+    return new TextDecoder().decode(chunks[0]);
+  }
+
+  const totalLength = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
+  const fullBuffer = new Uint8Array(totalLength);
+  let offset = 0;
+
+  for (const chunk of chunks) {
+    fullBuffer.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+
+  return new TextDecoder().decode(fullBuffer);
+}
+
+function toUint8Array (value: unknown): Uint8Array {
+  if (value instanceof Uint8Array) {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    return new TextEncoder().encode(value);
+  }
+
+  if (ArrayBuffer.isView(value)) {
+    return new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+  }
+
+  if (value instanceof ArrayBuffer) {
+    return new Uint8Array(value);
+  }
+
+  return new Uint8Array();
+}
+
 async function normalizeHandlerError (
   error: unknown,
   operation: CMSOperationContract
@@ -126,6 +245,7 @@ async function normalizeHandlerError (
     if (!error.defined) {
       const safeCodes = new Set([
         "BAD_REQUEST",
+        "PAYLOAD_TOO_LARGE",
         "UNSUPPORTED_MEDIA_TYPE"
       ]);
 
