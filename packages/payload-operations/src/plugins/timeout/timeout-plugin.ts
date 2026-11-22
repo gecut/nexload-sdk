@@ -1,7 +1,9 @@
 import { defineClientPlugin } from "../define-client-plugin.js";
 import { CMSClientTimeoutError } from "./cms-client-timeout-error.js";
 
-export interface TimeoutPluginOptions { timeout: number }
+export interface TimeoutPluginOptions {
+  timeout: number
+}
 
 export function timeoutPlugin (options: TimeoutPluginOptions) {
   assertTimeout(options.timeout);
@@ -41,9 +43,10 @@ export function timeoutPlugin (options: TimeoutPluginOptions) {
   });
 }
 
-function assertTimeout (timeout: number): void {
+function assertTimeout (timeout: unknown): asserts timeout is number {
   if (
-    !Number.isFinite(timeout)
+    typeof timeout !== "number"
+    || !Number.isFinite(timeout)
     || !Number.isInteger(timeout)
     || timeout <= 0
   ) {
