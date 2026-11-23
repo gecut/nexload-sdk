@@ -155,6 +155,10 @@ export default defineConfig({
           ],
         },
         {
+          label: "Core Primitives",
+          items: [packageSidebar("Logger", "packages/logger")],
+        },
+        {
           label: "Healthcheck & Observability",
           items: [
             packageSidebar("Healthcheck Core", "packages/healthcheck/core"),

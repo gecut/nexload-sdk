@@ -12,6 +12,7 @@ export const collections: { docs: DocsCollection } = {
       extend: z.object({
         package: z
           .enum([
+            "logger",
             "healthcheck",
             "healthcheck-node",
             "healthcheck-bun",

@@ -5,6 +5,7 @@ import healthcheckNode from "../../../../packages/healthcheck/node/package.json"
 import healthcheckOtel from "../../../../packages/healthcheck/otel/package.json";
 import healthcheckPayload from "../../../../packages/healthcheck/payload/package.json";
 import healthcheckPrometheus from "../../../../packages/healthcheck/prometheus/package.json";
+import logger from "../../../../packages/logger/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
 import payloadFields from "../../../../packages/refactoring/payload-fields/package.json";
 import payloadOperations from "../../../../packages/payload-operations/package.json";
@@ -12,7 +13,7 @@ import payloadSchema from "../../../../packages/payload-schema/package.json";
 import eslintConfig from "../../../../tools/eslint-config/package.json";
 import typescriptConfig from "../../../../tools/typescript-config/package.json";
 
-export type PackageFamily = "healthcheck" | "payload" | "tooling";
+export type PackageFamily = "core" | "healthcheck" | "payload" | "tooling";
 export type PackageMaturity = "stable";
 export type PackageReleaseStatus = "released";
 
@@ -43,6 +44,17 @@ const stableRelease = {
 } as const;
 
 export const packageCatalog: readonly PackageCatalogEntry[] = [
+  {
+    id: "logger",
+    label: "Logger",
+    manifest: logger,
+    family: "core",
+    sourcePath: "packages/logger",
+    docsPath: "/packages/logger/",
+    runtimes: ["Node.js", "Bun", "Edge", "Browser"],
+    skills: ["logger"],
+    ...stableRelease,
+  },
   {
     id: "healthcheck",
     label: "Healthcheck Core",

@@ -1,9 +1,15 @@
 # Choose a Package: Interactive Decision Guide
 
-Match a service-health or Payload CMS task to one of the eleven packages documented here.
+Match a structured logging, service health, or Payload CMS task to a Nexload SDK package.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/choose-a-package/
+## Core Primitives
+
+| You need to… | Install |
+| --- | --- |
+| record structured events and correlate requests across services | [`@nexload-sdk/logger`](/nexload-sdk/packages/logger/) |
+
 ## Healthcheck packages
 
 | You need to…                                                  | Install                                                                                |

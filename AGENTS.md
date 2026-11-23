@@ -66,6 +66,24 @@ Run from repo root unless a package-specific run is faster:
 - This repo may contain local unpublished changes; do not revert unrelated work
 - Avoid destructive git commands unless explicitly requested
 
+## Logging — MANDATORY
+
+Before adding, changing or reviewing any log call, console call, catch block, job/worker or outbound call: load the `logger` skill (`skills/logger/SKILL.md`) and follow its Decision flow. Never use `console.*` in package or app source; use `@nexload-sdk/logger`.
+
+Install the skill in consumer projects:
+
+```bash
+npx skills add gecut/nexload-sdk --skill logger
+```
+
+Copy into the consumer project's `AGENTS.md`:
+
+```markdown
+## Logging — MANDATORY
+
+Before adding, changing or reviewing any log call, console call, catch block, job/worker or outbound call, load the installed `logger` skill and follow its Decision flow. Use `@nexload-sdk/logger` for application and package logging. Never use `console.*` in package or app source.
+```
+
 ## Knowledge Graph (graphify) — MANDATORY FOR ALL AGENTS
 
 The repository maintains an authoritative code knowledge graph in `graphify-out/`.

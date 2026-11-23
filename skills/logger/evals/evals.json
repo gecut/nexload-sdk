@@ -1,0 +1,71 @@
+{
+  "skill_name": "logger",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Add logging to a Zibal payment verify route that calls the provider, commits a verified payment, and returns an HTTP response.",
+      "expected_output": "Correlated provider and request summaries plus a success event after the payment state commits.",
+      "expectations": [
+        "Uses a module child and scopes the handler with requestId and traceId, forwarding traceHeaders() from within the scope.",
+        "Logs the successful Zibal call at info with provider, durationMs, and outcome, and emits one info request summary with method, route, status, and durationMs.",
+        "Uses payment.attempt.verified at success after the state transition, with a stable payment or order ID and no provider payload or credentials."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "A service catch block calls log.error({ err }, 'Payment failed') and rethrows the same error. The route catches it and returns an error response. Fix the logging.",
+      "expected_output": "The service propagates the error and the route logs it once where it is handled.",
+      "expectations": [
+        "Removes the logging catch if it only rethrows, or preserves the rethrow without logging if cleanup is required.",
+        "Records the unexpected failure once at the handling boundary with { err }, a past-tense event, and a short message.",
+        "Preserves the failure response and avoids duplicating the exception in the request summary."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "review_diagnosis",
+      "prompt": "Replace console.log in a job loop that scans and sends queued messages. Each iteration currently prints the message and the send result.",
+      "expected_output": "One structured job summary with aggregate counts.",
+      "expectations": [
+        "Removes console.log and uses one module child.",
+        "Aggregates scanned, sent, and failed counts and emits one info summary after the loop.",
+        "Uses a stable past-tense event and excludes message content and recipient data."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "failure_security",
+      "prompt": "Log a failed SMS provider call without leaking the recipient's phone number. The provider includes the phone number in the error message and response payload. The retry policy can either retry or return a final failure.",
+      "expected_output": "Safe provider failure events with the appropriate level for retry and exhaustion.",
+      "expectations": [
+        "The adapter uses warn for each retry; whoever handles the final failure logs it once at error if unexpected or warn if handled/expected.",
+        "Includes a stable event, provider, durationMs, outcome, and attempt on retries.",
+        "Uses a safe error under err and omits phone, OTP, and raw payloads, including sensitive data embedded in the provider error."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "runtime_setup",
+      "prompt": "Set up configure-once logging in a Next.js app with instrumentation.ts, Node and Edge routes, and module-level child loggers.",
+      "expected_output": "One startup configuration per runtime with the existing shared logger and explicit runtime context behavior.",
+      "expectations": [
+        "Calls configureLogger from instrumentation.ts register with service identity and release when available.",
+        "Uses the shared logger and one child per module without configuring again inside handlers.",
+        "Explains lazy child resolution and Node-only automatic context attachment. Uses explicit correlation fields on Edge when needed."
+      ]
+    },
+    {
+      "id": 6,
+      "category": "error_propagation",
+      "prompt": "A Next.js route calls a service and a provider. Retries are exhausted and the error propagates to the framework. Show who logs and when the request summary is emitted.",
+      "expected_output": "The adapter logs retries, inner layers propagate the final error without logging, and the outermost route wrapper logs the failure once and emits one summary before it reaches the framework.",
+      "expectations": [
+        "Logs warn per provider retry attempt; does not log the final failure in the adapter when it propagates.",
+        "The wrapper catches and logs once at error for an unexpected failure with err, a past-tense event, outcome failure, and durationMs, then rethrows.",
+        "Emits exactly one request summary without repeating err, including status only when known; uses warn for a handled or expected failure."
+      ]
+    }
+  ]
+}

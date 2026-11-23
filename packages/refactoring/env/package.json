@@ -58,7 +58,7 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@nexload-sdk/logger": "^4.1.0"
+    "@nexload-sdk/logger": "workspace:^"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",

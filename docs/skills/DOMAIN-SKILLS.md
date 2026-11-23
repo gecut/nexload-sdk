@@ -40,6 +40,9 @@ All skills comply with the **Agent Skills Specification v1.0**, featuring progre
 ### F. Payload Collection Architecture (`skills/payload/collection-design`)
 - **`payload/collection-design`:** Canonical collection naming, field semantics, relation design, delete constraints, snapshot preservation, and event access control.
 
+### G. Logger Skill (`skills/logger`)
+- **`logger`:** Required before changing or reviewing logging, error handling, jobs, outbound calls, route handlers, or observability code in projects using `@nexload-sdk/logger`. Covers boundary logging, event names and levels, safe fields, and request correlation.
+
 ---
 
 ## 2. Distributing & Installing Skills
@@ -57,6 +60,9 @@ npx skills add gecut/nexload-sdk --skill nexload-reasoning
 npx skills add gecut/nexload-sdk --skill payload-operations
 npx skills add gecut/nexload-sdk --skill payload-fields
 npx skills add gecut/nexload-sdk --skill healthcheck
+
+# 4. Install the Logger skill
+npx skills add gecut/nexload-sdk --skill logger
 ```
 
 ### The One-Shot Adoption Pattern

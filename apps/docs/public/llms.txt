@@ -1,6 +1,6 @@
 # Nexload SDK documentation
 
-Current-version documentation for 11 released Healthcheck and Payload CMS packages.
+Current-version documentation for 12 released Healthcheck and Payload CMS packages.
 
 - [Domain Specialists (Tier 3) | Nexload SDK](/agents/domain-skills.md) — Production package skills for Healthcheck observability and Payload CMS enterprise suites. [topic: agents]
 - [Engineering Standards (Tier 2) | Nexload SDK](/agents/engineering.md) — Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review. [topic: agents]
@@ -33,7 +33,10 @@ Current-version documentation for 11 released Healthcheck and Payload CMS packag
 - [API Reference & Compatibility](/packages/healthcheck/prometheus/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Prometheus. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: api]
 - [Production Guides & Recipes](/packages/healthcheck/prometheus/guides.md) — Configuring Prometheus endpoints, metric labels, Grafana alerts, and troubleshooting. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: guides]
 - [Overview & Quick Start](/packages/healthcheck/prometheus/) — Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: overview]
-- [Package catalog](/packages/) — Browse the eleven current Nexload SDK packages documented on this site. [topic: ecosystem]
+- [Package catalog](/packages/) — Browse the Nexload SDK packages documented on this site. [topic: ecosystem]
+- [API Reference & Compatibility](/packages/logger/api.md) — Public logger v5 signatures, examples, and runtime compatibility. [@nexload-sdk/logger v4.1.0] [topic: api]
+- [Production Guides & Recipes](/packages/logger/guides.md) — Configure the logger per runtime and use request context, trace headers, redaction, and error serialization. [@nexload-sdk/logger v4.1.0] [topic: guides]
+- [Overview & Quick Start](/packages/logger/) — Configure-once structured logging with request context, trace propagation, and safe defaults. [@nexload-sdk/logger v4.1.0] [topic: overview]
 - [API Reference & Compatibility](/packages/payload-editor/api.md) — Public API symbol reference, editor functions, and compatibility matrix for Payload Editor. [@nexload-sdk/payload-editor v1.1.0] [topic: api]
 - [Production Guides & Recipes](/packages/payload-editor/guides.md) — Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting. [@nexload-sdk/payload-editor v1.1.0] [topic: guides]
 - [Overview & Quick Start](/packages/payload-editor/) — Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor. [@nexload-sdk/payload-editor v1.1.0] [topic: overview]
@@ -50,7 +53,7 @@ Current-version documentation for 11 released Healthcheck and Payload CMS packag
 - [Overview & Quick Start](/packages/typescript-config/) — Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications. [topic: overview]
 - [Autonomous Agent Config Setup Prompt](/standards/agent-setup-prompt.md) — A battle-tested copy-pasteable prompt that empowers any AI agent in any repository to configure and enforce strict ESLint 9 Flat Config and TypeScript 5. [topic: ecosystem]
 - [Canonical File & Directory Structure Standard](/standards/file-structure.md) — Architectural directory layout archetypes, naming conventions, and file placement rules for engineering teams and autonomous agents. [topic: ecosystem]
-- [Choose a Package: Interactive Decision Guide](/start/choose-a-package.md) — Match a service-health or Payload CMS task to one of the eleven packages documented here. [topic: ecosystem]
+- [Choose a Package: Interactive Decision Guide](/start/choose-a-package.md) — Match a structured logging, service health, or Payload CMS task to a Nexload SDK package. [topic: ecosystem]
 - [Architecture Glossary: Terms & Invariants](/start/glossary.md) — Shared terms used across Healthcheck and Payload package documentation. [topic: ecosystem]
 - [Introduction: Ecosystem & Architecture](/start/introduction.md) — Understand the Nexload SDK package model, documentation policy, and recommended learning path. [topic: ecosystem]
 - [Payload Suite Overview](/start/payload-packages.md) — Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations by responsibility. [topic: ecosystem]

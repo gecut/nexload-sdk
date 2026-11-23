@@ -3425,11 +3425,15 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 # Package catalog
 
-Browse the eleven current Nexload SDK packages documented on this site.
+Browse the Nexload SDK packages documented on this site.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/
-This site documents eleven stable, currently released packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
+This site documents stable Nexload SDK packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
+
+## Core Primitives
+
+[`@nexload-sdk/logger`](./logger/) provides structured application events, request context, and trace propagation across service boundaries.
 
 ## Healthcheck
 
@@ -3456,6 +3460,7 @@ Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zo
 
 Shared TypeScript compiler configurations, ESLint 9 Flat Config presets, and canonical architectural standards.
 
+* [@nexload-sdk/logger](/packages/logger/) — Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults. (v4.1.0)
 * [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
 * [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
 * [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
@@ -3471,6 +3476,535 @@ Shared TypeScript compiler configurations, ESLint 9 Flat Config presets, and can
 ## Documentation policy
 
 The site describes the current released version shown on each package page. Historical versioned pages are not hosted. Use each package changelog and migration page when upgrading.
+
+---
+
+# API Reference & Compatibility
+
+Public logger v5 signatures, examples, and runtime compatibility.
+
+**Topic:** api
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/api/
+The inventory below is generated from the source entry points. The reference that follows describes the v5 contract.
+
+## Functions
+
+### `configureLogger`
+
+```ts
+configureLogger(options: LoggerOptions) => Logger
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L82)
+
+### `createTestLogger`
+
+```ts
+createTestLogger(options?: Partial<LoggerOptions>) => { logger: Logger; entries: LogEntry[]; clear(): void; }
+```
+
+**Exported from:** `@nexload-sdk/logger/testing`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/testing.ts#L5)
+
+### `getLogContext`
+
+```ts
+getLogContext() => LogBindings
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/context.node.ts#L19)
+
+### `resolveTraceId`
+
+```ts
+resolveTraceId(headers: Headers | HeaderRecord) => string
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/trace.ts#L12)
+
+### `traceHeaders`
+
+```ts
+traceHeaders() => Record<string, string>
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/trace.ts#L18)
+
+### `withLogContext`
+
+```ts
+withLogContext<T>(bindings: LogBindings, fn: () => T) => T
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/context.node.ts#L15)
+
+## Constants
+
+### `DEFAULT_REDACT_PATHS`
+
+```ts
+DEFAULT_REDACT_PATHS: readonly string[]
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public constant exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/redact.ts#L3)
+
+### `TRACE_HEADER`
+
+```ts
+TRACE_HEADER: "x-trace-id"
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public constant exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/trace.ts#L3)
+
+### `logger`
+
+```ts
+logger: Logger
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public constant exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts#L17)
+
+## Interfaces
+
+### `Logger`
+
+```ts
+interface Logger {
+  trace: LogMethod;
+  debug: LogMethod;
+  info: LogMethod;
+  success: LogMethod;
+  warn: LogMethod;
+  error: LogMethod;
+  fatal: LogMethod;
+  child(bindings: LogBindings): Logger;
+  isLevelEnabled(level: LogLevel): boolean;
+}
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public interface exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L22)
+
+### `LoggerOptions`
+
+```ts
+interface LoggerOptions {
+  service: string;
+  level?: LogLevel;
+  release?: string;
+  instance?: string;
+  environment?: string;
+  redact?: { paths?: string[]; replaceDefaults?: boolean; censor?: string };
+  pretty?: boolean;
+  destination?: { write(line: string): void };
+  base?: Record<string, string | number | boolean>;
+  force?: boolean;
+}
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public interface exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L34)
+
+## Types
+
+### `LogBindings`
+
+```ts
+type LogBindings = Record<string, unknown>;
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public type exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L10)
+
+### `LogEntry`
+
+```ts
+type LogEntry = {
+  level: LogLevel;
+  time: string;
+  service: string;
+  msg?: string;
+  [key: string]: unknown;
+};
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public type exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L12)
+
+### `LogLevel`
+
+```ts
+type LogLevel =
+  | "trace"
+  | "debug"
+  | "info"
+  | "success"
+  | "warn"
+  | "error"
+  | "fatal";
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public type exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L1)
+
+***
+
+## Exported API Summary
+
+Import the following from `@nexload-sdk/logger`. The testing helper has its own subpath.
+
+| Export | Signature | Example and behavior |
+|---|---|---|
+| `logger` | `const logger: Logger` | `import { logger } from "@nexload-sdk/logger"`. The lazy proxy resolves the current configuration on each call. |
+| Default export | `export default logger` | `import logger from "@nexload-sdk/logger"`. The default and named exports share the same proxy. |
+| `configureLogger` | `configureLogger(options: LoggerOptions): Logger` | `configureLogger({ service: "shop-api" })` configures the runtime. |
+| `withLogContext` | `withLogContext<T>(bindings: LogBindings, fn: () => T): T` | `withLogContext({ requestId: "req-123" }, handleRequest)` runs the handler with request bindings where async context is supported. |
+| `getLogContext` | `getLogContext(): LogBindings` | `const { requestId } = getLogContext()` reads the current bindings. |
+| `TRACE_HEADER` | `const TRACE_HEADER: "x-trace-id"` | `response.headers.set(TRACE_HEADER, traceId)` sends the trace ID in the response. |
+| `resolveTraceId` | `resolveTraceId(headers: Headers \| Record<string, string \| undefined>): string` | `resolveTraceId(request.headers)` reuses an incoming ID matching `/^[A-Za-z0-9-]{8,64}$/` or generates a UUID. |
+| `traceHeaders` | `traceHeaders(): Record<string, string>` | `const outbound = new Headers(traceHeaders())` copies the active trace header. With no active trace ID it returns an empty record. |
+| `DEFAULT_REDACT_PATHS` | `const DEFAULT_REDACT_PATHS: readonly string[]` | `const paths = [...DEFAULT_REDACT_PATHS, "customer.nationalCode"]` copies the defaults for inspection or reuse. |
+
+### Public Types
+
+| Type | Signature | Example |
+|---|---|---|
+| `LogLevel` | `"trace" \| "debug" \| "info" \| "success" \| "warn" \| "error" \| "fatal"` | `const level: LogLevel = "warn"` |
+| `LogBindings` | `Record<string, unknown>` | `const bindings: LogBindings = { module: "orders" }` |
+| `Logger` | See methods below. | `const log: Logger = logger.child({ module: "orders" })` |
+| `LoggerOptions` | See configuration signature below. | `const options: LoggerOptions = { service: "shop-api", level: "info" }` |
+| `LogEntry` | `{ level: LogLevel; time: string; service: string; msg?: string; [key: string]: unknown }` | `const first: LogEntry \| undefined = entries[0]` |
+
+All level methods use the same signature.
+
+```ts
+interface Logger {
+  trace(objOrMsg?: object | Error | string, msg?: string): void;
+  debug(objOrMsg?: object | Error | string, msg?: string): void;
+  info(objOrMsg?: object | Error | string, msg?: string): void;
+  success(objOrMsg?: object | Error | string, msg?: string): void;
+  warn(objOrMsg?: object | Error | string, msg?: string): void;
+  error(objOrMsg?: object | Error | string, msg?: string): void;
+  fatal(objOrMsg?: object | Error | string, msg?: string): void;
+  child(bindings: LogBindings): Logger;
+  isLevelEnabled(level: LogLevel): boolean;
+}
+```
+
+`log.isLevelEnabled("debug")` checks whether debug events will be emitted. Levels map to `trace: 10`, `debug: 20`, `info: 30`, `success: 35`, `warn: 40`, `error: 50`, and `fatal: 60`.
+
+```ts
+interface LoggerOptions {
+  service: string;
+  level?: LogLevel;
+  release?: string;
+  instance?: string;
+  environment?: string;
+  redact?: { paths?: string[]; replaceDefaults?: boolean; censor?: string };
+  pretty?: boolean;
+  destination?: { write(line: string): void };
+  base?: Record<string, string | number | boolean>;
+  force?: boolean;
+}
+```
+
+On Node, pretty output defaults to enabled outside production; `destination` takes precedence. Browser and Edge use pino browser output and ignore these server stream options. Server log records include `service`, `pid`, and ISO `time`, plus configured `release`, `instance`, and `environment` fields.
+
+### Testing Subpath
+
+```ts
+function createTestLogger(options?: Partial<LoggerOptions>): {
+  logger: Logger;
+  entries: LogEntry[];
+  clear(): void;
+};
+```
+
+```ts
+import { createTestLogger } from "@nexload-sdk/logger/testing";
+
+const { logger, entries, clear } = createTestLogger({ service: "test", level: "info" });
+logger.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed");
+
+const event = entries[0]?.event;
+clear();
+```
+
+The test logger captures parsed entries independently of global configuration. `clear()` empties the existing entries array.
+
+***
+
+Root export conditions `browser`, `edge-light`, and `worker` select the browser bundle; `import` and `require` select Node bundles. The `./testing` subpath provides Node import and require bundles.
+
+Default redaction covers the ten sensitive keys listed in the [guide](../guides/) at the top level and one level below, plus the explicit header and body paths. It does not recursively redact deeper keys. The censor defaults to `[REDACTED]`. Error serialization includes type, a 500-character message, a matching uppercase code, at most two nested causes, and a stack outside production.
+
+## Runtime Compatibility Matrix
+
+| Runtime | Logging | Request context |
+|---|---|---|
+| Node.js and Bun | Server output with configurable destination | Async request bindings |
+| Edge and browser | Same root API | Explicit bindings and trace headers |
+
+---
+
+# Production Guides & Recipes
+
+Configure the logger per runtime and use request context, trace headers, redaction, and error serialization.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/guides/
+## Configure Once per Runtime
+
+Call `configureLogger` in the Node.js or Bun service entry point. Configure a browser bundle separately at its startup if it needs custom settings. The lazy logger uses environment fallbacks before configuration. `SERVICE_NAME` defaults to `unknown`, `RELEASE` supplies the release, and `LOG_LEVEL` defaults to `info` in production and `debug` elsewhere.
+
+A second configuration call returns the existing logger and emits a warning with event `logger.reconfigure.ignored`. Use `force: true` when you intentionally need to replace it.
+
+### Next.js Instrumentation
+
+Configure the logger in `instrumentation.ts`. Each server runtime initializes its own logger when Next.js invokes `register`.
+
+```ts
+export async function register() {
+  const { configureLogger } = await import("@nexload-sdk/logger");
+  configureLogger({ service: "shop-web", release: process.env.RELEASE });
+}
+```
+
+***
+
+## Request Context and Trace Propagation
+
+Resolve the trace ID at the request boundary and attach it to a request scope. Node's async context carries bindings through awaited calls. Nested scopes merge bindings, with inner values taking precedence.
+
+```ts
+import { logger, resolveTraceId, traceHeaders, withLogContext } from "@nexload-sdk/logger";
+
+const log = logger.child({ module: "inventory" });
+
+export async function GET(request: Request) {
+  const requestId = crypto.randomUUID();
+  const traceId = resolveTraceId(request.headers);
+
+  return withLogContext({ requestId, traceId }, async () => {
+    const startedAt = performance.now();
+    const upstream = await fetch("https://inventory.example.com/availability", {
+      headers: traceHeaders(),
+    });
+    log.info({
+      event: "inventory.request.completed",
+      status: upstream.status,
+      durationMs: performance.now() - startedAt,
+      outcome: upstream.ok ? "success" : "failure",
+    }, "Inventory request completed");
+    return upstream;
+  });
+}
+```
+
+### Edge and Browser
+
+`withLogContext` calls the callback directly, and `getLogContext()` returns an empty object. Browser output uses pino browser records; server `pretty` and `destination` settings do not apply. Bind IDs with `logger.child({ requestId, traceId })` and forward the trace explicitly with `{ [TRACE_HEADER]: traceId }`.
+
+***
+
+## Redaction
+
+```ts
+import { configureLogger } from "@nexload-sdk/logger";
+
+configureLogger({
+  service: "shop-api",
+  redact: { paths: ["customer.nationalCode"] },
+});
+```
+
+### Path Coverage
+
+The default censor is `[REDACTED]`. Default key patterns cover `password`, `token`, `secret`, `apiKey`, `authorization`, `cookie`, `otp`, `phone`, `mobile`, and `merchant` at the top level and one level below it. The defaults also cover `req.headers.authorization`, `req.headers.cookie`, `headers.authorization`, `headers.cookie`, `body`, and `req.body`.
+
+Extra paths extend the defaults unless you set `replaceDefaults: true`. Deeper fields such as `user.profile.phone` require an explicit path. Keep log fields limited to IDs and safe metadata, and keep secrets out of message strings.
+
+***
+
+## Errors
+
+Pass the error under `err`, or pass an `Error` as the first argument. Log it once at the boundary that handles it. Let errors propagate to that boundary when the caller handles them.
+
+```ts
+import { logger } from "@nexload-sdk/logger";
+
+const log = logger.child({ module: "orders" });
+
+export function orderFailure(err: unknown) {
+  log.error({ err, event: "order.request.failed" }, "Order request failed");
+  return new Response("Unable to process order", { status: 500 });
+}
+```
+
+### Serialized Fields
+
+The serializer includes the error type, up to 500 characters of its message, an optional code that matches `/^[A-Z][A-Z0-9_]{1,99}$/`, and up to two nested causes (three error records including the root). Non-Error values become a type and string message. Stack traces are included outside production.
+
+***
+
+## Logging Architecture
+
+Create one child per module. Log on request completion, outbound provider calls, job completion, and business state transitions. Aggregate loop results and log the summary once. Give each event a stable past-tense `domain.entity.action` name and a short message. Add `durationMs` and `outcome` to timed operations, and `attempt` to retry events.
+
+Use `info` for lifecycle summaries, `success` for business milestones, `warn` for handled degradation, and `error` for unexpected failures. Reserve `fatal` for conditions that prevent the process from continuing. Use `debug` and `trace` for diagnostics. Skip logs for successful health checks.
+
+See the [logger skill](https://github.com/gecut/nexload-sdk/tree/main/skills/logger) for boundary, field, and level rules.
+
+***
+
+## Troubleshooting & Migration from v4
+
+### 1. Global Setup and Children's Bindings
+
+Replace `NexloadLogger` and `createGlobalLogger` with startup configuration and the shared `logger` export. Pass an object to `child`, such as `logger.child({ module: "orders" })`.
+
+### 2. Renderers and Level Filters
+
+Replace custom renderer APIs with `pretty` or `destination`. Update structured-log queries and filters to use lowercase output labels; the Node pretty stream displays uppercase labels. Existing uppercase `LOG_LEVEL` values are accepted.
+
+### 3. Tests and Error Fields
+
+Replace `@nexload-sdk/logger/log-test` with `createTestLogger` from `@nexload-sdk/logger/testing`. Review redaction coverage and pass errors under `err` or as the first argument.
+
+---
+
+# Overview & Quick Start
+
+Configure-once structured logging with request context, trace propagation, and safe defaults.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
+**Package:** `@nexload-sdk/logger`
+
+**Current released version:** `4.1.0`
+
+Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/logger) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/logger)
+
+The logger implementation records structured events at service boundaries. Configure one logger per runtime, then use the shared logger or a module child throughout your application.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { configureLogger, logger } from "@nexload-sdk/logger";
+
+configureLogger({ service: "shop-api" });
+
+const log = logger.child({ module: "orders" });
+log.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed");
+```
+
+***
+
+## Installation & Peer Dependencies
+
+```bash
+pnpm add @nexload-sdk/logger
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/logger
+
+# bun
+bun add @nexload-sdk/logger
+```
+
+### Compatibility Requirements
+
+| Runtime / Dependency | Support | Notes |
+|---|---|---|
+| Node.js and Bun | Server logger | JSON lines to stdout in production, readable output by default in development |
+| Edge and browser | Same root API | Pass request identifiers explicitly |
+| pino | Bundled as a package dependency | No peer dependencies to install |
+
+***
+
+## When to Use Logger
+
+Use it for request summaries, outbound provider calls, job runs, process lifecycle events, and business milestones. Use the Healthcheck packages for probes and metrics. Use your platform's log collector for shipping stdout logs and a dedicated telemetry integration for distributed spans.
+
+***
+
+## Quick Start: Configure a Service
+
+Call `configureLogger` in your service entry point before accepting requests. Module children created before startup configuration follow the configured logger on subsequent calls.
+
+```ts
+import { configureLogger } from "@nexload-sdk/logger";
+
+configureLogger({ service: "shop-api", release: process.env.RELEASE });
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Recipes](./guides/) for Next.js startup, trace propagation, redaction, and migration.
+* Check the [API Reference & Compatibility](./api/) for the root and testing exports.
 
 ---
 
@@ -6537,7 +7071,7 @@ field: Readonly<{ text: <TNullable extends boolean = false, const TRequired exte
 
 Public constant exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L996)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L994)
 
 ## Interfaces
 
@@ -8431,10 +8965,16 @@ packages/<package-name>/
 
 # Choose a Package: Interactive Decision Guide
 
-Match a service-health or Payload CMS task to one of the eleven packages documented here.
+Match a structured logging, service health, or Payload CMS task to a Nexload SDK package.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/choose-a-package/
+## Core Primitives
+
+| You need to… | Install |
+| --- | --- |
+| record structured events and correlate requests across services | [`@nexload-sdk/logger`](/nexload-sdk/packages/logger/) |
+
 ## Healthcheck packages
 
 | You need to…                                                  | Install                                                                                |

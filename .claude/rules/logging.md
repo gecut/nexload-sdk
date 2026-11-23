@@ -1,0 +1,1 @@
+Before adding, changing or reviewing any log call, console call, catch block, job/worker or outbound call: load the `logger` skill (`skills/logger/SKILL.md`) and follow its Decision flow. Never use `console.*` in package or app source; use `@nexload-sdk/logger`.

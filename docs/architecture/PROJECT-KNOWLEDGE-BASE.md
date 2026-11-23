@@ -22,7 +22,7 @@ This document is the compact, cross-domain map for an LLM or coding agent workin
 | --- | --- | --- | --- |
 | **Healthcheck Suite** | Framework-agnostic service health, runtime probes, and observability serializers. | `packages/healthcheck/*` | `@nexload-sdk/healthcheck`, `-node`, `-bun`, `-next`, `-prometheus`, `-otel`, `-payload` |
 | **Payload CMS Suite** | Type-safe field factories, Lexical editor presets, custom operations, canonical schemas, and logging hooks. | `packages/payload-*`, `packages/refactoring/payload-fields` | `@nexload-sdk/payload-schema`, `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-editor`, `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-hooks` |
-| **Core Primitives** | Environment validation and structured logging foundations. | `packages/refactoring/*` | `@nexload-sdk/env`, `@nexload-sdk/logger` |
+| **Core Primitives** | Environment validation and structured logging foundations. | `packages/refactoring/env`, `packages/logger` | `@nexload-sdk/env`, `@nexload-sdk/logger` |
 | **Shared Tooling** | Workspace build pipeline, ESLint configurations, and TypeScript presets. | `tools/*` | `@nexload-sdk/bundler`, `@nexload-sdk/eslint-config`, `@nexload-sdk/typescript-config` |
 | **Agent Skills** | The 6+1 Cognitive Graph reasoning framework and repo engineering standards. | `skills/*`, `.agents/skills/*` | `nexload-reasoning`, `nexload-code`, `nexload-package`, `nexload-react`, `nexload-cto-review`, domain skills |
 | **Public Docsite** | Astro Starlight documentation portal. | `apps/docs` | Published to `https://gecut.github.io/nexload-sdk/` |
@@ -63,13 +63,13 @@ packages/
 │   ├── prometheus/   -> @nexload-sdk/healthcheck-prometheus (Prometheus / OpenMetrics text serializer)
 │   ├── otel/         -> @nexload-sdk/healthcheck-otel    (OpenTelemetry resource & metric mapper)
 │   └── payload/      -> @nexload-sdk/healthcheck-payload (Payload CMS local query probe)
+├── logger/           -> @nexload-sdk/logger              (Configure-once structured logging)
 ├── payload-editor/   -> @nexload-sdk/payload-editor      (Payload Lexical presets and feature builder)
 ├── payload-hooks/    -> @nexload-sdk/payload-hooks       (Collection operation logging hooks)
 ├── payload-operations/ -> @nexload-sdk/payload-operations (Typed custom operations, endpoints & SDK)
 ├── payload-schema/   -> @nexload-sdk/payload-schema      (Canonical validation shared by Payload & Zod)
 └── refactoring/
     ├── env/          -> @nexload-sdk/env                 (Type-safe env manager & validation presets)
-    ├── logger/       -> @nexload-sdk/logger              (Structured, leveled logger with color formatting)
     └── payload-fields/ -> @nexload-sdk/payload-fields    (Unicode slug, Jalali date, integer money fields)
 ```
 

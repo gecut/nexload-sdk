@@ -1,4 +1,179 @@
 {
+  "logger": {
+    "id": "logger",
+    "name": "@nexload-sdk/logger",
+    "sourcePath": "packages/logger",
+    "symbols": [
+      {
+        "name": "DEFAULT_REDACT_PATHS",
+        "category": "constants",
+        "signature": "DEFAULT_REDACT_PATHS: readonly string[]",
+        "description": "Public constant exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/redact.ts",
+        "line": 3,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/redact.ts#L3",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "TRACE_HEADER",
+        "category": "constants",
+        "signature": "TRACE_HEADER: \"x-trace-id\"",
+        "description": "Public constant exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/trace.ts",
+        "line": 3,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/trace.ts#L3",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "logger",
+        "category": "constants",
+        "signature": "logger: Logger",
+        "description": "Public constant exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/index.ts",
+        "line": 17,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts#L17",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "configureLogger",
+        "category": "functions",
+        "signature": "configureLogger(options: LoggerOptions) => Logger",
+        "description": "Public function exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/config.ts",
+        "line": 82,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L82",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "createTestLogger",
+        "category": "functions",
+        "signature": "createTestLogger(options?: Partial<LoggerOptions>) => { logger: Logger; entries: LogEntry[]; clear(): void; }",
+        "description": "Public function exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/testing.ts",
+        "line": 5,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/testing.ts#L5",
+        "exportPaths": [
+          "@nexload-sdk/logger/testing"
+        ]
+      },
+      {
+        "name": "getLogContext",
+        "category": "functions",
+        "signature": "getLogContext() => LogBindings",
+        "description": "Public function exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/context.node.ts",
+        "line": 19,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/context.node.ts#L19",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "resolveTraceId",
+        "category": "functions",
+        "signature": "resolveTraceId(headers: Headers | HeaderRecord) => string",
+        "description": "Public function exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/trace.ts",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/trace.ts#L12",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "traceHeaders",
+        "category": "functions",
+        "signature": "traceHeaders() => Record<string, string>",
+        "description": "Public function exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/trace.ts",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/trace.ts#L18",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "withLogContext",
+        "category": "functions",
+        "signature": "withLogContext<T>(bindings: LogBindings, fn: () => T) => T",
+        "description": "Public function exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/context.node.ts",
+        "line": 15,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/context.node.ts#L15",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "Logger",
+        "category": "interfaces",
+        "signature": "interface Logger {\n  trace: LogMethod;\n  debug: LogMethod;\n  info: LogMethod;\n  success: LogMethod;\n  warn: LogMethod;\n  error: LogMethod;\n  fatal: LogMethod;\n  child(bindings: LogBindings): Logger;\n  isLevelEnabled(level: LogLevel): boolean;\n}",
+        "description": "Public interface exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/types.ts",
+        "line": 22,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L22",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "LoggerOptions",
+        "category": "interfaces",
+        "signature": "interface LoggerOptions {\n  service: string;\n  level?: LogLevel;\n  release?: string;\n  instance?: string;\n  environment?: string;\n  redact?: { paths?: string[]; replaceDefaults?: boolean; censor?: string };\n  pretty?: boolean;\n  destination?: { write(line: string): void };\n  base?: Record<string, string | number | boolean>;\n  force?: boolean;\n}",
+        "description": "Public interface exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/types.ts",
+        "line": 34,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L34",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "LogBindings",
+        "category": "types",
+        "signature": "type LogBindings = Record<string, unknown>;",
+        "description": "Public type exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/types.ts",
+        "line": 10,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L10",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "LogEntry",
+        "category": "types",
+        "signature": "type LogEntry = {\n  level: LogLevel;\n  time: string;\n  service: string;\n  msg?: string;\n  [key: string]: unknown;\n};",
+        "description": "Public type exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/types.ts",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L12",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "LogLevel",
+        "category": "types",
+        "signature": "type LogLevel =\n  | \"trace\"\n  | \"debug\"\n  | \"info\"\n  | \"success\"\n  | \"warn\"\n  | \"error\"\n  | \"fatal\";",
+        "description": "Public type exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/types.ts",
+        "line": 1,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L1",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      }
+    ]
+  },
   "healthcheck": {
     "id": "healthcheck",
     "name": "@nexload-sdk/healthcheck",
@@ -1669,8 +1844,8 @@
         "signature": "field: Readonly<{ text: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<\"text\", NullableSchema<string, TNullable>, TextField, TRequired>; textarea: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextareaFieldOptions<TNullable, TRequired>) => FieldDefinition<\"textarea\", NullableSchema<string, TNullable>, TextareaField, TRequired>; slug: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<\"slug\", NullableSchema<string, TNullable>, TextField, TRequired>; number: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: NumberFieldOptions<TNullable, TRequired>) => FieldDefinition<\"number\", NullableSchema<number, TNullable>, NumberField, TRequired>; money: <TNullable extends boolean = false, const TRequired extends boolean = false>(options: MoneyFieldOptions<TNullable, TRequired>) => FieldDefinition<\"money\", NullableSchema<number, TNullable>, NumberField, TRequired>; boolean: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: BooleanFieldOptions<TNullable, TRequired>) => FieldDefinition<\"boolean\", NullableSchema<boolean, TNullable>, CheckboxField, TRequired>; date: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: DateFieldOptions<TNullable, TRequired>) => FieldDefinition<\"date\", NullableSchema<string, TNullable>, DateField, TRequired>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, const TRequired extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable, TRequired>) => FieldDefinition<\"select\", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField, TRequired>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<\"relationship\", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField, TRequired>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<\"upload\", TRelationTo, THasMany, TNullable, TIdSchema, UploadField, TRequired>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: GroupFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<\"group\", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField, TRequired>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<\"array\", ArrayCanonicalSchema<TFields, TNullable>, ArrayField, TRequired>; blocks: <const TBlocks extends Record<string, BlockDefinitionOptions>, TNullable extends boolean = false, const TRequired extends boolean = false>(options: BlocksFieldOptions<TBlocks, TNullable, TRequired>) => FieldDefinition<\"blocks\", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField, TRequired>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false, const TRequired extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable, TRequired>) => FieldDefinition<\"richText\", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField, TRequired>; native: <const TPayloadField extends NativePayloadInput | PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<\"native\", TSchema, TPayloadField extends PayloadDataField ? TPayloadField : Extract<PayloadDataField, { type: TPayloadField[\"type\"]; }>, TPayloadField extends { required: true; } ? true : false>; }>",
         "description": "Public constant exported by @nexload-sdk/payload-schema.",
         "source": "packages/payload-schema/src/fields/index.ts",
-        "line": 996,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L996",
+        "line": 994,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L994",
         "exportPaths": [
           "@nexload-sdk/payload-schema"
         ]

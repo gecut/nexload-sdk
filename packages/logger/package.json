@@ -1,7 +1,7 @@
 {
   "name": "@nexload-sdk/logger",
   "version": "4.1.0",
-  "description": "High-performance, structured, and type-safe logging for JS/TS apps — powered by pino, with pretty output, env-integration, security redaction, and Next.js-friendly wrappers.",
+  "description": "Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.",
   "keywords": [
     "logger",
     "pino",
@@ -10,19 +10,18 @@
     "structured log",
     "nextjs",
     "nodejs",
-    "pretty print",
     "redact",
     "performance",
     "observability"
   ],
-  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/refactoring/logger",
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/logger",
   "bugs": {
     "url": "https://github.com/gecut/nexload-sdk/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/gecut/nexload-sdk.git",
-    "directory": "packages/refactoring/logger"
+    "directory": "packages/logger"
   },
   "author": {
     "name": "S. MohammadMahdi Zamanian",
@@ -34,15 +33,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "browser": "./dist/index.browser.mjs",
+      "edge-light": "./dist/index.browser.mjs",
+      "worker": "./dist/index.browser.mjs",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "default": "./dist/index.mjs"
     },
-    "./log-test": {
-      "types": "./dist/log-test.d.ts",
-      "import": "./dist/log-test.mjs",
-      "require": "./dist/log-test.cjs",
-      "default": "./dist/log-test.mjs"
+    "./testing": {
+      "types": "./dist/testing.d.ts",
+      "import": "./dist/testing.mjs",
+      "require": "./dist/testing.cjs",
+      "default": "./dist/testing.mjs"
     }
   },
   "files": [
@@ -55,7 +57,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "build": "node esbuild.config.mjs"
+    "build": "node esbuild.config.mjs",
+    "test": "pnpm build && node --test test/*.test.mjs"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
@@ -65,5 +68,8 @@
     "colorette": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:"
+  },
+  "dependencies": {
+    "pino": "^10.4.0"
   }
 }

@@ -85,7 +85,7 @@ field: Readonly<{ text: <TNullable extends boolean = false, const TRequired exte
 
 Public constant exported by @nexload-sdk/payload-schema.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L996)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L994)
 
 ## Interfaces
 

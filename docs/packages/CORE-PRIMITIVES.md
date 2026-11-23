@@ -1,6 +1,6 @@
 # Core Primitives
 
-This document covers the foundational runtime primitives in `nexload-sdk`: `@nexload-sdk/env` and `@nexload-sdk/logger`. Both packages reside in `packages/refactoring/` and provide zero-friction, cross-environment utilities for all applications and packages.
+This document covers the foundational runtime primitives in `nexload-sdk`: `@nexload-sdk/env` and `@nexload-sdk/logger`. `@nexload-sdk/env` resides in `packages/refactoring/env` and `@nexload-sdk/logger` in `packages/logger`; they provide zero-friction, cross-environment utilities for all applications and packages.
 
 ---
 
@@ -40,35 +40,19 @@ console.log(env.PORT); // number
 
 ## 2. `@nexload-sdk/logger`
 
-### Overview
-- **Location:** `packages/refactoring/logger`
+- **Location:** `packages/logger`
 - **Published Name:** `@nexload-sdk/logger`
-- **Purpose:** High-performance, structured leveled logger with beautiful ANSI terminal formatting, contextual child tags, and JSON output mode.
+- **Purpose:** Configure-once structured logging built on pino for Node, Bun, Edge and browser.
 
-### Key Capabilities:
-- **Contextual Child Loggers:** Create scoped loggers (`logger.child('PaymentService')`) that prefix all messages with color-coded component tags.
-- **Log Levels:** Strict level filtering: `debug`, `info`, `warn`, `error`, `fatal`.
-- **Environment Awareness:** Automatically uses human-friendly color formatting in local development (`NODE_ENV=development`) and compact single-line JSON formatting in production environments (`NODE_ENV=production`) for log aggregators (Datadog, Loki, CloudWatch).
-- **Zero Heavy Native Dependencies:** Avoids heavy C++ bindings or slow multi-megabyte logging frameworks.
+Configure with `configureLogger({ service })` at runtime startup and import the lazy `logger` proxy anywhere. Object-bound children follow later configuration. Levels are `trace`, `debug`, `info`, `success`, `warn`, `error`, and `fatal`. Default redaction covers sensitive keys at the top level and one level deep, plus specific header and body paths; deeper paths require explicit configuration. Errors under `err` are serialized. Node request context uses `withLogContext` and trace helpers; Edge and browser context is pass-through. Tests can use `createTestLogger` from `@nexload-sdk/logger/testing`. See the [package README](../../packages/logger/README.md) for configuration, runtime limits, and migration.
 
-### Usage Example:
 ```typescript
-import { NexloadLogger } from '@nexload-sdk/logger';
+import { configureLogger, logger } from '@nexload-sdk/logger';
 
-const logger = new NexloadLogger({ name: 'api-server' });
-
-logger.info('Server initialized on port 8080');
-
-const orderLogger = logger.child('OrderProcessor');
-orderLogger.debug('Processing order #1024', { totalAmount: 450000 });
-orderLogger.error('Payment gateway timeout', new Error('Gateway unreachable'));
+configureLogger({ service: 'api-server' });
+logger.info({ event: 'app.lifecycle.started' }, 'Server started');
 ```
-
----
 
 ## 3. Note on the `packages/refactoring/` Directory
 
-Both `@nexload-sdk/env` and `@nexload-sdk/logger` (along with `@nexload-sdk/payload-fields`) are situated inside `packages/refactoring/`.
-
-> [!NOTE]
-> This folder reflects a past internal reorganization during which these packages underwent significant architectural modernizations. Their public package identity (`@nexload-sdk/env`, `@nexload-sdk/logger`) and release lifecycle are completely stable and first-class. They are not experimental.
+`@nexload-sdk/env` and `@nexload-sdk/payload-fields` remain in `packages/refactoring/`. Their public package identities and release lifecycles remain first-class.

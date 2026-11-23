@@ -1,0 +1,12 @@
+[
+  { "query": "Add error handling to this route in a project using @nexload-sdk/logger", "should_trigger": true },
+  { "query": "Why is there no log when payment fails in our service using @nexload-sdk/logger?", "should_trigger": true },
+  { "query": "Replace console.log in this worker with our existing @nexload-sdk/logger", "should_trigger": true },
+  { "query": "Add trace propagation to this outbound provider call using @nexload-sdk/logger", "should_trigger": true },
+  { "query": "Configure @nexload-sdk/logger once in Next.js instrumentation.ts", "should_trigger": true },
+  { "query": "Add a Prometheus metric", "should_trigger": false },
+  { "query": "Write a healthcheck route", "should_trigger": false },
+  { "query": "Rename a Payload field", "should_trigger": false },
+  { "query": "Change the retry delay on a healthcheck liveness probe", "should_trigger": false },
+  { "query": "Fix keyboard navigation in a product carousel", "should_trigger": false }
+]

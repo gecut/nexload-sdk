@@ -1,0 +1,80 @@
+# Overview & Quick Start
+
+Configure-once structured logging with request context, trace propagation, and safe defaults.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
+**Package:** `@nexload-sdk/logger`
+
+**Current released version:** `4.1.0`
+
+Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/logger) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/logger)
+
+The logger implementation records structured events at service boundaries. Configure one logger per runtime, then use the shared logger or a module child throughout your application.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { configureLogger, logger } from "@nexload-sdk/logger";
+
+configureLogger({ service: "shop-api" });
+
+const log = logger.child({ module: "orders" });
+log.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed");
+```
+
+***
+
+## Installation & Peer Dependencies
+
+```bash
+pnpm add @nexload-sdk/logger
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/logger
+
+# bun
+bun add @nexload-sdk/logger
+```
+
+### Compatibility Requirements
+
+| Runtime / Dependency | Support | Notes |
+|---|---|---|
+| Node.js and Bun | Server logger | JSON lines to stdout in production, readable output by default in development |
+| Edge and browser | Same root API | Pass request identifiers explicitly |
+| pino | Bundled as a package dependency | No peer dependencies to install |
+
+***
+
+## When to Use Logger
+
+Use it for request summaries, outbound provider calls, job runs, process lifecycle events, and business milestones. Use the Healthcheck packages for probes and metrics. Use your platform's log collector for shipping stdout logs and a dedicated telemetry integration for distributed spans.
+
+***
+
+## Quick Start: Configure a Service
+
+Call `configureLogger` in your service entry point before accepting requests. Module children created before startup configuration follow the configured logger on subsequent calls.
+
+```ts
+import { configureLogger } from "@nexload-sdk/logger";
+
+configureLogger({ service: "shop-api", release: process.env.RELEASE });
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Recipes](./guides/) for Next.js startup, trace propagation, redaction, and migration.
+* Check the [API Reference & Compatibility](./api/) for the root and testing exports.

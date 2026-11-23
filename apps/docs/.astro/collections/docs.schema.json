@@ -644,6 +644,7 @@
         "package": {
           "type": "string",
           "enum": [
+            "logger",
             "healthcheck",
             "healthcheck-node",
             "healthcheck-bun",

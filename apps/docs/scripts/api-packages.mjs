@@ -1,5 +1,20 @@
 export const apiPackages = [
   {
+    id: "logger",
+    name: "@nexload-sdk/logger",
+    entries: [
+      {
+        exportPath: "@nexload-sdk/logger",
+        entry: "../../packages/logger/src/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/logger/testing",
+        entry: "../../packages/logger/src/testing.ts",
+      },
+    ],
+    sourcePath: "packages/logger",
+  },
+  {
     id: "healthcheck",
     name: "@nexload-sdk/healthcheck",
     entry: "../../packages/healthcheck/core/src/index.ts",

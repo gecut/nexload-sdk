@@ -5,6 +5,7 @@ import test from "node:test";
 import apiCatalog from "../src/generated/api-catalog.json" with { type: "json" };
 
 const packageRoutes = {
+  logger: "logger",
   healthcheck: "healthcheck/core",
   "healthcheck-node": "healthcheck/node",
   "healthcheck-bun": "healthcheck/bun",
@@ -89,7 +90,6 @@ test("out-of-scope packages are absent from the public catalog index", () => {
   );
   for (const name of [
     "@nexload-sdk/env",
-    "@nexload-sdk/logger",
     "@nexload-sdk/jwt",
     "@nexload-sdk/iconcraft",
     "@nexload-sdk/orpc-client",
