@@ -151,6 +151,29 @@ test('omits userId when there is no user', () => {
   });
 });
 
+test('logs deleted document identifiers', () => {
+  const s = setup();
+  s.collections[0].hooks.afterDelete[0](args({ req: { user: { id: 3 } } }));
+
+  assert.deepStrictEqual(entry(s.entries), {
+    event: 'payload.document.deleted',
+    collection: 'posts',
+    operation: 'delete',
+    id: 7,
+    userId: 3,
+  });
+});
+
+test('logs changes and deletions without a request', () => {
+  const s = setup();
+  s.collections[0].hooks.afterChange[0](args({ req: undefined }));
+  s.collections[0].hooks.afterDelete[0](args({ req: undefined }));
+
+  assert.equal(s.entries.length, 2);
+  assert.equal('userId' in entry(s.entries, 0), false);
+  assert.equal('userId' in entry(s.entries, 1), false);
+});
+
 test('logs one listed event per find with count, not ids', () => {
   // Arrange
   const s = setup({ operations: ['read'] });

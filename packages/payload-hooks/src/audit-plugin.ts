@@ -28,11 +28,7 @@ export function auditPlugin(options: AuditPluginOptions = {}): Plugin {
   const operations = options.operations ?? ["create", "update", "delete", "auth"];
   const log = options.logger ?? logger;
   const emit = (entry: Record<string, unknown>, message: string): void => {
-    try {
-      log.info(entry, message);
-    } catch {
-      // Logging must never break a Payload operation.
-    }
+    log.info(entry, message);
   };
 
   const afterChange: CollectionAfterChangeHook = (args) => {
@@ -40,7 +36,7 @@ export function auditPlugin(options: AuditPluginOptions = {}): Plugin {
       if (operations.includes(args.operation)) {
         const { event, message } = changeEventAndMessage(args.operation);
         const doc = args.doc as { id?: string | number } | undefined;
-        const userId = args.req.user?.id;
+        const userId = args.req?.user?.id;
 
         emit(
           {
@@ -63,7 +59,7 @@ export function auditPlugin(options: AuditPluginOptions = {}): Plugin {
   const afterDelete: CollectionAfterDeleteHook = (args) => {
     try {
       const doc = args.doc as { id?: string | number } | undefined;
-      const userId = args.req.user?.id;
+      const userId = args.req?.user?.id;
 
       emit(
         {

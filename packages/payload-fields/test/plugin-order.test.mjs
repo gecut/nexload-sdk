@@ -40,5 +40,7 @@ test("collection added by a default-order plugin listed after payloadFieldsPlugi
   // Assert
   const invoices = finalConfig.collections.find((c) => c.slug === "invoices");
   assert.ok(invoices);
-  assert.ok(invoices.hooks?.beforeOperation?.length > 0);
+  const args = { data: { total: "۱۲۳٬۴۵۶" } };
+  const result = invoices.hooks.beforeOperation[0]({ args, collection: invoices });
+  assert.equal(result.data.total, 123456);
 });
