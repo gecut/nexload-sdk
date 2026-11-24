@@ -40,6 +40,9 @@
       "@nexload-sdk/payload-fields": [
         "../../packages/payload-fields/src/index.ts"
       ],
+      "@nexload-sdk/payload-fields/schema": [
+        "../../packages/payload-fields/src/schema/index.ts"
+      ],
       "@nexload-sdk/payload-fields/*": [
         "../../packages/payload-fields/src/*/index.ts"
       ],

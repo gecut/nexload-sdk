@@ -1,6 +1,6 @@
 ---
 title: "Overview & Quick Start"
-description: "Semantic Payload field factories for Unicode slugs, Jalali dates, and integer minor-unit money values."
+description: "Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses."
 sidebar:
   label: "Overview & Quick Start"
   order: 1
@@ -13,29 +13,49 @@ import { packageByName } from "../../../../lib/package-catalog";
 
 <PackageHero entry={packageByName("@nexload-sdk/payload-fields")} eyebrow="Payload CMS semantic fields" />
 
-`@nexload-sdk/payload-fields` provides three production-hardened semantic field families for Payload CMS 3:
-1. **Managed Unicode Slugs**: Collision-resistant, multi-lingual (Persian, Arabic, English) slug generation with an automatic lock toggle.
-2. **Jalali Solar Dates**: ISO datetime storage with interactive Persian Solar calendar datepickers in the Payload Admin UI.
-3. **Safe-Integer Money Fields**: Floating-point-free financial storage in integer minor units (Rials, Cents) with formatted major-unit Admin UI inputs.
+`@nexload-sdk/payload-fields` provides production-hardened semantic field factories, Admin UI integrations, and validation for Payload CMS 3:
+1. **Managed Unicode Slugs**: Collision-resistant (`-2`, `-3`), multi-lingual slug generation with an automatic lock toggle.
+2. **Jalali Solar Dates & Ranges**: ISO datetime storage with interactive Persian Solar calendar datepickers and list cells (`Asia/Tehran` noon storage for date-only modes).
+3. **Safe-Integer Money Fields**: Floating-point-free financial storage in integer minor units (Rials, Tomans) with formatted Admin UI inputs and currency conversion.
+4. **Iranian Identity & Contact**: Checksum-validated national codes, legal IDs, postal codes, landlines, and mobile numbers (national or E.164 format).
+5. **Banking & Utility Fields**: Bank card numbers with Luhn validation, Sheba IBANs, forced LTR inputs, and non-negative sort ordering.
+6. **Iranian Address Group**: Comprehensive address group with 31 provinces, postal code normalization, and optional recipient details.
+7. **Schema Adapter (`./schema`)**: Wrap fields as `field.native()` definitions for `@nexload-sdk/payload-schema`.
 
 ---
 
 ## 10-Second Code Snippet
 
 ```ts
-import { jalaliDateField, moneyField, slugField } from "@nexload-sdk/payload-fields";
+import {
+  iranAddressField,
+  iranMobileField,
+  jalaliDateField,
+  jalaliDateRangeField,
+  moneyField,
+  nationalCodeField,
+  slugField,
+} from "@nexload-sdk/payload-fields";
 import type { CollectionConfig } from "payload";
 
-export const Products: CollectionConfig = {
-  slug: "products",
+export const Customers: CollectionConfig = {
+  slug: "customers",
   fields: [
-    { name: "title", type: "text", required: true },
+    { name: "name", type: "text", required: true },
     // Spreads slug and slugLock fields
-    ...slugField({ source: "title" }),
+    ...slugField({ source: "name" }),
     // Persian solar calendar datepicker
-    jalaliDateField({ name: "publishedAt", pickerAppearance: "dayAndTime" }),
+    jalaliDateField({ name: "birthDate", pickerAppearance: "dayOnly" }),
+    // Paired date range with start/end order validation
+    jalaliDateRangeField({ start: "startsAt", end: "endsAt" }),
     // Stored as integer minor units (e.g. 150000)
-    moneyField({ name: "price", currency: "IRT", minMinorUnits: 0, overrides: { required: true } }),
+    moneyField({ name: "credit", currency: "IRT", minMinorUnits: 0 }),
+    // Normalized to national format (09123456789)
+    iranMobileField({ name: "mobile", required: true }),
+    // Validated 10-digit national code
+    nationalCodeField({ name: "nationalCode" }),
+    // Address group with province dropdown and postal code
+    iranAddressField({ recipient: false }),
   ],
 };
 ```
@@ -48,14 +68,10 @@ export const Products: CollectionConfig = {
 pnpm add @nexload-sdk/payload-fields payload react react-dom
 ```
 
-With alternative package managers:
+If using the optional `./schema` adapter with `@nexload-sdk/payload-schema` and `zod`:
 
 ```bash
-# npm
-npm install @nexload-sdk/payload-fields payload react react-dom
-
-# bun
-bun add @nexload-sdk/payload-fields payload react react-dom
+pnpm add @nexload-sdk/payload-schema zod
 ```
 
 ### Compatibility Requirements
@@ -64,41 +80,57 @@ bun add @nexload-sdk/payload-fields payload react react-dom
 |---|---|---|
 | **Node.js** | `>=20.9.0` | Required for Payload 3 server |
 | **Payload CMS** | `>=3.85.0 <4.0.0` | Core headless CMS |
-| **React / React-DOM** | `^19.0.0` | Matches Payload 3 Admin UI runtime |
+| **React / React-DOM** | `^19.0.1 \|\| ^19.1.2 \|\| ^19.2.1` | Matches Payload 3 Admin UI runtime |
 | **Module Format** | ESM only | Server & Admin Import Map safe |
+| **Optional Peers** | `@nexload-sdk/payload-schema` `>=2.0.0 <4.0.0`, `zod` `>=4.1.0 <5.0.0` | Only needed when importing `./schema` |
 
 ---
 
 ## Storage & Contract Rules
 
 ### 1. Slugs & SlugLock
-`slugField({ source: "title" })` returns an array of two Payload fields:
-- `slug`: Text field containing the URL-safe slug string.
-- `slugLock`: Checkbox field. When `true`, editing the source field will not mutate an existing slug, preventing broken URLs in production.
+`slugField({ source: "title" })` returns an array of two Payload fields: `[slug, slugLock]`.
+- Slugs are unique by default (`unique: true`). Top-level slug collisions automatically receive numeric suffixes (`-2`, `-3`) in the active locale.
+- **Scope note:** Slug uniqueness collision resolution only applies to top-level slug fields. Slugs placed inside arrays or groups receive character formatting only.
+- `slugLock` defaults to `true`. When locked, changing the source field will not mutate an existing slug, protecting indexed URLs.
 
-### 2. Jalali Dates
-Dates are stored in the database as **standard ISO 8601 UTC strings** (e.g. `"2026-07-24T08:30:00.000Z"`). The Persian Solar calendar is an Admin UI presentation layer, guaranteeing complete interoperability with existing MongoDB, Postgres, or GraphQL queries.
+### 2. Jalali Dates & Ranges
+Dates are stored in the database as **standard ISO 8601 UTC strings** (e.g. `"2026-07-24T08:30:00.000Z"`).
+- For `dayOnly` and `monthOnly` appearances, dates store canonical local noon (`12:00:00`) in `timeZone` (default `Asia/Tehran`), preventing date shifting across client timezones.
+- `jalaliDateRangeField` groups two dates and validates that `endsAt >= startsAt`.
 
-### 3. Money Values
-Stored strictly as **integer minor units** (e.g. `$10.50` is stored as `1050`; `100,000 Tomans` is stored as `100000`). Floating-point arithmetic errors are completely prevented at the persistence boundary.
+### 3. Money Values & Plugin Requirement
+Money values are stored strictly as **integer minor units** (e.g. `100,000 Tomans` is stored as `100000`).
+- **REST / Local API String Inputs:** `payloadFieldsPlugin()` is **REQUIRED** if money values are sent as strings (e.g. `"۱۲۳٬۴۵۶"` or `"123456"`). Payload core parses number-field strings with `parseFloat()` before field hooks run, corrupting Persian digits and thousands separators. The plugin's `beforeOperation` hook converts string values to safe integers before Payload parses them. Raw numbers work without the plugin.
+
+### 4. Bilingual Validation Messages
+Validation messages follow the active admin language (`req.i18n.language` or `useTranslation()`):
+- Locales starting with `fa` (e.g. `fa`, `fa-IR`) receive Persian error messages.
+- All other locales receive English error messages (v3 was always Persian).
+
+### 5. Schema Adapter Scope
+The `./schema` subpath exposes `schemaFields` for `@nexload-sdk/payload-schema`. In 4.0, `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` (compound group/row schemas require entity-level composition).
 
 ---
 
-## Quick Start: Adding Custom Slug Generator Plugin
+## Quick Start: Adding Plugin for Slug Generators & String Money
 
-When custom server-side slug computation is needed:
+Register `payloadFieldsPlugin` in your Payload config:
 
 ```ts
 import { payloadFieldsPlugin, slugField } from "@nexload-sdk/payload-fields";
 import { buildConfig } from "payload";
 
-const fields = [
-  { name: "title", type: "text", required: true },
-  ...slugField({ source: "title", generator: "product" }),
-];
-
 export default buildConfig({
-  collections: [{ slug: "products", fields }],
+  collections: [
+    {
+      slug: "products",
+      fields: [
+        { name: "title", type: "text", required: true },
+        ...slugField({ source: "title", generator: "product" }),
+      ],
+    },
+  ],
   plugins: [
     payloadFieldsPlugin({
       slugGenerators: {
@@ -115,5 +147,5 @@ export default buildConfig({
 
 ## Next Steps
 
-- Explore [Production Guides & Customization](./guides/) for advanced slug formatting, Jalali date range queries, and Admin UI integration.
-- Check the [API Reference & Signatures](./api/) for all factory parameters.
+- Explore [Production Guides & Recipes](./guides/) for advanced recipes on contact fields, address groups, and troubleshooting.
+- Check the [API Reference & Compatibility](./api/) for complete factory options and signatures.

@@ -76,7 +76,28 @@ export const apiPackages = [
   {
     id: "payload-fields",
     name: "@nexload-sdk/payload-fields",
-    entry: "../../packages/payload-fields/src/index.ts",
+    entries: [
+      {
+        exportPath: "@nexload-sdk/payload-fields",
+        entry: "../../packages/payload-fields/src/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/payload-fields/slug",
+        entry: "../../packages/payload-fields/src/slug/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/payload-fields/date",
+        entry: "../../packages/payload-fields/src/date/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/payload-fields/money",
+        entry: "../../packages/payload-fields/src/money/index.ts",
+      },
+      {
+        exportPath: "@nexload-sdk/payload-fields/schema",
+        entry: "../../packages/payload-fields/src/schema/index.ts",
+      },
+    ],
     sourcePath: "packages/payload-fields",
   },
   {

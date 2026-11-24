@@ -65,7 +65,7 @@ packages/
 ├── persian/          -> @nexload-sdk/persian             (Persian and Iranian utilities)
 ├── logger/           -> @nexload-sdk/logger              (Configure-once structured logging)
 ├── payload-editor/   -> @nexload-sdk/payload-editor      (Payload Lexical presets and feature builder)
-├── payload-fields/   -> @nexload-sdk/payload-fields      (Unicode slug, Jalali date, integer money fields)
+├── payload-fields/   -> @nexload-sdk/payload-fields      (Unicode slug, Jalali date, integer money, Iranian contact & identity)
 ├── payload-hooks/    -> @nexload-sdk/payload-hooks       (Collection operation logging hooks)
 ├── payload-operations/ -> @nexload-sdk/payload-operations (Typed custom operations, endpoints & SDK)
 └── payload-schema/   -> @nexload-sdk/payload-schema      (Canonical validation shared by Payload & Zod)
@@ -77,6 +77,6 @@ packages/
 
 1. **Map Before Grepping:** Use enola (`enola impact <symbol>`, `enola locate`, `enola flows`, or the enola MCP tools) before running blind file system searches.
 2. **Never Edit `dist/`:** All packages bundle from `src/` to `dist/` via `esbuild.config.mjs`. Never make manual modifications in `dist/`.
-3. **Build Targets:** Packages build ESM and CJS by default (`createBundler()`), plus TypeScript declarations. Exception: `payload-schema`, `payload-operations` and `payload-editor` are ESM-only (`createBundler(..., false)`), because Payload 3 itself is ESM-only.
+3. **Build Targets:** Packages build ESM and CJS by default (`createBundler()`), plus TypeScript declarations. Exception: `payload-schema`, `payload-operations`, `payload-editor` and `payload-fields` are ESM-only (`createBundler(..., false)`), because Payload 3 itself is ESM-only.
 4. **Documentation Synchronization:** Whenever modifying a package's public API or runtime behavior, update its `README.md` and the relevant file in `docs/packages/` within the same commit.
 5. **Architectural Gate:** Pin a baseline before editing (`enola baseline pin`) and run `enola check` before concluding any work session that modifies code. Never commit `.enola/`.

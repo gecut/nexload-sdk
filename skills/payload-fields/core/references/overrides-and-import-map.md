@@ -35,4 +35,6 @@ Only serializable client props may cross into component descriptors. Slug sends 
 
 ## Plugin decision
 
-Register `payloadFieldsPlugin` when a slug field references a named server generator. Plain normalization, locking, Jalali dates, and money fields do not require the plugin endpoint.
+Register `payloadFieldsPlugin` when:
+1. A slug field references a named server generator.
+2. Money values can be sent through REST or Local API as strings (e.g. Persian digits or thousands-separated strings). The plugin's `beforeOperation` hook converts string money values to safe integers before Payload's core `parseFloat()` runs. Plain numeric values work without the plugin.

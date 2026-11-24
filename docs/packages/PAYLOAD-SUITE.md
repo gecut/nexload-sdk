@@ -74,18 +74,25 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 
 ### D. `@nexload-sdk/payload-fields`
 - **Location:** `packages/payload-fields`
-- **Problem Solved:** Common e-commerce and internationalization field deficiencies in standard CMS platforms:
-  - **Unicode Slugs (`createSlugField`):** Generates clean, URL-safe slugs from Persian, Arabic, or non-Latin titles without turning into mangled percent-encoded characters or stripping characters.
-  - **Jalali Datepicker (`createJalaliDateField`):** Interactive Persian calendar datepicker integrated directly into the Payload Admin UI (React 19 compatible).
-  - **Integer Minor-Unit Money (`createMoneyField`):** Prevents floating-point rounding errors by storing money as safe integers (Tomans or Rials) while formatting currency clearly in the Admin UI.
+- **Problem Solved:** Common e-commerce, localized Iranian data, and internationalization field deficiencies in standard CMS platforms:
+  - **Unicode Slugs (`slugField`):** Generates clean, URL-safe slugs from Persian, Arabic, or non-Latin titles without percent-encoding or stripping characters. Unique by default with automatic collision suffixing (`-2`, `-3`) for top-level slugs; nested slugs receive character formatting only.
+  - **Jalali Solar Dates & Ranges (`jalaliDateField`, `jalaliDateRangeField`, `withJalaliTimestamps`):** Interactive Persian calendar datepicker and list cell in the Payload Admin UI (React 19 compatible). Dates store standard ISO 8601 UTC strings, with `dayOnly` and `monthOnly` storing canonical local noon in `timeZone` (default `Asia/Tehran`). `jalaliDateRangeField` renders a paired row validating `endsAt >= startsAt`.
+  - **Integer Minor-Unit Money (`moneyField`):** Prevents floating-point rounding errors by storing money as safe integers (Tomans or Rials) while formatting currency clearly in the Admin UI and list cell. Supports `displayCurrency` conversion between IRR and IRT.
+  - **Iranian Contact & Identity (`iranMobileField`, `iranLandlineField`, `nationalCodeField`, `legalIdField`, `postalCodeField`):** Server-side normalization in `beforeValidate`, checksum validation, LTR layout, and formatted list cells. `iranMobileField` supports national (`09XXXXXXXXX`, default) and E.164 (`+989...`) storage formats.
+  - **Banking & Common Fields (`bankCardField`, `shebaField`, `ltrTextField`, `sortOrderField`):** Card Luhn validation, Sheba ISO 7064 validation, forced LTR text with optional monospace styling, and non-negative integer sort ordering.
+  - **Iranian Address Group (`iranAddressField`):** Comprehensive address group containing province (select with 31 Iranian provinces), city, line (textarea), postal code, and optional recipient name & mobile fields.
+  - **Schema Adapter (`@nexload-sdk/payload-fields/schema`):** Subpath exposing `schemaFields` wrapping factories as `field.native()` definitions for `@nexload-sdk/payload-schema`. Note: `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` in 4.0.
+  - **Validation Messages:** Automatically adapt to the active admin language (`req.i18n.language` or `useTranslation()`): `fa*` receives Persian messages, all other locales receive English messages (v3 was always Persian).
 
 ### E. `@nexload-sdk/payload-hooks`
 - **Location:** `packages/payload-hooks`
 - **Problem Solved:** Lack of structured, traceable visibility into collection lifecycle events (beforeChange, afterChange, afterDelete) across collections.
 - **Core Mechanism:** Plug-and-play hook factory that logs operation lifecycle, timing, user identity, and affected document IDs using `@nexload-sdk/logger`.
 
-### Payload fields: money and slug behavior
+### Payload fields: money, slug, and plugin behavior
 
-Money values are stored as integer minor units. `displayCurrency` converts between IRR and IRT in the admin; IRR displayed as IRT rounds to the nearest toman. API string inputs are normalized in the stored unit.
+Money values are stored strictly as integer minor units. `displayCurrency` converts between IRR and IRT in the admin; IRR displayed as IRT rounds to the nearest toman.
 
-Slugs are unique by default. Top-level collisions receive numeric suffixes in the current locale. Set `unique: false` to disable this behavior. Nested slugs are formatted without a collision query; database uniqueness remains the final safeguard against concurrent writes.
+**Important:** `payloadFieldsPlugin()` is **REQUIRED** when money values are sent through REST or Local API as strings (e.g. `"۱۲۳٬۴۵۶"` or `"123456"`). Payload core parses number-field strings with `parseFloat()` before field hooks run, which corrupts or drops Persian digits and grouping separators. The plugin's `beforeOperation` hook converts string values to safe integers before Payload parses them. Plain numbers work without the plugin.
+
+Slugs are unique by default. Top-level collisions receive numeric suffixes (`-2`, `-3`) in the active locale. Set `unique: false` to disable this behavior. Nested slugs inside arrays or groups are formatted without running collision queries; database uniqueness remains the final safeguard against concurrent writes.

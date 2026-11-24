@@ -28,7 +28,7 @@ Read `packages/payload-fields/README.md`, `package.json`, `src/index.ts`, target
 1. Choose the semantic factory instead of assembling raw fields manually.
 2. Confirm tuple versus single-field return shape and use the correct collection syntax.
 3. Separate consumer-extensible options from protected name/type/component metadata.
-4. Decide whether the server plugin is needed; register it only for slug generators.
+4. Decide whether the server plugin is needed; register it for slug generators or when money values can arrive as strings via REST/Local API.
 5. Rebuild the Payload Import Map and verify server/client imports.
 
 ## Implementation workflow
@@ -46,7 +46,7 @@ Read `packages/payload-fields/README.md`, `package.json`, `src/index.ts`, target
 - Consumer hooks run in the documented order without replacing package hooks.
 - Admin component paths match package exports and generated Import Map entries.
 - Root exports remain safe for server config; Admin components are client-only subpaths.
-- `payloadFieldsPlugin` is required only for registered server-side slug generation.
+- `payloadFieldsPlugin` is required for registered server-side slug generation and for converting string money values in `beforeOperation` before Payload's core `parseFloat()` runs.
 
 ## Security and edge cases
 

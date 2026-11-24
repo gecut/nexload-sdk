@@ -20,10 +20,60 @@ The complete public API symbol inventory is generated automatically from package
 
 | Function | Output | Description |
 |---|---|---|
-| `slugField(options)` | `[Field, Field]` | Returns `[slug, slugLock]` fields configured with Unicode slugifier and sync logic. |
-| `jalaliDateField(options)` | `DateField` | Returns a Payload `date` field configured with the Jalali solar calendar Admin component. |
-| `moneyField(options)` | `NumberField` | Returns an integer `number` field configured with formatted currency Admin component. |
-| `payloadFieldsPlugin(options)` | `Plugin` | Registers custom server-side slug generator REST endpoints. |
+| `slugField(options)` | `[TextField, CheckboxField]` | Returns `[slug, slugLock]` fields with Unicode slugifier, collision suffixing (`-2`, `-3`), and sync logic. |
+| `jalaliDateField(options)` | `DateField` | Returns a Payload `date` field configured with the Jalali solar calendar Admin component and timezone stability. |
+| `jalaliDateRangeField(options)` | `RowField` | Returns a paired row containing `startsAt` and `endsAt` Jalali date fields with order validation. |
+| `withJalaliTimestamps(fields, options)` | `Field[]` | Appends virtual read-only `createdAtJalali` and `updatedAtJalali` fields to an existing field array. |
+| `moneyField(options)` | `NumberField` | Returns an integer `number` field configured with formatted currency Admin component and cell. |
+| `iranMobileField(options)` | `TextField` | Returns a `text` field validating Iranian mobile numbers (`09XXXXXXXXX` or `+989...`). |
+| `iranLandlineField(options)` | `TextField` | Returns a `text` field validating Iranian landlines with province area codes. |
+| `nationalCodeField(options)` | `TextField` | Returns a `text` field with Iranian national code checksum validation. |
+| `legalIdField(options)` | `TextField` | Returns a `text` field with Iranian legal entity ID checksum validation. |
+| `postalCodeField(options)` | `TextField` | Returns a `text` field validating 10-digit Iranian postal codes. |
+| `bankCardField(options)` | `TextField` | Returns a `text` field with 16-digit bank card Luhn checksum validation. |
+| `shebaField(options)` | `TextField` | Returns a `text` field with Iranian IBAN (Sheba) ISO 7064 checksum validation. |
+| `ltrTextField(options)` | `TextField` | Returns a `text` field with forced LTR direction and optional monospace styling. |
+| `sortOrderField(options)` | `NumberField` | Returns an indexed non-negative integer `number` field in the sidebar for sorting. |
+| `iranAddressField(options)` | `GroupField` | Returns a `group` field containing province (31 Iranian provinces), city, line, postal code, and optional recipient. |
+| `payloadFieldsPlugin(options)` | `Plugin` | Registers server slug generator endpoints and `beforeOperation` string money normalization. |
+
+---
+
+## Schema Adapter (`@nexload-sdk/payload-fields/schema`)
+
+`schemaFields` wraps field factories into `field.native(...)` definitions for `@nexload-sdk/payload-schema`:
+
+| Method | Target Factory | Zod Schema |
+|---|---|---|
+| `schemaFields.iranMobile(options)` | `iranMobileField` | `iranMobileSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.iranLandline(options)` | `iranLandlineField` | `iranLandlineSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.nationalCode(options)` | `nationalCodeField` | `nationalCodeSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.legalId(options)` | `legalIdField` | `legalIdSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.postalCode(options)` | `postalCodeField` | `postalCodeSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.bankCard(options)` | `bankCardField` | `cardNumberSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.sheba(options)` | `shebaField` | `shebaSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.ltrText(options)` | `ltrTextField` | `z.string()` with optional min/max lengths |
+| `schemaFields.sortOrder(options)` | `sortOrderField` | `z.number().int().nonnegative()` |
+| `schemaFields.money(options)` | `moneyField` | `z.number().int().safe()` (non-negative by default) |
+| `schemaFields.jalaliDate(options)` | `jalaliDateField` | `z.iso.datetime({ offset: true })` |
+| `schemaFields.slug(options)` | `slugField` | `{ slug: z.string(), slugLock: z.boolean() }` |
+
+> Note: `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` in 4.0.
+
+---
+
+## Compatibility Helpers
+
+| Helper | Type | Description |
+|---|---|---|
+| `formatSlug` | `(value: string) => string` | Canonical slugifier alias of `slugify` from `@nexload-sdk/persian/text`. |
+| `formatJalaliDate` | `(value, options) => string \| null` | Formats an ISO datetime or Date into a Jalali string. |
+| `toStoredJalaliInstant` | `(picked, appearance, timeZone?) => string` | Converts picked Jalali components to an ISO instant (noon for date-only modes). |
+| `formatMoney` | `(value, currency, display?) => string \| null` | Formats integer minor units into currency strings. |
+| `parseMoneyToMinorUnits` | `(input, currency) => number` | Parses string or major-unit text into safe integer minor units. |
+| `IRR` | `MoneyCurrencyDefinition` | Iranian Rial currency definition. |
+| `IRT` | `MoneyCurrencyDefinition` | Iranian Toman currency definition. |
+| `resolveCurrency` | `(currency: MoneyCurrency) => MoneyCurrencyDefinition` | Resolves string or object currency to canonical definition. |
 
 ---
 

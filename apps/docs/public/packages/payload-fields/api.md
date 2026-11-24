@@ -9,17 +9,29 @@ The complete public API symbol inventory is generated automatically from package
 
 ## Functions
 
-### `formatJalaliDate`
+### `bankCardField`
 
 ```ts
-formatJalaliDate(value: JalaliDateValue, options?: JalaliDateDisplayOptions) => string | null
+bankCardField(options?: BankCardFieldOptions) => TextField
 ```
 
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L9)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L16)
+
+### `formatJalaliDate`
+
+```ts
+formatJalaliDate(value: JalaliDateValue, options?: JalaliDateDisplayOptions) => string | null
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L11)
 
 ### `formatMoney`
 
@@ -27,23 +39,47 @@ Public function exported by @nexload-sdk/payload-fields.
 formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?: MoneyDisplayOptions) => string | null
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L85)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L82)
 
-### `formatSlug`
+### `iranAddressField`
 
 ```ts
-formatSlug(value: string) => string
+iranAddressField(options?: IranAddressFieldOptions) => GroupField
 ```
 
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L48)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/address/index.ts#L17)
+
+### `iranLandlineField`
+
+```ts
+iranLandlineField(options?: IranLandlineFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L32)
+
+### `iranMobileField`
+
+```ts
+iranMobileField(options?: IranMobileFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L14)
 
 ### `jalaliDateField`
 
@@ -51,11 +87,47 @@ Public function exported by @nexload-sdk/payload-fields.
 jalaliDateField(options: JalaliDateFieldOptions) => DateField
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L48)
+
+### `jalaliDateRangeField`
+
+```ts
+jalaliDateRangeField(options?: { start?: string; end?: string; pickerAppearance?: JalaliPickerAppearance; timeZone?: string; required?: boolean; labels?: { start?: { fa: string; en: string; }; end?: { fa: string; en: string; }; }; }) => RowField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L109)
+
+### `legalIdField`
+
+```ts
+legalIdField(options?: LegalIdFieldOptions) => TextField
+```
+
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L22)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L34)
+
+### `ltrTextField`
+
+```ts
+ltrTextField(options: LtrTextFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L28)
 
 ### `moneyField`
 
@@ -63,11 +135,23 @@ Public function exported by @nexload-sdk/payload-fields.
 moneyField(options: MoneyFieldOptions) => NumberField
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L98)
+
+### `nationalCodeField`
+
+```ts
+nationalCodeField(options?: NationalCodeFieldOptions) => TextField
+```
+
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L102)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L18)
 
 ### `parseMoneyToMinorUnits`
 
@@ -75,11 +159,11 @@ Public function exported by @nexload-sdk/payload-fields.
 parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L59)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L56)
 
 ### `payloadFieldsPlugin`
 
@@ -91,7 +175,19 @@ payloadFieldsPlugin(options?: PayloadFieldsPluginOptions) => Plugin
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L19)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L89)
+
+### `postalCodeField`
+
+```ts
+postalCodeField(options?: PostalCodeFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L50)
 
 ### `resolveCurrency`
 
@@ -99,11 +195,23 @@ Public function exported by @nexload-sdk/payload-fields.
 resolveCurrency(currency: MoneyCurrency) => MoneyCurrencyDefinition
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L38)
+
+### `shebaField`
+
+```ts
+shebaField(options?: ShebaFieldOptions) => TextField
+```
+
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L28)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L32)
 
 ### `slugField`
 
@@ -111,11 +219,35 @@ Public function exported by @nexload-sdk/payload-fields.
 slugField(options?: SlugFieldOptions) => SlugFieldResult
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L20)
+
+### `sortOrderField`
+
+```ts
+sortOrderField(options?: SortOrderFieldOptions) => NumberField
+```
+
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L16)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L63)
+
+### `toStoredJalaliInstant`
+
+```ts
+toStoredJalaliInstant(picked: { year: number; month: number; day: number; hour?: number; minute?: number; }, appearance: JalaliPickerAppearance, timeZone?: string) => string
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L32)
 
 ### `withJalaliTimestamps`
 
@@ -123,11 +255,11 @@ Public function exported by @nexload-sdk/payload-fields.
 withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOptions) => Field[]
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
 
 Public function exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L56)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L145)
 
 ## Constants
 
@@ -137,11 +269,11 @@ Public function exported by @nexload-sdk/payload-fields.
 IRR: Readonly<MoneyCurrencyDefinition>
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public constant exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L25)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L35)
 
 ### `IRT`
 
@@ -149,11 +281,23 @@ Public constant exported by @nexload-sdk/payload-fields.
 IRT: Readonly<MoneyCurrencyDefinition>
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public constant exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L26)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L36)
+
+### `formatSlug`
+
+```ts
+formatSlug(value: string) => string
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L37)
 
 ### `formatSlugHook`
 
@@ -161,13 +305,99 @@ Public constant exported by @nexload-sdk/payload-fields.
 formatSlugHook(options: SlugHookOptions) => FieldHook
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
 
 Public constant exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L73)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L39)
+
+### `schemaFields`
+
+```ts
+schemaFields: SchemaFields
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/schema`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/schema/index.ts#L137)
 
 ## Types
+
+### `BankCardFieldOptions`
+
+```ts
+type BankCardFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L14)
+
+### `FieldOptions`
+
+```ts
+type FieldOptions = {
+  name?: string;
+  label?: { fa: string; en: string };
+  required?: boolean;
+  unique?: boolean;
+  overrides?: Partial<TextField>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L9)
+
+### `IranAddressFieldOptions`
+
+```ts
+type IranAddressFieldOptions = {
+  name?: string;
+  label?: { fa: string; en: string };
+  required?: boolean;
+  recipient?: boolean;
+  overrides?: Partial<GroupField>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/address/index.ts#L9)
+
+### `IranLandlineFieldOptions`
+
+```ts
+type IranLandlineFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L30)
+
+### `IranMobileFieldOptions`
+
+```ts
+type IranMobileFieldOptions = FieldOptions & {
+  storage?: "national" | "e164";
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L10)
 
 ### `JalaliDateDisplayOptions`
 
@@ -180,11 +410,11 @@ type JalaliDateDisplayOptions = {
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L2)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L4)
 
 ### `JalaliDateFieldOptions`
 
@@ -192,16 +422,21 @@ Public type exported by @nexload-sdk/payload-fields.
 type JalaliDateFieldOptions = {
   name: string
   pickerAppearance?: JalaliPickerAppearance
-  display?: import("./format-date").JalaliDateDisplayOptions
+  display?: JalaliDateDisplayOptions
+  timeZone?: string
+  min?: string
+  max?: string
+  label?: { fa: string, en: string }
+  required?: boolean
   overrides?: Partial<DateField>
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L9)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L14)
 
 ### `JalaliDateValue`
 
@@ -209,11 +444,11 @@ Public type exported by @nexload-sdk/payload-fields.
 type JalaliDateValue = Date | string | number | null | undefined;
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L1)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L3)
 
 ### `JalaliPickerAppearance`
 
@@ -225,7 +460,7 @@ type JalaliPickerAppearance
     | "monthOnly";
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
 
 Public type exported by @nexload-sdk/payload-fields.
 
@@ -237,8 +472,41 @@ Public type exported by @nexload-sdk/payload-fields.
 type JalaliTimestampsOptions = {
   createdAt?: boolean
   updatedAt?: boolean
-  display?: import("./format-date").JalaliDateDisplayOptions
+  display?: JalaliDateDisplayOptions
   overrides?: { createdAt?: Partial<TextField>, updatedAt?: Partial<TextField> }
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L25)
+
+### `LegalIdFieldOptions`
+
+```ts
+type LegalIdFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L32)
+
+### `LtrTextFieldOptions`
+
+```ts
+type LtrTextFieldOptions = {
+  name: string;
+  label?: { fa: string; en: string };
+  required?: boolean;
+  unique?: boolean;
+  monospace?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  overrides?: Partial<TextField>;
 };
 ```
 
@@ -246,7 +514,7 @@ type JalaliTimestampsOptions = {
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L15)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L17)
 
 ### `MoneyCurrency`
 
@@ -254,11 +522,11 @@ Public type exported by @nexload-sdk/payload-fields.
 type MoneyCurrency = "IRR" | "IRT" | MoneyCurrencyDefinition;
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L8)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L15)
 
 ### `MoneyCurrencyDefinition`
 
@@ -270,11 +538,11 @@ type MoneyCurrencyDefinition = {
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L3)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L10)
 
 ### `MoneyDisplayOptions`
 
@@ -287,11 +555,11 @@ type MoneyDisplayOptions = {
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L9)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L16)
 
 ### `MoneyFieldOptions`
 
@@ -303,15 +571,30 @@ type MoneyFieldOptions = {
   maxMinorUnits?: number
   allowNegative?: boolean
   display?: MoneyDisplayOptions
+  displayCurrency?: "IRR" | "IRT"
+  label?: { fa: string, en: string }
+  required?: boolean
   overrides?: Partial<NumberField>
 };
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L22)
+
+### `NationalCodeFieldOptions`
+
+```ts
+type NationalCodeFieldOptions = FieldOptions;
 ```
 
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L15)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L16)
 
 ### `PayloadFieldsPluginOptions`
 
@@ -323,12 +606,37 @@ type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerato
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L9)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L12)
+
+### `PostalCodeFieldOptions`
+
+```ts
+type PostalCodeFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L48)
+
+### `ShebaFieldOptions`
+
+```ts
+type ShebaFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L30)
 
 ### `SlugFieldOptions`
 
 ```ts
 type SlugFieldOptions = {
+  unique?: boolean
   name?: string
   lockName?: string
   source?: string
@@ -338,11 +646,11 @@ type SlugFieldOptions = {
 };
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L5)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L8)
 
 ### `SlugFieldResult`
 
@@ -350,11 +658,11 @@ Public type exported by @nexload-sdk/payload-fields.
 type SlugFieldResult = readonly [TextField, CheckboxField];
 ```
 
-**Exported from:** `@nexload-sdk/payload-fields`
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L14)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L18)
 
 ### `SlugGenerationAccess`
 
@@ -366,7 +674,7 @@ type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L8)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L11)
 
 ### `SlugGenerator`
 
@@ -378,7 +686,7 @@ type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorContext) 
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L7)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L10)
 
 ### `SlugGeneratorContext`
 
@@ -390,7 +698,7 @@ type SlugGeneratorContext = { req: PayloadRequest };
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L6)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L9)
 
 ### `SlugGeneratorInput`
 
@@ -402,7 +710,7 @@ type SlugGeneratorInput = { sourceValue: string, currentSlug?: string };
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L5)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L8)
 
 ### `SlugHookOptions`
 
@@ -415,11 +723,27 @@ type SlugHookOptions = {
 };
 ```
 
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L5)
+
+### `SortOrderFieldOptions`
+
+```ts
+type SortOrderFieldOptions = {
+  name?: string;
+  label?: { fa: string; en: string };
+  overrides?: Partial<NumberField>;
+};
+```
+
 **Exported from:** `@nexload-sdk/payload-fields`
 
 Public type exported by @nexload-sdk/payload-fields.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L3)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L57)
 
 ***
 
@@ -427,10 +751,60 @@ Public type exported by @nexload-sdk/payload-fields.
 
 | Function | Output | Description |
 |---|---|---|
-| `slugField(options)` | `[Field, Field]` | Returns `[slug, slugLock]` fields configured with Unicode slugifier and sync logic. |
-| `jalaliDateField(options)` | `DateField` | Returns a Payload `date` field configured with the Jalali solar calendar Admin component. |
-| `moneyField(options)` | `NumberField` | Returns an integer `number` field configured with formatted currency Admin component. |
-| `payloadFieldsPlugin(options)` | `Plugin` | Registers custom server-side slug generator REST endpoints. |
+| `slugField(options)` | `[TextField, CheckboxField]` | Returns `[slug, slugLock]` fields with Unicode slugifier, collision suffixing (`-2`, `-3`), and sync logic. |
+| `jalaliDateField(options)` | `DateField` | Returns a Payload `date` field configured with the Jalali solar calendar Admin component and timezone stability. |
+| `jalaliDateRangeField(options)` | `RowField` | Returns a paired row containing `startsAt` and `endsAt` Jalali date fields with order validation. |
+| `withJalaliTimestamps(fields, options)` | `Field[]` | Appends virtual read-only `createdAtJalali` and `updatedAtJalali` fields to an existing field array. |
+| `moneyField(options)` | `NumberField` | Returns an integer `number` field configured with formatted currency Admin component and cell. |
+| `iranMobileField(options)` | `TextField` | Returns a `text` field validating Iranian mobile numbers (`09XXXXXXXXX` or `+989...`). |
+| `iranLandlineField(options)` | `TextField` | Returns a `text` field validating Iranian landlines with province area codes. |
+| `nationalCodeField(options)` | `TextField` | Returns a `text` field with Iranian national code checksum validation. |
+| `legalIdField(options)` | `TextField` | Returns a `text` field with Iranian legal entity ID checksum validation. |
+| `postalCodeField(options)` | `TextField` | Returns a `text` field validating 10-digit Iranian postal codes. |
+| `bankCardField(options)` | `TextField` | Returns a `text` field with 16-digit bank card Luhn checksum validation. |
+| `shebaField(options)` | `TextField` | Returns a `text` field with Iranian IBAN (Sheba) ISO 7064 checksum validation. |
+| `ltrTextField(options)` | `TextField` | Returns a `text` field with forced LTR direction and optional monospace styling. |
+| `sortOrderField(options)` | `NumberField` | Returns an indexed non-negative integer `number` field in the sidebar for sorting. |
+| `iranAddressField(options)` | `GroupField` | Returns a `group` field containing province (31 Iranian provinces), city, line, postal code, and optional recipient. |
+| `payloadFieldsPlugin(options)` | `Plugin` | Registers server slug generator endpoints and `beforeOperation` string money normalization. |
+
+***
+
+## Schema Adapter (`@nexload-sdk/payload-fields/schema`)
+
+`schemaFields` wraps field factories into `field.native(...)` definitions for `@nexload-sdk/payload-schema`:
+
+| Method | Target Factory | Zod Schema |
+|---|---|---|
+| `schemaFields.iranMobile(options)` | `iranMobileField` | `iranMobileSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.iranLandline(options)` | `iranLandlineField` | `iranLandlineSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.nationalCode(options)` | `nationalCodeField` | `nationalCodeSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.legalId(options)` | `legalIdField` | `legalIdSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.postalCode(options)` | `postalCodeField` | `postalCodeSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.bankCard(options)` | `bankCardField` | `cardNumberSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.sheba(options)` | `shebaField` | `shebaSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.ltrText(options)` | `ltrTextField` | `z.string()` with optional min/max lengths |
+| `schemaFields.sortOrder(options)` | `sortOrderField` | `z.number().int().nonnegative()` |
+| `schemaFields.money(options)` | `moneyField` | `z.number().int().safe()` (non-negative by default) |
+| `schemaFields.jalaliDate(options)` | `jalaliDateField` | `z.iso.datetime({ offset: true })` |
+| `schemaFields.slug(options)` | `slugField` | `{ slug: z.string(), slugLock: z.boolean() }` |
+
+> Note: `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` in 4.0.
+
+***
+
+## Compatibility Helpers
+
+| Helper | Type | Description |
+|---|---|---|
+| `formatSlug` | `(value: string) => string` | Canonical slugifier alias of `slugify` from `@nexload-sdk/persian/text`. |
+| `formatJalaliDate` | `(value, options) => string \| null` | Formats an ISO datetime or Date into a Jalali string. |
+| `toStoredJalaliInstant` | `(picked, appearance, timeZone?) => string` | Converts picked Jalali components to an ISO instant (noon for date-only modes). |
+| `formatMoney` | `(value, currency, display?) => string \| null` | Formats integer minor units into currency strings. |
+| `parseMoneyToMinorUnits` | `(input, currency) => number` | Parses string or major-unit text into safe integer minor units. |
+| `IRR` | `MoneyCurrencyDefinition` | Iranian Rial currency definition. |
+| `IRT` | `MoneyCurrencyDefinition` | Iranian Toman currency definition. |
+| `resolveCurrency` | `(currency: MoneyCurrency) => MoneyCurrencyDefinition` | Resolves string or object currency to canonical definition. |
 
 ***
 
