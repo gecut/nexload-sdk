@@ -1,7 +1,10 @@
-import type { NumberField } from "payload";
+import type { NumberField, NumberFieldSingleValidation } from "payload";
 
-import { formatNumber, toEnglishDigits } from "@nexload-sdk/persian/digits";
+import { number } from "payload/shared";
 
+import { formatNumber, parseNumber, toEnglishDigits } from "@nexload-sdk/persian/digits";
+
+import { t } from "../i18n/messages";
 import { assertProtected } from "../internal/protect";
 
 export type MoneyCurrencyDefinition = {
@@ -23,6 +26,9 @@ export type MoneyFieldOptions = {
   maxMinorUnits?: number
   allowNegative?: boolean
   display?: MoneyDisplayOptions
+  displayCurrency?: "IRR" | "IRT"
+  label?: { fa: string, en: string }
+  required?: boolean
   overrides?: Partial<NumberField>
 };
 
@@ -95,6 +101,8 @@ export function moneyField (options: MoneyFieldOptions): NumberField {
   assertProtected(overrides, options.name, "number", "Money field");
   const currency = resolveCurrency(options.currency);
 
+  if (options.displayCurrency && ((currency.code !== "IRR" && currency.code !== "IRT") || options.displayCurrency === currency.code)) throw new Error("Invalid money display currency.");
+
   if (
     options.minMinorUnits !== undefined
     && (
@@ -107,20 +115,22 @@ export function moneyField (options: MoneyFieldOptions): NumberField {
   ) throw new Error("Invalid money bounds.");
   if (options.maxMinorUnits !== undefined && !Number.isSafeInteger(options.maxMinorUnits)) throw new Error("Invalid money bounds.");
   const consumerValidate = overrides.validate;
-  const validate: NumberField["validate"] = (
-    value: unknown, args: { required?: boolean } | undefined
-  ) => {
-    if (value === null || value === undefined || value === "") return args?.required ? "وارد کردن مبلغ الزامی است." : true;
-    if (typeof value !== "number" || !Number.isSafeInteger(value)) return "مبلغ باید یک عدد صحیح معتبر باشد.";
-    if (!options.allowNegative && value < 0) return "مبلغ منفی مجاز نیست.";
-    if (options.minMinorUnits !== undefined && value < options.minMinorUnits) return "مبلغ کمتر از حد مجاز است.";
-    if (options.maxMinorUnits !== undefined && value > options.maxMinorUnits) return "مبلغ بیشتر از حد مجاز است.";
+  const validate: NumberFieldSingleValidation = (value, args) => {
+    const language = args?.req?.i18n?.language;
 
-    return consumerValidate
-      ? (consumerValidate as (value: number, args: unknown) => string | true)(
-        value, args
-      )
-      : true;
+    if (value === null || value === undefined) {
+      if (args?.required ?? options.required ?? overrides.required) return t(language, "required");
+    } else {
+      if (typeof value !== "number" || !Number.isSafeInteger(value)) return t(language, "money.integer");
+      if (!options.allowNegative && value < 0) return t(language, "money.negative");
+      if (options.minMinorUnits !== undefined && value < options.minMinorUnits) return t(language, "money.min");
+      if (options.maxMinorUnits !== undefined && value > options.maxMinorUnits) return t(language, "money.max");
+    }
+    const result = number(value, args);
+
+    if (result !== true) return result;
+
+    return consumerValidate ? (consumerValidate as NumberFieldSingleValidation)(value, args) : true;
   };
   const display = {
     locale: "fa-IR", digits: "persian" as const, grouping: true, showCurrency: true, ...options.display,
@@ -131,15 +141,26 @@ export function moneyField (options: MoneyFieldOptions): NumberField {
     name: options.name,
     type: "number",
     validate,
+    label: options.label ?? overrides.label,
+    required: options.required ?? overrides.required,
+    hooks: { ...overrides.hooks, beforeValidate: [ ...(overrides.hooks?.beforeValidate ?? []), ({ value }) => {
+      if (typeof value !== "string") return value;
+      if (!value.trim()) return null;
+      const parsed = parseNumber(value);
+
+      return parsed !== null && Number.isSafeInteger(parsed) ? parsed : value;
+    } ] },
     admin: {
       ...overrides.admin,
       components: {
         ...overrides.admin?.components,
+        Cell: { path: "@nexload-sdk/payload-fields/admin/money-cell#MoneyCell", clientProps: { currency, display, displayCurrency: options.displayCurrency } },
         Field: {
           path: "@nexload-sdk/payload-fields/admin/money-field#MoneyFieldComponent",
           clientProps: {
             currency,
             display,
+            displayCurrency: options.displayCurrency,
             allowNegative: options.allowNegative ?? false,
           },
         },

@@ -26,7 +26,7 @@ test("parses exact Persian money", () => {
 
 test("keeps money server contract integer-only", () => {
   const field = moneyField({ name: "price", currency: "IRT" });
-  assert.equal(field.validate?.(12.5, { required: false }), "مبلغ باید یک عدد صحیح معتبر باشد.");
+  assert.equal(field.validate?.(12.5, { required: false, req: { i18n: { language: "fa" } } }), "مبلغ باید یک عدد صحیح معتبر باشد.");
 });
 
 test("enforces money bounds and negative policy", () => {
@@ -37,10 +37,10 @@ test("enforces money bounds and negative policy", () => {
     maxMinorUnits: 1_000,
   });
 
-  assert.equal(field.validate?.(-1, { required: false }), "مبلغ منفی مجاز نیست.");
-  assert.equal(field.validate?.(99, { required: false }), "مبلغ کمتر از حد مجاز است.");
-  assert.equal(field.validate?.(1_001, { required: false }), "مبلغ بیشتر از حد مجاز است.");
-  assert.equal(field.validate?.(100, { required: false }), true);
+  assert.equal(field.validate?.(-1, { required: false, req: { i18n: { language: "fa" } } }), "مبلغ منفی مجاز نیست.");
+  assert.equal(field.validate?.(99, { required: false, req: { i18n: { language: "fa" } } }), "مبلغ کمتر از حد مجاز است.");
+  assert.equal(field.validate?.(1_001, { required: false, req: { i18n: { language: "fa" } } }), "مبلغ بیشتر از حد مجاز است.");
+  assert.equal(field.validate?.(100, { required: false, req: { i18n: { language: "fa" } } }), true);
   assert.throws(() => moneyField({ name: "price", currency: "IRT", minMinorUnits: 2, maxMinorUnits: 1 }));
 });
 

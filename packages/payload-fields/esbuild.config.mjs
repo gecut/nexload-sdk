@@ -13,6 +13,7 @@ const bundler = createBundler([
   "src/admin/jalali-date-field.tsx",
   "src/admin/jalali-date-cell.tsx",
   "src/admin/money-field.tsx",
+  "src/admin/money-cell.tsx",
 ], "dist", process.cwd(), {}, false);
 
 bundler();
