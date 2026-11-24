@@ -103,11 +103,9 @@ As Nexload projects grew, several structural challenges emerged:
 +-----------------------------------------------------------------------------------------+
 |                                                                                         |
 |  [apps/web (Next.js)]       <--- @nexload-sdk/healthcheck-next                          |
-|                             <--- @nexload-sdk/env                                       |
 |                             <--- @nexload-sdk/payload-operations (Client SDK Facade)   |
 |                                                                                         |
 |  [apps/api (Bun + oRPC)]    <--- @nexload-sdk/healthcheck-bun                           |
-|                             <--- @nexload-sdk/env                                       |
 |                             <--- @nexload-sdk/logger                                    |
 |                             <--- @nexload-sdk/payload-operations (Operation Client)    |
 |                                                                                         |
@@ -141,7 +139,7 @@ Every package in `nexload-sdk` adheres strictly to two architectural guarantees:
 1. **Independent Utility:**
    No package enforces a hard dependency on the Nexload monolith.
    - `@nexload-sdk/healthcheck` can be used in an Express or Fastify microservice.
-   - `@nexload-sdk/env` can be used in a vanilla Node script.
+   - `@nexload-sdk/logger` can be used in a vanilla Node script.
    - `@nexload-sdk/payload-fields` can be installed in any vanilla Payload CMS project.
 2. **Synergistic Cohesion:**
    When assembled within the Nexload Modular Monolith, these packages eliminate glue code, standardize error shapes, align validation pipelines, and provide complete end-to-end type safety from database field to browser form.

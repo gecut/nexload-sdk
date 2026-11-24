@@ -20,7 +20,6 @@ This document provides the authoritative inventory matrix and dependency graph f
 | **`@nexload-sdk/payload-editor`** | `packages/payload-editor` | Semantic presets & feature builder for Payload Lexical | Node.js / React UI | Implemented |
 | **`@nexload-sdk/payload-fields`** | `packages/refactoring/payload-fields` | Semantic fields: Unicode slug, Jalali date, integer money | Node.js / React 19 UI | Implemented |
 | **`@nexload-sdk/payload-hooks`** | `packages/payload-hooks` | Type-safe collection operation logging hooks | Node.js (Payload >=3) | Implemented |
-| **`@nexload-sdk/env`** | `packages/refactoring/env` | Type-safe environment variable manager & validation presets | Isomorphic / Node / Bun | Implemented |
 | **`@nexload-sdk/logger`** | `packages/logger` | Configure-once structured logging with redaction and child bindings | Isomorphic / Node / Bun | Implemented |
 | **`@nexload-sdk/bundler`** | `tools/bundler` | Workspace build runner: esbuild dual ESM/CJS & dts generator | Node.js CLI / Tooling | Internal Tooling |
 | **`@nexload-sdk/eslint-config`** | `tools/eslint-config` | Shared ESLint 9 flat config for TypeScript & React | Tooling | Internal Tooling |
@@ -33,17 +32,12 @@ This document provides the authoritative inventory matrix and dependency graph f
 ```mermaid
 graph TD
     Logger["@nexload-sdk/logger"]
-    Env["@nexload-sdk/env"]
     HealthCore["@nexload-sdk/healthcheck"]
     Bundler["@nexload-sdk/bundler"]
     
     %% Internal tooling deps
     Bundler -.->|Builds all packages| HealthCore
     Bundler -.->|Builds all packages| Logger
-    Bundler -.->|Builds all packages| Env
-    
-    %% Env uses Logger
-    Env --> Logger
     
     %% Healthcheck suite
     HealthNode["@nexload-sdk/healthcheck-node"] --> HealthCore

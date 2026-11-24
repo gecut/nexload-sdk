@@ -22,7 +22,7 @@ This document is the compact, cross-domain map for an LLM or coding agent workin
 | --- | --- | --- | --- |
 | **Healthcheck Suite** | Framework-agnostic service health, runtime probes, and observability serializers. | `packages/healthcheck/*` | `@nexload-sdk/healthcheck`, `-node`, `-bun`, `-next`, `-prometheus`, `-otel`, `-payload` |
 | **Payload CMS Suite** | Type-safe field factories, Lexical editor presets, custom operations, canonical schemas, and logging hooks. | `packages/payload-*`, `packages/refactoring/payload-fields` | `@nexload-sdk/payload-schema`, `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-editor`, `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-hooks` |
-| **Core Primitives** | Environment validation and structured logging foundations. | `packages/refactoring/env`, `packages/logger` | `@nexload-sdk/env`, `@nexload-sdk/logger` |
+| **Core Primitives** | Structured logging. Environment validation is left to `@t3-oss/env-core` (`@nexload-sdk/env` is deprecated). | `packages/logger` | `@nexload-sdk/logger` |
 | **Shared Tooling** | Workspace build pipeline, ESLint configurations, and TypeScript presets. | `tools/*` | `@nexload-sdk/bundler`, `@nexload-sdk/eslint-config`, `@nexload-sdk/typescript-config` |
 | **Agent Skills** | The 6+1 Cognitive Graph reasoning framework and repo engineering standards. | `skills/*`, `.agents/skills/*` | `nexload-reasoning`, `nexload-code`, `nexload-package`, `nexload-react`, `nexload-cto-review`, domain skills |
 | **Public Docsite** | Astro Starlight documentation portal. | `apps/docs` | Published to `https://gecut.github.io/nexload-sdk/` |
@@ -69,7 +69,6 @@ packages/
 ├── payload-operations/ -> @nexload-sdk/payload-operations (Typed custom operations, endpoints & SDK)
 ├── payload-schema/   -> @nexload-sdk/payload-schema      (Canonical validation shared by Payload & Zod)
 └── refactoring/
-    ├── env/          -> @nexload-sdk/env                 (Type-safe env manager & validation presets)
     └── payload-fields/ -> @nexload-sdk/payload-fields    (Unicode slug, Jalali date, integer money fields)
 ```
 

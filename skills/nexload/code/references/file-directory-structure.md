@@ -27,7 +27,7 @@ This reference defines the authoritative file and directory layout patterns acro
 ## 2. Canonical Archetypes
 
 ### Archetype A: Zero-Dependency Core Library
-Used for foundational primitives, health check engines, loggers, or mathematical/validation cores (e.g., `@nexload-sdk/healthcheck`, `@nexload-sdk/logger`, `@nexload-sdk/env`).
+Used for foundational primitives, health check engines, loggers, or mathematical/validation cores (e.g., `@nexload-sdk/healthcheck`, `@nexload-sdk/logger`).
 
 ```text
 packages/<package-name>/

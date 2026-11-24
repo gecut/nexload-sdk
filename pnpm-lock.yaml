@@ -9,9 +9,6 @@ catalogs:
     '@types/node':
       specifier: ^25.0.3
       version: 25.0.3
-    change-case:
-      specifier: ^5.4.4
-      version: 5.4.4
     colorette:
       specifier: ^2.0.20
       version: 2.0.20
@@ -446,34 +443,6 @@ importers:
       zod:
         specifier: 4.4.3
         version: 4.4.3
-
-  packages/refactoring/env:
-    dependencies:
-      '@nexload-sdk/logger':
-        specifier: workspace:^
-        version: link:../../logger
-    devDependencies:
-      '@nexload-sdk/bundler':
-        specifier: workspace:*
-        version: link:../../../tools/bundler
-      '@nexload-sdk/eslint-config':
-        specifier: workspace:*
-        version: link:../../../tools/eslint-config
-      '@nexload-sdk/typescript-config':
-        specifier: workspace:*
-        version: link:../../../tools/typescript-config
-      '@types/node':
-        specifier: 'catalog:'
-        version: 25.0.3
-      change-case:
-        specifier: 'catalog:'
-        version: 5.4.4
-      eslint:
-        specifier: 'catalog:'
-        version: 9.39.2
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
 
   packages/refactoring/payload-fields:
     dependencies:
@@ -3299,9 +3268,6 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
-
-  change-case@5.4.4:
-    resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
   character-entities-html4@2.1.0:
     resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
@@ -9962,8 +9928,6 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-
-  change-case@5.4.4: {}
 
   character-entities-html4@2.1.0: {}
 
