@@ -442,6 +442,49 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
 
+  packages/payload-preset:
+    dependencies:
+      '@nexload-sdk/logger':
+        specifier: workspace:^
+        version: link:../logger
+      '@nexload-sdk/payload-fields':
+        specifier: workspace:^
+        version: link:../payload-fields
+      '@nexload-sdk/payload-hooks':
+        specifier: workspace:^
+        version: link:../payload-hooks
+      '@nexload-sdk/persian':
+        specifier: workspace:^
+        version: link:../persian
+    devDependencies:
+      '@nexload-sdk/bundler':
+        specifier: workspace:*
+        version: link:../../tools/bundler
+      '@nexload-sdk/eslint-config':
+        specifier: workspace:*
+        version: link:../../tools/eslint-config
+      '@nexload-sdk/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
+      '@payloadcms/db-sqlite':
+        specifier: 3.86.0
+        version: 3.86.0(@types/pg@8.20.0)(payload@3.86.0(graphql@16.12.0)(typescript@5.9.3))(pg@8.20.0)
+      '@payloadcms/translations':
+        specifier: 3.86.0
+        version: 3.86.0
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.3
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.2
+      payload:
+        specifier: 'catalog:'
+        version: 3.86.0(graphql@16.12.0)(typescript@5.9.3)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
   packages/payload-schema:
     devDependencies:
       '@nexload-sdk/bundler':

@@ -1,6 +1,6 @@
 # Payload CMS Suite
 
-The **Payload CMS Suite** is a collection of 5 specialized packages that enhance Payload CMS applications with production-grade field factories, semantic editor presets, canonical schema compilation, typed custom operations, and operation logging.
+The **Payload CMS Suite** includes field factories, semantic editor presets, canonical schema compilation, typed custom operations, operation logging, and shared CMS configuration.
 
 ---
 
@@ -13,6 +13,7 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 | **`@nexload-sdk/payload-editor`** | Semantic Lexical editor configuration, presets (minimal, standard, rich), and feature policies. | Rich-text presentation, React rendering, custom blocks schemas, theme styling. |
 | **`@nexload-sdk/payload-fields`** | Semantic field factories and Admin UI components (Unicode slugs, Jalali datepicker, integer money). | General schema compilation or editor feature policies. |
 | **`@nexload-sdk/payload-hooks`** | Type-safe collection operation logging hooks for auditability and debugging. | Domain mutations, access validation, data manipulation. |
+| **`@nexload-sdk/payload-preset`** | Composing Persian admin defaults, SDK logging settings, field hooks, and audit logging. | Admin branding, font setup, database adapter configuration. |
 
 ---
 
@@ -88,6 +89,12 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 - **Location:** `packages/payload-hooks`
 - **Problem Solved:** Lack of structured, traceable visibility into collection lifecycle events (beforeChange, afterChange, afterDelete) across collections.
 - **Core Mechanism:** Plug-and-play hook factory that logs operation lifecycle, timing, user identity, and affected document IDs using `@nexload-sdk/logger`.
+
+### F. `@nexload-sdk/payload-preset`
+
+- **Location:** `packages/payload-preset`
+- **Usage:** Add `nexloadPreset()` to Payload's plugins for Persian admin defaults, SDK logging settings, field hooks, and audit logging.
+- **Logger bridge:** Call `configureLogger()` before `buildConfig()`. With no host logger configured, the plugin gives Payload the SDK's logger options and explicit destination so Payload creates its own logger. The `success` threshold maps to `warn`. Set `logger: false` in the preset options to disable the bridge.
 
 ### Payload fields: money, slug, and plugin behavior
 

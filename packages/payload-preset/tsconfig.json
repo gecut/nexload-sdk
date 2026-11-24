@@ -1,0 +1,10 @@
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "include": ["."],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true
+  },
+  "exclude": ["node_modules", "dist"]
+}

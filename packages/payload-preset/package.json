@@ -1,0 +1,33 @@
+{
+  "name": "@nexload-sdk/payload-preset",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "publishConfig": { "access": "public" },
+  "files": ["dist", "README.md", "package.json"],
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "default": "./dist/index.js" } },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint .",
+    "test": "pnpm build && node --test test/*.test.mjs",
+    "test:sqlite": "pnpm build && node --test 'test/integration/*.test.mjs'"
+  },
+  "dependencies": {
+    "@nexload-sdk/logger": "workspace:^",
+    "@nexload-sdk/payload-fields": "workspace:^",
+    "@nexload-sdk/payload-hooks": "workspace:^",
+    "@nexload-sdk/persian": "workspace:^"
+  },
+  "peerDependencies": { "payload": ">=3.85.0 <4.0.0", "@payloadcms/translations": ">=3.85.0 <4.0.0" },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@payloadcms/db-sqlite": "3.86.0",
+    "@payloadcms/translations": "3.86.0",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "payload": "catalog:",
+    "typescript": "catalog:"
+  }
+}
