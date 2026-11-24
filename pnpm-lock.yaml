@@ -470,6 +470,9 @@ importers:
 
   packages/refactoring/payload-fields:
     dependencies:
+      '@nexload-sdk/persian':
+        specifier: workspace:^
+        version: link:../../persian
       react-day-picker:
         specifier: ^9.12.0
         version: 9.12.0(react@19.2.3)

@@ -1,3 +1,5 @@
+import { formatJalali, TEHRAN_TIME_ZONE } from "@nexload-sdk/persian/date";
+
 export type JalaliDateValue = Date | string | number | null | undefined;
 export type JalaliDateDisplayOptions = {
   dateStyle?: "short" | "medium" | "long" | "full"
@@ -9,17 +11,10 @@ export type JalaliDateDisplayOptions = {
 export function formatJalaliDate (
   value: JalaliDateValue, options: JalaliDateDisplayOptions = {}
 ): string | null {
-  if (value === null || value === undefined) return null;
-  const date = value instanceof Date ? value : new Date(value);
-
-  if (Number.isNaN(date.getTime())) return null;
-  const locale = options.digits === "latin" ? "fa-IR-u-ca-persian-nu-latn" : "fa-IR-u-ca-persian";
-
-  return new Intl.DateTimeFormat(
-    locale, {
-      dateStyle: options.dateStyle ?? "medium",
-      ...(options.timeStyle ? { timeStyle: options.timeStyle, } : {}),
-      ...(options.timeZone ? { timeZone: options.timeZone, } : {}),
-    }
-  ).format(date);
+  return formatJalali(value, {
+    format: options.dateStyle === "short" ? "short" : options.dateStyle === "long" || options.dateStyle === "full" ? "long" : "medium",
+    time: options.timeStyle,
+    digits: options.digits,
+    timeZone: options.timeZone ?? TEHRAN_TIME_ZONE,
+  });
 }

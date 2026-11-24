@@ -1,24 +1,13 @@
 import type { FieldHook } from "payload";
 
+import { slugify } from "@nexload-sdk/persian/text";
+
 export type SlugHookOptions = {
   name: string
   lockName: string
   source: string
   regenerateOnSourceChange: boolean
 };
-
-const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
-const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
-
-function normalizeDigits (value: string): string {
-  return value.replace(
-    /[۰-۹٠-٩]/g, (digit) => {
-      const index = persianDigits.indexOf(digit);
-
-      return String(index >= 0 ? index : arabicDigits.indexOf(digit));
-    }
-  );
-}
 
 function getPath (
   value: unknown, path: string
@@ -45,30 +34,7 @@ function hasPath (
   });
 }
 
-export function formatSlug (value: string): string {
-  return normalizeDigits(value.normalize("NFKC"))
-    .replace(
-      /[يى]/g, "ی"
-    )
-    .replace(
-      /ك/g, "ک"
-    )
-    .replace(
-      /[\u064B-\u065F\u0670]/g, ""
-    )
-    .replace(
-      /[\s_]+/g, "-"
-    )
-    .replace(
-      /[^\p{L}\p{N}-]+/gu, ""
-    )
-    .replace(
-      /-+/g, "-"
-    )
-    .replace(
-      /^-+|-+$/g, ""
-    );
-}
+export const formatSlug: (value: string) => string = slugify;
 
 export const formatSlugHook = (options: SlugHookOptions): FieldHook => ({
   data,

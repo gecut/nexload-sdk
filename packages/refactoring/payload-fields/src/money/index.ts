@@ -1,5 +1,7 @@
 import type { NumberField } from "payload";
 
+import { formatNumber, toEnglishDigits } from "@nexload-sdk/persian/digits";
+
 export type MoneyCurrencyDefinition = {
   code: string
   label: string
@@ -40,20 +42,7 @@ export function resolveCurrency (currency: MoneyCurrency): MoneyCurrencyDefiniti
 }
 
 function normalizedNumber (value: string): string {
-  const persian = "۰۱۲۳۴۵۶۷۸۹";
-  const arabic = "٠١٢٣٤٥٦٧٨٩";
-
-  return value.trim().replace(
-    /[۰-۹٠-٩]/g, (digit) => String(Math.max(
-      persian.indexOf(digit), arabic.indexOf(digit)
-    ) % 10)
-  )
-    .replace(
-      /[٬,\s]/g, ""
-    )
-    .replace(
-      /٫/g, "."
-    );
+  return toEnglishDigits(value.trim()).replace(/[٬,\s]/g, "").replace(/٫/g, ".");
 }
 
 export function parseMoneyToMinorUnits (
@@ -90,11 +79,10 @@ export function formatMoney (
   if (value === null || value === undefined) return null;
   if (!Number.isSafeInteger(value)) throw new RangeError("Money value is outside the safe integer range.");
   const definition = resolveCurrency(currency);
-  const locale = display.locale ?? (display.digits === "latin" ? "fa-IR-u-nu-latn" : "fa-IR");
   const major = value / 10 ** definition.fractionDigits;
-  const formatted = new Intl.NumberFormat(
-    locale, { useGrouping: display.grouping ?? true, minimumFractionDigits: definition.fractionDigits, maximumFractionDigits: definition.fractionDigits, }
-  ).format(major);
+  const formatted = display.locale
+    ? new Intl.NumberFormat(display.locale, { useGrouping: display.grouping ?? true, minimumFractionDigits: definition.fractionDigits, maximumFractionDigits: definition.fractionDigits, }).format(major)
+    : formatNumber(major, { digits: display.digits, grouping: display.grouping, fractionDigits: definition.fractionDigits, });
 
   return display.showCurrency ?? true ? `${formatted} ${definition.label}` : formatted;
 }
