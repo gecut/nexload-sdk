@@ -1,4 +1,6 @@
-import type { PayloadRequest, Plugin } from "payload";
+import type { Field, PayloadRequest, Plugin } from "payload";
+
+import { parseNumber } from "@nexload-sdk/persian/digits";
 
 import { t } from "./i18n/messages";
 import { formatSlug } from "./slug/format-slug";
@@ -8,6 +10,73 @@ export type SlugGeneratorContext = { req: PayloadRequest };
 export type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorContext) => Promise<string>;
 export type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise<boolean>;
 export type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerator>, generateSlugAccess?: SlugGenerationAccess };
+
+function normalizeDataMoneyFields (fields: Field[], data: unknown): void {
+  if (!data || typeof data !== "object") return;
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      normalizeDataMoneyFields(fields, item);
+    }
+
+    return;
+  }
+
+  const record = data as Record<string, unknown>;
+
+  for (const field of fields) {
+    if (field.type === "number" && (field.custom as { nexload?: { money?: unknown } } | undefined)?.nexload?.money && "name" in field) {
+      const val = record[field.name];
+
+      if (typeof val === "string") {
+        const trimmed = val.trim();
+
+        if (trimmed === "") {
+          record[field.name] = null;
+        } else {
+          const parsed = parseNumber(trimmed);
+
+          if (parsed !== null && Number.isSafeInteger(parsed)) {
+            record[field.name] = parsed;
+          }
+        }
+      }
+    } else if (field.type === "group" && "fields" in field && "name" in field) {
+      normalizeDataMoneyFields(field.fields, record[field.name]);
+    } else if ((field.type === "row" || field.type === "collapsible") && "fields" in field) {
+      normalizeDataMoneyFields(field.fields, record);
+    } else if (field.type === "tabs" && "tabs" in field) {
+      for (const tab of field.tabs) {
+        if ("name" in tab && tab.name) {
+          normalizeDataMoneyFields(tab.fields, record[tab.name]);
+        } else {
+          normalizeDataMoneyFields(tab.fields, record);
+        }
+      }
+    } else if (field.type === "array" && "fields" in field && "name" in field) {
+      const rows = record[field.name];
+
+      if (Array.isArray(rows)) {
+        for (const row of rows) {
+          normalizeDataMoneyFields(field.fields, row);
+        }
+      }
+    } else if (field.type === "blocks" && "blocks" in field && "name" in field) {
+      const blocks = record[field.name];
+
+      if (Array.isArray(blocks)) {
+        for (const block of blocks) {
+          if (block && typeof block === "object") {
+            const blockDef = field.blocks.find((b) => b.slug === (block as { blockType?: string }).blockType);
+
+            if (blockDef) {
+              normalizeDataMoneyFields(blockDef.fields, block);
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 function failure (
   code: string, message: string, status: number
@@ -20,6 +89,38 @@ function failure (
 export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): Plugin {
   return (config) => ({
     ...config,
+    collections: (config.collections ?? []).map((collection) => ({
+      ...collection,
+      hooks: {
+        ...collection.hooks,
+        beforeOperation: [
+          ...(collection.hooks?.beforeOperation ?? []),
+          ({ args, collection: colConfig }) => {
+            if (args && "data" in args && args.data && colConfig?.fields) {
+              normalizeDataMoneyFields(colConfig.fields, args.data);
+            }
+
+            return args;
+          },
+        ],
+      },
+    })),
+    globals: (config.globals ?? []).map((global) => ({
+      ...global,
+      hooks: {
+        ...global.hooks,
+        beforeOperation: [
+          ...(global.hooks?.beforeOperation ?? []),
+          ({ args, global: globConfig }) => {
+            if (args && "data" in args && args.data && globConfig?.fields) {
+              normalizeDataMoneyFields(globConfig.fields, args.data);
+            }
+
+            return args;
+          },
+        ],
+      },
+    })),
     endpoints: [
       ...(config.endpoints ?? []),
       {

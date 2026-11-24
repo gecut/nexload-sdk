@@ -90,7 +90,8 @@
     "build": "node esbuild.config.mjs",
     "lint": "eslint src",
     "test": "pnpm build && node --test test/*.test.mjs",
-    "test:tz": "pnpm build && TZ=America/New_York node --test test/jalali.test.mjs"
+    "test:tz": "pnpm build && TZ=America/New_York node --test test/jalali.test.mjs",
+    "test:sqlite": "pnpm build && node --test test/integration/*.test.mjs"
   },
   "dependencies": {
     "react-day-picker": "^9.12.0",
