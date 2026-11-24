@@ -19,6 +19,7 @@ type HookReturnType<T extends HookType> = T extends "beforeChange"
         ? CollectionAfterReadHook
         : never;
 
+/** @deprecated Use auditPlugin instead. */
 export const logOperation = <
   THookType extends HookType,
   TReturn extends HookReturnType<THookType>

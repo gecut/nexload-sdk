@@ -28,11 +28,11 @@
   },
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "pnpm build && node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@nexload-sdk/logger": "workspace:^",
-    "payload": "catalog:"
+    "@nexload-sdk/logger": "workspace:^"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
@@ -40,6 +40,10 @@
     "@nexload-sdk/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "payload": "catalog:"
+  },
+  "peerDependencies": {
+    "payload": ">=3.85.0 <4.0.0"
   }
 }

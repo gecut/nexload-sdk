@@ -1,44 +1,34 @@
 # @nexload-sdk/payload-hooks
 
-Small Payload CMS hook helpers built on top of `@nexload-sdk/logger`.
+Payload config hooks for Node.js. Audit events are log-only; no audit records are stored.
 
 ## Install
 
 ```bash
-pnpm add @nexload-sdk/payload-hooks
+pnpm add @nexload-sdk/payload-hooks payload
 ```
 
-## Exports
+Payload is a peer dependency (`>=3.85.0 <4.0.0`). This is a breaking change from v2.
 
-- `logOperation(hookType)`
-
-## Quick Start
+## Audit plugin
 
 ```ts
-import { logOperation } from "@nexload-sdk/payload-hooks";
+import { auditPlugin } from "@nexload-sdk/payload-hooks";
 
-export const Posts = {
-  slug: "posts",
-  hooks: {
-    beforeChange: [logOperation("beforeChange")],
-    afterChange: [logOperation("afterChange")],
-    afterDelete: [logOperation("afterDelete")],
-    afterRead: [logOperation("afterRead")]
-  }
-};
+const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read", "auth"] })];
 ```
 
-## Supported Hook Types
+| Option | Default | Meaning |
+| --- | --- | --- |
+| `collections` | `"all"` | Collection slugs to audit, or all collections. |
+| `exclude` | `[]` | Collection slugs to skip. Unknown slugs throw at config time. |
+| `operations` | `["create", "update", "delete", "auth"]` | Enabled audit operations. |
+| `logger` | SDK default logger | Logger with an `info` method. |
 
-- `beforeChange`
-- `afterChange`
-- `afterDelete`
-- `afterRead`
+The plugin runs at order `1000` and appends hooks after existing hooks. It does not change fields. Writes log once per document. Reads are off by default and log once per request. Authentication is on by default for auth collections; failed logins are not logged. Logger failures do not interrupt operations. Entries contain only identifiers and counts, never document bodies or credentials.
 
-## Behavior
+Events: `payload.document.created`, `payload.document.updated`, `payload.document.deleted`, `payload.documents.listed`, `payload.document.read`, `payload.auth.logged_in`, `payload.auth.password_reset_requested`, and `payload.auth.password_reset`.
 
-The returned hook logs the collection slug/name and hook type using `@nexload-sdk/logger`, then returns:
+## Deprecated: `logOperation(hookType)`
 
-- `args.data` when present
-- `args.doc` when present
-- `null` otherwise
+Use `auditPlugin` instead. `logOperation` logs `{ collection }` at info level with the hook type as its message. It returns `args.data` when truthy, otherwise `args.doc` when truthy, otherwise `null`. Supported types are `beforeChange`, `afterChange`, `afterDelete`, and `afterRead`.
