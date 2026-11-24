@@ -1,3 +1,4 @@
+export * from "./address";
 export * from "./bank";
 export * from "./common";
 export * from "./contact";
