@@ -1,0 +1,14 @@
+[
+  { "query": "Configure nexloadPreset for our Payload CMS project", "should_trigger": true },
+  { "query": "Set up auditPlugin with read auditing in payload.config.ts", "should_trigger": true },
+  { "query": "Migrate legacy logOperation hooks to auditPlugin in Payload collections", "should_trigger": true },
+  { "query": "Tune preset options to disable Persian defaults while keeping audit and logger", "should_trigger": true },
+  { "query": "Why is our Payload users collection missing from audit logs?", "should_trigger": true },
+  { "query": "Review payload.config.ts plugin order for nexloadPreset and custom host plugins", "should_trigger": true },
+  { "query": "Format integer money field in tomans for payload collection", "should_trigger": false },
+  { "query": "Add structured request logging to an Express route handler using @nexload-sdk/logger", "should_trigger": false },
+  { "query": "Define canonical entity fields and compile to Zod schema", "should_trigger": false },
+  { "query": "Create a Next.js healthcheck route handler with no-store headers", "should_trigger": false },
+  { "query": "Convert Jalali date string to Gregorian date in Node.js", "should_trigger": false },
+  { "query": "Add a Jalali datepicker field to Payload admin UI", "should_trigger": false }
+]

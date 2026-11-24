@@ -97,6 +97,9 @@ npx skills add gecut/nexload-sdk --skill nexload-reasoning
 # Install the Persian skill
 npx skills add gecut/nexload-sdk --skill persian
 
+# Install the Payload Preset skill
+npx skills add gecut/nexload-sdk --skill payload-preset
+
 # View all available skills
 npx skills add gecut/nexload-sdk --list
 ```

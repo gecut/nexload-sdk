@@ -46,6 +46,9 @@ All skills comply with the **Agent Skills Specification v1.0**, featuring progre
 ### H. Persian Skill (`skills/persian`)
 - [`persian`](../../skills/persian/SKILL.md) covers Iranian identifiers, money, and Jalali dates in projects using `@nexload-sdk/persian`.
 
+### I. Payload Preset Skill (`skills/payload-preset`)
+- [`payload-preset`](../../skills/payload-preset/SKILL.md) covers top-level Payload CMS preset configuration, Persian defaults, logger bridge, field hooks, and collection audit logging (`auditPlugin`).
+
 ---
 
 ## 2. Distributing & Installing Skills
@@ -69,6 +72,9 @@ npx skills add gecut/nexload-sdk --skill logger
 
 # 5. Install the Persian skill
 npx skills add gecut/nexload-sdk --skill persian
+
+# 6. Install the Payload Preset skill
+npx skills add gecut/nexload-sdk --skill payload-preset
 ```
 
 ### The One-Shot Adoption Pattern

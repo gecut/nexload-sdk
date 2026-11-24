@@ -1,0 +1,62 @@
+{
+  "skill_name": "payload-preset",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "Configure nexloadPreset in a Payload CMS application with custom 'posts' and 'users' collections, using default Persian language, SDK logger bridge, and collection audit logging.",
+      "expected_output": "A complete payload.config.ts invoking configureLogger before buildConfig and spreading nexloadPreset in the plugins array.",
+      "expectations": [
+        "Calls configureLogger() before buildConfig() with service identity.",
+        "Spreads nexloadPreset() into the plugins array of buildConfig.",
+        "Explicitly declares both 'posts' and 'users' collections in the collections array.",
+        "Leaves collection fields untouched and unmutated."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "Configure auditPlugin through nexloadPreset options to enable read auditing, exclude an internal 'system-logs' collection, and pass a custom test logger.",
+      "expected_output": "Options passed to nexloadPreset under the audit key configuring operations and collection exclusions.",
+      "expectations": [
+        "Passes audit options with operations: ['create', 'update', 'delete', 'read', 'auth'].",
+        "Sets exclude: ['system-logs'] to prevent audit recursion on internal log collections.",
+        "Supplies a custom logger implementing Pick<Logger, 'info'>.",
+        "Confirms that find operations log a single documents.listed event with count."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "failure_security",
+      "prompt": "Audit a Payload configuration for potential data leaks in audit logs, checking password reset requests, user logins, document updates, and database rollback semantics.",
+      "expected_output": "A security review verifying that credentials and request bodies are excluded, and explaining the pre-commit emission caveat.",
+      "expectations": [
+        "Verifies that payload.auth.password_reset_requested never logs user email addresses or reset tokens.",
+        "Confirms that payload.document.created and updated never log request bodies or field values.",
+        "Explains that write events are emitted in afterChange before database transaction commit."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "review_diagnosis",
+      "prompt": "Diagnose why a Payload application has working authentication and Admin UI, but auditPlugin never emits any login or password reset events for the admin users.",
+      "expected_output": "An explanation that Payload's implicit fallback users collection is not in config.collections, and instructions to declare the users collection explicitly.",
+      "expectations": [
+        "Identifies that Payload implicitly synthesizes a users collection when omitted from config.collections.",
+        "Explains that auditPlugin inspects only declared config.collections at plugin initialization.",
+        "Fixes the issue by explicitly adding the auth users collection to collections."
+      ]
+    },
+    {
+      "id": 5,
+      "category": "migration",
+      "prompt": "Migrate a Payload codebase with hand-written logOperation hooks attached across five collections to auditPlugin.",
+      "expected_output": "Removal of deprecated logOperation hooks from collections and registration of auditPlugin or nexloadPreset at the config root.",
+      "expectations": [
+        "Removes per-collection logOperation hooks from afterChange and afterDelete.",
+        "Registers auditPlugin() or nexloadPreset() in the top-level plugins array.",
+        "Preserves existing collection business hooks while keeping plugin order 1000."
+      ]
+    }
+  ]
+}
