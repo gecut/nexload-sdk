@@ -3,6 +3,22 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+test("getPinoLogger returns the configured pino instance", async () => {
+  const { configureLogger, getPinoLogger } = await import("../dist/index.mjs?pino-bridge");
+  const entries = [];
+  configureLogger({
+    service: "payload",
+    destination: { write: (line) => entries.push(JSON.parse(line)) },
+  });
+
+  getPinoLogger().info({ password: "secret", event: "payload.test.created" }, "Created");
+
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].password, "[REDACTED]");
+  assert.equal(entries[0].event, "payload.test.created");
+  assert.equal(entries[0].service, "payload");
+});
+
 const createTestLogger = async (options) => {
   const testing = await import("../dist/testing.mjs");
 
