@@ -101,6 +101,18 @@ export const apiPackages = [
     sourcePath: "packages/payload-fields",
   },
   {
+    id: "payload-hooks",
+    name: "@nexload-sdk/payload-hooks",
+    entry: "../../packages/payload-hooks/src/index.ts",
+    sourcePath: "packages/payload-hooks",
+  },
+  {
+    id: "payload-preset",
+    name: "@nexload-sdk/payload-preset",
+    entry: "../../packages/payload-preset/src/index.ts",
+    sourcePath: "packages/payload-preset",
+  },
+  {
     id: "payload-editor",
     name: "@nexload-sdk/payload-editor",
     entry: "../../packages/payload-editor/src/index.ts",

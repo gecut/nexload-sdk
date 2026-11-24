@@ -22,6 +22,8 @@ export const collections: { docs: DocsCollection } = {
             "healthcheck-otel",
             "healthcheck-payload",
             "payload-fields",
+            "payload-hooks",
+            "payload-preset",
             "payload-editor",
             "payload-operations",
             "payload-schema",

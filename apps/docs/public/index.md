@@ -96,6 +96,8 @@ Explore Payload Suite →
 ## Payload CMS Packages
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
+* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
+* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
 * [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)

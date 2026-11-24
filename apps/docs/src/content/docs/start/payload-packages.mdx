@@ -1,16 +1,34 @@
 ---
 title: "Payload Suite Overview"
-description: Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations by responsibility.
+description: Compose the Payload packages by responsibility.
 sidebar:
   order: 4
 topic: ecosystem
 ---
 
-| Package                           | Owns                                                                                                   | Does not own                                                                                            |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| `@nexload-sdk/payload-fields`     | Concrete semantic Payload field factories and matching Admin UI                                        | General schema derivation or editor feature policy                                                      |
-| `@nexload-sdk/payload-editor`     | Semantic Payload Lexical feature and preset configuration                                              | Rich-text fields, frontend rendering, Blocks schemas, or themes                                         |
-| `@nexload-sdk/payload-schema`     | Canonical field validation compiled into Payload fields and reusable Zod schemas                       | Collections, access control, populated documents, or CRUD DTO inference                                 |
-| `@nexload-sdk/payload-operations` | Typed custom operation contracts, Payload endpoints, pure RPC client and CMS client facade, transport plugins, and defined errors | CRUD replacement, collection definitions, transactions, retry, caching, batching, or custom serializers |
+| Package | Responsibility |
+| --- | --- |
+| [Payload Schema](/nexload-sdk/packages/payload-schema/) | Canonical field definitions and validation projected to Payload and Zod. |
+| [Payload Fields](/nexload-sdk/packages/payload-fields/) | Semantic field factories and Admin UI, backed by [Persian utilities](/nexload-sdk/packages/persian/). |
+| [Payload Editor](/nexload-sdk/packages/payload-editor/) | Lexical features and editor presets. |
+| [Payload Operations](/nexload-sdk/packages/payload-operations/) | Typed custom operation contracts, endpoints, and clients. |
+| [Payload Hooks](/nexload-sdk/packages/payload-hooks/) | Collection audit hooks and structured events. |
+| [Payload Preset](/nexload-sdk/packages/payload-preset/) | Top-level configuration composition for Persian defaults, logging, field hooks, and audit hooks. |
 
-The packages can be composed, but they do not wrap one another. Keep collection lifecycle, access, drafts, localization, tabs, and application business rules in the Payload application.
+The preset does not define or change collection fields. Use Payload Schema and Payload Fields for fields, and keep collection definitions, access control, and business rules in the application.
+
+## Recommended configuration
+
+```ts
+import { configureLogger } from "@nexload-sdk/logger";
+import { nexloadPreset } from "@nexload-sdk/payload-preset";
+import { buildConfig } from "payload";
+
+configureLogger({ service: "shop-cms" });
+export default buildConfig({
+  // Add db, secret, and collections here.
+  plugins: [...nexloadPreset()],
+});
+```
+
+Call `configureLogger()` before `buildConfig()`. Declare collections explicitly, including the auth collection, to audit them. The preset includes `payloadFieldsPlugin` and `auditPlugin`; avoid registering them twice. Enable read auditing only when needed. See the [preset guide](/nexload-sdk/packages/payload-preset/guides/) and [audit guide](/nexload-sdk/packages/payload-hooks/guides/).

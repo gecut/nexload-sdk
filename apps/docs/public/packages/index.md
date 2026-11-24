@@ -29,6 +29,8 @@ Start with the runtime-neutral core, then add only the runtime, framework, CMS, 
 Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zod schemas, or contract-first custom operations.
 
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
+* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
+* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
 * [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
@@ -47,6 +49,8 @@ Shared TypeScript compiler configurations, ESLint 9 Flat Config presets, and can
 * [@nexload-sdk/healthcheck-otel](/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
 * [@nexload-sdk/healthcheck-payload](/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
 * [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
+* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
+* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
 * [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
 * [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
 * [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)

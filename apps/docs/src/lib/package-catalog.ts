@@ -8,6 +8,8 @@ import healthcheckPrometheus from "../../../../packages/healthcheck/prometheus/p
 import persian from "../../../../packages/persian/package.json";
 import logger from "../../../../packages/logger/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
+import payloadHooks from "../../../../packages/payload-hooks/package.json";
+import payloadPreset from "../../../../packages/payload-preset/package.json";
 import payloadFields from "../../../../packages/payload-fields/package.json";
 import payloadOperations from "../../../../packages/payload-operations/package.json";
 import payloadSchema from "../../../../packages/payload-schema/package.json";
@@ -147,6 +149,28 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/payload-fields/",
     runtimes: ["Payload CMS", "React 19", "Payload Admin"],
     skills: ["payload-fields-core", "payload-fields-slug", "payload-fields-jalali-date", "payload-fields-money"],
+    ...stableRelease,
+  },
+  {
+    id: "payload-hooks",
+    label: "Payload Hooks",
+    manifest: payloadHooks,
+    family: "payload",
+    sourcePath: "packages/payload-hooks",
+    docsPath: "/packages/payload-hooks/",
+    runtimes: ["Payload CMS", "Node.js"],
+    skills: ["payload-preset"],
+    ...stableRelease,
+  },
+  {
+    id: "payload-preset",
+    label: "Payload Preset",
+    manifest: payloadPreset,
+    family: "payload",
+    sourcePath: "packages/payload-preset",
+    docsPath: "/packages/payload-preset/",
+    runtimes: ["Payload CMS", "Node.js"],
+    skills: ["payload-preset"],
     ...stableRelease,
   },
   {

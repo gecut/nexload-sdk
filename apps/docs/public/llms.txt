@@ -1,6 +1,6 @@
 # Nexload SDK documentation
 
-Current-version documentation for 13 released Healthcheck and Payload CMS packages.
+Current-version documentation for 15 released Healthcheck and Payload CMS packages.
 
 - [Domain Specialists (Tier 3) | Nexload SDK](/agents/domain-skills.md) — Production package skills for Healthcheck, Payload CMS, and Persian data. [topic: agents]
 - [Engineering Standards (Tier 2) | Nexload SDK](/agents/engineering.md) — Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review. [topic: agents]
@@ -43,9 +43,15 @@ Current-version documentation for 13 released Healthcheck and Payload CMS packag
 - [API Reference & Compatibility](/packages/payload-fields/api.md) — Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields. [@nexload-sdk/payload-fields v3.1.0] [topic: api]
 - [Production Guides & Recipes](/packages/payload-fields/guides.md) — Deep recipes for managed Unicode slugs, Jalali date ranges, integer money fields, Iranian contact & identity, addresses, and schema integration. [@nexload-sdk/payload-fields v3.1.0] [topic: guides]
 - [Overview & Quick Start](/packages/payload-fields/) — Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses. [@nexload-sdk/payload-fields v3.1.0] [topic: overview]
+- [API Reference & Compatibility](/packages/payload-hooks/api.md) — Public audit plugin and legacy hook exports. [@nexload-sdk/payload-hooks v2.1.0] [topic: api]
+- [Production Guides & Recipes](/packages/payload-hooks/guides.md) — Audit options, events, privacy, and migration. [@nexload-sdk/payload-hooks v2.1.0] [topic: guides]
+- [Overview & Quick Start](/packages/payload-hooks/) — Audit Payload collection operations with structured log events. [@nexload-sdk/payload-hooks v2.1.0] [topic: overview]
 - [API Reference & Compatibility](/packages/payload-operations/api.md) — Complete public API symbol reference, entrypoint exports, and runtime compatibility matrix for Payload Operations. [@nexload-sdk/payload-operations v1.0.0] [topic: api]
 - [Production Guides & Recipes](/packages/payload-operations/guides.md) — Advanced multi-resource contract patterns, Payload server endpoints with RBAC, transport plugins, safe error matching, Next.js server actions, and troubleshooting. [@nexload-sdk/payload-operations v1.0.0] [topic: guides]
 - [Overview & Quick Start](/packages/payload-operations/) — Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK. [@nexload-sdk/payload-operations v1.0.0] [topic: overview]
+- [API Reference & Compatibility](/packages/payload-preset/api.md) — Public preset exports and runtime constraints. [@nexload-sdk/payload-preset v0.0.0] [topic: api]
+- [Production Guides & Recipes](/packages/payload-preset/guides.md) — Options, merge rules, ordering, and logging for the Payload preset. [@nexload-sdk/payload-preset v0.0.0] [topic: guides]
+- [Overview & Quick Start](/packages/payload-preset/) — Compose Payload configuration with Nexload defaults. [@nexload-sdk/payload-preset v0.0.0] [topic: overview]
 - [API Reference & Compatibility](/packages/payload-schema/api.md) — Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema. [@nexload-sdk/payload-schema v2.0.0] [topic: api]
 - [Production Guides & Recipes](/packages/payload-schema/guides.md) — Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration. [@nexload-sdk/payload-schema v2.0.0] [topic: guides]
 - [Overview & Quick Start](/packages/payload-schema/) — Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas. [@nexload-sdk/payload-schema v2.0.0] [topic: overview]
@@ -59,4 +65,4 @@ Current-version documentation for 13 released Healthcheck and Payload CMS packag
 - [Choose a Package: Interactive Decision Guide](/start/choose-a-package.md) — Match a structured logging, service health, or Payload CMS task to a Nexload SDK package. [topic: ecosystem]
 - [Architecture Glossary: Terms & Invariants](/start/glossary.md) — Shared terms used across Healthcheck and Payload package documentation. [topic: ecosystem]
 - [Introduction: Ecosystem & Architecture](/start/introduction.md) — Understand the Nexload SDK package model, documentation policy, and recommended learning path. [topic: ecosystem]
-- [Payload Suite Overview](/start/payload-packages.md) — Compare Payload Fields, Payload Editor, Payload Schema, and Payload Operations by responsibility. [topic: ecosystem]
+- [Payload Suite Overview](/start/payload-packages.md) — Compose the Payload packages by responsibility. [topic: ecosystem]

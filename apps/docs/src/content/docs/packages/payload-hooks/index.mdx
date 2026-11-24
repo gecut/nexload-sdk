@@ -1,0 +1,29 @@
+---
+title: "Overview & Quick Start"
+description: "Audit Payload collection operations with structured log events."
+sidebar:
+  label: "Overview & Quick Start"
+  order: 1
+package: payload-hooks
+topic: overview
+---
+
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/payload-hooks")} eyebrow="Payload CMS auditing" />
+
+`auditPlugin` attaches log-only collection hooks. It stores no audit records and does not change collection fields.
+
+```bash
+pnpm add @nexload-sdk/payload-hooks payload
+```
+
+```ts
+import { auditPlugin } from "@nexload-sdk/payload-hooks";
+
+const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read", "auth"] })];
+```
+
+Reads are off by default; auth is on for auth collections. See [guides](./guides/) for event names, options, and transaction caveats. Payload `>=3.85.0 <4.0.0` is a peer dependency; the hooks run in Node.js Payload configuration.
+

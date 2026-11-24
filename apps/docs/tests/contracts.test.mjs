@@ -15,6 +15,8 @@ const packageRoutes = {
   "healthcheck-otel": "healthcheck/otel",
   "healthcheck-payload": "healthcheck/payload",
   "payload-fields": "payload-fields",
+  "payload-hooks": "payload-hooks",
+  "payload-preset": "payload-preset",
   "payload-editor": "payload-editor",
   "payload-operations": "payload-operations",
   "payload-schema": "payload-schema",
@@ -95,7 +97,6 @@ test("out-of-scope packages are absent from the public catalog index", () => {
     "@nexload-sdk/jwt",
     "@nexload-sdk/iconcraft",
     "@nexload-sdk/orpc-client",
-    "@nexload-sdk/payload-hooks",
   ]) {
     assert.doesNotMatch(
       index,

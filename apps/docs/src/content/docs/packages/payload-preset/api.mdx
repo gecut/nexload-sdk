@@ -1,0 +1,20 @@
+---
+title: "API Reference & Compatibility"
+description: "Public preset exports and runtime constraints."
+sidebar:
+  label: "API Reference & Compatibility"
+  order: 3
+package: payload-preset
+topic: api
+---
+
+import ApiInventory from "../../../../components/docs/ApiInventory.astro";
+
+The inventory is generated from the package source exports.
+
+<ApiInventory packageId="payload-preset" />
+
+`nexloadPreset(options?: NexloadPresetOptions): Plugin[]` returns the enabled plugins. `persianPlugin()` and `payloadLoggerPlugin()` are also available separately. The package re-exports `AuditOperation` and `AuditPluginOptions`, and exports `NexloadPresetOptions`.
+
+Import `payloadFieldsPlugin` from `@nexload-sdk/payload-fields` and `auditPlugin` from `@nexload-sdk/payload-hooks`. This package is ESM only and intended for Node.js Payload configuration.
+

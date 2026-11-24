@@ -183,6 +183,8 @@ export default defineConfig({
           label: "Payload CMS Extensions",
           items: [
             packageSidebar("Payload Fields", "packages/payload-fields"),
+            packageSidebar("Payload Hooks", "packages/payload-hooks"),
+            packageSidebar("Payload Preset", "packages/payload-preset"),
             packageSidebar("Payload Editor", "packages/payload-editor"),
             packageSidebar("Payload Schema", "packages/payload-schema"),
             packageSidebar("Payload Operations", "packages/payload-operations"),

@@ -19,7 +19,7 @@ configureLogger(options: LoggerOptions) => Logger
 
 Public function exported by @nexload-sdk/logger.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L82)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L90)
 
 ### `createTestLogger`
 
@@ -44,6 +44,18 @@ getLogContext() => LogBindings
 Public function exported by @nexload-sdk/logger.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/context.node.ts#L19)
+
+### `getPayloadLoggerConfig`
+
+```ts
+getPayloadLoggerConfig() => PayloadLoggerConfig
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public function exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L116)
 
 ### `resolveTraceId`
 
@@ -227,6 +239,7 @@ Import the following from `@nexload-sdk/logger`. The testing helper has its own 
 |---|---|---|
 | `logger` | `const logger: Logger` | `import { logger } from "@nexload-sdk/logger"`. The lazy proxy resolves the current configuration on each call. |
 | Default export | `export default logger` | `import logger from "@nexload-sdk/logger"`. The default and named exports share the same proxy. |
+| `getPayloadLoggerConfig` | `getPayloadLoggerConfig(): { options: pino.LoggerOptions; destination?: { write(line: string): void } }` | Node.js Payload configuration bridge. Call `configureLogger()` before `buildConfig()`; rebuild Payload configuration after forced reconfiguration. |
 | `configureLogger` | `configureLogger(options: LoggerOptions): Logger` | `configureLogger({ service: "shop-api" })` configures the runtime. |
 | `withLogContext` | `withLogContext<T>(bindings: LogBindings, fn: () => T): T` | `withLogContext({ requestId: "req-123" }, handleRequest)` runs the handler with request bindings where async context is supported. |
 | `getLogContext` | `getLogContext(): LogBindings` | `const { requestId } = getLogContext()` reads the current bindings. |
