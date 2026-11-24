@@ -1,5 +1,6 @@
 import type { CheckboxField, TextField } from "payload";
 
+import { assertProtected } from "../internal/protect";
 import { formatSlugHook } from "./format-slug";
 
 export type SlugFieldOptions = {
@@ -19,14 +20,12 @@ export function slugField (options: SlugFieldOptions = {}): SlugFieldResult {
   const source = options.source ?? "title";
   const localized = options.overrides?.slug?.localized === true;
 
-  if (options.overrides?.slug?.name && options.overrides.slug.name !== name) throw new Error("Slug field name is protected.");
-  if (options.overrides?.lock?.name && options.overrides.lock.name !== lockName) throw new Error("Slug lock name is protected.");
   if (options.overrides?.lock?.localized !== undefined && options.overrides.lock.localized !== localized) throw new Error("Slug lock localization must match slug localization.");
-  if (options.overrides?.slug?.type && options.overrides.slug.type !== "text") throw new Error("Slug field type is protected.");
-  if (options.overrides?.lock?.type && options.overrides.lock.type !== "checkbox") throw new Error("Slug lock type is protected.");
 
   const slugOverrides = options.overrides?.slug ?? {};
   const lockOverrides = options.overrides?.lock ?? {};
+  assertProtected(slugOverrides, name, "text", "Slug field");
+  assertProtected(lockOverrides, lockName, "checkbox", "Slug lock");
   const consumerHooks = slugOverrides.hooks?.beforeValidate ?? [];
   const slug: TextField = {
     ...slugOverrides,

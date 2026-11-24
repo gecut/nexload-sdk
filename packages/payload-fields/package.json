@@ -56,6 +56,16 @@
       "types": "./dist/admin/money-field.d.ts",
       "import": "./dist/admin/money-field.js",
       "default": "./dist/admin/money-field.js"
+    },
+    "./admin/validated-text-field": {
+      "types": "./dist/admin/validated-text-field.d.ts",
+      "import": "./dist/admin/validated-text-field.js",
+      "default": "./dist/admin/validated-text-field.js"
+    },
+    "./admin/formatted-cell": {
+      "types": "./dist/admin/formatted-cell.d.ts",
+      "import": "./dist/admin/formatted-cell.js",
+      "default": "./dist/admin/formatted-cell.js"
     }
   },
   "files": [

@@ -2,6 +2,8 @@ import type { NumberField } from "payload";
 
 import { formatNumber, toEnglishDigits } from "@nexload-sdk/persian/digits";
 
+import { assertProtected } from "../internal/protect";
+
 export type MoneyCurrencyDefinition = {
   code: string
   label: string
@@ -90,8 +92,7 @@ export function formatMoney (
 export function moneyField (options: MoneyFieldOptions): NumberField {
   const overrides = options.overrides ?? {};
 
-  if (overrides.name && overrides.name !== options.name) throw new Error("Money field name is protected.");
-  if (overrides.type && overrides.type !== "number") throw new Error("Money field type is protected.");
+  assertProtected(overrides, options.name, "number", "Money field");
   const currency = resolveCurrency(options.currency);
 
   if (

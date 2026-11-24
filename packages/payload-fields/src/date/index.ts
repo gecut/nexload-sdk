@@ -2,6 +2,7 @@ import type { DateField, Field, TextField } from "payload";
 
 import type { JalaliPickerAppearance } from "./picker-types";
 
+import { assertProtected } from "../internal/protect";
 import { formatJalaliDate } from "./format-date";
 
 export type { JalaliDateDisplayOptions, JalaliDateValue } from "./format-date";
@@ -22,8 +23,7 @@ export type JalaliTimestampsOptions = {
 export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
   const overrides = options.overrides ?? {};
 
-  if (overrides.name && overrides.name !== options.name) throw new Error("Jalali date field name is protected.");
-  if (overrides.type && overrides.type !== "date") throw new Error("Jalali date field type is protected.");
+  assertProtected(overrides, options.name, "date", "Jalali date field");
   const appearance = options.pickerAppearance ?? "dayOnly";
   const display = {
     digits: "persian" as const,
