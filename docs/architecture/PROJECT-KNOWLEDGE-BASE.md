@@ -78,6 +78,6 @@ packages/
 
 1. **Map Before Grepping:** Use enola (`enola impact <symbol>`, `enola locate`, `enola flows`, or the enola MCP tools) before running blind file system searches.
 2. **Never Edit `dist/`:** All packages bundle from `src/` to `dist/` via `esbuild.config.mjs`. Never make manual modifications in `dist/`.
-3. **Dual Build Targets:** Every published package produces both ESM (`dist/index.mjs`) and CJS (`dist/index.cjs`), along with TypeScript declaration maps (`dist/index.d.ts`).
+3. **Build Targets:** Packages build ESM and CJS by default (`createBundler()`), plus TypeScript declarations. Exception: `payload-schema`, `payload-operations` and `payload-editor` are ESM-only (`createBundler(..., false)`), because Payload 3 itself is ESM-only.
 4. **Documentation Synchronization:** Whenever modifying a package's public API or runtime behavior, update its `README.md` and the relevant file in `docs/packages/` within the same commit.
 5. **Architectural Gate:** Pin a baseline before editing (`enola baseline pin`) and run `enola check` before concluding any work session that modifies code. Never commit `.enola/`.

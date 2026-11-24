@@ -1,6 +1,34 @@
 # Nexload SDK
 
-Production TypeScript packages for service health and Payload CMS.
+Production TypeScript packages for building recurring Payload CMS + Next.js
+products, starting with Iranian e-commerce sites: logging, service health, and
+Payload CMS building blocks.
+
+## Why this repository exists
+
+We build many sites with the same shape: a Payload CMS backend, a Next.js
+storefront, Persian admin, Iranian payment and SMS providers. Each project used
+to re-implement the same parts (logger, Persian settings, payment and SMS
+integrations, OTP, order and inventory rules) and the copies drifted.
+
+The goal is a **stable, high-performance "WordPress-like" base made of code
+modules**:
+
+- **Developers compose modules in code.** A new site is assembled from these
+  packages with plain TypeScript and plain Payload plugins, not from a runtime
+  plugin marketplace.
+- **The site owner configures runtime settings in the admin.** Choices that
+  change per client (for example which payment gateways are active, including
+  installment gateways, and their credentials) belong in a Payload global the
+  client edits, not in code or environment variables.
+- **Fastest and cheapest path to ship.** Extract only what at least two or three
+  real projects already repeat. Shorten the simple, feasible parts first.
+- **Stay thin over Payload.** Our types are Payload's types; no wrapper around
+  `buildConfig`. Defaults must not cost read or list performance.
+
+Contributors and coding agents: read the project intent in
+[`docs/README.md`](./docs/README.md#project-intent) before designing a new
+package.
 
 This repository currently documents and supports eleven released packages. Install
 only the package that owns your task. Package versions, peer dependencies, and
@@ -8,6 +36,12 @@ runtime compatibility are listed in the
 [documentation](https://gecut.github.io/nexload-sdk/).
 
 ## Packages
+
+### Core
+
+| Package                                                                       | Use it for                                                                                                                                                           |
+| ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`@nexload-sdk/logger`](https://gecut.github.io/nexload-sdk/packages/logger/) | One global pino-based logger, configured once per service, with redaction, error serialization, request context, and the same API in Node.js, Edge, and the browser. |
 
 ### Healthcheck
 
