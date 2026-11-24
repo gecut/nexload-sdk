@@ -1,0 +1,52 @@
+---
+title: "Overview & Quick Start"
+description: "Persian and Iranian utilities."
+sidebar:
+  label: "Overview & Quick Start"
+  order: 1
+package: persian
+topic: overview
+---
+
+import PackageHero from "../../../../components/docs/PackageHero.astro";
+import { packageByName } from "../../../../lib/package-catalog";
+
+<PackageHero entry={packageByName("@nexload-sdk/persian")} eyebrow="Persian and Iranian utilities" />
+
+Normalize input and format output with explicit units and time zones.
+
+```ts
+import { normalizeIranMobile } from "@nexload-sdk/persian/mobile";
+import { money, formatMoney } from "@nexload-sdk/persian/money";
+import { formatJalali } from "@nexload-sdk/persian/date";
+
+const mobile = normalizeIranMobile("۰۹۱۲۳۴۵۶۷۸۹");
+const price = formatMoney(money(12500, "IRR"));
+const date = formatJalali("2024-03-20T12:00:00+03:30");
+```
+
+## Installation
+
+```bash
+pnpm add @nexload-sdk/persian
+# For the optional ./zod subpath:
+pnpm add zod
+```
+
+## Compatibility
+
+| Runtime | Requirements |
+|---|---|
+| Node.js | 20 or newer |
+| Bun, Edge, browser | `Intl` timezone data for dates |
+| Zod subpath | Zod 4.1 or newer, below 5, installed separately |
+
+The core has no runtime dependencies.
+
+## When to use
+
+- Normalize and validate Iranian identifiers and bank details.
+- Format money with explicit units and Jalali dates in a chosen timezone.
+- Search Persian text and look up provinces.
+
+See [guides](./guides/) and the [API inventory](./api/).

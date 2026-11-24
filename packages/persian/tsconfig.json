@@ -1,0 +1,11 @@
+{
+  "extends": "@nexload-sdk/typescript-config/base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true
+  },
+  "exclude": ["node_modules", "dist"]
+}

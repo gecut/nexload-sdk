@@ -6,6 +6,7 @@ import apiCatalog from "../src/generated/api-catalog.json" with { type: "json" }
 
 const packageRoutes = {
   logger: "logger",
+  persian: "persian",
   healthcheck: "healthcheck/core",
   "healthcheck-node": "healthcheck/node",
   "healthcheck-bun": "healthcheck/bun",
@@ -73,6 +74,7 @@ test("generated machine docs preserve package and install information", () => {
       new RegExp(entry.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
     );
   }
+  assert.match(full, /pnpm add @nexload-sdk\/persian/);
   assert.match(full, /pnpm add @nexload-sdk\/healthcheck/);
   assert.match(full, /pnpm add @nexload-sdk\/payload-schema payload zod/);
   assert.match(

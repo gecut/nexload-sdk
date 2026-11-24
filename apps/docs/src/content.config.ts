@@ -13,6 +13,7 @@ export const collections: { docs: DocsCollection } = {
         package: z
           .enum([
             "logger",
+            "persian",
             "healthcheck",
             "healthcheck-node",
             "healthcheck-bun",

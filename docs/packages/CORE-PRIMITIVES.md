@@ -21,6 +21,19 @@ configureLogger({ service: 'api-server' });
 logger.info({ event: 'app.lifecycle.started' }, 'Server started');
 ```
 
+## 2. `@nexload-sdk/persian`
+
+- **Location:** `packages/persian`
+- **Published Name:** `@nexload-sdk/persian`
+- **Purpose:** Isomorphic Persian and Iranian data normalization, validation and formatting.
+
+```typescript
+import { normalizeIranMobile } from "@nexload-sdk/persian/mobile";
+const mobile = normalizeIranMobile("۰۹۱۲۳۴۵۶۷۸۹");
+```
+
+See the [package README](../../packages/persian/README.md) for canonical forms and caveats.
+
 ## 3. Note on the `packages/refactoring/` Directory
 
 `@nexload-sdk/payload-fields` remains in `packages/refactoring/`. Its public package identity and release lifecycle remain first-class.

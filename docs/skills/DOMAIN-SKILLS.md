@@ -43,6 +43,9 @@ All skills comply with the **Agent Skills Specification v1.0**, featuring progre
 ### G. Logger Skill (`skills/logger`)
 - **`logger`:** Required before changing or reviewing logging, error handling, jobs, outbound calls, route handlers, or observability code in projects using `@nexload-sdk/logger`. Covers boundary logging, event names and levels, safe fields, and request correlation.
 
+### H. Persian Skill (`skills/persian`)
+- [`persian`](../../skills/persian/SKILL.md) covers Iranian identifiers, money, and Jalali dates in projects using `@nexload-sdk/persian`.
+
 ---
 
 ## 2. Distributing & Installing Skills
@@ -63,6 +66,9 @@ npx skills add gecut/nexload-sdk --skill healthcheck
 
 # 4. Install the Logger skill
 npx skills add gecut/nexload-sdk --skill logger
+
+# 5. Install the Persian skill
+npx skills add gecut/nexload-sdk --skill persian
 ```
 
 ### The One-Shot Adoption Pattern

@@ -21,6 +21,7 @@ This document provides the authoritative inventory matrix and dependency graph f
 | **`@nexload-sdk/payload-fields`** | `packages/refactoring/payload-fields` | Semantic fields: Unicode slug, Jalali date, integer money | Node.js / React 19 UI | Implemented |
 | **`@nexload-sdk/payload-hooks`** | `packages/payload-hooks` | Type-safe collection operation logging hooks | Node.js (Payload >=3) | Implemented |
 | **`@nexload-sdk/logger`** | `packages/logger` | Configure-once structured logging with redaction and child bindings | Isomorphic / Node / Bun | Implemented |
+| **`@nexload-sdk/persian`** | `packages/persian` | Persian/Iranian utilities; core has zero runtime dependencies, `./zod` needs the optional Zod peer | Isomorphic (Node, Bun, Edge, Browser) | Implemented |
 | **`@nexload-sdk/bundler`** | `tools/bundler` | Workspace build runner: esbuild dual ESM/CJS & dts generator | Node.js CLI / Tooling | Internal Tooling |
 | **`@nexload-sdk/eslint-config`** | `tools/eslint-config` | Shared ESLint 9 flat config for TypeScript & React | Tooling | Internal Tooling |
 | **`@nexload-sdk/typescript-config`** | `tools/typescript-config` | Base `tsconfig.json` configurations (Node, DOM, Library) | Tooling | Internal Tooling |
@@ -32,6 +33,7 @@ This document provides the authoritative inventory matrix and dependency graph f
 ```mermaid
 graph TD
     Logger["@nexload-sdk/logger"]
+    Persian["@nexload-sdk/persian"]
     HealthCore["@nexload-sdk/healthcheck"]
     Bundler["@nexload-sdk/bundler"]
     

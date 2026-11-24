@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
+import * as p from '../dist/index.mjs';
+import { jalaliDateSchema, shebaSchema } from '../dist/zod/index.mjs';
+
+test('fractional money is not rounded into an integer', () => assert.equal(p.parseMoney('9007199254740990.9', 'IRR'), null));
+test('conversion validates original money', () => { for (const v of [{amount:0.1,unit:'IRT'}, {amount:9007199254741000,unit:'IRR'}, {amount:1,unit:'bad'}, null]) assert.throws(() => p.convertMoney(v,'IRR'), RangeError); });
+test('offsetless timestamp is Tehran wall time', () => assert.equal(p.formatJalali('2025-03-20T21:00:00',{format:'short',digits:'latin'}),'1403/12/30'));
+test('sheba check digits are canonical', () => { assert.equal(p.isValidSheba('IR990170000000000000000072'), false); assert.equal(shebaSchema().safeParse('IR990170000000000000000072').success,false); });
+test('unsafe numeric card rejected', () => assert.equal(p.isValidCardNumber(Number('9007199254741047')),false));
+test('out of range final year conversion rejected', () => assert.throws(() => p.gregorianToJalali(3799,1,1),RangeError));
+test('unsupported final year bounds reject consistently', () => { assert.throws(() => p.endOfJalaliYear('3799-01-01'),RangeError); assert.throws(() => p.endOfJalaliMonth('3799-01-01'),RangeError); });
+test('invalid ISO day rejected', () => assert.equal(p.formatJalali('2025-04-31T00:00:00Z'),null));
+test('BCE date rejected', () => assert.equal(p.formatJalali('-002024-09-24T00:00:00Z'),null));
+test('formatters reject unrepresentable date and zone', () => { assert.equal(p.formatJalali('9999-01-01'),null); assert.equal(p.formatJalali('2025-01-01',{timeZone:'invalid'}),null); assert.equal(p.formatRelativeTime('9999-01-01',{now:'2025-01-01'}),null); });
+test('date parser and schema reject invalid zone', () => { assert.equal(p.parseJalaliDate('1404/01/01',{timeZone:'invalid'}),null); assert.equal(jalaliDateSchema({timeZone:'invalid'}).safeParse('1404/01/01').success,false); });
+test('money formatting falls back and handles null', () => { assert.equal(p.formatMoney(p.money(19,'IRR'),{displayUnit:'IRT',digits:'latin'}),'19 ریال'); assert.equal(p.formatMoney(null),null); });
+test('malformed validator inputs rejected', () => { for (const v of [['09123456789'],{},Object.create(null)]) for (const f of [p.isValidIranMobile,p.isValidNationalCode,p.isValidCardNumber,p.isValidSheba]) assert.equal(f(v),false); });
+test('huge year rejected before integer wrap', () => assert.throws(() => p.gregorianToJalali(2025+400*2**32,9,24),RangeError));
+test('negative Jalali year excluded', () => { assert.throws(() => p.jalaliToGregorian(-61,1,15),RangeError); assert.equal(p.parseJalaliDate('-61/01/15'),null); });
+test('numeric date and time rejected safely', () => { assert.equal(p.parseJalaliDate(14040101),null); assert.equal(p.parseJalaliDate('1404/01/01',{time:1200}),null); });
+test('numeric parseNumber accepted', () => { assert.equal(p.parseNumber(123),123); assert.deepEqual(p.parseMoney(123,'IRR'),{amount:123,unit:'IRR'}); });
+test('numeric province input rejected', () => assert.equal(p.findProvince(123),null));
+test('null date parts throw RangeError', () => assert.throws(() => p.fromJalali(null),RangeError));
+test('null money throws RangeError', () => assert.throws(() => p.convertMoney(null,'IRT'),RangeError));
+test('null transforms and malformed values safe', () => { for (const f of [p.toEnglishDigits,p.toPersianDigits,p.normalizePersianLetters,p.stripInvisible,p.removeDiacritics,p.normalizePersianText,p.toSearchKey,p.slugify]) { assert.equal(f(null),''); assert.equal(f(Object.create(null)),''); } });
+test('BCE Date objects are rejected', () => assert.equal(p.formatJalali(new Date('-002024-09-24T00:00:00Z')), null));
+test('last supported Jalali year has usable boundaries', () => { const d = p.fromJalali({year:3176,month:12,day:1}); assert.equal(p.toJalali(p.endOfJalaliYear(d)).year,3176); assert.equal(p.toJalali(p.endOfJalaliMonth(d)).year,3176); });
+test('decimal money text is rejected', () => assert.equal(p.parseMoney('12.00','IRR'), null));
+test('Jalali year 3177 is uniformly excluded', () => assert.throws(() => p.jalaliToGregorian(3177, 1, 1), RangeError));
+test('number formatting handles invalid and numeric input safely', () => { assert.throws(() => p.formatNumber(null), RangeError); assert.throws(() => p.formatNumber(Object.create(null)), RangeError); assert.equal(p.formatNumber('123', {digits:'latin'}), '123'); });

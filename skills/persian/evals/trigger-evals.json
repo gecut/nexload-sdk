@@ -1,0 +1,11 @@
+[
+  { "query": "Validate Iranian mobile, کد ملی, postal code, and landline at signup with Zod", "should_trigger": true },
+  { "query": "Check card number and Sheba IBAN and show the Iranian bank name when available", "should_trigger": true },
+  { "query": "Show Rial prices in Toman and invoice timestamps as Jalali dates on a UTC worker", "should_trigger": true },
+  { "query": "Show Persian relative time and digits in the activity feed", "should_trigger": true },
+  { "query": "Normalize Arabic ي and ك in Farsi product names and generate Unicode slugs", "should_trigger": true },
+  { "query": "Validate an Iranian province selected in the checkout form", "should_trigger": true },
+  { "query": "Configure @nexload-sdk/logger request correlation", "should_trigger": false },
+  { "query": "Add a Prometheus liveness metric", "should_trigger": false },
+  { "query": "Add English-only relative date labels to an existing dashboard", "should_trigger": false }
+]

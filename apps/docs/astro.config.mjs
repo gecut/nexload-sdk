@@ -156,7 +156,7 @@ export default defineConfig({
         },
         {
           label: "Core Primitives",
-          items: [packageSidebar("Logger", "packages/logger")],
+          items: [packageSidebar("Logger", "packages/logger"), packageSidebar("Persian", "packages/persian")],
         },
         {
           label: "Healthcheck & Observability",

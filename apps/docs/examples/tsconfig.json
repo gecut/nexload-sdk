@@ -8,6 +8,8 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
+      "@nexload-sdk/persian": ["../../packages/persian/src/index.ts"],
+      "@nexload-sdk/persian/*": ["../../packages/persian/src/*/index.ts"],
       "@nexload-sdk/logger": [
         "../../packages/logger/src/index.ts"
       ],

@@ -444,6 +444,30 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
 
+  packages/persian:
+    devDependencies:
+      '@nexload-sdk/bundler':
+        specifier: workspace:*
+        version: link:../../tools/bundler
+      '@nexload-sdk/eslint-config':
+        specifier: workspace:*
+        version: link:../../tools/eslint-config
+      '@nexload-sdk/typescript-config':
+        specifier: workspace:*
+        version: link:../../tools/typescript-config
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.0.3
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
+
   packages/refactoring/payload-fields:
     dependencies:
       react-day-picker:

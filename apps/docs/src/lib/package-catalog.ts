@@ -5,6 +5,7 @@ import healthcheckNode from "../../../../packages/healthcheck/node/package.json"
 import healthcheckOtel from "../../../../packages/healthcheck/otel/package.json";
 import healthcheckPayload from "../../../../packages/healthcheck/payload/package.json";
 import healthcheckPrometheus from "../../../../packages/healthcheck/prometheus/package.json";
+import persian from "../../../../packages/persian/package.json";
 import logger from "../../../../packages/logger/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
 import payloadFields from "../../../../packages/refactoring/payload-fields/package.json";
@@ -54,6 +55,11 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     runtimes: ["Node.js", "Bun", "Edge", "Browser"],
     skills: ["logger"],
     ...stableRelease,
+  },
+  {
+    id: "persian", label: "Persian", manifest: persian, family: "core",
+    sourcePath: "packages/persian", docsPath: "/packages/persian/",
+    runtimes: ["Node.js", "Bun", "Edge", "Browser"], skills: ["persian"], ...stableRelease,
   },
   {
     id: "healthcheck",

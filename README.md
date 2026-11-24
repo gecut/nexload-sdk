@@ -30,7 +30,7 @@ Contributors and coding agents: read the project intent in
 [`docs/README.md`](./docs/README.md#project-intent) before designing a new
 package.
 
-This repository currently documents and supports eleven released packages. Install
+This repository currently documents and supports twelve released packages. Install
 only the package that owns your task. Package versions, peer dependencies, and
 runtime compatibility are listed in the
 [documentation](https://gecut.github.io/nexload-sdk/).
@@ -42,6 +42,7 @@ runtime compatibility are listed in the
 | Package                                                                       | Use it for                                                                                                                                                           |
 | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`@nexload-sdk/logger`](https://gecut.github.io/nexload-sdk/packages/logger/) | One global pino-based logger, configured once per service, with redaction, error serialization, request context, and the same API in Node.js, Edge, and the browser. |
+| [`@nexload-sdk/persian`](https://gecut.github.io/nexload-sdk/packages/persian/) | Persian and Iranian normalization, validation, formatting, dates and money. |
 
 ### Healthcheck
 
@@ -85,13 +86,16 @@ This repository distributes production-grade, progressively disclosed [Agent Ski
 
 - **The 6+1 Cognitive Graph (`nexload-reasoning-*`):** Kernel router, depth controller, and 6 standalone-capable specialists (Discovery, Investigation, Ideation, Design, Evaluation, Execution) enforcing evidence-first reasoning and the Divergence Firewall.
 - **Engineering Standards (`nexload-*`):** Core standards for TypeScript precision (`nexload-code`), package boundaries (`nexload-package`), React render safety (`nexload-react`), visual systems (`nexload-design`), pre-design context compilation ([`nexload-design-context`](skills/nexload/design-context/SKILL.md)), and principal architecture reviews (`nexload-cto-review`).
-- **Domain Specialists:** Operational skills for Healthcheck reliability and Payload CMS enterprise development.
+- **Domain Specialists:** Operational skills for Healthcheck reliability, Payload CMS, and [Persian inputs and display](skills/persian/SKILL.md).
 
 Install skills directly into any project using the official CLI:
 
 ```bash
 # Install the Cognitive Reasoning Kernel
 npx skills add gecut/nexload-sdk --skill nexload-reasoning
+
+# Install the Persian skill
+npx skills add gecut/nexload-sdk --skill persian
 
 # View all available skills
 npx skills add gecut/nexload-sdk --list

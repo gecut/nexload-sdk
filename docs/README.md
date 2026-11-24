@@ -39,6 +39,7 @@ A module that a client must be able to switch on or tune ships its own global (o
 
 | Item | State | Document |
 | --- | --- | --- |
+| `@nexload-sdk/persian` | Done | `docs/superpowers/specs/2026-11-23-persian-package-design.md` |
 | `@nexload-sdk/logger` v5 (base for every module) | Done | `packages/logger/README.md` |
 | `@nexload-sdk/payload-preset` + `auditPlugin` in `payload-hooks` | Ready to execute | `docs/superpowers/plans/2026-11-23-payload-preset.md` |
 | Payment gateway module | Parked: spec must move gateway config into a client-editable global and cover installment gateways | `docs/superpowers/specs/2026-11-22-payment-module-design.md` |

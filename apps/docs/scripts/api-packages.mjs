@@ -15,6 +15,23 @@ export const apiPackages = [
     sourcePath: "packages/logger",
   },
   {
+    id: "persian", name: "@nexload-sdk/persian",
+    entries: [
+      { exportPath: "@nexload-sdk/persian", entry: "../../packages/persian/src/index.ts" },
+      { exportPath: "@nexload-sdk/persian/digits", entry: "../../packages/persian/src/digits/index.ts" },
+      { exportPath: "@nexload-sdk/persian/text", entry: "../../packages/persian/src/text/index.ts" },
+      { exportPath: "@nexload-sdk/persian/mobile", entry: "../../packages/persian/src/mobile/index.ts" },
+      { exportPath: "@nexload-sdk/persian/identity", entry: "../../packages/persian/src/identity/index.ts" },
+      { exportPath: "@nexload-sdk/persian/bank", entry: "../../packages/persian/src/bank/index.ts" },
+      { exportPath: "@nexload-sdk/persian/money", entry: "../../packages/persian/src/money/index.ts" },
+      { exportPath: "@nexload-sdk/persian/date", entry: "../../packages/persian/src/date/index.ts" },
+      { exportPath: "@nexload-sdk/persian/relative", entry: "../../packages/persian/src/relative/index.ts" },
+      { exportPath: "@nexload-sdk/persian/geo", entry: "../../packages/persian/src/geo/index.ts" },
+      { exportPath: "@nexload-sdk/persian/zod", entry: "../../packages/persian/src/zod/index.ts" },
+    ],
+    sourcePath: "packages/persian",
+  },
+  {
     id: "healthcheck",
     name: "@nexload-sdk/healthcheck",
     entry: "../../packages/healthcheck/core/src/index.ts",

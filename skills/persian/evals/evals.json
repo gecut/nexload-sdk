@@ -1,0 +1,48 @@
+{
+  "skill_name": "persian",
+  "evals": [
+    {
+      "id": 1,
+      "category": "happy_path",
+      "prompt": "In a consumer app with Zod, implement signup validation for an Iranian mobile such as +۹۸ ۹۱۲ ۳۴۵ ۶۷۸۹ and کد ملی such as ۰۰۸۴۵۷۵۹۴۸. Show what gets stored, what the SMS gateway receives, and the field errors for bad input. The SDK source is unavailable.",
+      "expected_output": "A Zod schema using the SDK with canonical national mobile and national code, Persian validation errors, and E.164 at the SMS boundary.",
+      "expectations": [
+        "Imports iranMobileSchema and nationalCodeSchema from @nexload-sdk/persian/zod and uses the schema outputs rather than writing digit, phone, or checksum logic.",
+        "Stores 09123456789 and 0084575948 as strings and preserves leading zeros.",
+        "Imports toE164Mobile from @nexload-sdk/persian/mobile for +989123456789 at the SMS boundary and surfaces Persian errors for invalid strings."
+      ]
+    },
+    {
+      "id": 2,
+      "category": "edge_case",
+      "prompt": "A UTC worker renders an invoice for 1250005 Rial at 2024-03-19T21:00:00Z. The UI prefers Toman, but the product has no rounding policy. Return the stored values and Persian labels using APIs available to an app that cannot see SDK source.",
+      "expected_output": "The invoice preserves the exact Rial amount and renders the Tehran Jalali date.",
+      "expectations": [
+        "Uses money(1250005, \"IRR\") and formatMoney(price, { displayUnit: \"IRT\" }) from @nexload-sdk/persian/money.",
+        "Displays ۱٬۲۵۰٬۰۰۵ ریال. Does not display fractional Toman or choose a rounding mode.",
+        "Keeps an unambiguous instant and calls formatJalali from @nexload-sdk/persian/date in Asia/Tehran, producing ۱۴۰۳/۰۱/۰۱ with short format."
+      ]
+    },
+    {
+      "id": 3,
+      "category": "review_diagnosis",
+      "prompt": "Build a payout form for Iranian card numbers and Sheba/IBAN. Accept Persian digits and pasted separators, show Persian field errors and a bank label when available, and handle a valid card whose bank is unknown. The app cannot access SDK source.",
+      "expected_output": "Payout validation uses the SDK and accepts valid card and Sheba values even when the bank hint is missing.",
+      "expectations": [
+        "Imports validateCardNumber and validateSheba from @nexload-sdk/persian/bank with their *_ERROR_MESSAGES_FA tables, or uses the equivalent Zod schemas from /zod.",
+        "Uses the canonical 16 ASCII card digits and uppercase IR plus 24 ASCII Sheba digits. Avoids custom Luhn, mod-97, and BIN tables.",
+        "Checks validity independently of bank detection. Resolves the card bank label with getBank(detectBankByCard(...)) when the detected ID is non-null, and uses a fallback label when it is null. Accepts valid values when detection returns null."
+      ]
+    },
+    {
+      "id": 4,
+      "category": "edge_case",
+      "prompt": "An invoice must show 1250005 Rial in Toman. No rounding policy exists yet. What must the team decide, and what do floor and round display?",
+      "expected_output": "The product team decides an explicit rounding policy before displaying a customer-facing total in Toman.",
+      "expectations": [
+        "Does not silently choose a rounding policy; says the customer-facing total policy must be decided with product.",
+        "Passes rounding explicitly with displayUnit IRT and gives floor as ۱۲۵٬۰۰۰ تومان and round as ۱۲۵٬۰۰۱ تومان."
+      ]
+    }
+  ]
+}

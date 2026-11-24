@@ -1,0 +1,124 @@
+{
+  "name": "@nexload-sdk/persian",
+  "version": "0.0.0",
+  "description": "Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates.",
+  "keywords": [
+    "persian",
+    "farsi",
+    "iran",
+    "jalali",
+    "shamsi",
+    "toman",
+    "national-code",
+    "sheba",
+    "nexload"
+  ],
+  "homepage": "https://github.com/gecut/nexload-sdk/tree/main/packages/persian",
+  "bugs": {
+    "url": "https://github.com/gecut/nexload-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/nexload-sdk.git",
+    "directory": "packages/persian"
+  },
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "url": "https://mm25zamanian.ir",
+    "email": "dev@mm25zamanian.ir"
+  },
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./digits": {
+      "types": "./dist/digits/index.d.ts",
+      "import": "./dist/digits/index.mjs",
+      "require": "./dist/digits/index.cjs"
+    },
+    "./text": {
+      "types": "./dist/text/index.d.ts",
+      "import": "./dist/text/index.mjs",
+      "require": "./dist/text/index.cjs"
+    },
+    "./mobile": {
+      "types": "./dist/mobile/index.d.ts",
+      "import": "./dist/mobile/index.mjs",
+      "require": "./dist/mobile/index.cjs"
+    },
+    "./identity": {
+      "types": "./dist/identity/index.d.ts",
+      "import": "./dist/identity/index.mjs",
+      "require": "./dist/identity/index.cjs"
+    },
+    "./bank": {
+      "types": "./dist/bank/index.d.ts",
+      "import": "./dist/bank/index.mjs",
+      "require": "./dist/bank/index.cjs"
+    },
+    "./money": {
+      "types": "./dist/money/index.d.ts",
+      "import": "./dist/money/index.mjs",
+      "require": "./dist/money/index.cjs"
+    },
+    "./date": {
+      "types": "./dist/date/index.d.ts",
+      "import": "./dist/date/index.mjs",
+      "require": "./dist/date/index.cjs"
+    },
+    "./relative": {
+      "types": "./dist/relative/index.d.ts",
+      "import": "./dist/relative/index.mjs",
+      "require": "./dist/relative/index.cjs"
+    },
+    "./geo": {
+      "types": "./dist/geo/index.d.ts",
+      "import": "./dist/geo/index.mjs",
+      "require": "./dist/geo/index.cjs"
+    },
+    "./zod": {
+      "types": "./dist/zod/index.d.ts",
+      "import": "./dist/zod/index.mjs",
+      "require": "./dist/zod/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "lint": "eslint .",
+    "test": "pnpm build && node --test test/*.test.mjs",
+    "test:tz": "pnpm build && TZ=America/New_York node --test test/calendar.test.mjs test/date.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@nexload-sdk/bundler": "workspace:*",
+    "@nexload-sdk/eslint-config": "workspace:*",
+    "@nexload-sdk/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "zod": "4.4.3"
+  },
+  "peerDependencies": {
+    "zod": ">=4.1.0 <5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
+  }
+}
