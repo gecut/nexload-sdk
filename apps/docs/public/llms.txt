@@ -1,92 +1,92 @@
 # Nexload SDK documentation
 
-Current-version documentation for 15 released Healthcheck and Payload CMS packages.
+Current-version documentation for 17 Nexload SDK packages.
 
-- [packages/logger/llms.txt](/packages/logger/llms.txt)
-- [packages/persian/llms.txt](/packages/persian/llms.txt)
-- [packages/healthcheck/llms.txt](/packages/healthcheck/llms.txt)
-- [packages/healthcheck-node/llms.txt](/packages/healthcheck-node/llms.txt)
-- [packages/healthcheck-bun/llms.txt](/packages/healthcheck-bun/llms.txt)
-- [packages/healthcheck-next/llms.txt](/packages/healthcheck-next/llms.txt)
-- [packages/healthcheck-prometheus/llms.txt](/packages/healthcheck-prometheus/llms.txt)
-- [packages/healthcheck-otel/llms.txt](/packages/healthcheck-otel/llms.txt)
-- [packages/healthcheck-payload/llms.txt](/packages/healthcheck-payload/llms.txt)
-- [packages/payload-fields/llms.txt](/packages/payload-fields/llms.txt)
-- [packages/payload-hooks/llms.txt](/packages/payload-hooks/llms.txt)
-- [packages/payload-preset/llms.txt](/packages/payload-preset/llms.txt)
-- [packages/payload-editor/llms.txt](/packages/payload-editor/llms.txt)
-- [packages/payload-schema/llms.txt](/packages/payload-schema/llms.txt)
-- [packages/payload-operations/llms.txt](/packages/payload-operations/llms.txt)
-- [packages/typescript-config/llms.txt](/packages/typescript-config/llms.txt)
-- [packages/eslint-config/llms.txt](/packages/eslint-config/llms.txt)
-- [llms-core.txt](/llms-core.txt)
-- [llms-healthcheck.txt](/llms-healthcheck.txt)
-- [llms-payload.txt](/llms-payload.txt)
-- [llms-tooling.txt](/llms-tooling.txt)
+- [packages/logger/llms.txt](/nexload-sdk/packages/logger/llms.txt)
+- [packages/persian/llms.txt](/nexload-sdk/packages/persian/llms.txt)
+- [packages/healthcheck/core/llms.txt](/nexload-sdk/packages/healthcheck/core/llms.txt)
+- [packages/healthcheck/node/llms.txt](/nexload-sdk/packages/healthcheck/node/llms.txt)
+- [packages/healthcheck/bun/llms.txt](/nexload-sdk/packages/healthcheck/bun/llms.txt)
+- [packages/healthcheck/next/llms.txt](/nexload-sdk/packages/healthcheck/next/llms.txt)
+- [packages/healthcheck/prometheus/llms.txt](/nexload-sdk/packages/healthcheck/prometheus/llms.txt)
+- [packages/healthcheck/otel/llms.txt](/nexload-sdk/packages/healthcheck/otel/llms.txt)
+- [packages/healthcheck/payload/llms.txt](/nexload-sdk/packages/healthcheck/payload/llms.txt)
+- [packages/payload-fields/llms.txt](/nexload-sdk/packages/payload-fields/llms.txt)
+- [packages/payload-hooks/llms.txt](/nexload-sdk/packages/payload-hooks/llms.txt)
+- [packages/payload-preset/llms.txt](/nexload-sdk/packages/payload-preset/llms.txt)
+- [packages/payload-editor/llms.txt](/nexload-sdk/packages/payload-editor/llms.txt)
+- [packages/payload-schema/llms.txt](/nexload-sdk/packages/payload-schema/llms.txt)
+- [packages/payload-operations/llms.txt](/nexload-sdk/packages/payload-operations/llms.txt)
+- [packages/typescript-config/llms.txt](/nexload-sdk/packages/typescript-config/llms.txt)
+- [packages/eslint-config/llms.txt](/nexload-sdk/packages/eslint-config/llms.txt)
+- [llms-core.txt](/nexload-sdk/llms-core.txt)
+- [llms-healthcheck.txt](/nexload-sdk/llms-healthcheck.txt)
+- [llms-payload.txt](/nexload-sdk/llms-payload.txt)
+- [llms-tooling.txt](/nexload-sdk/llms-tooling.txt)
 
-- [Domain Specialists (Tier 3) | Nexload SDK](/agents/domain-skills.md) — Production package skills for Healthcheck, Payload CMS, and Persian data. [topic: agents]
-- [Engineering Standards (Tier 2) | Nexload SDK](/agents/engineering.md) — Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review. [topic: agents]
-- [AI Agent Skills: Overview & Mental Model | Nexload SDK](/agents/) — Equip Cursor, Claude Code, Antigravity, and Codex with automated knowledge of Nexload SDK standards, preventing hallucinations and ensuring zero-shot compliance. [topic: agents]
-- [Agent Setup & Quickstart | Nexload SDK](/agents/install.md) — Install Nexload reasoning, engineering standards, and package Skills autonomously via One-Shot Prompt or selectively with the official skills CLI. [topic: agents]
-- [Governance & Protocols | Nexload SDK](/agents/protocols.md) — The 8 Inviolable Laws of the Constitution and Sparse Pointer Handoff Protocol for multi-agent workflows. [topic: agents]
-- [Cognitive Graph Reasoning (Tier 1) | Nexload SDK](/agents/reasoning.md) — Orchestrate deep AI reasoning with the 6+1 cognitive graph: Kernel router and specialized discovery, investigation, ideation, design, evaluation, and execution skills. [topic: agents]
-- [Support and contribution](/community/support.md) — Use GitHub Issues for Nexload SDK bug reports, documentation corrections, and feature requests. [topic: community]
-- [Nexload SDK: Service Observability & Payload CMS Superpowers](/) — Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers. Modular, independently installable packages. [topic: ecosystem]
-- [Configuration Guides & Recipes](/packages/eslint-config/guides.md) — Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc. [@nexload-sdk/eslint-config v9.39.2] [topic: guides]
-- [Overview & Quick Start](/packages/eslint-config/) — Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deterministic imports, and zero-any rules. [@nexload-sdk/eslint-config v9.39.2] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/bun/api.md) — Public API symbol reference and runtime compatibility matrix for Healthcheck Bun. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/bun/guides.md) — Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/bun/) — Bun runtime adapter and server metrics health check integration for Bun HTTP services. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/core/api.md) — Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core. [@nexload-sdk/healthcheck v4.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/core/guides.md) — Authoring custom checks, configuring timeouts and retries, status aggregation rules, and troubleshooting. [@nexload-sdk/healthcheck v4.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/core/) — Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration. [@nexload-sdk/healthcheck v4.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/next/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Next.js. [@nexload-sdk/healthcheck-next v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/next/guides.md) — Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router. [@nexload-sdk/healthcheck-next v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/next/) — Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router. [@nexload-sdk/healthcheck-next v2.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/node/api.md) — Public API symbol reference, functions, and compatibility matrix for Healthcheck Node. [@nexload-sdk/healthcheck-node v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/node/guides.md) — Configuring container resource checks in Docker/Kubernetes, TCP/DNS network probes, and troubleshooting. [@nexload-sdk/healthcheck-node v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/node/) — Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TCP/DNS health checks. [@nexload-sdk/healthcheck-node v2.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/otel/api.md) — Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/otel/guides.md) — Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/otel/) — Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/payload/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Payload. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/payload/guides.md) — Probing Payload collections, database latency, lightweight health queries, and troubleshooting. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/payload/) — Verify Payload CMS database connectivity, collection accessibility, and initialization state. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/healthcheck/prometheus/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Prometheus. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/healthcheck/prometheus/guides.md) — Configuring Prometheus endpoints, metric labels, Grafana alerts, and troubleshooting. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/healthcheck/prometheus/) — Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: overview]
-- [Package catalog](/packages/) — Browse the Nexload SDK packages documented on this site. [topic: ecosystem]
-- [API Reference & Compatibility](/packages/logger/api.md) — Public logger signatures, examples, and runtime compatibility. [@nexload-sdk/logger v4.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/logger/guides.md) — Configure the logger per runtime and use request context, trace headers, redaction, and error serialization. [@nexload-sdk/logger v4.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/logger/) — Configure-once structured logging with request context, trace propagation, and safe defaults. [@nexload-sdk/logger v4.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/payload-editor/api.md) — Public API symbol reference, editor functions, and compatibility matrix for Payload Editor. [@nexload-sdk/payload-editor v1.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/payload-editor/guides.md) — Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting. [@nexload-sdk/payload-editor v1.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/payload-editor/) — Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor. [@nexload-sdk/payload-editor v1.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/payload-fields/api.md) — Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields. [@nexload-sdk/payload-fields v3.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/payload-fields/guides.md) — Deep recipes for managed Unicode slugs, Jalali date ranges, integer money fields, Iranian contact & identity, addresses, and schema integration. [@nexload-sdk/payload-fields v3.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/payload-fields/) — Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses. [@nexload-sdk/payload-fields v3.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/payload-hooks/api.md) — Public audit plugin and legacy hook exports. [@nexload-sdk/payload-hooks v2.1.0] [topic: api]
-- [Production Guides & Recipes](/packages/payload-hooks/guides.md) — Audit options, events, privacy, and migration. [@nexload-sdk/payload-hooks v2.1.0] [topic: guides]
-- [Overview & Quick Start](/packages/payload-hooks/) — Audit Payload collection operations with structured log events. [@nexload-sdk/payload-hooks v2.1.0] [topic: overview]
-- [API Reference & Compatibility](/packages/payload-operations/api.md) — Complete public API symbol reference, entrypoint exports, and runtime compatibility matrix for Payload Operations. [@nexload-sdk/payload-operations v1.0.0] [topic: api]
-- [Production Guides & Recipes](/packages/payload-operations/guides.md) — Advanced multi-resource contract patterns, Payload server endpoints with RBAC, transport plugins, safe error matching, Next.js server actions, and troubleshooting. [@nexload-sdk/payload-operations v1.0.0] [topic: guides]
-- [Overview & Quick Start](/packages/payload-operations/) — Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK. [@nexload-sdk/payload-operations v1.0.0] [topic: overview]
-- [API Reference & Compatibility](/packages/payload-preset/api.md) — Public preset exports and runtime constraints. [@nexload-sdk/payload-preset v0.0.0] [topic: api]
-- [Production Guides & Recipes](/packages/payload-preset/guides.md) — Options, merge rules, ordering, and logging for the Payload preset. [@nexload-sdk/payload-preset v0.0.0] [topic: guides]
-- [Overview & Quick Start](/packages/payload-preset/) — Compose Payload configuration with Nexload defaults. [@nexload-sdk/payload-preset v0.0.0] [topic: overview]
-- [API Reference & Compatibility](/packages/payload-schema/api.md) — Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema. [@nexload-sdk/payload-schema v2.0.0] [topic: api]
-- [Production Guides & Recipes](/packages/payload-schema/guides.md) — Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration. [@nexload-sdk/payload-schema v2.0.0] [topic: guides]
-- [Overview & Quick Start](/packages/payload-schema/) — Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas. [@nexload-sdk/payload-schema v2.0.0] [topic: overview]
-- [API Reference & Compatibility](/packages/persian/api.md) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: api]
-- [Guides & Recipes](/packages/persian/guides.md) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: guides]
-- [Overview & Quick Start](/packages/persian/) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: overview]
-- [Configuration Guides & Recipes](/packages/typescript-config/guides.md) — Monorepo project references, overriding compiler options safely, and library declaration builds. [@nexload-sdk/typescript-config v5.9.3] [topic: guides]
-- [Overview & Quick Start](/packages/typescript-config/) — Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications. [@nexload-sdk/typescript-config v5.9.3] [topic: overview]
-- [Autonomous Agent Config Setup Prompt](/standards/agent-setup-prompt.md) — A battle-tested copy-pasteable prompt that empowers any AI agent in any repository to configure and enforce strict ESLint 9 Flat Config and TypeScript 5. [topic: ecosystem]
-- [Canonical File & Directory Structure Standard](/standards/file-structure.md) — Architectural directory layout archetypes, naming conventions, and file placement rules for engineering teams and autonomous agents. [topic: ecosystem]
-- [Choose a Package: Interactive Decision Guide](/start/choose-a-package.md) — Match a structured logging, service health, or Payload CMS task to a Nexload SDK package. [topic: ecosystem]
-- [Architecture Glossary: Terms & Invariants](/start/glossary.md) — Shared terms used across Healthcheck and Payload package documentation. [topic: ecosystem]
-- [Installation and compatibility](/start/installation.md) — Package managers, module formats, and peer dependencies. [topic: documentation]
-- [Introduction: Ecosystem & Architecture](/start/introduction.md) — Understand the Nexload SDK package model, documentation policy, and recommended learning path. [topic: ecosystem]
-- [Payload Suite Overview](/start/payload-packages.md) — Compose the Payload packages by responsibility. [topic: ecosystem]
-- [E-commerce stack](/start/recipes/ecommerce-stack.md) — Compose Payload, health checks, logging, and Persian utilities. [topic: documentation]
+- [Domain Specialists (Tier 3) | Nexload SDK](/nexload-sdk/agents/domain-skills.md) — Production package skills for Healthcheck, Payload CMS, and Persian data. [topic: agents]
+- [Engineering Standards (Tier 2) | Nexload SDK](/nexload-sdk/agents/engineering.md) — Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review. [topic: agents]
+- [AI Agent Skills: Overview & Mental Model | Nexload SDK](/nexload-sdk/agents/) — Equip Cursor, Claude Code, Antigravity, and Codex with automated knowledge of Nexload SDK standards, preventing hallucinations and ensuring zero-shot compliance. [topic: agents]
+- [Agent Setup & Quickstart | Nexload SDK](/nexload-sdk/agents/install.md) — Install Nexload reasoning, engineering standards, and package Skills autonomously via One-Shot Prompt or selectively with the official skills CLI. [topic: agents]
+- [Governance & Protocols | Nexload SDK](/nexload-sdk/agents/protocols.md) — The 8 Inviolable Laws of the Constitution and Sparse Pointer Handoff Protocol for multi-agent workflows. [topic: agents]
+- [Cognitive Graph Reasoning (Tier 1) | Nexload SDK](/nexload-sdk/agents/reasoning.md) — Orchestrate deep AI reasoning with the 6+1 cognitive graph: Kernel router and specialized discovery, investigation, ideation, design, evaluation, and execution skills. [topic: agents]
+- [Support and contribution](/nexload-sdk/community/support.md) — Use GitHub Issues for Nexload SDK bug reports, documentation corrections, and feature requests. [topic: community]
+- [Nexload SDK: Service Observability & Payload CMS Superpowers](/nexload-sdk/) — Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers. Modular, independently installable packages. [topic: ecosystem]
+- [Configuration Guides & Recipes](/nexload-sdk/packages/eslint-config/guides.md) — Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc. [@nexload-sdk/eslint-config v9.39.2] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/eslint-config/) — Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deterministic imports, and zero-any rules. [@nexload-sdk/eslint-config v9.39.2] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/bun/api.md) — Public API symbol reference and runtime compatibility matrix for Healthcheck Bun. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/bun/guides.md) — Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/bun/) — Bun runtime adapter and server metrics health check integration for Bun HTTP services. [@nexload-sdk/healthcheck-bun v2.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/core/api.md) — Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core. [@nexload-sdk/healthcheck v4.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/core/guides.md) — Authoring custom checks, configuring timeouts and retries, status aggregation rules, and troubleshooting. [@nexload-sdk/healthcheck v4.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/core/) — Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration. [@nexload-sdk/healthcheck v4.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/next/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Next.js. [@nexload-sdk/healthcheck-next v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/next/guides.md) — Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router. [@nexload-sdk/healthcheck-next v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/next/) — Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router. [@nexload-sdk/healthcheck-next v2.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/node/api.md) — Public API symbol reference, functions, and compatibility matrix for Healthcheck Node. [@nexload-sdk/healthcheck-node v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/node/guides.md) — Configuring container resource checks in Docker/Kubernetes, TCP/DNS network probes, and troubleshooting. [@nexload-sdk/healthcheck-node v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/node/) — Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TCP/DNS health checks. [@nexload-sdk/healthcheck-node v2.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/otel/api.md) — Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/otel/guides.md) — Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/otel/) — Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata. [@nexload-sdk/healthcheck-otel v2.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/payload/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Payload. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/payload/guides.md) — Probing Payload collections, database latency, lightweight health queries, and troubleshooting. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/payload/) — Verify Payload CMS database connectivity, collection accessibility, and initialization state. [@nexload-sdk/healthcheck-payload v2.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/healthcheck/prometheus/api.md) — Public API symbol reference and compatibility matrix for Healthcheck Prometheus. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/healthcheck/prometheus/guides.md) — Configuring Prometheus endpoints, metric labels, Grafana alerts, and troubleshooting. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/healthcheck/prometheus/) — Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs. [@nexload-sdk/healthcheck-prometheus v2.1.0] [topic: overview]
+- [Package catalog](/nexload-sdk/packages/) — Browse the Nexload SDK packages documented on this site. [topic: ecosystem]
+- [API Reference & Compatibility](/nexload-sdk/packages/logger/api.md) — Public logger signatures, examples, and runtime compatibility. [@nexload-sdk/logger v4.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/logger/guides.md) — Configure the logger per runtime and use request context, trace headers, redaction, and error serialization. [@nexload-sdk/logger v4.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/logger/) — Configure-once structured logging with request context, trace propagation, and safe defaults. [@nexload-sdk/logger v4.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/payload-editor/api.md) — Public API symbol reference, editor functions, and compatibility matrix for Payload Editor. [@nexload-sdk/payload-editor v1.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/payload-editor/guides.md) — Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting. [@nexload-sdk/payload-editor v1.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/payload-editor/) — Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor. [@nexload-sdk/payload-editor v1.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/payload-fields/api.md) — Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields. [@nexload-sdk/payload-fields v3.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/payload-fields/guides.md) — Deep recipes for managed Unicode slugs, Jalali date ranges, integer money fields, Iranian contact & identity, addresses, and schema integration. [@nexload-sdk/payload-fields v3.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/payload-fields/) — Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses. [@nexload-sdk/payload-fields v3.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/payload-hooks/api.md) — Public audit plugin and legacy hook exports. [@nexload-sdk/payload-hooks v2.1.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/payload-hooks/guides.md) — Audit options, events, privacy, and migration. [@nexload-sdk/payload-hooks v2.1.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/payload-hooks/) — Audit Payload collection operations with structured log events. [@nexload-sdk/payload-hooks v2.1.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/payload-operations/api.md) — Complete public API symbol reference, entrypoint exports, and runtime compatibility matrix for Payload Operations. [@nexload-sdk/payload-operations v1.0.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/payload-operations/guides.md) — Advanced multi-resource contract patterns, Payload server endpoints with RBAC, transport plugins, safe error matching, Next.js server actions, and troubleshooting. [@nexload-sdk/payload-operations v1.0.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/payload-operations/) — Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK. [@nexload-sdk/payload-operations v1.0.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/payload-preset/api.md) — Public preset exports and runtime constraints. [@nexload-sdk/payload-preset v0.0.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/payload-preset/guides.md) — Options, merge rules, ordering, and logging for the Payload preset. [@nexload-sdk/payload-preset v0.0.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/payload-preset/) — Compose Payload configuration with Nexload defaults. [@nexload-sdk/payload-preset v0.0.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/payload-schema/api.md) — Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema. [@nexload-sdk/payload-schema v2.0.0] [topic: api]
+- [Production Guides & Recipes](/nexload-sdk/packages/payload-schema/guides.md) — Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration. [@nexload-sdk/payload-schema v2.0.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/payload-schema/) — Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas. [@nexload-sdk/payload-schema v2.0.0] [topic: overview]
+- [API Reference & Compatibility](/nexload-sdk/packages/persian/api.md) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: api]
+- [Guides & Recipes](/nexload-sdk/packages/persian/guides.md) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/persian/) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: overview]
+- [Configuration Guides & Recipes](/nexload-sdk/packages/typescript-config/guides.md) — Monorepo project references, overriding compiler options safely, and library declaration builds. [@nexload-sdk/typescript-config v5.9.3] [topic: guides]
+- [Overview & Quick Start](/nexload-sdk/packages/typescript-config/) — Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications. [@nexload-sdk/typescript-config v5.9.3] [topic: overview]
+- [Autonomous Agent Config Setup Prompt](/nexload-sdk/standards/agent-setup-prompt.md) — A battle-tested copy-pasteable prompt that empowers any AI agent in any repository to configure and enforce strict ESLint 9 Flat Config and TypeScript 5. [topic: ecosystem]
+- [Canonical File & Directory Structure Standard](/nexload-sdk/standards/file-structure.md) — Architectural directory layout archetypes, naming conventions, and file placement rules for engineering teams and autonomous agents. [topic: ecosystem]
+- [Choose a Package: Interactive Decision Guide](/nexload-sdk/start/choose-a-package.md) — Match a structured logging, service health, or Payload CMS task to a Nexload SDK package. [topic: ecosystem]
+- [Architecture Glossary: Terms & Invariants](/nexload-sdk/start/glossary.md) — Shared terms used across Healthcheck and Payload package documentation. [topic: ecosystem]
+- [Installation and compatibility](/nexload-sdk/start/installation.md) — Package managers, module formats, and peer dependencies. [topic: documentation]
+- [Introduction: Ecosystem & Architecture](/nexload-sdk/start/introduction.md) — Understand the Nexload SDK package model, documentation policy, and recommended learning path. [topic: ecosystem]
+- [Payload Suite Overview](/nexload-sdk/start/payload-packages.md) — Compose the Payload packages by responsibility. [topic: ecosystem]
+- [E-commerce stack](/nexload-sdk/start/recipes/ecommerce-stack.md) — Compose Payload, health checks, logging, and Persian utilities. [topic: documentation]

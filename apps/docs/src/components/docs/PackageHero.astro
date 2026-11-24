@@ -2,7 +2,7 @@
 import loggerManifest from "../../../../../packages/logger/package.json";
 
 import { existsSync } from "node:fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 
 import { Badge, LinkButton } from "@astrojs/starlight/components";
 
@@ -22,7 +22,16 @@ const { manifest } = entry;
 const npmUrl = `https://www.npmjs.com/package/${manifest.name}`;
 const repositoryUrl = loggerManifest.repository.url.replace(/\.git$/, "");
 const sourceUrl = `${repositoryUrl}/tree/main/${entry.sourcePath}`;
-const hasChangelog = existsSync(resolve(process.cwd(), "../..", entry.sourcePath, "CHANGELOG.md"));
+// Locate the workspace root from the build cwd so the check works from the repo root or apps/docs.
+function findWorkspaceRoot(start: string): string | undefined {
+  for (let directory = start; ; directory = dirname(directory)) {
+    if (existsSync(resolve(directory, "pnpm-workspace.yaml"))) return directory;
+    if (dirname(directory) === directory) return undefined;
+  }
+}
+const workspaceRoot = findWorkspaceRoot(process.cwd());
+const hasChangelog = workspaceRoot !== undefined
+  && existsSync(resolve(workspaceRoot, entry.sourcePath, "CHANGELOG.md"));
 const dependencyNames = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
 const dependencies = packageCatalog.filter((candidate) => dependencyNames.has(candidate.manifest.name));
 const siblings = packageCatalog.filter((candidate) => candidate.family === entry.family);
@@ -43,9 +52,9 @@ const siblings = packageCatalog.filter((candidate) => candidate.family === entry
   <div class="package-hero__actions">
     <LinkButton href={npmUrl} variant="primary" icon="external">View on npm</LinkButton>
     <LinkButton href={sourceUrl} variant="secondary" icon="github">Browse source</LinkButton>
-    {hasChangelog && <a href={`${sourceUrl.replace("/tree/", "/blob/")}/CHANGELOG.md`}>Changelog</a>}
+    {hasChangelog && <LinkButton href={`${sourceUrl.replace("/tree/", "/blob/")}/CHANGELOG.md`} variant="secondary" icon="document">Changelog</LinkButton>}
   </div>
-  {dependencies.length > 0 && <p><strong>SDK dependencies:</strong> {dependencies.map((dependency) => <a href={withBase(dependency.docsPath)}>{dependency.manifest.name} </a>)}</p>}
+  {dependencies.length > 0 && <p><strong>SDK dependencies:</strong> {dependencies.map((dependency, index) => <>{index > 0 && ", "}<a href={withBase(dependency.docsPath)}>{dependency.manifest.name}</a></>)}</p>}
   <nav class="package-hero__switcher" aria-label={`${entry.family} package documentation`}>
     <strong>Related packages:</strong>
     {siblings.map((candidate) => candidate.id === entry.id

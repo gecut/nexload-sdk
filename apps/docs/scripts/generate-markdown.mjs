@@ -139,6 +139,16 @@ function packageHeroMarkdown(source) {
   ].join("\n\n");
 }
 
+// Docs base path; keep in sync with `docsBase` in astro.config.mjs.
+const docsBase = "/nexload-sdk";
+
+/** Directory under `packages/` that holds a package's docs route. */
+function packageRouteDir(packageId) {
+  if (packageId === "healthcheck") return "healthcheck/core";
+  if (packageId.startsWith("healthcheck-")) return `healthcheck/${packageId.slice("healthcheck-".length)}`;
+  return packageId;
+}
+
 function packageGridMarkdown(source) {
   const family = source.includes('family === "healthcheck"')
     ? "healthcheck"
@@ -155,12 +165,7 @@ function packageGridMarkdown(source) {
   return entries
     .map((entry) => {
       const metadata = packageMetadata[entry.id];
-      const route =
-        entry.id === "healthcheck"
-          ? "/packages/healthcheck/core/"
-          : entry.id.startsWith("healthcheck-")
-            ? `/packages/healthcheck/${entry.id.slice("healthcheck-".length)}/`
-            : `/packages/${entry.id}/`;
+      const route = `/packages/${packageRouteDir(entry.id)}/`;
       return `- [${entry.name}](${route}) — ${metadata.description ?? ""} (v${metadata.version})`;
     })
     .join("\n");
@@ -291,7 +296,7 @@ const documents = walk(contentRoot)
   .map(canonicalDocument);
 const scopedBundles = Object.values(packageMetadata).map((entry) => {
   const pages = documents.filter((document) => document.packageId === entry.id && ["overview", "guides", "api"].includes(document.topic));
-  return [resolve(publicRoot, "packages", entry.id, "llms.txt"), pages.map((page) => page.content).join("\n---\n\n")];
+  return [resolve(publicRoot, "packages", packageRouteDir(entry.id), "llms.txt"), pages.map((page) => page.content).join("\n---\n\n")];
 });
 const familyOf = (id) => id.startsWith("healthcheck") ? "healthcheck" : id.startsWith("payload-") ? "payload" : ["logger", "persian"].includes(id) ? "core" : "tooling";
 const familyBundles = ["core", "healthcheck", "payload", "tooling"].map((family) => [
@@ -304,17 +309,19 @@ const generatedFiles = [...scopedBundles, ...familyBundles].map(([path]) => rela
 const llmsIndex = [
   "# Nexload SDK documentation",
   "",
-  `Current-version documentation for ${apiPackages.length} released Healthcheck and Payload CMS packages.`,
+  `Current-version documentation for ${Object.keys(packageMetadata).length} Nexload SDK packages.`,
   "",
-  ...scopedBundles.map(([path]) => `- [${relative(publicRoot, path)}](/${relative(publicRoot, path)})`),
-  ...familyBundles.map(([path]) => `- [${relative(publicRoot, path)}](/${relative(publicRoot, path)})`),
+  ...[...scopedBundles, ...familyBundles].map(([path]) => {
+    const file = relative(publicRoot, path).replaceAll("\\", "/");
+    return `- [${file}](${docsBase}/${file})`;
+  }),
   "",
   ...documents.map((document) => {
     const metadata = document.packageId
       ? packageMetadata[document.packageId]
       : undefined;
     return (
-      `- [${document.title}](${document.route}) — ${document.description}` +
+      `- [${document.title}](${docsBase}${document.route}) — ${document.description}` +
       `${metadata ? ` [${metadata.name} v${metadata.version}]` : ""} [topic: ${document.topic}]`
     );
   }),

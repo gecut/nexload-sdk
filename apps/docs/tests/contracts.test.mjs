@@ -109,7 +109,7 @@ test("package overviews include installation and scoped LLM bundles", () => {
   for (const [id, route] of Object.entries({ ...packageRoutes, "typescript-config": "typescript-config", "eslint-config": "eslint-config" })) {
     const overview = readFileSync(new URL(`../public/packages/${route}/index.md`, import.meta.url), "utf8");
     assert.match(overview, /## Installation/i, id);
-    const bundle = new URL(`../public/packages/${id}/llms.txt`, import.meta.url);
+    const bundle = new URL(`../public/packages/${route}/llms.txt`, import.meta.url);
     assert.ok(existsSync(bundle), id);
     const text = readFileSync(bundle, "utf8");
     const topics = id.endsWith("-config") ? ["overview", "guides"] : ["overview", "guides", "api"];

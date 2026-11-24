@@ -18,7 +18,7 @@ import typescriptConfig from "../../../../tools/typescript-config/package.json";
 
 export type PackageFamily = "core" | "healthcheck" | "payload" | "tooling";
 export type PackageMaturity = "stable";
-export type PackageReleaseStatus = "released";
+export type PackageReleaseStatus = "released" | "upcoming";
 
 export type PackageManifest = {
   name: string
@@ -49,6 +49,12 @@ export interface PackageCatalogEntry {
 const stableRelease = {
   maturity: "stable",
   releaseStatus: "released",
+} as const;
+
+/** Packages whose documented API ships with pending Changesets and is not on npm yet. */
+const upcomingRelease = {
+  maturity: "stable",
+  releaseStatus: "upcoming",
 } as const;
 
 export const packageCatalog: readonly PackageCatalogEntry[] = [
@@ -165,7 +171,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/payload-hooks/",
     runtimes: ["Payload CMS", "Node.js"],
     skills: ["payload-preset"],
-    ...stableRelease,
+    ...upcomingRelease,
   },
   {
     id: "payload-preset",
@@ -176,7 +182,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     docsPath: "/packages/payload-preset/",
     runtimes: ["Payload CMS", "Node.js"],
     skills: ["payload-preset"],
-    ...stableRelease,
+    ...upcomingRelease,
   },
   {
     id: "payload-editor",

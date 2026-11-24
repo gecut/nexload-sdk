@@ -25,7 +25,7 @@ The Persian plugin preserves host languages, fallback language, and default time
 
 ## Logger bridge
 
-Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, the plugin uses the options form from `getPayloadLoggerConfig()`; Payload creates its own Pino logger. It has no `success()` method and maps the SDK `success` threshold to `warn`. Payload writes JSON in development unless `configureLogger({ destination })` supplies a stream. Rebuild the Payload config after forced SDK reconfiguration. See the [logger API](/nexload-sdk/packages/logger/api/).
+Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, the plugin uses the options form from `getPayloadLoggerConfig()`; Payload creates its own Pino logger from those options. Payload writes JSON in development unless `configureLogger({ destination })` supplies a stream. Rebuild the Payload config after forced SDK reconfiguration. See the [logger API](/nexload-sdk/packages/logger/api/).
 
 ## Audit boundaries
 

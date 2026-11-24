@@ -1867,6 +1867,8 @@ Effortless, type-safe logging for Payload CMS collection operations.
 
 `auditPlugin` attaches log-only collection hooks. It stores no audit records and does not change collection fields.
 
+**Upcoming release:** this page documents `@nexload-sdk/payload-hooks` 3.0.0, which ships with the next Changesets release and is not on npm yet.
+
 ## Installation
 
 ```bash
@@ -3754,7 +3756,7 @@ The Persian plugin preserves host languages, fallback language, and default time
 
 ## Logger bridge
 
-Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, the plugin uses the options form from `getPayloadLoggerConfig()`; Payload creates its own Pino logger. It has no `success()` method and maps the SDK `success` threshold to `warn`. Payload writes JSON in development unless `configureLogger({ destination })` supplies a stream. Rebuild the Payload config after forced SDK reconfiguration. See the [logger API](/nexload-sdk/packages/logger/api/).
+Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, the plugin uses the options form from `getPayloadLoggerConfig()`; Payload creates its own Pino logger from those options. Payload writes JSON in development unless `configureLogger({ destination })` supplies a stream. Rebuild the Payload config after forced SDK reconfiguration. See the [logger API](/nexload-sdk/packages/logger/api/).
 
 ## Audit boundaries
 
@@ -3778,6 +3780,8 @@ Compose Payload configuration with Nexload defaults.
 [npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
+
+**Upcoming release:** this page documents `@nexload-sdk/payload-preset` 0.1.0, which ships with the next Changesets release and is not on npm yet.
 
 ## Installation
 
