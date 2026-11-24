@@ -29,14 +29,14 @@ configureLogger({ service: 'shop-api', release: process.env.RELEASE });
 
 `configureLogger` returns a lazy proxy that normalizes `Error` first arguments, as do the shared proxy and their children. A second call returns the existing proxy and emits a warning with `event: "logger.reconfigure.ignored"`. Set `force: true` to replace the configuration. Before configuration, the lazy logger uses environment defaults; children follow later configuration, including forced replacements.
 
-For Payload, call `configureLogger()` before `buildConfig()`, then pass `getPinoLogger()` as `config.logger`. It returns the live configured pino 10 instance accepted by Payload, not the lazy proxy. Call it again after forced reconfiguration to get the replacement instance.
+For Payload on Node.js, call `configureLogger()` before `buildConfig()`, then pass `getPayloadLoggerConfig()` as `config.logger`. Payload creates its own pino logger with the SDK's redaction, serializers, request context, base fields, timestamps, level, and explicit destination. Without an explicit destination, Payload writes JSON to its default stream. The bridge maps the SDK's `success` threshold to `warn`, the next standard pino level. Rebuild Payload's configuration to apply a forced SDK reconfiguration.
 
 ```ts
-import { configureLogger, getPinoLogger } from '@nexload-sdk/logger';
+import { configureLogger, getPayloadLoggerConfig } from '@nexload-sdk/logger';
 import { buildConfig } from 'payload';
 
 configureLogger({ service: 'cms' });
-export default buildConfig({ logger: getPinoLogger() });
+export default buildConfig({ logger: getPayloadLoggerConfig() });
 ```
 
 Options include `level`, `release`, `instance`, `environment`, `redact`, `pretty`, `destination`, `base`, and `force`. Base output includes `service`, optional release, instance and environment, `pid`, and ISO `time`.

@@ -13,7 +13,12 @@ import { serializeError } from "./serialize-error";
 
 type PinoLogger = pino.Logger<"success">;
 
-let configuredLogger: PinoLogger | undefined;
+type PayloadLoggerConfig = {
+  options: ReturnType<typeof buildPinoOptions>;
+  destination?: LoggerOptions["destination"];
+};
+
+let configured: { logger: PinoLogger; config: PayloadLoggerConfig } | undefined;
 let fallbackLogger: PinoLogger | undefined;
 let configuredProxy: Logger | undefined;
 
@@ -31,16 +36,12 @@ function resolveLevel(): LogLevel {
   return process.env.NODE_ENV === "production" ? "info" : "debug";
 }
 
-function buildPinoOptions(
-  options: Partial<LoggerOptions>,
-): pino.LoggerOptions<"success"> {
+function buildPinoOptions(options: Partial<LoggerOptions>) {
   return {
     redact: { paths: [...(options.redact?.replaceDefaults ? [] : DEFAULT_REDACT_PATHS), ...(options.redact?.paths ?? [])], censor: options.redact?.censor ?? "[REDACTED]" },
     serializers: { err: serializeError },
     mixin: getLogContext,
     level: options.level ?? resolveLevel(),
-    customLevels: { success: LEVELS.success },
-    useOnlyCustomLevels: false,
     base: {
       ...options.base,
       service: options.service ?? process.env.SERVICE_NAME ?? "unknown",
@@ -51,11 +52,18 @@ function buildPinoOptions(
     },
     timestamp: pino.stdTimeFunctions.isoTime,
     formatters: { level: (label) => ({ level: label }) },
-  };
+  } satisfies pino.LoggerOptions;
 }
 
-export function createPinoLogger(options: Partial<LoggerOptions>): PinoLogger {
-  const pinoOptions = buildPinoOptions(options);
+export function createPinoLogger(
+  options: Partial<LoggerOptions>,
+  sharedOptions = buildPinoOptions(options),
+): PinoLogger {
+  const pinoOptions = {
+    ...sharedOptions,
+    customLevels: { success: LEVELS.success },
+    useOnlyCustomLevels: false,
+  };
 
   if (isBrowser) {
     return pino({
@@ -64,7 +72,7 @@ export function createPinoLogger(options: Partial<LoggerOptions>): PinoLogger {
         asObject: true,
         serialize: ["err", "!stdSerializers.err"],
         formatters: {
-          level: pinoOptions.formatters?.level,
+          level: pinoOptions.formatters.level,
           log: (record) => ({ ...pinoOptions.base, ...record }),
         },
       },
@@ -80,8 +88,8 @@ export function createPinoLogger(options: Partial<LoggerOptions>): PinoLogger {
 }
 
 export function configureLogger(options: LoggerOptions): Logger {
-  if (configuredLogger && !options.force) {
-    configuredLogger
+  if (configured && !options.force) {
+    configured.logger
       .child({}, { level: "warn" })
       .warn(
         { event: "logger.reconfigure.ignored" },
@@ -91,12 +99,34 @@ export function configureLogger(options: LoggerOptions): Logger {
     return (configuredProxy ??= createProxy());
   }
 
-  configuredLogger = createPinoLogger(options);
+  const sharedOptions = buildPinoOptions(options);
+  configured = {
+    logger: createPinoLogger(options, sharedOptions),
+    config: { options: sharedOptions, destination: options.destination },
+  };
   fallbackLogger = undefined;
 
   return (configuredProxy ??= createProxy());
 }
 
 export function getActiveLogger(): PinoLogger {
-  return configuredLogger ?? (fallbackLogger ??= createPinoLogger({}));
+  return configured?.logger ?? (fallbackLogger ??= createPinoLogger({}));
+}
+
+export function getPayloadLoggerConfig(): PayloadLoggerConfig {
+  const { options, destination } = configured?.config ?? {
+    options: buildPinoOptions({}),
+  };
+
+  return {
+    options: {
+      ...options,
+      level: options.level === "success" ? "warn" : options.level,
+      redact: { ...options.redact, paths: [...options.redact.paths] },
+      serializers: { ...options.serializers },
+      base: { ...options.base },
+      formatters: { ...options.formatters },
+    },
+    ...(destination === undefined ? {} : { destination }),
+  };
 }

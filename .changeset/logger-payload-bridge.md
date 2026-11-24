@@ -2,4 +2,4 @@
 "@nexload-sdk/logger": minor
 ---
 
-Expose the active pino logger for Payload configuration.
+Add `getPayloadLoggerConfig()` to share SDK logging options and an explicit destination with Payload's own pino logger.

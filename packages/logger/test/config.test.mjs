@@ -3,20 +3,36 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-test("getPinoLogger returns the configured pino instance", async () => {
-  const { configureLogger, getPinoLogger } = await import("../dist/index.mjs?pino-bridge");
-  const entries = [];
+test("getPayloadLoggerConfig tracks accepted configuration and isolates returned options", async () => {
+  const { configureLogger, getPayloadLoggerConfig } = await import("../dist/index.mjs?pino-bridge");
+  const destination = capture().destination;
+  assert.equal(getPayloadLoggerConfig().destination, undefined);
+
   configureLogger({
     service: "payload",
-    destination: { write: (line) => entries.push(JSON.parse(line)) },
+    level: "success",
+    redact: { paths: ["privateField"] },
+    destination,
   });
 
-  getPinoLogger().info({ password: "secret", event: "payload.test.created" }, "Created");
+  const config = getPayloadLoggerConfig();
+  assert.equal(config.destination, destination);
+  assert.equal(config.options.level, "warn");
+  assert.equal(config.options.customLevels, undefined);
+  assert.equal(config.options.base.service, "payload");
+  assert.ok(config.options.redact.paths.includes("privateField"));
 
-  assert.equal(entries.length, 1);
-  assert.equal(entries[0].password, "[REDACTED]");
-  assert.equal(entries[0].event, "payload.test.created");
-  assert.equal(entries[0].service, "payload");
+  config.options.base.service = "edited";
+  config.options.redact.paths.length = 0;
+  configureLogger({ service: "ignored" });
+  assert.equal(getPayloadLoggerConfig().options.base.service, "payload");
+  assert.ok(getPayloadLoggerConfig().options.redact.paths.includes("privateField"));
+
+  configureLogger({ service: "replacement", level: "debug", force: true });
+  const replacement = getPayloadLoggerConfig();
+  assert.equal(replacement.options.base.service, "replacement");
+  assert.equal(replacement.options.level, "debug");
+  assert.equal(replacement.destination, undefined);
 });
 
 const createTestLogger = async (options) => {

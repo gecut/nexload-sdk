@@ -14,7 +14,7 @@ Environment variables: `@nexload-sdk/env` is deprecated and removed from this re
 
 Configure with `configureLogger({ service })` at runtime startup and import the lazy `logger` proxy anywhere. Object-bound children follow later configuration. Levels are `trace`, `debug`, `info`, `success`, `warn`, `error`, and `fatal`. Default redaction covers sensitive keys at the top level and one level deep, plus specific header and body paths; deeper paths require explicit configuration. Errors under `err` are serialized. Node request context uses `withLogContext` and trace helpers; Edge and browser context is pass-through. Tests can use `createTestLogger` from `@nexload-sdk/logger/testing`. See the [package README](../../packages/logger/README.md) for configuration, runtime limits, and migration.
 
-For Payload's `config.logger`, call `configureLogger()` before `buildConfig()` and pass `getPinoLogger()`. It returns the active pino 10 instance; retrieve it again after forced reconfiguration.
+For Payload's `config.logger`, call `configureLogger()` before `buildConfig()` and pass `getPayloadLoggerConfig()`. Payload creates its own logger with the SDK's options and any explicit destination. The `success` threshold maps to `warn`. Rebuild the Payload config after forced reconfiguration to apply the new settings.
 
 ```typescript
 import { configureLogger, logger } from '@nexload-sdk/logger';
