@@ -42,10 +42,9 @@ Treat package implementations as authoritative:
 1. Setup Scope?
    ├── Standard Nexload Payload app   ──► Use nexloadPreset(options)
    └── Targeted / custom composition  ──► Use individual standalone plugins:
-                                          - persianPlugin()
-                                          - payloadLoggerPlugin()
-                                          - payloadFieldsPlugin(options)
-                                          - auditPlugin(options)
+                                          - persianPlugin() and payloadLoggerPlugin() from @nexload-sdk/payload-preset
+                                          - payloadFieldsPlugin(options) from @nexload-sdk/payload-fields
+                                          - auditPlugin(options) from @nexload-sdk/payload-hooks
 
 2. Preset Options & Defaults:
    ├── persian: true (default)         ──► fa translations, fallbackLanguage: "fa", rtl on fa locale, Asia/Tehran
@@ -62,6 +61,8 @@ Treat package implementations as authoritative:
    └── Host plugins may be listed ANYWHERE in plugins array (before or after preset).
        Preset plugins run at order 900 and 1000; host plugins run earlier (default order 0).
 ```
+
+The preset package exports only `nexloadPreset`, `persianPlugin`, `payloadLoggerPlugin`, and the types `NexloadPresetOptions`, `AuditOperation`, and `AuditPluginOptions`.
 
 ## Invariants and Guarantees
 

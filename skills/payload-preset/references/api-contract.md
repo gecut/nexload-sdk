@@ -7,8 +7,6 @@ import type { Plugin } from "payload";
 import type { PayloadFieldsPluginOptions } from "@nexload-sdk/payload-fields";
 import type { AuditOperation, AuditPluginOptions } from "@nexload-sdk/payload-hooks";
 
-export { payloadLoggerPlugin } from "./logger";
-export { persianPlugin } from "./persian";
 export type { AuditOperation, AuditPluginOptions } from "@nexload-sdk/payload-hooks";
 
 export type NexloadPresetOptions = {

@@ -47,7 +47,7 @@ The `auditPlugin` emits structured log entries at level `info` using `@nexload-s
   event: "payload.document.deleted",
   collection: string,
   operation: "delete",
-  id: string | number, // doc.id ?? args.id
+  id?: string | number, // doc.id ?? args.id
   userId?: string | number // included only when req.user.id is present
 }
 ```
