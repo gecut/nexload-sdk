@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { IRT, formatJalaliDate, formatMoney, formatSlug, moneyField, parseMoneyToMinorUnits, payloadFieldsPlugin, slugField, withJalaliTimestamps } from "../dist/index.mjs";
+import { IRT, formatJalaliDate, formatMoney, formatSlug, moneyField, parseMoneyToMinorUnits, payloadFieldsPlugin, slugField, withJalaliTimestamps } from "../dist/index.js";
 
 test("builds every documented server subpath", async () => {
   const [slug, date, money] = await Promise.all([
-    import("../dist/slug/index.mjs"),
-    import("../dist/date/index.mjs"),
-    import("../dist/money/index.mjs"),
+    import("../dist/slug/index.js"),
+    import("../dist/date/index.js"),
+    import("../dist/money/index.js"),
   ]);
 
   assert.equal(typeof slug.slugField, "function");

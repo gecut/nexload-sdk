@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { getDateLib } from "react-day-picker/persian";
 
-import { canonicalizeJalaliPickerDate } from "../dist/admin/jalali-picker-value.mjs";
+import { canonicalizeJalaliPickerDate } from "../dist/admin/jalali-picker-value.js";
 
 test("normalizes month-only selection to the first Jalali day at noon", () => {
   const dateLib = getDateLib();

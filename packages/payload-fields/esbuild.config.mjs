@@ -10,6 +10,6 @@ const bundler = createBundler([
   "src/admin/jalali-picker-value.ts",
   "src/admin/jalali-date-cell.tsx",
   "src/admin/money-field.tsx",
-]);
+], "dist", process.cwd(), {}, false);
 
 bundler();

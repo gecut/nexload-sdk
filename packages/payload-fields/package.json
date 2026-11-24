@@ -19,43 +19,43 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./slug": {
       "types": "./dist/slug/index.d.ts",
-      "import": "./dist/slug/index.mjs",
-      "require": "./dist/slug/index.cjs"
+      "import": "./dist/slug/index.js",
+      "default": "./dist/slug/index.js"
     },
     "./date": {
       "types": "./dist/date/index.d.ts",
-      "import": "./dist/date/index.mjs",
-      "require": "./dist/date/index.cjs"
+      "import": "./dist/date/index.js",
+      "default": "./dist/date/index.js"
     },
     "./money": {
       "types": "./dist/money/index.d.ts",
-      "import": "./dist/money/index.mjs",
-      "require": "./dist/money/index.cjs"
+      "import": "./dist/money/index.js",
+      "default": "./dist/money/index.js"
     },
     "./admin/slug-field": {
       "types": "./dist/admin/slug-field.d.ts",
-      "import": "./dist/admin/slug-field.mjs",
-      "require": "./dist/admin/slug-field.cjs"
+      "import": "./dist/admin/slug-field.js",
+      "default": "./dist/admin/slug-field.js"
     },
     "./admin/jalali-date-field": {
       "types": "./dist/admin/jalali-date-field.d.ts",
-      "import": "./dist/admin/jalali-date-field.mjs",
-      "require": "./dist/admin/jalali-date-field.cjs"
+      "import": "./dist/admin/jalali-date-field.js",
+      "default": "./dist/admin/jalali-date-field.js"
     },
     "./admin/jalali-date-cell": {
       "types": "./dist/admin/jalali-date-cell.d.ts",
-      "import": "./dist/admin/jalali-date-cell.mjs",
-      "require": "./dist/admin/jalali-date-cell.cjs"
+      "import": "./dist/admin/jalali-date-cell.js",
+      "default": "./dist/admin/jalali-date-cell.js"
     },
     "./admin/money-field": {
       "types": "./dist/admin/money-field.d.ts",
-      "import": "./dist/admin/money-field.mjs",
-      "require": "./dist/admin/money-field.cjs"
+      "import": "./dist/admin/money-field.js",
+      "default": "./dist/admin/money-field.js"
     }
   },
   "files": [
@@ -69,28 +69,42 @@
   "scripts": {
     "build": "node esbuild.config.mjs",
     "lint": "eslint src",
-    "test": "node --test test/*.test.mjs"
+    "test": "pnpm build && node --test test/*.test.mjs"
   },
   "dependencies": {
     "react-day-picker": "^9.12.0",
     "@nexload-sdk/persian": "workspace:^"
   },
   "peerDependencies": {
-    "@payloadcms/ui": ">=3.68.5 <4",
-    "payload": ">=3.68.5 <4",
+    "@nexload-sdk/payload-schema": ">=2.0.0 <4.0.0",
+    "@payloadcms/ui": ">=3.85.0 <4.0.0",
+    "payload": ">=3.85.0 <4.0.0",
     "react": "^19.0.1 || ^19.1.2 || ^19.2.1",
-    "react-dom": "^19.0.1 || ^19.1.2 || ^19.2.1"
+    "react-dom": "^19.0.1 || ^19.1.2 || ^19.2.1",
+    "zod": ">=4.1.0 <5.0.0"
   },
   "devDependencies": {
     "@nexload-sdk/bundler": "workspace:*",
     "@nexload-sdk/eslint-config": "workspace:*",
     "@nexload-sdk/typescript-config": "workspace:*",
     "@types/react": "^19.2.7",
-    "@payloadcms/ui": "3.68.5",
-    "payload": "3.68.5",
+    "@payloadcms/ui": "3.86.0",
+    "payload": "3.86.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@nexload-sdk/payload-schema": "workspace:*",
+    "@payloadcms/db-sqlite": "3.86.0",
+    "zod": "4.4.3"
+  },
+  "type": "module",
+  "peerDependenciesMeta": {
+    "@nexload-sdk/payload-schema": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   }
 }

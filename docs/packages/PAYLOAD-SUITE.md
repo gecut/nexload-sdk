@@ -73,7 +73,7 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 - **Core Mechanism:** Provides declarative presets (`minimal`, `article`, `admin`) and clean toggles for enabling specific Lexical features (headings, lists, quotes, links, tables) without manually importing dozens of Lexical sub-plugins.
 
 ### D. `@nexload-sdk/payload-fields`
-- **Location:** `packages/refactoring/payload-fields`
+- **Location:** `packages/payload-fields`
 - **Problem Solved:** Common e-commerce and internationalization field deficiencies in standard CMS platforms:
   - **Unicode Slugs (`createSlugField`):** Generates clean, URL-safe slugs from Persian, Arabic, or non-Latin titles without turning into mangled percent-encoded characters or stripping characters.
   - **Jalali Datepicker (`createJalaliDateField`):** Interactive Persian calendar datepicker integrated directly into the Payload Admin UI (React 19 compatible).

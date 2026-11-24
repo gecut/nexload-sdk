@@ -8,7 +8,7 @@ import healthcheckPrometheus from "../../../../packages/healthcheck/prometheus/p
 import persian from "../../../../packages/persian/package.json";
 import logger from "../../../../packages/logger/package.json";
 import payloadEditor from "../../../../packages/payload-editor/package.json";
-import payloadFields from "../../../../packages/refactoring/payload-fields/package.json";
+import payloadFields from "../../../../packages/payload-fields/package.json";
 import payloadOperations from "../../../../packages/payload-operations/package.json";
 import payloadSchema from "../../../../packages/payload-schema/package.json";
 import eslintConfig from "../../../../tools/eslint-config/package.json";
@@ -143,7 +143,7 @@ export const packageCatalog: readonly PackageCatalogEntry[] = [
     label: "Payload Fields",
     manifest: payloadFields,
     family: "payload",
-    sourcePath: "packages/refactoring/payload-fields",
+    sourcePath: "packages/payload-fields",
     docsPath: "/packages/payload-fields/",
     runtimes: ["Payload CMS", "React 19", "Payload Admin"],
     skills: ["payload-fields-core", "payload-fields-slug", "payload-fields-jalali-date", "payload-fields-money"],

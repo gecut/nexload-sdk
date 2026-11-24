@@ -38,10 +38,10 @@
         "../../packages/healthcheck/payload/src/index.ts"
       ],
       "@nexload-sdk/payload-fields": [
-        "../../packages/refactoring/payload-fields/src/index.ts"
+        "../../packages/payload-fields/src/index.ts"
       ],
       "@nexload-sdk/payload-fields/*": [
-        "../../packages/refactoring/payload-fields/src/*/index.ts"
+        "../../packages/payload-fields/src/*/index.ts"
       ],
       "@nexload-sdk/payload-editor": [
         "../../packages/payload-editor/src/index.ts"

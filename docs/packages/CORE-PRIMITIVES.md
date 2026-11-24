@@ -33,7 +33,3 @@ const mobile = normalizeIranMobile("۰۹۱۲۳۴۵۶۷۸۹");
 ```
 
 See the [package README](../../packages/persian/README.md) for canonical forms and caveats.
-
-## 3. Note on the `packages/refactoring/` Directory
-
-`@nexload-sdk/payload-fields` remains in `packages/refactoring/`. Its public package identity and release lifecycle remain first-class.

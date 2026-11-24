@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { formatSlug, parseMoneyToMinorUnits, formatMoney, IRT, formatJalaliDate } from "../dist/index.mjs";
+import { formatSlug, parseMoneyToMinorUnits, formatMoney, IRT, formatJalaliDate } from "../dist/index.js";
 
 test("formatSlug is persian slugify", async () => {
   const { slugify } = await import("@nexload-sdk/persian/text");
@@ -15,5 +15,5 @@ test("formatJalaliDate formats in Tehran", () => {
   assert.equal(formatJalaliDate("2025-09-24T10:30:00Z", { dateStyle: "short", digits: "latin" }), "1404/07/02");
 });
 test("no local digit tables remain", () => {
-  assert.doesNotMatch(readFileSync(new URL("../dist/index.mjs", import.meta.url), "utf8"), /۰۱۲۳۴۵۶۷۸۹/);
+  assert.doesNotMatch(readFileSync(new URL("../dist/index.js", import.meta.url), "utf8"), /۰۱۲۳۴۵۶۷۸۹/);
 });

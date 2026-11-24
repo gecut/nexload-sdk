@@ -18,7 +18,7 @@ This document provides the authoritative inventory matrix and dependency graph f
 | **`@nexload-sdk/payload-schema`** | `packages/payload-schema` | Canonical field definitions compiled to Payload & Zod | Isomorphic | Implemented |
 | **`@nexload-sdk/payload-operations`** | `packages/payload-operations` | Contract-first custom operations, endpoints & client SDK | Node.js / Isomorphic Client | Implemented |
 | **`@nexload-sdk/payload-editor`** | `packages/payload-editor` | Semantic presets & feature builder for Payload Lexical | Node.js / React UI | Implemented |
-| **`@nexload-sdk/payload-fields`** | `packages/refactoring/payload-fields` | Semantic fields: Unicode slug, Jalali date, integer money | Node.js / React 19 UI | Implemented |
+| **`@nexload-sdk/payload-fields`** | `packages/payload-fields` | Semantic fields: Unicode slug, Jalali date, integer money | Node.js / React 19 UI | Implemented |
 | **`@nexload-sdk/payload-hooks`** | `packages/payload-hooks` | Type-safe collection operation logging hooks | Node.js (Payload >=3) | Implemented |
 | **`@nexload-sdk/logger`** | `packages/logger` | Configure-once structured logging with redaction and child bindings | Isomorphic / Node / Bun | Implemented |
 | **`@nexload-sdk/persian`** | `packages/persian` | Persian/Iranian utilities; core has zero runtime dependencies, `./zod` needs the optional Zod peer | Isomorphic (Node, Bun, Edge, Browser) | Implemented |

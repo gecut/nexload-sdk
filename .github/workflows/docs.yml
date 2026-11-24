@@ -5,7 +5,7 @@ on:
     paths:
       - "apps/docs/**"
       - "packages/healthcheck/**"
-      - "packages/refactoring/payload-fields/**"
+      - "packages/payload-fields/**"
       - "packages/payload-editor/**"
       - "packages/payload-operations/**"
       - "packages/payload-schema/**"
@@ -25,7 +25,7 @@ on:
     paths:
       - "apps/docs/**"
       - "packages/healthcheck/**"
-      - "packages/refactoring/payload-fields/**"
+      - "packages/payload-fields/**"
       - "packages/payload-editor/**"
       - "packages/payload-operations/**"
       - "packages/payload-schema/**"

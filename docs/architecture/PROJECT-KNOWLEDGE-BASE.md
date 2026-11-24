@@ -8,7 +8,6 @@ This document is the compact, cross-domain map for an LLM or coding agent workin
 
 - **Implemented:** Evidenced by current source code in `packages/`, `tools/`, or `skills/`, built, tested, and actively usable.
 - **Internal Tooling:** Code supporting workspace developer ergonomics, bundling, linting, or documentation building, not published as external client SDKs.
-- **Experimental / In-Refactor:** Code residing in transitional workspace locations (e.g., `packages/refactoring/`) while maintaining stable public package semantics.
 - **External:** Packages or services referenced by the broader Nexload ecosystem (e.g., `@nexload-sdk/jwt`) that are published or maintained in separate repositories.
 - **TBD / Planned:** A confirmed requirement or package capability not yet implemented in source code; do not infer APIs, schemas, or exports.
 
@@ -21,7 +20,7 @@ This document is the compact, cross-domain map for an LLM or coding agent workin
 | Area | Purpose | Location | Key Packages / Output |
 | --- | --- | --- | --- |
 | **Healthcheck Suite** | Framework-agnostic service health, runtime probes, and observability serializers. | `packages/healthcheck/*` | `@nexload-sdk/healthcheck`, `-node`, `-bun`, `-next`, `-prometheus`, `-otel`, `-payload` |
-| **Payload CMS Suite** | Type-safe field factories, Lexical editor presets, custom operations, canonical schemas, and logging hooks. | `packages/payload-*`, `packages/refactoring/payload-fields` | `@nexload-sdk/payload-schema`, `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-editor`, `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-hooks` |
+| **Payload CMS Suite** | Type-safe field factories, Lexical editor presets, custom operations, canonical schemas, and logging hooks. | `packages/payload-*`, `packages/payload-fields` | `@nexload-sdk/payload-schema`, `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-editor`, `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-hooks` |
 | **Core Primitives** | Structured logging and Persian/Iranian utilities. Environment validation is left to `@t3-oss/env-core` (`@nexload-sdk/env` is deprecated). | `packages/logger` | `@nexload-sdk/logger`, `@nexload-sdk/persian` |
 | **Shared Tooling** | Workspace build pipeline, ESLint configurations, and TypeScript presets. | `tools/*` | `@nexload-sdk/bundler`, `@nexload-sdk/eslint-config`, `@nexload-sdk/typescript-config` |
 | **Agent Skills** | The 6+1 Cognitive Graph reasoning framework and repo engineering standards. | `skills/*`, `.agents/skills/*` | `nexload-reasoning`, `nexload-code`, `nexload-package`, `nexload-react`, `nexload-cto-review`, domain skills |
@@ -66,11 +65,10 @@ packages/
 ├── persian/          -> @nexload-sdk/persian             (Persian and Iranian utilities)
 ├── logger/           -> @nexload-sdk/logger              (Configure-once structured logging)
 ├── payload-editor/   -> @nexload-sdk/payload-editor      (Payload Lexical presets and feature builder)
+├── payload-fields/   -> @nexload-sdk/payload-fields      (Unicode slug, Jalali date, integer money fields)
 ├── payload-hooks/    -> @nexload-sdk/payload-hooks       (Collection operation logging hooks)
 ├── payload-operations/ -> @nexload-sdk/payload-operations (Typed custom operations, endpoints & SDK)
-├── payload-schema/   -> @nexload-sdk/payload-schema      (Canonical validation shared by Payload & Zod)
-└── refactoring/
-    └── payload-fields/ -> @nexload-sdk/payload-fields    (Unicode slug, Jalali date, integer money fields)
+└── payload-schema/   -> @nexload-sdk/payload-schema      (Canonical validation shared by Payload & Zod)
 ```
 
 ---
