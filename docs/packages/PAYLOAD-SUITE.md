@@ -87,8 +87,8 @@ The **Payload CMS Suite** includes field factories, semantic editor presets, can
 
 ### E. `@nexload-sdk/payload-hooks`
 - **Location:** `packages/payload-hooks`
-- **Problem Solved:** Lack of structured, traceable visibility into collection lifecycle events (beforeChange, afterChange, afterDelete) across collections.
-- **Core Mechanism:** Plug-and-play hook factory and `auditPlugin` (plugin order 1000) that logs operation lifecycle, timing, user identity, and affected document IDs using `@nexload-sdk/logger`.
+- **Problem Solved:** Lack of structured, traceable visibility into collection lifecycle events (afterChange, afterDelete, afterOperation) across collections.
+- **Core Mechanism:** Plug-and-play `auditPlugin` (plugin order 1000) that logs operation lifecycle, user identity, and affected document IDs using `@nexload-sdk/logger`.
 
 ### F. `@nexload-sdk/payload-preset`
 

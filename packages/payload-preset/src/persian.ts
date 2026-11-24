@@ -1,11 +1,9 @@
-import type { Config, Plugin } from "payload";
+import type { Config, Locale, Plugin, Timezone } from "payload";
 
 import { en } from "@payloadcms/translations/languages/en";
 import { fa } from "@payloadcms/translations/languages/fa";
 
 import { TEHRAN_TIME_ZONE } from "@nexload-sdk/persian/date";
-
-type Timezone = { label: string; value: string };
 
 const tehran: Timezone = { label: "تهران", value: TEHRAN_TIME_ZONE };
 
@@ -24,13 +22,17 @@ function mergeI18n(i18n: Config["i18n"]): Config["i18n"] {
   };
 }
 
-function mapLocale(locale: unknown): unknown {
-  if (typeof locale === "object" && locale !== null) {
-    const loc = locale as Record<string, unknown>;
+type Localization = Exclude<Config["localization"], false | undefined>;
 
-    if (loc.code === "fa" && loc.rtl === undefined) {
-      return { ...loc, rtl: true };
-    }
+function isStringLocales(
+  localization: Localization,
+): localization is Extract<Localization, { locales: string[] }> {
+  return localization.locales.every((l: unknown) => typeof l === "string");
+}
+
+function mapLocale(locale: Locale): Locale {
+  if (locale.code === "fa" && locale.rtl === undefined) {
+    return { ...locale, rtl: true };
   }
 
   return locale;
@@ -38,17 +40,19 @@ function mapLocale(locale: unknown): unknown {
 
 function mapLocalization(
   localization: Config["localization"],
-): Config["localization"] | undefined {
+): Config["localization"] {
   if (!localization) {
     return undefined;
   }
 
-  const locales = (localization.locales as unknown[]).map(mapLocale);
+  if (isStringLocales(localization)) {
+    return localization;
+  }
 
   return {
     ...localization,
-    locales,
-  } as Config["localization"];
+    locales: localization.locales.map(mapLocale),
+  };
 }
 
 function resolveSupportedTimezones(
@@ -60,11 +64,11 @@ function resolveSupportedTimezones(
     return withTehran(supported);
   }
 
-  return (args?: { defaultTimezones?: Timezone[] }) => {
-    const fallback = args?.defaultTimezones ?? [];
+  return (args: { defaultTimezones: Timezone[] } = { defaultTimezones: [] }): Timezone[] => {
+    const { defaultTimezones } = args;
     const base = typeof supported === "function"
-      ? supported(args as { defaultTimezones: Timezone[] })
-      : fallback;
+      ? supported(args)
+      : defaultTimezones;
 
     return withTehran(base);
   };
