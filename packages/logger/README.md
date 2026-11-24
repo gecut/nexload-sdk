@@ -128,4 +128,4 @@ The test logger is isolated from global configuration and captures parsed entrie
 
 ## Runtime constraints
 
-Node.js and Bun support request context; Edge and browser do not. On Node, pretty output defaults to enabled outside production and JSON lines in production; an explicit `destination` takes precedence. `SERVICE_NAME` (default `unknown`), `LOG_LEVEL`, and `RELEASE` provide environment fallbacks; `NODE_ENV` controls production defaults. The package does not depend on `@nexload-sdk/env`.
+Node.js and Bun support request context; Edge and browser do not. On Node, pretty output defaults to enabled outside production and JSON lines in production; an explicit `destination` takes precedence. `SERVICE_NAME` (default `unknown`), `LOG_LEVEL`, and `RELEASE` provide environment fallbacks; `NODE_ENV` controls production defaults.

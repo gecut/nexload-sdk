@@ -100,8 +100,3 @@ export function configureLogger(options: LoggerOptions): Logger {
 export function getActiveLogger(): PinoLogger {
   return configuredLogger ?? (fallbackLogger ??= createPinoLogger({}));
 }
-
-export function resetLoggerForTests(): void {
-  configuredLogger = undefined;
-  fallbackLogger = undefined;
-}

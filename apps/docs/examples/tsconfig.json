@@ -8,6 +8,12 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
+      "@nexload-sdk/logger": [
+        "../../packages/logger/src/index.ts"
+      ],
+      "@nexload-sdk/logger/testing": [
+        "../../packages/logger/src/testing.ts"
+      ],
       "@nexload-sdk/healthcheck": [
         "../../packages/healthcheck/core/src/index.ts"
       ],
