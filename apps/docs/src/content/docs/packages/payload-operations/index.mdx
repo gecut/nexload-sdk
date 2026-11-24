@@ -8,6 +8,7 @@ package: payload-operations
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -64,9 +65,7 @@ console.log(stock.available); // typed as number
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
-```
+<InstallTabs packages="@nexload-sdk/payload-operations payload @payloadcms/sdk zod" />
 
 With alternative package managers:
 

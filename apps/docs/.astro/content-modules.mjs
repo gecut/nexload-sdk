@@ -62,6 +62,8 @@ export default new Map([
 ["src/content/docs/standards/file-structure.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstandards%2Ffile-structure.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/start/choose-a-package.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Fchoose-a-package.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/start/glossary.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Fglossary.mdx&astroContentModuleFlag=true")],
+["src/content/docs/start/installation.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Finstallation.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/start/introduction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Fintroduction.mdx&astroContentModuleFlag=true")],
-["src/content/docs/start/payload-packages.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Fpayload-packages.mdx&astroContentModuleFlag=true")]]);
+["src/content/docs/start/payload-packages.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Fpayload-packages.mdx&astroContentModuleFlag=true")],
+["src/content/docs/start/recipes/ecommerce-stack.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fstart%2Frecipes%2Fecommerce-stack.mdx&astroContentModuleFlag=true")]]);
 		

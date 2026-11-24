@@ -3,6 +3,7 @@
 Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc.
 
 **Topic:** guides
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/guides/
 ## Type-Aware Linting with `projectService`
 

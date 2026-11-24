@@ -106,7 +106,7 @@ function apiMarkdown(packageId) {
 }
 
 const packageMetadata = Object.fromEntries(
-  apiPackages.map((entry) => {
+  [...apiPackages, { id: "typescript-config", name: "@nexload-sdk/typescript-config", sourcePath: "tools/typescript-config" }, { id: "eslint-config", name: "@nexload-sdk/eslint-config", sourcePath: "tools/eslint-config" }].map((entry) => {
     const manifest = JSON.parse(
       readFileSync(
         resolve(repositoryRoot, entry.sourcePath, "package.json"),
@@ -119,6 +119,7 @@ const packageMetadata = Object.fromEntries(
         ...entry,
         version: manifest.version,
         description: manifest.description,
+        manifest,
       },
     ];
   }),
@@ -165,6 +166,19 @@ function packageGridMarkdown(source) {
     .join("\n");
 }
 
+function installationMatrixMarkdown() {
+  const rows = Object.values(packageMetadata).map((entry) => {
+    const manifest = entry.manifest;
+    const format = JSON.stringify(manifest.exports ?? "").includes('"require"') || manifest.main?.endsWith(".cjs")
+      ? "ESM and CJS" : manifest.type === "module" ? "ESM only" : "See package exports";
+    const peers = Object.entries(manifest.peerDependencies ?? {}).map(([name, version]) =>
+      `\`${name} ${version}\`${manifest.peerDependenciesMeta?.[name]?.optional ? " (optional)" : ""}`.replaceAll("|", "\\|"),
+    ).join(", ") || "None";
+    return `| ${entry.name} | ${format} | ${peers} |`;
+  });
+  return ["| Package | Module format | Peer dependencies |", "| --- | --- | --- |", ...rows].join("\n");
+}
+
 function transformChildren(children, source) {
   const output = [];
   for (const node of children ?? []) {
@@ -193,6 +207,17 @@ function transformChildren(children, source) {
       }
       if (node.name === "PackageGrid") {
         output.push(...parseMarkdown(packageGridMarkdown(original)));
+        continue;
+      }
+      if (node.name === "InstallationMatrix") {
+        output.push(...parseMarkdown(installationMatrixMarkdown()));
+        continue;
+      }
+      if (node.name === "InstallTabs") {
+        const packages = attribute(node, "packages");
+        if (!packages) throw new Error("InstallTabs requires a string packages attribute");
+        const dev = node.attributes.some((item) => item.name === "dev");
+        output.push(...parseMarkdown(`\`\`\`bash\npnpm add${dev ? " -D" : ""} ${packages}\n\`\`\``));
         continue;
       }
       if (node.name === "SkillInstall") {
@@ -264,13 +289,25 @@ const documents = walk(contentRoot)
   .filter((path) => path.endsWith(".mdx"))
   .sort()
   .map(canonicalDocument);
-const generatedFiles = documents.map((document) =>
+const scopedBundles = Object.values(packageMetadata).map((entry) => {
+  const pages = documents.filter((document) => document.packageId === entry.id && ["overview", "guides", "api"].includes(document.topic));
+  return [resolve(publicRoot, "packages", entry.id, "llms.txt"), pages.map((page) => page.content).join("\n---\n\n")];
+});
+const familyOf = (id) => id.startsWith("healthcheck") ? "healthcheck" : id.startsWith("payload-") ? "payload" : ["logger", "persian"].includes(id) ? "core" : "tooling";
+const familyBundles = ["core", "healthcheck", "payload", "tooling"].map((family) => [
+  resolve(publicRoot, `llms-${family}.txt`),
+  documents.filter((document) => document.packageId && familyOf(document.packageId) === family && ["overview", "guides", "api"].includes(document.topic)).map((page) => page.content).join("\n---\n\n"),
+]);
+const generatedFiles = [...scopedBundles, ...familyBundles].map(([path]) => relative(publicRoot, path).replaceAll("\\", "/")).concat(documents.map((document) =>
   relative(publicRoot, outputFor(document.route)).replaceAll("\\", "/"),
-);
+));
 const llmsIndex = [
   "# Nexload SDK documentation",
   "",
   `Current-version documentation for ${apiPackages.length} released Healthcheck and Payload CMS packages.`,
+  "",
+  ...scopedBundles.map(([path]) => `- [${relative(publicRoot, path)}](/${relative(publicRoot, path)})`),
+  ...familyBundles.map(([path]) => `- [${relative(publicRoot, path)}](/${relative(publicRoot, path)})`),
   "",
   ...documents.map((document) => {
     const metadata = document.packageId
@@ -294,6 +331,8 @@ function expectedFiles() {
       outputFor(document.route),
       document.content,
     ]),
+    ...scopedBundles,
+    ...familyBundles,
     [resolve(publicRoot, "llms.txt"), llmsIndex],
     [resolve(publicRoot, "llms-full.txt"), llmsFull],
     [generatedManifestPath, manifest],

@@ -8,6 +8,7 @@ package: eslint-config
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -79,8 +80,6 @@ Async operations must be explicitly awaited or handled with `.catch()`. Unhandle
 
 ## Installation & Requirements
 
-```bash
-pnpm add -D @nexload-sdk/eslint-config eslint@^9.0.0 typescript
-```
+<InstallTabs packages="@nexload-sdk/eslint-config eslint@^9.0.0 typescript" dev />
 
 Peer requirements: `eslint >= 9.0.0`, `typescript >= 5.0.0`.

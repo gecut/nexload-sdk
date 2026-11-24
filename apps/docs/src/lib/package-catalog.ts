@@ -24,7 +24,12 @@ export type PackageManifest = {
   name: string
   version: string
   description?: string
+  dependencies?: Record<string, string>
   peerDependencies?: Record<string, string>
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>
+  exports?: unknown
+  main?: string
+  type?: string
   engines?: Record<string, string>
 };
 

@@ -10,9 +10,9 @@ Probing Payload collections, database latency, lightweight health queries, and t
 To minimize database load during frequent health checks (e.g. every 5-10 seconds by Kubernetes):
 
 ```ts
-import { payloadReadinessCheck } from "@nexload-sdk/healthcheck-payload";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
 
-const check = payloadReadinessCheck(payload, {
+const check = payloadHealthCheck(payload, {
   collection: "users",
   // Excluded from liveness probe:
   scopes: ["readiness"],

@@ -8,6 +8,7 @@ package: payload-hooks
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -15,9 +16,11 @@ import { packageByName } from "../../../../lib/package-catalog";
 
 `auditPlugin` attaches log-only collection hooks. It stores no audit records and does not change collection fields.
 
-```bash
-pnpm add @nexload-sdk/payload-hooks payload
-```
+## Installation
+
+<InstallTabs packages="@nexload-sdk/payload-hooks payload" />
+
+## Quick Start
 
 ```ts
 import { auditPlugin } from "@nexload-sdk/payload-hooks";

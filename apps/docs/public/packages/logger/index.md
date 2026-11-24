@@ -36,16 +36,6 @@ log.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed")
 pnpm add @nexload-sdk/logger
 ```
 
-With alternative package managers:
-
-```bash
-# npm
-npm install @nexload-sdk/logger
-
-# bun
-bun add @nexload-sdk/logger
-```
-
 ### Compatibility Requirements
 
 | Runtime / Dependency | Support | Notes |

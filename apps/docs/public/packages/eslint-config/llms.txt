@@ -1,0 +1,211 @@
+# Configuration Guides & Recipes
+
+Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/guides/
+## Type-Aware Linting with `projectService`
+
+`@nexload-sdk/eslint-config` uses `typescript-eslint` v8's `projectService: true` instead of static `project: "./tsconfig.json"` arrays.
+
+### Benefits of `projectService`
+
+* **Dynamic Project Discovery**: Resolves `tsconfig.json` contexts automatically per file without parsing slow monolithic solution files.
+* **Standalone Script Safety**: Standalone configuration scripts (`eslint.config.mjs`, `esbuild.config.mjs`) are automatically parsed without triggering type-information crashes.
+* **Zero Configuration Boilerplate**: No need to maintain manual tsconfig path lists in your lint config.
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  typeAware: true, // Enables full type-checked rules
+});
+```
+
+***
+
+## Customizing Rules with `nexloadConfig`
+
+The `nexloadConfig` factory accepts custom rules, extra flat configs, and custom ignore patterns:
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "next",
+  ignores: [
+    "dist/**",
+    ".next/**",
+    "public/static/**",
+  ],
+  rules: {
+    // Override or add project-specific rules safely
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+  },
+  extraConfigs: [
+    {
+      files: ["scripts/**/*.mjs"],
+      rules: {
+        "no-console": "off",
+      },
+    },
+  ],
+});
+```
+
+***
+
+## Prettier Integration & Zero Conflicts
+
+Many teams experience conflicts between ESLint stylistic rules and Prettier. `@nexload-sdk/eslint-config` handles this deterministically:
+
+1. **Semantic Padding Preserved**: `@stylistic/padding-line-between-statements` handles logical separation lines between statements and returns.
+2. **Prettier Conflict Termination**: `eslint-config-prettier` is applied as the final configuration object in the flat config chain. It turns off all formatting rules that might fight Prettier (quotes, semicolons, indentations).
+3. **Format Separation**: Use Prettier for syntax formatting (`prettier --write .`) and ESLint for structural, semantic, and type rules (`eslint --fix .`).
+
+***
+
+## Migrating from Legacy `.eslintrc.js`
+
+To migrate a repository from ESLint 8 (`.eslintrc.*`) to `@nexload-sdk/eslint-config`:
+
+### Step 1: Remove Deprecated Dependencies
+
+```bash
+pnpm remove eslint-plugin-import eslint-plugin-only-warn @typescript-eslint/parser @typescript-eslint/eslint-plugin
+```
+
+### Step 2: Delete Old Config & Ignore Files
+
+Remove legacy files from the repository root:
+
+* `.eslintrc.js`, `.eslintrc.json`, or `.eslintrc.yml`
+* `.eslintignore` (migrated to `ignores` in flat config)
+
+### Step 3: Create `eslint.config.mjs`
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "node", // Select: "node", "react", "next", or "payload"
+});
+```
+
+### Step 4: Update Package Scripts
+
+ESLint 9 Flat Config lints JavaScript and TypeScript by default. Remove deprecated `--ext` flags from `package.json`:
+
+```json title="package.json"
+{
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  }
+}
+```
+
+### Step 5: Run Automated Fixes
+
+```bash
+pnpm lint:fix
+```
+
+This automatically sorts imports according to perfectionist groupings, normalizes statement spacing, and surfaces any remaining strictness errors.
+
+---
+
+# Overview & Quick Start
+
+Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deterministic imports, and zero-any rules.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
+**Package:** `@nexload-sdk/eslint-config`
+
+**Current released version:** `9.39.2`
+
+Shared authoritative ESLint configurations for the Nexload SDK monorepo
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/eslint-config) · [Source](https://github.com/gecut/nexload-sdk/tree/main/tools/eslint-config)
+
+`@nexload-sdk/eslint-config` provides a unified, strict ESLint 9 Flat Config system for TypeScript repositories. Built on `typescript-eslint` v8, `eslint-plugin-perfectionist`, and `eslint-plugin-unicorn`, it enforces clean architectural discipline, deterministic import order, semantic whitespace padding, and zero-`any` type safety.
+
+***
+
+## 10-Second Code Snippet
+
+Create `eslint.config.mjs` in your project root using the `nexloadConfig()` universal factory:
+
+```js title="eslint.config.mjs"
+import { nexloadConfig } from "@nexload-sdk/eslint-config";
+
+export default nexloadConfig({
+  framework: "next", // "next" | "react" | "node" | "payload" | "none"
+  typeAware: true,
+});
+```
+
+***
+
+## The Enforced Mental Model
+
+This configuration enforces unambiguous, production-grade engineering standards:
+
+### 1. Mandatory Kebab-Case Filenames (`unicorn/filename-case`)
+
+Every file in your source tree must use `kebab-case.ts`. CamelCase, PascalCase, or snake\_case file names trigger compile-blocking linter errors.
+
+```text
+✅ src/user-profile.ts
+✅ src/auth-guard.spec.ts
+❌ src/UserProfile.ts
+❌ src/user_profile.ts
+```
+
+### 2. Deterministic Perfectionist Imports (`perfectionist/sort-imports`)
+
+Imports are automatically organized alphabetically into strict semantic groups separated by blank lines:
+
+1. Type imports (`import type { ... }`)
+2. Node.js built-ins (`node:fs`, `node:path`)
+3. External dependencies (`react`, `zod`, `payload`)
+4. Internal ecosystem packages (`@nexload-sdk/*`)
+5. Parent & sibling relative imports (`../`, `./`)
+
+### 3. Absolute Zero-`any` Policy (`@typescript-eslint/no-explicit-any`)
+
+Using `any` is treated as a hard error. Types must be properly narrowed at boundary points using unknown, generics, type guards, or Zod schemas.
+
+### 4. Semantic Whitespace Padding (`@stylistic/padding-line-between-statements`)
+
+Blank lines are enforced around returns, classes, exports, and multi-line declarations to eliminate visual clutter and ensure code remains human-readable and AI-friendly.
+
+### 5. Floating Promise Prevention (`@typescript-eslint/no-floating-promises`)
+
+Async operations must be explicitly awaited or handled with `.catch()`. Unhandled background promises fail CI immediately.
+
+***
+
+## Available Presets & Factory
+
+| Preset Export | Target Environment | Included Plugins |
+|---|---|---|
+| `baseConfig` | Universal TypeScript foundation | `typescript-eslint`, `perfectionist`, `unicorn`, `@stylistic`, `prettier` |
+| `nodeConfig` | Node.js backend services | Base + Node globals and environment rules |
+| `reactConfig` | React libraries & SPAs | Base + `react-hooks` |
+| `nextjsConfig` | Next.js App Router | Base + `react-hooks` + `@next/eslint-plugin-next` |
+| `payloadConfig` | Payload CMS applications | Base + `react-hooks` + Payload-specific admin & server boundary rules |
+| `nexloadConfig(options)` | Universal configurable factory | Combines presets, custom rules, ignores, and overrides in one call |
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add -D @nexload-sdk/eslint-config eslint@^9.0.0 typescript
+```
+
+Peer requirements: `eslint >= 9.0.0`, `typescript >= 5.0.0`.

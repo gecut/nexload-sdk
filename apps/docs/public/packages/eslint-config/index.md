@@ -3,7 +3,16 @@
 Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deterministic imports, and zero-any rules.
 
 **Topic:** overview
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
+**Package:** `@nexload-sdk/eslint-config`
+
+**Current released version:** `9.39.2`
+
+Shared authoritative ESLint configurations for the Nexload SDK monorepo
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/eslint-config) · [Source](https://github.com/gecut/nexload-sdk/tree/main/tools/eslint-config)
+
 `@nexload-sdk/eslint-config` provides a unified, strict ESLint 9 Flat Config system for TypeScript repositories. Built on `typescript-eslint` v8, `eslint-plugin-perfectionist`, and `eslint-plugin-unicorn`, it enforces clean architectural discipline, deterministic import order, semantic whitespace padding, and zero-`any` type safety.
 
 ***

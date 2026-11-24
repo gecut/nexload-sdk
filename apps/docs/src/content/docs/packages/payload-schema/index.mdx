@@ -8,6 +8,7 @@ package: payload-schema
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -65,9 +66,7 @@ export type CreateProductInput = z.infer<typeof createProductSchema>;
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/payload-schema payload zod
-```
+<InstallTabs packages="@nexload-sdk/payload-schema payload zod" />
 
 With alternative package managers:
 

@@ -795,6 +795,7 @@ Explore Payload Suite →
 Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc.
 
 **Topic:** guides
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/guides/
 ## Type-Aware Linting with `projectService`
 
@@ -912,7 +913,16 @@ This automatically sorts imports according to perfectionist groupings, normalize
 Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deterministic imports, and zero-any rules.
 
 **Topic:** overview
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
+**Package:** `@nexload-sdk/eslint-config`
+
+**Current released version:** `9.39.2`
+
+Shared authoritative ESLint configurations for the Nexload SDK monorepo
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/eslint-config) · [Source](https://github.com/gecut/nexload-sdk/tree/main/tools/eslint-config)
+
 `@nexload-sdk/eslint-config` provides a unified, strict ESLint 9 Flat Config system for TypeScript repositories. Built on `typescript-eslint` v8, `eslint-plugin-perfectionist`, and `eslint-plugin-unicorn`, it enforces clean architectural discipline, deterministic import order, semantic whitespace padding, and zero-`any` type safety.
 
 ***
@@ -1165,7 +1175,7 @@ export const health = createHealthManager({
 ## Installation & Requirements
 
 ```bash
-bun add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
+pnpm add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
 ```
 
 Requires Bun `>=1.0.0`.
@@ -3135,9 +3145,9 @@ Probing Payload collections, database latency, lightweight health queries, and t
 To minimize database load during frequent health checks (e.g. every 5-10 seconds by Kubernetes):
 
 ```ts
-import { payloadReadinessCheck } from "@nexload-sdk/healthcheck-payload";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
 
-const check = payloadReadinessCheck(payload, {
+const check = payloadHealthCheck(payload, {
   collection: "users",
   // Excluded from liveness probe:
   scopes: ["readiness"],
@@ -3188,7 +3198,7 @@ Payload CMS health checks for @nexload-sdk/healthcheck.
 
 ```ts
 import { createHealthManager } from "@nexload-sdk/healthcheck";
-import { payloadReadinessCheck } from "@nexload-sdk/healthcheck-payload";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
 import config from "@payload-config";
 import { getPayload } from "payload";
 
@@ -3197,7 +3207,7 @@ const payload = await getPayload({ config });
 export const health = createHealthManager({
   service: { name: "payload-cms" },
   checks: [
-    payloadReadinessCheck(payload, {
+    payloadHealthCheck(payload, {
       collection: "users",
       expectedMinDocuments: 1,
     }),
@@ -3501,12 +3511,12 @@ The site describes the current released version shown on each package page. Hist
 
 # API Reference & Compatibility
 
-Public logger v5 signatures, examples, and runtime compatibility.
+Public logger signatures, examples, and runtime compatibility.
 
 **Topic:** api
 **Package:** `@nexload-sdk/logger` v4.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/api/
-The inventory below is generated from the source entry points. The reference that follows describes the v5 contract.
+The inventory below is generated from the source entry points. The reference that follows describes the current source contract.
 
 ## Functions
 
@@ -4019,16 +4029,6 @@ log.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed")
 
 ```bash
 pnpm add @nexload-sdk/logger
-```
-
-With alternative package managers:
-
-```bash
-# npm
-npm install @nexload-sdk/logger
-
-# bun
-bun add @nexload-sdk/logger
 ```
 
 ### Compatibility Requirements
@@ -5862,6 +5862,8 @@ Public type exported by @nexload-sdk/payload-hooks.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L14)
 
+## Exported Factories Summary
+
 `auditPlugin(options?: AuditPluginOptions): Plugin` attaches audit hooks. `AUDIT_PLUGIN_ORDER` is `1000`. `AuditOperation` is `"create" | "update" | "delete" | "read" | "auth"`. `logOperation` is deprecated; see the [migration guide](../guides/).
 
 ---
@@ -5933,9 +5935,13 @@ Effortless, type-safe logging for Payload CMS collection operations.
 
 `auditPlugin` attaches log-only collection hooks. It stores no audit records and does not change collection fields.
 
+## Installation
+
 ```bash
 pnpm add @nexload-sdk/payload-hooks payload
 ```
+
+## Quick Start
 
 ```ts
 import { auditPlugin } from "@nexload-sdk/payload-hooks";
@@ -7784,6 +7790,8 @@ Public type exported by @nexload-sdk/payload-preset.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts#L16)
 
+## Exported Factories Summary
+
 `nexloadPreset(options?: NexloadPresetOptions): Plugin[]` returns the enabled plugins. `persianPlugin()` and `payloadLoggerPlugin()` are also available separately. The package re-exports `AuditOperation` and `AuditPluginOptions`, and exports `NexloadPresetOptions`.
 
 Import `payloadFieldsPlugin` from `@nexload-sdk/payload-fields` and `auditPlugin` from `@nexload-sdk/payload-hooks`. This package is ESM only and intended for Node.js Payload configuration.
@@ -7820,6 +7828,8 @@ Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, 
 
 Audit reads are off by default; auth is on. The implicit default users collection is created after plugins run and is not audited: declare it explicitly. Write events are emitted before transaction commit and may describe rolled-back changes. See [Payload Hooks](/nexload-sdk/packages/payload-hooks/) for options and events.
 
+The `getPayloadLoggerConfig()` bridge maps the SDK `success` threshold to Payload `warn`. Payload’s logger has no `success()` method.
+
 ---
 
 # Overview & Quick Start
@@ -7837,9 +7847,13 @@ Compose Payload configuration with Nexload defaults.
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
+## Installation
+
 ```bash
 pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
 ```
+
+## Quick Start
 
 ```ts
 import { configureLogger } from "@nexload-sdk/logger";
@@ -11005,9 +11019,9 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ```bash
 pnpm add @nexload-sdk/persian
-# For the optional ./zod subpath:
-pnpm add zod
 ```
+
+For the optional `./zod` subpath, install `zod` separately.
 
 ## Compatibility
 
@@ -11034,6 +11048,7 @@ See [guides](./guides/) and the [API inventory](./api/).
 Monorepo project references, overriding compiler options safely, and library declaration builds.
 
 **Topic:** guides
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/guides/
 ## Monorepo Setup with Project References
 
@@ -11109,7 +11124,16 @@ If upgrading an existing codebase with many loose types or legacy CommonJS optio
 Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications.
 
 **Topic:** overview
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
+**Package:** `@nexload-sdk/typescript-config`
+
+**Current released version:** `5.9.3`
+
+Shared TypeScript configurations for the Nexload SDK monorepo
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/typescript-config) · [Source](https://github.com/gecut/nexload-sdk/tree/main/tools/typescript-config)
+
 `@nexload-sdk/typescript-config` provides battle-tested, strict TypeScript configurations tailored for modern TypeScript 5.9+ runtimes and frameworks. It eliminates boilerplate and enforces strict type boundaries across libraries, microservices, and web applications.
 
 ***
@@ -11454,6 +11478,8 @@ Node probes do not create an HTTP endpoint. Use your framework or the Next.js pa
 
 Read [Choose a Payload package](/nexload-sdk/start/payload-packages/) when two of these packages appear to overlap.
 
+Build a Payload CMS project with these packages using the [e-commerce stack recipe](/nexload-sdk/start/recipes/ecommerce-stack/).
+
 ---
 
 # Architecture Glossary: Terms & Invariants
@@ -11478,6 +11504,42 @@ Shared terms used across Healthcheck and Payload package documentation.
 * **Native field:** a Payload data field passed through an explicit escape hatch.
 * **Populated relationship:** a related document returned instead of its stored ID; it belongs to an output contract, not a canonical relationship schema.
 * **Minor units:** integer currency units used for persistence, such as the smallest configured denomination.
+
+---
+
+# Installation and compatibility
+
+Package managers, module formats, and peer dependencies.
+
+**Topic:** documentation
+**Canonical page:** https://gecut.github.io/nexload-sdk/start/installation/
+## Package managers
+
+Install packages with pnpm, npm, yarn, or Bun. Each package overview provides commands for all four. Install required peers in your application; optional peers are needed only for the integration that uses them.
+
+## Module formats and peer dependencies
+
+This matrix reads package manifests. ESM-only packages require an ESM-compatible project; packages listing both formats expose a CommonJS entry as well. Check individual subpath exports for their runtime constraints.
+
+| Package | Module format | Peer dependencies |
+| --- | --- | --- |
+| @nexload-sdk/logger | ESM and CJS | None |
+| @nexload-sdk/persian | ESM and CJS | `zod >=4.1.0 <5.0.0` (optional) |
+| @nexload-sdk/healthcheck | ESM and CJS | None |
+| @nexload-sdk/healthcheck-node | ESM and CJS | None |
+| @nexload-sdk/healthcheck-bun | ESM and CJS | None |
+| @nexload-sdk/healthcheck-next | ESM and CJS | None |
+| @nexload-sdk/healthcheck-prometheus | ESM and CJS | None |
+| @nexload-sdk/healthcheck-otel | ESM and CJS | None |
+| @nexload-sdk/healthcheck-payload | ESM and CJS | `payload >=3` (optional) |
+| @nexload-sdk/payload-fields | ESM only | `@nexload-sdk/payload-schema >=2.0.0 <4.0.0` (optional), `@payloadcms/ui >=3.85.0 <4.0.0`, `payload >=3.85.0 <4.0.0`, `react ^19.0.1 \|\| ^19.1.2 \|\| ^19.2.1`, `react-dom ^19.0.1 \|\| ^19.1.2 \|\| ^19.2.1`, `zod >=4.1.0 <5.0.0` (optional) |
+| @nexload-sdk/payload-hooks | ESM and CJS | `payload >=3.85.0 <4.0.0` |
+| @nexload-sdk/payload-preset | ESM only | `payload >=3.85.0 <4.0.0`, `@payloadcms/translations >=3.85.0 <4.0.0` |
+| @nexload-sdk/payload-editor | ESM only | `@payloadcms/richtext-lexical >=3.68.5 <4`, `payload >=3.68.5 <4` |
+| @nexload-sdk/payload-schema | ESM only | `payload >=3.85.0 <4.0.0`, `zod >=4.1.0 <5.0.0` |
+| @nexload-sdk/payload-operations | ESM only | `@payloadcms/sdk >=3.85.0 <4.0.0` (optional), `payload >=3.85.0 <4.0.0`, `zod >=4.1.0 <5.0.0` |
+| @nexload-sdk/typescript-config | See package exports | None |
+| @nexload-sdk/eslint-config | ESM only | `eslint ^9.39.2` |
 
 ---
 
@@ -11545,3 +11607,68 @@ export default buildConfig({
 ```
 
 Call `configureLogger()` before `buildConfig()`. Declare collections explicitly, including the auth collection, to audit them. The preset includes `payloadFieldsPlugin` and `auditPlugin`; avoid registering them twice. Enable read auditing only when needed. See the [preset guide](/nexload-sdk/packages/payload-preset/guides/) and [audit guide](/nexload-sdk/packages/payload-hooks/guides/).
+
+---
+
+# E-commerce stack
+
+Compose Payload, health checks, logging, and Persian utilities.
+
+**Topic:** documentation
+**Canonical page:** https://gecut.github.io/nexload-sdk/start/recipes/ecommerce-stack/
+This example connects one Payload CMS project to SDK logging, field factories, a readiness check, and Persian money formatting. Configure a Payload database adapter, secret, and auth collection for your deployment.
+
+```bash
+pnpm add @nexload-sdk/logger @nexload-sdk/healthcheck @nexload-sdk/healthcheck-payload @nexload-sdk/payload-preset @nexload-sdk/payload-fields @nexload-sdk/persian payload @payloadcms/translations react react-dom
+```
+
+Configure the logger before building Payload configuration. The preset registers the fields plugin and audit hooks.
+
+```ts
+// payload.config.ts
+import { configureLogger } from "@nexload-sdk/logger";
+import { moneyField, slugField } from "@nexload-sdk/payload-fields";
+import { nexloadPreset } from "@nexload-sdk/payload-preset";
+import { buildConfig } from "payload";
+
+configureLogger({ service: "shop-cms" });
+
+export default buildConfig({
+  // Supply db, secret, and an auth collection for your project.
+  collections: [{
+    slug: "products",
+    fields: [
+      { name: "title", type: "text", required: true },
+      ...slugField({ source: "title" }),
+      moneyField({ name: "price", currency: "IRT" }),
+    ],
+  }],
+  plugins: nexloadPreset(),
+});
+```
+
+After Payload initializes, attach its collection check to a health manager. Expose the resulting readiness report through your infrastructure's preferred endpoint.
+
+```ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+import config from "@payload-config";
+import { getPayload } from "payload";
+
+const payload = await getPayload({ config });
+const health = createHealthManager({
+  service: { name: "shop-cms" },
+  checks: [payloadHealthCheck(payload, { collection: "products", scopes: ["readiness"] })],
+});
+const readiness = await health.run("readiness");
+```
+
+Format the stored integer using its explicit unit:
+
+```ts
+import { formatMoney, money } from "@nexload-sdk/persian/money";
+
+const label = formatMoney(money(12500, "IRT"));
+```
+
+See [Payload preset](/nexload-sdk/packages/payload-preset/), [field rules](/nexload-sdk/packages/payload-fields/), and [healthcheck Payload](/nexload-sdk/packages/healthcheck/payload/) for deployment details.

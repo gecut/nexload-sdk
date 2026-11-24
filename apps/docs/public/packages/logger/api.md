@@ -1,11 +1,11 @@
 # API Reference & Compatibility
 
-Public logger v5 signatures, examples, and runtime compatibility.
+Public logger signatures, examples, and runtime compatibility.
 
 **Topic:** api
 **Package:** `@nexload-sdk/logger` v4.1.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/api/
-The inventory below is generated from the source entry points. The reference that follows describes the v5 contract.
+The inventory below is generated from the source entry points. The reference that follows describes the current source contract.
 
 ## Functions
 

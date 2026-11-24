@@ -8,6 +8,7 @@ package: typescript-config
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -63,8 +64,6 @@ All presets inherit from `base.json` with maximum compiler safety enabled:
 
 ## Installation & Requirements
 
-```bash
-pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
-```
+<InstallTabs packages="@nexload-sdk/typescript-config typescript@^5.9.0" dev />
 
 Peer requirement: `typescript >= 5.0.0`.

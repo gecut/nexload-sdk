@@ -52,7 +52,7 @@ export const health = createHealthManager({
 ## Installation & Requirements
 
 ```bash
-bun add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
+pnpm add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
 ```
 
 Requires Bun `>=1.0.0`.

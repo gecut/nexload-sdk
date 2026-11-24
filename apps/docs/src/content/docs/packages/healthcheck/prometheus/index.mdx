@@ -8,6 +8,7 @@ package: healthcheck-prometheus
 topic: overview
 ---
 
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../../lib/package-catalog";
 
@@ -45,9 +46,7 @@ const metricsText = exporter.export(report);
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/healthcheck-prometheus @nexload-sdk/healthcheck
-```
+<InstallTabs packages="@nexload-sdk/healthcheck-prometheus @nexload-sdk/healthcheck" />
 
 Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 

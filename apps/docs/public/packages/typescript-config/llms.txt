@@ -1,0 +1,146 @@
+# Configuration Guides & Recipes
+
+Monorepo project references, overriding compiler options safely, and library declaration builds.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/guides/
+## Monorepo Setup with Project References
+
+In high-performance monorepos (Turborepo or pnpm workspaces), use a root orchestrator configuration and extend specific presets in each workspace package.
+
+### 1. Root `tsconfig.json`
+
+The root configuration acts as the solution orchestrator without compiling files directly:
+
+```json title="tsconfig.json"
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/ui" },
+    { "path": "apps/web" }
+  ]
+}
+```
+
+### 2. Workspace Package `tsconfig.json`
+
+Inside individual packages, point `extends` to the preset matching that package's runtime archetype:
+
+```json title="packages/core/tsconfig.json"
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["src/**/*"]
+}
+```
+
+***
+
+## Overriding Compiler Options Safely
+
+Presets are designed to be composable. When overriding options in your local `tsconfig.json`, follow these guidelines:
+
+### Safe to Customize
+
+* **`rootDir` and `outDir`**: Configure directory output paths according to your build tool (esbuild, tsup, tsc).
+* **`declaration` and `declarationMap`**: Enable when publishing dual packages with source-linked `.d.ts.map` files.
+* **`paths` / `baseUrl`**: Add path aliases (e.g., `~/*` or `@/*`) if required by your framework bundler.
+
+### Never Weaken
+
+* **`strict`**: Do not disable `strict: false`. Narrow types explicitly at trust boundaries instead.
+* **`moduleDetection`**: Keep `"force"` to guarantee proper module scoping in all environments.
+* **`forceConsistentCasingInFileNames`**: Never disable; required to prevent cross-OS deployment failures.
+
+***
+
+## Migrating from Legacy `tsconfig.json`
+
+If upgrading an existing codebase with many loose types or legacy CommonJS options:
+
+1. **Update Dependencies**: Install `typescript@^5.9.0` and `@nexload-sdk/typescript-config`.
+2. **Replace `extends`**: Replace local compiler flags with `"extends": "@nexload-sdk/typescript-config/<target>.json"`.
+3. **Run Typecheck**: Run `pnpm tsc --noEmit` to surface type discrepancies.
+4. **Fix Module Imports**: Ensure all relative imports use modern ESM file extensions (`.js` in import paths when targeting `NodeNext`).
+5. **Resolve Strictness Issues**: Add explicit return types on recursive functions and eliminate switch statement fallthroughs.
+
+---
+
+# Overview & Quick Start
+
+Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
+**Package:** `@nexload-sdk/typescript-config`
+
+**Current released version:** `5.9.3`
+
+Shared TypeScript configurations for the Nexload SDK monorepo
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/typescript-config) · [Source](https://github.com/gecut/nexload-sdk/tree/main/tools/typescript-config)
+
+`@nexload-sdk/typescript-config` provides battle-tested, strict TypeScript configurations tailored for modern TypeScript 5.9+ runtimes and frameworks. It eliminates boilerplate and enforces strict type boundaries across libraries, microservices, and web applications.
+
+***
+
+## 10-Second Code Snippet
+
+Extend the target preset directly in your project's `tsconfig.json`:
+
+```json title="tsconfig.json"
+{
+  "extends": "@nexload-sdk/typescript-config/node.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"]
+}
+```
+
+***
+
+## Available Presets Catalog
+
+The package ships explicit subpath exports for each runtime archetype:
+
+| Preset Subpath | Target Environment | Key Compiler Options |
+|---|---|---|
+| `@nexload-sdk/typescript-config/base.json` | Universal base for all TypeScript projects | `target: ES2022`, `moduleResolution: NodeNext`, `moduleDetection: force`, `strict: true` |
+| `@nexload-sdk/typescript-config/node.json` | Node.js backend services and CLI tools | Extends base, `lib: ["ES2023"]`, typed Node globals |
+| `@nexload-sdk/typescript-config/react.json` | Client React libraries and single-page apps | `jsx: react-jsx`, `lib: ["DOM", "DOM.Iterable", "ES2023"]` |
+| `@nexload-sdk/typescript-config/next.json` | Next.js App Router applications | `jsx: preserve`, `plugins: [{ name: "next" }]`, isolated module safety |
+| `@nexload-sdk/typescript-config/vite.json` | Vite frontend applications | `moduleResolution: Bundler`, `jsx: react-jsx`, client DOM types |
+
+***
+
+## Core Guarantees & Strictness Flags
+
+All presets inherit from `base.json` with maximum compiler safety enabled:
+
+* **`moduleDetection: "force"`**: Treats every TypeScript file as a module automatically, preventing ambient global scope pollution without needing empty `export {}` statements.
+* **`forceConsistentCasingInFileNames: true"`**: Prevents subtle filesystem case-sensitivity crashes between macOS/Windows and Linux CI containers.
+* **`noImplicitOverride: true`**: Guarantees that subclass method overrides are explicitly marked with the `override` keyword.
+* **`noImplicitReturns: true`**: Ensures all code paths within a function explicitly return a value.
+* **`noFallthroughCasesInSwitch: true`**: Catches accidental switch fallthrough bugs during compilation.
+* **`exactOptionalPropertyTypes: true`**: Distinguishes between omitted properties and properties explicitly assigned `undefined`.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
+```
+
+Peer requirement: `typescript >= 5.0.0`.

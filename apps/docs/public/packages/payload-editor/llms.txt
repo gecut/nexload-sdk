@@ -1,0 +1,495 @@
+# API Reference & Compatibility
+
+Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `createEditor`
+
+```ts
+createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public function exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L57)
+
+### `defineEditorPreset`
+
+```ts
+defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public function exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L40)
+
+## Classes
+
+### `PayloadEditorConfigError`
+
+```ts
+class PayloadEditorConfigError
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public classe exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L12)
+
+## Interfaces
+
+### `DefineEditorPresetOptions`
+
+```ts
+interface DefineEditorPresetOptions { readonly features: Readonly<EditorFeatureConfig> }
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L62)
+
+### `EditorFeatureConfig`
+
+```ts
+interface EditorFeatureConfig {
+  paragraph?: FeatureOption
+  heading?: FeatureOption<HeadingOptions>
+  bold?: FeatureOption
+  italic?: FeatureOption
+  underline?: FeatureOption
+  strikethrough?: FeatureOption
+  inlineCode?: FeatureOption
+  link?: FeatureOption<LinkOptions>
+  unorderedList?: FeatureOption
+  orderedList?: FeatureOption
+  blockquote?: FeatureOption
+  horizontalRule?: FeatureOption
+  upload?: FeatureOption<UploadOptions>
+  relationship?: FeatureOption<RelationshipOptions>
+  inlineToolbar?: FeatureOption
+  fixedToolbar?: FeatureOption
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L36)
+
+### `EditorPreset`
+
+```ts
+interface EditorPreset {
+  readonly [editorPresetBrand]: true
+  readonly features: Readonly<EditorFeatureConfig>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L57)
+
+### `HeadingOptions`
+
+```ts
+interface HeadingOptions { sizes?: readonly HeadingSize[] }
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L24)
+
+### `LinkOptions`
+
+```ts
+interface LinkOptions extends RelationalOptions<CollectionSlug> { autoLink?: boolean }
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L31)
+
+## Types
+
+### `CreateEditorOptions`
+
+```ts
+type CreateEditorOptions = CommonEditorOptions & (
+  | {
+    readonly preset: EditorPresetName | EditorPreset
+    readonly features?: Readonly<EditorFeatureConfig>
+  }
+  | {
+    readonly preset?: never
+    readonly features: Readonly<EditorFeatureConfig>
+  }
+);
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L69)
+
+### `EditorPresetName`
+
+```ts
+type EditorPresetName
+  = | "compact"
+    | "standard"
+    | "structured-content"
+    | "article"
+    | "product-description";
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L11)
+
+### `FeatureOption`
+
+```ts
+type FeatureOption<TOptions = never> = [TOptions] extends [never]
+  ? boolean
+  : boolean | Readonly<TOptions>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L18)
+
+### `HeadingSize`
+
+```ts
+type HeadingSize = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L22)
+
+### `NativeEditorFeature`
+
+```ts
+type NativeEditorFeature = FeatureProviderServer<any, any, any>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L9)
+
+### `PayloadEditorConfigErrorCode`
+
+```ts
+type PayloadEditorConfigErrorCode
+  = | "PAYLOAD_EDITOR_DEFINITION_REQUIRED"
+    | "PAYLOAD_EDITOR_UNKNOWN_PRESET"
+    | "PAYLOAD_EDITOR_UNKNOWN_FEATURE"
+    | "PAYLOAD_EDITOR_INVALID_FEATURE_OPTIONS"
+    | "PAYLOAD_EDITOR_INVALID_HEADING_SIZES"
+    | "PAYLOAD_EDITOR_INVALID_COLLECTIONS"
+    | "PAYLOAD_EDITOR_INVALID_MAX_DEPTH"
+    | "PAYLOAD_EDITOR_INVALID_EXTENSION"
+    | "PAYLOAD_EDITOR_DUPLICATE_FEATURE";
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L1)
+
+### `RelationshipOptions`
+
+```ts
+type RelationshipOptions = RelationalOptions<CollectionSlug>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L34)
+
+### `UploadOptions`
+
+```ts
+type UploadOptions = RelationalOptions<UploadCollectionSlug>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L33)
+
+***
+
+## Functions Reference
+
+| Function | Return Type | Description |
+|---|---|---|
+| `createEditor(options)` | `RichTextAdapterProvider` | Compiles an explicit feature definition into Payload's official Lexical editor provider. |
+| `defineEditorPreset(options)` | `EditorPreset` | Defines an immutable, reusable editor preset for team-wide policy sharing. |
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **`@payloadcms/richtext-lexical`** | `>=3.85.0 <4.0.0` | Verified on Lexical 3.86.0 |
+| **Module Format** | ESM only | Server and configuration safe |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/guides/
+## Built-In Presets Catalog
+
+`@nexload-sdk/payload-editor` provides five curated presets designed for distinct content creation needs:
+
+| Preset Name | Target Use Case | Included Highlights |
+|---|---|---|
+| `compact` | Comments, brief bios, small callouts | Bold, italic, underline, link, inline toolbar only. No headings or blocks. |
+| `standard` | General descriptions, standard rich-text | Paragraphs, lists, blockquotes, links, basic formatting with sticky toolbar. |
+| `structured-content` | Marketing landing pages, documentation | Headings (H1-H6), horizontal rules, image/file uploads, alignment tools. |
+| `article` | Full blog posts, publications | Structured content plus inline code blocks, relationship embeds, and sub/superscript. |
+| `product-description` | E-commerce product catalogs | Constrained headings (H2-H4), bullet lists, links, image gallery embeds. |
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+
+export const standardEditor = createEditor({ preset: "standard" });
+export const articleEditor = createEditor({ preset: "article" });
+```
+
+***
+
+## Defining an Organization Preset
+
+Standardize rich-text behavior across multiple projects or collections using `defineEditorPreset`:
+
+```ts
+import { createEditor, defineEditorPreset } from "@nexload-sdk/payload-editor";
+
+// 1. Create a reusable corporate preset
+export const corporateArticlePreset = defineEditorPreset({
+  features: {
+    paragraph: true,
+    heading: {
+      sizes: ["h2", "h3"], // Forbid H1 to maintain page SEO hierarchy
+    },
+    bold: true,
+    italic: true,
+    link: {
+      autoLink: true,
+      maxDepth: 1,
+    },
+    upload: {
+      allowedCollections: ["media"],
+      maxDepth: 1,
+    },
+    blockquote: true,
+  },
+});
+
+// 2. Consume across collections
+export const editor = createEditor({ preset: corporateArticlePreset });
+```
+
+***
+
+## Extending with Native Lexical Blocks
+
+When you need custom Lexical features that aren't part of the core preset (such as Payload's native `BlocksFeature`), use `extendFeatures`:
+
+```ts
+import { BlocksFeature } from "@payloadcms/richtext-lexical";
+import { createEditor } from "@nexload-sdk/payload-editor";
+import { CalloutBlock, GalleryBlock } from "@/blocks";
+
+export const richArticleEditor = createEditor({
+  preset: "article",
+  extendFeatures: [
+    BlocksFeature({
+      blocks: [CalloutBlock, GalleryBlock],
+    }),
+  ],
+});
+```
+
+`extendFeatures` appends providers after managed features. If a native provider replaces a built-in feature, set the managed key to `false` in `features`.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Editor Renders with Default Payload Controls Instead of Preset
+
+* Ensure you assign the returned editor provider to the `editor` property of the `richText` field or Payload's root `editor` configuration:
+  ```ts
+  {
+    name: "content",
+    type: "richText",
+    editor: myConfiguredEditor, // Must be assigned here
+  }
+  ```
+
+### 2. Heading Sizes In Toolbar Don't Match Override
+
+Remember that arrays in `features` **replace** rather than concatenate:
+
+```ts
+// Toolbar will ONLY offer H2 and H3
+features: {
+  heading: { sizes: ["h2", "h3"] },
+}
+```
+
+### 3. Missing Peer Dependency Error
+
+`@payloadcms/richtext-lexical` must be explicitly installed in your application:
+
+```bash
+pnpm add @payloadcms/richtext-lexical
+```
+
+Ensure its version matches your `payload` core version (`3.85.0` or higher).
+
+---
+
+# Overview & Quick Start
+
+Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
+**Package:** `@nexload-sdk/payload-editor`
+
+**Current released version:** `1.1.0`
+
+Semantic, deterministic Payload Lexical editor configuration.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-editor) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor)
+
+`@nexload-sdk/payload-editor` transforms an explicit semantic feature definition into the official Payload CMS Lexical editor provider. It provides teams with named presets, deterministic feature merge rules, and safe extension seams without cluttering collection configurations with verbose Lexical boilerplate.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+import type { CollectionConfig } from "payload";
+
+// 1. Define explicit editor policy from preset
+const blogEditor = createEditor({
+  preset: "article",
+  features: {
+    heading: { sizes: ["h2", "h3"] }, // Restrict heading sizes
+    upload: { allowedCollections: ["media"], maxDepth: 1 },
+  },
+});
+
+// 2. Attach directly to Payload RichText field
+export const Posts: CollectionConfig = {
+  slug: "posts",
+  fields: [
+    { name: "content", type: "richText", editor: blogEditor },
+  ],
+};
+```
+
+***
+
+## What You Get
+
+* **Ready-to-Use Presets**: Built-in presets for common editorial workflows: `compact`, `standard`, `structured-content`, `article`, and `product-description`.
+* **Deterministic Feature Merging**: Clear override semantics: `false` disables, `true` enables with defaults, objects shallow-merge, and array options replace.
+* **Custom Organization Presets**: Define reusable corporate editor standards using `defineEditorPreset()`.
+* **Native Extension Seam**: Seamlessly attach native Lexical features like `BlocksFeature` or custom AST nodes via `extendFeatures`.
+* **Zero UI Bloat**: The package runs in server/config code, has no client React runtime, and declares no side effects.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+
+# bun
+bun add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Server/config safe |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Core headless CMS |
+| **`@payloadcms/richtext-lexical`** | `>=3.85.0 <4.0.0` | Native Lexical editor provider |
+| **Module Format** | ESM only | Declarative config safe |
+
+***
+
+## Feature State Semantics
+
+In `createEditor({ features: { ... } })`:
+
+* **Omitted key**: Inherits configuration from the active preset (or disabled if no preset is used).
+* **`false`**: Completely disables and removes the feature from the editor toolbar.
+* **`true`**: Enables the feature with default recommended options.
+* **`{ ...options }`**: Enables the feature and shallow-merges your specific options. Any provided arrays replace preset arrays rather than appending.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all supported features and options.

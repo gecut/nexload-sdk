@@ -3,6 +3,7 @@
 Monorepo project references, overriding compiler options safely, and library declaration builds.
 
 **Topic:** guides
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/guides/
 ## Monorepo Setup with Project References
 

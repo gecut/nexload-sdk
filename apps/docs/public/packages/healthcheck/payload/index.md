@@ -21,7 +21,7 @@ Payload CMS health checks for @nexload-sdk/healthcheck.
 
 ```ts
 import { createHealthManager } from "@nexload-sdk/healthcheck";
-import { payloadReadinessCheck } from "@nexload-sdk/healthcheck-payload";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
 import config from "@payload-config";
 import { getPayload } from "payload";
 
@@ -30,7 +30,7 @@ const payload = await getPayload({ config });
 export const health = createHealthManager({
   service: { name: "payload-cms" },
   checks: [
-    payloadReadinessCheck(payload, {
+    payloadHealthCheck(payload, {
       collection: "users",
       expectedMinDocuments: 1,
     }),

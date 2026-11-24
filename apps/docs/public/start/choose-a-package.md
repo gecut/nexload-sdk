@@ -34,3 +34,5 @@ Node probes do not create an HTTP endpoint. Use your framework or the Next.js pa
 | expose typed contract-first custom operations through Payload and its SDK | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
 
 Read [Choose a Payload package](/nexload-sdk/start/payload-packages/) when two of these packages appear to overlap.
+
+Build a Payload CMS project with these packages using the [e-commerce stack recipe](/nexload-sdk/start/recipes/ecommerce-stack/).

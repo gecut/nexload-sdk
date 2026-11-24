@@ -1,5 +1,26 @@
 {
   "files": [
+    "packages/logger/llms.txt",
+    "packages/persian/llms.txt",
+    "packages/healthcheck/llms.txt",
+    "packages/healthcheck-node/llms.txt",
+    "packages/healthcheck-bun/llms.txt",
+    "packages/healthcheck-next/llms.txt",
+    "packages/healthcheck-prometheus/llms.txt",
+    "packages/healthcheck-otel/llms.txt",
+    "packages/healthcheck-payload/llms.txt",
+    "packages/payload-fields/llms.txt",
+    "packages/payload-hooks/llms.txt",
+    "packages/payload-preset/llms.txt",
+    "packages/payload-editor/llms.txt",
+    "packages/payload-schema/llms.txt",
+    "packages/payload-operations/llms.txt",
+    "packages/typescript-config/llms.txt",
+    "packages/eslint-config/llms.txt",
+    "llms-core.txt",
+    "llms-healthcheck.txt",
+    "llms-payload.txt",
+    "llms-tooling.txt",
     "agents/domain-skills.md",
     "agents/engineering.md",
     "agents/index.md",
@@ -62,7 +83,9 @@
     "standards/file-structure.md",
     "start/choose-a-package.md",
     "start/glossary.md",
+    "start/installation.md",
     "start/introduction.md",
-    "start/payload-packages.md"
+    "start/payload-packages.md",
+    "start/recipes/ecommerce-stack.md"
   ]
 }

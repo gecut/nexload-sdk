@@ -3,7 +3,16 @@
 Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications.
 
 **Topic:** overview
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
+**Package:** `@nexload-sdk/typescript-config`
+
+**Current released version:** `5.9.3`
+
+Shared TypeScript configurations for the Nexload SDK monorepo
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/typescript-config) · [Source](https://github.com/gecut/nexload-sdk/tree/main/tools/typescript-config)
+
 `@nexload-sdk/typescript-config` provides battle-tested, strict TypeScript configurations tailored for modern TypeScript 5.9+ runtimes and frameworks. It eliminates boilerplate and enforces strict type boundaries across libraries, microservices, and web applications.
 
 ***

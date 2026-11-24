@@ -8,6 +8,7 @@ package: payload-fields
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -64,15 +65,11 @@ export const Customers: CollectionConfig = {
 
 ## Installation & Peer Dependencies
 
-```bash
-pnpm add @nexload-sdk/payload-fields payload react react-dom
-```
+<InstallTabs packages="@nexload-sdk/payload-fields payload react react-dom" />
 
 If using the optional `./schema` adapter with `@nexload-sdk/payload-schema` and `zod`:
 
-```bash
-pnpm add @nexload-sdk/payload-schema zod
-```
+<InstallTabs packages="@nexload-sdk/payload-schema zod" />
 
 ### Compatibility Requirements
 

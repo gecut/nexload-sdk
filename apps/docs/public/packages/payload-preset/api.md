@@ -93,6 +93,8 @@ Public type exported by @nexload-sdk/payload-preset.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts#L16)
 
+## Exported Factories Summary
+
 `nexloadPreset(options?: NexloadPresetOptions): Plugin[]` returns the enabled plugins. `persianPlugin()` and `payloadLoggerPlugin()` are also available separately. The package re-exports `AuditOperation` and `AuditPluginOptions`, and exports `NexloadPresetOptions`.
 
 Import `payloadFieldsPlugin` from `@nexload-sdk/payload-fields` and `auditPlugin` from `@nexload-sdk/payload-hooks`. This package is ESM only and intended for Node.js Payload configuration.

@@ -8,6 +8,7 @@ package: healthcheck-otel
 topic: overview
 ---
 
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../../lib/package-catalog";
 
@@ -43,9 +44,7 @@ const attributes = exporter.exportAttributes(report);
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/healthcheck-otel @nexload-sdk/healthcheck
-```
+<InstallTabs packages="@nexload-sdk/healthcheck-otel @nexload-sdk/healthcheck" />
 
 Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 

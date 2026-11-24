@@ -149,6 +149,8 @@ export default defineConfig({
           items: [
             { label: "Introduction", slug: "start/introduction" },
             { label: "Choose a Package", slug: "start/choose-a-package" },
+            { label: "Installation", slug: "start/installation" },
+            { label: "E-commerce Stack", slug: "start/recipes/ecommerce-stack" },
             { label: "Architecture Glossary", slug: "start/glossary" },
             { label: "Payload Suite Overview", slug: "start/payload-packages" },
             { label: "Package Catalog", slug: "packages" },

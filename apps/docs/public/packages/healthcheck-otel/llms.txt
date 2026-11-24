@@ -1,0 +1,181 @@
+# API Reference & Compatibility
+
+Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `toOtelMetricRecords`
+
+```ts
+toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
+Public function exported by @nexload-sdk/healthcheck-otel.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L36)
+
+### `toOtelResourceAttributes`
+
+```ts
+toOtelResourceAttributes(report: HealthReport) => Record<string, string | number | boolean>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
+Public function exported by @nexload-sdk/healthcheck-otel.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L23)
+
+## Interfaces
+
+### `OtelMetricRecord`
+
+```ts
+interface OtelMetricRecord {
+  name: string
+  value: HealthMetricValue
+  attributes: Record<string, string | number | boolean>
+  unit?: string
+  type?: HealthMetric["type"]
+  observedAt: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
+Public interface exported by @nexload-sdk/healthcheck-otel.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L7)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/guides/
+## Attaching Health Reports to OpenTelemetry Spans
+
+When running a health check endpoint under an active distributed trace:
+
+```ts
+import { otelExporter } from "@nexload-sdk/healthcheck-otel";
+import { trace } from "@opentelemetry/api";
+import { health } from "@/lib/health";
+
+const exporter = otelExporter({ namespace: "service" });
+
+export async function handleHealthCheck() {
+  const tracer = trace.getTracer("health-tracer");
+
+  return tracer.startActiveSpan("health.check", async (span) => {
+    try {
+      const report = await health.run("readiness");
+      const attributes = exporter.exportAttributes(report);
+
+      // Attach structured attributes directly to span
+      span.setAttributes(attributes);
+
+      if (report.status === "unhealthy") {
+        span.setStatus({ code: 2, message: "Health check failed" });
+      }
+
+      return Response.json(report);
+    } finally {
+      span.end();
+    }
+  });
+}
+```
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Attribute Type Mapping
+
+OpenTelemetry spans accept string, number, and boolean attribute values. Nested objects in `report.checks[].data` are serialized as JSON strings or flattened automatically according to OTel semantic guidelines.
+
+### 2. Standalone Operation
+
+`@nexload-sdk/healthcheck-otel` does not initialize or configure the OpenTelemetry Node SDK itself. It acts as a converter; your application must initialize the OpenTelemetry SDK provider.
+
+---
+
+# Overview & Quick Start
+
+Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
+**Package:** `@nexload-sdk/healthcheck-otel`
+
+**Current released version:** `2.1.0`
+
+OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-otel) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/otel)
+
+`@nexload-sdk/healthcheck-otel` transforms `@nexload-sdk/healthcheck` reports into OpenTelemetry attributes, structured semantic conventions, and metrics payloads without mandatory dependencies on heavy `@opentelemetry/api` packages.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { otelExporter } from "@nexload-sdk/healthcheck-otel";
+
+const health = createHealthManager({ service: { name: "api" } });
+const exporter = otelExporter({ namespace: "app" });
+
+const report = await health.run("readiness");
+const attributes = exporter.exportAttributes(report);
+// Ready to attach to an active OpenTelemetry trace span or log record
+```
+
+***
+
+## What You Get
+
+* **OTel Semantic Conventions**: Standard attributes: `health.status`, `health.service.name`, and individual check attributes.
+* **Span Metadata Formatter**: Automatically attaches health reports to active distributed trace spans.
+* **Zero Heavy SDK Dependencies**: Pure data transformers that work with any existing OpenTelemetry collector or custom logger.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-otel @nexload-sdk/healthcheck
+```
+
+Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & OTel Recipes](./guides/) for span attachment and telemetry conventions.
+* Check the [API Reference & Signatures](./api/) for exporter options.

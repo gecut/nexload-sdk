@@ -78,4 +78,6 @@ Public type exported by @nexload-sdk/payload-hooks.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L14)
 
+## Exported Factories Summary
+
 `auditPlugin(options?: AuditPluginOptions): Plugin` attaches audit hooks. `AUDIT_PLUGIN_ORDER` is `1000`. `AuditOperation` is `"create" | "update" | "delete" | "read" | "auth"`. `logOperation` is deprecated; see the [migration guide](../guides/).

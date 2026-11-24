@@ -8,6 +8,7 @@ package: payload-preset
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -15,9 +16,11 @@ import { packageByName } from "../../../../lib/package-catalog";
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
-```bash
-pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
-```
+## Installation
+
+<InstallTabs packages="@nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations" />
+
+## Quick Start
 
 ```ts
 import { configureLogger } from "@nexload-sdk/logger";

@@ -8,6 +8,7 @@ package: payload-editor
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -55,9 +56,7 @@ export const Posts: CollectionConfig = {
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
-```
+<InstallTabs packages="@nexload-sdk/payload-editor @payloadcms/richtext-lexical payload" />
 
 With alternative package managers:
 

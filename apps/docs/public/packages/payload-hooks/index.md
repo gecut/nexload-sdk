@@ -15,9 +15,13 @@ Effortless, type-safe logging for Payload CMS collection operations.
 
 `auditPlugin` attaches log-only collection hooks. It stores no audit records and does not change collection fields.
 
+## Installation
+
 ```bash
 pnpm add @nexload-sdk/payload-hooks payload
 ```
+
+## Quick Start
 
 ```ts
 import { auditPlugin } from "@nexload-sdk/payload-hooks";

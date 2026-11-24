@@ -1,0 +1,1588 @@
+# API Reference & Compatibility
+
+Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `defineEntity`
+
+```ts
+defineEntity<const TName extends string, const TFields extends EntityFieldMap, TIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>, TRelationshipIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>>(options: DefineEntityOptions<TName, TFields, TIdSchema, TRelationshipIdSchema>) => EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>, TIdSchema>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public function exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L353)
+
+### `isPayloadSchemaError`
+
+```ts
+isPayloadSchemaError(error: unknown) => error is PayloadSchemaError<PayloadSchemaErrorCode>
+isPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code: TCode) => error is PayloadSchemaError<TCode>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public function exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L114)
+
+### `payloadFields`
+
+```ts
+payloadFields<TFields extends EntityFieldMap>(entity: EntityDefinition<string, TFields, AnyCanonicalSchema>) => EntityPayloadFacade<TFields>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Compiles an entity created by `defineEntity()` into Payload field configs.
+Node / Payload config only: the compiled fields carry hooks that throw Payload's `ValidationError`.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/payload/payload-fields.ts#L18)
+
+## Classes
+
+### `PayloadSchemaError`
+
+```ts
+class PayloadSchemaError
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public classe exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L76)
+
+## Constants
+
+### `defaultIdSchema`
+
+```ts
+defaultIdSchema: z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public constant exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/default-id.ts#L3)
+
+### `field`
+
+```ts
+field: Readonly<{ text: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<"text", NullableSchema<string, TNullable>, TextField, TRequired>; textarea: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextareaFieldOptions<TNullable, TRequired>) => FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField, TRequired>; slug: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField, TRequired>; number: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: NumberFieldOptions<TNullable, TRequired>) => FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField, TRequired>; money: <TNullable extends boolean = false, const TRequired extends boolean = false>(options: MoneyFieldOptions<TNullable, TRequired>) => FieldDefinition<"money", NullableSchema<number, TNullable>, NumberField, TRequired>; boolean: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: BooleanFieldOptions<TNullable, TRequired>) => FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField, TRequired>; date: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: DateFieldOptions<TNullable, TRequired>) => FieldDefinition<"date", NullableSchema<string, TNullable>, DateField, TRequired>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, const TRequired extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable, TRequired>) => FieldDefinition<"select", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField, TRequired>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<"relationship", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField, TRequired>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<"upload", TRelationTo, THasMany, TNullable, TIdSchema, UploadField, TRequired>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: GroupFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField, TRequired>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField, TRequired>; blocks: <const TBlocks extends Record<string, BlockDefinitionOptions>, TNullable extends boolean = false, const TRequired extends boolean = false>(options: BlocksFieldOptions<TBlocks, TNullable, TRequired>) => FieldDefinition<"blocks", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField, TRequired>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false, const TRequired extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable, TRequired>) => FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField, TRequired>; native: <const TPayloadField extends NativePayloadInput | PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<"native", TSchema, TPayloadField extends PayloadDataField ? TPayloadField : Extract<PayloadDataField, { type: TPayloadField["type"]; }>, TPayloadField extends { required: true; } ? true : false>; }>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public constant exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L994)
+
+## Interfaces
+
+### `ArrayFieldOptions`
+
+```ts
+interface ArrayFieldOptions<
+  TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  fields: TFields
+  required?: TRequired
+  nullable?: TNullable
+  minRows?: number
+  maxRows?: number
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<ArrayField, "fields" | "maxRows" | "minRows">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L262)
+
+### `BlockDefinitionOptions`
+
+```ts
+interface BlockDefinitionOptions<TFields extends EntityFieldMap = EntityFieldMap> {
+  fields: TFields
+  payload?: NativePayloadExtras<Block, "fields" | "slug">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L277)
+
+### `BlocksFieldOptions`
+
+```ts
+interface BlocksFieldOptions<
+  TBlocks extends Record<string, BlockDefinitionOptions> = Record<string, BlockDefinitionOptions>,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  blocks: TBlocks
+  required?: TRequired
+  nullable?: TNullable
+  minRows?: number
+  maxRows?: number
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<BlocksField, "blocks" | "maxRows" | "minRows">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L282)
+
+### `DefineEntityOptions`
+
+```ts
+interface DefineEntityOptions<
+  TName extends string,
+  TFields extends EntityFieldMap,
+  TIdSchema extends AnyCanonicalSchema,
+  TRelationshipIdSchema extends AnyCanonicalSchema
+> {
+  name: TName
+  fields: TFields
+  idSchema?: TIdSchema
+  relationshipIdSchema?: TRelationshipIdSchema
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L458)
+
+### `EntityDefinition`
+
+```ts
+interface EntityDefinition<
+  TName extends string,
+  TFields extends EntityFieldMap,
+  TIdSchema extends AnyCanonicalSchema
+> {
+  readonly name: TName
+  readonly idSchema: TIdSchema
+  readonly fields: TFields
+  schema<TSchema extends AnyCanonicalSchema>(factory: (context: EntitySchemaContext<TFields>) => TSchema): TSchema
+  inspect(): EntityInspection
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L446)
+
+### `EntityInspection`
+
+```ts
+interface EntityInspection { name: string, fields: EntityInspectionFieldMap }
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L358)
+
+### `EntityPayloadFacade`
+
+```ts
+interface EntityPayloadFacade<TFields extends EntityFieldMap> {
+  all(): Field[]
+  field<TKey extends keyof TFields>(key: TKey): Field
+  pick<const TKeys extends readonly (keyof TFields)[]>(keys: TKeys): Field[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L440)
+
+### `EntitySchemaContext`
+
+```ts
+interface EntitySchemaContext<TFields extends EntityFieldMap> {
+  readonly fields: CanonicalSchemaMap<TFields>
+  readonly pick: EntitySchemaPicker<TFields>
+  readonly z: typeof import("zod").z
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L434)
+
+### `EntitySchemaPicker`
+
+```ts
+interface EntitySchemaPicker<TFields extends EntityFieldMap> {
+  <
+    const TKeys extends readonly (keyof CanonicalSchemaMap<TFields>)[],
+    const TOptional extends readonly SelectedKey<TKeys>[] | "all" | "auto" | undefined = undefined,
+    const TRequired extends readonly SelectedKey<TKeys>[] | undefined = undefined
+  >(
+    keys: TKeys,
+    options?: SchemaPickOptions<SelectedKey<TKeys>, TOptional, TRequired>,
+  ): ZodObjectForPickedFields<TFields, TKeys, TOptional, TRequired>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L423)
+
+### `FieldDefinition`
+
+```ts
+interface FieldDefinition<
+  TKind extends string,
+  TSchema extends AnyCanonicalSchema | undefined,
+  TPayloadField extends PayloadDataField,
+  TRequired extends boolean = boolean
+> {
+  readonly kind: TKind
+  readonly schema: TSchema
+  readonly __required?: TRequired
+  readonly __payloadFieldType?: TPayloadField
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L26)
+
+### `GroupFieldOptions`
+
+```ts
+interface GroupFieldOptions<
+  TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  fields: TFields
+  required?: TRequired
+  nullable?: TNullable
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<NamedGroupField, "fields">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L249)
+
+### `NativeFieldOptions`
+
+```ts
+interface NativeFieldOptions<
+  TPayloadField extends NativePayloadInput | PayloadDataField = PayloadDataField,
+  TSchema extends AnyCanonicalSchema | undefined = undefined
+> {
+  payload: (TPayloadField extends PayloadDataField
+    ? Omit<TPayloadField, "defaultValue" | "name">
+    : TPayloadField) & { name?: never; defaultValue?: never }
+  schema?: TSchema
+  defaultValue?: TSchema extends AnyCanonicalSchema ? z.input<TSchema> : never
+  dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L332)
+
+### `PayloadSchemaErrorDataMap`
+
+```ts
+interface PayloadSchemaErrorDataMap {
+  INVALID_ENTITY_NAME: { received: string }
+  INVALID_ENTITY: { receivedType: string }
+  INVALID_FIELD_NAME: { entity?: string, field: string }
+  RESERVED_FIELD_NAME: { entity?: string, field: string, reservedName: string }
+  INVALID_FIELD_CONFIGURATION: { entity?: string, fieldPath: string, fieldKind: string, reason: string }
+  INVALID_CONSTRAINT_RANGE: {
+    entity?: string
+    fieldPath: string
+    constraint: string
+    minimum?: number | string
+    maximum?: number | string
+  }
+  INVALID_DEFAULT_VALUE: { entity?: string, fieldPath: string, fieldKind: string, issues: SafeIssueSummary[] }
+  CONFLICTING_DEFAULT_CONFIGURATION: {
+    entity?: string
+    fieldPath: string
+    fieldType: string
+    configuredDefaults: readonly ["defaultValue", "dynamicDefaultValue"]
+  }
+  EMPTY_SELECT_VALUES: { entity?: string, fieldPath: string }
+  INVALID_RELATIONSHIP_CONFIGURATION: {
+    entity?: string
+    fieldPath: string
+    reason: string
+    relationTo?: string[]
+  }
+  INVALID_NESTED_FIELD_CONFIGURATION: {
+    entity?: string
+    fieldPath: string
+    reason: string
+    blockingFieldPath?: string
+  }
+  ASYNC_CANONICAL_SCHEMA_UNSUPPORTED: { entity?: string, fieldPath: string, fieldKind: string }
+  RESERVED_PAYLOAD_OPTION: { entity?: string, fieldPath: string, fieldKind: string, option: string }
+  DUPLICATE_PAYLOAD_FIELD_NAME: { entity: string, payloadName: string, fieldPaths: string[] }
+  INVALID_PAYLOAD_FIELD: { entity: string, fieldPath: string, fieldKind: string, reason: string }
+  PAYLOAD_COMPILATION_FAILED: {
+    entity: string
+    fieldPath?: string
+    fieldKind?: string
+    operation: "all" | "field" | "pick"
+    causeName?: string
+  }
+  UNKNOWN_FIELD: { entity: string, field: string, availableFields: string[] }
+  SCHEMA_UNAVAILABLE: {
+    entity: string
+    fieldPath: string
+    fieldKind: string
+    reason: "native-without-schema" | "schema-less-descendant"
+    blockingFieldPath?: string
+  }
+  INVALID_SCHEMA_FACTORY_RESULT: { entity: string, receivedType: string }
+  SCHEMA_DERIVATION_FAILED: { entity: string, causeName?: string }
+  INTERNAL_INVARIANT_VIOLATION: { invariant: string, entity?: string, fieldPath?: string }
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L7)
+
+### `RelationshipFieldOptions`
+
+```ts
+interface RelationshipFieldOptions<
+  TRelationTo extends string | readonly string[],
+  THasMany extends boolean = false,
+  TNullable extends boolean = false,
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  TRequired extends boolean = false
+> {
+  relationTo: TRelationTo
+  hasMany?: THasMany
+  required?: TRequired
+  nullable?: TNullable
+  idSchema?: TIdSchema
+  defaultValue?: MaybeNullable<
+    RelationshipValueForOptions<TRelationTo, THasMany, TIdSchema>,
+    TNullable
+  >
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<RelationshipField, "hasMany" | "relationTo">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L156)
+
+### `RichTextFieldOptions`
+
+```ts
+interface RichTextFieldOptions<
+  TSchema extends AnyCanonicalSchema,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  schema: TSchema
+  required?: TRequired
+  nullable?: TNullable
+  defaultValue?: MaybeNullable<z.input<TSchema>, TNullable>
+  dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<z.input<TSchema>, TNullable>>
+  payload?: NativePayloadExtras<RichTextField>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L297)
+
+### `SelectFieldOptions`
+
+```ts
+interface SelectFieldOptions<
+  TValues extends readonly string[],
+  THasMany extends boolean = false,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  values: TValues
+  labels?: Partial<Record<TValues[number], string>>
+  hasMany?: THasMany
+  required?: TRequired
+  nullable?: TNullable
+  defaultValue?: MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>
+  dynamicDefaultValue?: DynamicDefaultValue<
+    MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>
+  >
+  payload?: NativePayloadExtras<SelectField, "hasMany" | "options">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L138)
+
+## Types
+
+### `BooleanFieldOptions`
+
+```ts
+type BooleanFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  boolean,
+  TNullable,
+  NativePayloadExtras<CheckboxField>,
+  TRequired
+>;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L118)
+
+### `DateFieldOptions`
+
+```ts
+type DateFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<DateField>,
+  TRequired
+> & { minimum?: string, maximum?: string };
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L128)
+
+### `DefaultIdSchema`
+
+```ts
+type DefaultIdSchema = typeof defaultIdSchema;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/default-id.ts#L8)
+
+### `EntityFieldMap`
+
+```ts
+type EntityFieldMap = Readonly<Record<string, AnyFieldDefinition>>;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L39)
+
+### `InferEntityField`
+
+```ts
+type InferEntityField<TField extends FieldDefinition<string, AnyCanonicalSchema, PayloadDataField>>
+  = z.infer<TField["schema"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L470)
+
+### `InferEntityFields`
+
+```ts
+type InferEntityFields<TEntity extends EntityDefinition<string, EntityFieldMap, AnyCanonicalSchema>> = {
+  [TKey in keyof TEntity["fields"]]: TEntity["fields"][TKey]["schema"] extends AnyCanonicalSchema
+    ? z.infer<TEntity["fields"][TKey]["schema"]>
+    : never
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L473)
+
+### `MoneyFieldOptions`
+
+```ts
+type MoneyFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = Omit<
+  NumberFieldOptions<TNullable, TRequired>,
+  "integer" | "safe"
+> & { currency: string };
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L110)
+
+### `NumberFieldOptions`
+
+```ts
+type NumberFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  number,
+  TNullable,
+  NativePayloadExtras<NumberField, "max" | "min">,
+  TRequired
+> & {
+  integer?: boolean
+  safe?: boolean
+  minimum?: number
+  maximum?: number
+  multipleOf?: number
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L94)
+
+### `PayloadSchemaErrorCode`
+
+```ts
+type PayloadSchemaErrorCode = keyof PayloadSchemaErrorDataMap;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L64)
+
+### `PayloadSchemaErrorPhase`
+
+```ts
+type PayloadSchemaErrorPhase = "definition" | "internal" | "payload-compilation" | "schema-derivation";
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L66)
+
+### `SerializedPayloadSchemaError`
+
+```ts
+type SerializedPayloadSchemaError<TCode extends PayloadSchemaErrorCode = PayloadSchemaErrorCode> = {
+  name: "PayloadSchemaError"
+  code: TCode
+  phase: PayloadSchemaErrorPhase
+  message: string
+  data: PayloadSchemaErrorDataMap[TCode]
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L68)
+
+### `TextFieldOptions`
+
+```ts
+type TextFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<TextField, "maxLength" | "minLength">,
+  TRequired
+> & {
+  trim?: boolean
+  lowercase?: boolean
+  uppercase?: boolean
+  minLength?: number
+  maxLength?: number
+  pattern?: RegExp
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L67)
+
+### `TextareaFieldOptions`
+
+```ts
+type TextareaFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<TextareaField, "maxLength" | "minLength">,
+  TRequired
+> & Omit<TextFieldOptions<TNullable, TRequired>, keyof CommonFieldOptions<string, TNullable, unknown, TRequired> | "payload">;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L84)
+
+### `UploadFieldOptions`
+
+```ts
+type UploadFieldOptions<
+  TRelationTo extends string | readonly string[],
+  THasMany extends boolean = false,
+  TNullable extends boolean = false,
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  TRequired extends boolean = false
+> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>, "payload"> & { payload?: NativePayloadExtras<UploadField, "hasMany" | "relationTo"> };
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L241)
+
+***
+
+## Entry Points & Signatures
+
+### Root Entry: `@nexload-sdk/payload-schema`
+
+The root entry is pure and browser-safe. It does not import `payload` at runtime and can be used in client bundles, edge runtimes, or Node.
+
+```ts
+import {
+  defineEntity,
+  field,
+  defaultIdSchema,
+  PayloadSchemaError,
+  isPayloadSchemaError,
+} from "@nexload-sdk/payload-schema";
+import type {
+  BlockDefinitionOptions,
+  BlocksFieldOptions,
+  EntityDefinition,
+} from "@nexload-sdk/payload-schema";
+```
+
+An entity created by `defineEntity()` has:
+
+* `name: string`: The entity name.
+* `idSchema: AnyCanonicalSchema`: Canonical ID schema (defaults to `defaultIdSchema`).
+* `fields: BoundFields`: Frozen map of defined field definitions.
+* `schema(factory)`: Derives custom Zod schemas with access to `{ fields, pick, z }`.
+* `inspect()`: Returns structured entity and field inspection metadata.
+
+### Payload Compilation Entry: `@nexload-sdk/payload-schema/payload`
+
+This entry is Node/Payload configuration only. It imports Payload's `ValidationError` to construct canonical validation hooks.
+
+```ts
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+const facade = payloadFields(entity);
+facade.all();          // Returns all compiled Payload Field[] configs
+facade.field("title"); // Returns a single compiled Payload Field config
+facade.pick(["title"]); // Returns picked Payload Field[] configs
+```
+
+* **Safety Check:** Calling `payloadFields()` with anything other than an entity instance produced by `defineEntity()` throws a `PayloadSchemaError` with code `INVALID_ENTITY` (phase: `"payload-compilation"`).
+* **Fresh Containers:** Each compilation call produces fresh field configuration objects so mutations in Payload config do not pollute entity seeds.
+
+***
+
+## Field Factory Reference
+
+| Factory | Core Options | Default Value Support | Output Payload Type |
+|---|---|---|---|
+| `field.text()` | `required`, `trim`, `lowercase`, `uppercase`, `minLength`, `maxLength`, `pattern` | Static & Dynamic | `TextField` |
+| `field.slug()` | `required`, `minLength`, `maxLength`, Unicode NFKC normalization | Static & Dynamic | `TextField` |
+| `field.textarea()` | `required`, `trim`, `minLength`, `maxLength` | Static & Dynamic | `TextareaField` |
+| `field.number()` | `required`, `integer`, `safe`, `minimum`, `maximum`, `multipleOf` | Static & Dynamic | `NumberField` |
+| `field.money()` | `currency`, `minimum`, `maximum` (Always safe integer minor units) | Static & Dynamic | `NumberField` |
+| `field.boolean()` | `required` (Payload checkbox) | Static & Dynamic | `CheckboxField` |
+| `field.date()` | `required`, `minimum`, `maximum` (ISO string with timezone offset; hook accepts JS `Date`) | Static & Dynamic | `DateField` |
+| `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
+| `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
+| `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
+| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `NamedGroupField` |
+| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `ArrayField` |
+| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable; child names `id`, `blockName`, `blockType` are reserved) | Static & Dynamic | `BlocksField` |
+| `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
+| `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload >=3.85 |
+| **Zod** | `>=4.1.0 <5.0.0` | Verified on Zod 4.4.3 (requires codecs support) |
+| **Module Format** | ESM only | Root entry is browser-safe; `/payload` is Node/Payload-config only |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/guides/
+## The Complete 15-Field Factory Catalog
+
+`@nexload-sdk/payload-schema` provides 15 specialized factories under the `field` namespace. Every factory configures both the Payload field definition and the corresponding Zod schema.
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+export const catalogEntity = defineEntity({
+  name: "CatalogItem",
+  fields: {
+    // 1. Text: Trimming, case conversion, length constraints, regex pattern
+    title: field.text({
+      required: true,
+      trim: true,
+      minLength: 3,
+      maxLength: 120,
+    }),
+
+    // 2. Slug: Automatic Unicode NFKC normalization and URL hyphen-casing
+    slug: field.slug({
+      required: true,
+      minLength: 3,
+      maxLength: 140,
+    }),
+
+    // 3. Textarea: Multiline text with max length
+    summary: field.textarea({
+      required: true,
+      trim: true,
+      maxLength: 1000,
+    }),
+
+    // 4. Number: Integer, safe integer checks, min/max range, step multiples
+    stock: field.number({
+      integer: true,
+      safe: true,
+      minimum: 0,
+      defaultValue: 0,
+    }),
+
+    // 5. Money: Minor-unit integer (cents/rials) with explicit currency metadata
+    price: field.money({
+      currency: "USD",
+      minimum: 0,
+      required: true,
+    }),
+
+    // 6. Boolean: Checkbox field with boolean casting
+    isActive: field.boolean({
+      defaultValue: true,
+    }),
+
+    // 7. Date: Timezone-aware ISO datetime string with min/max bounds (hook accepts JS Date)
+    publishedAt: field.date({
+      minimum: "2024-01-01T00:00:00.000Z",
+      nullable: true,
+    }),
+
+    // 8. Select: Single or multi-choice enums with custom admin labels
+    tier: field.select({
+      values: ["standard", "premium", "enterprise"] as const,
+      labels: { enterprise: "Enterprise SLA" },
+      defaultValue: "standard",
+    }),
+    badges: field.select({
+      hasMany: true,
+      values: ["new", "sale", "featured"] as const,
+    }),
+
+    // 9. Relationship: Single or polymorphic relationships
+    category: field.relationship({
+      relationTo: "categories",
+      required: true,
+    }),
+    authorOrTeam: field.relationship({
+      relationTo: ["authors", "teams"] as const,
+      hasMany: false,
+      idSchema: z.string().uuid(),
+    }),
+
+    // 10. Upload: Media asset relationship
+    heroImage: field.upload({
+      relationTo: "media",
+      required: true,
+    }),
+
+    // 11. Group: Nested object schema and Payload named group
+    seo: field.group({
+      fields: {
+        metaTitle: field.text({ maxLength: 70 }),
+        metaDesc: field.textarea({ maxLength: 160 }),
+      },
+    }),
+
+    // 12. Array: Repeatable rows with row count constraints
+    variants: field.array({
+      minRows: 1,
+      maxRows: 10,
+      fields: {
+        sku: field.text({ required: true, uppercase: true }),
+        price: field.money({ currency: "USD", required: true }),
+      },
+    }),
+
+    // 13. Blocks: Discriminated polymorphic blocks with child validation
+    layout: field.blocks({
+      minRows: 1,
+      maxRows: 10,
+      blocks: {
+        hero: {
+          fields: {
+            headline: field.text({ required: true }),
+            subheading: field.text({ nullable: true }),
+          },
+        },
+        quote: {
+          fields: {
+            quoteText: field.textarea({ required: true }),
+            author: field.text({ required: true }),
+          },
+        },
+      },
+    }),
+
+    // 14. RichText: Requires explicit AST schema validator
+    description: field.richText({
+      schema: z.record(z.string(), z.unknown()),
+    }),
+
+    // 15. Native: Escape hatch for custom/unsupported Payload field types
+    coordinates: field.native({
+      payload: { type: "point" },
+      schema: z.tuple([z.number(), z.number()]),
+    }),
+  },
+});
+```
+
+***
+
+## Static Defaults vs. Dynamic Defaults
+
+`@nexload-sdk/payload-schema` separates static values from runtime functions:
+
+```ts
+// 1. Static Default: Validated during defineEntity() at startup
+field.number({
+  defaultValue: 100,
+});
+
+// 2. Dynamic Default: Evaluated at runtime by Payload per write request
+field.date({
+  dynamicDefaultValue: ({ req, user, locale }) => new Date().toISOString(),
+});
+```
+
+* Providing both `defaultValue` and `dynamicDefaultValue` throws `CONFLICTING_DEFAULT_CONFIGURATION`.
+* Direct assignment to `payload.defaultValue` is prohibited and throws `RESERVED_PAYLOAD_OPTION`.
+* Defaults do not append `.default()` to derived Zod schemas, keeping API request validation explicit.
+
+***
+
+## Advanced Schema Derivation Patterns
+
+Use `entity.schema()` to generate input schemas for mutations, projections, and forms:
+
+### 1. Picking Fields with Strictness and `optional: "auto"`
+
+```ts
+export const createItemSchema = catalogEntity.schema(({ pick }) =>
+  pick(["title", "slug", "price", "stock", "layout"], {
+    optional: "auto", // Automatically marks non-required fields optional
+    strict: true,     // Rejects unexpected fields
+  })
+);
+```
+
+* With `{ optional: "auto" }`, any field whose definition does not have `required: true` becomes `.optional()`.
+* An explicit `required` array (e.g. `required: ["stock"]`) takes precedence and forces listed keys to be required.
+
+### 2. Custom Field Transformations
+
+```ts
+export const catalogCardSchema = catalogEntity.schema(({ fields, z }) =>
+  z.object({
+    title: fields.title,
+    slug: fields.slug,
+    // Transform minor-unit cents into formatted dollar string
+    priceDisplay: fields.price.transform((cents) => `$${(cents / 100).toFixed(2)}`),
+  })
+);
+```
+
+### 3. Cross-Field Refinements
+
+```ts
+export const inventoryUpdateSchema = catalogEntity.schema(({ fields, z }) =>
+  z
+    .object({
+      stock: fields.stock,
+      isActive: fields.isActive,
+    })
+    .refine((data) => !(data.stock === 0 && data.isActive), {
+      message: "Cannot mark an out-of-stock item as active.",
+      path: ["isActive"],
+    })
+);
+```
+
+### 4. Inferring TypeScript Types
+
+```ts
+export type CreateItemInput = z.infer<typeof createItemSchema>;
+export type CatalogCardDTO = z.infer<typeof catalogCardSchema>;
+```
+
+***
+
+## Payload Collection Layout Integration
+
+Payload field compilation is decoupled from the core entity and imported from `@nexload-sdk/payload-schema/payload` (Node-only):
+
+```ts
+import type { CollectionConfig } from "payload";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+import { catalogEntity } from "./catalog.entity";
+
+// Option A: Direct full export
+export const CatalogCollection: CollectionConfig = {
+  slug: "catalog",
+  fields: payloadFields(catalogEntity).all(),
+};
+
+// Option B: Mixed export with tabs and sidebar layout
+export const AdvancedCatalogCollection: CollectionConfig = {
+  slug: "catalog",
+  fields: [
+    ...payloadFields(catalogEntity).pick(["title", "slug"]),
+    {
+      type: "tabs",
+      tabs: [
+        {
+          label: "Pricing & Stock",
+          fields: payloadFields(catalogEntity).pick(["price", "stock", "variants"]),
+        },
+        {
+          label: "SEO & Media",
+          fields: payloadFields(catalogEntity).pick(["seo", "heroImage", "description", "layout"]),
+        },
+      ],
+    },
+  ],
+};
+```
+
+***
+
+## Intrinsic Normalization & Runtime Semantics
+
+### Normalization on Writes
+
+When writing data through the Payload Admin UI or `payload.create` / `payload.update`, canonical normalization executes automatically in `beforeValidate`:
+
+```ts
+// Local API Write:
+await payload.create({
+  collection: "catalog",
+  data: {
+    title: "   Vintage Leather Jacket   ", // Normalized to "Vintage Leather Jacket"
+    slug: "Vintage Leather Jacket",        // Normalized to "vintage-leather-jacket"
+    variants: [
+      { sku: "vlj-01", price: 15000 },     // sku normalized to "VLJ-01"
+    ],
+  },
+});
+```
+
+### Null Semantics
+
+Payload CMS represents empty or cleared fields as `null`. Canonical `beforeValidate` hooks pass `null` through unchanged for all field kinds (including nested children in groups, arrays, and blocks), matching `undefined` semantics:
+
+* Clearing optional fields with `null` succeeds without raising Zod type errors.
+* Required fields without a value fail Payload's built-in validation ("This field is required."), reporting the exact path and field label.
+
+### Date Objects
+
+In `field.date()`, the runtime Payload hook accepts JavaScript `Date` instances and normalizes valid dates to ISO 8601 strings. Canonical and derived Zod schemas continue to expect ISO strings.
+
+### Codec Safety
+
+Built-in field normalizations (`trim`, `lowercase`, `uppercase`, `slug`, `date`) are implemented using Zod `.overwrite()` instead of unidirectional `.transform()`. This preserves codec reversibility so derived schemas can be encoded with `z.encode` (e.g., in `@nexload-sdk/payload-operations` outputs).
+
+***
+
+## Known Limitations
+
+* **No inline Admin validation:** Validation is enforced via `beforeValidate` hooks. The package does not generate inline Admin `validate` functions.
+* **Custom `options.schema` transforms are not codec-safe:** Custom transformations passed to `options.schema(...)` cannot be inverted by `z.encode`. Use `.refine()` or `.overwrite()` if schemas are used in operation responses.
+* **Strict pick default:** Calling `pick(keys)` without `{ optional: ... }` makes every key strictly required. Use `{ optional: "auto" }` to inherit field-level optionality.
+
+***
+
+## Troubleshooting & Diagnostics
+
+### 1. `SCHEMA_UNAVAILABLE`
+
+Occurs when deriving a schema that includes a `field.native()` defined without a `schema` parameter, or a container (`group`, `array`, `blocks`) that includes a schema-less native field.
+
+```ts
+// Solution: Provide the schema parameter
+field.native({
+  payload: { type: "point" },
+  schema: z.tuple([z.number(), z.number()]),
+});
+```
+
+### 2. `INVALID_ENTITY`
+
+Thrown when passing a non-entity value to `payloadFields()`:
+
+```ts
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+// Throws PayloadSchemaError: INVALID_ENTITY
+// @ts-expect-error - intentional misuse with non-entity
+payloadFields({ name: "NotAnEntity" });
+```
+
+### 3. `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED`
+
+Payload's field validation hooks run synchronously. Canonical parsing raises `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED` when a schema is async (e.g., contains `.refine(async ...)` or `.transform(async ...)`): at `defineEntity` time only when validating a static `defaultValue`, otherwise when the Payload hook parses a value during writes. Move async checks into custom Payload collection hooks or derived API schemas.
+
+### 4. Safe Introspection with `inspect()`
+
+Inspect the runtime structure and field configurations safely without exposing internal state:
+
+```ts
+const inspection = catalogEntity.inspect();
+console.log(inspection.name); // "CatalogItem"
+console.log(inspection.fields.price.currency); // "USD"
+```
+
+### 5. Error Handling Helper
+
+Use `isPayloadSchemaError()` to catch and format entity definition failures:
+
+```ts
+import { isPayloadSchemaError } from "@nexload-sdk/payload-schema";
+
+try {
+  // defineEntity(...)
+} catch (error) {
+  if (isPayloadSchemaError(error)) {
+    console.error(`[${error.code}] in phase ${error.phase}: ${error.message}`);
+  }
+}
+```
+
+***
+
+## Migrating to 3.0
+
+Version 3.0 brings browser safety, codec compatibility, blocks fields, and predictable null handling.
+
+### New in 3.0
+
+* **`field.blocks()`**: Discriminated polymorphic block containers with per-block schemas and child validation hooks.
+* **`pick(..., { optional: "auto" })`**: Automatically marks fields without `required: true` as optional in derived schemas while preserving explicit required overrides.
+* **`Date` accepted by the date hook**: The runtime `field.date()` hook accepts JavaScript `Date` instances and normalizes valid dates to ISO 8601 strings.
+* **Composite child optionality & nullability**: Inside `group`, `array`, and `blocks`, non-required child fields are automatically optional and accept `null` (`key?: T | null`), so stored Payload documents with empty fields or rows omitting optional children parse cleanly.
+* **Reserved block child names**: Block child fields cannot be named `id`, `blockName`, or `blockType`; doing so throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
+
+### Breaking Changes
+
+Below are the before and after patterns for each breaking change.
+
+### 1. Payload Compilation Moved to `/payload` Subpath
+
+Entity definitions no longer carry a `.payload` facade on the entity object. Payload compilation is now imported from `@nexload-sdk/payload-schema/payload` (Node-only), making the root entry browser-safe.
+
+**Before (2.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+
+export const articleEntity = defineEntity({ /* ... */ });
+
+export const Articles = {
+  slug: "articles",
+  // In 2.0, compiled fields were accessed via property on the entity:
+  fields: articleEntity["payload"]["all"](),
+};
+```
+
+**After (3.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+export const articleEntity = defineEntity({
+  name: "Article",
+  fields: {
+    title: field.text({ required: true }),
+  },
+});
+
+export const Articles = {
+  slug: "articles",
+  fields: payloadFields(articleEntity).all(),
+};
+```
+
+### 2. Zod Peer Dependency Floor Raised to 4.1
+
+Zod 4.1.0 or higher is required to support Zod codec methods (`z.encode` / `z.decode`).
+
+**Before (2.0):**
+
+```json
+{
+  "peerDependencies": {
+    "zod": ">=4.0.0 <5.0.0"
+  }
+}
+```
+
+**After (3.0):**
+
+```json
+{
+  "peerDependencies": {
+    "zod": ">=4.1.0 <5.0.0"
+  }
+}
+```
+
+### 3. Null Passes Canonical Validation Hooks
+
+In 2.0, clearing an optional field by passing `null` caused Zod to throw a `ValidationError` unless the field was explicitly declared `nullable: true`. In 3.0, `null` passes through canonical hooks unchanged (like `undefined`), allowing empty optional fields to clear cleanly.
+
+**Before (2.0):**
+
+```ts
+// Required nullable: true to allow clearing optional fields in database writes:
+subtitle: field.text({ nullable: true }),
+
+// Clearing without nullable: true threw ValidationError:
+// "Expected string, received null"
+await payload.update({
+  collection: "articles",
+  id: "1",
+  data: { subtitle: null },
+});
+```
+
+**After (3.0):**
+
+```ts
+// Optional fields without nullable: true allow null to pass through:
+subtitle: field.text(),
+
+// Clears field cleanly; required fields fail Payload's "This field is required." check:
+await payload.update({
+  collection: "articles",
+  id: "1",
+  data: { subtitle: null },
+});
+```
+
+### 4. Date Objects Accepted by Date Hook
+
+In 2.0, passing JavaScript `Date` instances to Payload writes failed canonical validation because the hook strictly required ISO strings. In 3.0, the runtime hook accepts valid `Date` objects and converts them to ISO strings.
+
+**Before (2.0):**
+
+```ts
+// Threw ValidationError: "Expected string, received object"
+await payload.create({
+  collection: "events",
+  data: {
+    eventDate: new Date(),
+  },
+});
+```
+
+**After (3.0):**
+
+```ts
+// Accepted and normalized to ISO string by runtime hook:
+await payload.create({
+  collection: "events",
+  data: {
+    eventDate: new Date(),
+  },
+});
+```
+
+### 5. Built-in Normalizations Are Codec-Safe (`.overwrite`)
+
+In 2.0, text transformations like `trim: true` and `lowercase: true` used unidirectional `.transform()`, which causes `z.encode` to fail. In 3.0, normalizations use `.overwrite()`, making derived schemas compatible with codec encoding.
+
+**Before (2.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ trim: true }),
+  },
+});
+
+const productSchema = productEntity.schema(({ fields }) => fields.title);
+// Failed: unidirectional transform cannot be encoded
+z.encode(productSchema, "  widget  ");
+```
+
+**After (3.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ trim: true }),
+  },
+});
+
+const productSchema = productEntity.schema(({ fields }) => fields.title);
+// Succeeds: .overwrite() produces codec-safe schemas for operation outputs
+const encoded = z.encode(productSchema, "  widget  ");
+```
+
+### 6. Composite Children Without `required: true` Are Optional and Nullable
+
+In 2.0, composite containers (`group`, `array`, `blocks`) constructed their canonical object schemas directly from child schemas, causing stored documents with `null` (Payload's empty field representation) or rows omitting optional children to fail validation. In 3.0, any child field not declared `required: true` inside a composite container is automatically optional and nullable (`child.schema.nullable().optional()`).
+
+**Before (2.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 2.0, note was required in canonical schema
+      },
+    }),
+  },
+});
+
+// Stored Payload document with empty note failed canonical parse:
+// "Invalid input: expected string, received null"
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null });
+```
+
+**After (3.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 3.0, non-required child is optional and nullable (key?: string | null)
+      },
+    }),
+  },
+});
+
+// Parses cleanly for both null and omitted values:
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null }); // { tag: "vip", note: null }
+userEntity.fields.meta.schema.parse({ tag: "vip" });             // { tag: "vip" }
+```
+
+### 7. Reserved Child Field Names in Blocks
+
+In 3.0, block definitions reject child fields named `id`, `blockName`, or `blockType` at definition time with `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`), as these names are reserved by Payload blocks runtime metadata.
+
+**Before (2.0):**
+Blocks were not supported in 2.0.
+
+**After (3.0):**
+
+```ts
+// Throws PayloadSchemaError (code: "INVALID_FIELD_CONFIGURATION"):
+field.blocks({
+  blocks: {
+    hero: {
+      fields: {
+        id: field.text(), // Reserved name: throws at definition time
+      },
+    },
+  },
+});
+```
+
+---
+
+# Overview & Quick Start
+
+Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
+**Package:** `@nexload-sdk/payload-schema`
+
+**Current released version:** `2.0.0`
+
+Canonical Payload field definitions with reusable Zod schemas.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-schema) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema)
+
+`@nexload-sdk/payload-schema` eliminates double-declaration of data validation rules in Payload CMS applications. Define intrinsic validation and normalization once, compile it into ordinary Payload collection fields, and expose the identical Zod schemas to client forms, server actions, and API boundaries.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+import { z } from "zod";
+
+// 1. Define intrinsic fields once (pure & browser-safe)
+export const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 3 }),
+    slug: field.slug({ required: true }),
+    price: field.money({ currency: "USD", required: true }),
+    stock: field.number({ integer: true, safe: true, defaultValue: 0 }),
+  },
+});
+
+// 2. Export directly to Payload Collection (Node-only)
+export const Products = {
+  slug: "products",
+  fields: payloadFields(productEntity).all(),
+};
+
+// 3. Derive Zod schemas for forms, Next.js server actions, or RPC
+export const createProductSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "slug", "price", "stock"], { optional: "auto" })
+);
+export type CreateProductInput = z.infer<typeof createProductSchema>;
+```
+
+***
+
+## What You Get
+
+* **Single Source of Truth**: Eliminate discrepancies between frontend Zod validation schemas and backend Payload collection rules.
+* **Pure Browser-Safe Root**: The root `@nexload-sdk/payload-schema` has zero Payload runtime imports and bundles cleanly in client applications and edge runtimes.
+* **Dedicated Payload Subpath**: Payload compilation lives in `@nexload-sdk/payload-schema/payload`, importing Payload's `ValidationError` exclusively in Node.
+* **15 Built-In Field Factories**: Native factories for `text`, `textarea`, `slug`, `number`, `money`, `boolean`, `date`, `select`, `relationship`, `upload`, `group`, `array`, `blocks`, `richText`, and `native`.
+* **Automatic Payload Normalization**: Injected `beforeValidate` hooks guarantee that string trimming, case conversions, and slug formats execute even on writes through the Payload Admin UI and Local API.
+* **Codec Safety**: Built-in string and date normalizations use `.overwrite()`, allowing derived entity schemas to round-trip through `z.encode` (such as in `@nexload-sdk/payload-operations` outputs).
+* **Flexible Schema Derivation**: Extract custom DTOs (`pick` with `{ optional: "auto" }`), add custom transformations (`.transform()`), and perform cross-field validations (`.refine()`).
+* **Compile-Time Immutability**: All entity definitions and compiled field definitions are frozen to guarantee deterministic runtime behavior.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-schema payload zod
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-schema payload zod
+
+# bun
+bun add @nexload-sdk/payload-schema payload zod
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Required for `@nexload-sdk/payload-schema/payload` |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Collection fields engine |
+| **Zod** | `>=4.1.0 <5.0.0` | Codec-safe schema engine |
+| **Module Format** | ESM only | Root entry is browser-safe; `/payload` is Node/Payload-config only |
+
+***
+
+## Core Concepts & Invariants
+
+### 1. One Intrinsic Contract
+
+A field definition owns only the rules intrinsic to that field's value (e.g. "a product title must be 3-120 characters and trimmed"). Application-specific workflow rules (e.g. "is this field optional during draft creation?") belong in derived schemas, not in the core entity definition.
+
+### 2. Dual Boundary Compilation
+
+* Root `@nexload-sdk/payload-schema` is pure and browser-safe (`field`, `defineEntity`, `defaultIdSchema`, `PayloadSchemaError`). Entities expose `name`, `idSchema`, `fields`, `schema()`, and `inspect()`.
+* `payloadFields(entity)` from `@nexload-sdk/payload-schema/payload` compiles standard Payload fields with canonical normalization appended to `beforeValidate`. Rejects non-entities with `PayloadSchemaError` (`code: "INVALID_ENTITY"`).
+* `entity.schema()` produces pure Zod schemas reflecting the exact same constraints.
+
+### 3. Synchronous Canonical Schemas
+
+Canonical schemas must execute synchronously. If a schema is async, `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED` is raised during canonical parsing: at `defineEntity` time only when validating a static `defaultValue`, otherwise when the Payload hook parses a value.
+
+### 4. Non-Goals
+
+The package does not create collections, own access control, replace Payload-generated types, or manage database migrations. Payload remains authoritative for persistence types and database schema.
+
+***
+
+## Quick Start: Building a Complete Entity
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+export const articleEntity = defineEntity({
+  name: "Article",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 5 }),
+    slug: field.slug({ required: true }),
+    content: field.textarea({ required: true, maxLength: 10_000 }),
+    status: field.select({
+      values: ["draft", "published", "archived"] as const,
+      defaultValue: "draft",
+    }),
+    author: field.relationship({
+      relationTo: "users",
+      required: true,
+    }),
+    sections: field.blocks({
+      blocks: {
+        hero: {
+          fields: {
+            title: field.text({ required: true }),
+          },
+        },
+      },
+      minRows: 1,
+    }),
+  },
+});
+
+// Use in Payload Collection (Node-only)
+export const ArticlesCollection = {
+  slug: "articles",
+  fields: payloadFields(articleEntity).all(),
+};
+
+// Derive input validation schema (Pure Zod)
+export const createArticleSchema = articleEntity.schema(({ pick }) =>
+  pick(["title", "slug", "content", "author", "sections"], { optional: "auto" })
+);
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Recipes & Modeling Guides](./guides/) for the full 15-field catalog, polymorphic relationships, static vs dynamic defaults, error diagnostics, and the 3.0 migration guide.
+* View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.

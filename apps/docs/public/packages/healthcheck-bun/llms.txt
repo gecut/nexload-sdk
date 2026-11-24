@@ -1,0 +1,182 @@
+# API Reference & Compatibility
+
+Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `bunRuntimeAdapter`
+
+```ts
+bunRuntimeAdapter() => RuntimeAdapter
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public function exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L54)
+
+### `bunRuntimeInfoCheck`
+
+```ts
+bunRuntimeInfoCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.runtime">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public function exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L74)
+
+### `bunServerMetricsCheck`
+
+```ts
+bunServerMetricsCheck(server: BunServerLike, options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.server.metrics">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public function exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L91)
+
+## Interfaces
+
+### `BunServerLike`
+
+```ts
+interface BunServerLike {
+  pendingRequests?: number
+  pendingWebSockets?: number
+  subscriberCount?: (topic: string) => number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public interface exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L15)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/guides/
+## Monitoring `Bun.serve()` Servers
+
+Pass your `Bun.serve()` server instance into `bunServerMetricsCheck`:
+
+```ts
+import { bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+const server = Bun.serve({
+  fetch(req) { /* ... */ },
+  websocket: { /* ... */ },
+});
+
+const serverCheck = bunServerMetricsCheck(server, {
+  maxPendingRequests: 500, // Degraded if pending requests exceed 500
+});
+```
+
+The check inspects `server.pendingRequests` and active WebSocket connection counts, providing early warning when your server is overloaded.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. `bunServerMetricsCheck` Requires a Valid Server Instance
+
+Ensure you pass the return value of `Bun.serve()` into `bunServerMetricsCheck`. If called before the server starts, wrap the manager creation in a factory function or attach the check after server initialization.
+
+### 2. Runtime Name Output
+
+`report.runtime.name` will report `"bun"`. If your telemetry tools look for `"node"`, configure your metric exporter to recognize Bun runtime identifiers.
+
+---
+
+# Overview & Quick Start
+
+Bun runtime adapter and server metrics health check integration for Bun HTTP services.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
+**Package:** `@nexload-sdk/healthcheck-bun`
+
+**Current released version:** `2.1.0`
+
+Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-bun) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/bun)
+
+`@nexload-sdk/healthcheck-bun` connects `@nexload-sdk/healthcheck` to the Bun JavaScript runtime and `Bun.serve()` HTTP server metrics.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+import { bunRuntimeAdapter, bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+const server = Bun.serve({
+  fetch: (req) => {
+    if (new URL(req.url).pathname === "/health") {
+      return health.run("readiness").then((r) => Response.json(r));
+    }
+    return new Response("OK");
+  },
+});
+
+export const health = createHealthManager({
+  service: { name: "bun-service" },
+  runtime: bunRuntimeAdapter(),
+  checks: [shutdownCheck(), bunServerMetricsCheck(server)],
+});
+```
+
+***
+
+## What You Get
+
+* **Native Bun Runtime Adapter**: Queries JavaScriptCore heap statistics, Bun process uptime, and platform architecture.
+* **`Bun.serve()` Server Metrics**: Observes pending requests and active WebSocket connections directly from the native Bun server handle.
+* **Zero Node Dependencies**: Implemented cleanly against Bun global APIs without unnecessary Node.js polyfills.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
+```
+
+Requires Bun `>=1.0.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Server Recipes](./guides/) for Bun HTTP servers, WebSocket counters, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all exported checks and adapters.

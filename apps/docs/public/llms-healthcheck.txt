@@ -1,0 +1,2439 @@
+# API Reference & Compatibility
+
+Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `bunRuntimeAdapter`
+
+```ts
+bunRuntimeAdapter() => RuntimeAdapter
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public function exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L54)
+
+### `bunRuntimeInfoCheck`
+
+```ts
+bunRuntimeInfoCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.runtime">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public function exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L74)
+
+### `bunServerMetricsCheck`
+
+```ts
+bunServerMetricsCheck(server: BunServerLike, options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"bun.server.metrics">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public function exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L91)
+
+## Interfaces
+
+### `BunServerLike`
+
+```ts
+interface BunServerLike {
+  pendingRequests?: number
+  pendingWebSockets?: number
+  subscriberCount?: (topic: string) => number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-bun`
+
+Public interface exported by @nexload-sdk/healthcheck-bun.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts#L15)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/guides/
+## Monitoring `Bun.serve()` Servers
+
+Pass your `Bun.serve()` server instance into `bunServerMetricsCheck`:
+
+```ts
+import { bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+const server = Bun.serve({
+  fetch(req) { /* ... */ },
+  websocket: { /* ... */ },
+});
+
+const serverCheck = bunServerMetricsCheck(server, {
+  maxPendingRequests: 500, // Degraded if pending requests exceed 500
+});
+```
+
+The check inspects `server.pendingRequests` and active WebSocket connection counts, providing early warning when your server is overloaded.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. `bunServerMetricsCheck` Requires a Valid Server Instance
+
+Ensure you pass the return value of `Bun.serve()` into `bunServerMetricsCheck`. If called before the server starts, wrap the manager creation in a factory function or attach the check after server initialization.
+
+### 2. Runtime Name Output
+
+`report.runtime.name` will report `"bun"`. If your telemetry tools look for `"node"`, configure your metric exporter to recognize Bun runtime identifiers.
+
+---
+
+# Overview & Quick Start
+
+Bun runtime adapter and server metrics health check integration for Bun HTTP services.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
+**Package:** `@nexload-sdk/healthcheck-bun`
+
+**Current released version:** `2.1.0`
+
+Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-bun) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/bun)
+
+`@nexload-sdk/healthcheck-bun` connects `@nexload-sdk/healthcheck` to the Bun JavaScript runtime and `Bun.serve()` HTTP server metrics.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
+import { bunRuntimeAdapter, bunServerMetricsCheck } from "@nexload-sdk/healthcheck-bun";
+
+const server = Bun.serve({
+  fetch: (req) => {
+    if (new URL(req.url).pathname === "/health") {
+      return health.run("readiness").then((r) => Response.json(r));
+    }
+    return new Response("OK");
+  },
+});
+
+export const health = createHealthManager({
+  service: { name: "bun-service" },
+  runtime: bunRuntimeAdapter(),
+  checks: [shutdownCheck(), bunServerMetricsCheck(server)],
+});
+```
+
+***
+
+## What You Get
+
+* **Native Bun Runtime Adapter**: Queries JavaScriptCore heap statistics, Bun process uptime, and platform architecture.
+* **`Bun.serve()` Server Metrics**: Observes pending requests and active WebSocket connections directly from the native Bun server handle.
+* **Zero Node Dependencies**: Implemented cleanly against Bun global APIs without unnecessary Node.js polyfills.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-bun @nexload-sdk/healthcheck
+```
+
+Requires Bun `>=1.0.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Server Recipes](./guides/) for Bun HTTP servers, WebSocket counters, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+---
+
+# API Reference & Compatibility
+
+Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `aggregateStatus`
+
+```ts
+aggregateStatus(results: readonly HealthCheckResult[]) => HealthStatus
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L18)
+
+### `autoRuntimeAdapter`
+
+```ts
+autoRuntimeAdapter() => RuntimeAdapter
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/runtime.ts#L113)
+
+### `createAbortSignal`
+
+```ts
+createAbortSignal(timeoutMs: number | undefined, parent?: AbortSignal) => { signal: AbortSignal; dispose: () => void; }
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L1)
+
+### `createHealthManager`
+
+```ts
+createHealthManager(options: HealthManagerOptions) => HealthManager
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/manager.ts#L95)
+
+### `defineHealthCheck`
+
+```ts
+defineHealthCheck<TName extends string>(definition: HealthCheckDefinition<TName>) => HealthCheckDefinition<TName>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/define.ts#L6)
+
+### `defineMetricCollector`
+
+```ts
+defineMetricCollector<TName extends string>(definition: MetricCollectorDefinition<TName>) => MetricCollectorDefinition<TName>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/define.ts#L10)
+
+### `genericRuntimeAdapter`
+
+```ts
+genericRuntimeAdapter() => RuntimeAdapter
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/runtime.ts#L101)
+
+### `httpCheck`
+
+```ts
+httpCheck(name: string, url: string | URL, options?: HttpCheckOptions) => HealthCheckDefinition<string>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L31)
+
+### `memoryCheck`
+
+```ts
+memoryCheck(options?: { scopes?: readonly HealthScope[]; availableRatio?: { degraded: number; unhealthy: number; }; usedRatio?: { degraded: number; unhealthy: number; }; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<"memory">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L127)
+
+### `runtimeInfoCheck`
+
+```ts
+runtimeInfoCheck(options?: { scopes?: readonly HealthScope[]; critical?: boolean; }) => HealthCheckDefinition<"runtime.info">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L31)
+
+### `runtimeMetricsCollector`
+
+```ts
+runtimeMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"runtime.metrics">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/collectors.ts#L9)
+
+### `shutdownCheck`
+
+```ts
+shutdownCheck(options?: { scopes?: readonly HealthScope[]; }) => HealthCheckDefinition<"shutdown">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L51)
+
+### `sleep`
+
+```ts
+sleep(ms: number, signal?: AbortSignal) => Promise<void>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/timeout.ts#L42)
+
+### `startupCheck`
+
+```ts
+startupCheck(options: { isStarted: () => boolean | Promise<boolean>; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<"startup">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L71)
+
+### `statusToHttpStatus`
+
+```ts
+statusToHttpStatus(status: HealthStatus, policy?: HealthHttpStatusPolicy) => number
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L18)
+
+### `stringifyHealthJson`
+
+```ts
+stringifyHealthJson(report: HealthReport, options?: HealthJsonOptions) => string
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L124)
+
+### `summarizeChecks`
+
+```ts
+summarizeChecks(results: readonly HealthCheckResult[]) => HealthSummary
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/aggregate.ts#L7)
+
+### `timerLagCheck`
+
+```ts
+timerLagCheck(options?: { scopes?: readonly HealthScope[]; sampleMs?: number; thresholds?: { degradedMs: number; unhealthyMs: number; }; critical?: boolean; }) => HealthCheckDefinition<"timer.lag">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/checks.ts#L92)
+
+### `toHealthJson`
+
+```ts
+toHealthJson(report: HealthReport, options?: HealthJsonOptions) => HealthReport
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public function exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L89)
+
+## Constants
+
+### `DEFAULT_HTTP_STATUS_POLICY`
+
+```ts
+DEFAULT_HTTP_STATUS_POLICY: HealthHttpStatusPolicy
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public constant exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L6)
+
+### `HEALTH_ERROR_CODES`
+
+```ts
+HEALTH_ERROR_CODES: { readonly CHECK_THROWN: "CHECK_THROWN"; readonly CHECK_TIMEOUT: "CHECK_TIMEOUT"; readonly CHECK_ABORTED: "CHECK_ABORTED"; readonly HEALTHCHECK_TIMEOUT: "HEALTHCHECK_TIMEOUT"; readonly HEALTHCHECK_ABORTED: "HEALTHCHECK_ABORTED"; readonly HEALTHCHECK_DEPENDENCY_UNAVAILABLE: "HEALTHCHECK_DEPENDENCY_UNAVAILABLE"; readonly HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE: "HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE"; readonly HEALTHCHECK_ROUTE_UNAUTHORIZED: "HEALTHCHECK_ROUTE_UNAUTHORIZED"; readonly HEALTHCHECK_INVALID_CONFIG: "HEALTHCHECK_INVALID_CONFIG"; readonly HTTP_STATUS_MISMATCH: "HTTP_STATUS_MISMATCH"; readonly HTTP_BODY_MISMATCH: "HTTP_BODY_MISMATCH"; readonly TCP_CONNECT_FAILED: "TCP_CONNECT_FAILED"; readonly DNS_RESOLVE_FAILED: "DNS_RESOLVE_FAILED"; readonly DATABASE_PING_FAILED: "DATABASE_PING_FAILED"; readonly PAYLOAD_QUERY_FAILED: "PAYLOAD_QUERY_FAILED"; readonly RUNTIME_UNSUPPORTED: "RUNTIME_UNSUPPORTED"; readonly METRIC_UNAVAILABLE: "METRIC_UNAVAILABLE"; }
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public constant exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L1)
+
+### `STRICT_READINESS_HTTP_STATUS_POLICY`
+
+```ts
+STRICT_READINESS_HTTP_STATUS_POLICY: HealthHttpStatusPolicy
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public constant exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/http.ts#L12)
+
+## Interfaces
+
+### `EnvironmentIdentity`
+
+```ts
+interface EnvironmentIdentity {
+  name?: string
+  region?: string
+  zone?: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L31)
+
+### `HealthCheckDefinition`
+
+```ts
+interface HealthCheckDefinition<TName extends string = string> {
+  kind?: "check"
+  name: TName
+  component?: string
+  scopes: readonly HealthScope[]
+  critical?: boolean | Partial<Record<HealthScope, boolean>>
+  timeoutMs?: number
+  retries?: RetryPolicy
+  tags?: readonly string[]
+  run(context: HealthRunContext): Promise<HealthCheckRunResult> | HealthCheckRunResult
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L181)
+
+### `HealthCheckResult`
+
+```ts
+interface HealthCheckResult<TName extends string = string> {
+  name: TName
+  component?: string
+  scope: HealthRunScope
+  status: HealthStatus
+  critical: boolean
+  observedAt: string
+  durationMs: number
+  timedOut: boolean
+  attempt: number
+  metrics: HealthMetrics
+  details?: HealthDetails
+  error?: HealthErrorInfo
+  tags?: readonly string[]
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L101)
+
+### `HealthCheckRunResult`
+
+```ts
+interface HealthCheckRunResult {
+  status: HealthStatus
+  metrics?: HealthMetrics
+  details?: HealthDetails
+  error?: HealthErrorInfo
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L174)
+
+### `HealthErrorInfo`
+
+```ts
+interface HealthErrorInfo {
+  code: string
+  message: string
+  causeName?: string
+  causeMessage?: string
+  stack?: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L76)
+
+### `HealthHttpStatusPolicy`
+
+```ts
+interface HealthHttpStatusPolicy {
+  ok: number
+  degraded: number
+  unhealthy: number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L246)
+
+### `HealthJsonOptions`
+
+```ts
+interface HealthJsonOptions {
+  includeDetails?: boolean
+  redact?: boolean
+  redaction?: Partial<RedactionPolicy>
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/serializers.ts#L83)
+
+### `HealthLinks`
+
+```ts
+interface HealthLinks {
+  self?: string
+  metrics?: string
+  diagnostics?: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L126)
+
+### `HealthManager`
+
+```ts
+interface HealthManager {
+  register(check: HealthCheckDefinition): HealthManager
+  registerCollector(collector: MetricCollectorDefinition): HealthManager
+  unregister(name: string): boolean
+  run(scope: HealthRunScope, options?: HealthRunOptions): Promise<HealthReport>
+  setShutdownState(state: boolean, reason?: string): void
+  isShuttingDown(): boolean
+  dispose(): void
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L236)
+
+### `HealthManagerOptions`
+
+```ts
+interface HealthManagerOptions {
+  service: ServiceIdentity
+  runtime?: RuntimeAdapter | "auto"
+  environment?: EnvironmentIdentity
+  defaults?: {
+    timeoutMs?: number
+    concurrency?: number
+    /** Defaults to true. Set false to report timed-out checks as degraded. */
+    unhealthyOnTimeout?: boolean
+    includeStack?: boolean
+    profile?: HealthDataProfile
+  }
+  /** Profiles are passed to checks and collectors as context hints. */
+  profiles?: Partial<Record<HealthScope, HealthDataProfile>> & { default?: HealthDataProfile }
+  /** @deprecated Configure redaction when calling toHealthJson or stringifyHealthJson. */
+  redaction?: Partial<RedactionPolicy>
+  checks?: readonly HealthCheckDefinition[]
+  collectors?: readonly MetricCollectorDefinition[]
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L207)
+
+### `HealthMetric`
+
+```ts
+interface HealthMetric {
+  name: string
+  value: HealthMetricValue
+  unit?:
+    | "bytes"
+    | "seconds"
+    | "milliseconds"
+    | "ratio"
+    | "count"
+    | "percent"
+    | "state"
+  type?: "gauge" | "counter" | "histogram" | "info"
+  labels?: Record<string, string>
+  description?: string
+  observedAt?: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L84)
+
+### `HealthReport`
+
+```ts
+interface HealthReport {
+  schemaVersion: "2.0"
+  service: ServiceIdentity
+  scope: HealthRunScope
+  status: HealthStatus
+  observedAt: string
+  durationMs: number
+  runtime: RuntimeIdentity
+  environment?: EnvironmentIdentity
+  summary: HealthSummary
+  checks: readonly HealthCheckResult[]
+  metrics: readonly HealthMetric[]
+  resources?: Record<string, unknown>
+  links?: HealthLinks
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L132)
+
+### `HealthRunContext`
+
+```ts
+interface HealthRunContext {
+  scope: HealthRunScope
+  signal: AbortSignal
+  runtime: RuntimeAdapter
+  service: ServiceIdentity
+  profile: HealthDataProfile
+  now: () => number
+  getShutdownState: () => { shuttingDown: boolean, reason?: string }
+  result: (result: HealthCheckRunResult) => HealthCheckRunResult
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L163)
+
+### `HealthRunOptions`
+
+```ts
+interface HealthRunOptions {
+  signal?: AbortSignal
+  profile?: HealthDataProfile
+  /** @deprecated Select a profile and configure serializer detail options instead. */
+  includeDiagnostics?: boolean
+  includeStacks?: boolean
+  timeoutMs?: number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L227)
+
+### `HealthSummary`
+
+```ts
+interface HealthSummary {
+  ok: number
+  degraded: number
+  unhealthy: number
+  total: number
+  criticalFailed: number
+  nonCriticalFailed: number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L117)
+
+### `HttpCheckOptions`
+
+```ts
+interface HttpCheckOptions {
+  scopes?: readonly HealthScope[]
+  method?: "GET" | "HEAD" | "POST"
+  headers?: HeadersInit
+  body?: BodyInit | null
+  expectedStatus?: number | readonly number[] | { min: number, max: number }
+  validateBody?: (body: string, response: Response) => boolean | Promise<boolean>
+  timeoutMs?: number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/http-check.ts#L10)
+
+### `MetricCollectionResult`
+
+```ts
+interface MetricCollectionResult {
+  metrics: readonly HealthMetric[]
+  resources?: Record<string, unknown>
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L193)
+
+### `MetricCollectorDefinition`
+
+```ts
+interface MetricCollectorDefinition<TName extends string = string> {
+  kind?: "collector"
+  name: TName
+  scopes?: readonly HealthScope[]
+  defaultEnabled?: boolean
+  timeoutMs?: number
+  collect(context: HealthRunContext): Promise<MetricCollectionResult> | MetricCollectionResult
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L198)
+
+### `RedactionPolicy`
+
+```ts
+interface RedactionPolicy {
+  redactSecrets: boolean
+  redactUrls: "none" | "query" | "origin" | "full"
+  includeStack: boolean
+  includeErrorMessage: boolean
+  allowedDetailKeys?: readonly string[]
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L155)
+
+### `RetryPolicy`
+
+```ts
+interface RetryPolicy {
+  attempts: number
+  delayMs?: number
+  backoff?: "none" | "linear" | "exponential"
+  retryOn?: readonly HealthStatus[]
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L148)
+
+### `RuntimeAdapter`
+
+```ts
+interface RuntimeAdapter {
+  name: RuntimeIdentity["name"]
+  now(): number
+  uptimeSeconds(): number | null
+  getRuntimeInfo(): RuntimeIdentity
+  getMemory?(): RuntimeMemorySnapshot | Promise<RuntimeMemorySnapshot>
+  getCpu?(previous?: RuntimeCpuSnapshot): RuntimeCpuSnapshot | Promise<RuntimeCpuSnapshot>
+  onShutdown?(signals: readonly string[], callback: (signal: string) => void): () => void
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L66)
+
+### `RuntimeCpuSnapshot`
+
+```ts
+interface RuntimeCpuSnapshot {
+  userMicros: number | null
+  systemMicros: number | null
+  availableParallelism: number | null
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L60)
+
+### `RuntimeIdentity`
+
+```ts
+interface RuntimeIdentity {
+  name: "node" | "bun" | "unknown"
+  version?: string
+  revision?: string
+  platform?: string
+  arch?: string
+  pid?: number
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L37)
+
+### `RuntimeMemorySnapshot`
+
+```ts
+interface RuntimeMemorySnapshot {
+  rssBytes: number | null
+  heapTotalBytes: number | null
+  heapUsedBytes: number | null
+  externalBytes: number | null
+  arrayBuffersBytes: number | null
+  constrainedBytes: number | null
+  availableBytes: number | null
+  totalBytes: number | null
+  usedRatio: number | null
+  availableRatio: number | null
+  source: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L46)
+
+### `ServiceIdentity`
+
+```ts
+interface ServiceIdentity {
+  name: string
+  version?: string
+  environment?: string
+  instanceId?: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public interface exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L24)
+
+## Types
+
+### `HealthDataProfile`
+
+```ts
+type HealthDataProfile
+  = | "probe"
+    | "summary"
+    | "monitoring"
+    | "diagnostics"
+    | "full";
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L11)
+
+### `HealthDetails`
+
+```ts
+type HealthDetails = Record<string, unknown>;
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L22)
+
+### `HealthErrorCode`
+
+```ts
+type HealthErrorCode
+  = (typeof HEALTH_ERROR_CODES)[keyof typeof HEALTH_ERROR_CODES];
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/errors.ts#L21)
+
+### `HealthMetricValue`
+
+```ts
+type HealthMetricValue = string | number | boolean | null;
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L18)
+
+### `HealthMetrics`
+
+```ts
+type HealthMetrics = Record<string, HealthMetricValue>;
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L20)
+
+### `HealthRunScope`
+
+```ts
+type HealthRunScope = HealthScope | "all";
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L9)
+
+### `HealthScope`
+
+```ts
+type HealthScope
+  = | "liveness"
+    | "readiness"
+    | "startup"
+    | "diagnostics";
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L3)
+
+### `HealthStatus`
+
+```ts
+type HealthStatus = "ok" | "degraded" | "unhealthy";
+```
+
+**Exported from:** `@nexload-sdk/healthcheck`
+
+Public type exported by @nexload-sdk/healthcheck.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/core/types.ts#L1)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Edge Runtimes** | V8 / Cloudflare Workers | Core orchestration is edge-safe |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Authoring custom checks, configuring timeouts and retries, status aggregation rules, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/guides/
+## Authoring Custom Checks
+
+A check implements a simple async contract returning an object with `status` and optional `data`:
+
+```ts
+import type { CheckDefinition } from "@nexload-sdk/healthcheck";
+
+export function postgresCheck(dbPool: any): CheckDefinition {
+  return {
+    name: "database.postgres",
+    scopes: ["readiness", "diagnostics"], // Excluded from liveness!
+    critical: true,                       // Failure marks service unhealthy
+    timeoutMs: 3000,                      // Abort after 3 seconds
+    run: async () => {
+      const client = await dbPool.connect();
+      try {
+        await client.query("SELECT 1");
+        return { status: "ok" };
+      } finally {
+        client.release();
+      }
+    },
+  };
+}
+```
+
+***
+
+## Status Aggregation Model
+
+The health manager aggregates results across all executed checks according to strict operational hierarchy:
+
+1. **`unhealthy`**: If ANY critical check fails (`status: "unhealthy"` or unhandled error).
+2. **`degraded`**: If all critical checks pass, but one or more non-critical checks return `"degraded"` or `"unhealthy"`.
+3. **`ok`**: When all executed checks pass with `"ok"`.
+
+```ts
+const report = await health.run("readiness");
+
+// Kubernetes readiness HTTP response pattern:
+const httpStatus = report.status === "ok" ? 200 : report.status === "degraded" ? 200 : 503;
+```
+
+***
+
+## The Liveness Cascade Anti-Pattern
+
+> \[!CAUTION]
+> **Never Put External Dependencies into Liveness Probes!**
+> If your database has an outage and your Postgres check is part of `liveness`, Kubernetes will kill and restart every single application container simultaneously. This creates a massive thundering herd that prevents the database from ever recovering.
+>
+> * Put database, cache, and third-party checks in **`readiness`**.
+> * Put only internal process deadlock, event-loop lag, and memory starvation checks in **`liveness`**.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Check Is Timing Out Intermittently
+
+Check timeouts use native `AbortSignal`. If your database or HTTP client does not accept an `AbortSignal`, the background query may continue running after the manager times out. Always pass `signal` to underlying network clients:
+
+```ts
+run: async ({ signal }) => {
+  return await fetch("https://internal.service/health", { signal });
+}
+```
+
+### 2. Service Restart Loop During Deployments
+
+Ensure slow cold-start operations (e.g. database migrations) are assigned to the `startup` scope and your deployment orchestrator configures a `startupProbe` with an appropriate `failureThreshold`.
+
+### 3. Sensitive Credentials Leaking in Health Reports
+
+When returning error data from checks, `@nexload-sdk/healthcheck` automatically redacts standard authorization headers and connection strings. Do not manually format plain-text database URLs with passwords into the public `message` string.
+
+---
+
+# Overview & Quick Start
+
+Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
+**Package:** `@nexload-sdk/healthcheck`
+
+**Current released version:** `4.1.0`
+
+Runtime-neutral health orchestration and monitoring report foundation for production services.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/core)
+
+`@nexload-sdk/healthcheck` provides a runtime-neutral health orchestration engine for modern backend services. It manages checks, collectors, timeouts, cancellation, and status aggregation, returning a deterministic `HealthReport`.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
+
+export const health = createHealthManager({
+  service: { name: "api-service", version: "1.0.0" },
+  checks: [shutdownCheck(), memoryCheck()],
+});
+
+// Run readiness probe for Kubernetes / Dokploy / Docker
+const report = await health.run("readiness");
+console.log(report.status); // "ok" | "degraded" | "unhealthy"
+```
+
+***
+
+## What You Get
+
+* **Multi-Scope Orchestration**: Native support for `liveness`, `readiness`, `startup`, and protected `diagnostics` scopes.
+* **Checks vs. Collectors**:
+  * **Check**: Can impact aggregate service status (e.g. database connectivity, Redis ping, shutdown signals).
+  * **Collector**: Observational only; captures telemetry and measurements (e.g. CPU load, memory RSS) without triggering container restarts.
+* **Resilient Execution**: Enforces per-check timeouts, retry policies, and graceful degradation.
+* **Sensitive Data Redaction**: Automatic masking of database credentials, authorization tokens, and private hostnames in error outputs.
+* **Runtime Neutrality**: Pure TypeScript core with zero Node-only assumptions; runs seamlessly on Node.js, Bun, and edge runtimes.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/healthcheck
+
+# bun
+bun add @nexload-sdk/healthcheck
+```
+
+Requires Node `>=20.9.0` or Bun `>=1.0.0`. The package is ESM-only and side-effect free.
+
+***
+
+## Core Concepts: The Four Scopes
+
+| Scope | Probe Question | Failure Consequence | Recommended Checks |
+|---|---|---|---|
+| **`liveness`** | Is the process deadlocked or stuck in an unrecoverable state? | Container / process restart | Memory leak thresholds, shutdown signal, event loop freeze. **Never downstream databases!** |
+| **`readiness`** | Can this replica accept incoming client traffic? | Temporarily removed from load balancer pool | Database availability, Redis connection, cache warm status. |
+| **`startup`** | Has slow initialization or schema migration finished? | Delays liveness evaluation during boot | Database migrations, asset pre-compilation. |
+| **`diagnostics`** | What is the detailed operational health state? | Protected behind auth token | Detailed memory breakdown, active connections, queue depth. |
+
+***
+
+## Quick Start: Creating a Production Manager
+
+```ts
+import {
+  createHealthManager,
+  memoryCheck,
+  runtimeInfoCheck,
+  shutdownCheck,
+} from "@nexload-sdk/healthcheck";
+
+export const health = createHealthManager({
+  service: {
+    name: "user-service",
+    version: process.env.APP_VERSION ?? "1.0.0",
+  },
+  checks: [
+    shutdownCheck(),
+    runtimeInfoCheck(),
+    memoryCheck({
+      heapUsedPercent: 90, // Degraded above 90%
+    }),
+  ],
+});
+
+// Execute readiness probe
+const report = await health.run("readiness");
+if (report.status === "unhealthy") {
+  process.exitCode = 1;
+}
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Custom Checks](./guides/) for database checks, timeout policies, and status aggregation rules.
+* View the complete [API Reference & Signatures](./api/) for all exported symbols and configuration types.
+
+---
+
+# API Reference & Compatibility
+
+Public API symbol reference and compatibility matrix for Healthcheck Next.js.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `createNextHealthRoute`
+
+```ts
+createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) => { GET: (request: Request) => Promise<Response>; HEAD: (request: Request) => Promise<Response>; }
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public function exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L288)
+
+### `createNextMetricsRoute`
+
+```ts
+createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions) => { GET: (request: Request) => Promise<Response>; }
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public function exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L342)
+
+## Interfaces
+
+### `NextHealthRouteOptions`
+
+```ts
+interface NextHealthRouteOptions {
+  scope: HealthScope
+  format?: "json" | "summary"
+  httpStatus?: HealthHttpStatusPolicy
+  includeDetails?: boolean | ((request: Request) => boolean)
+  protect?: NextHealthRouteProtection
+  headers?: HeadersInit | ((report: HealthReport) => HeadersInit)
+  cache?: "no-store"
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public interface exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L32)
+
+### `NextHealthRouteProtection`
+
+```ts
+interface NextHealthRouteProtection {
+  bearerToken?: string
+  basicAuth?: {
+    username: string
+    password: string
+  }
+  allowCidrs?: readonly string[]
+  allowIps?: readonly string[]
+  trustProxy?: boolean
+  proxyHeader?: "x-forwarded-for" | "x-real-ip" | string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public interface exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L20)
+
+### `NextMetricsRouteOptions`
+
+```ts
+interface NextMetricsRouteOptions {
+  format: "prometheus" | "openmetrics" | "json"
+  scope?: HealthRunScope
+  protect?: NextHealthRouteProtection
+  prefix?: string
+  defaultLabels?: Record<string, string>
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public interface exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L42)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Next.js** | `>=14.0.0` | Verified on Next.js 14 & 15 App Router |
+| **Node.js** | `>=20.9.0` | Node.js Route Handler runtime |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/guides/
+## Dual Route Pattern (Liveness & Readiness)
+
+In Kubernetes and container platforms, configure two separate route handlers:
+
+```ts
+// app/api/health/live/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "liveness",
+});
+```
+
+```ts
+// app/api/health/ready/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "readiness",
+});
+```
+
+***
+
+## Protecting Diagnostics Endpoints
+
+Detailed diagnostic reports should not be public. Protect them with secret tokens:
+
+```ts
+// app/api/health/diagnostics/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "diagnostics",
+  security: {
+    token: process.env.DIAGNOSTICS_SECRET_TOKEN,
+  },
+});
+```
+
+Requests must include either:
+
+* `Authorization: Bearer <token>`
+* Header `X-Health-Token: <token>`
+* Query parameter `?token=<token>`
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Next.js Static Compilation Stale Responses
+
+If Next.js attempts to statically pre-render the route at build time, ensure you export `dynamic = 'force-dynamic'` or let `createNextHealthRoute` set dynamic runtime headers automatically:
+
+```ts
+export const dynamic = "force-dynamic";
+```
+
+### 2. Edge Runtime Incompatibility with Node Checks
+
+If your Next.js route uses `export const runtime = 'edge'`, do not include Node-specific checks (like `containerResourceCheck` or `dnsCheck`) in your health manager. Use edge-safe core checks or run the health route on the standard Node runtime.
+
+---
+
+# Overview & Quick Start
+
+Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
+**Package:** `@nexload-sdk/healthcheck-next`
+
+**Current released version:** `2.1.0`
+
+Next.js App Router route factories for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-next) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/next)
+
+`@nexload-sdk/healthcheck-next` binds `@nexload-sdk/healthcheck` to Next.js App Router Route Handlers. It automatically enforces `Cache-Control: no-store` headers, prevents static optimization of health endpoints, maps status codes to Kubernetes expectations, and provides token-based proxy protection.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+// app/api/health/route.ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+const health = createHealthManager({
+  service: { name: "web-storefront" },
+});
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "readiness",
+});
+```
+
+***
+
+## What You Get
+
+* **Next.js App Router Handlers**: Export `GET` and `HEAD` handlers compliant with Next.js 14, 15, and canary.
+* **Zero-Cache Guarantees**: Forces `force-dynamic` behavior with `Cache-Control: no-store, no-cache, must-revalidate` to prevent CDN and browser caching.
+* **HTTP Status Code Mapping**: Returns `200 OK` for `"ok"` and `"degraded"`, and `503 Service Unavailable` for `"unhealthy"`.
+* **Diagnostics Authorization**: Protect operational details behind Bearer tokens or secret headers when exposing internal metrics.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+
+# bun
+bun add @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+```
+
+Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all exported route creators and options.
+
+---
+
+# API Reference & Compatibility
+
+Public API symbol reference, functions, and compatibility matrix for Healthcheck Node.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `containerMetricsCollector`
+
+```ts
+containerMetricsCollector(options?: ContainerResourceOptions & { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"container.metrics">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L174)
+
+### `containerResourceCheck`
+
+```ts
+containerResourceCheck(options?: { scopes?: readonly HealthScope[]; memory?: { usageRatio?: { degraded: number; unhealthy: number; }; }; root?: string; critical?: boolean | Partial<Record<HealthScope, boolean>>; }) => HealthCheckDefinition<"container.resources">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L107)
+
+### `dnsCheck`
+
+```ts
+dnsCheck(name: string, options: { hostname: string; recordType?: "A" | "AAAA" | "CNAME" | "TXT" | "MX"; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L256)
+
+### `nodeRuntimeAdapter`
+
+```ts
+nodeRuntimeAdapter() => RuntimeAdapter
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L60)
+
+### `parseCpuList`
+
+```ts
+parseCpuList(value: string | null) => number | null
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L84)
+
+### `processMetricsCollector`
+
+```ts
+processMetricsCollector(options?: { scopes?: readonly HealthScope[]; }) => MetricCollectorDefinition<"process.metrics">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L149)
+
+### `readContainerResourceSnapshot`
+
+```ts
+readContainerResourceSnapshot(options?: ContainerResourceOptions) => Promise<ContainerResourceSnapshot>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L313)
+
+### `tcpCheck`
+
+```ts
+tcpCheck(name: string, options: { host: string; port: number; scopes?: readonly HealthScope[]; timeoutMs?: number; }) => HealthCheckDefinition<string>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public function exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts#L198)
+
+## Interfaces
+
+### `ContainerCpuSnapshot`
+
+```ts
+interface ContainerCpuSnapshot {
+  quotaMicros: number | null
+  periodMicros: number | null
+  quotaCpus: number | null
+  cpusetCpus: number | null
+  availableParallelism: number | null
+  hostCpuCount: number | null
+  effectiveCpuCount: number | null
+  isLimited: boolean
+  source: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public interface exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L15)
+
+### `ContainerMemorySnapshot`
+
+```ts
+interface ContainerMemorySnapshot {
+  currentBytes: number | null
+  limitBytes: number | null
+  highBytes: number | null
+  swapCurrentBytes: number | null
+  swapLimitBytes: number | null
+  isLimited: boolean
+  usageRatio: number | null
+  source: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public interface exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L4)
+
+### `ContainerResourceOptions`
+
+```ts
+interface ContainerResourceOptions {
+  root?: string
+  platform?: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public interface exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L39)
+
+### `ContainerResourceSnapshot`
+
+```ts
+interface ContainerResourceSnapshot {
+  detected: boolean
+  platform: string
+  cgroupVersion: 1 | 2 | null
+  isContainerLikely: boolean | null
+  memory: ContainerMemorySnapshot
+  cpu: ContainerCpuSnapshot
+  source: "cgroup-v2" | "cgroup-v1" | "node" | "os" | "none"
+  confidence: "high" | "medium" | "low"
+  warnings: string[]
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-node`
+
+Public interface exported by @nexload-sdk/healthcheck-node.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/cgroup.ts#L27)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Linux Cgroups** | v1 & v2 | Verified in Docker & Kubernetes |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Configuring container resource checks in Docker/Kubernetes, TCP/DNS network probes, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/guides/
+## Container Resource Checks in Kubernetes / Docker
+
+When running inside containers, Node's `os.totalmem()` reports the host machine's total RAM rather than the container's cgroup memory limit. `@nexload-sdk/healthcheck-node` automatically inspects Linux cgroups to prevent silent out-of-memory (OOM) kills:
+
+```ts
+import { containerResourceCheck } from "@nexload-sdk/healthcheck-node";
+
+const check = containerResourceCheck({
+  memoryUsageWarningPercent: 80,  // "degraded" when above 80%
+  memoryUsageCriticalPercent: 95, // "unhealthy" when above 95%
+  cpuThrottleWarningPercent: 20,  // "degraded" when throttled >20%
+});
+```
+
+***
+
+## TCP & DNS Dependency Probes
+
+Verify external database and downstream microservice reachability during readiness probes:
+
+```ts
+import { dnsCheck, tcpCheck } from "@nexload-sdk/healthcheck-node";
+
+// 1. Verify TCP port connectivity (e.g. Postgres or Redis)
+const redisTcp = tcpCheck({
+  name: "redis.connection",
+  host: process.env.REDIS_HOST ?? "localhost",
+  port: 6379,
+  timeoutMs: 2000,
+  scopes: ["readiness"],
+});
+
+// 2. Verify external DNS resolution
+const stripeDns = dnsCheck({
+  name: "dns.stripe",
+  hostname: "api.stripe.com",
+  timeoutMs: 1500,
+  scopes: ["readiness"],
+});
+```
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. `cgroup` Resource Check Reports "Degraded" on Non-Linux Hosts
+
+On macOS or Windows development machines, Linux cgroup controllers do not exist. `@nexload-sdk/healthcheck-node` safely falls back to host OS metrics and reports a low-confidence degraded flag in dev environments. In production Linux containers, full cgroup v1/v2 metrics are parsed automatically.
+
+### 2. TCP Probe Leaks Sockets
+
+`tcpCheck` immediately destroys the created socket once the TCP handshake completes or times out. Ensure external firewalls allow transient health check connection attempts.
+
+---
+
+# Overview & Quick Start
+
+Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TCP/DNS health checks.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
+**Package:** `@nexload-sdk/healthcheck-node`
+
+**Current released version:** `2.1.0`
+
+Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-node) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/node)
+
+`@nexload-sdk/healthcheck-node` equips `@nexload-sdk/healthcheck` with Node.js runtime introspection, process telemetry, Linux cgroup v1/v2 container resource limits, and TCP/DNS dependency checks.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
+import {
+  containerResourceCheck,
+  nodeRuntimeAdapter,
+  processMetricsCollector,
+} from "@nexload-sdk/healthcheck-node";
+
+export const health = createHealthManager({
+  service: { name: "node-service" },
+  runtime: nodeRuntimeAdapter(),
+  checks: [shutdownCheck(), memoryCheck(), containerResourceCheck()],
+  collectors: [processMetricsCollector()],
+});
+
+const report = await health.run("readiness");
+console.log(report.status, report.runtime.name); // "ok", "node"
+```
+
+***
+
+## What You Get
+
+* **Node.js Runtime Adapter**: Exposes V8 heap memory stats, event loop delays, process uptime, and active handle counts.
+* **Linux Container & Cgroup Detection**: Autodetects Linux cgroup v1 and cgroup v2 memory limits and CPU quotas inside Docker, Kubernetes, or Dokploy containers.
+* **Network Dependency Probes**: Built-in non-blocking `tcpCheck()` and `dnsCheck()` to verify database reachability and DNS resolution.
+* **Process & Container Collectors**: Observational collectors that append telemetry without failing deployment health probes.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-node @nexload-sdk/healthcheck
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/healthcheck-node @nexload-sdk/healthcheck
+
+# bun
+bun add @nexload-sdk/healthcheck-node @nexload-sdk/healthcheck
+```
+
+Requires Node.js `>=20.9.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Container Recipes](./guides/) for Docker limits, TCP checks, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+---
+
+# API Reference & Compatibility
+
+Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `toOtelMetricRecords`
+
+```ts
+toOtelMetricRecords(report: HealthReport) => OtelMetricRecord[]
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
+Public function exported by @nexload-sdk/healthcheck-otel.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L36)
+
+### `toOtelResourceAttributes`
+
+```ts
+toOtelResourceAttributes(report: HealthReport) => Record<string, string | number | boolean>
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
+Public function exported by @nexload-sdk/healthcheck-otel.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L23)
+
+## Interfaces
+
+### `OtelMetricRecord`
+
+```ts
+interface OtelMetricRecord {
+  name: string
+  value: HealthMetricValue
+  attributes: Record<string, string | number | boolean>
+  unit?: string
+  type?: HealthMetric["type"]
+  observedAt: string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-otel`
+
+Public interface exported by @nexload-sdk/healthcheck-otel.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts#L7)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/guides/
+## Attaching Health Reports to OpenTelemetry Spans
+
+When running a health check endpoint under an active distributed trace:
+
+```ts
+import { otelExporter } from "@nexload-sdk/healthcheck-otel";
+import { trace } from "@opentelemetry/api";
+import { health } from "@/lib/health";
+
+const exporter = otelExporter({ namespace: "service" });
+
+export async function handleHealthCheck() {
+  const tracer = trace.getTracer("health-tracer");
+
+  return tracer.startActiveSpan("health.check", async (span) => {
+    try {
+      const report = await health.run("readiness");
+      const attributes = exporter.exportAttributes(report);
+
+      // Attach structured attributes directly to span
+      span.setAttributes(attributes);
+
+      if (report.status === "unhealthy") {
+        span.setStatus({ code: 2, message: "Health check failed" });
+      }
+
+      return Response.json(report);
+    } finally {
+      span.end();
+    }
+  });
+}
+```
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Attribute Type Mapping
+
+OpenTelemetry spans accept string, number, and boolean attribute values. Nested objects in `report.checks[].data` are serialized as JSON strings or flattened automatically according to OTel semantic guidelines.
+
+### 2. Standalone Operation
+
+`@nexload-sdk/healthcheck-otel` does not initialize or configure the OpenTelemetry Node SDK itself. It acts as a converter; your application must initialize the OpenTelemetry SDK provider.
+
+---
+
+# Overview & Quick Start
+
+Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
+**Package:** `@nexload-sdk/healthcheck-otel`
+
+**Current released version:** `2.1.0`
+
+OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-otel) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/otel)
+
+`@nexload-sdk/healthcheck-otel` transforms `@nexload-sdk/healthcheck` reports into OpenTelemetry attributes, structured semantic conventions, and metrics payloads without mandatory dependencies on heavy `@opentelemetry/api` packages.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { otelExporter } from "@nexload-sdk/healthcheck-otel";
+
+const health = createHealthManager({ service: { name: "api" } });
+const exporter = otelExporter({ namespace: "app" });
+
+const report = await health.run("readiness");
+const attributes = exporter.exportAttributes(report);
+// Ready to attach to an active OpenTelemetry trace span or log record
+```
+
+***
+
+## What You Get
+
+* **OTel Semantic Conventions**: Standard attributes: `health.status`, `health.service.name`, and individual check attributes.
+* **Span Metadata Formatter**: Automatically attaches health reports to active distributed trace spans.
+* **Zero Heavy SDK Dependencies**: Pure data transformers that work with any existing OpenTelemetry collector or custom logger.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-otel @nexload-sdk/healthcheck
+```
+
+Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & OTel Recipes](./guides/) for span attachment and telemetry conventions.
+* Check the [API Reference & Signatures](./api/) for exporter options.
+
+---
+
+# API Reference & Compatibility
+
+Public API symbol reference and compatibility matrix for Healthcheck Payload.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `payloadHealthCheck`
+
+```ts
+payloadHealthCheck(payload: PayloadLike, options: PayloadHealthCheckOptions) => HealthCheckDefinition<"payload">
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-payload`
+
+Public function exported by @nexload-sdk/healthcheck-payload.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L34)
+
+## Interfaces
+
+### `PayloadHealthCheckOptions`
+
+```ts
+interface PayloadHealthCheckOptions {
+  collection: string
+  limit?: number
+  timeoutMs?: number
+  where?: Record<string, unknown>
+  depth?: number
+  expectedMinDocuments?: number
+  scopes?: readonly HealthScope[]
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-payload`
+
+Public interface exported by @nexload-sdk/healthcheck-payload.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts#L11)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Probing Payload collections, database latency, lightweight health queries, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/guides/
+## Lightweight Readiness Probing
+
+To minimize database load during frequent health checks (e.g. every 5-10 seconds by Kubernetes):
+
+```ts
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+
+const check = payloadHealthCheck(payload, {
+  collection: "users",
+  // Excluded from liveness probe:
+  scopes: ["readiness"],
+  timeoutMs: 3000,
+});
+```
+
+The check requests zero population depth (`depth: 0`) and limits results to 1 document, ensuring minimal memory and database CPU utilization.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. `PAYLOAD_QUERY_FAILED`
+
+Indicates that the underlying database connection timed out or rejected the query. Check database pool exhaustion, connection string validity, or network partitions.
+
+### 2. Readiness Probe Is Slow (>1 second)
+
+Ensure the checked collection has an index and does not execute heavy `afterRead` hooks. If needed, create a dedicated minimal `_health` collection with a single static document.
+
+### 3. Never Assign Payload Database Check to Liveness
+
+If the database goes down, liveness failure will cause continuous pod restarts. Always assign database checks to `scopes: ["readiness"]`.
+
+---
+
+# Overview & Quick Start
+
+Verify Payload CMS database connectivity, collection accessibility, and initialization state.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
+**Package:** `@nexload-sdk/healthcheck-payload`
+
+**Current released version:** `2.1.0`
+
+Payload CMS health checks for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-payload) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/payload)
+
+`@nexload-sdk/healthcheck-payload` connects `@nexload-sdk/healthcheck` to Payload CMS 3 instance state, verifying database connectivity, adapter health, and collection availability.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+import config from "@payload-config";
+import { getPayload } from "payload";
+
+const payload = await getPayload({ config });
+
+export const health = createHealthManager({
+  service: { name: "payload-cms" },
+  checks: [
+    payloadHealthCheck(payload, {
+      collection: "users",
+      expectedMinDocuments: 1,
+    }),
+  ],
+});
+```
+
+***
+
+## What You Get
+
+* **Database Connectivity Verification**: Executes lightweight count queries via Payload Local API to confirm database accessibility.
+* **Boot Readiness Check**: Guarantees that Payload has finished compiling collections, globals, and plugins before Kubernetes directs traffic.
+* **Zero Raw SQL/Mongo Dependency**: Interacts solely through the authoritative Payload Local API.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-payload @nexload-sdk/healthcheck payload
+```
+
+Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Queries](./guides/) for collection verification, timeout tuning, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for check configuration options.
+
+---
+
+# API Reference & Compatibility
+
+Public API symbol reference and compatibility matrix for Healthcheck Prometheus.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `toOpenMetricsText`
+
+```ts
+toOpenMetricsText(report: HealthReport, options?: OpenMetricsExportOptions) => string
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
+Public function exported by @nexload-sdk/healthcheck-prometheus.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L262)
+
+### `toPrometheusText`
+
+```ts
+toPrometheusText(report: HealthReport, options?: PrometheusExportOptions) => string
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
+Public function exported by @nexload-sdk/healthcheck-prometheus.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L236)
+
+## Interfaces
+
+### `PrometheusExportOptions`
+
+```ts
+interface PrometheusExportOptions {
+  prefix?: string
+  defaultLabels?: Record<string, string>
+  includeDescriptions?: boolean
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
+Public interface exported by @nexload-sdk/healthcheck-prometheus.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L8)
+
+## Types
+
+### `OpenMetricsExportOptions`
+
+```ts
+type OpenMetricsExportOptions = PrometheusExportOptions;
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-prometheus`
+
+Public type exported by @nexload-sdk/healthcheck-prometheus.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts#L14)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Bun** | `>=1.0.0` | Verified on Bun 1.1+ |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Configuring Prometheus endpoints, metric labels, Grafana alerts, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/guides/
+## Exposing the `/metrics` Endpoint
+
+Mount the exporter in your preferred HTTP framework:
+
+```ts
+import { prometheusExporter } from "@nexload-sdk/healthcheck-prometheus";
+import { health } from "@/lib/health";
+
+const exporter = prometheusExporter({
+  prefix: "app_service",
+  defaultLabels: {
+    environment: process.env.NODE_ENV ?? "production",
+  },
+});
+
+// Example inside a standard Web Fetch / Next.js / Bun handler:
+export async function handleMetrics() {
+  const report = await health.run("readiness");
+  const body = exporter.export(report);
+
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/plain; version=0.0.4; charset=utf-8",
+    },
+  });
+}
+```
+
+***
+
+## Generated Metrics Reference
+
+The exporter produces standardized Prometheus gauges and histograms:
+
+| Metric Name | Type | Description |
+|---|---|---|
+| `{prefix}_status` | Gauge | `1` when overall status is `ok`, `0.5` for `degraded`, `0` for `unhealthy`. |
+| `{prefix}_check_status` | Gauge | Per-check status labeled with `check="<check_name>"` and `scope="<scope>"`. |
+| `{prefix}_check_duration_seconds` | Gauge | Wall-clock execution time of each individual check in seconds. |
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Prometheus Scraper Reports `text format parse error`
+
+Ensure your HTTP response includes the header `Content-Type: text/plain; version=0.0.4; charset=utf-8` and ends with a trailing newline character.
+
+### 2. High Cardinality Labels
+
+Do not add dynamic user IDs or transient transaction IDs as metric labels. Use static service metadata (e.g. `cluster`, `region`, `service`).
+
+---
+
+# Overview & Quick Start
+
+Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
+**Package:** `@nexload-sdk/healthcheck-prometheus`
+
+**Current released version:** `2.1.0`
+
+Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-prometheus) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/prometheus)
+
+`@nexload-sdk/healthcheck-prometheus` serializes `@nexload-sdk/healthcheck` reports directly into Prometheus text exposition and OpenMetrics format without requiring bloated third-party metric client libraries.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { prometheusExporter } from "@nexload-sdk/healthcheck-prometheus";
+
+const health = createHealthManager({ service: { name: "api" } });
+const exporter = prometheusExporter({ prefix: "app" });
+
+const report = await health.run("readiness");
+const metricsText = exporter.export(report);
+
+// Return Prometheus text in your HTTP endpoint
+// Content-Type: text/plain; version=0.0.4; charset=utf-8
+```
+
+***
+
+## What You Get
+
+* **Lightweight Metric Formatting**: Fast string serialization with zero dependencies on `prom-client`.
+* **Status Gauges & Check Durations**: Exports `health_status`, `health_check_status`, and `health_check_duration_seconds`.
+* **Standard OpenMetrics Support**: Fully compliant with Prometheus scrapers, VictoriaMetrics, and Grafana Agent.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-prometheus @nexload-sdk/healthcheck
+```
+
+Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Scraping Setup](./guides/) for metric names, label conventions, and scraping routes.
+* Check the [API Reference & Signatures](./api/) for exporter configuration options.

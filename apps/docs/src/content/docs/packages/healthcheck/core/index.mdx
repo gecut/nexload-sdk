@@ -8,6 +8,7 @@ package: healthcheck
 topic: overview
 ---
 
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../../lib/package-catalog";
 
@@ -48,9 +49,7 @@ console.log(report.status); // "ok" | "degraded" | "unhealthy"
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/healthcheck
-```
+<InstallTabs packages="@nexload-sdk/healthcheck" />
 
 With alternative package managers:
 

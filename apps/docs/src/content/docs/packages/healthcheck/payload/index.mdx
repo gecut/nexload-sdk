@@ -8,6 +8,7 @@ package: healthcheck-payload
 topic: overview
 ---
 
+import InstallTabs from "../../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../../lib/package-catalog";
 
@@ -21,7 +22,7 @@ import { packageByName } from "../../../../../lib/package-catalog";
 
 ```ts
 import { createHealthManager } from "@nexload-sdk/healthcheck";
-import { payloadReadinessCheck } from "@nexload-sdk/healthcheck-payload";
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
 import config from "@payload-config";
 import { getPayload } from "payload";
 
@@ -30,7 +31,7 @@ const payload = await getPayload({ config });
 export const health = createHealthManager({
   service: { name: "payload-cms" },
   checks: [
-    payloadReadinessCheck(payload, {
+    payloadHealthCheck(payload, {
       collection: "users",
       expectedMinDocuments: 1,
     }),
@@ -50,9 +51,7 @@ export const health = createHealthManager({
 
 ## Installation & Requirements
 
-```bash
-pnpm add @nexload-sdk/healthcheck-payload @nexload-sdk/healthcheck payload
-```
+<InstallTabs packages="@nexload-sdk/healthcheck-payload @nexload-sdk/healthcheck payload" />
 
 Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
 

@@ -1,0 +1,18 @@
+---
+import { packageCatalog } from "../../lib/package-catalog";
+import { withBase } from "../../lib/paths";
+
+function format(manifest: typeof packageCatalog[number]["manifest"]): string {
+  const exports = JSON.stringify(manifest.exports ?? "");
+  if (exports.includes('"require"') || manifest.main?.endsWith(".cjs")) return "ESM and CJS";
+  return manifest.type === "module" ? "ESM only" : "See package exports";
+}
+---
+<table>
+  <thead><tr><th>Package</th><th>Module format</th><th>Peer dependencies</th></tr></thead>
+  <tbody>{packageCatalog.map(({ manifest, docsPath }) => <tr>
+    <td><a href={withBase(docsPath)}>{manifest.name}</a></td>
+    <td>{format(manifest)}</td>
+    <td>{Object.entries(manifest.peerDependencies ?? {}).map(([name, version]) => `${name} ${version}${manifest.peerDependenciesMeta?.[name]?.optional ? " (optional)" : ""}`).join(", ") || "None"}</td>
+  </tr>)}</tbody>
+</table>

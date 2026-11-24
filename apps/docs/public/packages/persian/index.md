@@ -29,9 +29,9 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ```bash
 pnpm add @nexload-sdk/persian
-# For the optional ./zod subpath:
-pnpm add zod
 ```
+
+For the optional `./zod` subpath, install `zod` separately.
 
 ## Compatibility
 

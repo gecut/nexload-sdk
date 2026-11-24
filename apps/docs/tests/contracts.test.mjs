@@ -104,3 +104,21 @@ test("out-of-scope packages are absent from the public catalog index", () => {
     );
   }
 });
+
+test("package overviews include installation and scoped LLM bundles", () => {
+  for (const [id, route] of Object.entries({ ...packageRoutes, "typescript-config": "typescript-config", "eslint-config": "eslint-config" })) {
+    const overview = readFileSync(new URL(`../public/packages/${route}/index.md`, import.meta.url), "utf8");
+    assert.match(overview, /## Installation/i, id);
+    const bundle = new URL(`../public/packages/${id}/llms.txt`, import.meta.url);
+    assert.ok(existsSync(bundle), id);
+    const text = readFileSync(bundle, "utf8");
+    const topics = id.endsWith("-config") ? ["overview", "guides"] : ["overview", "guides", "api"];
+    for (const topic of topics) assert.ok(text.includes(`**Topic:** ${topic}`), `${id}: ${topic}`);
+  }
+});
+
+test("installation matrix lists every public package", () => {
+  const installation = readFileSync(new URL("../public/start/installation.md", import.meta.url), "utf8");
+  for (const entry of Object.values(apiCatalog)) assert.ok(installation.includes(entry.name), entry.name);
+  for (const name of ["@nexload-sdk/typescript-config", "@nexload-sdk/eslint-config"]) assert.ok(installation.includes(name), name);
+});

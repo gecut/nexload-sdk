@@ -1,4 +1,9 @@
 ---
+import loggerManifest from "../../../../../packages/logger/package.json";
+
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
+
 import { Badge, LinkButton } from "@astrojs/starlight/components";
 
 import DocsStatus from "./DocsStatus.astro";
@@ -15,7 +20,11 @@ interface Props {
 const { entry, eyebrow = "Nexload SDK package" } = Astro.props;
 const { manifest } = entry;
 const npmUrl = `https://www.npmjs.com/package/${manifest.name}`;
-const sourceUrl = `https://github.com/gecut/nexload-sdk/tree/main/${entry.sourcePath}`;
+const repositoryUrl = loggerManifest.repository.url.replace(/\.git$/, "");
+const sourceUrl = `${repositoryUrl}/tree/main/${entry.sourcePath}`;
+const hasChangelog = existsSync(resolve(process.cwd(), "../..", entry.sourcePath, "CHANGELOG.md"));
+const dependencyNames = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
+const dependencies = packageCatalog.filter((candidate) => dependencyNames.has(candidate.manifest.name));
 const siblings = packageCatalog.filter((candidate) => candidate.family === entry.family);
 ---
 
@@ -34,7 +43,9 @@ const siblings = packageCatalog.filter((candidate) => candidate.family === entry
   <div class="package-hero__actions">
     <LinkButton href={npmUrl} variant="primary" icon="external">View on npm</LinkButton>
     <LinkButton href={sourceUrl} variant="secondary" icon="github">Browse source</LinkButton>
+    {hasChangelog && <a href={`${sourceUrl.replace("/tree/", "/blob/")}/CHANGELOG.md`}>Changelog</a>}
   </div>
+  {dependencies.length > 0 && <p><strong>SDK dependencies:</strong> {dependencies.map((dependency) => <a href={withBase(dependency.docsPath)}>{dependency.manifest.name} </a>)}</p>}
   <nav class="package-hero__switcher" aria-label={`${entry.family} package documentation`}>
     <strong>Related packages:</strong>
     {siblings.map((candidate) => candidate.id === entry.id

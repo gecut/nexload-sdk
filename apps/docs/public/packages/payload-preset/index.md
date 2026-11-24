@@ -13,9 +13,13 @@ Compose Payload configuration with Nexload defaults.
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
+## Installation
+
 ```bash
 pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
 ```
+
+## Quick Start
 
 ```ts
 import { configureLogger } from "@nexload-sdk/logger";

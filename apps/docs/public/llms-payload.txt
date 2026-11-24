@@ -1,0 +1,5393 @@
+# API Reference & Compatibility
+
+Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `createEditor`
+
+```ts
+createEditor(options: CreateEditorOptions) => ReturnType<typeof lexicalEditor>
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public function exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/create-editor.ts#L57)
+
+### `defineEditorPreset`
+
+```ts
+defineEditorPreset(options: DefineEditorPresetOptions) => EditorPreset
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public function exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/define-editor-preset.ts#L40)
+
+## Classes
+
+### `PayloadEditorConfigError`
+
+```ts
+class PayloadEditorConfigError
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public classe exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L12)
+
+## Interfaces
+
+### `DefineEditorPresetOptions`
+
+```ts
+interface DefineEditorPresetOptions { readonly features: Readonly<EditorFeatureConfig> }
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L62)
+
+### `EditorFeatureConfig`
+
+```ts
+interface EditorFeatureConfig {
+  paragraph?: FeatureOption
+  heading?: FeatureOption<HeadingOptions>
+  bold?: FeatureOption
+  italic?: FeatureOption
+  underline?: FeatureOption
+  strikethrough?: FeatureOption
+  inlineCode?: FeatureOption
+  link?: FeatureOption<LinkOptions>
+  unorderedList?: FeatureOption
+  orderedList?: FeatureOption
+  blockquote?: FeatureOption
+  horizontalRule?: FeatureOption
+  upload?: FeatureOption<UploadOptions>
+  relationship?: FeatureOption<RelationshipOptions>
+  inlineToolbar?: FeatureOption
+  fixedToolbar?: FeatureOption
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L36)
+
+### `EditorPreset`
+
+```ts
+interface EditorPreset {
+  readonly [editorPresetBrand]: true
+  readonly features: Readonly<EditorFeatureConfig>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L57)
+
+### `HeadingOptions`
+
+```ts
+interface HeadingOptions { sizes?: readonly HeadingSize[] }
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L24)
+
+### `LinkOptions`
+
+```ts
+interface LinkOptions extends RelationalOptions<CollectionSlug> { autoLink?: boolean }
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public interface exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L31)
+
+## Types
+
+### `CreateEditorOptions`
+
+```ts
+type CreateEditorOptions = CommonEditorOptions & (
+  | {
+    readonly preset: EditorPresetName | EditorPreset
+    readonly features?: Readonly<EditorFeatureConfig>
+  }
+  | {
+    readonly preset?: never
+    readonly features: Readonly<EditorFeatureConfig>
+  }
+);
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L69)
+
+### `EditorPresetName`
+
+```ts
+type EditorPresetName
+  = | "compact"
+    | "standard"
+    | "structured-content"
+    | "article"
+    | "product-description";
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L11)
+
+### `FeatureOption`
+
+```ts
+type FeatureOption<TOptions = never> = [TOptions] extends [never]
+  ? boolean
+  : boolean | Readonly<TOptions>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L18)
+
+### `HeadingSize`
+
+```ts
+type HeadingSize = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L22)
+
+### `NativeEditorFeature`
+
+```ts
+type NativeEditorFeature = FeatureProviderServer<any, any, any>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L9)
+
+### `PayloadEditorConfigErrorCode`
+
+```ts
+type PayloadEditorConfigErrorCode
+  = | "PAYLOAD_EDITOR_DEFINITION_REQUIRED"
+    | "PAYLOAD_EDITOR_UNKNOWN_PRESET"
+    | "PAYLOAD_EDITOR_UNKNOWN_FEATURE"
+    | "PAYLOAD_EDITOR_INVALID_FEATURE_OPTIONS"
+    | "PAYLOAD_EDITOR_INVALID_HEADING_SIZES"
+    | "PAYLOAD_EDITOR_INVALID_COLLECTIONS"
+    | "PAYLOAD_EDITOR_INVALID_MAX_DEPTH"
+    | "PAYLOAD_EDITOR_INVALID_EXTENSION"
+    | "PAYLOAD_EDITOR_DUPLICATE_FEATURE";
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/errors.ts#L1)
+
+### `RelationshipOptions`
+
+```ts
+type RelationshipOptions = RelationalOptions<CollectionSlug>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L34)
+
+### `UploadOptions`
+
+```ts
+type UploadOptions = RelationalOptions<UploadCollectionSlug>;
+```
+
+**Exported from:** `@nexload-sdk/payload-editor`
+
+Public type exported by @nexload-sdk/payload-editor.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/types.ts#L33)
+
+***
+
+## Functions Reference
+
+| Function | Return Type | Description |
+|---|---|---|
+| `createEditor(options)` | `RichTextAdapterProvider` | Compiles an explicit feature definition into Payload's official Lexical editor provider. |
+| `defineEditorPreset(options)` | `EditorPreset` | Defines an immutable, reusable editor preset for team-wide policy sharing. |
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **`@payloadcms/richtext-lexical`** | `>=3.85.0 <4.0.0` | Verified on Lexical 3.86.0 |
+| **Module Format** | ESM only | Server and configuration safe |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/guides/
+## Built-In Presets Catalog
+
+`@nexload-sdk/payload-editor` provides five curated presets designed for distinct content creation needs:
+
+| Preset Name | Target Use Case | Included Highlights |
+|---|---|---|
+| `compact` | Comments, brief bios, small callouts | Bold, italic, underline, link, inline toolbar only. No headings or blocks. |
+| `standard` | General descriptions, standard rich-text | Paragraphs, lists, blockquotes, links, basic formatting with sticky toolbar. |
+| `structured-content` | Marketing landing pages, documentation | Headings (H1-H6), horizontal rules, image/file uploads, alignment tools. |
+| `article` | Full blog posts, publications | Structured content plus inline code blocks, relationship embeds, and sub/superscript. |
+| `product-description` | E-commerce product catalogs | Constrained headings (H2-H4), bullet lists, links, image gallery embeds. |
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+
+export const standardEditor = createEditor({ preset: "standard" });
+export const articleEditor = createEditor({ preset: "article" });
+```
+
+***
+
+## Defining an Organization Preset
+
+Standardize rich-text behavior across multiple projects or collections using `defineEditorPreset`:
+
+```ts
+import { createEditor, defineEditorPreset } from "@nexload-sdk/payload-editor";
+
+// 1. Create a reusable corporate preset
+export const corporateArticlePreset = defineEditorPreset({
+  features: {
+    paragraph: true,
+    heading: {
+      sizes: ["h2", "h3"], // Forbid H1 to maintain page SEO hierarchy
+    },
+    bold: true,
+    italic: true,
+    link: {
+      autoLink: true,
+      maxDepth: 1,
+    },
+    upload: {
+      allowedCollections: ["media"],
+      maxDepth: 1,
+    },
+    blockquote: true,
+  },
+});
+
+// 2. Consume across collections
+export const editor = createEditor({ preset: corporateArticlePreset });
+```
+
+***
+
+## Extending with Native Lexical Blocks
+
+When you need custom Lexical features that aren't part of the core preset (such as Payload's native `BlocksFeature`), use `extendFeatures`:
+
+```ts
+import { BlocksFeature } from "@payloadcms/richtext-lexical";
+import { createEditor } from "@nexload-sdk/payload-editor";
+import { CalloutBlock, GalleryBlock } from "@/blocks";
+
+export const richArticleEditor = createEditor({
+  preset: "article",
+  extendFeatures: [
+    BlocksFeature({
+      blocks: [CalloutBlock, GalleryBlock],
+    }),
+  ],
+});
+```
+
+`extendFeatures` appends providers after managed features. If a native provider replaces a built-in feature, set the managed key to `false` in `features`.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Editor Renders with Default Payload Controls Instead of Preset
+
+* Ensure you assign the returned editor provider to the `editor` property of the `richText` field or Payload's root `editor` configuration:
+  ```ts
+  {
+    name: "content",
+    type: "richText",
+    editor: myConfiguredEditor, // Must be assigned here
+  }
+  ```
+
+### 2. Heading Sizes In Toolbar Don't Match Override
+
+Remember that arrays in `features` **replace** rather than concatenate:
+
+```ts
+// Toolbar will ONLY offer H2 and H3
+features: {
+  heading: { sizes: ["h2", "h3"] },
+}
+```
+
+### 3. Missing Peer Dependency Error
+
+`@payloadcms/richtext-lexical` must be explicitly installed in your application:
+
+```bash
+pnpm add @payloadcms/richtext-lexical
+```
+
+Ensure its version matches your `payload` core version (`3.85.0` or higher).
+
+---
+
+# Overview & Quick Start
+
+Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
+**Package:** `@nexload-sdk/payload-editor`
+
+**Current released version:** `1.1.0`
+
+Semantic, deterministic Payload Lexical editor configuration.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-editor) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-editor)
+
+`@nexload-sdk/payload-editor` transforms an explicit semantic feature definition into the official Payload CMS Lexical editor provider. It provides teams with named presets, deterministic feature merge rules, and safe extension seams without cluttering collection configurations with verbose Lexical boilerplate.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { createEditor } from "@nexload-sdk/payload-editor";
+import type { CollectionConfig } from "payload";
+
+// 1. Define explicit editor policy from preset
+const blogEditor = createEditor({
+  preset: "article",
+  features: {
+    heading: { sizes: ["h2", "h3"] }, // Restrict heading sizes
+    upload: { allowedCollections: ["media"], maxDepth: 1 },
+  },
+});
+
+// 2. Attach directly to Payload RichText field
+export const Posts: CollectionConfig = {
+  slug: "posts",
+  fields: [
+    { name: "content", type: "richText", editor: blogEditor },
+  ],
+};
+```
+
+***
+
+## What You Get
+
+* **Ready-to-Use Presets**: Built-in presets for common editorial workflows: `compact`, `standard`, `structured-content`, `article`, and `product-description`.
+* **Deterministic Feature Merging**: Clear override semantics: `false` disables, `true` enables with defaults, objects shallow-merge, and array options replace.
+* **Custom Organization Presets**: Define reusable corporate editor standards using `defineEditorPreset()`.
+* **Native Extension Seam**: Seamlessly attach native Lexical features like `BlocksFeature` or custom AST nodes via `extendFeatures`.
+* **Zero UI Bloat**: The package runs in server/config code, has no client React runtime, and declares no side effects.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+
+# bun
+bun add @nexload-sdk/payload-editor @payloadcms/richtext-lexical payload
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Server/config safe |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Core headless CMS |
+| **`@payloadcms/richtext-lexical`** | `>=3.85.0 <4.0.0` | Native Lexical editor provider |
+| **Module Format** | ESM only | Declarative config safe |
+
+***
+
+## Feature State Semantics
+
+In `createEditor({ features: { ... } })`:
+
+* **Omitted key**: Inherits configuration from the active preset (or disabled if no preset is used).
+* **`false`**: Completely disables and removes the feature from the editor toolbar.
+* **`true`**: Enables the feature with default recommended options.
+* **`{ ...options }`**: Enables the feature and shallow-merges your specific options. Any provided arrays replace preset arrays rather than appending.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all supported features and options.
+
+---
+
+# API Reference & Compatibility
+
+Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `bankCardField`
+
+```ts
+bankCardField(options?: BankCardFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L16)
+
+### `formatJalaliDate`
+
+```ts
+formatJalaliDate(value: JalaliDateValue, options?: JalaliDateDisplayOptions) => string | null
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L11)
+
+### `formatMoney`
+
+```ts
+formatMoney(value: number | null | undefined, currency: MoneyCurrency, display?: MoneyDisplayOptions) => string | null
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L82)
+
+### `iranAddressField`
+
+```ts
+iranAddressField(options?: IranAddressFieldOptions) => GroupField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/address/index.ts#L17)
+
+### `iranLandlineField`
+
+```ts
+iranLandlineField(options?: IranLandlineFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L32)
+
+### `iranMobileField`
+
+```ts
+iranMobileField(options?: IranMobileFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L14)
+
+### `jalaliDateField`
+
+```ts
+jalaliDateField(options: JalaliDateFieldOptions) => DateField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L67)
+
+### `jalaliDateRangeField`
+
+```ts
+jalaliDateRangeField(options?: { start?: string; end?: string; pickerAppearance?: JalaliPickerAppearance; timeZone?: string; required?: boolean; labels?: { start?: { fa: string; en: string; }; end?: { fa: string; en: string; }; }; }) => RowField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L142)
+
+### `legalIdField`
+
+```ts
+legalIdField(options?: LegalIdFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L34)
+
+### `ltrTextField`
+
+```ts
+ltrTextField(options: LtrTextFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L28)
+
+### `moneyField`
+
+```ts
+moneyField(options: MoneyFieldOptions) => NumberField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L98)
+
+### `nationalCodeField`
+
+```ts
+nationalCodeField(options?: NationalCodeFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L18)
+
+### `parseMoneyToMinorUnits`
+
+```ts
+parseMoneyToMinorUnits(input: string, currency: MoneyCurrency) => number
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L56)
+
+### `payloadFieldsPlugin`
+
+```ts
+payloadFieldsPlugin(options?: PayloadFieldsPluginOptions) => Plugin
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L132)
+
+### `postalCodeField`
+
+```ts
+postalCodeField(options?: PostalCodeFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L50)
+
+### `resolveCurrency`
+
+```ts
+resolveCurrency(currency: MoneyCurrency) => MoneyCurrencyDefinition
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L38)
+
+### `shebaField`
+
+```ts
+shebaField(options?: ShebaFieldOptions) => TextField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L32)
+
+### `slugField`
+
+```ts
+slugField(options?: SlugFieldOptions) => SlugFieldResult
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L20)
+
+### `sortOrderField`
+
+```ts
+sortOrderField(options?: SortOrderFieldOptions) => NumberField
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L63)
+
+### `toStoredJalaliInstant`
+
+```ts
+toStoredJalaliInstant(picked: { year: number; month: number; day: number; hour?: number; minute?: number; }, appearance: JalaliPickerAppearance, timeZone?: string) => string
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L33)
+
+### `withJalaliTimestamps`
+
+```ts
+withJalaliTimestamps<T extends Field[]>(fields: T, options?: JalaliTimestampsOptions) => Field[]
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public function exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L178)
+
+## Constants
+
+### `IRR`
+
+```ts
+IRR: Readonly<MoneyCurrencyDefinition>
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L35)
+
+### `IRT`
+
+```ts
+IRT: Readonly<MoneyCurrencyDefinition>
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L36)
+
+### `PAYLOAD_FIELDS_PLUGIN_ORDER`
+
+```ts
+PAYLOAD_FIELDS_PLUGIN_ORDER: 900
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L130)
+
+### `formatSlug`
+
+```ts
+formatSlug(value: string) => string
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L37)
+
+### `formatSlugHook`
+
+```ts
+formatSlugHook(options: SlugHookOptions) => FieldHook
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L39)
+
+### `schemaFields`
+
+```ts
+schemaFields: SchemaFields
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/schema`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/schema/index.ts#L139)
+
+## Types
+
+### `BankCardFieldOptions`
+
+```ts
+type BankCardFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L14)
+
+### `FieldOptions`
+
+```ts
+type FieldOptions = {
+  name?: string;
+  label?: { fa: string; en: string };
+  required?: boolean;
+  unique?: boolean;
+  overrides?: Partial<TextField>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L9)
+
+### `IranAddressFieldOptions`
+
+```ts
+type IranAddressFieldOptions = {
+  name?: string;
+  label?: { fa: string; en: string };
+  required?: boolean;
+  recipient?: boolean;
+  overrides?: Partial<GroupField>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/address/index.ts#L9)
+
+### `IranLandlineFieldOptions`
+
+```ts
+type IranLandlineFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L30)
+
+### `IranMobileFieldOptions`
+
+```ts
+type IranMobileFieldOptions = FieldOptions & {
+  storage?: "national" | "e164";
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/contact/index.ts#L10)
+
+### `JalaliDateDisplayOptions`
+
+```ts
+type JalaliDateDisplayOptions = {
+  dateStyle?: "short" | "medium" | "long" | "full"
+  timeStyle?: "short" | "medium"
+  digits?: "persian" | "latin"
+  timeZone?: string
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L4)
+
+### `JalaliDateFieldOptions`
+
+```ts
+type JalaliDateFieldOptions = {
+  name: string
+  pickerAppearance?: JalaliPickerAppearance
+  display?: JalaliDateDisplayOptions
+  timeZone?: string
+  min?: string
+  max?: string
+  label?: { fa: string, en: string }
+  required?: boolean
+  overrides?: Partial<DateField>
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L15)
+
+### `JalaliDateValue`
+
+```ts
+type JalaliDateValue = Date | string | number | null | undefined;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/format-date.ts#L3)
+
+### `JalaliPickerAppearance`
+
+```ts
+type JalaliPickerAppearance
+  = | "dayOnly"
+    | "dayAndTime"
+    | "timeOnly"
+    | "monthOnly";
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/picker-types.ts#L1)
+
+### `JalaliTimestampsOptions`
+
+```ts
+type JalaliTimestampsOptions = {
+  createdAt?: boolean
+  updatedAt?: boolean
+  display?: JalaliDateDisplayOptions
+  overrides?: { createdAt?: Partial<TextField>, updatedAt?: Partial<TextField> }
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/date`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/date/index.ts#L26)
+
+### `LegalIdFieldOptions`
+
+```ts
+type LegalIdFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L32)
+
+### `LtrTextFieldOptions`
+
+```ts
+type LtrTextFieldOptions = {
+  name: string;
+  label?: { fa: string; en: string };
+  required?: boolean;
+  unique?: boolean;
+  monospace?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  overrides?: Partial<TextField>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L17)
+
+### `MoneyCurrency`
+
+```ts
+type MoneyCurrency = "IRR" | "IRT" | MoneyCurrencyDefinition;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L15)
+
+### `MoneyCurrencyDefinition`
+
+```ts
+type MoneyCurrencyDefinition = {
+  code: string
+  label: string
+  fractionDigits: number
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L10)
+
+### `MoneyDisplayOptions`
+
+```ts
+type MoneyDisplayOptions = {
+  locale?: string
+  digits?: "persian" | "latin"
+  grouping?: boolean
+  showCurrency?: boolean
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L16)
+
+### `MoneyFieldOptions`
+
+```ts
+type MoneyFieldOptions = {
+  name: string
+  currency: MoneyCurrency
+  minMinorUnits?: number
+  maxMinorUnits?: number
+  allowNegative?: boolean
+  display?: MoneyDisplayOptions
+  displayCurrency?: "IRR" | "IRT"
+  label?: { fa: string, en: string }
+  required?: boolean
+  overrides?: Partial<NumberField>
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/money`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L22)
+
+### `NationalCodeFieldOptions`
+
+```ts
+type NationalCodeFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L16)
+
+### `PayloadFieldsPluginOptions`
+
+```ts
+type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerator>, generateSlugAccess?: SlugGenerationAccess };
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L12)
+
+### `PostalCodeFieldOptions`
+
+```ts
+type PostalCodeFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/identity/index.ts#L48)
+
+### `ShebaFieldOptions`
+
+```ts
+type ShebaFieldOptions = FieldOptions;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/bank/index.ts#L30)
+
+### `SlugFieldOptions`
+
+```ts
+type SlugFieldOptions = {
+  unique?: boolean
+  name?: string
+  lockName?: string
+  source?: string
+  generator?: string
+  regenerateOnSourceChange?: boolean
+  overrides?: { slug?: Partial<TextField>, lock?: Partial<CheckboxField> }
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L8)
+
+### `SlugFieldResult`
+
+```ts
+type SlugFieldResult = readonly [TextField, CheckboxField];
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/index.ts#L18)
+
+### `SlugGenerationAccess`
+
+```ts
+type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise<boolean>;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L11)
+
+### `SlugGenerator`
+
+```ts
+type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorContext) => Promise<string>;
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L10)
+
+### `SlugGeneratorContext`
+
+```ts
+type SlugGeneratorContext = { req: PayloadRequest };
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L9)
+
+### `SlugGeneratorInput`
+
+```ts
+type SlugGeneratorInput = { sourceValue: string, currentSlug?: string };
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L8)
+
+### `SlugHookOptions`
+
+```ts
+type SlugHookOptions = {
+  name: string
+  lockName: string
+  source: string
+  regenerateOnSourceChange: boolean
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`, `@nexload-sdk/payload-fields/slug`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/slug/format-slug.ts#L5)
+
+### `SortOrderFieldOptions`
+
+```ts
+type SortOrderFieldOptions = {
+  name?: string;
+  label?: { fa: string; en: string };
+  overrides?: Partial<NumberField>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-fields`
+
+Public type exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/common/index.ts#L57)
+
+***
+
+## Exported Factories Summary
+
+| Function | Output | Description |
+|---|---|---|
+| `slugField(options)` | `[TextField, CheckboxField]` | Returns `[slug, slugLock]` fields with Unicode slugifier, collision suffixing (`-2`, `-3`), and sync logic. |
+| `jalaliDateField(options)` | `DateField` | Returns a Payload `date` field configured with the Jalali solar calendar Admin component and timezone stability. |
+| `jalaliDateRangeField(options)` | `RowField` | Returns a paired row containing `startsAt` and `endsAt` Jalali date fields with order validation. |
+| `withJalaliTimestamps(fields, options)` | `Field[]` | Appends virtual read-only `createdAtJalali` and `updatedAtJalali` fields to an existing field array. |
+| `moneyField(options)` | `NumberField` | Returns an integer `number` field configured with formatted currency Admin component and cell. |
+| `iranMobileField(options)` | `TextField` | Returns a `text` field validating Iranian mobile numbers (`09XXXXXXXXX` or `+989...`). |
+| `iranLandlineField(options)` | `TextField` | Returns a `text` field validating Iranian landlines with province area codes. |
+| `nationalCodeField(options)` | `TextField` | Returns a `text` field with Iranian national code checksum validation. |
+| `legalIdField(options)` | `TextField` | Returns a `text` field with Iranian legal entity ID checksum validation. |
+| `postalCodeField(options)` | `TextField` | Returns a `text` field validating 10-digit Iranian postal codes. |
+| `bankCardField(options)` | `TextField` | Returns a `text` field with 16-digit bank card Luhn checksum validation. |
+| `shebaField(options)` | `TextField` | Returns a `text` field with Iranian IBAN (Sheba) ISO 7064 checksum validation. |
+| `ltrTextField(options)` | `TextField` | Returns a `text` field with forced LTR direction and optional monospace styling. |
+| `sortOrderField(options)` | `NumberField` | Returns an indexed non-negative integer `number` field in the sidebar for sorting. |
+| `iranAddressField(options)` | `GroupField` | Returns a `group` field containing province (31 Iranian provinces), city, line, postal code, and optional recipient. |
+| `payloadFieldsPlugin(options)` | `Plugin` | Registers server slug generator endpoints and `beforeOperation` string money normalization. |
+
+***
+
+## Schema Adapter (`@nexload-sdk/payload-fields/schema`)
+
+`schemaFields` wraps field factories into `field.native(...)` definitions for `@nexload-sdk/payload-schema`:
+
+| Method | Target Factory | Zod Schema |
+|---|---|---|
+| `schemaFields.iranMobile(options)` | `iranMobileField` | `iranMobileSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.iranLandline(options)` | `iranLandlineField` | `iranLandlineSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.nationalCode(options)` | `nationalCodeField` | `nationalCodeSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.legalId(options)` | `legalIdField` | `legalIdSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.postalCode(options)` | `postalCodeField` | `postalCodeSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.bankCard(options)` | `bankCardField` | `cardNumberSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.sheba(options)` | `shebaField` | `shebaSchema` from `@nexload-sdk/persian/zod` |
+| `schemaFields.ltrText(options)` | `ltrTextField` | `z.string()` with optional min/max lengths |
+| `schemaFields.sortOrder(options)` | `sortOrderField` | `z.number().int().nonnegative()` |
+| `schemaFields.money(options)` | `moneyField` | `z.number().int().safe()` (non-negative by default) |
+| `schemaFields.jalaliDate(options)` | `jalaliDateField` | `z.iso.datetime({ offset: true })` |
+| `schemaFields.slug(options)` | `slugField` | `{ slug: z.string(), slugLock: z.boolean() }` |
+
+> Note: `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` in 4.0.
+
+***
+
+## Compatibility Helpers
+
+| Helper | Type | Description |
+|---|---|---|
+| `formatSlug` | `(value: string) => string` | Canonical slugifier alias of `slugify` from `@nexload-sdk/persian/text`. |
+| `formatJalaliDate` | `(value, options) => string \| null` | Formats an ISO datetime or Date into a Jalali string. |
+| `toStoredJalaliInstant` | `(picked, appearance, timeZone?) => string` | Converts picked Jalali components to an ISO instant (noon for date-only modes). |
+| `formatMoney` | `(value, currency, display?) => string \| null` | Formats integer minor units into currency strings. |
+| `parseMoneyToMinorUnits` | `(input, currency) => number` | Parses string or major-unit text into safe integer minor units. |
+| `IRR` | `MoneyCurrencyDefinition` | Iranian Rial currency definition. |
+| `IRT` | `MoneyCurrencyDefinition` | Iranian Toman currency definition. |
+| `resolveCurrency` | `(currency: MoneyCurrency) => MoneyCurrencyDefinition` | Resolves string or object currency to canonical definition. |
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **React / React-DOM** | `^19.0.0` | Required for Payload 3 Admin UI |
+| **Module Format** | ESM only | Server and Admin Import Map safe |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Deep recipes for managed Unicode slugs, Jalali date ranges, integer money fields, Iranian contact & identity, addresses, and schema integration.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/guides/
+## Managed Unicode Slugs
+
+The `slugField` factory generates clean, URL-friendly slugs while preserving non-Latin scripts (such as Persian and Arabic):
+
+```ts
+import { slugField } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  { name: "title", type: "text", required: true },
+  ...slugField({
+    source: "title",
+    overrides: {
+      slug: {
+        admin: {
+          position: "sidebar",
+          description: "Auto-generated from title. Unlock to manually edit.",
+        },
+      },
+    },
+  }),
+];
+```
+
+### Uniqueness & Collision Suffixing
+
+* Slugs are unique by default (`unique: true`). When creating a document whose generated slug already exists, the factory automatically searches for non-colliding suffixes (`-2`, `-3`, up to `-50`).
+* **Top-level only:** Uniqueness collision queries apply only to top-level fields. Slugs placed inside nested arrays or groups receive character normalization only.
+* If migrating an existing database with duplicate slug values, resolve duplicates before creating unique indexes or pass `unique: false`.
+
+### Slug Locking Mechanism
+
+* When a document is created, `slugLock` defaults to `true`.
+* Editing the source field updates `slug` while locked.
+* Once locked documents are published, unlocking allows manual editing. While unlocked, source edits never change the slug. A locked slug follows source edits unless you pass `regenerateOnSourceChange: false`.
+
+***
+
+## Jalali (Persian Solar) Datepicker & Date Ranges
+
+Store standard ISO datetimes while providing a rich Persian Solar calendar widget in Payload Admin:
+
+```ts
+import { jalaliDateField, jalaliDateRangeField, withJalaliTimestamps } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  jalaliDateField({
+    name: "eventDate",
+    pickerAppearance: "dayAndTime", // Options: "dayOnly" | "dayAndTime" | "monthOnly" | "timeOnly"
+    timeZone: "Asia/Tehran", // Default timezone
+  }),
+  jalaliDateRangeField({
+    start: "registrationStart",
+    end: "registrationEnd",
+  }),
+];
+
+// Adds virtual read-only createdAtJalali and updatedAtJalali fields
+export const collectionFields = withJalaliTimestamps(fields);
+```
+
+### Date Storage Guarantees
+
+* The database always stores standard UTC ISO 8601 strings (e.g. `2026-07-24T08:30:00.000Z`).
+* For `dayOnly` and `monthOnly`, dates store canonical noon (`12:00:00`) in `timeZone` (default `Asia/Tehran`). This prevents date shifts when users view or edit entries from different browser timezones.
+* In `jalaliDateRangeField`, the end field includes server-side validation ensuring that the end date falls on or after the start date.
+
+***
+
+## Safe-Integer Money Fields
+
+Prevent floating point inaccuracies by storing currency in integer minor units:
+
+```ts
+import { moneyField } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  moneyField({
+    name: "unitPrice",
+    currency: "IRT", // Stored in Tomans
+    minMinorUnits: 0,
+    maxMinorUnits: 10_000_000_000,
+  }),
+  moneyField({
+    name: "rialPrice",
+    currency: "IRR", // Stored in Rials
+    displayCurrency: "IRT", // Displayed as Tomans in Admin UI and list cell
+  }),
+];
+```
+
+### API Strings & Plugin Requirement
+
+* In the Admin UI, users type numbers with Persian or Latin digits and thousands grouping.
+* In REST, GraphQL, and Local API calls, values are stored as integers.
+* **Critical Requirement:** `payloadFieldsPlugin()` is **REQUIRED** if money values are sent as strings through REST or Local API (e.g. `"۱۲۳٬۴۵۶"` or `"123456"`). Payload's core runs `parseFloat()` on number fields before field hooks run, which corrupts Persian digits. The plugin registers a `beforeOperation` hook that normalizes string values to safe integers before Payload processes them.
+
+***
+
+## Iranian Contact & Identity Fields
+
+Standardize phone numbers, national identification, postal codes, and banking fields:
+
+```ts
+import {
+  bankCardField,
+  iranLandlineField,
+  iranMobileField,
+  legalIdField,
+  nationalCodeField,
+  postalCodeField,
+  shebaField,
+} from "@nexload-sdk/payload-fields";
+
+const fields = [
+  // Mobile: normalized to national 09XXXXXXXXX or E.164 +989XXXXXXXXX
+  iranMobileField({ name: "mobile", storage: "national" }),
+  // Landline: normalized with province area code
+  iranLandlineField({ name: "phone" }),
+  // National Code: 10 digits with checksum validation
+  nationalCodeField({ name: "nationalCode" }),
+  // Legal Entity ID: 11 digits with checksum validation
+  legalIdField({ name: "companyId" }),
+  // Postal Code: 10 digits
+  postalCodeField({ name: "postalCode" }),
+  // Bank Card: 16 digits with Luhn algorithm validation
+  bankCardField({ name: "cardNumber" }),
+  // Sheba (IBAN): 26 characters (IR...) with ISO 7064 validation
+  shebaField({ name: "sheba" }),
+];
+```
+
+### Validation & Localization
+
+* Values written through any API are normalized server-side in `beforeValidate` (Persian digits converted, dashes/spaces removed).
+* Validation errors are localized: admin sessions in `fa` (e.g. `fa-IR`) see Persian error messages; other languages see English error messages.
+* Admin list views automatically display formatted strings via `FormattedCell` (e.g. `۰۹۱۲ ۳۴۵ ۶۷۸۹`, `۶۰۳۷-۹۹۱۲-۳۴۵۶-۷۸۹۰`).
+
+***
+
+## Iranian Address Group
+
+Use `iranAddressField` to create a structured address group:
+
+```ts
+import { iranAddressField } from "@nexload-sdk/payload-fields";
+
+const fields = [
+  iranAddressField({
+    name: "shippingAddress",
+    required: true,
+    recipient: true, // Includes recipientName and recipientMobile fields
+  }),
+];
+```
+
+* Province selection contains all 31 Iranian provinces with localized Persian and English labels.
+* Includes city, address line (textarea), and validated postal code.
+
+***
+
+## Schema Adapter (`@nexload-sdk/payload-fields/schema`)
+
+When using `@nexload-sdk/payload-schema` to share validation contracts with frontend forms or RPC endpoints:
+
+```ts
+import { defineEntity } from "@nexload-sdk/payload-schema";
+import { schemaFields } from "@nexload-sdk/payload-fields/schema";
+
+export const customerEntity = defineEntity({
+  name: "Customer",
+  fields: {
+    mobile: schemaFields.iranMobile(),
+    nationalCode: schemaFields.nationalCode(),
+    price: schemaFields.money({ currency: "IRT" }),
+    birthDate: schemaFields.jalaliDate({ nullable: true }),
+    ...schemaFields.slug({ source: "title" }),
+  },
+});
+```
+
+> **Note:** `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` in 4.0 because compound fields (groups and rows) require entity-level schema composition.
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Custom Admin Controls Fallback to Plain Inputs
+
+If Payload Admin displays plain number or text inputs instead of the Jalali datepicker or formatted money input:
+
+* Regenerate Payload's Import Map by running:
+  ```bash
+  pnpm payload generate:importmap
+  ```
+* Ensure `@payloadcms/ui` and `payload` are `>=3.85.0 <4.0.0` and React is `^19.0.0`.
+
+### 2. Money Strings Rejected by REST or Local API
+
+If sending string values like `"150000"` or `"۱۵۰٬۰۰۰"` fails validation or gets parsed as `NaN`:
+
+* Ensure `payloadFieldsPlugin()` is registered in your `payload.config.ts` plugins array.
+* The plugin interceptively normalizes string money values in `beforeOperation` before Payload's core `parseFloat()` runs.
+
+### 3. Duplicate Slug Migration Errors
+
+If adding `slugField` to an existing collection throws a unique constraint database error:
+
+* Deduplicate existing documents before deploying the schema change, or temporarily configure `slugField({ unique: false })`.
+
+---
+
+# Overview & Quick Start
+
+Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
+**Package:** `@nexload-sdk/payload-fields`
+
+**Current released version:** `3.1.0`
+
+Production-grade semantic field factories and Admin integrations for Payload CMS.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-fields) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-fields)
+
+`@nexload-sdk/payload-fields` provides production-hardened semantic field factories, Admin UI integrations, and validation for Payload CMS 3:
+
+1. **Managed Unicode Slugs**: Collision-resistant (`-2`, `-3`), multi-lingual slug generation with an automatic lock toggle.
+2. **Jalali Solar Dates & Ranges**: ISO datetime storage with interactive Persian Solar calendar datepickers and list cells (`Asia/Tehran` noon storage for date-only modes).
+3. **Safe-Integer Money Fields**: Floating-point-free financial storage in integer minor units (Rials, Tomans) with formatted Admin UI inputs and currency conversion.
+4. **Iranian Identity & Contact**: Checksum-validated national codes, legal IDs, postal codes, landlines, and mobile numbers (national or E.164 format).
+5. **Banking & Utility Fields**: Bank card numbers with Luhn validation, Sheba IBANs, forced LTR inputs, and non-negative sort ordering.
+6. **Iranian Address Group**: Comprehensive address group with 31 provinces, postal code normalization, and optional recipient details.
+7. **Schema Adapter (`./schema`)**: Wrap fields as `field.native()` definitions for `@nexload-sdk/payload-schema`.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import {
+  iranAddressField,
+  iranMobileField,
+  jalaliDateField,
+  jalaliDateRangeField,
+  moneyField,
+  nationalCodeField,
+  slugField,
+} from "@nexload-sdk/payload-fields";
+import type { CollectionConfig } from "payload";
+
+export const Customers: CollectionConfig = {
+  slug: "customers",
+  fields: [
+    { name: "name", type: "text", required: true },
+    // Spreads slug and slugLock fields
+    ...slugField({ source: "name" }),
+    // Persian solar calendar datepicker
+    jalaliDateField({ name: "birthDate", pickerAppearance: "dayOnly" }),
+    // Paired date range with start/end order validation
+    jalaliDateRangeField({ start: "startsAt", end: "endsAt" }),
+    // Stored as integer minor units (e.g. 150000)
+    moneyField({ name: "credit", currency: "IRT", minMinorUnits: 0 }),
+    // Normalized to national format (09123456789)
+    iranMobileField({ name: "mobile", required: true }),
+    // Validated 10-digit national code
+    nationalCodeField({ name: "nationalCode" }),
+    // Address group with province dropdown and postal code
+    iranAddressField({ recipient: false }),
+  ],
+};
+```
+
+***
+
+## Installation & Peer Dependencies
+
+```bash
+pnpm add @nexload-sdk/payload-fields payload react react-dom
+```
+
+If using the optional `./schema` adapter with `@nexload-sdk/payload-schema` and `zod`:
+
+```bash
+pnpm add @nexload-sdk/payload-schema zod
+```
+
+### Compatibility Requirements
+
+| Runtime / Dependency | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Required for Payload 3 server |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Core headless CMS |
+| **React / React-DOM** | `^19.0.1 \|\| ^19.1.2 \|\| ^19.2.1` | Matches Payload 3 Admin UI runtime |
+| **Module Format** | ESM only | Server & Admin Import Map safe |
+| **Optional Peers** | `@nexload-sdk/payload-schema` `>=2.0.0 <4.0.0`, `zod` `>=4.1.0 <5.0.0` | Only needed when importing `./schema` |
+
+***
+
+## Storage & Contract Rules
+
+### 1. Slugs & SlugLock
+
+`slugField({ source: "title" })` returns an array of two Payload fields: `[slug, slugLock]`.
+
+* Slugs are unique by default (`unique: true`). Top-level slug collisions automatically receive numeric suffixes (`-2`, `-3`) in the active locale.
+* **Scope note:** Slug uniqueness collision resolution only applies to top-level slug fields. Slugs placed inside arrays or groups receive character formatting only.
+* `slugLock` defaults to `true`. When locked, changing the source field will not mutate an existing slug, protecting indexed URLs.
+
+### 2. Jalali Dates & Ranges
+
+Dates are stored in the database as **standard ISO 8601 UTC strings** (e.g. `"2026-07-24T08:30:00.000Z"`).
+
+* For `dayOnly` and `monthOnly` appearances, dates store canonical local noon (`12:00:00`) in `timeZone` (default `Asia/Tehran`), preventing date shifting across client timezones.
+* `jalaliDateRangeField` groups two dates and validates that `endsAt >= startsAt`.
+
+### 3. Money Values & Plugin Requirement
+
+Money values are stored strictly as **integer minor units** (e.g. `100,000 Tomans` is stored as `100000`).
+
+* **REST / Local API String Inputs:** `payloadFieldsPlugin()` is **REQUIRED** if money values are sent as strings (e.g. `"۱۲۳٬۴۵۶"` or `"123456"`). Payload core parses number-field strings with `parseFloat()` before field hooks run, corrupting Persian digits and thousands separators. The plugin's `beforeOperation` hook converts string values to safe integers before Payload parses them. Raw numbers work without the plugin.
+
+### 4. Bilingual Validation Messages
+
+Validation messages follow the active admin language (`req.i18n.language` or `useTranslation()`):
+
+* Locales starting with `fa` (e.g. `fa`, `fa-IR`) receive Persian error messages.
+* All other locales receive English error messages (v3 was always Persian).
+
+### 5. Schema Adapter Scope
+
+The `./schema` subpath exposes `schemaFields` for `@nexload-sdk/payload-schema`. In 4.0, `iranAddressField` and `jalaliDateRangeField` are not included in `./schema` (compound group/row schemas require entity-level composition).
+
+***
+
+## Quick Start: Adding Plugin for Slug Generators & String Money
+
+Register `payloadFieldsPlugin` in your Payload config:
+
+```ts
+import { payloadFieldsPlugin, slugField } from "@nexload-sdk/payload-fields";
+import { buildConfig } from "payload";
+
+export default buildConfig({
+  collections: [
+    {
+      slug: "products",
+      fields: [
+        { name: "title", type: "text", required: true },
+        ...slugField({ source: "title", generator: "product" }),
+      ],
+    },
+  ],
+  plugins: [
+    payloadFieldsPlugin({
+      slugGenerators: {
+        product: async ({ sourceValue }) => {
+          return `sku-${sourceValue.toLowerCase().replace(/\s+/g, "-")}`;
+        },
+      },
+    }),
+  ],
+});
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Recipes](./guides/) for advanced recipes on contact fields, address groups, and troubleshooting.
+* Check the [API Reference & Compatibility](./api/) for complete factory options and signatures.
+
+The field factories use [Persian utilities](/nexload-sdk/packages/persian/) for shared normalization and validation.
+
+---
+
+# API Reference & Compatibility
+
+Public audit plugin and legacy hook exports.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/api/
+The inventory is generated from the package source exports.
+
+## Functions
+
+### `auditPlugin`
+
+```ts
+auditPlugin(options?: AuditPluginOptions) => Plugin
+```
+
+**Exported from:** `@nexload-sdk/payload-hooks`
+
+Public function exported by @nexload-sdk/payload-hooks.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L298)
+
+## Constants
+
+### `AUDIT_PLUGIN_ORDER`
+
+```ts
+AUDIT_PLUGIN_ORDER: 1000
+```
+
+**Exported from:** `@nexload-sdk/payload-hooks`
+
+Public constant exported by @nexload-sdk/payload-hooks.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L21)
+
+### `logOperation`
+
+```ts
+logOperation<THookType extends HookType, TReturn extends HookReturnType<THookType>>(hookType: THookType) => TReturn
+```
+
+**Exported from:** `@nexload-sdk/payload-hooks`
+
+Public constant exported by @nexload-sdk/payload-hooks.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/log-operation.ts#L23)
+
+## Types
+
+### `AuditOperation`
+
+```ts
+type AuditOperation = "create" | "update" | "delete" | "read" | "auth";
+```
+
+**Exported from:** `@nexload-sdk/payload-hooks`
+
+Public type exported by @nexload-sdk/payload-hooks.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L12)
+
+### `AuditPluginOptions`
+
+```ts
+type AuditPluginOptions = {
+  collections?: "all" | string[];
+  exclude?: string[];
+  operations?: AuditOperation[];
+  logger?: Pick<Logger, "info">;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-hooks`
+
+Public type exported by @nexload-sdk/payload-hooks.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L14)
+
+## Exported Factories Summary
+
+`auditPlugin(options?: AuditPluginOptions): Plugin` attaches audit hooks. `AUDIT_PLUGIN_ORDER` is `1000`. `AuditOperation` is `"create" | "update" | "delete" | "read" | "auth"`. `logOperation` is deprecated; see the [migration guide](../guides/).
+
+---
+
+# Production Guides & Recipes
+
+Audit options, events, privacy, and migration.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/guides/
+## Audit options
+
+| Option | Default | Behavior |
+| --- | --- | --- |
+| `collections` | `"all"` | All collections or an array of slugs. |
+| `exclude` | `[]` | Slugs to skip. Unknown requested or excluded slugs throw at config time. |
+| `operations` | `["create", "update", "delete", "auth"]` | Enabled operations; add `"read"` to audit reads. |
+| `logger` | SDK default logger | Custom logger with an `info` method. |
+
+The plugin runs at order 1000 and appends hooks after existing hooks. Writes log once per document. Reads are off by default; when enabled, each request produces one list summary or single-read event. Auth auditing is on by default for auth collections; failed logins are not logged. Logging failures do not interrupt operations. Events contain identifiers and counts, never document bodies, emails, tokens, or other credentials.
+
+## Events
+
+* `payload.document.created`
+* `payload.document.updated`
+* `payload.document.deleted`
+* `payload.documents.listed`
+* `payload.document.read`
+* `payload.auth.logged_in`
+* `payload.auth.password_reset_requested`
+* `payload.auth.password_reset`
+
+Write event IDs may be absent. List events include a count rather than document contents or IDs.
+
+## Boundaries
+
+Payload creates its implicit default `users` collection after plugins run. Declare the auth collection explicitly to audit its auth and write events. Write hooks emit events before transaction commit, so a later rollback can leave an event for a change that did not persist.
+
+## Migrate from `logOperation`
+
+`logOperation` is deprecated. Remove per-collection hooks and register the plugin once:
+
+```ts
+// Before: hooks: { afterChange: [logOperation("afterChange")] }
+import { auditPlugin } from "@nexload-sdk/payload-hooks";
+
+const plugins = [auditPlugin()];
+```
+
+The preset also includes `auditPlugin` by default; do not register it twice. See [Payload Preset](/nexload-sdk/packages/payload-preset/).
+
+---
+
+# Overview & Quick Start
+
+Audit Payload collection operations with structured log events.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
+**Package:** `@nexload-sdk/payload-hooks`
+
+**Current released version:** `2.1.0`
+
+Effortless, type-safe logging for Payload CMS collection operations.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-hooks) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-hooks)
+
+`auditPlugin` attaches log-only collection hooks. It stores no audit records and does not change collection fields.
+
+## Installation
+
+```bash
+pnpm add @nexload-sdk/payload-hooks payload
+```
+
+## Quick Start
+
+```ts
+import { auditPlugin } from "@nexload-sdk/payload-hooks";
+
+const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read", "auth"] })];
+```
+
+Reads are off by default; auth is on for auth collections. See [guides](./guides/) for event names, options, and transaction caveats. Payload `>=3.85.0 <4.0.0` is a peer dependency; the hooks run in Node.js Payload configuration.
+
+---
+
+# API Reference & Compatibility
+
+Complete public API symbol reference, entrypoint exports, and runtime compatibility matrix for Payload Operations.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `createCMSClient`
+
+```ts
+createCMSClient<TPayloadConfig extends PayloadTypesShape = UntypedPayloadTypes, const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: CMSClientOptions<TOperations>) => CMSClient<TPayloadConfig, TOperations>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/create-cms-client.ts#L20)
+
+### `createOperationsClient`
+
+```ts
+createOperationsClient<const TOperations extends CMSOperationsTree = CMSOperationsTree>(options: OperationsClientOptions<TOperations>) => InferOperationsClient<TOperations>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/create-operations-client.ts#L12)
+
+### `createPayloadEndpoints`
+
+```ts
+createPayloadEndpoints<const TOperations extends CMSOperationsTree>(options: CreatePayloadEndpointsOptions<TOperations>) => Endpoint[]
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/create-payload-endpoints.ts#L24)
+
+### `createPayloadFetchAdapter`
+
+```ts
+createPayloadFetchAdapter(transport: CMSClientTransport) => typeof fetch
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/create-cms-client.ts#L50)
+
+### `defineCMSOperations`
+
+```ts
+defineCMSOperations<const TOperations extends CMSOperationsTree>(operations: TOperations) => TOperations
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/define-cms-operations.ts#L8)
+
+### `defineClientPlugin`
+
+```ts
+defineClientPlugin<const TPlugin extends CMSClientPlugin>(plugin: TPlugin) => TPlugin
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/define-client-plugin.ts#L3)
+
+### `isCMSOperationError`
+
+```ts
+isCMSOperationError(error: unknown) => error is CMSOperationError
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/errors`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/cms-operation-error.ts#L46)
+
+### `isDefinedError`
+
+```ts
+isDefinedError<TError extends CMSOperationError<string, unknown, true>>(error: TError) => error is TError
+isDefinedError<TError extends CMSOperationError<string, unknown, true>, TCode extends TError["code"]>(error: TError, code: TCode) => error is Extract<TError, { code: TCode; }>
+isDefinedError(error: unknown, code?: string) => error is CMSOperationError<string, unknown, true>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/is-defined-error.ts#L5)
+
+### `isTimeoutError`
+
+```ts
+isTimeoutError(error: unknown) => boolean
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/plugins/timeout`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/is-timeout-error.ts#L4)
+
+### `operation`
+
+```ts
+operation<const TInput extends z.ZodType, const TOutput extends z.ZodType, const TErrors extends CMSOperationErrorDefinitions = Readonly<Record<string, never>>>(definition: { errors?: TErrors; input: TInput; output: TOutput; }) => CMSOperation<TInput, TOutput, TErrors>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/operation.ts#L16)
+
+### `safe`
+
+```ts
+safe<const TPromise extends PromiseLike<unknown>>(promise: TPromise) => Promise<CMSSafeResult<AwaitedData<TPromise>, DefinedError<TPromise>>>
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/safe.ts#L14)
+
+### `timeoutPlugin`
+
+```ts
+timeoutPlugin(options: TimeoutPluginOptions) => { readonly name: "timeout"; readonly wrapTransport: (next: CMSClientTransport) => (request: CMSClientTransportRequest) => Promise<Response>; }
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/plugins/timeout`
+
+Public function exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L8)
+
+## Classes
+
+### `CMSOperationError`
+
+```ts
+class CMSOperationError
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/errors`, `@nexload-sdk/payload-operations/server`
+
+Public classe exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/cms-operation-error.ts#L16)
+
+## Constants
+
+### `DEFAULT_MAX_BODY_BYTES`
+
+```ts
+DEFAULT_MAX_BODY_BYTES: 1048576
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public constant exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/constants.ts#L1)
+
+## Interfaces
+
+### `CMSClient`
+
+```ts
+interface CMSClient<
+  TPayloadConfig extends PayloadTypesShape = PayloadTypes,
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> {
+  readonly operations: InferOperationsClient<TOperations>
+  readonly payload: PayloadSDK<TPayloadConfig>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L30)
+
+### `CMSClientOptions`
+
+```ts
+interface CMSClientOptions<
+  TOperations extends CMSOperationsTree
+> {
+  basePath?: string
+  operations: TOperations
+  payload: CMSPayloadClientOptions
+  plugins?: readonly CMSClientPlugin[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L21)
+
+### `CMSClientPlugin`
+
+```ts
+interface CMSClientPlugin {
+  readonly name: string
+  wrapTransport(next: CMSClientTransport): CMSClientTransport
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L15)
+
+### `CMSClientTransportRequest`
+
+```ts
+interface CMSClientTransportRequest {
+  readonly init: RequestInit
+  readonly operation?: {
+    readonly name: string
+    readonly path: string
+  }
+  readonly source: "operation" | "payload"
+  readonly url: string
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L1)
+
+### `CMSOperation`
+
+```ts
+interface CMSOperation<
+  TInputSchema extends z.ZodType = z.ZodType,
+  TOutputSchema extends z.ZodType = z.ZodType,
+  TErrors extends CMSOperationErrorDefinitions = CMSOperationErrorDefinitions
+> {
+  readonly [CMS_OPERATION_SYMBOL]: true
+  readonly errors: TErrors
+  readonly input: TInputSchema
+  readonly output: TOutputSchema
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L20)
+
+### `CMSOperationAccessContext`
+
+```ts
+interface CMSOperationAccessContext<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> {
+  readonly operation: CMSOperationMetadata<TOperation>
+  readonly req: PayloadRequest
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L22)
+
+### `CMSOperationErrorJSON`
+
+```ts
+interface CMSOperationErrorJSON {
+  code: string
+  data?: unknown
+  defined: boolean
+  message: string
+  status: number
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L9)
+
+### `CMSOperationHandlerContext`
+
+```ts
+interface CMSOperationHandlerContext<
+  TOperation extends CMSOperationContract
+> {
+  readonly errors: CMSDefinedErrorFactories<TOperation>
+  readonly input: InferParsedOperationInput<TOperation>
+  readonly operation: CMSOperationMetadata<TOperation>
+  readonly req: PayloadRequest
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L35)
+
+### `CMSOperationMetadata`
+
+```ts
+interface CMSOperationMetadata<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> {
+  readonly definition: TOperation
+  readonly name: string
+  readonly path: string
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L14)
+
+### `CMSPayloadClientOptions`
+
+```ts
+interface CMSPayloadClientOptions {
+  baseInit?: RequestInit
+  baseURL: string
+  fetch?: typeof fetch
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/cms`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/cms/types.ts#L15)
+
+### `CMSValidationErrorData`
+
+```ts
+interface CMSValidationErrorData {
+  issues: Array<{
+    code?: string
+    message: string
+    path: Array<number | string>
+  }>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L17)
+
+### `CreatePayloadEndpointsOptions`
+
+```ts
+interface CreatePayloadEndpointsOptions<
+  TOperations extends CMSOperationsTree
+> {
+  access: {
+    default: CMSOperationAccess
+    overrides?: CMSOperationAccessOverrides<TOperations>
+  }
+  basePath?: string
+  handlers: CMSOperationHandlers<TOperations>
+  maxBodyBytes?: number
+  operations: TOperations
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L70)
+
+### `OperationsClientOptions`
+
+```ts
+interface OperationsClientOptions<
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> {
+  baseInit?: RequestInit
+  basePath?: string
+  baseURL: string
+  fetch?: typeof fetch
+  operations: TOperations
+  plugins?: readonly CMSClientPlugin[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L12)
+
+### `TimeoutPluginOptions`
+
+```ts
+interface TimeoutPluginOptions {
+  timeout: number
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/plugins/timeout`
+
+Public interface exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/plugins/timeout/timeout-plugin.ts#L4)
+
+## Types
+
+### `CMSClientTransport`
+
+```ts
+type CMSClientTransport = (
+  request: CMSClientTransportRequest
+) => Promise<Response>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/transport/types.ts#L11)
+
+### `CMSDefinedErrorFactories`
+
+```ts
+type CMSDefinedErrorFactories<
+  TOperation extends CMSOperationContract
+> = {
+  readonly [TCode in keyof TOperation["errors"] & string]:
+  ErrorFactoryFromDefinition<TCode, TOperation["errors"][TCode]>;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L53)
+
+### `CMSDefinedOperationError`
+
+```ts
+type CMSDefinedOperationError<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> = {
+  [TCode in keyof TOperation["errors"] & string]: DefinedErrorFromDefinition<
+    TCode,
+    TOperation["errors"][TCode]
+  >;
+}[keyof TOperation["errors"] & string];
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L32)
+
+### `CMSOperationAccess`
+
+```ts
+type CMSOperationAccess<
+  TOperation extends CMSOperationContract = CMSOperationContract
+> = (
+  context: CMSOperationAccessContext<TOperation>
+) => boolean | Promise<boolean>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L29)
+
+### `CMSOperationAccessOverrides`
+
+```ts
+type CMSOperationAccessOverrides<
+  TOperations extends CMSOperationsTree
+> = {
+  readonly [TKey in keyof TOperations]?:
+  TOperations[TKey] extends CMSOperationContract
+    ? CMSOperationAccess<TOperations[TKey]>
+    : TOperations[TKey] extends CMSOperationsTree
+      ? CMSOperationAccessOverrides<TOperations[TKey]>
+      : never;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L59)
+
+### `CMSOperationCallOptions`
+
+```ts
+type CMSOperationCallOptions = Omit<RequestInit, "body" | "method">;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L35)
+
+### `CMSOperationContract`
+
+```ts
+type CMSOperationContract = CMSOperation;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L31)
+
+### `CMSOperationErrorDefinition`
+
+```ts
+type CMSOperationErrorDefinition<
+  TDataSchema extends z.ZodType | undefined = z.ZodType | undefined
+> = Readonly<{
+  data?: TDataSchema
+  message: string
+  status: number
+}>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L8)
+
+### `CMSOperationErrorDefinitions`
+
+```ts
+type CMSOperationErrorDefinitions = Readonly<
+  Record<string, CMSOperationErrorDefinition<z.ZodType | undefined>>
+>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L16)
+
+### `CMSOperationHandler`
+
+```ts
+type CMSOperationHandler<
+  TOperation extends CMSOperationContract
+> = (
+  context: CMSOperationHandlerContext<TOperation>
+) => Promise<InferHandlerOutput<TOperation>>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L44)
+
+### `CMSOperationHandlers`
+
+```ts
+type CMSOperationHandlers<TOperations extends CMSOperationsTree> = {
+  readonly [TKey in keyof TOperations]:
+  TOperations[TKey] extends CMSOperationContract
+    ? CMSOperationHandler<TOperations[TKey]>
+    : TOperations[TKey] extends CMSOperationsTree
+      ? CMSOperationHandlers<TOperations[TKey]>
+      : never;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L50)
+
+### `CMSOperationsTree`
+
+```ts
+type CMSOperationsTree = Readonly<{ [key: string]: CMSOperationContract | CMSOperationsTree }>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L33)
+
+### `CMSSafeResult`
+
+```ts
+type CMSSafeResult<TData, TDefinedError>
+  = | readonly [error: null, data: TData, isDefined: false]
+    | readonly [
+      error: TDefinedError,
+      data: undefined,
+      isDefined: true
+    ]
+    | readonly [error: unknown, data: undefined, isDefined: false];
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/errors`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/errors/types.ts#L60)
+
+### `CreateOperationsClientOptions`
+
+```ts
+type CreateOperationsClientOptions<
+  TOperations extends CMSOperationsTree = CMSOperationsTree
+> = OperationsClientOptions<TOperations>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L23)
+
+### `InferHandlerOutput`
+
+```ts
+type InferHandlerOutput<TOperation extends CMSOperationContract>
+  = z.output<TOperation["output"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L49)
+
+### `InferOperationInput`
+
+```ts
+type InferOperationInput<TOperation extends CMSOperationContract>
+  = z.input<TOperation["input"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L39)
+
+### `InferOperationOutput`
+
+```ts
+type InferOperationOutput<TOperation extends CMSOperationContract>
+  = z.output<TOperation["output"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L46)
+
+### `InferOperationsClient`
+
+```ts
+type InferOperationsClient<TOperations extends CMSOperationsTree> = {
+  readonly [TKey in keyof TOperations]:
+  TOperations[TKey] extends CMSOperationContract
+    ? CMSOperationMethod<TOperations[TKey]>
+    : TOperations[TKey] extends CMSOperationsTree
+      ? InferOperationsClient<TOperations[TKey]>
+      : never;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/client`, `@nexload-sdk/payload-operations/cms`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/client/types.ts#L35)
+
+### `InferParsedOperationInput`
+
+```ts
+type InferParsedOperationInput<
+  TOperation extends CMSOperationContract
+> = z.output<TOperation["input"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-operations`, `@nexload-sdk/payload-operations/contract`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/contract/types.ts#L42)
+
+### `PayloadOperationEndpoints`
+
+```ts
+type PayloadOperationEndpoints = readonly Endpoint[];
+```
+
+**Exported from:** `@nexload-sdk/payload-operations/server`
+
+Public type exported by @nexload-sdk/payload-operations.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/server/types.ts#L83)
+
+***
+
+## Exported Subpaths
+
+To preserve clean bundle boundaries and prevent leaking Payload server code into client applications, `@nexload-sdk/payload-operations` exposes explicit subpaths:
+
+| Subpath | Target Environment | Description |
+|---|---|---|
+| `@nexload-sdk/payload-operations` | Universal (Browser/Node) | Root entrypoint exporting `operation`, `defineCMSOperations`, `safe`, `isDefinedError`, `isTimeoutError`, and types. Pure, depends only on `zod` (no client, no payload, no `@payloadcms/sdk`). |
+| `@nexload-sdk/payload-operations/contract` | Universal (Browser/Node) | Pure contract modeling: `defineCMSOperations`, `operation`, and type inference helpers (`InferOperationInput`, `InferOperationOutput`, etc.). |
+| `@nexload-sdk/payload-operations/errors` | Universal (Browser/Node) | Error boundaries and pattern matching: `safe`, `isDefinedError`, `CMSOperationError`, `isCMSOperationError`, and types. |
+| `@nexload-sdk/payload-operations/client` | Universal (Browser/Node) | Pure operations client: `createOperationsClient`, `defineClientPlugin`, `InferOperationsClient`, and transport types. Zero `@payloadcms/sdk` dependency. |
+| `@nexload-sdk/payload-operations/cms` | Universal (Browser/Node) | Integrated CMS client: `createCMSClient`, `createPayloadFetchAdapter`, and types. Requires `@payloadcms/sdk` (optional peer). |
+| `@nexload-sdk/payload-operations/plugins/timeout` | Universal (Browser/Node) | Timeout plugin: `timeoutPlugin`, `isTimeoutError`, and `TimeoutPluginOptions`. |
+| `@nexload-sdk/payload-operations/server` | **Node.js / Payload Server Only** | Server endpoint generator: `createPayloadEndpoints`, `CMSOperationError`, `DEFAULT_MAX_BODY_BYTES`, and server types. Never import in client bundles! |
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload 3.86.0 |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Optional peer dependency (verified on SDK 3.86.0; required only for `./cms`) |
+| **Zod** | `>=4.1.0 <5.0.0` | Verified on Zod 4.4.3 |
+| **Module Format** | ESM only | Native ECMAScript Modules (`"type": "module"`) |
+| **Side Effects** | `false` | Tree-shaking enabled across all bundlers |
+
+---
+
+# Production Guides & Recipes
+
+Advanced multi-resource contract patterns, Payload server endpoints with RBAC, transport plugins, safe error matching, Next.js server actions, and troubleshooting.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/guides/
+## Multi-Resource Operations Tree
+
+In real-world applications, operations should be grouped by domain resources instead of maintaining a flat list. `@nexload-sdk/payload-operations` supports arbitrary tree nesting:
+
+```ts
+import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { z } from "zod";
+
+const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (s) => new Date(s),
+  encode: (d) => d.toISOString(),
+});
+
+export const cmsOperations = defineCMSOperations({
+  auth: {
+    login: operation({
+      input: z.object({ email: z.string().email(), password: z.string().min(8) }),
+      output: z.object({ token: z.string(), userId: z.string() }),
+      errors: {
+        INVALID_CREDENTIALS: { status: 401, message: "Invalid email or password." },
+      },
+    }),
+    me: operation({
+      input: z.void(),
+      output: z.object({ email: z.string().email(), id: z.string() }),
+    }),
+  },
+
+  inventory: {
+    checkStock: operation({
+      input: z.object({ sku: z.string() }),
+      output: z.object({ available: z.number().int(), sku: z.string() }),
+    }),
+    reserve: operation({
+      input: z.object({ sku: z.string(), quantity: z.number().int().positive() }),
+      output: z.object({ reservationId: z.string(), expiresAt: dateCodec }),
+      errors: {
+        OUT_OF_STOCK: {
+          status: 409,
+          message: "Insufficient quantity available.",
+          data: z.object({ available: z.number().int().nonnegative() }),
+        },
+      },
+    }),
+  },
+
+  orders: {
+    create: operation({
+      input: z.object({
+        items: z.array(z.object({ sku: z.string(), quantity: z.number().int() })),
+      }),
+      output: z.object({ orderId: z.string(), totalCents: z.number() }),
+      errors: {
+        PAYMENT_FAILED: {
+          status: 402,
+          message: "Payment declined by payment processor.",
+          data: z.object({ gatewayCode: z.string() }),
+        },
+      },
+    }),
+  },
+});
+```
+
+***
+
+## Role-Based Access Control (RBAC) & Overrides
+
+`access.default` is **strictly required** by `createPayloadEndpoints`. If missing, it throws `TypeError: createPayloadEndpoints requires access.default.` at configuration time.
+
+You can specify default permissions and override them on a per-operation basis:
+
+```ts
+import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
+import { cmsOperations } from "./contract";
+
+export const operationEndpoints = createPayloadEndpoints({
+  operations: cmsOperations,
+  access: {
+    // Required default rule: Must be authenticated
+    default: ({ req }) => Boolean(req.user),
+
+    // Granular overrides
+    overrides: {
+      auth: {
+        login: () => true, // Publicly accessible
+      },
+      inventory: {
+        checkStock: () => true, // Public read check
+      },
+      orders: {
+        // Only administrators can perform bulk admin operations
+        create: ({ req }) => req.user?.collection === "users",
+      },
+    },
+  },
+  handlers: { /* ... handlers matching cmsOperations ... */ },
+});
+```
+
+* When access returns `false` for an unauthenticated request, the endpoint returns **HTTP 401 Unauthorized**.
+* When access returns `false` for an authenticated request with insufficient rights, it returns **HTTP 403 Forbidden**.
+
+### Request Body Size Limiting (`maxBodyBytes`)
+
+`createPayloadEndpoints` limits incoming request bodies via `maxBodyBytes` (defaults to `1_048_576` bytes / 1 MiB):
+
+* Validates the incoming `Content-Length` header upfront to reject oversized requests before buffering.
+* Streams the request body while counting bytes, aborting if the limit is exceeded.
+* Oversized requests return **HTTP 413 Payload Too Large** (`PAYLOAD_TOO_LARGE`).
+
+***
+
+## Database Transactions & Local API Handlers
+
+Handlers receive the incoming `req: PayloadRequest`, giving you direct access to `req.payload` for database queries:
+
+> \[!NOTE]
+> **Database Transactions & Local API Invariants:**
+>
+> * **No automatic transactions:** Operations do not automatically begin or commit database transactions. If your operation requires transactional integrity, manage transactions explicitly using Payload's transaction API.
+> * **Local API `overrideAccess: true`:** By default, Payload 3 `req.payload` Local API calls run with `overrideAccess: true`. If collection-level access control must be enforced for the current user, pass `{ overrideAccess: false, req }` in each Local API call.
+
+```ts
+handlers: {
+  orders: {
+    create: async ({ input, errors, req }) => {
+      // 1. Validate permissions and inventory
+      const outOfStockItems: string[] = [];
+
+      for (const item of input.items) {
+        const stockRecord = await req.payload.find({
+          collection: "inventory",
+          where: { sku: { equals: item.sku } },
+          limit: 1,
+          req,
+        });
+
+        if ((stockRecord.docs[0]?.quantity ?? 0) < item.quantity) {
+          outOfStockItems.push(item.sku);
+        }
+      }
+
+      if (outOfStockItems.length > 0) {
+        throw errors.OUT_OF_STOCK({
+          data: { available: 0 },
+        });
+      }
+
+      // 2. Persist order with caller user context
+      const newOrder = await req.payload.create({
+        collection: "orders",
+        data: {
+          items: input.items,
+          customer: req.user?.id,
+          status: "confirmed",
+        },
+        req,
+      });
+
+      return {
+        orderId: String(newOrder.id),
+        totalCents: 5000,
+      };
+    },
+  },
+}
+```
+
+***
+
+## Codec Wire Model & Serialization
+
+`@nexload-sdk/payload-operations` uses a bidirectional Zod codec architecture on the wire:
+
+* **Handler output is encoded:** The handler returns `z.output<output>`. The server encodes this output using `z.encodeAsync(output, result)`. Unknown keys on `z.object` schemas are automatically stripped, preventing database internals or secret properties from leaking to callers (`z.looseObject` or `.passthrough()` enables passing extra keys as an explicit opt-in).
+* **Client decodes:** The client decodes the JSON response with `z.decodeAsync(output, json)`, reconstructing rich types like `Date`.
+* **Defined errors are encoded/decoded identically:** Defined error `data` schemas undergo the same `z.encodeAsync` on the server and `z.decodeAsync` on the client.
+* **Client sends original input:** The client pre-validates input with `safeParseAsync` (rejecting invalid calls upfront with 422 `INPUT_VALIDATION_FAILED`), then serializes and sends the caller's original input value (`z.input`). Defaults and transforms execute once on the server. The caller's input must be JSON-serializable.
+
+### Codec Safety Rule for Outputs
+
+Because outputs are encoded via `z.encodeAsync`, output schemas and defined-error `data` schemas must be **codec-safe**:
+
+* Standard types (`z.string()`, `z.number()`, `z.boolean()`, `z.object()`, `z.array()`)
+* Checks and overwrites (`z.string().trim()`, `z.string().toLowerCase()`)
+* Symmetrical codecs (`z.codec(wireSchema, targetSchema, { decode, encode })`)
+
+> \[!CAUTION]
+> Unidirectional `.transform()` calls in output or error schemas cannot be encoded by `z.encodeAsync`. Returning such a schema from a handler causes the server to fail with **500 INTERNAL\_SERVER\_ERROR**. Always use `z.codec` for transformations in output schemas.
+
+### Handling Dates with `z.codec`
+
+To pass JavaScript `Date` instances between server handlers and client callers:
+
+```ts
+import { operation } from "@nexload-sdk/payload-operations";
+import { z } from "zod";
+
+export const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (isoString) => new Date(isoString),
+  encode: (dateObj) => dateObj.toISOString(),
+});
+
+export const getEvent = operation({
+  input: z.object({ id: z.string() }),
+  output: z.object({
+    id: z.string(),
+    scheduledAt: dateCodec, // Handler returns Date; wire sends ISO string; client receives Date
+  }),
+});
+```
+
+***
+
+## Client Transport Plugins
+
+The client uses an extensible middleware pipeline (`CMSClientPlugin`) that wraps every fetch request for both custom operations and native Payload SDK methods:
+
+### 1. Built-in Timeout Plugin
+
+Enforces strict client-side timeout thresholds with automatic `AbortSignal` management:
+
+```ts
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
+
+const cms = createCMSClient({
+  operations: cmsOperations,
+  payload: { baseURL: "https://cms.example.com" },
+  plugins: [
+    timeoutPlugin({ timeout: 5_000 }), // 5-second timeout
+  ],
+});
+```
+
+### 2. Custom Authorization Bearer Plugin
+
+Automatically attaches JWT tokens to outgoing requests:
+
+```ts
+import { defineClientPlugin } from "@nexload-sdk/payload-operations/client";
+
+export const authBearerPlugin = (getToken: () => string | null) =>
+  defineClientPlugin({
+    name: "auth-bearer",
+    wrapTransport: (next) => (request) => {
+      const token = getToken();
+      if (!token) return next(request);
+
+      const headers = new Headers(request.init.headers);
+      headers.set("Authorization", `Bearer ${token}`);
+
+      return next({
+        ...request,
+        init: { ...request.init, headers },
+      });
+    },
+  });
+```
+
+### 3. Distributed Tracing & Metrics Plugin
+
+Inspect request latency and differentiate operation calls from native Payload SDK calls:
+
+```ts
+import { defineClientPlugin } from "@nexload-sdk/payload-operations/client";
+
+export const tracingPlugin = defineClientPlugin({
+  name: "tracing",
+  wrapTransport: (next) => async (request) => {
+    const started = performance.now();
+    const response = await next(request);
+    const duration = performance.now() - started;
+
+    if (request.source === "operation" && request.operation) {
+      console.log(`[Op: ${request.operation.path}] took ${duration.toFixed(2)}ms`);
+    }
+
+    return response;
+  },
+});
+```
+
+### 4. Pure Operations Client (Without Payload SDK)
+
+If your frontend or BFF only calls custom operations and does not need the native Payload SDK:
+
+```ts
+import { createOperationsClient } from "@nexload-sdk/payload-operations/client";
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
+
+const client = createOperationsClient({
+  baseURL: "https://cms.example.com",
+  basePath: "/api/operations",
+  operations: cmsOperations,
+  plugins: [timeoutPlugin({ timeout: 5_000 })],
+});
+
+const stock = await client.inventory.checkStock({ sku: "TSHIRT-1" });
+```
+
+***
+
+## Safe Error Pattern-Matching
+
+Instead of messy `try/catch` blocks, use the `safe()` tuple utility. It differentiates declared business errors from catastrophic framework failures:
+
+```ts
+import { isDefinedError, isTimeoutError, safe } from "@nexload-sdk/payload-operations";
+
+const [error, reservation, isDefined] = await safe(
+  cms.operations.inventory.reserve({
+    sku: "MACBOOK-M3",
+    quantity: 1,
+  })
+);
+
+// 1. Discriminated domain errors (statically typed by contract)
+if (isDefined && isDefinedError(error, "OUT_OF_STOCK")) {
+  console.warn("Out of stock! Available units:", error.data.available);
+  return;
+}
+
+// 2. Client timeout error
+if (isTimeoutError(error)) {
+  console.error("The operation timed out after 5 seconds.");
+  return;
+}
+
+// 3. Catastrophic errors (network failure, 500 server crash, malformed response)
+if (error !== null || !reservation) {
+  console.error("Unexpected error:", error);
+  return;
+}
+
+// 4. Success path (fully typed output)
+console.log("Reserved successfully! ID:", reservation.reservationId);
+```
+
+***
+
+## Next.js App Router Integration (Server Actions)
+
+Consume operations seamlessly in Next.js Server Actions with zero hydration overhead:
+
+```ts
+"use server";
+
+import { cms } from "@/lib/cms";
+import { isDefinedError, safe } from "@nexload-sdk/payload-operations";
+import { revalidatePath } from "next/cache";
+
+export async function placeOrderAction(formData: FormData) {
+  const sku = String(formData.get("sku"));
+  const quantity = Number(formData.get("quantity"));
+
+  const [error, order, isDefined] = await safe(
+    cms.operations.orders.create({
+      items: [{ sku, quantity }],
+    })
+  );
+
+  if (isDefined) {
+    if (isDefinedError(error, "PAYMENT_FAILED")) {
+      return { ok: false, error: "Payment was declined by payment gateway." };
+    }
+  }
+
+  if (error) {
+    return { ok: false, error: "An unexpected error occurred." };
+  }
+
+  revalidatePath("/orders");
+  return { ok: true, orderId: order.orderId };
+}
+```
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. `INPUT_VALIDATION_FAILED` (No Network Request Sent)
+
+Input validation happens on the client before the request is dispatched. If your client method throws or rejects immediately, check the Zod schema requirements (e.g. required string length, email regex, integer bounds).
+
+### 2. Endpoint Responds with 401 or 403
+
+`access.default` is required. The default access policy determines baseline permissions for all operations. If access returns `false` and `req.user` is absent, the endpoint returns **401 Unauthorized**. If `req.user` is present, it returns **403 Forbidden**. To make an operation publicly accessible, add an explicit override:
+
+```ts
+access: {
+  default: ({ req }) => Boolean(req.user),
+  overrides: {
+    auth: { login: () => true },
+  },
+}
+```
+
+### 3. Route Returns 404 Not Found
+
+* Verify that both client (`createCMSClient` or `createOperationsClient`) and `createPayloadEndpoints` use the identical `basePath` (e.g. `"/api/operations"`).
+* Make sure you spread `...operationEndpoints` into Payload's `endpoints` array in `payload.config.ts`.
+* Ensure `baseURL` contains only the origin and API mount, without query strings or trailing hash tags.
+
+### 4. Browser CORS Pre-flight (`OPTIONS`) Failure
+
+`createPayloadEndpoints` generates matching `OPTIONS` endpoints for every operation. Ensure your Payload server has CORS headers configured for your client origin:
+
+```ts
+// payload.config.ts
+export default buildConfig({
+  cors: ["https://myfrontend.com"],
+  csrf: ["https://myfrontend.com"],
+  endpoints: [...operationEndpoints],
+});
+```
+
+### 5. Domain Error Was Downgraded to Internal Error
+
+If a handler throws an error object that doesn't match the contract's defined status or code, the server boundary deliberately downgrades it to an `INTERNAL_ERROR` to protect internal stack traces from leaking. **Always use the handler's injected error factories**:
+
+```ts
+// Correct
+throw errors.OUT_OF_STOCK({ data: { available: 5 } });
+
+// Incorrect
+throw new Error("Out of stock");
+```
+
+### 6. Endpoint Responds with 413 Payload Too Large
+
+`createPayloadEndpoints` enforces `maxBodyBytes` (default 1 MiB / `1_048_576`). Requests exceeding this limit return `PAYLOAD_TOO_LARGE`. If your endpoint legitimately requires larger payloads, increase `maxBodyBytes`:
+
+```ts
+createPayloadEndpoints({
+  operations,
+  handlers,
+  access: { default: () => true },
+  maxBodyBytes: 10_485_760, // 10 MiB
+});
+```
+
+### 7. Server Responds with 500 During Response Encoding
+
+If your handler output schema uses a unidirectional `.transform()`, `z.encodeAsync` cannot invert it to JSON wire format and throws an error, resulting in a 500 `INTERNAL_SERVER_ERROR`. Replace unidirectional transforms in output schemas with `z.codec(wireSchema, targetSchema, { decode, encode })`.
+
+***
+
+## Migrating to 2.0
+
+`@nexload-sdk/payload-operations` 2.0 introduces secure-by-default execution, strict boundary isolation, bidirectional codecs, and a lightweight standalone client.
+
+### New in 2.0
+
+* **Pure client entry (`@nexload-sdk/payload-operations/client`):** Standalone RPC client via `createOperationsClient` with zero runtime dependency on `payload` or `@payloadcms/sdk`.
+* **Codec wire model:** Symmetrical output and defined-error encoding via `z.encodeAsync`, automatically dropping unknown `z.object` keys to prevent sensitive data leaks.
+* **Bidirectional Date handling:** Full support for `Date` instances using `z.codec(z.iso.datetime(), z.date(), { decode, encode })`.
+* **Request body limits:** Built-in `maxBodyBytes` (default 1 MiB) with fast-fail `Content-Length` checks and stream byte counting returning 413 `PAYLOAD_TOO_LARGE`.
+* **Enforced access control:** `access.default` is required at config time; missing it throws `TypeError`.
+* **Complete test coverage:** Full automated test suite for contract traversal, access evaluation, codec roundtrips, and SQLite integration.
+
+### Breaking Changes & Migration Steps
+
+#### 1. `createCMSClient` moved to `@nexload-sdk/payload-operations/cms`
+
+The integrated client that wraps the native `PayloadSDK` now lives in its own `./cms` subpath:
+
+Before (1.0):
+
+```ts
+// Exported from package root in 1.0 (removed from root in 2.0)
+// import { createCMSClient } from "<package-root>";
+```
+
+After (2.0):
+
+```ts
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
+```
+
+#### 2. `timeoutPlugin` moved to `@nexload-sdk/payload-operations/plugins/timeout`
+
+The timeout plugin is no longer exported from the package root:
+
+Before (1.0):
+
+```ts
+// Exported from package root in 1.0 (removed from root in 2.0)
+// import { timeoutPlugin } from "<package-root>";
+```
+
+After (2.0):
+
+```ts
+import { timeoutPlugin } from "@nexload-sdk/payload-operations/plugins/timeout";
+```
+
+#### 3. `createOperationsClient` is public in `@nexload-sdk/payload-operations/client`
+
+For clients that do not need the Payload REST SDK, import `createOperationsClient` from `./client`:
+
+Before (1.0):
+
+```ts
+// In 1.0, only createCMSClient was available (requiring @payloadcms/sdk)
+const cms = createCMSClient({
+  operations,
+  payload: { baseURL: "https://cms.example.com" },
+});
+```
+
+After (2.0):
+
+```ts
+// Pure RPC client with zero @payloadcms/sdk dependency
+import { createOperationsClient } from "@nexload-sdk/payload-operations/client";
+
+const client = createOperationsClient({
+  baseURL: "https://cms.example.com",
+  operations,
+});
+```
+
+#### 4. Client sends original input value
+
+Clients pre-validate input with `safeParseAsync` and then serialize and transmit the original input value (`z.input`). Defaults and transformations execute once on the server. Input values must be JSON-serializable:
+
+Before (1.0):
+
+```ts
+// Client transformed values before transmission
+const input = z.string().transform((val) => val.trim());
+```
+
+After (2.0):
+
+```ts
+// Transforms and defaults execute once on the server; caller passes original input
+const input = z.string().trim();
+```
+
+#### 5. `access.default` is required in `createPayloadEndpoints`
+
+Omitting `access.default` now throws a `TypeError` at config time instead of silently defaulting to `Boolean(req.user)`:
+
+Before (1.0):
+
+```ts
+// access.default was optional
+const endpoints = createPayloadEndpoints({
+  operations,
+  handlers,
+});
+```
+
+After (2.0):
+
+```ts
+// access.default is strictly required
+const endpoints = createPayloadEndpoints({
+  operations,
+  handlers,
+  access: {
+    default: ({ req }) => Boolean(req.user),
+  },
+});
+```
+
+#### 6. Handler return type is `z.output<output>` and is encoded
+
+Handlers must return `z.output<output>`. The server encodes the result with `z.encodeAsync`, and unrecognized keys on `z.object` schemas are dropped:
+
+Before (1.0):
+
+```ts
+// Handlers could return extra unmodeled fields that leaked to the client
+handlers: {
+  getUser: async () => ({
+    id: "user-1",
+    email: "user@example.com",
+    passwordHash: "$2b$10$...", // leaked!
+  }),
+}
+```
+
+After (2.0):
+
+```ts
+// Handler returns z.output<output>; server encodes and drops unmodeled keys
+handlers: {
+  getUser: async () => ({
+    id: "user-1",
+    email: "user@example.com",
+  }),
+}
+```
+
+#### 7. Output and error-data schemas must be codec-safe
+
+Unidirectional `.transform()` calls in output or error-data schemas cannot be encoded by `z.encodeAsync` (which causes a 500 error). Use `z.codec` instead:
+
+Before (1.0):
+
+```ts
+// One-way transform in output schema
+output: z.object({
+  expiresAt: z.iso.datetime().transform((s) => new Date(s)),
+})
+```
+
+After (2.0):
+
+```ts
+// Bidirectional codec using z.codec
+const dateCodec = z.codec(z.iso.datetime(), z.date(), {
+  decode: (s) => new Date(s),
+  encode: (d) => d.toISOString(),
+});
+
+output: z.object({
+  expiresAt: dateCodec,
+})
+```
+
+#### 8. Zod floor raised to `>=4.1.0 <5.0.0`
+
+Codec encoding and decoding require Zod 4.1+:
+
+Before (1.0):
+
+```json
+"peerDependencies": {
+  "zod": ">=4.0.0 <5.0.0"
+}
+```
+
+After (2.0):
+
+```json
+"peerDependencies": {
+  "zod": ">=4.1.0 <5.0.0"
+}
+```
+
+#### 9. `@payloadcms/sdk` is an optional peer dependency
+
+`@payloadcms/sdk` is only required if you import `@nexload-sdk/payload-operations/cms`:
+
+Before (1.0):
+
+```bash
+# @payloadcms/sdk was a required peer dependency for all use cases
+pnpm add @payloadcms/sdk
+```
+
+After (2.0):
+
+```bash
+# Install @payloadcms/sdk only if using createCMSClient from ./cms
+pnpm add @payloadcms/sdk
+```
+
+#### 10. Request body size limit (`maxBodyBytes`)
+
+Incoming request bodies exceeding `maxBodyBytes` (default 1 MiB) are now rejected with HTTP 413:
+
+Before (1.0):
+
+```ts
+// Unbounded body reads could cause server out-of-memory errors
+createPayloadEndpoints({ operations, handlers });
+```
+
+After (2.0):
+
+```ts
+// Bodies over maxBodyBytes (default 1_048_576 bytes) return 413 PAYLOAD_TOO_LARGE
+createPayloadEndpoints({
+  operations,
+  handlers,
+  access: { default: () => true },
+  maxBodyBytes: 2_097_152, // Custom 2 MiB limit (optional)
+});
+```
+
+***
+
+## Migration from Legacy Custom Handlers
+
+When migrating from ad-hoc Payload REST routes:
+
+1. Move request/response validation logic into `operation({ input, output, errors })`.
+2. Replace manual `new Response(JSON.stringify(...))` with standard async return values.
+3. Remove manual `req.json()` calls; input is parsed and injected directly into `({ input })`.
+
+---
+
+# Overview & Quick Start
+
+Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
+**Package:** `@nexload-sdk/payload-operations`
+
+**Current released version:** `1.0.0`
+
+Typed custom operations for Payload CMS with the native Payload REST SDK.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-operations) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-operations)
+
+`@nexload-sdk/payload-operations` defines a single shared Zod contract, mounts it as secure Payload CMS REST endpoints, and exposes matching, fully typed RPC client methods beside the native `PayloadSDK`.
+
+Use it for application commands, domain actions, and multi-step workflows that do not fit Payload's default collection CRUD API. Keep ordinary document reads and writes on `cms.payload`; put project-owned business operations under `cms.operations`.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
+import { z } from "zod";
+
+// 1. Define shared contract
+export const operations = defineCMSOperations({
+  inventory: {
+    check: operation({
+      input: z.object({ sku: z.string() }),
+      output: z.object({ available: z.number().int() }),
+    }),
+  },
+});
+
+// 2. Consume from frontend or server action with full type inference
+const cms = createCMSClient({
+  operations,
+  payload: { baseURL: "https://cms.example.com/api" },
+});
+
+const stock = await cms.operations.inventory.check({ sku: "TSHIRT-BLK-M" });
+console.log(stock.available); // typed as number
+```
+
+***
+
+## What You Get
+
+* **Single Source of Truth**: Define input, output, and domain error schemas once; TypeScript infers both client and server types automatically.
+* **Hierarchical Operation Trees**: Group operations logically (`auth.login`, `orders.create`, `inventory.reserve`) without flat route chaos.
+* **Asynchronous Zod Parsing**: Full support for input transformations, client-side pre-flight sanitization, and output projections.
+* **Discriminated Domain Errors**: Explicit error definitions with typed data payloads, status codes, and deterministic client pattern matching.
+* **Native Payload Integration**: Handlers receive the authentic `PayloadRequest`, providing full access to `req.payload.find`, `req.payload.create`, and user session context.
+* **Shared Transport Pipeline**: A unified fetch client with plugin support (timeouts, custom Bearer authentication, distributed tracing) shared between custom operations and the official Payload SDK.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+
+# bun
+bun add @nexload-sdk/payload-operations payload @payloadcms/sdk zod
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Required for server runtime and AbortSignal support |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Server endpoints & Local API engine |
+| **`@payloadcms/sdk`** | `>=3.85.0 <4.0.0` | Optional peer dependency (required for `./cms`) |
+| **Zod** | `>=4.1.0 <5.0.0` | Contract schema validation |
+
+Keep `payload` and `@payloadcms/sdk` pinned to compatible versions. The package is ESM-only and side-effect free.
+
+***
+
+## Core Concepts & Architecture
+
+### 1. The Contract Model (`@nexload-sdk/payload-operations/contract`)
+
+The contract is a shared, platform-neutral module containing only Zod schemas and metadata. It has **zero dependencies on Payload server internals**, making it 100% safe to import in browser bundles, Next.js Server Components, mobile clients, and worker threads.
+
+### 2. Dual Boundary Validation & Codec Wire Model
+
+* **Client Boundary**: Validates input before sending a network request. If invalid, fails immediately with `INPUT_VALIDATION_FAILED` without unnecessary HTTP traffic. The client sends the original JSON-serializable input (`z.input`), ensuring defaults and transforms execute once, on the server.
+* **Server Boundary**: Re-validates the original input inside the Payload endpoint before executing the handler, protecting backend business logic. The handler returns `z.output<output>`. The server encodes output using `z.encodeAsync(output, result)`, dropping unknown keys so internal or secret fields never leak (`z.looseObject` allows extras as an explicit opt-in). Output and error-data schemas must be codec-safe (e.g. `z.codec` for dates). The client decodes the JSON response with `z.decodeAsync`.
+
+### 3. Server Endpoints Mount (`@nexload-sdk/payload-operations/server`)
+
+`createPayloadEndpoints` transforms your contract into Payload-compatible `Endpoint` definitions:
+
+* `POST` handlers for each operation route (e.g. `/api/operations/inventory/reserve`).
+* `OPTIONS` handlers to support CORS pre-flight across frontend origins.
+* Required access control: `access.default` is required (e.g. `({ req }) => Boolean(req.user)`), throwing a `TypeError` at config time if omitted. Granular per-operation access overrides can be specified in `access.overrides`.
+* Request body limits: Incoming request bodies are bounded by `maxBodyBytes` (defaults to 1 MiB / `1_048_576`), rejecting oversized payloads with 413 `PAYLOAD_TOO_LARGE`.
+
+***
+
+## Quick Start: End-to-End Implementation
+
+### Step 1: Define the Shared Contract
+
+Create `src/operations/contract.ts` (shared between client and server):
+
+```ts
+import { defineCMSOperations, operation } from "@nexload-sdk/payload-operations";
+import { z } from "zod";
+
+export const cmsOperations = defineCMSOperations({
+  orders: {
+    create: operation({
+      input: z.object({
+        sku: z.string().min(1),
+        quantity: z.number().int().positive(),
+      }),
+      output: z.object({
+        orderId: z.string(),
+        createdAt: z.string(),
+        totalAmount: z.number(),
+      }),
+      errors: {
+        OUT_OF_STOCK: {
+          status: 409,
+          message: "Selected product is out of stock.",
+          data: z.object({ available: z.number().int().nonnegative() }),
+        },
+      },
+    }),
+  },
+});
+```
+
+### Step 2: Implement Handlers in Payload Config
+
+In `src/payload.config.ts`, mount the operations into Payload's `endpoints` array:
+
+```ts
+import { buildConfig } from "payload";
+import { createPayloadEndpoints } from "@nexload-sdk/payload-operations/server";
+import { cmsOperations } from "./operations/contract";
+
+const operationEndpoints = createPayloadEndpoints({
+  operations: cmsOperations,
+  basePath: "/api/operations",
+  access: {
+    // Required: access.default is mandatory
+    default: ({ req }) => Boolean(req.user),
+  },
+  handlers: {
+    orders: {
+      create: async ({ input, errors, req }) => {
+        // Query database via Payload Local API
+        const item = await req.payload.find({
+          collection: "inventory",
+          where: { sku: { equals: input.sku } },
+          limit: 1,
+        });
+
+        const stock = item.docs[0]?.stock ?? 0;
+        if (stock < input.quantity) {
+          throw errors.OUT_OF_STOCK({ data: { available: stock } });
+        }
+
+        // Create order document
+        const order = await req.payload.create({
+          collection: "orders",
+          data: {
+            sku: input.sku,
+            quantity: input.quantity,
+            customer: req.user?.id,
+          },
+        });
+
+        return {
+          orderId: String(order.id),
+          createdAt: new Date().toISOString(),
+          totalAmount: input.quantity * 25,
+        };
+      },
+    },
+  },
+});
+
+export default buildConfig({
+  // Mount custom operations endpoints
+  endpoints: [...operationEndpoints],
+  // ... collections, db adapter, etc.
+});
+```
+
+### Step 3: Instantiate and Call from Client
+
+In your frontend application or Next.js App Router:
+
+```ts
+import { isDefinedError, safe } from "@nexload-sdk/payload-operations";
+import { createCMSClient } from "@nexload-sdk/payload-operations/cms";
+import { cmsOperations } from "./operations/contract";
+
+const cms = createCMSClient({
+  operations: cmsOperations,
+  basePath: "/api/operations",
+  payload: {
+    baseURL: "https://cms.example.com",
+    baseInit: { credentials: "include" },
+  },
+});
+
+export async function submitOrder() {
+  const [error, order, isDefined] = await safe(
+    cms.operations.orders.create({
+      sku: "ITEM-100",
+      quantity: 2,
+    })
+  );
+
+  if (isDefined && isDefinedError(error, "OUT_OF_STOCK")) {
+    alert(`Only ${error.data.available} items left in stock.`);
+    return;
+  }
+
+  if (error) {
+    alert("Unexpected order failure.");
+    return;
+  }
+
+  console.log("Order confirmed:", order.orderId);
+}
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Recipes](./guides/) for multi-resource trees, plugins, transactions, and Next.js Server Actions.
+* View the complete [API Reference & Signatures](./api/) for all exported types and functions.
+
+---
+
+# API Reference & Compatibility
+
+Public preset exports and runtime constraints.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/api/
+The inventory is generated from the package source exports.
+
+## Functions
+
+### `nexloadPreset`
+
+```ts
+nexloadPreset(options?: NexloadPresetOptions) => Plugin[]
+```
+
+**Exported from:** `@nexload-sdk/payload-preset`
+
+Public function exported by @nexload-sdk/payload-preset.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts#L23)
+
+### `payloadLoggerPlugin`
+
+```ts
+payloadLoggerPlugin() => Plugin
+```
+
+**Exported from:** `@nexload-sdk/payload-preset`
+
+Public function exported by @nexload-sdk/payload-preset.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/logger.ts#L5)
+
+### `persianPlugin`
+
+```ts
+persianPlugin() => Plugin
+```
+
+**Exported from:** `@nexload-sdk/payload-preset`
+
+Public function exported by @nexload-sdk/payload-preset.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/persian.ts#L91)
+
+## Types
+
+### `AuditOperation`
+
+```ts
+type AuditOperation = "create" | "update" | "delete" | "read" | "auth";
+```
+
+**Exported from:** `@nexload-sdk/payload-preset`
+
+Public type exported by @nexload-sdk/payload-preset.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L12)
+
+### `AuditPluginOptions`
+
+```ts
+type AuditPluginOptions = {
+  collections?: "all" | string[];
+  exclude?: string[];
+  operations?: AuditOperation[];
+  logger?: Pick<Logger, "info">;
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-preset`
+
+Public type exported by @nexload-sdk/payload-preset.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/audit-plugin.ts#L14)
+
+### `NexloadPresetOptions`
+
+```ts
+type NexloadPresetOptions = {
+  persian?: boolean
+  fields?: false | PayloadFieldsPluginOptions
+  audit?: false | AuditPluginOptions
+  logger?: boolean
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-preset`
+
+Public type exported by @nexload-sdk/payload-preset.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts#L16)
+
+## Exported Factories Summary
+
+`nexloadPreset(options?: NexloadPresetOptions): Plugin[]` returns the enabled plugins. `persianPlugin()` and `payloadLoggerPlugin()` are also available separately. The package re-exports `AuditOperation` and `AuditPluginOptions`, and exports `NexloadPresetOptions`.
+
+Import `payloadFieldsPlugin` from `@nexload-sdk/payload-fields` and `auditPlugin` from `@nexload-sdk/payload-hooks`. This package is ESM only and intended for Node.js Payload configuration.
+
+---
+
+# Production Guides & Recipes
+
+Options, merge rules, ordering, and logging for the Payload preset.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/guides/
+## Options
+
+| Option | Default | Behavior |
+| --- | --- | --- |
+| `persian` | `true` | Persian admin defaults; set `false` to disable. |
+| `logger` | `true` | Bridge SDK options when `config.logger` is unset; set `false` to disable. |
+| `fields` | `{}` | Options for `payloadFieldsPlugin`; set `false` to disable. |
+| `audit` | `{}` | Options for `auditPlugin`; set `false` to disable. |
+
+`payloadFieldsPlugin` runs at order 900 and `auditPlugin` at 1000. Ordinary host plugins run first, so their collections are available to both. The preset does not add, remove, or change collection fields. Define them with [Payload Schema](/nexload-sdk/packages/payload-schema/) and [Payload Fields](/nexload-sdk/packages/payload-fields/).
+
+## Persian merge rules
+
+The Persian plugin preserves host languages, fallback language, and default timezone. It adds Persian translations if absent, defaults the fallback to `fa`, and adds `Asia/Tehran` to supported timezones. It sets RTL only on existing `fa` locale objects without an explicit RTL value. It never creates localization or adds locales.
+
+## Logger bridge
+
+Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, the plugin uses the options form from `getPayloadLoggerConfig()`; Payload creates its own Pino logger. It has no `success()` method and maps the SDK `success` threshold to `warn`. Payload writes JSON in development unless `configureLogger({ destination })` supplies a stream. Rebuild the Payload config after forced SDK reconfiguration. See the [logger API](/nexload-sdk/packages/logger/api/).
+
+## Audit boundaries
+
+Audit reads are off by default; auth is on. The implicit default users collection is created after plugins run and is not audited: declare it explicitly. Write events are emitted before transaction commit and may describe rolled-back changes. See [Payload Hooks](/nexload-sdk/packages/payload-hooks/) for options and events.
+
+The `getPayloadLoggerConfig()` bridge maps the SDK `success` threshold to Payload `warn`. Payload’s logger has no `success()` method.
+
+---
+
+# Overview & Quick Start
+
+Compose Payload configuration with Nexload defaults.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
+**Package:** `@nexload-sdk/payload-preset`
+
+**Current released version:** `0.0.0`
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+
+`nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
+
+## Installation
+
+```bash
+pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
+```
+
+## Quick Start
+
+```ts
+import { configureLogger } from "@nexload-sdk/logger";
+import { nexloadPreset } from "@nexload-sdk/payload-preset";
+import { buildConfig } from "payload";
+
+configureLogger({ service: "shop-cms" });
+export default buildConfig({
+  // Add db, secret, and collections here.
+  plugins: [...nexloadPreset()],
+});
+```
+
+Configure the logger before `buildConfig()`. Define collections explicitly, including the auth collection. See [guides](./guides/) and the [API reference](./api/).
+
+---
+
+# API Reference & Compatibility
+
+Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema.
+
+**Topic:** api
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `defineEntity`
+
+```ts
+defineEntity<const TName extends string, const TFields extends EntityFieldMap, TIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>, TRelationshipIdSchema extends AnyCanonicalSchema = z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>>(options: DefineEntityOptions<TName, TFields, TIdSchema, TRelationshipIdSchema>) => EntityDefinition<TName, BindRelationshipSchemas<TFields, TRelationshipIdSchema>, TIdSchema>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public function exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/entity/define-entity.ts#L353)
+
+### `isPayloadSchemaError`
+
+```ts
+isPayloadSchemaError(error: unknown) => error is PayloadSchemaError<PayloadSchemaErrorCode>
+isPayloadSchemaError<TCode extends PayloadSchemaErrorCode>(error: unknown, code: TCode) => error is PayloadSchemaError<TCode>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public function exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L114)
+
+### `payloadFields`
+
+```ts
+payloadFields<TFields extends EntityFieldMap>(entity: EntityDefinition<string, TFields, AnyCanonicalSchema>) => EntityPayloadFacade<TFields>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Compiles an entity created by `defineEntity()` into Payload field configs.
+Node / Payload config only: the compiled fields carry hooks that throw Payload's `ValidationError`.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/payload/payload-fields.ts#L18)
+
+## Classes
+
+### `PayloadSchemaError`
+
+```ts
+class PayloadSchemaError
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public classe exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L76)
+
+## Constants
+
+### `defaultIdSchema`
+
+```ts
+defaultIdSchema: z.ZodUnion<readonly [z.ZodString, z.ZodNumber]>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public constant exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/default-id.ts#L3)
+
+### `field`
+
+```ts
+field: Readonly<{ text: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<"text", NullableSchema<string, TNullable>, TextField, TRequired>; textarea: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextareaFieldOptions<TNullable, TRequired>) => FieldDefinition<"textarea", NullableSchema<string, TNullable>, TextareaField, TRequired>; slug: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: TextFieldOptions<TNullable, TRequired>) => FieldDefinition<"slug", NullableSchema<string, TNullable>, TextField, TRequired>; number: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: NumberFieldOptions<TNullable, TRequired>) => FieldDefinition<"number", NullableSchema<number, TNullable>, NumberField, TRequired>; money: <TNullable extends boolean = false, const TRequired extends boolean = false>(options: MoneyFieldOptions<TNullable, TRequired>) => FieldDefinition<"money", NullableSchema<number, TNullable>, NumberField, TRequired>; boolean: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: BooleanFieldOptions<TNullable, TRequired>) => FieldDefinition<"boolean", NullableSchema<boolean, TNullable>, CheckboxField, TRequired>; date: <TNullable extends boolean = false, const TRequired extends boolean = false>(options?: DateFieldOptions<TNullable, TRequired>) => FieldDefinition<"date", NullableSchema<string, TNullable>, DateField, TRequired>; select: <const TValues extends readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, const TRequired extends boolean = false>(options: SelectFieldOptions<TValues, THasMany, TNullable, TRequired>) => FieldDefinition<"select", NullableSchema<THasMany extends true ? TValues[number][] : TValues[number], TNullable>, SelectField, TRequired>; relationship: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<"relationship", TRelationTo, THasMany, TNullable, TIdSchema, RelationshipField, TRequired>; upload: <const TRelationTo extends string | readonly string[], THasMany extends boolean = false, TNullable extends boolean = false, TIdSchema extends AnyCanonicalSchema | undefined = undefined, const TRequired extends boolean = false>(options: UploadFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>) => RelationshipFieldDefinition<"upload", TRelationTo, THasMany, TNullable, TIdSchema, UploadField, TRequired>; group: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: GroupFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<"group", GroupCanonicalSchema<TFields, TNullable>, NamedGroupField, TRequired>; array: <const TFields extends EntityFieldMap, TNullable extends boolean = false, const TRequired extends boolean = false>(options: ArrayFieldOptions<TFields, TNullable, TRequired>) => FieldDefinition<"array", ArrayCanonicalSchema<TFields, TNullable>, ArrayField, TRequired>; blocks: <const TBlocks extends Record<string, BlockDefinitionOptions>, TNullable extends boolean = false, const TRequired extends boolean = false>(options: BlocksFieldOptions<TBlocks, TNullable, TRequired>) => FieldDefinition<"blocks", BlocksCanonicalSchema<TBlocks, TNullable>, BlocksField, TRequired>; richText: <TSchema extends AnyCanonicalSchema, TNullable extends boolean = false, const TRequired extends boolean = false>(options: RichTextFieldOptions<TSchema, TNullable, TRequired>) => FieldDefinition<"richText", TNullable extends true ? z.ZodNullable<TSchema> : TSchema, RichTextField, TRequired>; native: <const TPayloadField extends NativePayloadInput | PayloadDataField, TSchema extends AnyCanonicalSchema | undefined = undefined>(options: NativeFieldOptions<TPayloadField, TSchema>) => FieldDefinition<"native", TSchema, TPayloadField extends PayloadDataField ? TPayloadField : Extract<PayloadDataField, { type: TPayloadField["type"]; }>, TPayloadField extends { required: true; } ? true : false>; }>
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public constant exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/fields/index.ts#L994)
+
+## Interfaces
+
+### `ArrayFieldOptions`
+
+```ts
+interface ArrayFieldOptions<
+  TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  fields: TFields
+  required?: TRequired
+  nullable?: TNullable
+  minRows?: number
+  maxRows?: number
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<ArrayField, "fields" | "maxRows" | "minRows">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L262)
+
+### `BlockDefinitionOptions`
+
+```ts
+interface BlockDefinitionOptions<TFields extends EntityFieldMap = EntityFieldMap> {
+  fields: TFields
+  payload?: NativePayloadExtras<Block, "fields" | "slug">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L277)
+
+### `BlocksFieldOptions`
+
+```ts
+interface BlocksFieldOptions<
+  TBlocks extends Record<string, BlockDefinitionOptions> = Record<string, BlockDefinitionOptions>,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  blocks: TBlocks
+  required?: TRequired
+  nullable?: TNullable
+  minRows?: number
+  maxRows?: number
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<BlocksField, "blocks" | "maxRows" | "minRows">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L282)
+
+### `DefineEntityOptions`
+
+```ts
+interface DefineEntityOptions<
+  TName extends string,
+  TFields extends EntityFieldMap,
+  TIdSchema extends AnyCanonicalSchema,
+  TRelationshipIdSchema extends AnyCanonicalSchema
+> {
+  name: TName
+  fields: TFields
+  idSchema?: TIdSchema
+  relationshipIdSchema?: TRelationshipIdSchema
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L458)
+
+### `EntityDefinition`
+
+```ts
+interface EntityDefinition<
+  TName extends string,
+  TFields extends EntityFieldMap,
+  TIdSchema extends AnyCanonicalSchema
+> {
+  readonly name: TName
+  readonly idSchema: TIdSchema
+  readonly fields: TFields
+  schema<TSchema extends AnyCanonicalSchema>(factory: (context: EntitySchemaContext<TFields>) => TSchema): TSchema
+  inspect(): EntityInspection
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L446)
+
+### `EntityInspection`
+
+```ts
+interface EntityInspection { name: string, fields: EntityInspectionFieldMap }
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L358)
+
+### `EntityPayloadFacade`
+
+```ts
+interface EntityPayloadFacade<TFields extends EntityFieldMap> {
+  all(): Field[]
+  field<TKey extends keyof TFields>(key: TKey): Field
+  pick<const TKeys extends readonly (keyof TFields)[]>(keys: TKeys): Field[]
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema/payload`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L440)
+
+### `EntitySchemaContext`
+
+```ts
+interface EntitySchemaContext<TFields extends EntityFieldMap> {
+  readonly fields: CanonicalSchemaMap<TFields>
+  readonly pick: EntitySchemaPicker<TFields>
+  readonly z: typeof import("zod").z
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L434)
+
+### `EntitySchemaPicker`
+
+```ts
+interface EntitySchemaPicker<TFields extends EntityFieldMap> {
+  <
+    const TKeys extends readonly (keyof CanonicalSchemaMap<TFields>)[],
+    const TOptional extends readonly SelectedKey<TKeys>[] | "all" | "auto" | undefined = undefined,
+    const TRequired extends readonly SelectedKey<TKeys>[] | undefined = undefined
+  >(
+    keys: TKeys,
+    options?: SchemaPickOptions<SelectedKey<TKeys>, TOptional, TRequired>,
+  ): ZodObjectForPickedFields<TFields, TKeys, TOptional, TRequired>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L423)
+
+### `FieldDefinition`
+
+```ts
+interface FieldDefinition<
+  TKind extends string,
+  TSchema extends AnyCanonicalSchema | undefined,
+  TPayloadField extends PayloadDataField,
+  TRequired extends boolean = boolean
+> {
+  readonly kind: TKind
+  readonly schema: TSchema
+  readonly __required?: TRequired
+  readonly __payloadFieldType?: TPayloadField
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L26)
+
+### `GroupFieldOptions`
+
+```ts
+interface GroupFieldOptions<
+  TFields extends EntityFieldMap,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  fields: TFields
+  required?: TRequired
+  nullable?: TNullable
+  defaultValue?: unknown
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<NamedGroupField, "fields">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L249)
+
+### `NativeFieldOptions`
+
+```ts
+interface NativeFieldOptions<
+  TPayloadField extends NativePayloadInput | PayloadDataField = PayloadDataField,
+  TSchema extends AnyCanonicalSchema | undefined = undefined
+> {
+  payload: (TPayloadField extends PayloadDataField
+    ? Omit<TPayloadField, "defaultValue" | "name">
+    : TPayloadField) & { name?: never; defaultValue?: never }
+  schema?: TSchema
+  defaultValue?: TSchema extends AnyCanonicalSchema ? z.input<TSchema> : never
+  dynamicDefaultValue?: Extract<DefaultValue, (...args: never[]) => unknown>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L332)
+
+### `PayloadSchemaErrorDataMap`
+
+```ts
+interface PayloadSchemaErrorDataMap {
+  INVALID_ENTITY_NAME: { received: string }
+  INVALID_ENTITY: { receivedType: string }
+  INVALID_FIELD_NAME: { entity?: string, field: string }
+  RESERVED_FIELD_NAME: { entity?: string, field: string, reservedName: string }
+  INVALID_FIELD_CONFIGURATION: { entity?: string, fieldPath: string, fieldKind: string, reason: string }
+  INVALID_CONSTRAINT_RANGE: {
+    entity?: string
+    fieldPath: string
+    constraint: string
+    minimum?: number | string
+    maximum?: number | string
+  }
+  INVALID_DEFAULT_VALUE: { entity?: string, fieldPath: string, fieldKind: string, issues: SafeIssueSummary[] }
+  CONFLICTING_DEFAULT_CONFIGURATION: {
+    entity?: string
+    fieldPath: string
+    fieldType: string
+    configuredDefaults: readonly ["defaultValue", "dynamicDefaultValue"]
+  }
+  EMPTY_SELECT_VALUES: { entity?: string, fieldPath: string }
+  INVALID_RELATIONSHIP_CONFIGURATION: {
+    entity?: string
+    fieldPath: string
+    reason: string
+    relationTo?: string[]
+  }
+  INVALID_NESTED_FIELD_CONFIGURATION: {
+    entity?: string
+    fieldPath: string
+    reason: string
+    blockingFieldPath?: string
+  }
+  ASYNC_CANONICAL_SCHEMA_UNSUPPORTED: { entity?: string, fieldPath: string, fieldKind: string }
+  RESERVED_PAYLOAD_OPTION: { entity?: string, fieldPath: string, fieldKind: string, option: string }
+  DUPLICATE_PAYLOAD_FIELD_NAME: { entity: string, payloadName: string, fieldPaths: string[] }
+  INVALID_PAYLOAD_FIELD: { entity: string, fieldPath: string, fieldKind: string, reason: string }
+  PAYLOAD_COMPILATION_FAILED: {
+    entity: string
+    fieldPath?: string
+    fieldKind?: string
+    operation: "all" | "field" | "pick"
+    causeName?: string
+  }
+  UNKNOWN_FIELD: { entity: string, field: string, availableFields: string[] }
+  SCHEMA_UNAVAILABLE: {
+    entity: string
+    fieldPath: string
+    fieldKind: string
+    reason: "native-without-schema" | "schema-less-descendant"
+    blockingFieldPath?: string
+  }
+  INVALID_SCHEMA_FACTORY_RESULT: { entity: string, receivedType: string }
+  SCHEMA_DERIVATION_FAILED: { entity: string, causeName?: string }
+  INTERNAL_INVARIANT_VIOLATION: { invariant: string, entity?: string, fieldPath?: string }
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L7)
+
+### `RelationshipFieldOptions`
+
+```ts
+interface RelationshipFieldOptions<
+  TRelationTo extends string | readonly string[],
+  THasMany extends boolean = false,
+  TNullable extends boolean = false,
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  TRequired extends boolean = false
+> {
+  relationTo: TRelationTo
+  hasMany?: THasMany
+  required?: TRequired
+  nullable?: TNullable
+  idSchema?: TIdSchema
+  defaultValue?: MaybeNullable<
+    RelationshipValueForOptions<TRelationTo, THasMany, TIdSchema>,
+    TNullable
+  >
+  dynamicDefaultValue?: DynamicDefaultValue<unknown>
+  payload?: NativePayloadExtras<RelationshipField, "hasMany" | "relationTo">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L156)
+
+### `RichTextFieldOptions`
+
+```ts
+interface RichTextFieldOptions<
+  TSchema extends AnyCanonicalSchema,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  schema: TSchema
+  required?: TRequired
+  nullable?: TNullable
+  defaultValue?: MaybeNullable<z.input<TSchema>, TNullable>
+  dynamicDefaultValue?: DynamicDefaultValue<MaybeNullable<z.input<TSchema>, TNullable>>
+  payload?: NativePayloadExtras<RichTextField>
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L297)
+
+### `SelectFieldOptions`
+
+```ts
+interface SelectFieldOptions<
+  TValues extends readonly string[],
+  THasMany extends boolean = false,
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> {
+  values: TValues
+  labels?: Partial<Record<TValues[number], string>>
+  hasMany?: THasMany
+  required?: TRequired
+  nullable?: TNullable
+  defaultValue?: MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>
+  dynamicDefaultValue?: DynamicDefaultValue<
+    MaybeNullable<THasMany extends true ? TValues[number][] : TValues[number], TNullable>
+  >
+  payload?: NativePayloadExtras<SelectField, "hasMany" | "options">
+}
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public interface exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L138)
+
+## Types
+
+### `BooleanFieldOptions`
+
+```ts
+type BooleanFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  boolean,
+  TNullable,
+  NativePayloadExtras<CheckboxField>,
+  TRequired
+>;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L118)
+
+### `DateFieldOptions`
+
+```ts
+type DateFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<DateField>,
+  TRequired
+> & { minimum?: string, maximum?: string };
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L128)
+
+### `DefaultIdSchema`
+
+```ts
+type DefaultIdSchema = typeof defaultIdSchema;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/default-id.ts#L8)
+
+### `EntityFieldMap`
+
+```ts
+type EntityFieldMap = Readonly<Record<string, AnyFieldDefinition>>;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L39)
+
+### `InferEntityField`
+
+```ts
+type InferEntityField<TField extends FieldDefinition<string, AnyCanonicalSchema, PayloadDataField>>
+  = z.infer<TField["schema"]>;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L470)
+
+### `InferEntityFields`
+
+```ts
+type InferEntityFields<TEntity extends EntityDefinition<string, EntityFieldMap, AnyCanonicalSchema>> = {
+  [TKey in keyof TEntity["fields"]]: TEntity["fields"][TKey]["schema"] extends AnyCanonicalSchema
+    ? z.infer<TEntity["fields"][TKey]["schema"]>
+    : never
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L473)
+
+### `MoneyFieldOptions`
+
+```ts
+type MoneyFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = Omit<
+  NumberFieldOptions<TNullable, TRequired>,
+  "integer" | "safe"
+> & { currency: string };
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L110)
+
+### `NumberFieldOptions`
+
+```ts
+type NumberFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  number,
+  TNullable,
+  NativePayloadExtras<NumberField, "max" | "min">,
+  TRequired
+> & {
+  integer?: boolean
+  safe?: boolean
+  minimum?: number
+  maximum?: number
+  multipleOf?: number
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L94)
+
+### `PayloadSchemaErrorCode`
+
+```ts
+type PayloadSchemaErrorCode = keyof PayloadSchemaErrorDataMap;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L64)
+
+### `PayloadSchemaErrorPhase`
+
+```ts
+type PayloadSchemaErrorPhase = "definition" | "internal" | "payload-compilation" | "schema-derivation";
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L66)
+
+### `SerializedPayloadSchemaError`
+
+```ts
+type SerializedPayloadSchemaError<TCode extends PayloadSchemaErrorCode = PayloadSchemaErrorCode> = {
+  name: "PayloadSchemaError"
+  code: TCode
+  phase: PayloadSchemaErrorPhase
+  message: string
+  data: PayloadSchemaErrorDataMap[TCode]
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/errors.ts#L68)
+
+### `TextFieldOptions`
+
+```ts
+type TextFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<TextField, "maxLength" | "minLength">,
+  TRequired
+> & {
+  trim?: boolean
+  lowercase?: boolean
+  uppercase?: boolean
+  minLength?: number
+  maxLength?: number
+  pattern?: RegExp
+};
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L67)
+
+### `TextareaFieldOptions`
+
+```ts
+type TextareaFieldOptions<
+  TNullable extends boolean = false,
+  TRequired extends boolean = false
+> = CommonFieldOptions<
+  string,
+  TNullable,
+  NativePayloadExtras<TextareaField, "maxLength" | "minLength">,
+  TRequired
+> & Omit<TextFieldOptions<TNullable, TRequired>, keyof CommonFieldOptions<string, TNullable, unknown, TRequired> | "payload">;
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L84)
+
+### `UploadFieldOptions`
+
+```ts
+type UploadFieldOptions<
+  TRelationTo extends string | readonly string[],
+  THasMany extends boolean = false,
+  TNullable extends boolean = false,
+  TIdSchema extends AnyCanonicalSchema | undefined = undefined,
+  TRequired extends boolean = false
+> = Omit<RelationshipFieldOptions<TRelationTo, THasMany, TNullable, TIdSchema, TRequired>, "payload"> & { payload?: NativePayloadExtras<UploadField, "hasMany" | "relationTo"> };
+```
+
+**Exported from:** `@nexload-sdk/payload-schema`
+
+Public type exported by @nexload-sdk/payload-schema.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/core/types.ts#L241)
+
+***
+
+## Entry Points & Signatures
+
+### Root Entry: `@nexload-sdk/payload-schema`
+
+The root entry is pure and browser-safe. It does not import `payload` at runtime and can be used in client bundles, edge runtimes, or Node.
+
+```ts
+import {
+  defineEntity,
+  field,
+  defaultIdSchema,
+  PayloadSchemaError,
+  isPayloadSchemaError,
+} from "@nexload-sdk/payload-schema";
+import type {
+  BlockDefinitionOptions,
+  BlocksFieldOptions,
+  EntityDefinition,
+} from "@nexload-sdk/payload-schema";
+```
+
+An entity created by `defineEntity()` has:
+
+* `name: string`: The entity name.
+* `idSchema: AnyCanonicalSchema`: Canonical ID schema (defaults to `defaultIdSchema`).
+* `fields: BoundFields`: Frozen map of defined field definitions.
+* `schema(factory)`: Derives custom Zod schemas with access to `{ fields, pick, z }`.
+* `inspect()`: Returns structured entity and field inspection metadata.
+
+### Payload Compilation Entry: `@nexload-sdk/payload-schema/payload`
+
+This entry is Node/Payload configuration only. It imports Payload's `ValidationError` to construct canonical validation hooks.
+
+```ts
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+const facade = payloadFields(entity);
+facade.all();          // Returns all compiled Payload Field[] configs
+facade.field("title"); // Returns a single compiled Payload Field config
+facade.pick(["title"]); // Returns picked Payload Field[] configs
+```
+
+* **Safety Check:** Calling `payloadFields()` with anything other than an entity instance produced by `defineEntity()` throws a `PayloadSchemaError` with code `INVALID_ENTITY` (phase: `"payload-compilation"`).
+* **Fresh Containers:** Each compilation call produces fresh field configuration objects so mutations in Payload config do not pollute entity seeds.
+
+***
+
+## Field Factory Reference
+
+| Factory | Core Options | Default Value Support | Output Payload Type |
+|---|---|---|---|
+| `field.text()` | `required`, `trim`, `lowercase`, `uppercase`, `minLength`, `maxLength`, `pattern` | Static & Dynamic | `TextField` |
+| `field.slug()` | `required`, `minLength`, `maxLength`, Unicode NFKC normalization | Static & Dynamic | `TextField` |
+| `field.textarea()` | `required`, `trim`, `minLength`, `maxLength` | Static & Dynamic | `TextareaField` |
+| `field.number()` | `required`, `integer`, `safe`, `minimum`, `maximum`, `multipleOf` | Static & Dynamic | `NumberField` |
+| `field.money()` | `currency`, `minimum`, `maximum` (Always safe integer minor units) | Static & Dynamic | `NumberField` |
+| `field.boolean()` | `required` (Payload checkbox) | Static & Dynamic | `CheckboxField` |
+| `field.date()` | `required`, `minimum`, `maximum` (ISO string with timezone offset; hook accepts JS `Date`) | Static & Dynamic | `DateField` |
+| `field.select()` | `values`, `labels`, `hasMany` (Validated unique non-empty enums) | Static & Dynamic | `SelectField` |
+| `field.relationship()` | `relationTo`, `hasMany`, `idSchema` (Single or polymorphic) | Static & Dynamic | `RelationshipField` |
+| `field.upload()` | `relationTo`, `hasMany`, `idSchema` | Static & Dynamic | `UploadField` |
+| `field.group()` | `fields` (Nested `EntityFieldMap`), `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `NamedGroupField` |
+| `field.array()` | `fields`, `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable) | Static & Dynamic | `ArrayField` |
+| `field.blocks()` | `blocks` (Map of block definitions), `minRows`, `maxRows`, `required`, `nullable` (Non-required children are optional and nullable; child names `id`, `blockName`, `blockType` are reserved) | Static & Dynamic | `BlocksField` |
+| `field.richText()` | `schema` (Explicit AST Zod schema validator required) | Static & Dynamic | `RichTextField` |
+| `field.native()` | `payload`, `schema` (Escape hatch for custom/unsupported types) | Dynamic (Static requires schema) | Any Payload data field |
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Verified on Node 20 & 22 |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Verified on Payload >=3.85 |
+| **Zod** | `>=4.1.0 <5.0.0` | Verified on Zod 4.4.3 (requires codecs support) |
+| **Module Format** | ESM only | Root entry is browser-safe; `/payload` is Node/Payload-config only |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/guides/
+## The Complete 15-Field Factory Catalog
+
+`@nexload-sdk/payload-schema` provides 15 specialized factories under the `field` namespace. Every factory configures both the Payload field definition and the corresponding Zod schema.
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+export const catalogEntity = defineEntity({
+  name: "CatalogItem",
+  fields: {
+    // 1. Text: Trimming, case conversion, length constraints, regex pattern
+    title: field.text({
+      required: true,
+      trim: true,
+      minLength: 3,
+      maxLength: 120,
+    }),
+
+    // 2. Slug: Automatic Unicode NFKC normalization and URL hyphen-casing
+    slug: field.slug({
+      required: true,
+      minLength: 3,
+      maxLength: 140,
+    }),
+
+    // 3. Textarea: Multiline text with max length
+    summary: field.textarea({
+      required: true,
+      trim: true,
+      maxLength: 1000,
+    }),
+
+    // 4. Number: Integer, safe integer checks, min/max range, step multiples
+    stock: field.number({
+      integer: true,
+      safe: true,
+      minimum: 0,
+      defaultValue: 0,
+    }),
+
+    // 5. Money: Minor-unit integer (cents/rials) with explicit currency metadata
+    price: field.money({
+      currency: "USD",
+      minimum: 0,
+      required: true,
+    }),
+
+    // 6. Boolean: Checkbox field with boolean casting
+    isActive: field.boolean({
+      defaultValue: true,
+    }),
+
+    // 7. Date: Timezone-aware ISO datetime string with min/max bounds (hook accepts JS Date)
+    publishedAt: field.date({
+      minimum: "2024-01-01T00:00:00.000Z",
+      nullable: true,
+    }),
+
+    // 8. Select: Single or multi-choice enums with custom admin labels
+    tier: field.select({
+      values: ["standard", "premium", "enterprise"] as const,
+      labels: { enterprise: "Enterprise SLA" },
+      defaultValue: "standard",
+    }),
+    badges: field.select({
+      hasMany: true,
+      values: ["new", "sale", "featured"] as const,
+    }),
+
+    // 9. Relationship: Single or polymorphic relationships
+    category: field.relationship({
+      relationTo: "categories",
+      required: true,
+    }),
+    authorOrTeam: field.relationship({
+      relationTo: ["authors", "teams"] as const,
+      hasMany: false,
+      idSchema: z.string().uuid(),
+    }),
+
+    // 10. Upload: Media asset relationship
+    heroImage: field.upload({
+      relationTo: "media",
+      required: true,
+    }),
+
+    // 11. Group: Nested object schema and Payload named group
+    seo: field.group({
+      fields: {
+        metaTitle: field.text({ maxLength: 70 }),
+        metaDesc: field.textarea({ maxLength: 160 }),
+      },
+    }),
+
+    // 12. Array: Repeatable rows with row count constraints
+    variants: field.array({
+      minRows: 1,
+      maxRows: 10,
+      fields: {
+        sku: field.text({ required: true, uppercase: true }),
+        price: field.money({ currency: "USD", required: true }),
+      },
+    }),
+
+    // 13. Blocks: Discriminated polymorphic blocks with child validation
+    layout: field.blocks({
+      minRows: 1,
+      maxRows: 10,
+      blocks: {
+        hero: {
+          fields: {
+            headline: field.text({ required: true }),
+            subheading: field.text({ nullable: true }),
+          },
+        },
+        quote: {
+          fields: {
+            quoteText: field.textarea({ required: true }),
+            author: field.text({ required: true }),
+          },
+        },
+      },
+    }),
+
+    // 14. RichText: Requires explicit AST schema validator
+    description: field.richText({
+      schema: z.record(z.string(), z.unknown()),
+    }),
+
+    // 15. Native: Escape hatch for custom/unsupported Payload field types
+    coordinates: field.native({
+      payload: { type: "point" },
+      schema: z.tuple([z.number(), z.number()]),
+    }),
+  },
+});
+```
+
+***
+
+## Static Defaults vs. Dynamic Defaults
+
+`@nexload-sdk/payload-schema` separates static values from runtime functions:
+
+```ts
+// 1. Static Default: Validated during defineEntity() at startup
+field.number({
+  defaultValue: 100,
+});
+
+// 2. Dynamic Default: Evaluated at runtime by Payload per write request
+field.date({
+  dynamicDefaultValue: ({ req, user, locale }) => new Date().toISOString(),
+});
+```
+
+* Providing both `defaultValue` and `dynamicDefaultValue` throws `CONFLICTING_DEFAULT_CONFIGURATION`.
+* Direct assignment to `payload.defaultValue` is prohibited and throws `RESERVED_PAYLOAD_OPTION`.
+* Defaults do not append `.default()` to derived Zod schemas, keeping API request validation explicit.
+
+***
+
+## Advanced Schema Derivation Patterns
+
+Use `entity.schema()` to generate input schemas for mutations, projections, and forms:
+
+### 1. Picking Fields with Strictness and `optional: "auto"`
+
+```ts
+export const createItemSchema = catalogEntity.schema(({ pick }) =>
+  pick(["title", "slug", "price", "stock", "layout"], {
+    optional: "auto", // Automatically marks non-required fields optional
+    strict: true,     // Rejects unexpected fields
+  })
+);
+```
+
+* With `{ optional: "auto" }`, any field whose definition does not have `required: true` becomes `.optional()`.
+* An explicit `required` array (e.g. `required: ["stock"]`) takes precedence and forces listed keys to be required.
+
+### 2. Custom Field Transformations
+
+```ts
+export const catalogCardSchema = catalogEntity.schema(({ fields, z }) =>
+  z.object({
+    title: fields.title,
+    slug: fields.slug,
+    // Transform minor-unit cents into formatted dollar string
+    priceDisplay: fields.price.transform((cents) => `$${(cents / 100).toFixed(2)}`),
+  })
+);
+```
+
+### 3. Cross-Field Refinements
+
+```ts
+export const inventoryUpdateSchema = catalogEntity.schema(({ fields, z }) =>
+  z
+    .object({
+      stock: fields.stock,
+      isActive: fields.isActive,
+    })
+    .refine((data) => !(data.stock === 0 && data.isActive), {
+      message: "Cannot mark an out-of-stock item as active.",
+      path: ["isActive"],
+    })
+);
+```
+
+### 4. Inferring TypeScript Types
+
+```ts
+export type CreateItemInput = z.infer<typeof createItemSchema>;
+export type CatalogCardDTO = z.infer<typeof catalogCardSchema>;
+```
+
+***
+
+## Payload Collection Layout Integration
+
+Payload field compilation is decoupled from the core entity and imported from `@nexload-sdk/payload-schema/payload` (Node-only):
+
+```ts
+import type { CollectionConfig } from "payload";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+import { catalogEntity } from "./catalog.entity";
+
+// Option A: Direct full export
+export const CatalogCollection: CollectionConfig = {
+  slug: "catalog",
+  fields: payloadFields(catalogEntity).all(),
+};
+
+// Option B: Mixed export with tabs and sidebar layout
+export const AdvancedCatalogCollection: CollectionConfig = {
+  slug: "catalog",
+  fields: [
+    ...payloadFields(catalogEntity).pick(["title", "slug"]),
+    {
+      type: "tabs",
+      tabs: [
+        {
+          label: "Pricing & Stock",
+          fields: payloadFields(catalogEntity).pick(["price", "stock", "variants"]),
+        },
+        {
+          label: "SEO & Media",
+          fields: payloadFields(catalogEntity).pick(["seo", "heroImage", "description", "layout"]),
+        },
+      ],
+    },
+  ],
+};
+```
+
+***
+
+## Intrinsic Normalization & Runtime Semantics
+
+### Normalization on Writes
+
+When writing data through the Payload Admin UI or `payload.create` / `payload.update`, canonical normalization executes automatically in `beforeValidate`:
+
+```ts
+// Local API Write:
+await payload.create({
+  collection: "catalog",
+  data: {
+    title: "   Vintage Leather Jacket   ", // Normalized to "Vintage Leather Jacket"
+    slug: "Vintage Leather Jacket",        // Normalized to "vintage-leather-jacket"
+    variants: [
+      { sku: "vlj-01", price: 15000 },     // sku normalized to "VLJ-01"
+    ],
+  },
+});
+```
+
+### Null Semantics
+
+Payload CMS represents empty or cleared fields as `null`. Canonical `beforeValidate` hooks pass `null` through unchanged for all field kinds (including nested children in groups, arrays, and blocks), matching `undefined` semantics:
+
+* Clearing optional fields with `null` succeeds without raising Zod type errors.
+* Required fields without a value fail Payload's built-in validation ("This field is required."), reporting the exact path and field label.
+
+### Date Objects
+
+In `field.date()`, the runtime Payload hook accepts JavaScript `Date` instances and normalizes valid dates to ISO 8601 strings. Canonical and derived Zod schemas continue to expect ISO strings.
+
+### Codec Safety
+
+Built-in field normalizations (`trim`, `lowercase`, `uppercase`, `slug`, `date`) are implemented using Zod `.overwrite()` instead of unidirectional `.transform()`. This preserves codec reversibility so derived schemas can be encoded with `z.encode` (e.g., in `@nexload-sdk/payload-operations` outputs).
+
+***
+
+## Known Limitations
+
+* **No inline Admin validation:** Validation is enforced via `beforeValidate` hooks. The package does not generate inline Admin `validate` functions.
+* **Custom `options.schema` transforms are not codec-safe:** Custom transformations passed to `options.schema(...)` cannot be inverted by `z.encode`. Use `.refine()` or `.overwrite()` if schemas are used in operation responses.
+* **Strict pick default:** Calling `pick(keys)` without `{ optional: ... }` makes every key strictly required. Use `{ optional: "auto" }` to inherit field-level optionality.
+
+***
+
+## Troubleshooting & Diagnostics
+
+### 1. `SCHEMA_UNAVAILABLE`
+
+Occurs when deriving a schema that includes a `field.native()` defined without a `schema` parameter, or a container (`group`, `array`, `blocks`) that includes a schema-less native field.
+
+```ts
+// Solution: Provide the schema parameter
+field.native({
+  payload: { type: "point" },
+  schema: z.tuple([z.number(), z.number()]),
+});
+```
+
+### 2. `INVALID_ENTITY`
+
+Thrown when passing a non-entity value to `payloadFields()`:
+
+```ts
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+// Throws PayloadSchemaError: INVALID_ENTITY
+// @ts-expect-error - intentional misuse with non-entity
+payloadFields({ name: "NotAnEntity" });
+```
+
+### 3. `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED`
+
+Payload's field validation hooks run synchronously. Canonical parsing raises `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED` when a schema is async (e.g., contains `.refine(async ...)` or `.transform(async ...)`): at `defineEntity` time only when validating a static `defaultValue`, otherwise when the Payload hook parses a value during writes. Move async checks into custom Payload collection hooks or derived API schemas.
+
+### 4. Safe Introspection with `inspect()`
+
+Inspect the runtime structure and field configurations safely without exposing internal state:
+
+```ts
+const inspection = catalogEntity.inspect();
+console.log(inspection.name); // "CatalogItem"
+console.log(inspection.fields.price.currency); // "USD"
+```
+
+### 5. Error Handling Helper
+
+Use `isPayloadSchemaError()` to catch and format entity definition failures:
+
+```ts
+import { isPayloadSchemaError } from "@nexload-sdk/payload-schema";
+
+try {
+  // defineEntity(...)
+} catch (error) {
+  if (isPayloadSchemaError(error)) {
+    console.error(`[${error.code}] in phase ${error.phase}: ${error.message}`);
+  }
+}
+```
+
+***
+
+## Migrating to 3.0
+
+Version 3.0 brings browser safety, codec compatibility, blocks fields, and predictable null handling.
+
+### New in 3.0
+
+* **`field.blocks()`**: Discriminated polymorphic block containers with per-block schemas and child validation hooks.
+* **`pick(..., { optional: "auto" })`**: Automatically marks fields without `required: true` as optional in derived schemas while preserving explicit required overrides.
+* **`Date` accepted by the date hook**: The runtime `field.date()` hook accepts JavaScript `Date` instances and normalizes valid dates to ISO 8601 strings.
+* **Composite child optionality & nullability**: Inside `group`, `array`, and `blocks`, non-required child fields are automatically optional and accept `null` (`key?: T | null`), so stored Payload documents with empty fields or rows omitting optional children parse cleanly.
+* **Reserved block child names**: Block child fields cannot be named `id`, `blockName`, or `blockType`; doing so throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
+
+### Breaking Changes
+
+Below are the before and after patterns for each breaking change.
+
+### 1. Payload Compilation Moved to `/payload` Subpath
+
+Entity definitions no longer carry a `.payload` facade on the entity object. Payload compilation is now imported from `@nexload-sdk/payload-schema/payload` (Node-only), making the root entry browser-safe.
+
+**Before (2.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+
+export const articleEntity = defineEntity({ /* ... */ });
+
+export const Articles = {
+  slug: "articles",
+  // In 2.0, compiled fields were accessed via property on the entity:
+  fields: articleEntity["payload"]["all"](),
+};
+```
+
+**After (3.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+export const articleEntity = defineEntity({
+  name: "Article",
+  fields: {
+    title: field.text({ required: true }),
+  },
+});
+
+export const Articles = {
+  slug: "articles",
+  fields: payloadFields(articleEntity).all(),
+};
+```
+
+### 2. Zod Peer Dependency Floor Raised to 4.1
+
+Zod 4.1.0 or higher is required to support Zod codec methods (`z.encode` / `z.decode`).
+
+**Before (2.0):**
+
+```json
+{
+  "peerDependencies": {
+    "zod": ">=4.0.0 <5.0.0"
+  }
+}
+```
+
+**After (3.0):**
+
+```json
+{
+  "peerDependencies": {
+    "zod": ">=4.1.0 <5.0.0"
+  }
+}
+```
+
+### 3. Null Passes Canonical Validation Hooks
+
+In 2.0, clearing an optional field by passing `null` caused Zod to throw a `ValidationError` unless the field was explicitly declared `nullable: true`. In 3.0, `null` passes through canonical hooks unchanged (like `undefined`), allowing empty optional fields to clear cleanly.
+
+**Before (2.0):**
+
+```ts
+// Required nullable: true to allow clearing optional fields in database writes:
+subtitle: field.text({ nullable: true }),
+
+// Clearing without nullable: true threw ValidationError:
+// "Expected string, received null"
+await payload.update({
+  collection: "articles",
+  id: "1",
+  data: { subtitle: null },
+});
+```
+
+**After (3.0):**
+
+```ts
+// Optional fields without nullable: true allow null to pass through:
+subtitle: field.text(),
+
+// Clears field cleanly; required fields fail Payload's "This field is required." check:
+await payload.update({
+  collection: "articles",
+  id: "1",
+  data: { subtitle: null },
+});
+```
+
+### 4. Date Objects Accepted by Date Hook
+
+In 2.0, passing JavaScript `Date` instances to Payload writes failed canonical validation because the hook strictly required ISO strings. In 3.0, the runtime hook accepts valid `Date` objects and converts them to ISO strings.
+
+**Before (2.0):**
+
+```ts
+// Threw ValidationError: "Expected string, received object"
+await payload.create({
+  collection: "events",
+  data: {
+    eventDate: new Date(),
+  },
+});
+```
+
+**After (3.0):**
+
+```ts
+// Accepted and normalized to ISO string by runtime hook:
+await payload.create({
+  collection: "events",
+  data: {
+    eventDate: new Date(),
+  },
+});
+```
+
+### 5. Built-in Normalizations Are Codec-Safe (`.overwrite`)
+
+In 2.0, text transformations like `trim: true` and `lowercase: true` used unidirectional `.transform()`, which causes `z.encode` to fail. In 3.0, normalizations use `.overwrite()`, making derived schemas compatible with codec encoding.
+
+**Before (2.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ trim: true }),
+  },
+});
+
+const productSchema = productEntity.schema(({ fields }) => fields.title);
+// Failed: unidirectional transform cannot be encoded
+z.encode(productSchema, "  widget  ");
+```
+
+**After (3.0):**
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { z } from "zod";
+
+const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ trim: true }),
+  },
+});
+
+const productSchema = productEntity.schema(({ fields }) => fields.title);
+// Succeeds: .overwrite() produces codec-safe schemas for operation outputs
+const encoded = z.encode(productSchema, "  widget  ");
+```
+
+### 6. Composite Children Without `required: true` Are Optional and Nullable
+
+In 2.0, composite containers (`group`, `array`, `blocks`) constructed their canonical object schemas directly from child schemas, causing stored documents with `null` (Payload's empty field representation) or rows omitting optional children to fail validation. In 3.0, any child field not declared `required: true` inside a composite container is automatically optional and nullable (`child.schema.nullable().optional()`).
+
+**Before (2.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 2.0, note was required in canonical schema
+      },
+    }),
+  },
+});
+
+// Stored Payload document with empty note failed canonical parse:
+// "Invalid input: expected string, received null"
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null });
+```
+
+**After (3.0):**
+
+```ts
+const userEntity = defineEntity({
+  name: "User",
+  fields: {
+    meta: field.group({
+      fields: {
+        tag: field.text({ required: true }),
+        note: field.text(), // In 3.0, non-required child is optional and nullable (key?: string | null)
+      },
+    }),
+  },
+});
+
+// Parses cleanly for both null and omitted values:
+userEntity.fields.meta.schema.parse({ tag: "vip", note: null }); // { tag: "vip", note: null }
+userEntity.fields.meta.schema.parse({ tag: "vip" });             // { tag: "vip" }
+```
+
+### 7. Reserved Child Field Names in Blocks
+
+In 3.0, block definitions reject child fields named `id`, `blockName`, or `blockType` at definition time with `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`), as these names are reserved by Payload blocks runtime metadata.
+
+**Before (2.0):**
+Blocks were not supported in 2.0.
+
+**After (3.0):**
+
+```ts
+// Throws PayloadSchemaError (code: "INVALID_FIELD_CONFIGURATION"):
+field.blocks({
+  blocks: {
+    hero: {
+      fields: {
+        id: field.text(), // Reserved name: throws at definition time
+      },
+    },
+  },
+});
+```
+
+---
+
+# Overview & Quick Start
+
+Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
+**Package:** `@nexload-sdk/payload-schema`
+
+**Current released version:** `2.0.0`
+
+Canonical Payload field definitions with reusable Zod schemas.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-schema) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-schema)
+
+`@nexload-sdk/payload-schema` eliminates double-declaration of data validation rules in Payload CMS applications. Define intrinsic validation and normalization once, compile it into ordinary Payload collection fields, and expose the identical Zod schemas to client forms, server actions, and API boundaries.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+import { z } from "zod";
+
+// 1. Define intrinsic fields once (pure & browser-safe)
+export const productEntity = defineEntity({
+  name: "Product",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 3 }),
+    slug: field.slug({ required: true }),
+    price: field.money({ currency: "USD", required: true }),
+    stock: field.number({ integer: true, safe: true, defaultValue: 0 }),
+  },
+});
+
+// 2. Export directly to Payload Collection (Node-only)
+export const Products = {
+  slug: "products",
+  fields: payloadFields(productEntity).all(),
+};
+
+// 3. Derive Zod schemas for forms, Next.js server actions, or RPC
+export const createProductSchema = productEntity.schema(({ pick }) =>
+  pick(["title", "slug", "price", "stock"], { optional: "auto" })
+);
+export type CreateProductInput = z.infer<typeof createProductSchema>;
+```
+
+***
+
+## What You Get
+
+* **Single Source of Truth**: Eliminate discrepancies between frontend Zod validation schemas and backend Payload collection rules.
+* **Pure Browser-Safe Root**: The root `@nexload-sdk/payload-schema` has zero Payload runtime imports and bundles cleanly in client applications and edge runtimes.
+* **Dedicated Payload Subpath**: Payload compilation lives in `@nexload-sdk/payload-schema/payload`, importing Payload's `ValidationError` exclusively in Node.
+* **15 Built-In Field Factories**: Native factories for `text`, `textarea`, `slug`, `number`, `money`, `boolean`, `date`, `select`, `relationship`, `upload`, `group`, `array`, `blocks`, `richText`, and `native`.
+* **Automatic Payload Normalization**: Injected `beforeValidate` hooks guarantee that string trimming, case conversions, and slug formats execute even on writes through the Payload Admin UI and Local API.
+* **Codec Safety**: Built-in string and date normalizations use `.overwrite()`, allowing derived entity schemas to round-trip through `z.encode` (such as in `@nexload-sdk/payload-operations` outputs).
+* **Flexible Schema Derivation**: Extract custom DTOs (`pick` with `{ optional: "auto" }`), add custom transformations (`.transform()`), and perform cross-field validations (`.refine()`).
+* **Compile-Time Immutability**: All entity definitions and compiled field definitions are frozen to guarantee deterministic runtime behavior.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/payload-schema payload zod
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/payload-schema payload zod
+
+# bun
+bun add @nexload-sdk/payload-schema payload zod
+```
+
+### Compatibility Requirements
+
+| Package / Runtime | Supported Range | Notes |
+|---|---|---|
+| **Node.js** | `>=20.9.0` | Required for `@nexload-sdk/payload-schema/payload` |
+| **Payload CMS** | `>=3.85.0 <4.0.0` | Collection fields engine |
+| **Zod** | `>=4.1.0 <5.0.0` | Codec-safe schema engine |
+| **Module Format** | ESM only | Root entry is browser-safe; `/payload` is Node/Payload-config only |
+
+***
+
+## Core Concepts & Invariants
+
+### 1. One Intrinsic Contract
+
+A field definition owns only the rules intrinsic to that field's value (e.g. "a product title must be 3-120 characters and trimmed"). Application-specific workflow rules (e.g. "is this field optional during draft creation?") belong in derived schemas, not in the core entity definition.
+
+### 2. Dual Boundary Compilation
+
+* Root `@nexload-sdk/payload-schema` is pure and browser-safe (`field`, `defineEntity`, `defaultIdSchema`, `PayloadSchemaError`). Entities expose `name`, `idSchema`, `fields`, `schema()`, and `inspect()`.
+* `payloadFields(entity)` from `@nexload-sdk/payload-schema/payload` compiles standard Payload fields with canonical normalization appended to `beforeValidate`. Rejects non-entities with `PayloadSchemaError` (`code: "INVALID_ENTITY"`).
+* `entity.schema()` produces pure Zod schemas reflecting the exact same constraints.
+
+### 3. Synchronous Canonical Schemas
+
+Canonical schemas must execute synchronously. If a schema is async, `ASYNC_CANONICAL_SCHEMA_UNSUPPORTED` is raised during canonical parsing: at `defineEntity` time only when validating a static `defaultValue`, otherwise when the Payload hook parses a value.
+
+### 4. Non-Goals
+
+The package does not create collections, own access control, replace Payload-generated types, or manage database migrations. Payload remains authoritative for persistence types and database schema.
+
+***
+
+## Quick Start: Building a Complete Entity
+
+```ts
+import { defineEntity, field } from "@nexload-sdk/payload-schema";
+import { payloadFields } from "@nexload-sdk/payload-schema/payload";
+
+export const articleEntity = defineEntity({
+  name: "Article",
+  fields: {
+    title: field.text({ required: true, trim: true, minLength: 5 }),
+    slug: field.slug({ required: true }),
+    content: field.textarea({ required: true, maxLength: 10_000 }),
+    status: field.select({
+      values: ["draft", "published", "archived"] as const,
+      defaultValue: "draft",
+    }),
+    author: field.relationship({
+      relationTo: "users",
+      required: true,
+    }),
+    sections: field.blocks({
+      blocks: {
+        hero: {
+          fields: {
+            title: field.text({ required: true }),
+          },
+        },
+      },
+      minRows: 1,
+    }),
+  },
+});
+
+// Use in Payload Collection (Node-only)
+export const ArticlesCollection = {
+  slug: "articles",
+  fields: payloadFields(articleEntity).all(),
+};
+
+// Derive input validation schema (Pure Zod)
+export const createArticleSchema = articleEntity.schema(({ pick }) =>
+  pick(["title", "slug", "content", "author", "sections"], { optional: "auto" })
+);
+```
+
+***
+
+## Next Steps
+
+* Explore [Production Recipes & Modeling Guides](./guides/) for the full 15-field catalog, polymorphic relationships, static vs dynamic defaults, error diagnostics, and the 3.0 migration guide.
+* View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.

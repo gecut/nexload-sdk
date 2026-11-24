@@ -1,0 +1,258 @@
+# API Reference & Compatibility
+
+Public API symbol reference and compatibility matrix for Healthcheck Next.js.
+
+**Topic:** api
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/api/
+The complete public API symbol inventory is generated automatically from package source exports:
+
+## Functions
+
+### `createNextHealthRoute`
+
+```ts
+createNextHealthRoute(manager: HealthManager, options: NextHealthRouteOptions) => { GET: (request: Request) => Promise<Response>; HEAD: (request: Request) => Promise<Response>; }
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public function exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L288)
+
+### `createNextMetricsRoute`
+
+```ts
+createNextMetricsRoute(manager: HealthManager, options: NextMetricsRouteOptions) => { GET: (request: Request) => Promise<Response>; }
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public function exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L342)
+
+## Interfaces
+
+### `NextHealthRouteOptions`
+
+```ts
+interface NextHealthRouteOptions {
+  scope: HealthScope
+  format?: "json" | "summary"
+  httpStatus?: HealthHttpStatusPolicy
+  includeDetails?: boolean | ((request: Request) => boolean)
+  protect?: NextHealthRouteProtection
+  headers?: HeadersInit | ((report: HealthReport) => HeadersInit)
+  cache?: "no-store"
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public interface exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L32)
+
+### `NextHealthRouteProtection`
+
+```ts
+interface NextHealthRouteProtection {
+  bearerToken?: string
+  basicAuth?: {
+    username: string
+    password: string
+  }
+  allowCidrs?: readonly string[]
+  allowIps?: readonly string[]
+  trustProxy?: boolean
+  proxyHeader?: "x-forwarded-for" | "x-real-ip" | string
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public interface exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L20)
+
+### `NextMetricsRouteOptions`
+
+```ts
+interface NextMetricsRouteOptions {
+  format: "prometheus" | "openmetrics" | "json"
+  scope?: HealthRunScope
+  protect?: NextHealthRouteProtection
+  prefix?: string
+  defaultLabels?: Record<string, string>
+}
+```
+
+**Exported from:** `@nexload-sdk/healthcheck-next`
+
+Public interface exported by @nexload-sdk/healthcheck-next.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts#L42)
+
+***
+
+## Runtime Compatibility Matrix
+
+| Runtime / Engine | Version Requirement | Verification Status |
+|---|---|---|
+| **Next.js** | `>=14.0.0` | Verified on Next.js 14 & 15 App Router |
+| **Node.js** | `>=20.9.0` | Node.js Route Handler runtime |
+| **Module Format** | ESM only | Native ECMAScript Modules |
+| **Side Effects** | `false` | Fully tree-shakeable |
+
+---
+
+# Production Guides & Recipes
+
+Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router.
+
+**Topic:** guides
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/guides/
+## Dual Route Pattern (Liveness & Readiness)
+
+In Kubernetes and container platforms, configure two separate route handlers:
+
+```ts
+// app/api/health/live/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "liveness",
+});
+```
+
+```ts
+// app/api/health/ready/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "readiness",
+});
+```
+
+***
+
+## Protecting Diagnostics Endpoints
+
+Detailed diagnostic reports should not be public. Protect them with secret tokens:
+
+```ts
+// app/api/health/diagnostics/route.ts
+import { health } from "@/lib/health";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "diagnostics",
+  security: {
+    token: process.env.DIAGNOSTICS_SECRET_TOKEN,
+  },
+});
+```
+
+Requests must include either:
+
+* `Authorization: Bearer <token>`
+* Header `X-Health-Token: <token>`
+* Query parameter `?token=<token>`
+
+***
+
+## Troubleshooting & Common Pitfalls
+
+### 1. Next.js Static Compilation Stale Responses
+
+If Next.js attempts to statically pre-render the route at build time, ensure you export `dynamic = 'force-dynamic'` or let `createNextHealthRoute` set dynamic runtime headers automatically:
+
+```ts
+export const dynamic = "force-dynamic";
+```
+
+### 2. Edge Runtime Incompatibility with Node Checks
+
+If your Next.js route uses `export const runtime = 'edge'`, do not include Node-specific checks (like `containerResourceCheck` or `dnsCheck`) in your health manager. Use edge-safe core checks or run the health route on the standard Node runtime.
+
+---
+
+# Overview & Quick Start
+
+Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router.
+
+**Topic:** overview
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
+**Package:** `@nexload-sdk/healthcheck-next`
+
+**Current released version:** `2.1.0`
+
+Next.js App Router route factories for @nexload-sdk/healthcheck.
+
+[npm](https://www.npmjs.com/package/@nexload-sdk/healthcheck-next) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/healthcheck/next)
+
+`@nexload-sdk/healthcheck-next` binds `@nexload-sdk/healthcheck` to Next.js App Router Route Handlers. It automatically enforces `Cache-Control: no-store` headers, prevents static optimization of health endpoints, maps status codes to Kubernetes expectations, and provides token-based proxy protection.
+
+***
+
+## 10-Second Code Snippet
+
+```ts
+// app/api/health/route.ts
+import { createHealthManager } from "@nexload-sdk/healthcheck";
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+
+const health = createHealthManager({
+  service: { name: "web-storefront" },
+});
+
+export const { GET } = createNextHealthRoute({
+  health,
+  scope: "readiness",
+});
+```
+
+***
+
+## What You Get
+
+* **Next.js App Router Handlers**: Export `GET` and `HEAD` handlers compliant with Next.js 14, 15, and canary.
+* **Zero-Cache Guarantees**: Forces `force-dynamic` behavior with `Cache-Control: no-store, no-cache, must-revalidate` to prevent CDN and browser caching.
+* **HTTP Status Code Mapping**: Returns `200 OK` for `"ok"` and `"degraded"`, and `503 Service Unavailable` for `"unhealthy"`.
+* **Diagnostics Authorization**: Protect operational details behind Bearer tokens or secret headers when exposing internal metrics.
+
+***
+
+## Installation & Requirements
+
+```bash
+pnpm add @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+```
+
+With alternative package managers:
+
+```bash
+# npm
+npm install @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+
+# bun
+bun add @nexload-sdk/healthcheck-next @nexload-sdk/healthcheck next
+```
+
+Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
+
+***
+
+## Next Steps
+
+* Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
+* Check the [API Reference & Signatures](./api/) for all exported route creators and options.

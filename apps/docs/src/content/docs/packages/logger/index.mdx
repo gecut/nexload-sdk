@@ -8,6 +8,7 @@ package: logger
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -32,19 +33,8 @@ log.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed")
 
 ## Installation & Peer Dependencies
 
-```bash
-pnpm add @nexload-sdk/logger
-```
+<InstallTabs packages="@nexload-sdk/logger" />
 
-With alternative package managers:
-
-```bash
-# npm
-npm install @nexload-sdk/logger
-
-# bun
-bun add @nexload-sdk/logger
-```
 
 ### Compatibility Requirements
 

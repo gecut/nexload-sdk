@@ -27,3 +27,5 @@ Call `configureLogger()` before `buildConfig()`. When `config.logger` is unset, 
 ## Audit boundaries
 
 Audit reads are off by default; auth is on. The implicit default users collection is created after plugins run and is not audited: declare it explicitly. Write events are emitted before transaction commit and may describe rolled-back changes. See [Payload Hooks](/nexload-sdk/packages/payload-hooks/) for options and events.
+
+The `getPayloadLoggerConfig()` bridge maps the SDK `success` threshold to Payload `warn`. Payload’s logger has no `success()` method.
