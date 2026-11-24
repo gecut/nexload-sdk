@@ -18,9 +18,7 @@ Local catalog command `CI=1 npx --yes skills add . --list` found 34 skills, incl
 `nexload-design-context`. This proves local discoverability, not remote installation/publication.
 Frontmatter/reference/fixture JSON checks and `git diff --check` passed. Workspace `pnpm lint`
 completed 19/19 tasks with existing package warnings. Full application builds were not run because
-this change adds skill tooling/contracts/docs, not application code. `graphify update .` completed
-and retained all generated graph changes as required; it reported existing extraction limitations
-in `apps/docs/.astro/content.d.ts` and `packages/healthcheck/core/src/index.ts`.
+this change adds skill tooling/contracts/docs, not application code.
 
 ## Independent forward-test actually run
 

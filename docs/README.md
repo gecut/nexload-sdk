@@ -27,7 +27,6 @@ docs/
 │   └── DOMAIN-SKILLS.md                   # Operational domain skills & distribution via npx skills
 └── workflows/                             # Operational protocols for human engineers and coding agents
     ├── AGENT-GUIDELINES.md                # Strict protocols, safety rules, and simultaneous doc maintenance
-    ├── KNOWLEDGE-GRAPH.md                 # Graphify usage, AST synchronization, and zero-revert policy
     └── BUILD-AND-RELEASE.md               # Monorepo toolchain (pnpm, turbo, esbuild, changesets)
 ```
 
@@ -54,7 +53,7 @@ Depending on your assigned task, follow the recommended reading path:
 ### 1. General Repository Onboarding / Unknown Task
 1. Read [`docs/architecture/PROJECT-KNOWLEDGE-BASE.md`](./architecture/PROJECT-KNOWLEDGE-BASE.md) (high-level map & status vocabulary).
 2. Read [`docs/workflows/AGENT-GUIDELINES.md`](./workflows/AGENT-GUIDELINES.md) (rules of engagement).
-3. Query the knowledge graph using `graphify query "<topic>"`.
+3. Get the architectural map with enola (`enola --explain --summary`, or the enola MCP tools when connected).
 
 ### 2. Architecture & Monolith Integration Task
 1. Read [`docs/architecture/NEXLOAD-MODULAR-MONOLITH.md`](./architecture/NEXLOAD-MODULAR-MONOLITH.md) (understanding the Nexload Web + BFF + CMS triad).

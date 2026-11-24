@@ -8,7 +8,8 @@ This document establishes the strict rules of engagement for AI coding agents (s
 
 ### A. Non-Destructive Operation
 - **Respect Existing Work:** This repository frequently contains local, in-progress, or unpublished changes. Never run destructive git commands (such as `git reset --hard`, `git clean -fd`, or `git checkout .`) unless explicitly directed by the human engineer.
-- **Never Revert Knowledge Graph Files:** Dirty files in `graphify-out/` (`graph.json`, `graph.html`, `GRAPH_REPORT.md`, `manifest.json`) are expected and mandatory after AST updates. Never revert them.
+- **Do Not Hand-Edit Managed Blocks:** Content between `<!-- enola:begin -->`/`<!-- enola:end -->` and `<!-- caveman-begin -->`/`<!-- caveman-end -->` in `AGENTS.md`, plus `.claude/settings.json` and `.codex/hooks.json` hooks, is rewritten by `enola install` / caveman init.
+- **Keep `.enola/` Out of Git:** enola snapshots and baselines live in `.enola/` (git-ignored). Never commit them.
 
 ### B. Single Source of Truth
 - **Source Code over Comments:** Implementation in `src/` and exported declarations in `dist/*.d.ts` take precedence over outdated prose or speculative comments.
@@ -26,12 +27,14 @@ Whenever you alter a package's public API, options, or runtime behavior:
 ## 2. Navigating the Codebase
 
 Agents should follow this discovery hierarchy:
-1. **Knowledge Graph (`graphify`):** Query first before grepping or reading large directory trees:
+1. **Architectural Snapshot (`enola`) — mandatory:** Query first before grepping or reading large directory trees. Prefer MCP tools (`impact_analysis`, `traverse`, `find_path`, `explore`, `query_insights`, `find_orphans`); the CLI equivalents are:
    ```bash
-   graphify query "<question>"
-   graphify explain "<path>::<symbol>"
-   graphify path "<source>" "<target>"
+   enola impact <symbol>        # blast radius of a change
+   enola locate <file:line>     # symbols at a location
+   enola flows                  # entry points ranked by reach
+   enola --explain --summary    # plain-language repo overview
    ```
+   Use text search only for text (strings, config keys, comments), not for structure.
 2. **Architecture Documentation (`docs/architecture/`):** Check `PROJECT-KNOWLEDGE-BASE.md` to verify domain ownership and runtime constraints.
 3. **Target Package Manifest (`package.json`):** Inspect `exports`, dependencies, and scripts before making edits.
 4. **Target Package Entrypoint (`src/index.ts`):** Check all exported symbols and re-exports.
@@ -50,4 +53,5 @@ Never claim a task is complete without running verification:
 - Run package-specific builds: `pnpm -C packages/<name> build`
 - Run workspace lint: `pnpm lint`
 - Run local unit tests if present: `node --test` or package-specific test script.
-- Synchronize knowledge graph: `graphify update .`
+- Refresh and grade the architectural change: `enola --generate`, then `enola check` (baseline is pinned by the SessionStart hook, or `enola baseline pin` if `enola doctor` says it is missing).
+- Report enola findings honestly: unenforced findings go to the user as a report; never revert on your own, never call a session clean if `check` could not run, never change `--fail-on` unasked.

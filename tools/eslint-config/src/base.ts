@@ -21,7 +21,7 @@ export const baseConfig: Linter.Config[] = tseslint.config(
       "**/.next/**",
       "**/.astro/**",
       "**/build/**",
-      "**/graphify-out/**",
+      "**/.enola/**",
       "**/*.d.ts",
       "**/evals/fixtures/**",
       "**/fixtures/**",

@@ -76,8 +76,8 @@ packages/
 
 ## Invariant Rules for Autonomous Agents
 
-1. **Query Before Grepping:** Always query `graphify query "<question>"` or `graphify explain "<symbol>"` before running blind file system searches.
+1. **Map Before Grepping:** Use enola (`enola impact <symbol>`, `enola locate`, `enola flows`, or the enola MCP tools) before running blind file system searches.
 2. **Never Edit `dist/`:** All packages bundle from `src/` to `dist/` via `esbuild.config.mjs`. Never make manual modifications in `dist/`.
 3. **Dual Build Targets:** Every published package produces both ESM (`dist/index.mjs`) and CJS (`dist/index.cjs`), along with TypeScript declaration maps (`dist/index.d.ts`).
 4. **Documentation Synchronization:** Whenever modifying a package's public API or runtime behavior, update its `README.md` and the relevant file in `docs/packages/` within the same commit.
-5. **AST Knowledge Graph Sync:** Run `graphify update .` before concluding any work session modifying code files. Never revert modified files in `graphify-out/`.
+5. **Architectural Gate:** Pin a baseline before editing (`enola baseline pin`) and run `enola check` before concluding any work session that modifies code. Never commit `.enola/`.

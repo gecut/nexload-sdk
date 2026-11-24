@@ -10,10 +10,8 @@ dist-ssr
 server/dist
 public/dist
 
-# Graphify
-graphify-out/cost.json
-graphify-out/cache/
-graphify-out/20*
+# Enola
+.enola/
 
 output
 .playwright-cli

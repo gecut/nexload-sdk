@@ -8,7 +8,6 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test",
-    "graphify": "sh scripts/graphify.sh",
     "cublish": "pnpm build && pnpm install && changeset && git add . && changeset version && changeset publish && git push --follow-tags"
   },
   "devDependencies": {

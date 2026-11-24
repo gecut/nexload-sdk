@@ -8,7 +8,7 @@ export default nexloadConfig(
       "**/node_modules/**",
       "**/.turbo/**",
       "**/coverage/**",
-      "**/graphify-out/**",
+      "**/.enola/**",
       "apps/**",
       "packages/**",
       "tools/**",
