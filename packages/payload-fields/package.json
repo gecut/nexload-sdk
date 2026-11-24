@@ -71,6 +71,11 @@
       "types": "./dist/admin/money-cell.d.ts",
       "import": "./dist/admin/money-cell.js",
       "default": "./dist/admin/money-cell.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "import": "./dist/schema/index.js",
+      "default": "./dist/schema/index.js"
     }
   },
   "files": [

@@ -2,6 +2,7 @@ import { createBundler } from "@nexload-sdk/bundler";
 
 const bundler = createBundler([
   "src/index.ts",
+  "src/schema/index.ts",
   "src/i18n/messages.ts",
   "src/internal/validated-text.ts",
   "src/admin/validated-text-field.tsx",
