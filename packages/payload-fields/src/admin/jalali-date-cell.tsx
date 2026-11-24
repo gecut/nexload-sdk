@@ -1,16 +1,14 @@
 "use client";
 
-import type { DefaultCellComponentProps } from "payload";
+import type { DateFieldClient, DefaultCellComponentProps } from "payload";
 
-import { formatJalaliDate, type JalaliDateDisplayOptions } from "../date/format-date";
+import { DefaultCell } from "@payloadcms/ui";
+
+import { formatJalaliDate, type JalaliDateDisplayOptions, type JalaliDateValue } from "../date/format-date";
 
 export const JalaliDateCell = ({
-  cellData,
   display,
-}: DefaultCellComponentProps & { display?: JalaliDateDisplayOptions }) => (
-  <>
-    {formatJalaliDate(
-      cellData as string | null, display
-    ) ?? "—"}
-  </>
+  ...props
+}: DefaultCellComponentProps<DateFieldClient, JalaliDateValue> & { display?: JalaliDateDisplayOptions }) => (
+  <DefaultCell {...props} cellData={formatJalaliDate(props.cellData, display) ?? "—"} />
 );

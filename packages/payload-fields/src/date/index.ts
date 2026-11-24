@@ -1,7 +1,11 @@
-import type { DateField, Field, TextField } from "payload";
+import type { DateField, Field, RowField, TextField } from "payload";
 
+import { fromJalali, TEHRAN_TIME_ZONE, toValidDate } from "@nexload-sdk/persian/date";
+
+import type { JalaliDateDisplayOptions, JalaliDateValue } from "./format-date";
 import type { JalaliPickerAppearance } from "./picker-types";
 
+import { t } from "../i18n/messages";
 import { assertProtected } from "../internal/protect";
 import { formatJalaliDate } from "./format-date";
 
@@ -10,21 +14,51 @@ export type { JalaliPickerAppearance } from "./picker-types";
 export type JalaliDateFieldOptions = {
   name: string
   pickerAppearance?: JalaliPickerAppearance
-  display?: import("./format-date").JalaliDateDisplayOptions
+  display?: JalaliDateDisplayOptions
+  timeZone?: string
+  min?: string
+  max?: string
+  label?: { fa: string, en: string }
+  required?: boolean
   overrides?: Partial<DateField>
 };
 export type JalaliTimestampsOptions = {
   createdAt?: boolean
   updatedAt?: boolean
-  display?: import("./format-date").JalaliDateDisplayOptions
+  display?: JalaliDateDisplayOptions
   overrides?: { createdAt?: Partial<TextField>, updatedAt?: Partial<TextField> }
 };
+
+export function toStoredJalaliInstant (
+  picked: { year: number, month: number, day: number, hour?: number, minute?: number },
+  appearance: JalaliPickerAppearance,
+  timeZone = TEHRAN_TIME_ZONE
+): string {
+  const dateOnly = appearance === "dayOnly" || appearance === "monthOnly";
+
+  return fromJalali({
+    year: picked.year,
+    month: picked.month,
+    day: appearance === "monthOnly" ? 1 : picked.day,
+    hour: dateOnly ? 12 : (picked.hour ?? 0),
+    minute: dateOnly ? 0 : (picked.minute ?? 0),
+  }, { timeZone, }).toISOString();
+}
 
 export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
   const overrides = options.overrides ?? {};
 
   assertProtected(overrides, options.name, "date", "Jalali date field");
   const appearance = options.pickerAppearance ?? "dayOnly";
+  const timeZone = options.timeZone ?? TEHRAN_TIME_ZONE;
+  const required = options.required ?? overrides.required;
+  const min = toValidDate(options.min, { timeZone, });
+  const max = toValidDate(options.max, { timeZone, });
+
+  if ((options.min !== undefined && !min) || (options.max !== undefined && !max) || (min && max && min > max)) {
+    throw new Error("Invalid Jalali date bounds.");
+  }
+
   const display = {
     digits: "persian" as const,
     dateStyle: "medium" as const,
@@ -33,6 +67,7 @@ export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
         ? { timeStyle: "short" as const, }
         : {}
     ),
+    timeZone,
     ...options.display,
   };
 
@@ -40,17 +75,71 @@ export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
     ...overrides,
     name: options.name,
     type: "date",
+    label: overrides.label ?? options.label,
+    required,
+    validate: (value, args) => {
+      const language = args?.req?.i18n?.language;
+      const candidate = value === undefined ? args.previousValue : value;
+
+      if (candidate == null || (typeof candidate === "string" && candidate === "")) {
+        if (args.required ?? required) return t(language, "required");
+      } else {
+        const instant = toValidDate(candidate, { timeZone, });
+
+        if (!instant) return t(language, "date.invalid");
+        if (min && instant < min) return t(language, "date.min");
+        if (max && instant > max) return t(language, "date.max");
+      }
+
+      return overrides.validate?.(value, args) ?? true;
+    },
     admin: {
       ...overrides.admin,
       date: { ...overrides.admin?.date, pickerAppearance: appearance, },
       components: {
         ...overrides.admin?.components,
-        Field: { path: "@nexload-sdk/payload-fields/admin/jalali-date-field#JalaliDateFieldComponent", clientProps: { appearance, display, }, },
+        Field: { path: "@nexload-sdk/payload-fields/admin/jalali-date-field#JalaliDateFieldComponent", clientProps: { appearance, display, timeZone, }, },
         Cell: { path: "@nexload-sdk/payload-fields/admin/jalali-date-cell#JalaliDateCell", clientProps: { display, }, },
       },
     },
-    custom: { ...overrides.custom, nexload: { ...(overrides.custom?.nexload as object), jalaliDate: { appearance, display, }, }, },
+    custom: { ...overrides.custom, nexload: { ...(overrides.custom?.nexload as object), jalaliDate: { appearance, display, timeZone, }, }, },
   } as DateField;
+}
+
+export function jalaliDateRangeField (options: {
+  start?: string
+  end?: string
+  pickerAppearance?: JalaliPickerAppearance
+  timeZone?: string
+  required?: boolean
+  labels?: { start?: { fa: string, en: string }, end?: { fa: string, en: string } }
+} = {}): RowField {
+  const { start = "startsAt", end = "endsAt", pickerAppearance, timeZone, required, labels, } = options;
+  const shared = { pickerAppearance, timeZone, required, };
+
+  return {
+    type: "row",
+    fields: [
+      jalaliDateField({ ...shared, name: start, label: labels?.start ?? { fa: t("fa", "dateRange.start"), en: t("en", "dateRange.start"), }, }),
+      jalaliDateField({
+        ...shared,
+        name: end,
+        label: labels?.end ?? { fa: t("fa", "dateRange.end"), en: t("en", "dateRange.end"), },
+        overrides: {
+          validate: (value, args) => {
+            const siblings = args.siblingData as Record<string, unknown> | undefined;
+            const startValue = siblings?.[start];
+            const startDate = typeof startValue === "string" || startValue instanceof Date
+              ? toValidDate(startValue, { timeZone, })
+              : null;
+            const endDate = toValidDate(value === undefined ? args.previousValue : value, { timeZone, });
+
+            return startDate && endDate && endDate < startDate ? t(args?.req?.i18n?.language, "dateRange.order") : true;
+          },
+        },
+      })
+    ],
+  };
 }
 
 export function withJalaliTimestamps<T extends Field[]> (
@@ -70,8 +159,8 @@ export function withJalaliTimestamps<T extends Field[]> (
       hooks: {
         ...override?.hooks, afterRead: [
           ...(override?.hooks?.afterRead ?? []),
-          ({ siblingData, }) => formatJalaliDate(
-            siblingData?.[source] as import("./format-date").JalaliDateValue, options.display
+          ({ siblingData = {}, }) => formatJalaliDate(
+            siblingData[source] as JalaliDateValue, options.display
           )
         ],
       },
