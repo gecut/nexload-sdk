@@ -83,3 +83,9 @@ The **Payload CMS Suite** is a collection of 5 specialized packages that enhance
 - **Location:** `packages/payload-hooks`
 - **Problem Solved:** Lack of structured, traceable visibility into collection lifecycle events (beforeChange, afterChange, afterDelete) across collections.
 - **Core Mechanism:** Plug-and-play hook factory that logs operation lifecycle, timing, user identity, and affected document IDs using `@nexload-sdk/logger`.
+
+### Payload fields: money and slug behavior
+
+Money values are stored as integer minor units. `displayCurrency` converts between IRR and IRT in the admin; IRR displayed as IRT rounds to the nearest toman. API string inputs are normalized in the stored unit.
+
+Slugs are unique by default. Top-level collisions receive numeric suffixes in the current locale. Set `unique: false` to disable this behavior. Nested slugs are formatted without a collision query; database uniqueness remains the final safeguard against concurrent writes.

@@ -1,9 +1,12 @@
-import type { CheckboxField, TextField } from "payload";
+import type { CheckboxField, FieldHook, TextField, TextFieldSingleValidation } from "payload";
+
+import { text } from "payload/shared";
 
 import { assertProtected } from "../internal/protect";
 import { formatSlugHook } from "./format-slug";
 
 export type SlugFieldOptions = {
+  unique?: boolean
   name?: string
   lockName?: string
   source?: string
@@ -27,11 +30,42 @@ export function slugField (options: SlugFieldOptions = {}): SlugFieldResult {
   assertProtected(slugOverrides, name, "text", "Slug field");
   assertProtected(lockOverrides, lockName, "checkbox", "Slug lock");
   const consumerHooks = slugOverrides.hooks?.beforeValidate ?? [];
+  const unique = options.unique ?? true;
+  const format = formatSlugHook({ name, lockName, source, regenerateOnSourceChange: options.regenerateOnSourceChange ?? true });
+  const normalize: FieldHook = async (args) => {
+    const base = await format(args);
+
+    if (!unique || typeof base !== "string" || !base || !args.req?.payload || !args.collection?.slug || (args.path && (Array.isArray(args.path) ? args.path.length !== 1 || args.path[0] !== name : args.path !== name))) return base;
+    const id = args.originalDoc?.id ?? (args as typeof args & { id?: string | number }).id;
+
+    for (let n = 1; n <= 50; n++) {
+      const candidate = n === 1 ? base : `${base}-${n}`;
+      const found = await args.req.payload.find({
+        collection: args.collection.slug,
+        where: { and: [{ [name]: { equals: candidate } }, ...(id !== undefined && id !== null ? [{ id: { not_equals: id } }] : [])] },
+        limit: 1, depth: 0, pagination: false, locale: args.req.locale ?? undefined, req: args.req, overrideAccess: true,
+      });
+
+      if (!found.docs.length) return candidate;
+    }
+
+    return base;
+  };
+  const consumerValidate = slugOverrides.validate;
+  const validate: TextFieldSingleValidation = (value, args) => {
+    const result = text(value, args);
+
+    if (result !== true) return result;
+
+    return consumerValidate ? (consumerValidate as TextFieldSingleValidation)(value, args) : true;
+  };
   const slug: TextField = {
     ...slugOverrides,
     name,
     type: "text",
-    index: slugOverrides.index ?? true,
+    index: unique ? true : slugOverrides.index,
+    unique,
+    validate,
     localized,
     admin: {
       ...slugOverrides.admin,
@@ -48,7 +82,7 @@ export function slugField (options: SlugFieldOptions = {}): SlugFieldResult {
     hooks: {
       ...slugOverrides.hooks, beforeValidate: [
         ...consumerHooks,
-        formatSlugHook({ name, lockName, source, regenerateOnSourceChange: options.regenerateOnSourceChange ?? true, })
+        normalize
       ],
     },
   } as TextField;

@@ -38,3 +38,7 @@ Jalali values remain native ISO dates. `dayOnly` uses canonical local noon, and 
 - Replace decimal price storage with `moneyField`; API values are minor-unit integers.
 
 See the canonical documentation for override, localization, timezone, and generator contracts.
+
+`moneyField` accepts `displayCurrency` to display IRR as IRT or IRT as IRR while storing the configured currency. IRR displayed as IRT rounds to the nearest toman. API string values are normalized in the stored unit.
+
+Slug fields are unique by default. Top-level slugs receive numeric suffixes on collisions; set `unique: false` to disable uniqueness. Nested slugs are formatted but do not run the collision query. Database uniqueness remains the final safeguard against concurrent writes.
