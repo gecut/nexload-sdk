@@ -25,9 +25,9 @@ export default buildConfig({
 | `fields` | `{}` | Options for `payloadFieldsPlugin`; `false` disables it. |
 | `audit` | `{}` | Options for `auditPlugin`; `false` disables it. |
 
-Call `configureLogger()` before `buildConfig()` to set the service name and other logging options. The plugin reads those options when Payload runs it. Payload creates its own logger with SDK redaction, serializers, request context, formatting, and any explicit destination. It uses standard pino levels and maps `success` to `warn` for filtering. Rebuild the Payload config to apply a forced SDK reconfiguration.
+Call `configureLogger()` before `buildConfig()` to set the service name and other logging options. The plugin reads those options when Payload runs it. Payload creates its own logger with SDK redaction, serializers, request context, formatting, and any explicit destination. Note that in development Payload's logger writes JSON (no pretty stream) unless `configureLogger({ destination })` is given, because `getPayloadLoggerConfig()` only forwards an explicit destination stream. In addition, Payload's logger uses standard Pino levels and has no `success()` method; the SDK `success` threshold maps to Payload `warn`. Rebuild the Payload config to apply a forced SDK reconfiguration.
 
-The Persian plugin never adds locales or creates localization. It sets RTL only on existing `fa` locale objects without an explicit value, preserves host defaults and languages, and adds Tehran to supported timezones. Plugins never change collection fields. Audit logs identifiers and counts, not bodies, emails, or tokens. Reads are disabled by default.
+The Persian plugin never adds locales or creates localization. It sets RTL only on existing `fa` locale objects without an explicit value, preserves host defaults and languages, and adds Tehran to supported timezones. Merges never overwrite existing host settings. Plugins never change collection fields. Audit logs identifiers and counts, not bodies, emails, or tokens. Reads are disabled by default.
 
 | Plugin | Order |
 | --- | ---: |

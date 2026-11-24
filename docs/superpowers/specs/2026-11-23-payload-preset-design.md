@@ -1,46 +1,51 @@
 # Payload preset: plugins + thin preset (design)
 
-Status: **approved approach, ready to execute.** Logger dependency met (v5, `0bc8bcd`). Builder check done: see decisions D1–D9 in `docs/superpowers/plans/2026-11-23-payload-preset.md` (they override this spec where they differ).
-Date: 2026-11-23. Source discussion: brainstorming session on the recurring-pattern research
-(`docs/research/recurring-patterns/SYNTHESIS.md`).
+Status: implemented (2026-11-24) — see plan for decisions D1–D15; logger bridge uses the options form (getPayloadLoggerConfig).
+Date: 2026-11-23, revised 2026-11-24. Source discussion: brainstorming session on the recurring-pattern
+research (`docs/research/recurring-patterns/SYNTHESIS.md`).
 
 ## Intent
 
 We build e-commerce sites with a repeated shape by composing code modules on top of Payload.
 Every project re-applies the same Payload config tweaks by hand (Persian admin, RTL, Tehran
-timezone, admin branding, logging hooks). Copy-paste drifts: `fa` is set in 7 of 8 project
-configs, but RTL + `Asia/Tehran` only in 3. The goal is one place that applies these defaults
-correctly, in the right order, while staying cheap to maintain across Payload major versions.
+timezone, logging hooks) and has to remember to register SDK plugins. Copy-paste drifts: `fa` is set
+in 7 of 8 project configs, but RTL + `Asia/Tehran` only in 3.
+
+The value of the preset is **preventing silent mistakes**, not saving lines:
+- a plugin that walks `config.collections` but runs before another plugin adds collections;
+- `supportedLanguages: { fa }` silently dropping English;
+- `defaultTimezone: "Asia/Tehran"` pointing at a value missing from Payload's timezone list;
+- `moneyField()` used without `payloadFieldsPlugin()` registered, so money input is never normalized;
+- Payload's own logs bypassing `@nexload-sdk/logger` redaction.
 
 ## Goals
-- Apply the Persian admin preset, admin branding and audit logging with one call.
-- Guarantee plugin order (audit logging last, so it sees collections added by other plugins).
+- Apply Persian admin defaults, `payload-fields` runtime, audit logging and the logger bridge with one call.
+- Every plugin that walks collections runs after the plugins that add them, wherever the host puts it.
 - Each capability stays usable on its own as a normal Payload plugin.
 
 ## Non-goals
 - No new configuration system on top of Payload. No wrapper around `buildConfig`.
 - No plugin registry, dependency resolution, lifecycle or DI.
-- No theme engine for the admin panel.
+- No theme engine, admin branding or admin font (see "Removed in revision 2").
 - No field definitions or validation (owned by `payload-schema` / `payload-fields`).
-- No persisted audit trail collection in v1 (see Audit plugin).
+- No persisted audit trail collection in v1.
 
 ## Anti-goals (would be a failure even if it works)
 - Every Payload major forces a rewrite of our layer. Keep our types = Payload's types.
 - Logging that slows list/read endpoints (conflicts with the high-performance goal).
-- The preset silently changing collection fields and clashing with `payload-schema`.
+- The preset silently changing collection fields or the DB schema.
 
 ## Constraints
-- Payload `Plugin` is `(config: Config) => Config | Promise<Config>`. We build only on that.
-- Admin React components must be referenced through package subpath exports + import map,
-  same as `payload-fields` already does (`./admin/*`).
+- Payload `Plugin` is `(config: Config) => Config | Promise<Config>` with experimental `order` / `slug`.
+  `buildConfig` stable-sorts plugins by `order ?? 0`. We build only on that.
 - Rule of three: only add to the preset what at least 2–3 projects already repeat.
 
 ## Approaches considered
 | | Approach | Trade-off | Decision |
 |---|---|---|---|
-| A | Thick wrapper `defineNexloadConfig()` replacing `buildConfig` | One entry point, but a second composition system and its own types; doubles the cost of each Payload major (we are on `feat/payload-stable-major` right now) | Rejected |
-| B | Plain plugins only | Simplest; but order and defaults are re-done by hand in each project | Acceptable fallback |
-| C | One plugin per capability + thin `nexloadPreset()` returning `Plugin[]` in fixed order | ~50 lines of glue; fixes ordering once; each plugin still standalone | **Chosen** |
+| A | Thick wrapper `defineNexloadConfig()` replacing `buildConfig` | One entry point, but a second composition system and its own types; doubles the cost of each Payload major | Rejected |
+| B | Plain plugins only | Simplest; but defaults and plugin selection are re-done by hand in each project | Acceptable fallback |
+| C | One plugin per capability, each owning its own `order`, + thin `nexloadPreset()` returning `Plugin[]` | Ordering lives in each plugin, so it also holds outside the preset; preset only bundles defaults | **Chosen** |
 
 ## Design
 
@@ -48,62 +53,100 @@ correctly, in the right order, while staying cheap to maintain across Payload ma
 ```ts
 export default buildConfig({
   collections: [...],
-  plugins: nexloadPreset({
-    persian: true,                  // or PersianPresetOptions
-    admin: { logo, icon, brandColor },
-    audit: { collections: "all" },  // always applied last
-    extra: [myCommercePlugin()],    // host plugins, placed before audit
-  }),
+  plugins: [
+    ...nexloadPreset(),          // persian + fields + audit + logger, all on by default
+    myCommercePlugin(),          // host plugins go anywhere; ordering is handled by `order`
+  ],
 });
 ```
-`nexloadPreset(options): Plugin[]`. Order: `persian` → `admin` → `extra[]` → `audit`.
-It returns plain plugins; no custom config type.
+```ts
+type NexloadPresetOptions = {
+  persian?: boolean;                             // default true
+  fields?: false | PayloadFieldsPluginOptions;   // default {}
+  audit?: false | AuditPluginOptions;            // default {}
+  logger?: boolean;                              // default true
+};
+```
+`nexloadPreset(options): Plugin[]`. It returns plain plugins; no custom config type, no `extra` option.
+
+### Ordering (owned by each plugin, not by the preset)
+| Plugin | `order` | Why |
+|---|---|---|
+| `persianPlugin`, `payloadLoggerPlugin` | default (`0`) | top-level config only; position irrelevant |
+| host plugins | default (`0`) | may add collections |
+| `payloadFieldsPlugin` (in `payload-fields`) | `900` | walks `config.collections` to add money/slug hooks |
+| `auditPlugin` (in `payload-hooks`) | `1000` | walks `config.collections`; must see every collection |
 
 ### Package
-One package, working name `@nexload-sdk/payload-preset`, with subpath exports:
-`.` (`nexloadPreset`), `./persian`, `./admin`, `./audit`. Split into separate packages only
-when one is consumed alone in real projects (avoid versioning overhead).
+One package, working name `@nexload-sdk/payload-preset`, **single `.` export** (Node / Payload config
+only; no subpaths needed). Depends on `@nexload-sdk/payload-hooks`, `@nexload-sdk/payload-fields`,
+`@nexload-sdk/logger`, `@nexload-sdk/persian`.
 
-### Persian plugin (`./persian`)
-Config-level only: `i18n.supportedLanguages.fa` (and fallback), localization locale `fa` with
-`rtl: true` when localization is enabled, admin timezone default `Asia/Tehran`, admin date
-display format, admin font via CSS. Evidence: meetal.app, gecut/nexload, choobinooo,
-hr-collector configs. Must merge with, not overwrite, host i18n/localization.
+### Persian plugin
+Config-level only, no options:
+- `i18n.supportedLanguages` gains `fa`, keeps host languages, keeps `en` when the host set none.
+- `i18n.fallbackLanguage = "fa"` only when the host set none.
+- An existing `fa` locale object gets `rtl: true` when `rtl` is unset. Never adds a locale (DB schema).
+- `admin.timezones`: `defaultTimezone = TEHRAN_TIME_ZONE` (from `@nexload-sdk/persian`) when unset; the
+  supported list always contains it, labelled `"تهران"`.
 
-### Admin plugin (`./admin`)
-Minimal options: logo, icon, brand color, `meta` title suffix. Evidence is thin (graphics in
-2/8 configs: rasad-srm, persianpartshop), so keep it small until more projects ask.
+A host that wants another timezone or fallback language sets it in its own config; merge keeps it.
 
-### Audit plugin (`./audit`)
-Evolves `@nexload-sdk/payload-hooks` (v3), instead of a new package. Today `logOperation`
-is added by hand per collection (choobinooo: 12 files, persianpartshop: 6) and logs only
-collection + hook type, while its docs claim timing, user and doc id.
-- `auditPlugin({ collections: "all" | string[], operations, exclude })` appends hooks to
-  every matching collection at config time.
-- Logs: collection, operation, doc id, user id, duration where measurable. Redaction via logger.
-- `afterRead` **off by default** (runs per document in every list).
-- Log-only in v1. Event shape chosen so it can later also be written to a collection.
-- Keep `logOperation` exported for compatibility.
+### Fields runtime (`payloadFieldsPlugin`)
+Already exists in `@nexload-sdk/payload-fields`. The preset registers it by default. `payload-fields`
+gains `order = 900` and `slug = "nexload-fields"` on the returned plugin.
+
+### Audit plugin (in `@nexload-sdk/payload-hooks`)
+Evolves `payload-hooks` instead of a new package. Log-only in v1.
+- **Writes** (`create`, `update`, `delete`): `afterChange` / `afterDelete`, one line per document
+  (bulk updates stay per-id).
+- **Reads** (`read`, off by default): `afterOperation` for `find` / `findByID`, **one line per request**,
+  not per document. Lists log `count`, never ids or bodies.
+- **Auth** (`auth`, on by default): `afterOperation` for `login`, `forgotPassword`, `resetPassword` on
+  auth collections. Never logs email, password or token. Failed logins throw before `afterOperation`
+  runs, so they are out of v1 (later: `hooks.afterError`).
+- Logging never breaks an operation: logger errors are swallowed inside the hook.
+- `logOperation` stays exported but is marked `@deprecated` (it logs only `{ collection }`).
+
+### Logger bridge (`payloadLoggerPlugin`)
+Sets `config.logger` so Payload's own logs (errors, startup) go through `@nexload-sdk/logger`
+formatting and redaction. Only when the host set no `config.logger`.
+Payload pins `pino 9.14.0`; `@nexload-sdk/logger` uses `pino ^10.4.0`. The plan gates the mechanism:
+pass our pino instance if it type-checks as `PayloadLogger`, else pass `{ options }` built from our
+pino options, else drop the bridge from v1.
+Constraint for hosts: call `configureLogger()` before `buildConfig()` runs.
 
 ### Boundary with schema / fields
 **Preset plugins never touch collection fields.** `payload-schema` owns field definitions and
-validation; `payload-fields` owns field components (Jalali, slug, money). The preset only
-changes top-level config (i18n, localization, admin, hooks). A plugin that needs to add fields
-does not belong in the preset.
+validation; `payload-fields` owns field components and their runtime hooks. The preset only changes
+top-level config (i18n, localization, admin timezones, logger) and adds hooks.
 
-## Dependencies
-1. **Logger first.** `@nexload-sdk/logger` (still under `packages/refactoring/`) is the base of
-   the audit plugin. Research found its docs describe Pino while the implementation is
-   renderer-based. Settle the logger API (structured events, redaction, child bindings) before
-   building `./audit`.
-2. `env` is also under `packages/refactoring/`; not needed by the preset itself.
+## Revision 2 changes (vs. the 2026-11-23 spec)
+### Removed
+- **Admin branding plugin and `./admin` subpath.** Evidence 2 of 8 projects; it only renamed three
+  Payload keys (`admin.components.graphics.Logo/Icon`, `admin.meta.titleSuffix`). Write them directly.
+- **`extra` option.** With `order` on each collection-walking plugin, host plugins can sit anywhere in
+  the array. `extra` was a second way to do the same thing.
+- **Persian options** `timezone`, `timezoneLabel`, `dateFormat`, `fallbackLanguage`. Speculative; the
+  host's own config wins under merge. `admin.dateFormat` is Gregorian date-fns; Jalali display belongs
+  to `payload-fields` `admin/jalali-date-field`.
+- **`./persian` subpath.** Node-only config package; one entry point is enough.
+- **Admin font.** Not reachable from config (it lives in `app/(payload)/layout.tsx` / `custom.scss`).
+  Documented as a README recipe, not a feature.
 
-## Left to the builder
-- Exact Payload config keys per version (verify against the installed Payload 3.x types).
-- Font loading mechanism in admin (CSS import vs component).
-- Measuring duration across before/after hooks (request context vs `afterOperation`).
+### Added
+- `payloadFieldsPlugin` registered by the preset, with `order = 900` in `payload-fields`.
+- Logger bridge (`config.logger`).
+- Audit `auth` operation group.
+
+### Changed
+- Audit reads use `afterOperation` (once per request) instead of `afterRead` (once per document).
+- Ordering moved from preset array position into each plugin's `order`.
+- Persian timezone constant comes from `@nexload-sdk/persian`; label is Persian.
+- `logOperation` deprecated instead of only kept.
 
 ## Open questions (for later)
 - Should audit events ever be persisted (who changed a price)? If yes, a later `auditCollection` option.
-- Package name: `payload-preset` vs `payload-kit`.
-- Builder check not run yet; run it when this work is resumed.
+- Package name: `payload-preset` vs `payload-kit` (`payload-editor` already uses "presets" for Lexical).
+- Failed-login auditing via `hooks.afterError`.
+- `durationMs` via `beforeOperation` + `req.context`.

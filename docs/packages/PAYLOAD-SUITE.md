@@ -13,7 +13,7 @@ The **Payload CMS Suite** includes field factories, semantic editor presets, can
 | **`@nexload-sdk/payload-editor`** | Semantic Lexical editor configuration, presets (minimal, standard, rich), and feature policies. | Rich-text presentation, React rendering, custom blocks schemas, theme styling. |
 | **`@nexload-sdk/payload-fields`** | Semantic field factories and Admin UI components (Unicode slugs, Jalali datepicker, integer money). | General schema compilation or editor feature policies. |
 | **`@nexload-sdk/payload-hooks`** | Type-safe collection operation logging hooks for auditability and debugging. | Domain mutations, access validation, data manipulation. |
-| **`@nexload-sdk/payload-preset`** | Composing Persian admin defaults, SDK logging settings, field hooks, and audit logging. | Admin branding, font setup, database adapter configuration. |
+| **`@nexload-sdk/payload-preset`** | Composing Persian admin defaults, SDK logging settings, field hooks, and audit logging (preset changes top-level config only; fields belong to payload-schema / payload-fields). | Admin branding, font setup, database adapter configuration. |
 
 ---
 
@@ -88,18 +88,18 @@ The **Payload CMS Suite** includes field factories, semantic editor presets, can
 ### E. `@nexload-sdk/payload-hooks`
 - **Location:** `packages/payload-hooks`
 - **Problem Solved:** Lack of structured, traceable visibility into collection lifecycle events (beforeChange, afterChange, afterDelete) across collections.
-- **Core Mechanism:** Plug-and-play hook factory that logs operation lifecycle, timing, user identity, and affected document IDs using `@nexload-sdk/logger`.
+- **Core Mechanism:** Plug-and-play hook factory and `auditPlugin` (plugin order 1000) that logs operation lifecycle, timing, user identity, and affected document IDs using `@nexload-sdk/logger`.
 
 ### F. `@nexload-sdk/payload-preset`
 
 - **Location:** `packages/payload-preset`
-- **Usage:** Add `nexloadPreset()` to Payload's plugins for Persian admin defaults, SDK logging settings, field hooks, and audit logging.
+- **Usage:** Add `nexloadPreset()` to Payload's plugins for Persian admin defaults, SDK logging settings, field hooks, and audit logging. Preset changes top-level config only; fields belong to payload-schema / payload-fields.
 - **Logger bridge:** Call `configureLogger()` before `buildConfig()`. With no host logger configured, the plugin gives Payload the SDK's logger options and explicit destination so Payload creates its own logger. The `success` threshold maps to `warn`. Set `logger: false` in the preset options to disable the bridge.
 
 ### Payload fields: money, slug, and plugin behavior
 
 Money values are stored strictly as integer minor units. `displayCurrency` converts between IRR and IRT in the admin; IRR displayed as IRT rounds to the nearest toman.
 
-**Important:** `payloadFieldsPlugin()` is **REQUIRED** when money values are sent through REST or Local API as strings (e.g. `"۱۲۳٬۴۵۶"` or `"123456"`). Payload core parses number-field strings with `parseFloat()` before field hooks run, which corrupts or drops Persian digits and grouping separators. The plugin's `beforeOperation` hook converts string values to safe integers before Payload parses them. Plain numbers work without the plugin.
+**Important:** `payloadFieldsPlugin()` is **REQUIRED** when money values are sent through REST or Local API as strings (e.g. `"۱۲۳٬۴۵۶"` or `"123456"`). Payload core parses number-field strings with `parseFloat()` before field hooks run, which corrupts or drops Persian digits and grouping separators. The plugin's `beforeOperation` hook converts string values to safe integers before Payload parses them. Plain numbers work without the plugin. The plugin runs with plugin order 900 (`PAYLOAD_FIELDS_PLUGIN_ORDER = 900`, slug `"nexload-fields"`), ensuring it runs after ordinary host plugins that add collections.
 
 Slugs are unique by default. Top-level collisions receive numeric suffixes (`-2`, `-3`) in the active locale. Set `unique: false` to disable this behavior. Nested slugs inside arrays or groups are formatted without running collision queries; database uniqueness remains the final safeguard against concurrent writes.
