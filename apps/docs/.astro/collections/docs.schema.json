@@ -645,6 +645,7 @@
           "type": "string",
           "enum": [
             "logger",
+            "persian",
             "healthcheck",
             "healthcheck-node",
             "healthcheck-bun",

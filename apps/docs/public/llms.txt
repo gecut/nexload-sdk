@@ -1,8 +1,8 @@
 # Nexload SDK documentation
 
-Current-version documentation for 12 released Healthcheck and Payload CMS packages.
+Current-version documentation for 13 released Healthcheck and Payload CMS packages.
 
-- [Domain Specialists (Tier 3) | Nexload SDK](/agents/domain-skills.md) — Production package skills for Healthcheck observability and Payload CMS enterprise suites. [topic: agents]
+- [Domain Specialists (Tier 3) | Nexload SDK](/agents/domain-skills.md) — Production package skills for Healthcheck, Payload CMS, and Persian data. [topic: agents]
 - [Engineering Standards (Tier 2) | Nexload SDK](/agents/engineering.md) — Enforce rigorous TypeScript narrowing, package export integrity, React render purity, layout design preservation, and CTO review. [topic: agents]
 - [AI Agent Skills: Overview & Mental Model | Nexload SDK](/agents/) — Equip Cursor, Claude Code, Antigravity, and Codex with automated knowledge of Nexload SDK standards, preventing hallucinations and ensuring zero-shot compliance. [topic: agents]
 - [Agent Setup & Quickstart | Nexload SDK](/agents/install.md) — Install Nexload reasoning, engineering standards, and package Skills autonomously via One-Shot Prompt or selectively with the official skills CLI. [topic: agents]
@@ -49,6 +49,9 @@ Current-version documentation for 12 released Healthcheck and Payload CMS packag
 - [API Reference & Compatibility](/packages/payload-schema/api.md) — Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema. [@nexload-sdk/payload-schema v2.0.0] [topic: api]
 - [Production Guides & Recipes](/packages/payload-schema/guides.md) — Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration. [@nexload-sdk/payload-schema v2.0.0] [topic: guides]
 - [Overview & Quick Start](/packages/payload-schema/) — Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas. [@nexload-sdk/payload-schema v2.0.0] [topic: overview]
+- [API Reference & Compatibility](/packages/persian/api.md) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: api]
+- [Guides & Recipes](/packages/persian/guides.md) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: guides]
+- [Overview & Quick Start](/packages/persian/) — Persian and Iranian utilities. [@nexload-sdk/persian v0.0.0] [topic: overview]
 - [Configuration Guides & Recipes](/packages/typescript-config/guides.md) — Monorepo project references, overriding compiler options safely, and library declaration builds. [topic: guides]
 - [Overview & Quick Start](/packages/typescript-config/) — Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite applications. [topic: overview]
 - [Autonomous Agent Config Setup Prompt](/standards/agent-setup-prompt.md) — A battle-tested copy-pasteable prompt that empowers any AI agent in any repository to configure and enforce strict ESLint 9 Flat Config and TypeScript 5. [topic: ecosystem]

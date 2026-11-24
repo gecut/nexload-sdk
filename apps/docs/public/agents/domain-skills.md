@@ -1,6 +1,6 @@
 # Domain Specialists (Tier 3) | Nexload SDK
 
-Production package skills for Healthcheck observability and Payload CMS enterprise suites.
+Production package skills for Healthcheck, Payload CMS, and Persian data.
 
 **Topic:** agents
 **Canonical page:** https://gecut.github.io/nexload-sdk/agents/domain-skills/
@@ -93,6 +93,16 @@ npx skills add gecut/nexload-sdk --skill payload-fields-core
   * Generates frontend SDK clients that interact with Payload custom operations with full type inference.
 * **`payload-operations-server`** (`--skill payload-operations-server`)
   * Implements secure custom server endpoints in Payload with RBAC access control and error masking.
+
+***
+
+## 3. Persian Data
+
+Use the `persian` skill with `@nexload-sdk/persian` for Iranian identifiers, Rial and Toman amounts, Jalali dates, and Persian text. It covers canonical storage, display formatting, and Zod validation.
+
+```bash
+npx skills add gecut/nexload-sdk --skill persian
+```
 
 ***
 

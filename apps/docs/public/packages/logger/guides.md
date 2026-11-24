@@ -99,6 +99,31 @@ The serializer includes the error type, up to 500 characters of its message, an 
 
 ***
 
+## Testing
+
+Use `createTestLogger` from `@nexload-sdk/logger/testing` to assert on emitted events. It captures parsed entries independently of the global configuration, so tests do not need to reset shared state.
+
+```ts
+import { createTestLogger } from "@nexload-sdk/logger/testing";
+
+const { logger, entries, clear } = createTestLogger({ service: "test", level: "info" });
+
+logger.success({ event: "order.lifecycle.placed", orderId: "123" }, "Order placed");
+
+entries[0]?.event; // "order.lifecycle.placed"
+clear();
+```
+
+Inject the test logger into the code under test instead of mocking the shared `logger`.
+
+***
+
+## Libraries
+
+A library that logs imports the shared logger and never calls `configureLogger`. The host application owns configuration, so the library's module children follow it. Before the application configures the logger, calls use the environment fallbacks described above.
+
+***
+
 ## Logging Architecture
 
 Create one child per module. Log on request completion, outbound provider calls, job completion, and business state transitions. Aggregate loop results and log the summary once. Give each event a stable past-tense `domain.entity.action` name and a short message. Add `durationMs` and `outcome` to timed operations, and `attempt` to retry events.

@@ -10,6 +10,8 @@ This site documents stable Nexload SDK packages. Each package has its own instal
 
 [`@nexload-sdk/logger`](./logger/) provides structured application events, request context, and trace propagation across service boundaries.
 
+[`@nexload-sdk/persian`](./persian/) provides Persian and Iranian utilities.
+
 ## Healthcheck
 
 Start with the runtime-neutral core, then add only the runtime, framework, CMS, or exporter integration you need.
@@ -36,6 +38,7 @@ Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zo
 Shared TypeScript compiler configurations, ESLint 9 Flat Config presets, and canonical architectural standards.
 
 * [@nexload-sdk/logger](/packages/logger/) — Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults. (v4.1.0)
+* [@nexload-sdk/persian](/packages/persian/) — Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates. (v0.0.0)
 * [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
 * [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
 * [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
