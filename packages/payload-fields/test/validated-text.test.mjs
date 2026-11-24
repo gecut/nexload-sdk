@@ -10,9 +10,9 @@ test('normalizes in beforeValidate and keeps invalid raw', async () => {
   const hook = field.hooks.beforeValidate.at(-1);
   assert.equal(await hook({ value: '+98 912 345 6789' }), '09123456789');
   assert.equal(await hook({ value: 'abc' }), 'abc');
-  assert.equal(field.validate('abc', { req: { i18n: { language: 'fa' } } }), 'شماره همراه معتبر نیست.');
+  assert.equal(field.validate('abc', { req: { i18n: { language: 'fa' }, payload: { config: {} }, t: (key) => key } }), 'شماره همراه معتبر نیست.');
   assert.equal(field.validate('abc', { req: { i18n: { language: 'en' } } }), messages.en['mobile.invalid']);
-  assert.equal(field.validate('09123456789', { req: { i18n: { language: 'fa' } } }), true);
+  assert.equal(field.validate('09123456789', { req: { i18n: { language: 'fa' }, payload: { config: {} }, t: (key) => key } }), true);
   assert.equal(field.admin.rtl, false);
 });
 test('protected keys', () => {
@@ -24,7 +24,7 @@ test('resolveLanguage', () => {
 });
 
 test('whitespace is empty and unknown errors have a fallback', () => {
-  const args = { req: { i18n: { language: 'fa' } } };
+  const args = { req: { i18n: { language: 'fa' }, payload: { config: {} }, t: (key) => key } };
   assert.equal(createValidatedTextField(options).validate('   ', args), true);
   assert.equal(createValidatedTextField({ ...options, required: true }).validate('   ', args), messages.fa.required);
   const field = createValidatedTextField({ ...options, validate: () => ({ ok: false, reason: 'unknown' }) });

@@ -28,3 +28,24 @@ test('label targets Payload input id for nested paths', () => {
   const source = readFileSync(new URL('../src/admin/validated-text-field.tsx', import.meta.url), 'utf8');
   assert.match(source, /htmlFor=\{`field-\$\{path\.replace\(\/\\\.\/g, "__"\)\}`\}/);
 });
+
+
+test('Jalali date cell forwards Payload cell props', async () => {
+  const source = readFileSync(new URL('../dist/admin/jalali-date-cell.js', import.meta.url), 'utf8')
+    .replace('"@payloadcms/ui"', JSON.stringify(stub))
+    .replace('"react/jsx-runtime"', JSON.stringify(import.meta.resolve('react/jsx-runtime')))
+    .replace('"@nexload-sdk/persian/date"', JSON.stringify(import.meta.resolve('@nexload-sdk/persian/date')));
+  const { JalaliDateCell } = await import('data:text/javascript,' + encodeURIComponent(source));
+  const onClick = () => {};
+  const result = JalaliDateCell({ cellData: null, link: true, linkURL: '/item', onClick });
+  assert.equal(result.props.cellData, '—');
+  assert.equal(result.props.link, true);
+  assert.equal(result.props.linkURL, '/item');
+  assert.equal(result.props.onClick, onClick);
+});
+
+test('Jalali date field keeps validation callback stable between unchanged renders', () => {
+  const source = readFileSync(new URL('../src/admin/jalali-date-field.tsx', import.meta.url), 'utf8');
+  assert.match(source, /const validate = useCallback\([\s\S]*?\[draft, invalidMessage\]\s*\)/);
+  assert.match(source, /useField<string \| null>\(\{[\s\S]*?\bvalidate,/);
+});
