@@ -144,6 +144,7 @@ export function moneyField (options: MoneyFieldOptions): NumberField {
     label: options.label ?? overrides.label,
     required: options.required ?? overrides.required,
     hooks: { ...overrides.hooks, beforeValidate: [ ...(overrides.hooks?.beforeValidate ?? []), ({ value }) => {
+      // Payload parseFloat()s API strings before field hooks run, so this only helps direct calls; payloadFieldsPlugin's beforeOperation hook normalizes API strings.
       if (typeof value !== "string") return value;
       if (!value.trim()) return null;
       const parsed = parseNumber(value);

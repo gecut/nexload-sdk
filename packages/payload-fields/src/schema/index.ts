@@ -53,7 +53,7 @@ type SchemaFields = {
   sortOrder: <N extends boolean = false>(options?: Options<Parameters<typeof sortOrderField>[0], N>) => NumberDefinition<N>;
   jalaliDate: <N extends boolean = false>(options?: Options<Parameters<typeof jalaliDateField>[0], N>) => DateDefinition<N>;
   money: <N extends boolean = false>(options: Options<Parameters<typeof moneyField>[0], N>) => NumberDefinition<N>;
-  slug: (options?: Omit<NonNullable<Parameters<typeof slugField>[0]>, "name" | "overrides"> & { overrides?: { slug?: WithoutRequired<Partial<TextField>>; lock?: WithoutRequired<Partial<CheckboxField>> } }) => { slug: TextDefinition; slugLock: CheckboxDefinition };
+  slug: <N extends string = "slug", L extends string = `${N}Lock`>(options?: Omit<NonNullable<Parameters<typeof slugField>[0]>, "name" | "lockName" | "overrides"> & { name?: N; lockName?: L; overrides?: { slug?: WithoutRequired<Partial<TextField>>; lock?: WithoutRequired<Partial<CheckboxField>> } }) => { [K in N]: TextDefinition } & { [K in L]: CheckboxDefinition };
 };
 
 const schemaFieldsImplementation = {
@@ -125,11 +125,13 @@ const schemaFieldsImplementation = {
     return field.native({ payload: { ...payload, required: !nullable, }, schema: nullable ? schema.nullable() : schema,
       ...(typeof defaultValue === "string" ? { defaultValue, } : {}), });
   },
-  slug: (options: Omit<Parameters<typeof slugField>[0], "name"> = {}) => {
-    const [slug, lock]: readonly [TextField, CheckboxField] = slugField(options);
+  slug: (options: NonNullable<Parameters<typeof slugField>[0]> = {}) => {
+    const name = options.name ?? "slug";
+    const lockName = options.lockName ?? `${name}Lock`;
+    const [slug, lock]: readonly [TextField, CheckboxField] = slugField({ ...options, name, lockName, });
     const { name: _name, defaultValue, ...payload } = lock;
 
-    return { slug: textField(slug, z.string().transform(formatSlug).pipe(z.string().min(1))), slugLock: field.native({ payload: { ...payload, required: true, }, schema: z.boolean(),
+    return { [name]: textField(slug, z.string().transform(formatSlug).pipe(z.string().min(1))), [lockName]: field.native({ payload: { ...payload, required: true, }, schema: z.boolean(),
       ...(typeof defaultValue === "boolean" ? { defaultValue, } : {}), }), };
   },
 };

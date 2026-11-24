@@ -111,12 +111,10 @@ test("SQLite integration with payload-fields v4", async () => {
           err?.name === "ValidationError" ||
           err?.data?.errors?.length > 0;
         assert.ok(isValidationErr, `Expected ValidationError, got: ${err?.name || err}`);
-        const errString = JSON.stringify(err);
-        const mentionsNationalCode =
-          err?.message?.includes("nationalCode") ||
-          errString.includes("nationalCode") ||
-          Boolean(err?.data?.errors?.some((e) => e?.field === "nationalCode" || e?.message?.includes("nationalCode")));
-        assert.ok(mentionsNationalCode, `ValidationError must mention nationalCode, got: ${err?.message} / ${errString}`);
+        assert.ok(
+          err?.data?.errors?.some((e) => e.path === "nationalCode"),
+          `ValidationError must have an error with path nationalCode, got: ${JSON.stringify(err?.data)}`,
+        );
         return true;
       }
     );
@@ -171,6 +169,20 @@ test("SQLite integration with payload-fields v4", async () => {
     });
     assert.equal(fetchedV3.birthDate, "2025-09-24T08:30:00.000Z");
     assert.equal(fetchedV3.credit, 5000);
+
+    // 5. Jalali string via API is converted, not stored as Gregorian 1404
+    const jalaliDoc = await payload.create({
+      collection: "customers",
+      data: { title: "تاریخ جلالی", birthDate: "۱۴۰۴/۰۷/۰۲" },
+      locale: "fa",
+    });
+    assert.equal(jalaliDoc.birthDate, "2025-09-24T08:30:00.000Z");
+
+    // 6. Cleared optional unique text becomes null, not "" (no unique collision)
+    const emptyA = await payload.create({ collection: "customers", data: { title: "خالی۱", mobile: "" }, locale: "fa" });
+    const emptyB = await payload.create({ collection: "customers", data: { title: "خالی۲", mobile: "  " }, locale: "fa" });
+    assert.equal(emptyA.mobile ?? null, null);
+    assert.equal(emptyB.mobile ?? null, null);
   } finally {
     await payload?.destroy();
     fs.rmSync(tempDir, { force: true, recursive: true });

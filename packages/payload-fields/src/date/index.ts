@@ -1,6 +1,7 @@
 import type { DateField, Field, RowField, TextField } from "payload";
 
-import { fromJalali, TEHRAN_TIME_ZONE, toValidDate } from "@nexload-sdk/persian/date";
+import { fromJalali, parseJalaliDate, TEHRAN_TIME_ZONE, toValidDate } from "@nexload-sdk/persian/date";
+import { toEnglishDigits } from "@nexload-sdk/persian/digits";
 
 import type { JalaliDateDisplayOptions, JalaliDateValue } from "./format-date";
 import type { JalaliPickerAppearance } from "./picker-types";
@@ -45,6 +46,24 @@ export function toStoredJalaliInstant (
   }, { timeZone, }).toISOString();
 }
 
+const ISO_PREFIX = /^\d{4}-\d{2}-\d{2}/;
+const JALALI_STRING = /^(\d{4})\/(\d{1,2})\/(\d{1,2})(?:\s+(\d{1,2}:\d{2}))?$/;
+
+/** Converts "1404/07/02[ HH:mm]" (Persian or Latin digits) to an ISO string; null when not a valid Jalali string. */
+function jalaliStringToIso (value: string, appearance: JalaliPickerAppearance, timeZone: string): string | null {
+  const match = toEnglishDigits(value.trim()).match(JALALI_STRING);
+
+  if (!match) return null;
+  const [, y, m, d, time] = match;
+
+  if (!parseJalaliDate(`${y}/${m}/${d}`, { timeZone, })) return null;
+  const picked = { year: Number(y), month: Number(m), day: Number(d), };
+
+  if (appearance === "dayOnly" || appearance === "monthOnly") return toStoredJalaliInstant(picked, appearance, timeZone);
+
+  return parseJalaliDate(`${y}/${m}/${d}`, { timeZone, time: time ?? "00:00", })?.toISOString() ?? null;
+}
+
 export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
   const overrides = options.overrides ?? {};
 
@@ -84,7 +103,12 @@ export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
       if (candidate == null || (typeof candidate === "string" && candidate === "")) {
         if (args.required ?? required) return t(language, "required");
       } else {
-        const instant = toValidDate(candidate, { timeZone, });
+        const converted = typeof candidate === "string" && !ISO_PREFIX.test(candidate)
+          ? jalaliStringToIso(candidate, appearance, timeZone)
+          : candidate;
+        const instant = typeof candidate === "string" && converted === null
+          ? null
+          : toValidDate(converted, { timeZone, });
 
         if (!instant) return t(language, "date.invalid");
         if (min && instant < min) return t(language, "date.min");
@@ -92,6 +116,15 @@ export function jalaliDateField (options: JalaliDateFieldOptions): DateField {
       }
 
       return overrides.validate?.(value, args) ?? true;
+    },
+    hooks: {
+      ...overrides.hooks,
+      beforeValidate: [
+        ...(overrides.hooks?.beforeValidate ?? []),
+        ({ value, }) => typeof value === "string" && !ISO_PREFIX.test(value)
+          ? (jalaliStringToIso(value, appearance, timeZone) ?? value)
+          : value
+      ],
     },
     admin: {
       ...overrides.admin,

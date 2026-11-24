@@ -66,7 +66,12 @@ export function createValidatedTextField (options: ValidatedTextOptions): TextFi
       ...overrides.hooks,
       beforeValidate: [
         ...(overrides.hooks?.beforeValidate ?? []),
-        ({ value, }) => typeof value === "string" ? (options.normalize(value) ?? value) : value,
+        ({ value, }) => {
+          if (typeof value !== "string") return value;
+          if (value.trim() === "") return null;
+
+          return options.normalize(value) ?? value;
+        },
       ],
     },
     custom: {

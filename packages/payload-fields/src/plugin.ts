@@ -11,71 +11,112 @@ export type SlugGenerator = (input: SlugGeneratorInput, context: SlugGeneratorCo
 export type SlugGenerationAccess = (context: SlugGeneratorContext) => boolean | Promise<boolean>;
 export type PayloadFieldsPluginOptions = { slugGenerators?: Record<string, SlugGenerator>, generateSlugAccess?: SlugGenerationAccess };
 
-function normalizeDataMoneyFields (fields: Field[], data: unknown): void {
-  if (!data || typeof data !== "object") return;
+type BlockMap = Map<string, { fields: Field[] }>;
+
+function isPlainObject (value: unknown): value is Record<string, unknown> {
+  if (!value || typeof value !== "object") return false;
+  const proto = Object.getPrototypeOf(value);
+
+  return proto === Object.prototype || proto === null;
+}
+
+function normalizeMoneyValue (val: string): unknown {
+  const trimmed = val.trim();
+
+  if (trimmed === "") return null;
+  const parsed = parseNumber(trimmed);
+
+  return parsed !== null && Number.isSafeInteger(parsed) ? parsed : val;
+}
+
+/**
+ * Copy-on-write normalization: never mutates `data`; returns the same reference
+ * when nothing changed, otherwise shallow copies only the containers along changed paths.
+ */
+function normalizeDataMoneyFields (fields: Field[], data: unknown, blocks: BlockMap): unknown {
   if (Array.isArray(data)) {
-    for (const item of data) {
-      normalizeDataMoneyFields(fields, item);
-    }
+    let out: unknown[] = data;
 
-    return;
+    data.forEach((item, index) => {
+      const next = normalizeDataMoneyFields(fields, item, blocks);
+
+      if (next !== item) {
+        if (out === data) out = [...data];
+        out[index] = next;
+      }
+    });
+
+    return out;
   }
+  if (!isPlainObject(data)) return data;
 
-  const record = data as Record<string, unknown>;
+  let out: Record<string, unknown> = data;
+  const assign = (key: string, value: unknown) => {
+    if (out === data) out = { ...data, };
+    out[key] = value;
+  };
+  const nested = (key: string, nestedFields: Field[]) => {
+    const current = out[key];
+    const next = normalizeDataMoneyFields(nestedFields, current, blocks);
+
+    if (next !== current) assign(key, next);
+  };
 
   for (const field of fields) {
     if (field.type === "number" && (field.custom as { nexload?: { money?: unknown } } | undefined)?.nexload?.money && "name" in field) {
-      const val = record[field.name];
+      const val = out[field.name];
 
       if (typeof val === "string") {
-        const trimmed = val.trim();
+        const next = normalizeMoneyValue(val);
 
-        if (trimmed === "") {
-          record[field.name] = null;
-        } else {
-          const parsed = parseNumber(trimmed);
-
-          if (parsed !== null && Number.isSafeInteger(parsed)) {
-            record[field.name] = parsed;
-          }
-        }
+        if (next !== val) assign(field.name, next);
       }
     } else if (field.type === "group" && "fields" in field && "name" in field) {
-      normalizeDataMoneyFields(field.fields, record[field.name]);
+      nested(field.name, field.fields);
     } else if ((field.type === "row" || field.type === "collapsible") && "fields" in field) {
-      normalizeDataMoneyFields(field.fields, record);
+      out = normalizeDataMoneyFields(field.fields, out, blocks) as Record<string, unknown>;
     } else if (field.type === "tabs" && "tabs" in field) {
       for (const tab of field.tabs) {
         if ("name" in tab && tab.name) {
-          normalizeDataMoneyFields(tab.fields, record[tab.name]);
+          nested(tab.name, tab.fields);
         } else {
-          normalizeDataMoneyFields(tab.fields, record);
+          out = normalizeDataMoneyFields(tab.fields, out, blocks) as Record<string, unknown>;
         }
       }
     } else if (field.type === "array" && "fields" in field && "name" in field) {
-      const rows = record[field.name];
+      nested(field.name, field.fields);
+    } else if (field.type === "blocks" && "name" in field) {
+      const rows = out[field.name];
 
       if (Array.isArray(rows)) {
-        for (const row of rows) {
-          normalizeDataMoneyFields(field.fields, row);
+        const candidates: Array<{ slug: string, fields: Field[] }> = [];
+
+        for (const block of field.blocks ?? []) candidates.push(block);
+        for (const ref of field.blockReferences ?? []) {
+          const resolved = typeof ref === "string" ? blocks.get(ref) : ref;
+
+          if (resolved) candidates.push({ slug: typeof ref === "string" ? ref : ref.slug, fields: resolved.fields, });
         }
-      }
-    } else if (field.type === "blocks" && "blocks" in field && "name" in field) {
-      const blocks = record[field.name];
+        let nextRows: unknown[] = rows;
 
-      if (Array.isArray(blocks)) {
-        for (const block of blocks) {
-          if (block && typeof block === "object") {
-            const blockDef = field.blocks.find((b) => b.slug === (block as { blockType?: string }).blockType);
+        rows.forEach((block, index) => {
+          if (!isPlainObject(block)) return;
+          const def = candidates.find((b) => b.slug === block.blockType);
 
-            if (blockDef) {
-              normalizeDataMoneyFields(blockDef.fields, block);
-            }
+          if (!def) return;
+          const next = normalizeDataMoneyFields(def.fields, block, blocks);
+
+          if (next !== block) {
+            if (nextRows === rows) nextRows = [...rows];
+            nextRows[index] = next;
           }
-        }
+        });
+        if (nextRows !== rows) assign(field.name, nextRows);
       }
     }
   }
+
+  return out;
 }
 
 function failure (
@@ -87,7 +128,10 @@ function failure (
 }
 
 export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): Plugin {
-  return (config) => ({
+  return (config) => {
+    const blockMap: BlockMap = new Map((config.blocks ?? []).map((block) => [block.slug, block]));
+
+    return {
     ...config,
     collections: (config.collections ?? []).map((collection) => ({
       ...collection,
@@ -97,7 +141,9 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
           ...(collection.hooks?.beforeOperation ?? []),
           ({ args, collection: colConfig }) => {
             if (args && "data" in args && args.data && colConfig?.fields) {
-              normalizeDataMoneyFields(colConfig.fields, args.data);
+              const data = normalizeDataMoneyFields(colConfig.fields, args.data, blockMap);
+
+              return data === args.data ? args : { ...args, data, };
             }
 
             return args;
@@ -113,7 +159,9 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
           ...(global.hooks?.beforeOperation ?? []),
           ({ args, global: globConfig }) => {
             if (args && "data" in args && args.data && globConfig?.fields) {
-              normalizeDataMoneyFields(globConfig.fields, args.data);
+              const data = normalizeDataMoneyFields(globConfig.fields, args.data, blockMap);
+
+              return data === args.data ? args : { ...args, data, };
             }
 
             return args;
@@ -181,5 +229,6 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
         },
       }
     ],
-  });
+  };
+  };
 }
