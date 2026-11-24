@@ -127,8 +127,10 @@ function failure (
   );
 }
 
+export const PAYLOAD_FIELDS_PLUGIN_ORDER = 900;
+
 export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): Plugin {
-  return (config) => {
+  const plugin: Plugin = (config) => {
     const blockMap: BlockMap = new Map((config.blocks ?? []).map((block) => [block.slug, block]));
 
     return {
@@ -231,4 +233,8 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
     ],
   };
   };
+  plugin.order = PAYLOAD_FIELDS_PLUGIN_ORDER;
+  plugin.slug = "nexload-fields";
+
+  return plugin;
 }
