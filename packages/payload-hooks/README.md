@@ -27,6 +27,10 @@ const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read"
 
 The plugin runs at order `1000` and appends hooks after existing hooks. It does not change fields. Writes log once per document. Reads are off by default and log once per request. Authentication is on by default for auth collections; failed logins are not logged. Logger failures do not interrupt operations. Entries contain only identifiers and counts, never document bodies or credentials.
 
+Payload creates its implicit default `users` auth collection during config sanitization, after plugins run. It is not audited and cannot be named in `collections` or `exclude`; declare the auth collection explicitly to audit auth and write events.
+
+Write events are emitted by `afterChange` and `afterDelete` inside the operation, before the transaction commits. If the operation later fails and rolls back, an event may describe a change that did not persist.
+
 Events: `payload.document.created`, `payload.document.updated`, `payload.document.deleted`, `payload.documents.listed`, `payload.document.read`, `payload.auth.logged_in`, `payload.auth.password_reset_requested`, and `payload.auth.password_reset`.
 
 ## Deprecated: `logOperation(hookType)`

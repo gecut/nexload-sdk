@@ -164,6 +164,12 @@ test('logs deleted document identifiers', () => {
   });
 });
 
+test('uses the operation id when the deleted document is undefined', () => {
+  const s = setup();
+  s.collections[0].hooks.afterDelete[0](args({ doc: undefined, id: 7 }));
+  assert.equal(entry(s.entries).id, 7);
+});
+
 test('logs changes and deletions without a request', () => {
   const s = setup();
   s.collections[0].hooks.afterChange[0](args({ req: undefined }));
