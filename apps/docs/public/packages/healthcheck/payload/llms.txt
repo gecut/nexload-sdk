@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-payload.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/healthcheck-payload integration against the optimization 
 Public API symbol reference and compatibility matrix for Healthcheck Payload.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -106,7 +106,7 @@ Public interface exported by @nexload-sdk/healthcheck-payload.
 Probing Payload collections, database latency, lightweight health queries, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/guides/
 ## Lightweight Readiness Probing
 
@@ -148,11 +148,11 @@ If the database goes down, liveness failure will cause continuous pod restarts. 
 Verify Payload CMS database connectivity, collection accessibility, and initialization state.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
 **Package:** `@nexload-sdk/healthcheck-payload`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Payload CMS health checks for @nexload-sdk/healthcheck.
 
@@ -221,7 +221,7 @@ Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
 Production choices for @nexload-sdk/healthcheck-payload.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/optimization/
 ## Bound readiness query cost
 

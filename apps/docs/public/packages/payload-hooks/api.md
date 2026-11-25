@@ -3,7 +3,7 @@
 Public audit plugin and legacy hook exports.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/api/
 The inventory is generated from the package source exports.
 

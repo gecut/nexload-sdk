@@ -3,11 +3,11 @@
 Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
 **Package:** `@nexload-sdk/payload-fields`
 
-**Workspace version:** `3.1.0`
+**Workspace version:** `4.0.0`
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 

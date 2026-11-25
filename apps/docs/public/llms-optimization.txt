@@ -32,7 +32,7 @@ Pass custom rules or ignores as additional arguments to `nexloadConfig`, or comp
 Production choices for @nexload-sdk/healthcheck-bun.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
 ## Interpret missing memory limits
 
@@ -61,7 +61,7 @@ This adapter is designed for Bun. It does not read Linux cgroups, so missing mem
 Production choices for @nexload-sdk/healthcheck.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
 ## Reserve liveness for the process
 
@@ -90,7 +90,7 @@ Profiles are hints for checks and collectors, not report filters. Use `toHealthJ
 Production choices for @nexload-sdk/healthcheck-next.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
 ## Trust a controlled proxy
 
@@ -119,7 +119,7 @@ The route adapter supports Next.js Node.js and Edge runtimes. Use `runtime = "no
 Production choices for @nexload-sdk/healthcheck-node.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
 ## Restrict container details
 
@@ -148,7 +148,7 @@ This adapter uses Node.js APIs and Linux cgroup files. On non-Linux hosts, conta
 Production choices for @nexload-sdk/healthcheck-otel.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
 ## Bound attribute cardinality
 
@@ -177,7 +177,7 @@ Collector labels become metric attributes. Review their values before exposing r
 Production choices for @nexload-sdk/healthcheck-payload.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/optimization/
 ## Bound readiness query cost
 
@@ -206,7 +206,7 @@ Set `expectedMinDocuments` only when an empty collection represents an operation
 Production choices for @nexload-sdk/healthcheck-prometheus.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/optimization/
 ## Use supported labels
 
@@ -235,7 +235,7 @@ The allowlist also applies to `defaultLabels` and collector labels. Unsupported 
 Production choices for @nexload-sdk/logger.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/optimization/
 ## Extend redaction for deeper objects
 
@@ -264,7 +264,7 @@ A forced logger reconfiguration requires rebuilding Payload configuration create
 Production choices for @nexload-sdk/payload-editor.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
 ## Replace managed features explicitly
 
@@ -293,7 +293,7 @@ The package is ESM-only and intended for Node.js Payload configuration. Add a na
 Production choices for @nexload-sdk/payload-fields.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
 ## Normalize strings before field hooks
 
@@ -322,7 +322,7 @@ The plugin sees collections and globals present when it runs. Place plugins addi
 Production choices for @nexload-sdk/payload-hooks.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/optimization/
 ## Declare the auth collection
 
@@ -351,7 +351,7 @@ The plugin does not persist database audit records. Authentication auditing cove
 Production choices for @nexload-sdk/payload-operations.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Package:** `@nexload-sdk/payload-operations` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/optimization/
 ## Keep outputs encodable
 
@@ -380,7 +380,7 @@ The `./server` subpath requires Node.js 20.9 or newer. The root, contract, error
 Production choices for @nexload-sdk/payload-preset.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
 ## Initialize logging first
 
@@ -409,7 +409,7 @@ This ESM-only package targets Node.js and Payload configuration. After forced lo
 Production choices for @nexload-sdk/payload-schema.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/optimization/
 ## Choose optionality for projections
 
@@ -438,7 +438,7 @@ Custom schema transforms are not codec-safe for `z.encode`. Use `.refine()` or `
 Production choices for @nexload-sdk/persian.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
 ## Keep currency units explicit
 

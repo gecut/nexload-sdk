@@ -3,7 +3,7 @@
 Public API symbol reference and compatibility matrix for Healthcheck Prometheus.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

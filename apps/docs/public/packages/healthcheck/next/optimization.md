@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/healthcheck-next.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
 ## Trust a controlled proxy
 

@@ -3,11 +3,11 @@
 Type-safe custom application operations for Payload CMS with shared Zod contracts and client SDK.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Package:** `@nexload-sdk/payload-operations` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
 **Package:** `@nexload-sdk/payload-operations`
 
-**Workspace version:** `1.0.0`
+**Workspace version:** `2.0.0`
 
 Typed custom operations for Payload CMS with the native Payload REST SDK.
 

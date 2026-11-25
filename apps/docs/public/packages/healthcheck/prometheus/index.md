@@ -3,11 +3,11 @@
 Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
 **Package:** `@nexload-sdk/healthcheck-prometheus`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
 

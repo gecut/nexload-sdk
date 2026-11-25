@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/agents/
 ## Install matching skills
 
@@ -72,7 +72,7 @@ Review my @nexload-sdk/healthcheck integration against the optimization page. Id
 Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -967,7 +967,7 @@ Public type exported by @nexload-sdk/healthcheck.
 Authoring custom checks, configuring timeouts and retries, status aggregation rules, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/guides/
 ## Authoring Custom Checks
 
@@ -1052,11 +1052,11 @@ When returning error data from checks, `@nexload-sdk/healthcheck` automatically 
 Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
 **Package:** `@nexload-sdk/healthcheck`
 
-**Workspace version:** `4.1.0`
+**Workspace version:** `5.0.0`
 
 Runtime-neutral health orchestration and monitoring report foundation for production services.
 
@@ -1179,7 +1179,7 @@ if (report.status === "unhealthy") {
 Production choices for @nexload-sdk/healthcheck.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
 ## Reserve liveness for the process
 
@@ -1208,7 +1208,7 @@ Profiles are hints for checks and collectors, not report filters. Use `toHealthJ
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/playground/
 ## Try it
 

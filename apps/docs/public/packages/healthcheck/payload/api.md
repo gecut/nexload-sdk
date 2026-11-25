@@ -3,7 +3,7 @@
 Public API symbol reference and compatibility matrix for Healthcheck Payload.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

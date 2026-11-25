@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-preset.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/payload-preset integration against the optimization page.
 Public preset exports and runtime constraints.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/api/
 The inventory is generated from the package source exports.
 
@@ -151,7 +151,7 @@ Import `payloadFieldsPlugin` from `@nexload-sdk/payload-fields` and `auditPlugin
 Options, merge rules, ordering, and logging for the Payload preset.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/guides/
 ## Options
 
@@ -185,22 +185,20 @@ The `getPayloadLoggerConfig()` bridge maps the SDK `success` threshold to Payloa
 Compose Payload configuration with Nexload defaults.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
 **Package:** `@nexload-sdk/payload-preset`
 
-**Workspace version:** `0.0.0` (unreleased)
+**Workspace version:** `1.0.0`
 
-[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
 ## Installation
 
-This package is unreleased. From a consumer in this SDK workspace:
-
 ```bash
-pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
+pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
 ```
 
 ## Quick Start
@@ -232,7 +230,7 @@ Configure the logger before `buildConfig()`. Define collections explicitly, incl
 Production choices for @nexload-sdk/payload-preset.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
 ## Initialize logging first
 

@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-bun.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/healthcheck-bun integration against the optimization page
 Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -125,7 +125,7 @@ Public interface exported by @nexload-sdk/healthcheck-bun.
 Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/guides/
 ## Monitoring `Bun.serve()` Servers
 
@@ -165,11 +165,11 @@ Ensure you pass the return value of `Bun.serve()` into `bunServerMetricsCheck`. 
 Bun runtime adapter and server metrics health check integration for Bun HTTP services.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
 **Package:** `@nexload-sdk/healthcheck-bun`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
 
@@ -239,7 +239,7 @@ Requires Bun `>=1.0.0`.
 Production choices for @nexload-sdk/healthcheck-bun.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
 ## Interpret missing memory limits
 
@@ -268,7 +268,7 @@ This adapter is designed for Bun. It does not read Linux cgroups, so missing mem
 Configure a coding agent for @nexload-sdk/healthcheck.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/agents/
 ## Install matching skills
 
@@ -337,7 +337,7 @@ Review my @nexload-sdk/healthcheck integration against the optimization page. Id
 Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -1232,7 +1232,7 @@ Public type exported by @nexload-sdk/healthcheck.
 Authoring custom checks, configuring timeouts and retries, status aggregation rules, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/guides/
 ## Authoring Custom Checks
 
@@ -1317,11 +1317,11 @@ When returning error data from checks, `@nexload-sdk/healthcheck` automatically 
 Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
 **Package:** `@nexload-sdk/healthcheck`
 
-**Workspace version:** `4.1.0`
+**Workspace version:** `5.0.0`
 
 Runtime-neutral health orchestration and monitoring report foundation for production services.
 
@@ -1444,7 +1444,7 @@ if (report.status === "unhealthy") {
 Production choices for @nexload-sdk/healthcheck.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
 ## Reserve liveness for the process
 
@@ -1473,7 +1473,7 @@ Profiles are hints for checks and collectors, not report filters. Use `toHealthJ
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/playground/
 ## Try it
 
@@ -1494,7 +1494,7 @@ Enter `unhealthy`. The report includes `"status": "unhealthy"`.
 Configure a coding agent for @nexload-sdk/healthcheck-next.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/agents/
 ## Install matching skills
 
@@ -1551,7 +1551,7 @@ Review my @nexload-sdk/healthcheck-next integration against the optimization pag
 Public API symbol reference and compatibility matrix for Healthcheck Next.js.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -1661,7 +1661,7 @@ Public interface exported by @nexload-sdk/healthcheck-next.
 Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/guides/
 ## Dual Route Pattern (Liveness & Readiness)
 
@@ -1738,11 +1738,11 @@ If your Next.js route uses `export const runtime = 'edge'`, do not include Node-
 Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
 **Package:** `@nexload-sdk/healthcheck-next`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Next.js App Router route factories for @nexload-sdk/healthcheck.
 
@@ -1818,7 +1818,7 @@ Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
 Production choices for @nexload-sdk/healthcheck-next.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
 ## Trust a controlled proxy
 
@@ -1847,7 +1847,7 @@ The route adapter supports Next.js Node.js and Edge runtimes. Use `runtime = "no
 Configure a coding agent for @nexload-sdk/healthcheck-node.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
 ## Install matching skills
 
@@ -1892,7 +1892,7 @@ Review my @nexload-sdk/healthcheck-node integration against the optimization pag
 Public API symbol reference, functions, and compatibility matrix for Healthcheck Node.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -2094,7 +2094,7 @@ Public interface exported by @nexload-sdk/healthcheck-node.
 Configuring container resource checks in Docker/Kubernetes, TCP/DNS network probes, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/guides/
 ## Container Resource Checks in Kubernetes / Docker
 
@@ -2156,11 +2156,11 @@ On macOS or Windows development machines, Linux cgroup controllers do not exist.
 Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TCP/DNS health checks.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 
@@ -2240,7 +2240,7 @@ Requires Node.js `>=20.9.0`.
 Production choices for @nexload-sdk/healthcheck-node.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
 ## Restrict container details
 
@@ -2269,7 +2269,7 @@ This adapter uses Node.js APIs and Linux cgroup files. On non-Linux hosts, conta
 Configure a coding agent for @nexload-sdk/healthcheck-otel.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
 ## Install matching skills
 
@@ -2326,7 +2326,7 @@ Review my @nexload-sdk/healthcheck-otel integration against the optimization pag
 Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -2395,7 +2395,7 @@ Public interface exported by @nexload-sdk/healthcheck-otel.
 Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/guides/
 ## Attaching Health Reports to OpenTelemetry Spans
 
@@ -2450,11 +2450,11 @@ OpenTelemetry spans accept string, number, and boolean attribute values. Nested 
 Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
@@ -2518,7 +2518,7 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 Production choices for @nexload-sdk/healthcheck-otel.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
 ## Bound attribute cardinality
 
@@ -2547,7 +2547,7 @@ Collector labels become metric attributes. Review their values before exposing r
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
 ## Try it
 
@@ -2568,7 +2568,7 @@ Enter `unhealthy`. The `health.status` metric record has value `0`.
 Configure a coding agent for @nexload-sdk/healthcheck-payload.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/agents/
 ## Install matching skills
 
@@ -2613,7 +2613,7 @@ Review my @nexload-sdk/healthcheck-payload integration against the optimization 
 Public API symbol reference and compatibility matrix for Healthcheck Payload.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -2671,7 +2671,7 @@ Public interface exported by @nexload-sdk/healthcheck-payload.
 Probing Payload collections, database latency, lightweight health queries, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/guides/
 ## Lightweight Readiness Probing
 
@@ -2713,11 +2713,11 @@ If the database goes down, liveness failure will cause continuous pod restarts. 
 Verify Payload CMS database connectivity, collection accessibility, and initialization state.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
 **Package:** `@nexload-sdk/healthcheck-payload`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Payload CMS health checks for @nexload-sdk/healthcheck.
 
@@ -2786,7 +2786,7 @@ Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
 Production choices for @nexload-sdk/healthcheck-payload.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/optimization/
 ## Bound readiness query cost
 
@@ -2815,7 +2815,7 @@ Set `expectedMinDocuments` only when an empty collection represents an operation
 Configure a coding agent for @nexload-sdk/healthcheck-prometheus.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/agents/
 ## Install matching skills
 
@@ -2872,7 +2872,7 @@ Review my @nexload-sdk/healthcheck-prometheus integration against the optimizati
 Public API symbol reference and compatibility matrix for Healthcheck Prometheus.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -2952,7 +2952,7 @@ Public type exported by @nexload-sdk/healthcheck-prometheus.
 Configuring Prometheus endpoints, metric labels, Grafana alerts, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/guides/
 ## Exposing the `/metrics` Endpoint
 
@@ -3014,11 +3014,11 @@ Do not add dynamic user IDs or transient transaction IDs as metric labels. Use s
 Serialize healthcheck reports into Prometheus text exposition and OpenMetrics format without heavy SDKs.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
 **Package:** `@nexload-sdk/healthcheck-prometheus`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
 
@@ -3084,7 +3084,7 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 Production choices for @nexload-sdk/healthcheck-prometheus.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/optimization/
 ## Use supported labels
 
@@ -3113,7 +3113,7 @@ The allowlist also applies to `defaultLabels` and collector labels. Unsupported 
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/playground/
 ## Try it
 

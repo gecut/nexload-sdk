@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-otel.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
 ## Install matching skills
 

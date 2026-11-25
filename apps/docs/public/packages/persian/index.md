@@ -3,15 +3,15 @@
 Persian and Iranian utilities.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/
 **Package:** `@nexload-sdk/persian`
 
-**Workspace version:** `0.0.0` (unreleased)
+**Workspace version:** `1.0.0`
 
 Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates.
 
-[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
+[npm](https://www.npmjs.com/package/@nexload-sdk/persian) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
 
 Normalize input and format output with explicit units and time zones.
 
@@ -27,10 +27,8 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ## Installation
 
-This package is unreleased. From a consumer in this SDK workspace:
-
 ```bash
-pnpm add '@nexload-sdk/persian@workspace:*'
+pnpm add @nexload-sdk/persian
 ```
 
 For the optional `./zod` subpath, install `zod` separately.

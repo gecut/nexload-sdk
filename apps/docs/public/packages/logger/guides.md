@@ -3,7 +3,7 @@
 Configure the logger per runtime and use request context, trace headers, redaction, and error serialization.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/guides/
 ## Configure Once per Runtime
 

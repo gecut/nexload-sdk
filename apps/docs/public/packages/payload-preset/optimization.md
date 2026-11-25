@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/payload-preset.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
 ## Initialize logging first
 

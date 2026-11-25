@@ -3,7 +3,7 @@
 Configuring container resource checks in Docker/Kubernetes, TCP/DNS network probes, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/guides/
 ## Container Resource Checks in Kubernetes / Docker
 

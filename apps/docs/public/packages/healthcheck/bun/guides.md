@@ -3,7 +3,7 @@
 Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/guides/
 ## Monitoring `Bun.serve()` Servers
 

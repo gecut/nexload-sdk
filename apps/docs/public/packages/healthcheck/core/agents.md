@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/agents/
 ## Install matching skills
 

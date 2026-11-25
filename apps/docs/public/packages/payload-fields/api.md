@@ -3,7 +3,7 @@
 Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

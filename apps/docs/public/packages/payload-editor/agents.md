@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-editor.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/agents/
 ## Install matching skills
 

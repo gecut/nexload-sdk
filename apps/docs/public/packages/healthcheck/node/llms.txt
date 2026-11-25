@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-node.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/healthcheck-node integration against the optimization pag
 Public API symbol reference, functions, and compatibility matrix for Healthcheck Node.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -250,7 +250,7 @@ Public interface exported by @nexload-sdk/healthcheck-node.
 Configuring container resource checks in Docker/Kubernetes, TCP/DNS network probes, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/guides/
 ## Container Resource Checks in Kubernetes / Docker
 
@@ -312,11 +312,11 @@ On macOS or Windows development machines, Linux cgroup controllers do not exist.
 Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TCP/DNS health checks.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 
@@ -396,7 +396,7 @@ Requires Node.js `>=20.9.0`.
 Production choices for @nexload-sdk/healthcheck-node.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
 ## Restrict container details
 

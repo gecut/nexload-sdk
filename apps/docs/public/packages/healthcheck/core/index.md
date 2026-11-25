@@ -3,11 +3,11 @@
 Runtime-neutral service healthcheck manager for liveness, readiness, startup, and diagnostics orchestration.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
 **Package:** `@nexload-sdk/healthcheck`
 
-**Workspace version:** `4.1.0`
+**Workspace version:** `5.0.0`
 
 Runtime-neutral health orchestration and monitoring report foundation for production services.
 

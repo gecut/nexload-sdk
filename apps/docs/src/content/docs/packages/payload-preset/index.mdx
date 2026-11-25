@@ -8,6 +8,7 @@ package: payload-preset
 topic: overview
 ---
 
+import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -18,11 +19,7 @@ import { packageByName } from "../../../../lib/package-catalog";
 
 ## Installation
 
-This package is unreleased. From a consumer in this SDK workspace:
-
-```bash
-pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
-```
+<InstallTabs packages="@nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations" />
 
 ## Quick Start
 

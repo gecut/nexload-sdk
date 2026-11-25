@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/payload-fields.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
 ## Normalize strings before field hooks
 

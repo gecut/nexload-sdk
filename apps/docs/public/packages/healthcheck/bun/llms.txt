@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-bun.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/healthcheck-bun integration against the optimization page
 Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -125,7 +125,7 @@ Public interface exported by @nexload-sdk/healthcheck-bun.
 Monitoring Bun.serve() HTTP servers, tracking active WebSocket connections, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/guides/
 ## Monitoring `Bun.serve()` Servers
 
@@ -165,11 +165,11 @@ Ensure you pass the return value of `Bun.serve()` into `bunServerMetricsCheck`. 
 Bun runtime adapter and server metrics health check integration for Bun HTTP services.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
 **Package:** `@nexload-sdk/healthcheck-bun`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
 
@@ -239,7 +239,7 @@ Requires Bun `>=1.0.0`.
 Production choices for @nexload-sdk/healthcheck-bun.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
 ## Interpret missing memory limits
 

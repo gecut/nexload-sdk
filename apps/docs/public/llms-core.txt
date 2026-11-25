@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/logger.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/logger integration against the optimization page. Identif
 Public logger signatures, examples, and runtime compatibility.
 
 **Topic:** api
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/api/
 The inventory below is generated from the source entry points. The reference that follows describes the current source contract.
 
@@ -395,7 +395,7 @@ Default redaction covers the ten sensitive keys listed in the [guide](../guides/
 Configure the logger per runtime and use request context, trace headers, redaction, and error serialization.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/guides/
 ## Configure Once per Runtime
 
@@ -547,11 +547,11 @@ Replace `@nexload-sdk/logger/log-test` with `createTestLogger` from `@nexload-sd
 Configure-once structured logging with request context, trace propagation, and safe defaults.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
 **Package:** `@nexload-sdk/logger`
 
-**Workspace version:** `4.1.0`
+**Workspace version:** `5.0.0`
 
 Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
 
@@ -626,7 +626,7 @@ configureLogger({ service: "shop-api", release: process.env.RELEASE });
 Production choices for @nexload-sdk/logger.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/optimization/
 ## Extend redaction for deeper objects
 
@@ -655,7 +655,7 @@ A forced logger reconfiguration requires rebuilding Payload configuration create
 Configure a coding agent for @nexload-sdk/persian.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/agents/
 ## Install matching skills
 
@@ -700,7 +700,7 @@ Review my @nexload-sdk/persian integration against the optimization page. Identi
 Persian and Iranian utilities.
 
 **Topic:** api
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/api/
 The inventory is generated from the root and each subpath. See the [guides](../guides/) for canonical values, validation errors and runtime caveats.
 
@@ -2067,7 +2067,7 @@ Public type exported by @nexload-sdk/persian.
 Persian and Iranian utilities.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/guides/
 ## Digits
 
@@ -2226,15 +2226,15 @@ Validation returns `{ ok: true, value }` or `{ ok: false, reason }`. Message con
 Persian and Iranian utilities.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/
 **Package:** `@nexload-sdk/persian`
 
-**Workspace version:** `0.0.0` (unreleased)
+**Workspace version:** `1.0.0`
 
 Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates.
 
-[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
+[npm](https://www.npmjs.com/package/@nexload-sdk/persian) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
 
 Normalize input and format output with explicit units and time zones.
 
@@ -2250,10 +2250,8 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ## Installation
 
-This package is unreleased. From a consumer in this SDK workspace:
-
 ```bash
-pnpm add '@nexload-sdk/persian@workspace:*'
+pnpm add @nexload-sdk/persian
 ```
 
 For the optional `./zod` subpath, install `zod` separately.
@@ -2291,7 +2289,7 @@ See [guides](./guides/) and the [API inventory](./api/).
 Production choices for @nexload-sdk/persian.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
 ## Keep currency units explicit
 
@@ -2320,7 +2318,7 @@ Timezone conversion in `./date` and `./relative` requires host `Intl` timezone d
 Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
 ## Try it
 

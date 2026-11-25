@@ -3,7 +3,7 @@
 Setting up liveness, readiness, and protected diagnostics routes in Next.js App Router.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/guides/
 ## Dual Route Pattern (Liveness & Readiness)
 

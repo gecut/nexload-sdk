@@ -3,7 +3,7 @@
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/playground/
 ## Try it
 
@@ -24,7 +24,7 @@ Enter `unhealthy`. The report includes `"status": "unhealthy"`.
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
 ## Try it
 
@@ -45,7 +45,7 @@ Enter `unhealthy`. The `health.status` metric record has value `0`.
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/playground/
 ## Try it
 
@@ -66,7 +66,7 @@ Enter `ok`. The output includes the `nexload_health_status` series.
 Validate product input.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
 ## Try it
 
@@ -87,7 +87,7 @@ Choose SKU and enter `ab`. The canonical output is `"AB"`.
 Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
 ## Try it
 

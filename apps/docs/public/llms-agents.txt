@@ -60,7 +60,7 @@ Review my @nexload-sdk/eslint-config integration against the optimization page. 
 Configure a coding agent for @nexload-sdk/healthcheck-bun.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/agents/
 ## Install matching skills
 
@@ -105,7 +105,7 @@ Review my @nexload-sdk/healthcheck-bun integration against the optimization page
 Configure a coding agent for @nexload-sdk/healthcheck.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/agents/
 ## Install matching skills
 
@@ -174,7 +174,7 @@ Review my @nexload-sdk/healthcheck integration against the optimization page. Id
 Configure a coding agent for @nexload-sdk/healthcheck-next.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/agents/
 ## Install matching skills
 
@@ -231,7 +231,7 @@ Review my @nexload-sdk/healthcheck-next integration against the optimization pag
 Configure a coding agent for @nexload-sdk/healthcheck-node.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
 ## Install matching skills
 
@@ -276,7 +276,7 @@ Review my @nexload-sdk/healthcheck-node integration against the optimization pag
 Configure a coding agent for @nexload-sdk/healthcheck-otel.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
 ## Install matching skills
 
@@ -333,7 +333,7 @@ Review my @nexload-sdk/healthcheck-otel integration against the optimization pag
 Configure a coding agent for @nexload-sdk/healthcheck-payload.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/agents/
 ## Install matching skills
 
@@ -378,7 +378,7 @@ Review my @nexload-sdk/healthcheck-payload integration against the optimization 
 Configure a coding agent for @nexload-sdk/healthcheck-prometheus.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-prometheus` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/agents/
 ## Install matching skills
 
@@ -435,7 +435,7 @@ Review my @nexload-sdk/healthcheck-prometheus integration against the optimizati
 Configure a coding agent for @nexload-sdk/logger.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/agents/
 ## Install matching skills
 
@@ -480,7 +480,7 @@ Review my @nexload-sdk/logger integration against the optimization page. Identif
 Configure a coding agent for @nexload-sdk/payload-editor.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/agents/
 ## Install matching skills
 
@@ -549,7 +549,7 @@ Review my @nexload-sdk/payload-editor integration against the optimization page.
 Configure a coding agent for @nexload-sdk/payload-fields.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
 ## Install matching skills
 
@@ -630,7 +630,7 @@ Review my @nexload-sdk/payload-fields integration against the optimization page.
 Configure a coding agent for @nexload-sdk/payload-hooks.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/agents/
 ## Install matching skills
 
@@ -687,7 +687,7 @@ Review my @nexload-sdk/payload-hooks integration against the optimization page. 
 Configure a coding agent for @nexload-sdk/payload-operations.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Package:** `@nexload-sdk/payload-operations` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/agents/
 ## Install matching skills
 
@@ -756,7 +756,7 @@ Review my @nexload-sdk/payload-operations integration against the optimization p
 Configure a coding agent for @nexload-sdk/payload-preset.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/agents/
 ## Install matching skills
 
@@ -801,7 +801,7 @@ Review my @nexload-sdk/payload-preset integration against the optimization page.
 Configure a coding agent for @nexload-sdk/payload-schema.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/agents/
 ## Install matching skills
 
@@ -858,7 +858,7 @@ Review my @nexload-sdk/payload-schema integration against the optimization page.
 Configure a coding agent for @nexload-sdk/persian.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/agents/
 ## Install matching skills
 

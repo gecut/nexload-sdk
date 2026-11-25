@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-hooks.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/agents/
 ## Install matching skills
 
@@ -60,7 +60,7 @@ Review my @nexload-sdk/payload-hooks integration against the optimization page. 
 Public audit plugin and legacy hook exports.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/api/
 The inventory is generated from the package source exports.
 
@@ -146,7 +146,7 @@ Public type exported by @nexload-sdk/payload-hooks.
 Audit options, events, privacy, and migration.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/guides/
 ## Audit options
 
@@ -196,11 +196,11 @@ The preset also includes `auditPlugin` by default; do not register it twice. See
 Audit Payload collection operations with structured log events.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
 **Package:** `@nexload-sdk/payload-hooks`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Effortless, type-safe logging for Payload CMS collection operations.
 
@@ -239,7 +239,7 @@ Reads are off by default; auth is on for auth collections. See [guides](./guides
 Production choices for @nexload-sdk/payload-hooks.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/optimization/
 ## Declare the auth collection
 

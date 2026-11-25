@@ -3,7 +3,7 @@
 Complete public API symbol reference, types, and runtime compatibility matrix for Healthcheck Core.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

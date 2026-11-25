@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-fields.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
 ## Install matching skills
 
@@ -84,7 +84,7 @@ Review my @nexload-sdk/payload-fields integration against the optimization page.
 Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -1002,7 +1002,7 @@ Public type exported by @nexload-sdk/payload-fields.
 Deep recipes for managed Unicode slugs, Jalali date ranges, integer money fields, Iranian contact & identity, addresses, and schema integration.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/guides/
 ## Managed Unicode Slugs
 
@@ -1220,11 +1220,11 @@ If adding `slugField` to an existing collection throws a unique constraint datab
 Semantic Payload field factories for Unicode slugs, Jalali dates, integer money, Iranian contact & identity fields, and addresses.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
 **Package:** `@nexload-sdk/payload-fields`
 
-**Workspace version:** `3.1.0`
+**Workspace version:** `4.0.0`
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 
@@ -1392,7 +1392,7 @@ The field factories use [Persian utilities](/nexload-sdk/packages/persian/) for 
 Production choices for @nexload-sdk/payload-fields.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
 ## Normalize strings before field hooks
 

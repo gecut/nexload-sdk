@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/healthcheck-bun.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
 ## Interpret missing memory limits
 

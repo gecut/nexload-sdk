@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/persian.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
 ## Keep currency units explicit
 

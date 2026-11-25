@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/logger.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/agents/
 ## Install matching skills
 
@@ -48,7 +48,7 @@ Review my @nexload-sdk/logger integration against the optimization page. Identif
 Public logger signatures, examples, and runtime compatibility.
 
 **Topic:** api
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/api/
 The inventory below is generated from the source entry points. The reference that follows describes the current source contract.
 
@@ -395,7 +395,7 @@ Default redaction covers the ten sensitive keys listed in the [guide](../guides/
 Configure the logger per runtime and use request context, trace headers, redaction, and error serialization.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/guides/
 ## Configure Once per Runtime
 
@@ -547,11 +547,11 @@ Replace `@nexload-sdk/logger/log-test` with `createTestLogger` from `@nexload-sd
 Configure-once structured logging with request context, trace propagation, and safe defaults.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
 **Package:** `@nexload-sdk/logger`
 
-**Workspace version:** `4.1.0`
+**Workspace version:** `5.0.0`
 
 Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
 
@@ -626,7 +626,7 @@ configureLogger({ service: "shop-api", release: process.env.RELEASE });
 Production choices for @nexload-sdk/logger.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/optimization/
 ## Extend redaction for deeper objects
 

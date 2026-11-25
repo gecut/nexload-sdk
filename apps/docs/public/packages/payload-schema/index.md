@@ -3,11 +3,11 @@
 Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Workspace version:** `2.0.0`
+**Workspace version:** `3.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 

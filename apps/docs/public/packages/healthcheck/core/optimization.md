@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/healthcheck.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Package:** `@nexload-sdk/healthcheck` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
 ## Reserve liveness for the process
 

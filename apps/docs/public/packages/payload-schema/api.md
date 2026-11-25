@@ -3,7 +3,7 @@
 Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

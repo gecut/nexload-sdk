@@ -3,7 +3,7 @@
 Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

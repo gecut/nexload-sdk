@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-fields.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Package:** `@nexload-sdk/payload-fields` v4.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
 ## Install matching skills
 

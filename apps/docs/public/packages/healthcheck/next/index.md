@@ -3,11 +3,11 @@
 Production-ready no-store, zero-cache health and readiness route handlers for Next.js App Router.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-next` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
 **Package:** `@nexload-sdk/healthcheck-next`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Next.js App Router route factories for @nexload-sdk/healthcheck.
 

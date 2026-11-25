@@ -3,7 +3,7 @@
 Public preset exports and runtime constraints.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/api/
 The inventory is generated from the package source exports.
 

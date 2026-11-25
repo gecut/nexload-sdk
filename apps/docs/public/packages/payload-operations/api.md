@@ -3,7 +3,7 @@
 Complete public API symbol reference, entrypoint exports, and runtime compatibility matrix for Payload Operations.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Package:** `@nexload-sdk/payload-operations` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

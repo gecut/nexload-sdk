@@ -3,7 +3,7 @@
 Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 

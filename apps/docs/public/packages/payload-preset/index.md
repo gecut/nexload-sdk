@@ -3,22 +3,20 @@
 Compose Payload configuration with Nexload defaults.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Package:** `@nexload-sdk/payload-preset` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
 **Package:** `@nexload-sdk/payload-preset`
 
-**Workspace version:** `0.0.0` (unreleased)
+**Workspace version:** `1.0.0`
 
-[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
 ## Installation
 
-This package is unreleased. From a consumer in this SDK workspace:
-
 ```bash
-pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
+pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
 ```
 
 ## Quick Start

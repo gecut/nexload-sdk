@@ -3,7 +3,7 @@
 Persian and Iranian utilities.
 
 **Topic:** api
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/api/
 The inventory is generated from the root and each subpath. See the [guides](../guides/) for canonical values, validation errors and runtime caveats.
 

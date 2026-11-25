@@ -3,11 +3,11 @@
 Configure-once structured logging with request context, trace propagation, and safe defaults.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
 **Package:** `@nexload-sdk/logger`
 
-**Workspace version:** `4.1.0`
+**Workspace version:** `5.0.0`
 
 Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
 

@@ -3,7 +3,7 @@
 Validate product input.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
 ## Try it
 

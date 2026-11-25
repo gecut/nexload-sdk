@@ -13,11 +13,12 @@ test("choose by task covers runtime packages and compiler tooling", () => {
   assert.ok(read("index.md").includes("Jalali date picker"));
 });
 
-test("unreleased overviews identify a working local install", () => {
+test("released overviews give a registry install and an npm link", () => {
   for (const id of ["persian", "payload-preset"]) {
     const page = read(`packages/${id}/index.md`);
-    assert.match(page, /unreleased/i);
-    assert.ok(page.includes(`@nexload-sdk/${id}@workspace:*`));
-    assert.ok(!page.includes(`www.npmjs.com/package/@nexload-sdk/${id}`));
+    assert.doesNotMatch(page, /unreleased/i);
+    assert.ok(!page.includes(`@nexload-sdk/${id}@workspace:*`));
+    assert.ok(page.includes(`pnpm add @nexload-sdk/${id}`));
+    assert.ok(page.includes(`www.npmjs.com/package/@nexload-sdk/${id}`));
   }
 });

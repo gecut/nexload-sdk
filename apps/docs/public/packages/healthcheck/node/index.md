@@ -3,11 +3,11 @@
 Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TCP/DNS health checks.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-node` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 

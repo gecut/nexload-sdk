@@ -3,7 +3,7 @@
 Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
 ## Try it
 

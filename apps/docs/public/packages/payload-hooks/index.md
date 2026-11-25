@@ -3,11 +3,11 @@
 Audit Payload collection operations with structured log events.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Package:** `@nexload-sdk/payload-hooks` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
 **Package:** `@nexload-sdk/payload-hooks`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Effortless, type-safe logging for Payload CMS collection operations.
 

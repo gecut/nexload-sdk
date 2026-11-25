@@ -3,11 +3,11 @@
 Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
 **Package:** `@nexload-sdk/payload-editor`
 
-**Workspace version:** `1.1.0`
+**Workspace version:** `2.0.0`
 
 Semantic, deterministic Payload Lexical editor configuration.
 

@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-editor.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/agents/
 ## Install matching skills
 
@@ -72,7 +72,7 @@ Review my @nexload-sdk/payload-editor integration against the optimization page.
 Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -349,7 +349,7 @@ Public type exported by @nexload-sdk/payload-editor.
 Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/guides/
 ## Built-In Presets Catalog
 
@@ -470,11 +470,11 @@ Ensure its version matches your `payload` core version (`3.85.0` or higher).
 Deterministic semantic configuration, presets, and feature sets for Payload CMS's Lexical editor.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
 **Package:** `@nexload-sdk/payload-editor`
 
-**Workspace version:** `1.1.0`
+**Workspace version:** `2.0.0`
 
 Semantic, deterministic Payload Lexical editor configuration.
 
@@ -576,7 +576,7 @@ In `createEditor({ features: { ... } })`:
 Production choices for @nexload-sdk/payload-editor.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
 ## Replace managed features explicitly
 

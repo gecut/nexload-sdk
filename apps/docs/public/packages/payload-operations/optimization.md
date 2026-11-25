@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/payload-operations.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Package:** `@nexload-sdk/payload-operations` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/optimization/
 ## Keep outputs encodable
 

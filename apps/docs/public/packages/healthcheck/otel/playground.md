@@ -3,7 +3,7 @@
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
 ## Try it
 

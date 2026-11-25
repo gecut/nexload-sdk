@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/logger.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/logger` v4.1.0
+**Package:** `@nexload-sdk/logger` v5.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/agents/
 ## Install matching skills
 

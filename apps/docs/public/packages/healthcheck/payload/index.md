@@ -3,11 +3,11 @@
 Verify Payload CMS database connectivity, collection accessibility, and initialization state.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-payload` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
 **Package:** `@nexload-sdk/healthcheck-payload`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 Payload CMS health checks for @nexload-sdk/healthcheck.
 

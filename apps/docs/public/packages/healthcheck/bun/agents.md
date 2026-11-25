@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-bun.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-bun` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/agents/
 ## Install matching skills
 

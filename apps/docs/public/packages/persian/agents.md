@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/persian.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/persian` v0.0.0
+**Package:** `@nexload-sdk/persian` v1.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/agents/
 ## Install matching skills
 

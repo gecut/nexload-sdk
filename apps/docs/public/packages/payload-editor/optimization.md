@@ -3,7 +3,7 @@
 Production choices for @nexload-sdk/payload-editor.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
 ## Replace managed features explicitly
 

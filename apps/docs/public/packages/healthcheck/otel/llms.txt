@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/healthcheck-otel.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
 ## Install matching skills
 
@@ -60,7 +60,7 @@ Review my @nexload-sdk/healthcheck-otel integration against the optimization pag
 Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry.
 
 **Topic:** api
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -129,7 +129,7 @@ Public interface exported by @nexload-sdk/healthcheck-otel.
 Attaching health metrics to OpenTelemetry spans, semantic conventions, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/guides/
 ## Attaching Health Reports to OpenTelemetry Spans
 
@@ -184,11 +184,11 @@ OpenTelemetry spans accept string, number, and boolean attribute values. Nested 
 Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
@@ -252,7 +252,7 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 Production choices for @nexload-sdk/healthcheck-otel.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
 ## Bound attribute cardinality
 
@@ -281,7 +281,7 @@ Collector labels become metric attributes. Review their values before exposing r
 Inspect a local readiness report.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
 ## Try it
 

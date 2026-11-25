@@ -3,7 +3,7 @@
 Configure a coding agent for @nexload-sdk/payload-schema.
 
 **Topic:** agents
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/agents/
 ## Install matching skills
 
@@ -60,7 +60,7 @@ Review my @nexload-sdk/payload-schema integration against the optimization page.
 Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema.
 
 **Topic:** api
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/api/
 The complete public API symbol inventory is generated automatically from package source exports:
 
@@ -869,7 +869,7 @@ facade.pick(["title"]); // Returns picked Payload Field[] configs
 Exhaustive field modeling catalog, static vs dynamic defaults, polymorphic relationships, advanced schema derivation, collection layout integration, troubleshooting, and 3.0 migration.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/guides/
 ## The Complete 15-Field Factory Catalog
 
@@ -1483,11 +1483,11 @@ field.blocks({
 Define canonical field validation and normalization once, then reuse it across Payload CMS fields and Zod schemas.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Workspace version:** `2.0.0`
+**Workspace version:** `3.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 
@@ -1659,7 +1659,7 @@ export const createArticleSchema = articleEntity.schema(({ pick }) =>
 Production choices for @nexload-sdk/payload-schema.
 
 **Topic:** optimization
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/optimization/
 ## Choose optionality for projections
 
@@ -1688,7 +1688,7 @@ Custom schema transforms are not codec-safe for `z.encode`. Use `.refine()` or `
 Validate product input.
 
 **Topic:** playground
-**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Package:** `@nexload-sdk/payload-schema` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
 ## Try it
 

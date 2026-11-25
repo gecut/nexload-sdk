@@ -3,7 +3,7 @@
 Selecting presets, defining organization standards, extending with native Lexical blocks, and troubleshooting.
 
 **Topic:** guides
-**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Package:** `@nexload-sdk/payload-editor` v2.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/guides/
 ## Built-In Presets Catalog
 

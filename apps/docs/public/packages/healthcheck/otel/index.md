@@ -3,11 +3,11 @@
 Export healthcheck reports as OpenTelemetry metrics, log attributes, and span metadata.
 
 **Topic:** overview
-**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Package:** `@nexload-sdk/healthcheck-otel` v3.0.0
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Workspace version:** `2.1.0`
+**Workspace version:** `3.0.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
