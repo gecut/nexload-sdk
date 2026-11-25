@@ -6,8 +6,10 @@ Compose Payload, health checks, logging, and Persian utilities.
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/recipes/ecommerce-stack/
 This example connects one Payload CMS project to SDK logging, field factories, a readiness check, and Persian money formatting. Configure a Payload database adapter, secret, and auth collection for your deployment.
 
+Run this command inside a consumer project in the SDK workspace. The recipe uses unreleased packages and pending APIs.
+
 ```bash
-pnpm add @nexload-sdk/logger @nexload-sdk/healthcheck @nexload-sdk/healthcheck-payload @nexload-sdk/payload-preset @nexload-sdk/payload-fields @nexload-sdk/persian payload @payloadcms/translations react react-dom
+pnpm add '@nexload-sdk/logger@workspace:*' '@nexload-sdk/healthcheck@workspace:*' '@nexload-sdk/healthcheck-payload@workspace:*' '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/payload-fields@workspace:*' '@nexload-sdk/persian@workspace:*' payload @payloadcms/translations react react-dom
 ```
 
 Configure the logger before building Payload configuration. The preset registers the fields plugin and audit hooks.

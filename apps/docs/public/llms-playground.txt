@@ -1,0 +1,113 @@
+# healthcheck — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The report includes `"status": "unhealthy"`.
+
+[API reference](/nexload-sdk/packages/healthcheck/core/api/).
+
+---
+
+# healthcheck-otel — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The `health.status` metric record has value `0`.
+
+[API reference](/nexload-sdk/packages/healthcheck/otel/api/).
+
+---
+
+# healthcheck-prometheus — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `ok`. The output includes the `nexload_health_status` series.
+
+[API reference](/nexload-sdk/packages/healthcheck/prometheus/api/).
+
+---
+
+# payload-schema — Playground
+
+Validate product input.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
+## Try it
+
+Choose the title or SKU definition and edit the sample value.
+
+## Read the result
+
+Title trims whitespace and requires three characters. SKU trims, uppercases and requires two. The output shows the parsed value or validation issues.
+
+Choose SKU and enter `ab`. The canonical output is `"AB"`.
+
+[API reference](/nexload-sdk/packages/payload-schema/api/).
+
+---
+
+# persian — Playground
+
+Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
+## Try it
+
+Type a value in Persian, Arabic or Latin digits and pick a mode. Every result comes from `@nexload-sdk/persian` running in your browser.
+
+## Modes
+
+| Mode | Input | Functions used |
+| --- | --- | --- |
+| `IRR` / `IRT` | A whole number of rials | `parseMoney`, `formatMoney` from `@nexload-sdk/persian/money` |
+| `mobile` | An Iranian mobile number in any common form | `validateIranMobile`, `toE164Mobile`, `formatIranMobile` from `@nexload-sdk/persian/mobile` |
+| `national-code` | A 10-digit کد ملی | `validateNationalCode` from `@nexload-sdk/persian/identity` |
+| `card` | A 16-digit bank card, separators allowed | `validateCardNumber`, `formatCardNumber`, `detectBankByCard` from `@nexload-sdk/persian/bank` |
+| `sheba` | A Sheba (IBAN) starting with `IR` | `validateSheba`, `formatSheba`, `detectBankBySheba` from `@nexload-sdk/persian/bank` |
+| `jalali` | An ISO date-time with an offset | `formatJalali` from `@nexload-sdk/persian/date`, time zone `Asia/Tehran` |
+
+## Read the result
+
+* Fractional prices are invalid. When a rial amount cannot convert exactly to tomans, the formatter keeps rials: `12501` in `IRT` shows `۱۲٬۵۰۱ ریال`.
+* Invalid identifiers show the SDK's reason code, for example `invalid_checksum`. Use the same codes in your own error messages.
+* Try `۰۹۱۲۳۴۵۶۷۸۹` in `mobile`, `۰۰۸۴۵۷۵۹۴۸` in `national-code` and `IR820540102680020817909002` in `sheba`.
+
+[API reference](/nexload-sdk/packages/persian/api/).

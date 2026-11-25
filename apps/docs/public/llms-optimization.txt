@@ -1,0 +1,490 @@
+# eslint-config — Optimization
+
+Production choices for @nexload-sdk/eslint-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/optimization/
+## Choose the runtime preset
+
+Use nexloadConfig with the options for the project runtime. Compose exported presets when explicit ordering is needed.
+
+## Keep type-aware linting enabled
+
+Use the shared base rules for type-aware checks and inline type imports.
+
+## Use project service for typed rules
+
+The base configuration uses TypeScript project service for type-aware linting. Ensure the project has a suitable TypeScript configuration.
+
+## Compose overrides after the preset
+
+Pass custom rules or ignores as additional arguments to `nexloadConfig`, or compose the exported preset arrays in the order needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/src/index.ts).
+
+---
+
+# healthcheck-bun — Optimization
+
+Production choices for @nexload-sdk/healthcheck-bun.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
+## Interpret missing memory limits
+
+The Bun adapter reads process memory when available and returns null for container limits. The memory check reports degraded with this adapter.
+
+## Restrict diagnostic routes
+
+Protect endpoints that expose Bun runtime and server metrics.
+
+## Keep runtime metrics in diagnostics
+
+`bunRuntimeInfoCheck` and `bunServerMetricsCheck` default to diagnostics and are noncritical.
+
+## Use the Bun runtime
+
+This adapter is designed for Bun. It does not read Linux cgroups, so missing memory limits are not container limits.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts).
+
+---
+
+# healthcheck — Optimization
+
+Production choices for @nexload-sdk/healthcheck.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
+## Reserve liveness for the process
+
+Keep database, cache and remote HTTP checks in readiness when dependency outages should stop traffic without restarting the process.
+
+## Protect diagnostics
+
+Expose a minimal public probe. Restrict detailed reports and metrics to authorized callers.
+
+## Bound probe execution
+
+The manager defaults to a 1,000 ms timeout per check and eight concurrent checks. Tune these limits for the dependencies being probed.
+
+## Profiles do not filter output
+
+Profiles are hints for checks and collectors, not report filters. Use `toHealthJson()` or `stringifyHealthJson()` to control response details.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md).
+
+---
+
+# healthcheck-next — Optimization
+
+Production choices for @nexload-sdk/healthcheck-next.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
+## Trust a controlled proxy
+
+IP and CIDR filtering support IPv4 and require trustProxy. Enable it only when the reverse proxy strips and sets the configured header.
+
+## Choose one authorization scheme
+
+Select bearer token or basic authentication per route. Both use the Authorization header.
+
+## Keep responses uncached
+
+Responses use `cache-control: no-store, max-age=0`. Health route `includeDetails` defaults to `false`; enable details only for protected routes.
+
+## Match the runtime to the manager
+
+The route adapter supports Next.js Node.js and Edge runtimes. Use `runtime = "nodejs"` when the manager uses the Node adapter.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md).
+
+---
+
+# healthcheck-node — Optimization
+
+Production choices for @nexload-sdk/healthcheck-node.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
+## Restrict container details
+
+Use private or authenticated endpoints for process metrics and container resources. Reports can include process identifiers and cgroup paths.
+
+## Check deployment platform
+
+Use container limits only where the platform supplies the required cgroup data.
+
+## Keep network probes in readiness
+
+`tcpCheck` and `dnsCheck` default to readiness. Container checks and process and container collectors default to diagnostics.
+
+## Respect the runtime boundary
+
+This adapter uses Node.js APIs and Linux cgroup files. On non-Linux hosts, container detection reports low confidence and the container check is degraded.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md).
+
+---
+
+# healthcheck-otel — Optimization
+
+Production choices for @nexload-sdk/healthcheck-otel.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
+## Bound attribute cardinality
+
+Keep user IDs, request IDs and raw error text out of collector labels. These labels become metric attributes.
+
+## Publish custom values through collectors
+
+Read exported values from report.metrics. Check-local metrics stay in the JSON report.
+
+## Separate mapping from delivery
+
+The package maps an existing report to resource attributes and metric records. It runs in Node.js, Bun, Edge, and browsers.
+
+## Avoid sensitive attributes
+
+Collector labels become metric attributes. Review their values before exposing records to a monitoring backend.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-payload — Optimization
+
+Production choices for @nexload-sdk/healthcheck-payload.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/optimization/
+## Bound readiness query cost
+
+Choose a small collection, use depth zero and supply a narrow where clause for frequent polls.
+
+## Interpret probe failures
+
+The Payload query check is critical for readiness and noncritical for diagnostics. A failed query reports PAYLOAD\_QUERY\_FAILED.
+
+## Keep the default query small
+
+The check defaults to `limit: 1`, `depth: 0`, and readiness. Frequent heavy queries can overload the database.
+
+## Decide whether an empty collection is unhealthy
+
+Set `expectedMinDocuments` only when an empty collection represents an operational failure, such as missing required seed configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/payload/SKILL.md).
+
+---
+
+# healthcheck-prometheus — Optimization
+
+Production choices for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/optimization/
+## Use supported labels
+
+Use low-cardinality labels from the exporter allowlist. Unsupported labels are dropped.
+
+## Export collector metrics
+
+Use a metric collector for custom series. Metrics attached to individual checks stay in the JSON report.
+
+## Choose the exposition format
+
+Use `toPrometheusText` for Prometheus text or `toOpenMetricsText` for OpenMetrics text. Both serialize an existing report.
+
+## Review dropped labels
+
+The allowlist also applies to `defaultLabels` and collector labels. Unsupported labels are silently dropped.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# logger — Optimization
+
+Production choices for @nexload-sdk/logger.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/optimization/
+## Extend redaction for deeper objects
+
+Default redaction covers keys at the top level and one level below it. Add explicit paths for sensitive fields deeper in the object.
+
+## Configure once
+
+Call `configureLogger()` at startup. A subsequent call without `force: true` keeps the existing configuration.
+
+## Respect browser and Edge behavior
+
+Browser and Edge builds use Pino browser output. `withLogContext` is pass-through, and `pretty` and `destination` do not configure a server stream.
+
+## Rebuild Payload configuration after replacement
+
+A forced logger reconfiguration requires rebuilding Payload configuration created with `getPayloadLoggerConfig()` to pick up the change.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/logger/SKILL.md).
+
+---
+
+# payload-editor — Optimization
+
+Production choices for @nexload-sdk/payload-editor.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
+## Replace managed features explicitly
+
+Disable a managed feature before adding its native replacement. Duplicate keys across features and extendFeatures fail during configuration.
+
+## Keep relational depth bounded
+
+Relational preset features default to a maximum depth of one. Account for this when choosing link, upload or relationship features.
+
+## Keep Payload versions aligned
+
+Use matching versions of `payload` and all `@payloadcms/*` packages. The supported Payload and Lexical peer range is `>=3.68.5 <4`.
+
+## Configure on the server
+
+The package is ESM-only and intended for Node.js Payload configuration. Add a native Payload Block via `extendFeatures` when block-level code highlighting is needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md).
+
+---
+
+# payload-fields — Optimization
+
+Production choices for @nexload-sdk/payload-fields.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
+## Normalize strings before field hooks
+
+Install payloadFieldsPlugin() when REST or Local API callers send money values as strings. It normalizes Persian digits and separators before Payload parses number fields.
+
+## Send integers from numeric clients
+
+Pass minor-unit integers when the client already owns numeric conversion.
+
+## Handle nested slug uniqueness
+
+Automatic collision suffixes apply only to top-level slugs. For slugs inside arrays, groups, or named tabs, use `unique: false` to avoid relying on suffixing.
+
+## Order field plugins deliberately
+
+The plugin sees collections and globals present when it runs. Place plugins adding money fields before it, respecting its order of 900.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md).
+
+---
+
+# payload-hooks — Optimization
+
+Production choices for @nexload-sdk/payload-hooks.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/optimization/
+## Declare the auth collection
+
+Declare an auth collection in the config to include it in auditing. Payload creates its implicit users collection after plugins run.
+
+## Interpret write events in context
+
+Write events from afterChange and afterDelete run before the database transaction commits.
+
+## Avoid read auditing by default
+
+Read auditing is off by default. When enabled, `find` logs once per request with a count, while `findByID` logs the document ID.
+
+## Treat audit output as logs
+
+The plugin does not persist database audit records. Authentication auditing covers successful logins and password resets, not failed logins.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/index.ts).
+
+---
+
+# payload-operations — Optimization
+
+Production choices for @nexload-sdk/payload-operations.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/optimization/
+## Keep outputs encodable
+
+Use a codec or overwrite for output and declared error data that need conversion. A one-way transform cannot be encoded by the server.
+
+## Preserve access control
+
+Pass overrideAccess: false and req when a handler calls a Payload Local API on behalf of the caller.
+
+## Bound request bodies
+
+Requests over 1 MiB return `413 PAYLOAD_TOO_LARGE` by default. Set `maxBodyBytes` when the operation needs a larger body.
+
+## Separate server and universal imports
+
+The `./server` subpath requires Node.js 20.9 or newer. The root, contract, errors, client, CMS, and timeout plugin subpaths are universal.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md).
+
+---
+
+# payload-preset — Optimization
+
+Production choices for @nexload-sdk/payload-preset.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
+## Initialize logging first
+
+Call configureLogger() before buildConfig(). Supply a destination when Payload should use the configured output stream.
+
+## Choose plugin ownership
+
+Disable a preset option when the project registers the corresponding plugin itself.
+
+## Keep read auditing deliberate
+
+Audit read logging is off by default. The preset changes top-level configuration and does not mutate collection field definitions.
+
+## Run in Payload configuration
+
+This ESM-only package targets Node.js and Payload configuration. After forced logger reconfiguration, rebuild the Payload configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md).
+
+---
+
+# payload-schema — Optimization
+
+Production choices for @nexload-sdk/payload-schema.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/optimization/
+## Choose optionality for projections
+
+A plain pick(keys) makes all picked keys required. Set the optional option when the projection should respect optional fields.
+
+## Preserve block metadata
+
+Reserve id, blockName and blockType in block definitions. Reusing those names throws INVALID\_FIELD\_CONFIGURATION.
+
+## Keep server code out of client bundles
+
+Use the universal root entry for shared schemas. Import the `./payload` compiler only in Node.js Payload configuration.
+
+## Choose codec-safe transformations
+
+Custom schema transforms are not codec-safe for `z.encode`. Use `.refine()` or `.overwrite()` when schemas serve as operation outputs.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md).
+
+---
+
+# persian — Optimization
+
+Production choices for @nexload-sdk/persian.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
+## Keep currency units explicit
+
+Use integer amounts and specify IRR or IRT. `parseMoney` rejects decimal strings and unsafe integers.
+
+## Check the calendar boundary
+
+Supported Jalali years run from 1 to 3176. Conversion functions can throw a RangeError outside this range.
+
+## Plan money conversion rounding
+
+When a display-unit conversion is not divisible, `formatMoney` keeps the source unit unless a rounding mode is supplied. `convertMoney` throws without rounding.
+
+## Provide timezone data
+
+Timezone conversion in `./date` and `./relative` requires host `Intl` timezone data. The package supports Node.js, Bun, Edge, and browsers.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/persian/SKILL.md).
+
+---
+
+# typescript-config — Optimization
+
+Production choices for @nexload-sdk/typescript-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/optimization/
+## Extend the runtime preset
+
+Extend node.json for a backend package, react.json for a React library or next.json for a Next.js app.
+
+## Retain checked indexed access
+
+Inherit strict and noUncheckedIndexedAccess from base.json when customizing project includes and output paths.
+
+## Choose emit behavior
+
+The React preset emits declarations only. The Next.js and Vite presets set `noEmit`, so use the preset suited to the build pipeline.
+
+## Include the intended sources
+
+Set `include` and output paths for the consuming project. The Node preset defaults to `src/**/*.ts` and excludes `dist` and `node_modules`.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/base.json).

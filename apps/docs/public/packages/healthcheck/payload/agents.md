@@ -1,0 +1,42 @@
+# healthcheck-payload — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-payload.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-payload
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/payload/SKILL.md)
+
+```text
+Use when integrating or reviewing @nexload-sdk/healthcheck-payload for Payload CMS dependency readiness, including the deterministic payload.find query contract, small limit and zero depth, optional where filters, expectedMinDocuments and empty-collection semantics, timeout normalization, readiness criticality, failure privacy, and adapter tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-payload
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-payload, load healthcheck-payload when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/payload/llms.txt).
+
+## Prompts
+
+```text
+Check that Payload can read a collection. Use @nexload-sdk/healthcheck-payload and healthcheck-payload. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-payload integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```

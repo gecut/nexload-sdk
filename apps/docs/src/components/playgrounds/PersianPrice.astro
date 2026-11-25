@@ -1,0 +1,15 @@
+---
+import LabControls from "./LabControls.astro";
+import { PERSIAN_MODES } from "../../lib/playgrounds/persian";
+interface Props { label: string; sample: string; mode: string }
+const { label, sample, mode } = Astro.props;
+---
+<persian-price>
+  <LabControls {label} {sample} {mode} modes={[...PERSIAN_MODES]} />
+</persian-price>
+
+<script>
+  import { registerLab } from "../../lib/playgrounds/register";
+  import { evaluate } from "../../lib/playgrounds/persian";
+  registerLab("persian-price", evaluate);
+</script>

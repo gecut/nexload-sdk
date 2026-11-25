@@ -19,8 +19,8 @@ Designed to accompany `@nexload-sdk/healthcheck` across containerized and cloud 
   * **Trigger**: Initializing health check architectures; defining system check scopes; orchestrating health managers.
   * **Boundary**: Writing framework HTTP route handlers; parsing Linux cgroup files.
 
-* **`healthcheck-node`** (`--skill healthcheck-node`)
-  * **Mission**: Observes Node.js runtime health, Linux cgroup v1/v2 memory/CPU limits, event loop lag, and TCP reachability.
+* **`healthcheck-container-resources`** (`--skill healthcheck-container-resources`)
+  * **Mission**: Guides Node.js container resource detection, cgroup memory and CPU limits, readiness thresholds, and collector selection.
   * **Trigger**: Bare-metal or containerized Node.js services; checking memory/CPU pressure; diagnosing container restarts.
   * **Boundary**: Bun runtime environments; frontend React components.
 
@@ -273,6 +273,26 @@ Rather than treating skills as an unstructured list of tools, the Nexload ecosys
 * [Governance & Protocols](/agents/protocols/) — The Inviolable Constitution (8 Laws) and Sparse Pointer Handoff Protocol for cross-agent coordination.
 
 - [Package Catalog](/packages/) — Browse all published runtime packages powering these skills.
+
+## Use an agent with a package
+
+* [@nexload-sdk/eslint-config](/nexload-sdk/packages/eslint-config/agents/)
+* [@nexload-sdk/healthcheck](/nexload-sdk/packages/healthcheck/core/agents/)
+* [@nexload-sdk/healthcheck-bun](/nexload-sdk/packages/healthcheck/bun/agents/)
+* [@nexload-sdk/healthcheck-next](/nexload-sdk/packages/healthcheck/next/agents/)
+* [@nexload-sdk/healthcheck-node](/nexload-sdk/packages/healthcheck/node/agents/)
+* [@nexload-sdk/healthcheck-otel](/nexload-sdk/packages/healthcheck/otel/agents/)
+* [@nexload-sdk/healthcheck-payload](/nexload-sdk/packages/healthcheck/payload/agents/)
+* [@nexload-sdk/healthcheck-prometheus](/nexload-sdk/packages/healthcheck/prometheus/agents/)
+* [@nexload-sdk/logger](/nexload-sdk/packages/logger/agents/)
+* [@nexload-sdk/payload-editor](/nexload-sdk/packages/payload-editor/agents/)
+* [@nexload-sdk/payload-fields](/nexload-sdk/packages/payload-fields/agents/)
+* [@nexload-sdk/payload-hooks](/nexload-sdk/packages/payload-hooks/agents/)
+* [@nexload-sdk/payload-operations](/nexload-sdk/packages/payload-operations/agents/)
+* [@nexload-sdk/payload-preset](/nexload-sdk/packages/payload-preset/agents/)
+* [@nexload-sdk/payload-schema](/nexload-sdk/packages/payload-schema/agents/)
+* [@nexload-sdk/persian](/nexload-sdk/packages/persian/agents/)
+* [@nexload-sdk/typescript-config](/nexload-sdk/packages/typescript-config/agents/)
 
 ---
 
@@ -684,109 +704,120 @@ Use the “Edit this page” link on any page when the correction is local to th
 
 ---
 
-# Nexload SDK: Service Observability & Payload CMS Superpowers
+# Build an Iranian storefront with Nexload SDK
 
-Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers. Modular, independently installable packages.
+Find TypeScript packages for Persian data, Payload CMS and service health.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/
-**Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers.**
+Nexload SDK provides independently installable TypeScript packages for Iranian e-commerce on Payload CMS and Next.js.
 
-Nexload SDK is a collection of modular, independent packages engineered for mission-critical TypeScript systems. Install only the specific package your service requires—zero mandatory lock-in, zero runtime bloat.
+## What are you building?
 
-Choose a package
+* [Format Persian digits and prices](/nexload-sdk/packages/persian/).
+* [Add a Jalali date picker to a collection](/nexload-sdk/packages/payload-fields/).
+* [Validate product fields across server and client](/nexload-sdk/packages/payload-schema/).
+* [Check whether your storefront can accept traffic](/nexload-sdk/packages/healthcheck/core/).
 
-Browse all packages
+## Try it before installing
 
-AI Coding Agent Skills
+[Format a price](/nexload-sdk/packages/persian/playground/), [validate a product field](/nexload-sdk/packages/payload-schema/playground/) or [run a readiness check](/nexload-sdk/packages/healthcheck/core/playground/).
 
-***
+## Start a project
 
-## Immediate 10-Second Quick Start
+Use [Choose a package by task](/nexload-sdk/start/choose-a-package/), [E-commerce stack](/nexload-sdk/start/recipes/ecommerce-stack/) or [Package catalog](/nexload-sdk/packages/).
 
-### Payload Schema (Validation & Sync)
+## Work with an agent
 
-```ts
-import { defineEntity, field } from "@nexload-sdk/payload-schema";
-import { payloadFields } from "@nexload-sdk/payload-schema/payload";
-import { z } from "zod";
+[Install a skill](/nexload-sdk/agents/install/) and open the agent guide for the package you use.
 
-// Define intrinsic fields once: Payload collection fields + reusable Zod schemas
-export const product = defineEntity({
-  name: "Product",
-  fields: {
-    title: field.text({ required: true, trim: true, minLength: 3 }),
-    slug: field.slug({ required: true }),
-    price: field.money({ currency: "USD", required: true }),
-    stock: field.number({ integer: true, safe: true, defaultValue: 0 }),
-  },
-});
+---
 
-// Export to Payload Collection (Node / Payload config only)
-export const Products = { slug: "products", fields: payloadFields(product).all() };
+# eslint-config — Agent usage
 
-// Derive Next.js / API form schema
-export const createProductDTO = product.schema(({ pick }) =>
-  pick(["title", "slug", "price", "stock"], { optional: "auto" })
-);
+Configure a coding agent for @nexload-sdk/eslint-config.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/agents/
+## Install matching skills
+
+These are shared engineering skills.
+
+### nexload-code
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/code/SKILL.md)
+
+```text
+Use when internal TypeScript behavior, refactoring, or repository-wide file naming is the primary task in Nexload: scope discipline, readable functions and modules, type or trust-boundary safety, lifecycle ownership, abstraction value, dependency restraint, internal imports, or honest verification. Route package API compatibility to nexload-package and framework or specialist policy to the owning sibling skill.
 ```
 
-### Healthcheck Core (Kubernetes / Dokploy)
-
-```ts
-import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
-
-export const health = createHealthManager({
-  service: { name: "api-service", version: "1.0.0" },
-  checks: [
-    shutdownCheck(),
-    memoryCheck({ heapUsedPercent: 90 }),
-  ],
-});
-
-// Execute non-blocking probe (200 OK / 503 Unhealthy)
-const report = await health.run("readiness");
-console.log(report.status); // "ok" | "degraded" | "unhealthy"
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-code
 ```
 
-***
+### nexload-package
 
-## Two Core Ecosystem Pillars
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/package/SKILL.md)
 
-### Observability & Health Engine
+```text
+Use when the primary task changes or evaluates the shipped contract of a publishable Nexload TypeScript package: ownership, public exports and subpaths, entrypoint runtime isolation, core/adapter direction where shared policy exists, metadata, dependencies or peers, packed artifacts, package-scoped compatibility, or README/API alignment. Do not use for internal-only code, React behavior, visual styling, repository-wide runtime standards, or release execution.
+```
 
-Lightweight, runtime-neutral health orchestration. Multi-scope probes (`liveness`, `readiness`, `startup`, `diagnostics`), cgroup v1/v2 container limits, Next.js App Router zero-cache route handlers, Prometheus text exposition, and OpenTelemetry semantic attributes.
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-package
+```
 
-Explore Healthcheck Core →
+## Project AGENTS.md
 
-### Payload CMS Superpowers
+```markdown
+For @nexload-sdk/eslint-config, load nexload-code when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
 
-Deterministic, enterprise extensions for Payload CMS 3. Managed Unicode slugs with lock protection, Jalali (Persian Solar) datepickers, minor-unit money arithmetic, declarative Lexical presets, dual Zod-to-Payload schema derivation, and type-safe RPC operations.
+## Package context
 
-Explore Payload Suite →
+[Scoped Markdown bundle](/nexload-sdk/packages/eslint-config/llms.txt).
 
-***
+## Prompts
 
-## Healthcheck Packages
+```text
+Configure ESLint for the project runtime. Use @nexload-sdk/eslint-config and nexload-code. Inspect the installed version and show a minimal typed example for my project.
+```
 
-* [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
-* [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-next](/packages/healthcheck/next/) — Next.js App Router route factories for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-prometheus](/packages/healthcheck/prometheus/) — Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-otel](/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-payload](/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
+```text
+Review my @nexload-sdk/eslint-config integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
-***
+---
 
-## Payload CMS Packages
+# eslint-config — Configuration reference
 
-* [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
-* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
-* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
-* [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
+Exported configuration entries for @nexload-sdk/eslint-config.
+
+**Topic:** api
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/api/
+## Public entries
+
+* `.`
+* `./base`
+* `./base.js`
+* `./node`
+* `./node.js`
+* `./react`
+* `./react.js`
+* `./nextjs`
+* `./nextjs.js`
+* `./payload`
+* `./payload.js`
+* `./*`
+* `./*.js`
+
+## Usage
+
+Use the default nexloadConfig factory or compose named presets for base, node, react, nextjs and payload. The .js aliases resolve through the package export map.
+
+[Package manifest](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/package.json).
 
 ---
 
@@ -917,7 +948,7 @@ Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deter
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
 **Package:** `@nexload-sdk/eslint-config`
 
-**Current released version:** `9.39.2`
+**Workspace version:** `9.39.2`
 
 Shared authoritative ESLint configurations for the Nexload SDK monorepo
 
@@ -1001,6 +1032,86 @@ pnpm add -D @nexload-sdk/eslint-config eslint@^9.0.0 typescript
 ```
 
 Peer requirements: `eslint >= 9.0.0`, `typescript >= 5.0.0`.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# eslint-config — Optimization
+
+Production choices for @nexload-sdk/eslint-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/optimization/
+## Choose the runtime preset
+
+Use nexloadConfig with the options for the project runtime. Compose exported presets when explicit ordering is needed.
+
+## Keep type-aware linting enabled
+
+Use the shared base rules for type-aware checks and inline type imports.
+
+## Use project service for typed rules
+
+The base configuration uses TypeScript project service for type-aware linting. Ensure the project has a suitable TypeScript configuration.
+
+## Compose overrides after the preset
+
+Pass custom rules or ignores as additional arguments to `nexloadConfig`, or compose the exported preset arrays in the order needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/src/index.ts).
+
+---
+
+# healthcheck-bun — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-bun.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/agents/
+## Install matching skills
+
+Use the shared healthcheck skill for check design. There is no dedicated Bun skill.
+
+### healthcheck-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md)
+
+```text
+Use when integrating or changing the runtime-neutral @nexload-sdk/healthcheck manager, scopes, profiles, aggregation, serialization, built-in checks, collectors, retries, timeouts, shutdown lifecycle, or report contracts. Do not use for framework route wiring, exporter formatting, or one custom check in isolation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-core
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-bun, load healthcheck-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/bun/llms.txt).
+
+## Prompts
+
+```text
+Inspect a Bun server. Use @nexload-sdk/healthcheck-bun and healthcheck-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-bun integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -1130,7 +1241,7 @@ Bun runtime adapter and server metrics health check integration for Bun HTTP ser
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
 **Package:** `@nexload-sdk/healthcheck-bun`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
 
@@ -1186,6 +1297,110 @@ Requires Bun `>=1.0.0`.
 
 * Explore [Production Guides & Server Recipes](./guides/) for Bun HTTP servers, WebSocket counters, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-bun — Optimization
+
+Production choices for @nexload-sdk/healthcheck-bun.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
+## Interpret missing memory limits
+
+The Bun adapter reads process memory when available and returns null for container limits. The memory check reports degraded with this adapter.
+
+## Restrict diagnostic routes
+
+Protect endpoints that expose Bun runtime and server metrics.
+
+## Keep runtime metrics in diagnostics
+
+`bunRuntimeInfoCheck` and `bunServerMetricsCheck` default to diagnostics and are noncritical.
+
+## Use the Bun runtime
+
+This adapter is designed for Bun. It does not read Linux cgroups, so missing memory limits are not container limits.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts).
+
+---
+
+# healthcheck — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md)
+
+```text
+Use when integrating or changing the runtime-neutral @nexload-sdk/healthcheck manager, scopes, profiles, aggregation, serialization, built-in checks, collectors, retries, timeouts, shutdown lifecycle, or report contracts. Do not use for framework route wiring, exporter formatting, or one custom check in isolation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-core
+```
+
+### healthcheck-custom-checks
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/custom-checks/SKILL.md)
+
+```text
+Use when implementing or reviewing an individual custom @nexload-sdk/healthcheck check or metric collector, including check-versus-collector choice, AbortSignal propagation, scope criticality, raw metrics, stable errors, timeout and retry safety, side effects, and focused tests. Do not use for manager-only setup or a shipped adapter.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-custom-checks
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck, load healthcheck-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/core/llms.txt).
+
+## Prompts
+
+```text
+Decide when a shop can accept traffic. Use @nexload-sdk/healthcheck and healthcheck-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2178,7 +2393,7 @@ Runtime-neutral service healthcheck manager for liveness, readiness, startup, an
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
 **Package:** `@nexload-sdk/healthcheck`
 
-**Current released version:** `4.1.0`
+**Workspace version:** `4.1.0`
 
 Runtime-neutral health orchestration and monitoring report foundation for production services.
 
@@ -2285,6 +2500,121 @@ if (report.status === "unhealthy") {
 
 * Explore [Production Guides & Custom Checks](./guides/) for database checks, timeout policies, and status aggregation rules.
 * View the complete [API Reference & Signatures](./api/) for all exported symbols and configuration types.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck — Optimization
+
+Production choices for @nexload-sdk/healthcheck.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
+## Reserve liveness for the process
+
+Keep database, cache and remote HTTP checks in readiness when dependency outages should stop traffic without restarting the process.
+
+## Protect diagnostics
+
+Expose a minimal public probe. Restrict detailed reports and metrics to authorized callers.
+
+## Bound probe execution
+
+The manager defaults to a 1,000 ms timeout per check and eight concurrent checks. Tune these limits for the dependencies being probed.
+
+## Profiles do not filter output
+
+Profiles are hints for checks and collectors, not report filters. Use `toHealthJson()` or `stringifyHealthJson()` to control response details.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md).
+
+---
+
+# healthcheck — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The report includes `"status": "unhealthy"`.
+
+[API reference](/nexload-sdk/packages/healthcheck/core/api/).
+
+---
+
+# healthcheck-next — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-next.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-nextjs-routes
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md)
+
+```text
+Use when wiring @nexload-sdk/healthcheck-next into Next.js App Router liveness, readiness, startup, diagnostics, or metrics route modules, including a server-only manager singleton, GET/HEAD behavior, scope and status policy, no-store route constants, response formats, and fail-closed route protection. Do not use for non-Next servers.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-next, load healthcheck-nextjs-routes when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/next/llms.txt).
+
+## Prompts
+
+```text
+Expose health routes in Next.js. Use @nexload-sdk/healthcheck-next and healthcheck-nextjs-routes. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-next integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2484,7 +2814,7 @@ Production-ready no-store, zero-cache health and readiness route handlers for Ne
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
 **Package:** `@nexload-sdk/healthcheck-next`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Next.js App Router route factories for @nexload-sdk/healthcheck.
 
@@ -2546,6 +2876,86 @@ Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported route creators and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-next — Optimization
+
+Production choices for @nexload-sdk/healthcheck-next.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
+## Trust a controlled proxy
+
+IP and CIDR filtering support IPv4 and require trustProxy. Enable it only when the reverse proxy strips and sets the configured header.
+
+## Choose one authorization scheme
+
+Select bearer token or basic authentication per route. Both use the Authorization header.
+
+## Keep responses uncached
+
+Responses use `cache-control: no-store, max-age=0`. Health route `includeDetails` defaults to `false`; enable details only for protected routes.
+
+## Match the runtime to the manager
+
+The route adapter supports Next.js Node.js and Edge runtimes. Use `runtime = "nodejs"` when the manager uses the Node adapter.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md).
+
+---
+
+# healthcheck-node — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-node.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-container-resources
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md)
+
+```text
+Use when implementing, debugging, or reviewing @nexload-sdk/healthcheck-node container resource detection and policy across Docker, Kubernetes, Dokploy, Linux cgroup v1/v2, memory and swap limits, CPU quota/cpuset, fractional CPU, source/confidence evidence, readiness thresholds, collector selection, or cgroup test fixtures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-container-resources
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-node, load healthcheck-container-resources when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/node/llms.txt).
+
+## Prompts
+
+```text
+Inspect Node processes and container limits. Use @nexload-sdk/healthcheck-node and healthcheck-container-resources. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-node integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2822,7 +3232,7 @@ Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TC
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 
@@ -2888,6 +3298,98 @@ Requires Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Container Recipes](./guides/) for Docker limits, TCP checks, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-node — Optimization
+
+Production choices for @nexload-sdk/healthcheck-node.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
+## Restrict container details
+
+Use private or authenticated endpoints for process metrics and container resources. Reports can include process identifiers and cgroup paths.
+
+## Check deployment platform
+
+Use container limits only where the platform supplies the required cgroup data.
+
+## Keep network probes in readiness
+
+`tcpCheck` and `dnsCheck` default to readiness. Container checks and process and container collectors default to diagnostics.
+
+## Respect the runtime boundary
+
+This adapter uses Node.js APIs and Linux cgroup files. On non-Linux hosts, container detection reports low confidence and the container check is degraded.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md).
+
+---
+
+# healthcheck-otel — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-otel.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-monitoring-exporters
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md)
+
+```text
+Use when converting an existing HealthReport with @nexload-sdk/healthcheck-prometheus or @nexload-sdk/healthcheck-otel, including Prometheus/OpenMetrics text, OTel resource attributes and metric records, collector-only export boundaries, prefixes, metric names, HELP descriptions, label allowlists, dropped labels, deterministic output, and cardinality review.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-monitoring-exporters
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-otel, load healthcheck-monitoring-exporters when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/otel/llms.txt).
+
+## Prompts
+
+```text
+Convert a report into OpenTelemetry records. Use @nexload-sdk/healthcheck-otel and healthcheck-monitoring-exporters. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-otel integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -3024,7 +3526,7 @@ Export healthcheck reports as OpenTelemetry metrics, log attributes, and span me
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
@@ -3072,6 +3574,109 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & OTel Recipes](./guides/) for span attachment and telemetry conventions.
 * Check the [API Reference & Signatures](./api/) for exporter options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck-otel — Optimization
+
+Production choices for @nexload-sdk/healthcheck-otel.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
+## Bound attribute cardinality
+
+Keep user IDs, request IDs and raw error text out of collector labels. These labels become metric attributes.
+
+## Publish custom values through collectors
+
+Read exported values from report.metrics. Check-local metrics stay in the JSON report.
+
+## Separate mapping from delivery
+
+The package maps an existing report to resource attributes and metric records. It runs in Node.js, Bun, Edge, and browsers.
+
+## Avoid sensitive attributes
+
+Collector labels become metric attributes. Review their values before exposing records to a monitoring backend.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-otel — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The `health.status` metric record has value `0`.
+
+[API reference](/nexload-sdk/packages/healthcheck/otel/api/).
+
+---
+
+# healthcheck-payload — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-payload.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-payload
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/payload/SKILL.md)
+
+```text
+Use when integrating or reviewing @nexload-sdk/healthcheck-payload for Payload CMS dependency readiness, including the deterministic payload.find query contract, small limit and zero depth, optional where filters, expectedMinDocuments and empty-collection semantics, timeout normalization, readiness criticality, failure privacy, and adapter tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-payload
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-payload, load healthcheck-payload when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/payload/llms.txt).
+
+## Prompts
+
+```text
+Check that Payload can read a collection. Use @nexload-sdk/healthcheck-payload and healthcheck-payload. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-payload integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -3184,7 +3789,7 @@ Verify Payload CMS database connectivity, collection accessibility, and initiali
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
 **Package:** `@nexload-sdk/healthcheck-payload`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Payload CMS health checks for @nexload-sdk/healthcheck.
 
@@ -3239,6 +3844,98 @@ Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Queries](./guides/) for collection verification, timeout tuning, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for check configuration options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-payload — Optimization
+
+Production choices for @nexload-sdk/healthcheck-payload.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/optimization/
+## Bound readiness query cost
+
+Choose a small collection, use depth zero and supply a narrow where clause for frequent polls.
+
+## Interpret probe failures
+
+The Payload query check is critical for readiness and noncritical for diagnostics. A failed query reports PAYLOAD\_QUERY\_FAILED.
+
+## Keep the default query small
+
+The check defaults to `limit: 1`, `depth: 0`, and readiness. Frequent heavy queries can overload the database.
+
+## Decide whether an empty collection is unhealthy
+
+Set `expectedMinDocuments` only when an empty collection represents an operational failure, such as missing required seed configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/payload/SKILL.md).
+
+---
+
+# healthcheck-prometheus — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-monitoring-exporters
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md)
+
+```text
+Use when converting an existing HealthReport with @nexload-sdk/healthcheck-prometheus or @nexload-sdk/healthcheck-otel, including Prometheus/OpenMetrics text, OTel resource attributes and metric records, collector-only export boundaries, prefixes, metric names, HELP descriptions, label allowlists, dropped labels, deterministic output, and cardinality review.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-monitoring-exporters
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-prometheus, load healthcheck-monitoring-exporters when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/prometheus/llms.txt).
+
+## Prompts
+
+```text
+Scrape health metrics as text. Use @nexload-sdk/healthcheck-prometheus and healthcheck-monitoring-exporters. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-prometheus integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -3393,7 +4090,7 @@ Serialize healthcheck reports into Prometheus text exposition and OpenMetrics fo
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
 **Package:** `@nexload-sdk/healthcheck-prometheus`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
 
@@ -3444,6 +4141,64 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 * Explore [Production Guides & Scraping Setup](./guides/) for metric names, label conventions, and scraping routes.
 * Check the [API Reference & Signatures](./api/) for exporter configuration options.
 
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck-prometheus — Optimization
+
+Production choices for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/optimization/
+## Use supported labels
+
+Use low-cardinality labels from the exporter allowlist. Unsupported labels are dropped.
+
+## Export collector metrics
+
+Use a metric collector for custom series. Metrics attached to individual checks stay in the JSON report.
+
+## Choose the exposition format
+
+Use `toPrometheusText` for Prometheus text or `toOpenMetricsText` for OpenMetrics text. Both serialize an existing report.
+
+## Review dropped labels
+
+The allowlist also applies to `defaultLabels` and collector labels. Unsupported labels are silently dropped.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-prometheus — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `ok`. The output includes the `nexload_health_status` series.
+
+[API reference](/nexload-sdk/packages/healthcheck/prometheus/api/).
+
 ---
 
 # Package catalog
@@ -3452,7 +4207,7 @@ Browse the Nexload SDK packages documented on this site.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/
-This site documents stable Nexload SDK packages. Each package has its own installation, quick start, concepts, guides, API inventory, examples, troubleshooting, migration, and compatibility path.
+Start with a package overview for installation and first use. Follow its guides for examples and configuration.
 
 ## Core Primitives
 
@@ -3464,48 +4219,80 @@ This site documents stable Nexload SDK packages. Each package has its own instal
 
 Start with the runtime-neutral core, then add only the runtime, framework, CMS, or exporter integration you need.
 
-* [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
-* [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-next](/packages/healthcheck/next/) — Next.js App Router route factories for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-prometheus](/packages/healthcheck/prometheus/) — Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-otel](/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-payload](/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck](/nexload-sdk/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
+* [@nexload-sdk/healthcheck-node](/nexload-sdk/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck-bun](/nexload-sdk/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck-next](/nexload-sdk/packages/healthcheck/next/) — Next.js App Router route factories for @nexload-sdk/healthcheck. (v2.1.0)
+* [@nexload-sdk/healthcheck-prometheus](/nexload-sdk/packages/healthcheck/prometheus/) — Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports. (v2.1.0)
+* [@nexload-sdk/healthcheck-otel](/nexload-sdk/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
+* [@nexload-sdk/healthcheck-payload](/nexload-sdk/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
 
 ## Payload CMS
 
 Choose semantic fields, explicit Lexical configuration, canonical Payload-and-Zod schemas, or contract-first custom operations.
 
-* [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
-* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
-* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
-* [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
+* [@nexload-sdk/payload-fields](/nexload-sdk/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
+* [@nexload-sdk/payload-hooks](/nexload-sdk/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
+* [@nexload-sdk/payload-preset](/nexload-sdk/packages/payload-preset/) —  (v0.0.0, unreleased)
+* [@nexload-sdk/payload-editor](/nexload-sdk/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
+* [@nexload-sdk/payload-schema](/nexload-sdk/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
+* [@nexload-sdk/payload-operations](/nexload-sdk/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
 
 ## Developer Tooling & Standards
 
 Shared TypeScript compiler configurations, ESLint 9 Flat Config presets, and canonical architectural standards.
 
-* [@nexload-sdk/logger](/packages/logger/) — Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults. (v4.1.0)
-* [@nexload-sdk/persian](/packages/persian/) — Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates. (v0.0.0)
-* [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
-* [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-next](/packages/healthcheck/next/) — Next.js App Router route factories for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-prometheus](/packages/healthcheck/prometheus/) — Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-otel](/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-payload](/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
-* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
-* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
-* [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
+* [@nexload-sdk/typescript-config](/nexload-sdk/packages/typescript-config/) — Shared TypeScript configurations for the Nexload SDK monorepo (v5.9.3)
+* [@nexload-sdk/eslint-config](/nexload-sdk/packages/eslint-config/) — Shared authoritative ESLint configurations for the Nexload SDK monorepo (v9.39.2)
 
 ## Documentation policy
 
-The site describes the current released version shown on each package page. Historical versioned pages are not hosted. Use each package changelog and migration page when upgrading.
+Versions come from workspace manifests. Check pending Changesets before using an example with a registry release.
+
+---
+
+# logger — Agent usage
+
+Configure a coding agent for @nexload-sdk/logger.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### logger
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/logger/SKILL.md)
+
+```text
+MUST be loaded before writing, changing or reviewing ANY log call, console.* call, catch block, error handling, job/worker, outbound HTTP/provider call, route handler or observability code in a project that uses @nexload-sdk/logger. Decides whether a log is needed, its level, event name and fields, and what must never be logged. Do not use for metrics/health endpoints (use healthcheck skills).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill logger
+```
+
+## Project AGENTS.md
+
+```markdown
+Before adding, changing or reviewing any log call, console call, catch block, job/worker or outbound call, load the installed logger skill and follow its Decision flow. Use @nexload-sdk/logger for application and package logging. Never use console.* in package or app source.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/logger/llms.txt).
+
+## Prompts
+
+```text
+Correlate a request with its log events. Use @nexload-sdk/logger and logger. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/logger integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -4017,7 +4804,7 @@ Configure-once structured logging with request context, trace propagation, and s
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
 **Package:** `@nexload-sdk/logger`
 
-**Current released version:** `4.1.0`
+**Workspace version:** `4.1.0`
 
 Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
 
@@ -4078,6 +4865,110 @@ configureLogger({ service: "shop-api", release: process.env.RELEASE });
 
 * Explore [Production Guides & Recipes](./guides/) for Next.js startup, trace propagation, redaction, and migration.
 * Check the [API Reference & Compatibility](./api/) for the root and testing exports.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# logger — Optimization
+
+Production choices for @nexload-sdk/logger.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/optimization/
+## Extend redaction for deeper objects
+
+Default redaction covers keys at the top level and one level below it. Add explicit paths for sensitive fields deeper in the object.
+
+## Configure once
+
+Call `configureLogger()` at startup. A subsequent call without `force: true` keeps the existing configuration.
+
+## Respect browser and Edge behavior
+
+Browser and Edge builds use Pino browser output. `withLogContext` is pass-through, and `pretty` and `destination` do not configure a server stream.
+
+## Rebuild Payload configuration after replacement
+
+A forced logger reconfiguration requires rebuilding Payload configuration created with `getPayloadLoggerConfig()` to pick up the change.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/logger/SKILL.md).
+
+---
+
+# payload-editor — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-editor.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-editor-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md)
+
+```text
+Use when integrating, changing, or reviewing the @nexload-sdk/payload-editor public interface, semantic feature definitions, merge and error contracts, Payload version compatibility, ESM packaging, or package-wide validation. Use the preset or extensions sibling when that is the primary task.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-core
+```
+
+### payload-editor-presets
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/presets/SKILL.md)
+
+```text
+Use when selecting, defining, reviewing, or changing @nexload-sdk/payload-editor built-in or custom presets, including feature membership, heading policy, relational depth defaults, override merge behavior, immutability, and SemVer impact.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-presets
+```
+
+### payload-editor-extensions
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/extensions/SKILL.md)
+
+```text
+Use when adding, replacing, diagnosing, or reviewing native Payload Lexical feature providers through @nexload-sdk/payload-editor extendFeatures, including Blocks, duplicate keys, provider order, dependencies, server/client serialization, and project ownership.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-extensions
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-editor, load payload-editor-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-editor/llms.txt).
+
+## Prompts
+
+```text
+Configure a Lexical article editor. Use @nexload-sdk/payload-editor and payload-editor-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-editor integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -4488,7 +5379,7 @@ Deterministic semantic configuration, presets, and feature sets for Payload CMS'
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
 **Package:** `@nexload-sdk/payload-editor`
 
-**Current released version:** `1.1.0`
+**Workspace version:** `1.1.0`
 
 Semantic, deterministic Payload Lexical editor configuration.
 
@@ -4576,6 +5467,122 @@ In `createEditor({ features: { ... } })`:
 
 * Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all supported features and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-editor — Optimization
+
+Production choices for @nexload-sdk/payload-editor.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
+## Replace managed features explicitly
+
+Disable a managed feature before adding its native replacement. Duplicate keys across features and extendFeatures fail during configuration.
+
+## Keep relational depth bounded
+
+Relational preset features default to a maximum depth of one. Account for this when choosing link, upload or relationship features.
+
+## Keep Payload versions aligned
+
+Use matching versions of `payload` and all `@payloadcms/*` packages. The supported Payload and Lexical peer range is `>=3.68.5 <4`.
+
+## Configure on the server
+
+The package is ESM-only and intended for Node.js Payload configuration. Add a native Payload Block via `extendFeatures` when block-level code highlighting is needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md).
+
+---
+
+# payload-fields — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-fields.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-fields-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md)
+
+```text
+Use when integrating or reviewing the overall @nexload-sdk/payload-fields factory architecture, including options-object compatibility, protected field names/types/components, safe overrides, hook composition, Payload Import Map subpaths, server versus Admin client boundaries, plugin registration decisions, major-version migration, or package-wide validation. Use a specialized sibling for one slug, Jalali, or money contract.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-core
+```
+
+### payload-fields-slug
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/slug/SKILL.md)
+
+```text
+Use when adding, debugging, migrating, or reviewing @nexload-sdk/payload-fields managed slugs, including the slug/lock tuple and spread usage, Unicode/Persian normalization, lock and localization synchronization, nested source paths, regeneration on source changes, source clearing and manual edits, protected Admin wiring, or registered server-side generator authentication, access, input validation, and final normalization.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-slug
+```
+
+### payload-fields-jalali-date
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/jalali-date/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields Jalali date behavior, including native ISO persistence, Persian presentation, display timezone boundaries, dayOnly/dayAndTime/timeOnly/monthOnly picker modes, canonical local noon, Jalali month normalization, null/clear behavior, virtual Jalali timestamps, Admin UI limitations, or date-focused tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-jalali-date
+```
+
+### payload-fields-money
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/money/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields money behavior, including integer minor-unit persistence and APIs, explicit major-unit parsing, IRR/IRT or custom currency fraction digits, Persian/Arabic numeric input, safe integers and precision, negative policy, min/max bounds, display formatting, consumer validation order, Admin behavior, or money data migration.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-money
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-fields, load payload-fields-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-fields/llms.txt).
+
+## Prompts
+
+```text
+Edit Jalali dates, slugs and prices in Payload Admin. Use @nexload-sdk/payload-fields and payload-fields-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-fields integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -4844,6 +5851,18 @@ Public function exported by @nexload-sdk/payload-fields.
 
 ## Constants
 
+### `FormattedCell`
+
+```ts
+FormattedCell({ kind, ...props }: DefaultCellComponentProps & { kind: ValidatedTextKind; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/formatted-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/formatted-cell.tsx#L12)
+
 ### `IRR`
 
 ```ts
@@ -4868,6 +5887,54 @@ Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L36)
 
+### `JalaliDateCell`
+
+```ts
+JalaliDateCell({ display, ...props }: DefaultCellComponentProps<DateFieldClient, JalaliDateValue> & { display?: JalaliDateDisplayOptions; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/jalali-date-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-cell.tsx#L9)
+
+### `JalaliDateFieldComponent`
+
+```ts
+JalaliDateFieldComponent({ field, path: providedPath, appearance, display, timeZone, readOnly, }: DateFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/jalali-date-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-field.tsx#L61)
+
+### `MoneyCell`
+
+```ts
+MoneyCell({ currency, display, displayCurrency, ...props }: DefaultCellComponentProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/money-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-cell.tsx#L12)
+
+### `MoneyFieldComponent`
+
+```ts
+MoneyFieldComponent({ field, path, currency, display, displayCurrency, readOnly }: NumberFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/money-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-field.tsx#L13)
+
 ### `PAYLOAD_FIELDS_PLUGIN_ORDER`
 
 ```ts
@@ -4879,6 +5946,30 @@ PAYLOAD_FIELDS_PLUGIN_ORDER: 900
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L130)
+
+### `SlugFieldComponent`
+
+```ts
+SlugFieldComponent({ field, path, source, lockName, generator, readOnly, }: TextFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/slug-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/slug-field.tsx#L14)
+
+### `ValidatedTextFieldComponent`
+
+```ts
+ValidatedTextFieldComponent({ field, path, readOnly, kind, }: TextFieldClientProps & { kind: ValidatedTextKind; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/validated-text-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/validated-text-field.tsx#L10)
 
 ### `formatSlug`
 
@@ -5640,7 +6731,7 @@ Semantic Payload field factories for Unicode slugs, Jalali dates, integer money,
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
 **Package:** `@nexload-sdk/payload-fields`
 
-**Current released version:** `3.1.0`
+**Workspace version:** `3.1.0`
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 
@@ -5795,6 +6886,98 @@ export default buildConfig({
 
 The field factories use [Persian utilities](/nexload-sdk/packages/persian/) for shared normalization and validation.
 
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-fields — Optimization
+
+Production choices for @nexload-sdk/payload-fields.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
+## Normalize strings before field hooks
+
+Install payloadFieldsPlugin() when REST or Local API callers send money values as strings. It normalizes Persian digits and separators before Payload parses number fields.
+
+## Send integers from numeric clients
+
+Pass minor-unit integers when the client already owns numeric conversion.
+
+## Handle nested slug uniqueness
+
+Automatic collision suffixes apply only to top-level slugs. For slugs inside arrays, groups, or named tabs, use `unique: false` to avoid relying on suffixing.
+
+## Order field plugins deliberately
+
+The plugin sees collections and globals present when it runs. Place plugins adding money fields before it, respecting its order of 900.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md).
+
+---
+
+# payload-hooks — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-hooks.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/agents/
+## Install matching skills
+
+Use the preset skill for its audit-plugin integration and collection design for Payload boundaries. There is no dedicated hooks skill.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+### payload-collection-design
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload/collection-design/SKILL.md)
+
+```text
+Design, name, review, and refactor Payload CMS collections and PostgreSQL-backed data relationships. Use whenever choosing embedded fields versus Globals or collections, modeling cardinality and ownership, defining junction collections, naming resources and fields, selecting indexes and constraints, setting deletion behavior, preserving historical snapshots, or auditing a Payload schema for data-model correctness.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-collection-design
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-hooks, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-hooks/llms.txt).
+
+## Prompts
+
+```text
+Audit writes to an explicit collection. Use @nexload-sdk/payload-hooks and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-hooks integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
 ---
 
 # API Reference & Compatibility
@@ -5942,7 +7125,7 @@ Audit Payload collection operations with structured log events.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
 **Package:** `@nexload-sdk/payload-hooks`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Effortless, type-safe logging for Payload CMS collection operations.
 
@@ -5967,6 +7150,110 @@ const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read"
 ```
 
 Reads are off by default; auth is on for auth collections. See [guides](./guides/) for event names, options, and transaction caveats. Payload `>=3.85.0 <4.0.0` is a peer dependency; the hooks run in Node.js Payload configuration.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-hooks — Optimization
+
+Production choices for @nexload-sdk/payload-hooks.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/optimization/
+## Declare the auth collection
+
+Declare an auth collection in the config to include it in auditing. Payload creates its implicit users collection after plugins run.
+
+## Interpret write events in context
+
+Write events from afterChange and afterDelete run before the database transaction commits.
+
+## Avoid read auditing by default
+
+Read auditing is off by default. When enabled, `find` logs once per request with a count, while `findByID` logs the document ID.
+
+## Treat audit output as logs
+
+The plugin does not persist database audit records. Authentication auditing covers successful logins and password resets, not failed logins.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/index.ts).
+
+---
+
+# payload-operations — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-operations.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-operations-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md)
+
+```text
+Use for defining, reviewing, or diagnosing @nexload-sdk/payload-operations contracts, operation trees, Zod codec boundaries, Date handling via z.codec, declared errors, safe results, type inference, public subpaths, and package-wide compatibility. Use the client or server sibling when transport or Payload endpoints are the primary concern.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-core
+```
+
+### payload-operations-client
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/client/SKILL.md)
+
+```text
+Use for implementing, integrating, reviewing, or diagnosing the @nexload-sdk/payload-operations clients: createOperationsClient from ./client (pure RPC client), createCMSClient from ./cms (PayloadSDK integration), operation calls, base URL and path handling, request headers, transport plugins, timeoutPlugin from ./plugins/timeout, response decoding via z.decodeAsync, and browser-safe client packaging.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-client
+```
+
+### payload-operations-server
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/server/SKILL.md)
+
+```text
+Use for implementing, integrating, reviewing, or diagnosing @nexload-sdk/payload-operations on Payload: createPayloadEndpoints, complete handler trees, required access.default, request body limits via maxBodyBytes, request parsing, CORS and OPTIONS, declared errors, output encoding via z.encodeAsync, request-scoped Local API use, and server-safe failures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-server
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-operations, load payload-operations-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-operations/llms.txt).
+
+## Prompts
+
+```text
+Call a typed CMS operation. Use @nexload-sdk/payload-operations and payload-operations-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-operations integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -7468,7 +8755,7 @@ Type-safe custom application operations for Payload CMS with shared Zod contract
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
 **Package:** `@nexload-sdk/payload-operations`
 
-**Current released version:** `1.0.0`
+**Workspace version:** `1.0.0`
 
 Typed custom operations for Payload CMS with the native Payload REST SDK.
 
@@ -7710,6 +8997,86 @@ export async function submitOrder() {
 * Explore [Production Guides & Recipes](./guides/) for multi-resource trees, plugins, transactions, and Next.js Server Actions.
 * View the complete [API Reference & Signatures](./api/) for all exported types and functions.
 
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-operations — Optimization
+
+Production choices for @nexload-sdk/payload-operations.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/optimization/
+## Keep outputs encodable
+
+Use a codec or overwrite for output and declared error data that need conversion. A one-way transform cannot be encoded by the server.
+
+## Preserve access control
+
+Pass overrideAccess: false and req when a handler calls a Payload Local API on behalf of the caller.
+
+## Bound request bodies
+
+Requests over 1 MiB return `413 PAYLOAD_TOO_LARGE` by default. Set `maxBodyBytes` when the operation needs a larger body.
+
+## Separate server and universal imports
+
+The `./server` subpath requires Node.js 20.9 or newer. The root, contract, errors, client, CMS, and timeout plugin subpaths are universal.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md).
+
+---
+
+# payload-preset — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-preset.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-preset, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-preset/llms.txt).
+
+## Prompts
+
+```text
+Configure a Persian Payload admin. Use @nexload-sdk/payload-preset and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-preset integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
 ---
 
 # API Reference & Compatibility
@@ -7858,18 +9225,18 @@ Compose Payload configuration with Nexload defaults.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
 **Package:** `@nexload-sdk/payload-preset`
 
-**Current released version:** `0.0.0`
+**Workspace version:** `0.0.0` (unreleased)
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
-**Upcoming release:** this page documents `@nexload-sdk/payload-preset` 1.0.0, which ships with the next Changesets release and is not on npm yet.
-
 ## Installation
 
+This package is unreleased. From a consumer in this SDK workspace:
+
 ```bash
-pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
+pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
 ```
 
 ## Quick Start
@@ -7887,6 +9254,98 @@ export default buildConfig({
 ```
 
 Configure the logger before `buildConfig()`. Define collections explicitly, including the auth collection. See [guides](./guides/) and the [API reference](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-preset — Optimization
+
+Production choices for @nexload-sdk/payload-preset.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
+## Initialize logging first
+
+Call configureLogger() before buildConfig(). Supply a destination when Payload should use the configured output stream.
+
+## Choose plugin ownership
+
+Disable a preset option when the project registers the corresponding plugin itself.
+
+## Keep read auditing deliberate
+
+Audit read logging is off by default. The preset changes top-level configuration and does not mutate collection field definitions.
+
+## Run in Payload configuration
+
+This ESM-only package targets Node.js and Payload configuration. After forced logger reconfiguration, rebuild the Payload configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md).
+
+---
+
+# payload-schema — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-schema.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/agents/
+## Install matching skills
+
+Use payload-schema-use in consumer projects. Install payload-schema-develop only when maintaining the SDK package.
+
+### payload-schema-use
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md)
+
+```text
+Use for consumer-side work with @nexload-sdk/payload-schema: defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, compiling fields via payloadFields from @nexload-sdk/payload-schema/payload, integrating compiled fields into collections, handling null semantics and Date objects, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-use
+```
+
+### payload-schema-develop
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/develop/SKILL.md)
+
+```text
+Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seeds and compilation under /payload, canonical beforeValidate adapter, null semantics, Date normalization, blocks containers, cloning, structured errors, public type inference, package fixtures, packed distribution, browser-safe root verification, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-develop
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-schema, load payload-schema-use when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-schema/llms.txt).
+
+## Prompts
+
+```text
+Share product validation between a form and Payload. Use @nexload-sdk/payload-schema and payload-schema-use. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-schema integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -9322,7 +10781,7 @@ Define canonical field validation and normalization once, then reuse it across P
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Current released version:** `2.0.0`
+**Workspace version:** `2.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 
@@ -9478,6 +10937,109 @@ export const createArticleSchema = articleEntity.schema(({ pick }) =>
 
 * Explore [Production Recipes & Modeling Guides](./guides/) for the full 15-field catalog, polymorphic relationships, static vs dynamic defaults, error diagnostics, and the 3.0 migration guide.
 * View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# payload-schema — Optimization
+
+Production choices for @nexload-sdk/payload-schema.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/optimization/
+## Choose optionality for projections
+
+A plain pick(keys) makes all picked keys required. Set the optional option when the projection should respect optional fields.
+
+## Preserve block metadata
+
+Reserve id, blockName and blockType in block definitions. Reusing those names throws INVALID\_FIELD\_CONFIGURATION.
+
+## Keep server code out of client bundles
+
+Use the universal root entry for shared schemas. Import the `./payload` compiler only in Node.js Payload configuration.
+
+## Choose codec-safe transformations
+
+Custom schema transforms are not codec-safe for `z.encode`. Use `.refine()` or `.overwrite()` when schemas serve as operation outputs.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md).
+
+---
+
+# payload-schema — Playground
+
+Validate product input.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
+## Try it
+
+Choose the title or SKU definition and edit the sample value.
+
+## Read the result
+
+Title trims whitespace and requires three characters. SKU trims, uppercases and requires two. The output shows the parsed value or validation issues.
+
+Choose SKU and enter `ab`. The canonical output is `"AB"`.
+
+[API reference](/nexload-sdk/packages/payload-schema/api/).
+
+---
+
+# persian — Agent usage
+
+Configure a coding agent for @nexload-sdk/persian.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### persian
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/persian/SKILL.md)
+
+```text
+Use when a project handles Persian, Farsi, or Iranian input or output, including mobile numbers, کد ملی (national code), postal codes, landlines, card numbers, Sheba/IBAN, Rial/Toman prices, Jalali/Shamsi dates, relative time, Persian digits, ي/ك normalization, slugs, provinces, or Zod validation of these values.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill persian
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/persian, load persian when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/persian/llms.txt).
+
+## Prompts
+
+```text
+Normalize Persian digits and display a price. Use @nexload-sdk/persian and persian. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/persian integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -11016,11 +12578,11 @@ Persian and Iranian utilities.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/
 **Package:** `@nexload-sdk/persian`
 
-**Current released version:** `0.0.0`
+**Workspace version:** `0.0.0` (unreleased)
 
 Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates.
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/persian) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
+[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
 
 Normalize input and format output with explicit units and time zones.
 
@@ -11036,8 +12598,10 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ## Installation
 
+This package is unreleased. From a consumer in this SDK workspace:
+
 ```bash
-pnpm add @nexload-sdk/persian
+pnpm add '@nexload-sdk/persian@workspace:*'
 ```
 
 For the optional `./zod` subpath, install `zod` separately.
@@ -11059,6 +12623,155 @@ The core has no runtime dependencies.
 * Search Persian text and look up provinces.
 
 See [guides](./guides/) and the [API inventory](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# persian — Optimization
+
+Production choices for @nexload-sdk/persian.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
+## Keep currency units explicit
+
+Use integer amounts and specify IRR or IRT. `parseMoney` rejects decimal strings and unsafe integers.
+
+## Check the calendar boundary
+
+Supported Jalali years run from 1 to 3176. Conversion functions can throw a RangeError outside this range.
+
+## Plan money conversion rounding
+
+When a display-unit conversion is not divisible, `formatMoney` keeps the source unit unless a rounding mode is supplied. `convertMoney` throws without rounding.
+
+## Provide timezone data
+
+Timezone conversion in `./date` and `./relative` requires host `Intl` timezone data. The package supports Node.js, Bun, Edge, and browsers.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/persian/SKILL.md).
+
+---
+
+# persian — Playground
+
+Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
+## Try it
+
+Type a value in Persian, Arabic or Latin digits and pick a mode. Every result comes from `@nexload-sdk/persian` running in your browser.
+
+## Modes
+
+| Mode | Input | Functions used |
+| --- | --- | --- |
+| `IRR` / `IRT` | A whole number of rials | `parseMoney`, `formatMoney` from `@nexload-sdk/persian/money` |
+| `mobile` | An Iranian mobile number in any common form | `validateIranMobile`, `toE164Mobile`, `formatIranMobile` from `@nexload-sdk/persian/mobile` |
+| `national-code` | A 10-digit کد ملی | `validateNationalCode` from `@nexload-sdk/persian/identity` |
+| `card` | A 16-digit bank card, separators allowed | `validateCardNumber`, `formatCardNumber`, `detectBankByCard` from `@nexload-sdk/persian/bank` |
+| `sheba` | A Sheba (IBAN) starting with `IR` | `validateSheba`, `formatSheba`, `detectBankBySheba` from `@nexload-sdk/persian/bank` |
+| `jalali` | An ISO date-time with an offset | `formatJalali` from `@nexload-sdk/persian/date`, time zone `Asia/Tehran` |
+
+## Read the result
+
+* Fractional prices are invalid. When a rial amount cannot convert exactly to tomans, the formatter keeps rials: `12501` in `IRT` shows `۱۲٬۵۰۱ ریال`.
+* Invalid identifiers show the SDK's reason code, for example `invalid_checksum`. Use the same codes in your own error messages.
+* Try `۰۹۱۲۳۴۵۶۷۸۹` in `mobile`, `۰۰۸۴۵۷۵۹۴۸` in `national-code` and `IR820540102680020817909002` in `sheba`.
+
+[API reference](/nexload-sdk/packages/persian/api/).
+
+---
+
+# typescript-config — Agent usage
+
+Configure a coding agent for @nexload-sdk/typescript-config.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/agents/
+## Install matching skills
+
+These are shared engineering skills.
+
+### nexload-code
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/code/SKILL.md)
+
+```text
+Use when internal TypeScript behavior, refactoring, or repository-wide file naming is the primary task in Nexload: scope discipline, readable functions and modules, type or trust-boundary safety, lifecycle ownership, abstraction value, dependency restraint, internal imports, or honest verification. Route package API compatibility to nexload-package and framework or specialist policy to the owning sibling skill.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-code
+```
+
+### nexload-package
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/package/SKILL.md)
+
+```text
+Use when the primary task changes or evaluates the shipped contract of a publishable Nexload TypeScript package: ownership, public exports and subpaths, entrypoint runtime isolation, core/adapter direction where shared policy exists, metadata, dependencies or peers, packed artifacts, package-scoped compatibility, or README/API alignment. Do not use for internal-only code, React behavior, visual styling, repository-wide runtime standards, or release execution.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-package
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/typescript-config, load nexload-code when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/typescript-config/llms.txt).
+
+## Prompts
+
+```text
+Choose a TypeScript compiler preset. Use @nexload-sdk/typescript-config and nexload-code. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/typescript-config integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
+# typescript-config — Configuration reference
+
+Exported configuration entries for @nexload-sdk/typescript-config.
+
+**Topic:** api
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/api/
+## Public entries
+
+* `./base.json`
+* `./node.json`
+* `./react.json`
+* `./next.json`
+* `./vite.json`
+
+## Usage
+
+Set extends to the package name followed by a preset subpath, for example @nexload-sdk/typescript-config/next.json. Set include and output paths in the consuming project.
+
+[Package manifest](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/package.json).
 
 ---
 
@@ -11147,7 +12860,7 @@ Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite a
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
 **Package:** `@nexload-sdk/typescript-config`
 
-**Current released version:** `5.9.3`
+**Workspace version:** `5.9.3`
 
 Shared TypeScript configurations for the Nexload SDK monorepo
 
@@ -11208,6 +12921,41 @@ pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
 ```
 
 Peer requirement: `typescript >= 5.0.0`.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# typescript-config — Optimization
+
+Production choices for @nexload-sdk/typescript-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/optimization/
+## Extend the runtime preset
+
+Extend node.json for a backend package, react.json for a React library or next.json for a Next.js app.
+
+## Retain checked indexed access
+
+Inherit strict and noUncheckedIndexedAccess from base.json when customizing project includes and output paths.
+
+## Choose emit behavior
+
+The React preset emits declarations only. The Next.js and Vite presets set `noEmit`, so use the preset suited to the build pipeline.
+
+## Include the intended sources
+
+Set `include` and output paths for the consuming project. The Node preset defaults to `src/**/*.ts` and excludes `dist` and `node_modules`.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/base.json).
 
 ---
 
@@ -11460,44 +13208,50 @@ packages/<package-name>/
 
 ---
 
-# Choose a Package: Interactive Decision Guide
+# Choose a package by task
 
-Match a structured logging, service health, or Payload CMS task to a Nexload SDK package.
+Match a storefront, CMS, service or tooling problem to its smallest SDK dependency.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/choose-a-package/
-## Core Primitives
+## Localize a storefront
 
-| You need to… | Install |
+| I want to… | Start here |
 | --- | --- |
-| record structured events and correlate requests across services | [`@nexload-sdk/logger`](/nexload-sdk/packages/logger/) |
+| Normalize Persian digits and display a price | [`@nexload-sdk/persian`](/nexload-sdk/packages/persian/) |
+| Edit Jalali dates, slugs and prices in Payload Admin | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/) |
+| Configure a Persian Payload admin | [`@nexload-sdk/payload-preset`](/nexload-sdk/packages/payload-preset/) |
 
-## Healthcheck packages
+## Model and operate a CMS
 
-| You need to…                                                  | Install                                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| define checks, collectors, scopes, reports, and serialization | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/)                  |
-| inspect Node processes, cgroups, TCP, or DNS                  | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/)             |
-| identify Bun and observe a `Bun.serve` server                 | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/)               |
-| expose Next.js App Router health or metrics handlers          | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/)             |
-| render Prometheus or OpenMetrics text                         | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
-| convert reports into OpenTelemetry-friendly records           | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/)             |
-| include a small Payload Local API query in readiness          | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/)       |
+| I want to… | Start here |
+| --- | --- |
+| Share product validation between a form and Payload | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/) |
+| Configure a Lexical article editor | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/) |
+| Audit writes to an explicit collection | [`@nexload-sdk/payload-hooks`](/nexload-sdk/packages/payload-hooks/) |
+| Call a typed CMS operation | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
 
-Node probes do not create an HTTP endpoint. Use your framework or the Next.js package for route handlers. Prometheus and OpenTelemetry are separate integrations; install only the output format you use.
+## Observe a service
 
-## Payload packages
+| I want to… | Start here |
+| --- | --- |
+| Correlate a request with its log events | [`@nexload-sdk/logger`](/nexload-sdk/packages/logger/) |
+| Decide when a shop can accept traffic | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/) |
+| Inspect Node processes and container limits | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/) |
+| Inspect a Bun server | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/) |
+| Expose health routes in Next.js | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/) |
+| Check that Payload can read a collection | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/) |
+| Scrape health metrics as text | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
+| Convert a report into OpenTelemetry records | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/) |
 
-| You need to…                                                              | Install                                                                        |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| add managed slugs, Jalali date UI, or integer minor-unit money fields     | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/)         |
-| compile semantic editor intent into Payload Lexical features              | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/)         |
-| share canonical field validation between Payload and Zod contracts        | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/)         |
-| expose typed contract-first custom operations through Payload and its SDK | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
+## Set up project tooling
 
-Read [Choose a Payload package](/nexload-sdk/start/payload-packages/) when two of these packages appear to overlap.
+| I want to… | Start here |
+| --- | --- |
+| Choose a TypeScript compiler preset | [`@nexload-sdk/typescript-config`](/nexload-sdk/packages/typescript-config/) |
+| Configure ESLint for the project runtime | [`@nexload-sdk/eslint-config`](/nexload-sdk/packages/eslint-config/) |
 
-Build a Payload CMS project with these packages using the [e-commerce stack recipe](/nexload-sdk/start/recipes/ecommerce-stack/).
+[Compose the e-commerce stack](/nexload-sdk/start/recipes/ecommerce-stack/).
 
 ---
 
@@ -11534,7 +13288,7 @@ Package managers, module formats, and peer dependencies.
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/installation/
 ## Package managers
 
-Install packages with pnpm, npm, yarn, or Bun. Each package overview provides commands for all four. Install required peers in your application; optional peers are needed only for the integration that uses them.
+Install packages with pnpm, npm, yarn, or Bun. Unreleased packages require a local consumer in the SDK workspace. Install required peers in your application; optional peers are needed only for the integration that uses them.
 
 ## Module formats and peer dependencies
 
@@ -11581,9 +13335,9 @@ Nexload SDK is a set of independently installed TypeScript packages. It is not o
 
 ## Documentation policy
 
-* The site covers exactly eleven current, stable packages.
+* The catalog covers runtime packages and shared tooling presets.
 * Versions and peer ranges come from the live workspace manifests.
-* The shown versions are released on npm.
+* Examples follow workspace source. Pending Changesets can describe APIs ahead of npm.
 * Historical versioned pages are not hosted.
 * Package changelogs and migration pages own upgrade guidance.
 * Source and public declarations take priority if prose ever conflicts with implementation.
@@ -11637,8 +13391,10 @@ Compose Payload, health checks, logging, and Persian utilities.
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/recipes/ecommerce-stack/
 This example connects one Payload CMS project to SDK logging, field factories, a readiness check, and Persian money formatting. Configure a Payload database adapter, secret, and auth collection for your deployment.
 
+Run this command inside a consumer project in the SDK workspace. The recipe uses unreleased packages and pending APIs.
+
 ```bash
-pnpm add @nexload-sdk/logger @nexload-sdk/healthcheck @nexload-sdk/healthcheck-payload @nexload-sdk/payload-preset @nexload-sdk/payload-fields @nexload-sdk/persian payload @payloadcms/translations react react-dom
+pnpm add '@nexload-sdk/logger@workspace:*' '@nexload-sdk/healthcheck@workspace:*' '@nexload-sdk/healthcheck-payload@workspace:*' '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/payload-fields@workspace:*' '@nexload-sdk/persian@workspace:*' payload @payloadcms/translations react react-dom
 ```
 
 Configure the logger before building Payload configuration. The preset registers the fields plugin and audit hooks.

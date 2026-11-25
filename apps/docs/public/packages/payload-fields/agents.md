@@ -1,0 +1,78 @@
+# payload-fields — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-fields.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-fields-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md)
+
+```text
+Use when integrating or reviewing the overall @nexload-sdk/payload-fields factory architecture, including options-object compatibility, protected field names/types/components, safe overrides, hook composition, Payload Import Map subpaths, server versus Admin client boundaries, plugin registration decisions, major-version migration, or package-wide validation. Use a specialized sibling for one slug, Jalali, or money contract.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-core
+```
+
+### payload-fields-slug
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/slug/SKILL.md)
+
+```text
+Use when adding, debugging, migrating, or reviewing @nexload-sdk/payload-fields managed slugs, including the slug/lock tuple and spread usage, Unicode/Persian normalization, lock and localization synchronization, nested source paths, regeneration on source changes, source clearing and manual edits, protected Admin wiring, or registered server-side generator authentication, access, input validation, and final normalization.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-slug
+```
+
+### payload-fields-jalali-date
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/jalali-date/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields Jalali date behavior, including native ISO persistence, Persian presentation, display timezone boundaries, dayOnly/dayAndTime/timeOnly/monthOnly picker modes, canonical local noon, Jalali month normalization, null/clear behavior, virtual Jalali timestamps, Admin UI limitations, or date-focused tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-jalali-date
+```
+
+### payload-fields-money
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/money/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields money behavior, including integer minor-unit persistence and APIs, explicit major-unit parsing, IRR/IRT or custom currency fraction digits, Persian/Arabic numeric input, safe integers and precision, negative policy, min/max bounds, display formatting, consumer validation order, Admin behavior, or money data migration.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-money
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-fields, load payload-fields-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-fields/llms.txt).
+
+## Prompts
+
+```text
+Edit Jalali dates, slugs and prices in Payload Admin. Use @nexload-sdk/payload-fields and payload-fields-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-fields integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```

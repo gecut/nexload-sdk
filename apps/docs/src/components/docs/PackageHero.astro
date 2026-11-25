@@ -42,15 +42,13 @@ const siblings = packageCatalog.filter((candidate) => candidate.family === entry
   <div class="package-hero__title-row">
     <h2>{manifest.name}</h2>
     <Badge text={`v${manifest.version}`} />
-    <DocsStatus status={entry.maturity} />
-    <DocsStatus status={entry.releaseStatus} />
+
+    <DocsStatus status={manifest.version === "0.0.0" ? "upcoming" : entry.releaseStatus} />
   </div>
   <p>{manifest.description}</p>
-  <div class="package-hero__badges" aria-label="Runtime compatibility">
-    {entry.runtimes.map((runtime) => <Badge text={runtime} />)}
-  </div>
+  <p>Examples follow workspace source. Check pending Changesets against your installed version.</p>
   <div class="package-hero__actions">
-    <LinkButton href={npmUrl} variant="primary" icon="external">View on npm</LinkButton>
+    {manifest.version !== "0.0.0" && <LinkButton href={npmUrl} variant="primary" icon="external">View on npm</LinkButton>}
     <LinkButton href={sourceUrl} variant="secondary" icon="github">Browse source</LinkButton>
     {hasChangelog && <LinkButton href={`${sourceUrl.replace("/tree/", "/blob/")}/CHANGELOG.md`} variant="secondary" icon="document">Changelog</LinkButton>}
   </div>

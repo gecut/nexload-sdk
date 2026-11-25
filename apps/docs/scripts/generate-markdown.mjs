@@ -133,9 +133,9 @@ function packageHeroMarkdown(source) {
   if (!entry) return "";
   return [
     `**Package:** \`${entry.name}\``,
-    `**Current released version:** \`${entry.version}\``,
+    `**Workspace version:** \`${entry.version}\`${entry.version === "0.0.0" ? " (unreleased)" : ""}`,
     entry.description ?? "",
-    `[npm](https://www.npmjs.com/package/${entry.name}) · [Source](https://github.com/gecut/nexload-sdk/tree/main/${entry.sourcePath})`,
+    `${entry.version === "0.0.0" ? "" : `[npm](https://www.npmjs.com/package/${entry.name}) · `}[Source](https://github.com/gecut/nexload-sdk/tree/main/${entry.sourcePath})`,
   ].join("\n\n");
 }
 
@@ -155,9 +155,10 @@ function packageGridMarkdown(source) {
     : source.includes('family === "payload"')
       ? "payload"
       : undefined;
-  const entries = apiPackages.filter(
+  const tooling = source.includes('family === "tooling"');
+  const entries = Object.values(packageMetadata).filter(
     (entry) =>
-      !family ||
+      tooling ? ["typescript-config", "eslint-config"].includes(entry.id) : !family ||
       (family === "healthcheck"
         ? entry.id.startsWith("healthcheck")
         : entry.id.startsWith("payload-")),
@@ -166,7 +167,7 @@ function packageGridMarkdown(source) {
     .map((entry) => {
       const metadata = packageMetadata[entry.id];
       const route = `/packages/${packageRouteDir(entry.id)}/`;
-      return `- [${entry.name}](${route}) — ${metadata.description ?? ""} (v${metadata.version})`;
+      return `- [${entry.name}](${docsBase}${route}) — ${metadata.description ?? ""} (v${metadata.version}${metadata.version === "0.0.0" ? ", unreleased" : ""})`;
     })
     .join("\n");
 }
@@ -295,15 +296,19 @@ const documents = walk(contentRoot)
   .sort()
   .map(canonicalDocument);
 const scopedBundles = Object.values(packageMetadata).map((entry) => {
-  const pages = documents.filter((document) => document.packageId === entry.id && ["overview", "guides", "api"].includes(document.topic));
+  const pages = documents.filter((document) => document.packageId === entry.id);
   return [resolve(publicRoot, "packages", packageRouteDir(entry.id), "llms.txt"), pages.map((page) => page.content).join("\n---\n\n")];
 });
 const familyOf = (id) => id.startsWith("healthcheck") ? "healthcheck" : id.startsWith("payload-") ? "payload" : ["logger", "persian"].includes(id) ? "core" : "tooling";
 const familyBundles = ["core", "healthcheck", "payload", "tooling"].map((family) => [
   resolve(publicRoot, `llms-${family}.txt`),
-  documents.filter((document) => document.packageId && familyOf(document.packageId) === family && ["overview", "guides", "api"].includes(document.topic)).map((page) => page.content).join("\n---\n\n"),
+  documents.filter((document) => document.packageId && familyOf(document.packageId) === family).map((page) => page.content).join("\n---\n\n"),
 ]);
-const generatedFiles = [...scopedBundles, ...familyBundles].map(([path]) => relative(publicRoot, path).replaceAll("\\", "/")).concat(documents.map((document) =>
+const topicBundles = ["optimization", "agents", "playground"].map((topic) => [
+  resolve(publicRoot, `llms-${topic}.txt`),
+  documents.filter((page) => page.packageId && page.topic === topic).map((page) => page.content).join("\n---\n\n"),
+]);
+const generatedFiles = [...scopedBundles, ...familyBundles, ...topicBundles].map(([path]) => relative(publicRoot, path).replaceAll("\\", "/")).concat(documents.map((document) =>
   relative(publicRoot, outputFor(document.route)).replaceAll("\\", "/"),
 ));
 const llmsIndex = [
@@ -311,7 +316,7 @@ const llmsIndex = [
   "",
   `Current-version documentation for ${Object.keys(packageMetadata).length} Nexload SDK packages.`,
   "",
-  ...[...scopedBundles, ...familyBundles].map(([path]) => {
+  ...[...scopedBundles, ...familyBundles, ...topicBundles].map(([path]) => {
     const file = relative(publicRoot, path).replaceAll("\\", "/");
     return `- [${file}](${docsBase}/${file})`;
   }),
@@ -321,7 +326,7 @@ const llmsIndex = [
       ? packageMetadata[document.packageId]
       : undefined;
     return (
-      `- [${document.title}](${docsBase}${document.route}) — ${document.description}` +
+      `- [${document.title}](${docsBase}/${relative(publicRoot, outputFor(document.route)).replaceAll("\\", "/")}) — ${document.description}` +
       `${metadata ? ` [${metadata.name} v${metadata.version}]` : ""} [topic: ${document.topic}]`
     );
   }),
@@ -340,6 +345,7 @@ function expectedFiles() {
     ]),
     ...scopedBundles,
     ...familyBundles,
+    ...topicBundles,
     [resolve(publicRoot, "llms.txt"), llmsIndex],
     [resolve(publicRoot, "llms-full.txt"), llmsFull],
     [generatedManifestPath, manifest],

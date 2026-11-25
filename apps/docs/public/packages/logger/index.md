@@ -7,7 +7,7 @@ Configure-once structured logging with request context, trace propagation, and s
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
 **Package:** `@nexload-sdk/logger`
 
-**Current released version:** `4.1.0`
+**Workspace version:** `4.1.0`
 
 Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
 
@@ -68,3 +68,9 @@ configureLogger({ service: "shop-api", release: process.env.RELEASE });
 
 * Explore [Production Guides & Recipes](./guides/) for Next.js startup, trace propagation, redaction, and migration.
 * Check the [API Reference & Compatibility](./api/) for the root and testing exports.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

@@ -8,6 +8,9 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
+      "@nexload-sdk/payload-preset": ["../../packages/payload-preset/src/index.ts"],
+      "@nexload-sdk/payload-hooks": ["../../packages/payload-hooks/src/index.ts"],
+      "@nexload-sdk/payload-schema/payload": ["../../packages/payload-schema/src/payload/index.ts"],
       "@nexload-sdk/persian": ["../../packages/persian/src/index.ts"],
       "@nexload-sdk/persian/*": ["../../packages/persian/src/*/index.ts"],
       "@nexload-sdk/logger": [

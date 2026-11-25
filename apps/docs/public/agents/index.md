@@ -62,3 +62,23 @@ Rather than treating skills as an unstructured list of tools, the Nexload ecosys
 * [Governance & Protocols](/agents/protocols/) — The Inviolable Constitution (8 Laws) and Sparse Pointer Handoff Protocol for cross-agent coordination.
 
 - [Package Catalog](/packages/) — Browse all published runtime packages powering these skills.
+
+## Use an agent with a package
+
+* [@nexload-sdk/eslint-config](/nexload-sdk/packages/eslint-config/agents/)
+* [@nexload-sdk/healthcheck](/nexload-sdk/packages/healthcheck/core/agents/)
+* [@nexload-sdk/healthcheck-bun](/nexload-sdk/packages/healthcheck/bun/agents/)
+* [@nexload-sdk/healthcheck-next](/nexload-sdk/packages/healthcheck/next/agents/)
+* [@nexload-sdk/healthcheck-node](/nexload-sdk/packages/healthcheck/node/agents/)
+* [@nexload-sdk/healthcheck-otel](/nexload-sdk/packages/healthcheck/otel/agents/)
+* [@nexload-sdk/healthcheck-payload](/nexload-sdk/packages/healthcheck/payload/agents/)
+* [@nexload-sdk/healthcheck-prometheus](/nexload-sdk/packages/healthcheck/prometheus/agents/)
+* [@nexload-sdk/logger](/nexload-sdk/packages/logger/agents/)
+* [@nexload-sdk/payload-editor](/nexload-sdk/packages/payload-editor/agents/)
+* [@nexload-sdk/payload-fields](/nexload-sdk/packages/payload-fields/agents/)
+* [@nexload-sdk/payload-hooks](/nexload-sdk/packages/payload-hooks/agents/)
+* [@nexload-sdk/payload-operations](/nexload-sdk/packages/payload-operations/agents/)
+* [@nexload-sdk/payload-preset](/nexload-sdk/packages/payload-preset/agents/)
+* [@nexload-sdk/payload-schema](/nexload-sdk/packages/payload-schema/agents/)
+* [@nexload-sdk/persian](/nexload-sdk/packages/persian/agents/)
+* [@nexload-sdk/typescript-config](/nexload-sdk/packages/typescript-config/agents/)

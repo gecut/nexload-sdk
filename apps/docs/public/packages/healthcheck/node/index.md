@@ -7,7 +7,7 @@ Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TC
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 
@@ -73,3 +73,9 @@ Requires Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Container Recipes](./guides/) for Docker limits, TCP checks, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

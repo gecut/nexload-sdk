@@ -1,103 +1,26 @@
-# Nexload SDK: Service Observability & Payload CMS Superpowers
+# Build an Iranian storefront with Nexload SDK
 
-Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers. Modular, independently installable packages.
+Find TypeScript packages for Persian data, Payload CMS and service health.
 
 **Topic:** ecosystem
 **Canonical page:** https://gecut.github.io/nexload-sdk/
-**Production-grade TypeScript toolkits for Service Observability and Payload CMS superpowers.**
+Nexload SDK provides independently installable TypeScript packages for Iranian e-commerce on Payload CMS and Next.js.
 
-Nexload SDK is a collection of modular, independent packages engineered for mission-critical TypeScript systems. Install only the specific package your service requires—zero mandatory lock-in, zero runtime bloat.
+## What are you building?
 
-Choose a package
+* [Format Persian digits and prices](/nexload-sdk/packages/persian/).
+* [Add a Jalali date picker to a collection](/nexload-sdk/packages/payload-fields/).
+* [Validate product fields across server and client](/nexload-sdk/packages/payload-schema/).
+* [Check whether your storefront can accept traffic](/nexload-sdk/packages/healthcheck/core/).
 
-Browse all packages
+## Try it before installing
 
-AI Coding Agent Skills
+[Format a price](/nexload-sdk/packages/persian/playground/), [validate a product field](/nexload-sdk/packages/payload-schema/playground/) or [run a readiness check](/nexload-sdk/packages/healthcheck/core/playground/).
 
-***
+## Start a project
 
-## Immediate 10-Second Quick Start
+Use [Choose a package by task](/nexload-sdk/start/choose-a-package/), [E-commerce stack](/nexload-sdk/start/recipes/ecommerce-stack/) or [Package catalog](/nexload-sdk/packages/).
 
-### Payload Schema (Validation & Sync)
+## Work with an agent
 
-```ts
-import { defineEntity, field } from "@nexload-sdk/payload-schema";
-import { payloadFields } from "@nexload-sdk/payload-schema/payload";
-import { z } from "zod";
-
-// Define intrinsic fields once: Payload collection fields + reusable Zod schemas
-export const product = defineEntity({
-  name: "Product",
-  fields: {
-    title: field.text({ required: true, trim: true, minLength: 3 }),
-    slug: field.slug({ required: true }),
-    price: field.money({ currency: "USD", required: true }),
-    stock: field.number({ integer: true, safe: true, defaultValue: 0 }),
-  },
-});
-
-// Export to Payload Collection (Node / Payload config only)
-export const Products = { slug: "products", fields: payloadFields(product).all() };
-
-// Derive Next.js / API form schema
-export const createProductDTO = product.schema(({ pick }) =>
-  pick(["title", "slug", "price", "stock"], { optional: "auto" })
-);
-```
-
-### Healthcheck Core (Kubernetes / Dokploy)
-
-```ts
-import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
-
-export const health = createHealthManager({
-  service: { name: "api-service", version: "1.0.0" },
-  checks: [
-    shutdownCheck(),
-    memoryCheck({ heapUsedPercent: 90 }),
-  ],
-});
-
-// Execute non-blocking probe (200 OK / 503 Unhealthy)
-const report = await health.run("readiness");
-console.log(report.status); // "ok" | "degraded" | "unhealthy"
-```
-
-***
-
-## Two Core Ecosystem Pillars
-
-### Observability & Health Engine
-
-Lightweight, runtime-neutral health orchestration. Multi-scope probes (`liveness`, `readiness`, `startup`, `diagnostics`), cgroup v1/v2 container limits, Next.js App Router zero-cache route handlers, Prometheus text exposition, and OpenTelemetry semantic attributes.
-
-Explore Healthcheck Core →
-
-### Payload CMS Superpowers
-
-Deterministic, enterprise extensions for Payload CMS 3. Managed Unicode slugs with lock protection, Jalali (Persian Solar) datepickers, minor-unit money arithmetic, declarative Lexical presets, dual Zod-to-Payload schema derivation, and type-safe RPC operations.
-
-Explore Payload Suite →
-
-***
-
-## Healthcheck Packages
-
-* [@nexload-sdk/healthcheck](/packages/healthcheck/core/) — Runtime-neutral health orchestration and monitoring report foundation for production services. (v4.1.0)
-* [@nexload-sdk/healthcheck-node](/packages/healthcheck/node/) — Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-bun](/packages/healthcheck/bun/) — Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-next](/packages/healthcheck/next/) — Next.js App Router route factories for @nexload-sdk/healthcheck. (v2.1.0)
-* [@nexload-sdk/healthcheck-prometheus](/packages/healthcheck/prometheus/) — Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-otel](/packages/healthcheck/otel/) — OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports. (v2.1.0)
-* [@nexload-sdk/healthcheck-payload](/packages/healthcheck/payload/) — Payload CMS health checks for @nexload-sdk/healthcheck. (v2.1.0)
-
-***
-
-## Payload CMS Packages
-
-* [@nexload-sdk/payload-fields](/packages/payload-fields/) — Production-grade semantic field factories and Admin integrations for Payload CMS. (v3.1.0)
-* [@nexload-sdk/payload-hooks](/packages/payload-hooks/) — Effortless, type-safe logging for Payload CMS collection operations. (v2.1.0)
-* [@nexload-sdk/payload-preset](/packages/payload-preset/) —  (v0.0.0)
-* [@nexload-sdk/payload-editor](/packages/payload-editor/) — Semantic, deterministic Payload Lexical editor configuration. (v1.1.0)
-* [@nexload-sdk/payload-schema](/packages/payload-schema/) — Canonical Payload field definitions with reusable Zod schemas. (v2.0.0)
-* [@nexload-sdk/payload-operations](/packages/payload-operations/) — Typed custom operations for Payload CMS with the native Payload REST SDK. (v1.0.0)
+[Install a skill](/nexload-sdk/agents/install/) and open the agent guide for the package you use.

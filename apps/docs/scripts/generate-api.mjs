@@ -161,6 +161,7 @@ function createCatalog() {
           ]),
         ),
       ),
+      jsx: ts.JsxEmit.ReactJSX,
       target: ts.ScriptTarget.ESNext,
       skipLibCheck: true,
       strict: true,

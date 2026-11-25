@@ -1,3 +1,48 @@
+# logger — Agent usage
+
+Configure a coding agent for @nexload-sdk/logger.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### logger
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/logger/SKILL.md)
+
+```text
+MUST be loaded before writing, changing or reviewing ANY log call, console.* call, catch block, error handling, job/worker, outbound HTTP/provider call, route handler or observability code in a project that uses @nexload-sdk/logger. Decides whether a log is needed, its level, event name and fields, and what must never be logged. Do not use for metrics/health endpoints (use healthcheck skills).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill logger
+```
+
+## Project AGENTS.md
+
+```markdown
+Before adding, changing or reviewing any log call, console call, catch block, job/worker or outbound call, load the installed logger skill and follow its Decision flow. Use @nexload-sdk/logger for application and package logging. Never use console.* in package or app source.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/logger/llms.txt).
+
+## Prompts
+
+```text
+Correlate a request with its log events. Use @nexload-sdk/logger and logger. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/logger integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public logger signatures, examples, and runtime compatibility.
@@ -506,7 +551,7 @@ Configure-once structured logging with request context, trace propagation, and s
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/
 **Package:** `@nexload-sdk/logger`
 
-**Current released version:** `4.1.0`
+**Workspace version:** `4.1.0`
 
 Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.
 
@@ -567,6 +612,86 @@ configureLogger({ service: "shop-api", release: process.env.RELEASE });
 
 * Explore [Production Guides & Recipes](./guides/) for Next.js startup, trace propagation, redaction, and migration.
 * Check the [API Reference & Compatibility](./api/) for the root and testing exports.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# logger — Optimization
+
+Production choices for @nexload-sdk/logger.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/logger` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/logger/optimization/
+## Extend redaction for deeper objects
+
+Default redaction covers keys at the top level and one level below it. Add explicit paths for sensitive fields deeper in the object.
+
+## Configure once
+
+Call `configureLogger()` at startup. A subsequent call without `force: true` keeps the existing configuration.
+
+## Respect browser and Edge behavior
+
+Browser and Edge builds use Pino browser output. `withLogContext` is pass-through, and `pretty` and `destination` do not configure a server stream.
+
+## Rebuild Payload configuration after replacement
+
+A forced logger reconfiguration requires rebuilding Payload configuration created with `getPayloadLoggerConfig()` to pick up the change.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/logger/SKILL.md).
+
+---
+
+# persian — Agent usage
+
+Configure a coding agent for @nexload-sdk/persian.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### persian
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/persian/SKILL.md)
+
+```text
+Use when a project handles Persian, Farsi, or Iranian input or output, including mobile numbers, کد ملی (national code), postal codes, landlines, card numbers, Sheba/IBAN, Rial/Toman prices, Jalali/Shamsi dates, relative time, Persian digits, ي/ك normalization, slugs, provinces, or Zod validation of these values.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill persian
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/persian, load persian when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/persian/llms.txt).
+
+## Prompts
+
+```text
+Normalize Persian digits and display a price. Use @nexload-sdk/persian and persian. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/persian integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2105,11 +2230,11 @@ Persian and Iranian utilities.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/
 **Package:** `@nexload-sdk/persian`
 
-**Current released version:** `0.0.0`
+**Workspace version:** `0.0.0` (unreleased)
 
 Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates.
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/persian) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
+[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/persian)
 
 Normalize input and format output with explicit units and time zones.
 
@@ -2125,8 +2250,10 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ## Installation
 
+This package is unreleased. From a consumer in this SDK workspace:
+
 ```bash
-pnpm add @nexload-sdk/persian
+pnpm add '@nexload-sdk/persian@workspace:*'
 ```
 
 For the optional `./zod` subpath, install `zod` separately.
@@ -2148,3 +2275,72 @@ The core has no runtime dependencies.
 * Search Persian text and look up provinces.
 
 See [guides](./guides/) and the [API inventory](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# persian — Optimization
+
+Production choices for @nexload-sdk/persian.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
+## Keep currency units explicit
+
+Use integer amounts and specify IRR or IRT. `parseMoney` rejects decimal strings and unsafe integers.
+
+## Check the calendar boundary
+
+Supported Jalali years run from 1 to 3176. Conversion functions can throw a RangeError outside this range.
+
+## Plan money conversion rounding
+
+When a display-unit conversion is not divisible, `formatMoney` keeps the source unit unless a rounding mode is supplied. `convertMoney` throws without rounding.
+
+## Provide timezone data
+
+Timezone conversion in `./date` and `./relative` requires host `Intl` timezone data. The package supports Node.js, Bun, Edge, and browsers.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/persian/SKILL.md).
+
+---
+
+# persian — Playground
+
+Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
+## Try it
+
+Type a value in Persian, Arabic or Latin digits and pick a mode. Every result comes from `@nexload-sdk/persian` running in your browser.
+
+## Modes
+
+| Mode | Input | Functions used |
+| --- | --- | --- |
+| `IRR` / `IRT` | A whole number of rials | `parseMoney`, `formatMoney` from `@nexload-sdk/persian/money` |
+| `mobile` | An Iranian mobile number in any common form | `validateIranMobile`, `toE164Mobile`, `formatIranMobile` from `@nexload-sdk/persian/mobile` |
+| `national-code` | A 10-digit کد ملی | `validateNationalCode` from `@nexload-sdk/persian/identity` |
+| `card` | A 16-digit bank card, separators allowed | `validateCardNumber`, `formatCardNumber`, `detectBankByCard` from `@nexload-sdk/persian/bank` |
+| `sheba` | A Sheba (IBAN) starting with `IR` | `validateSheba`, `formatSheba`, `detectBankBySheba` from `@nexload-sdk/persian/bank` |
+| `jalali` | An ISO date-time with an offset | `formatJalali` from `@nexload-sdk/persian/date`, time zone `Asia/Tehran` |
+
+## Read the result
+
+* Fractional prices are invalid. When a rial amount cannot convert exactly to tomans, the formatter keeps rials: `12501` in `IRT` shows `۱۲٬۵۰۱ ریال`.
+* Invalid identifiers show the SDK's reason code, for example `invalid_checksum`. Use the same codes in your own error messages.
+* Try `۰۹۱۲۳۴۵۶۷۸۹` in `mobile`, `۰۰۸۴۵۷۵۹۴۸` in `national-code` and `IR820540102680020817909002` in `sheba`.
+
+[API reference](/nexload-sdk/packages/persian/api/).

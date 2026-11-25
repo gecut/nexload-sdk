@@ -17,9 +17,9 @@ Nexload SDK is a set of independently installed TypeScript packages. It is not o
 
 ## Documentation policy
 
-* The site covers exactly eleven current, stable packages.
+* The catalog covers runtime packages and shared tooling presets.
 * Versions and peer ranges come from the live workspace manifests.
-* The shown versions are released on npm.
+* Examples follow workspace source. Pending Changesets can describe APIs ahead of npm.
 * Historical versioned pages are not hosted.
 * Package changelogs and migration pages own upgrade guidance.
 * Source and public declarations take priority if prose ever conflicts with implementation.

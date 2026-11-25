@@ -19,7 +19,7 @@ const { entries } = Astro.props;
       <h3>{entry.label}</h3>
       <p>{entry.manifest.description}</p>
       <p><code>{entry.manifest.name}</code></p>
-      <DocsStatus status={entry.releaseStatus} />
+      <DocsStatus status={entry.manifest.version === "0.0.0" ? "upcoming" : entry.releaseStatus} />
     </a>
   ))}
 </CardGrid>

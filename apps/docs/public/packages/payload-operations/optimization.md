@@ -1,0 +1,26 @@
+# payload-operations — Optimization
+
+Production choices for @nexload-sdk/payload-operations.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/optimization/
+## Keep outputs encodable
+
+Use a codec or overwrite for output and declared error data that need conversion. A one-way transform cannot be encoded by the server.
+
+## Preserve access control
+
+Pass overrideAccess: false and req when a handler calls a Payload Local API on behalf of the caller.
+
+## Bound request bodies
+
+Requests over 1 MiB return `413 PAYLOAD_TOO_LARGE` by default. Set `maxBodyBytes` when the operation needs a larger body.
+
+## Separate server and universal imports
+
+The `./server` subpath requires Node.js 20.9 or newer. The root, contract, errors, client, CMS, and timeout plugin subpaths are universal.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md).

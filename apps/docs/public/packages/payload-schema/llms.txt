@@ -1,3 +1,60 @@
+# payload-schema — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-schema.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/agents/
+## Install matching skills
+
+Use payload-schema-use in consumer projects. Install payload-schema-develop only when maintaining the SDK package.
+
+### payload-schema-use
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md)
+
+```text
+Use for consumer-side work with @nexload-sdk/payload-schema: defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, compiling fields via payloadFields from @nexload-sdk/payload-schema/payload, integrating compiled fields into collections, handling null semantics and Date objects, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-use
+```
+
+### payload-schema-develop
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/develop/SKILL.md)
+
+```text
+Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seeds and compilation under /payload, canonical beforeValidate adapter, null semantics, Date normalization, blocks containers, cloning, structured errors, public type inference, package fixtures, packed distribution, browser-safe root verification, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-develop
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-schema, load payload-schema-use when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-schema/llms.txt).
+
+## Prompts
+
+```text
+Share product validation between a form and Payload. Use @nexload-sdk/payload-schema and payload-schema-use. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-schema integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Complete public API symbol reference, field factory signatures, entry points, and runtime compatibility matrix for Payload Schema.
@@ -1430,7 +1487,7 @@ Define canonical field validation and normalization once, then reuse it across P
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Current released version:** `2.0.0`
+**Workspace version:** `2.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 
@@ -1586,3 +1643,61 @@ export const createArticleSchema = articleEntity.schema(({ pick }) =>
 
 * Explore [Production Recipes & Modeling Guides](./guides/) for the full 15-field catalog, polymorphic relationships, static vs dynamic defaults, error diagnostics, and the 3.0 migration guide.
 * View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# payload-schema — Optimization
+
+Production choices for @nexload-sdk/payload-schema.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/optimization/
+## Choose optionality for projections
+
+A plain pick(keys) makes all picked keys required. Set the optional option when the projection should respect optional fields.
+
+## Preserve block metadata
+
+Reserve id, blockName and blockType in block definitions. Reusing those names throws INVALID\_FIELD\_CONFIGURATION.
+
+## Keep server code out of client bundles
+
+Use the universal root entry for shared schemas. Import the `./payload` compiler only in Node.js Payload configuration.
+
+## Choose codec-safe transformations
+
+Custom schema transforms are not codec-safe for `z.encode`. Use `.refine()` or `.overwrite()` when schemas serve as operation outputs.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md).
+
+---
+
+# payload-schema — Playground
+
+Validate product input.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
+## Try it
+
+Choose the title or SKU definition and edit the sample value.
+
+## Read the result
+
+Title trims whitespace and requires three characters. SKU trims, uppercases and requires two. The output shows the parsed value or validation issues.
+
+Choose SKU and enter `ab`. The canonical output is `"AB"`.
+
+[API reference](/nexload-sdk/packages/payload-schema/api/).

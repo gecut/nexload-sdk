@@ -7,7 +7,7 @@ Production-ready no-store, zero-cache health and readiness route handlers for Ne
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
 **Package:** `@nexload-sdk/healthcheck-next`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Next.js App Router route factories for @nexload-sdk/healthcheck.
 
@@ -69,3 +69,9 @@ Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported route creators and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

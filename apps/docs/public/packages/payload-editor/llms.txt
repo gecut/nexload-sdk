@@ -1,3 +1,72 @@
+# payload-editor — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-editor.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-editor-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md)
+
+```text
+Use when integrating, changing, or reviewing the @nexload-sdk/payload-editor public interface, semantic feature definitions, merge and error contracts, Payload version compatibility, ESM packaging, or package-wide validation. Use the preset or extensions sibling when that is the primary task.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-core
+```
+
+### payload-editor-presets
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/presets/SKILL.md)
+
+```text
+Use when selecting, defining, reviewing, or changing @nexload-sdk/payload-editor built-in or custom presets, including feature membership, heading policy, relational depth defaults, override merge behavior, immutability, and SemVer impact.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-presets
+```
+
+### payload-editor-extensions
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/extensions/SKILL.md)
+
+```text
+Use when adding, replacing, diagnosing, or reviewing native Payload Lexical feature providers through @nexload-sdk/payload-editor extendFeatures, including Blocks, duplicate keys, provider order, dependencies, server/client serialization, and project ownership.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-extensions
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-editor, load payload-editor-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-editor/llms.txt).
+
+## Prompts
+
+```text
+Configure a Lexical article editor. Use @nexload-sdk/payload-editor and payload-editor-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-editor integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
@@ -405,7 +474,7 @@ Deterministic semantic configuration, presets, and feature sets for Payload CMS'
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
 **Package:** `@nexload-sdk/payload-editor`
 
-**Current released version:** `1.1.0`
+**Workspace version:** `1.1.0`
 
 Semantic, deterministic Payload Lexical editor configuration.
 
@@ -493,3 +562,38 @@ In `createEditor({ features: { ... } })`:
 
 * Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all supported features and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-editor — Optimization
+
+Production choices for @nexload-sdk/payload-editor.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
+## Replace managed features explicitly
+
+Disable a managed feature before adding its native replacement. Duplicate keys across features and extendFeatures fail during configuration.
+
+## Keep relational depth bounded
+
+Relational preset features default to a maximum depth of one. Account for this when choosing link, upload or relationship features.
+
+## Keep Payload versions aligned
+
+Use matching versions of `payload` and all `@payloadcms/*` packages. The supported Payload and Lexical peer range is `>=3.68.5 <4`.
+
+## Configure on the server
+
+The package is ESM-only and intended for Node.js Payload configuration. Add a native Payload Block via `extendFeatures` when block-level code highlighting is needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md).

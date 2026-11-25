@@ -4,18 +4,11 @@ on:
   pull_request:
     paths:
       - "apps/docs/**"
-      - "packages/healthcheck/**"
-      - "packages/payload-fields/**"
-      - "packages/payload-editor/**"
-      - "packages/payload-operations/**"
-      - "packages/payload-schema/**"
-      - "skills/healthcheck/**"
-      - "skills/nexload/**"
-      - "skills/payload/**"
-      - "skills/payload-fields/**"
-      - "skills/payload-editor/**"
-      - "skills/payload-operations/**"
-      - "skills/payload-schema/**"
+      - "packages/**"
+      - "skills/**"
+      - "tools/**"
+      - ".changeset/**"
+      - "pnpm-workspace.yaml"
       - ".github/workflows/docs.yml"
       - "README.md"
       - "package.json"
@@ -24,18 +17,11 @@ on:
     branches: [main]
     paths:
       - "apps/docs/**"
-      - "packages/healthcheck/**"
-      - "packages/payload-fields/**"
-      - "packages/payload-editor/**"
-      - "packages/payload-operations/**"
-      - "packages/payload-schema/**"
-      - "skills/healthcheck/**"
-      - "skills/nexload/**"
-      - "skills/payload/**"
-      - "skills/payload-fields/**"
-      - "skills/payload-editor/**"
-      - "skills/payload-operations/**"
-      - "skills/payload-schema/**"
+      - "packages/**"
+      - "skills/**"
+      - "tools/**"
+      - ".changeset/**"
+      - "pnpm-workspace.yaml"
       - ".github/workflows/docs.yml"
       - "README.md"
       - "package.json"
@@ -80,6 +66,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build SDK dependencies for examples and playgrounds
+        run: pnpm exec turbo run build --filter="./packages/**"
+
       - name: Verify public API catalog
         run: pnpm --filter docs content:api
 
@@ -94,6 +83,12 @@ jobs:
 
       - name: Build documentation
         run: pnpm --filter docs build
+
+      - name: Install Chromium
+        run: pnpm -C apps/docs exec playwright install --with-deps chromium
+
+      - name: Test built routes and browser interactions
+        run: pnpm -C apps/docs test:site
 
       - name: Verify generated files are current
         run: git diff --exit-code -- apps/docs/src/generated apps/docs/public

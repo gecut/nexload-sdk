@@ -1,40 +1,46 @@
 ---
-title: "Choose a Package: Interactive Decision Guide"
-description: Match a structured logging, service health, or Payload CMS task to a Nexload SDK package.
+title: Choose a package by task
+description: Match a storefront, CMS, service or tooling problem to its smallest SDK dependency.
 sidebar:
   order: 2
 topic: ecosystem
 ---
 
-## Core Primitives
+## Localize a storefront
 
-| You need to… | Install |
+| I want to… | Start here |
 | --- | --- |
-| record structured events and correlate requests across services | [`@nexload-sdk/logger`](/nexload-sdk/packages/logger/) |
+| Normalize Persian digits and display a price | [`@nexload-sdk/persian`](/nexload-sdk/packages/persian/) |
+| Edit Jalali dates, slugs and prices in Payload Admin | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/) |
+| Configure a Persian Payload admin | [`@nexload-sdk/payload-preset`](/nexload-sdk/packages/payload-preset/) |
 
-## Healthcheck packages
+## Model and operate a CMS
 
-| You need to…                                                  | Install                                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| define checks, collectors, scopes, reports, and serialization | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/)                  |
-| inspect Node processes, cgroups, TCP, or DNS                  | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/)             |
-| identify Bun and observe a `Bun.serve` server                 | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/)               |
-| expose Next.js App Router health or metrics handlers          | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/)             |
-| render Prometheus or OpenMetrics text                         | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
-| convert reports into OpenTelemetry-friendly records           | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/)             |
-| include a small Payload Local API query in readiness          | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/)       |
+| I want to… | Start here |
+| --- | --- |
+| Share product validation between a form and Payload | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/) |
+| Configure a Lexical article editor | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/) |
+| Audit writes to an explicit collection | [`@nexload-sdk/payload-hooks`](/nexload-sdk/packages/payload-hooks/) |
+| Call a typed CMS operation | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
 
-Node probes do not create an HTTP endpoint. Use your framework or the Next.js package for route handlers. Prometheus and OpenTelemetry are separate integrations; install only the output format you use.
+## Observe a service
 
-## Payload packages
+| I want to… | Start here |
+| --- | --- |
+| Correlate a request with its log events | [`@nexload-sdk/logger`](/nexload-sdk/packages/logger/) |
+| Decide when a shop can accept traffic | [`@nexload-sdk/healthcheck`](/nexload-sdk/packages/healthcheck/core/) |
+| Inspect Node processes and container limits | [`@nexload-sdk/healthcheck-node`](/nexload-sdk/packages/healthcheck/node/) |
+| Inspect a Bun server | [`@nexload-sdk/healthcheck-bun`](/nexload-sdk/packages/healthcheck/bun/) |
+| Expose health routes in Next.js | [`@nexload-sdk/healthcheck-next`](/nexload-sdk/packages/healthcheck/next/) |
+| Check that Payload can read a collection | [`@nexload-sdk/healthcheck-payload`](/nexload-sdk/packages/healthcheck/payload/) |
+| Scrape health metrics as text | [`@nexload-sdk/healthcheck-prometheus`](/nexload-sdk/packages/healthcheck/prometheus/) |
+| Convert a report into OpenTelemetry records | [`@nexload-sdk/healthcheck-otel`](/nexload-sdk/packages/healthcheck/otel/) |
 
-| You need to…                                                              | Install                                                                        |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| add managed slugs, Jalali date UI, or integer minor-unit money fields     | [`@nexload-sdk/payload-fields`](/nexload-sdk/packages/payload-fields/)         |
-| compile semantic editor intent into Payload Lexical features              | [`@nexload-sdk/payload-editor`](/nexload-sdk/packages/payload-editor/)         |
-| share canonical field validation between Payload and Zod contracts        | [`@nexload-sdk/payload-schema`](/nexload-sdk/packages/payload-schema/)         |
-| expose typed contract-first custom operations through Payload and its SDK | [`@nexload-sdk/payload-operations`](/nexload-sdk/packages/payload-operations/) |
+## Set up project tooling
 
-Read [Choose a Payload package](/nexload-sdk/start/payload-packages/) when two of these packages appear to overlap.
+| I want to… | Start here |
+| --- | --- |
+| Choose a TypeScript compiler preset | [`@nexload-sdk/typescript-config`](/nexload-sdk/packages/typescript-config/) |
+| Configure ESLint for the project runtime | [`@nexload-sdk/eslint-config`](/nexload-sdk/packages/eslint-config/) |
 
-Build a Payload CMS project with these packages using the [e-commerce stack recipe](/nexload-sdk/start/recipes/ecommerce-stack/).
+[Compose the e-commerce stack](/nexload-sdk/start/recipes/ecommerce-stack/).

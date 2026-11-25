@@ -1,0 +1,29 @@
+---
+title: "payload-preset — Optimization"
+description: "Production choices for @nexload-sdk/payload-preset."
+sidebar:
+  label: "Optimization"
+  order: 4
+package: payload-preset
+topic: optimization
+---
+
+## Initialize logging first
+
+Call configureLogger() before buildConfig(). Supply a destination when Payload should use the configured output stream.
+
+## Choose plugin ownership
+
+Disable a preset option when the project registers the corresponding plugin itself.
+
+## Keep read auditing deliberate
+
+Audit read logging is off by default. The preset changes top-level configuration and does not mutate collection field definitions.
+
+## Run in Payload configuration
+
+This ESM-only package targets Node.js and Payload configuration. After forced logger reconfiguration, rebuild the Payload configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md).

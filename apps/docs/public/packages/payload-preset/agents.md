@@ -1,0 +1,42 @@
+# payload-preset — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-preset.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-preset, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-preset/llms.txt).
+
+## Prompts
+
+```text
+Configure a Persian Payload admin. Use @nexload-sdk/payload-preset and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-preset integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```

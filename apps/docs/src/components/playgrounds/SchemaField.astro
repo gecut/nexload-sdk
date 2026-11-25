@@ -1,0 +1,14 @@
+---
+import LabControls from "./LabControls.astro";
+interface Props { label: string; sample: string; mode: string }
+const { label, sample, mode } = Astro.props;
+---
+<schema-field>
+  <LabControls {label} {sample} {mode} modes={["Title", "SKU"]} />
+</schema-field>
+
+<script>
+  import { registerLab } from "../../lib/playgrounds/register";
+  import { evaluate } from "../../lib/playgrounds/schema";
+  registerLab("schema-field", evaluate);
+</script>

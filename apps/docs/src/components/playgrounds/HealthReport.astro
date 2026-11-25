@@ -1,0 +1,14 @@
+---
+import LabControls from "./LabControls.astro";
+interface Props { label: string; sample: string; mode: string }
+const { label, sample, mode } = Astro.props;
+---
+<health-report>
+  <LabControls {label} {sample} {mode} modes={["JSON", "Prometheus", "OpenMetrics", "OTel"]} />
+</health-report>
+
+<script>
+  import { registerLab } from "../../lib/playgrounds/register";
+  import { evaluate } from "../../lib/playgrounds/health";
+  registerLab("health-report", evaluate);
+</script>

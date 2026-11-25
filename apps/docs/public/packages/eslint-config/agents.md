@@ -1,0 +1,54 @@
+# eslint-config — Agent usage
+
+Configure a coding agent for @nexload-sdk/eslint-config.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/agents/
+## Install matching skills
+
+These are shared engineering skills.
+
+### nexload-code
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/code/SKILL.md)
+
+```text
+Use when internal TypeScript behavior, refactoring, or repository-wide file naming is the primary task in Nexload: scope discipline, readable functions and modules, type or trust-boundary safety, lifecycle ownership, abstraction value, dependency restraint, internal imports, or honest verification. Route package API compatibility to nexload-package and framework or specialist policy to the owning sibling skill.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-code
+```
+
+### nexload-package
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/package/SKILL.md)
+
+```text
+Use when the primary task changes or evaluates the shipped contract of a publishable Nexload TypeScript package: ownership, public exports and subpaths, entrypoint runtime isolation, core/adapter direction where shared policy exists, metadata, dependencies or peers, packed artifacts, package-scoped compatibility, or README/API alignment. Do not use for internal-only code, React behavior, visual styling, repository-wide runtime standards, or release execution.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-package
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/eslint-config, load nexload-code when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/eslint-config/llms.txt).
+
+## Prompts
+
+```text
+Configure ESLint for the project runtime. Use @nexload-sdk/eslint-config and nexload-code. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/eslint-config integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```

@@ -1,3 +1,84 @@
+# payload-fields — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-fields.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-fields-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md)
+
+```text
+Use when integrating or reviewing the overall @nexload-sdk/payload-fields factory architecture, including options-object compatibility, protected field names/types/components, safe overrides, hook composition, Payload Import Map subpaths, server versus Admin client boundaries, plugin registration decisions, major-version migration, or package-wide validation. Use a specialized sibling for one slug, Jalali, or money contract.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-core
+```
+
+### payload-fields-slug
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/slug/SKILL.md)
+
+```text
+Use when adding, debugging, migrating, or reviewing @nexload-sdk/payload-fields managed slugs, including the slug/lock tuple and spread usage, Unicode/Persian normalization, lock and localization synchronization, nested source paths, regeneration on source changes, source clearing and manual edits, protected Admin wiring, or registered server-side generator authentication, access, input validation, and final normalization.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-slug
+```
+
+### payload-fields-jalali-date
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/jalali-date/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields Jalali date behavior, including native ISO persistence, Persian presentation, display timezone boundaries, dayOnly/dayAndTime/timeOnly/monthOnly picker modes, canonical local noon, Jalali month normalization, null/clear behavior, virtual Jalali timestamps, Admin UI limitations, or date-focused tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-jalali-date
+```
+
+### payload-fields-money
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/money/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields money behavior, including integer minor-unit persistence and APIs, explicit major-unit parsing, IRR/IRT or custom currency fraction digits, Persian/Arabic numeric input, safe integers and precision, negative policy, min/max bounds, display formatting, consumer validation order, Admin behavior, or money data migration.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-money
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-fields, load payload-fields-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-fields/llms.txt).
+
+## Prompts
+
+```text
+Edit Jalali dates, slugs and prices in Payload Admin. Use @nexload-sdk/payload-fields and payload-fields-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-fields integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference, factory function signatures, and compatibility matrix for Payload Fields.
@@ -263,6 +344,18 @@ Public function exported by @nexload-sdk/payload-fields.
 
 ## Constants
 
+### `FormattedCell`
+
+```ts
+FormattedCell({ kind, ...props }: DefaultCellComponentProps & { kind: ValidatedTextKind; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/formatted-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/formatted-cell.tsx#L12)
+
 ### `IRR`
 
 ```ts
@@ -287,6 +380,54 @@ Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L36)
 
+### `JalaliDateCell`
+
+```ts
+JalaliDateCell({ display, ...props }: DefaultCellComponentProps<DateFieldClient, JalaliDateValue> & { display?: JalaliDateDisplayOptions; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/jalali-date-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-cell.tsx#L9)
+
+### `JalaliDateFieldComponent`
+
+```ts
+JalaliDateFieldComponent({ field, path: providedPath, appearance, display, timeZone, readOnly, }: DateFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/jalali-date-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-field.tsx#L61)
+
+### `MoneyCell`
+
+```ts
+MoneyCell({ currency, display, displayCurrency, ...props }: DefaultCellComponentProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/money-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-cell.tsx#L12)
+
+### `MoneyFieldComponent`
+
+```ts
+MoneyFieldComponent({ field, path, currency, display, displayCurrency, readOnly }: NumberFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/money-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-field.tsx#L13)
+
 ### `PAYLOAD_FIELDS_PLUGIN_ORDER`
 
 ```ts
@@ -298,6 +439,30 @@ PAYLOAD_FIELDS_PLUGIN_ORDER: 900
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L130)
+
+### `SlugFieldComponent`
+
+```ts
+SlugFieldComponent({ field, path, source, lockName, generator, readOnly, }: TextFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/slug-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/slug-field.tsx#L14)
+
+### `ValidatedTextFieldComponent`
+
+```ts
+ValidatedTextFieldComponent({ field, path, readOnly, kind, }: TextFieldClientProps & { kind: ValidatedTextKind; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/validated-text-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/validated-text-field.tsx#L10)
 
 ### `formatSlug`
 
@@ -1059,7 +1224,7 @@ Semantic Payload field factories for Unicode slugs, Jalali dates, integer money,
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
 **Package:** `@nexload-sdk/payload-fields`
 
-**Current released version:** `3.1.0`
+**Workspace version:** `3.1.0`
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 
@@ -1213,3 +1378,38 @@ export default buildConfig({
 * Check the [API Reference & Compatibility](./api/) for complete factory options and signatures.
 
 The field factories use [Persian utilities](/nexload-sdk/packages/persian/) for shared normalization and validation.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-fields — Optimization
+
+Production choices for @nexload-sdk/payload-fields.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
+## Normalize strings before field hooks
+
+Install payloadFieldsPlugin() when REST or Local API callers send money values as strings. It normalizes Persian digits and separators before Payload parses number fields.
+
+## Send integers from numeric clients
+
+Pass minor-unit integers when the client already owns numeric conversion.
+
+## Handle nested slug uniqueness
+
+Automatic collision suffixes apply only to top-level slugs. For slugs inside arrays, groups, or named tabs, use `unique: false` to avoid relying on suffixing.
+
+## Order field plugins deliberately
+
+The plugin sees collections and globals present when it runs. Place plugins adding money fields before it, respecting its order of 900.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md).

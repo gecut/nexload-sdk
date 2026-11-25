@@ -7,7 +7,7 @@ Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deter
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
 **Package:** `@nexload-sdk/eslint-config`
 
-**Current released version:** `9.39.2`
+**Workspace version:** `9.39.2`
 
 Shared authoritative ESLint configurations for the Nexload SDK monorepo
 
@@ -91,3 +91,9 @@ pnpm add -D @nexload-sdk/eslint-config eslint@^9.0.0 typescript
 ```
 
 Peer requirements: `eslint >= 9.0.0`, `typescript >= 5.0.0`.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

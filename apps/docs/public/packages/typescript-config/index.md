@@ -7,7 +7,7 @@ Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite a
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
 **Package:** `@nexload-sdk/typescript-config`
 
-**Current released version:** `5.9.3`
+**Workspace version:** `5.9.3`
 
 Shared TypeScript configurations for the Nexload SDK monorepo
 
@@ -68,3 +68,9 @@ pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
 ```
 
 Peer requirement: `typescript >= 5.0.0`.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

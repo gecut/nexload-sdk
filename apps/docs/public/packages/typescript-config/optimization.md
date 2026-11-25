@@ -1,0 +1,26 @@
+# typescript-config — Optimization
+
+Production choices for @nexload-sdk/typescript-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/optimization/
+## Extend the runtime preset
+
+Extend node.json for a backend package, react.json for a React library or next.json for a Next.js app.
+
+## Retain checked indexed access
+
+Inherit strict and noUncheckedIndexedAccess from base.json when customizing project includes and output paths.
+
+## Choose emit behavior
+
+The React preset emits declarations only. The Next.js and Vite presets set `noEmit`, so use the preset suited to the build pipeline.
+
+## Include the intended sources
+
+Set `include` and output paths for the consuming project. The Node preset defaults to `src/**/*.ts` and excludes `dist` and `node_modules`.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/base.json).

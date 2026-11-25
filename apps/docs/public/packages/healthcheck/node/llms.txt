@@ -1,3 +1,48 @@
+# healthcheck-node — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-node.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-container-resources
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md)
+
+```text
+Use when implementing, debugging, or reviewing @nexload-sdk/healthcheck-node container resource detection and policy across Docker, Kubernetes, Dokploy, Linux cgroup v1/v2, memory and swap limits, CPU quota/cpuset, fractional CPU, source/confidence evidence, readiness thresholds, collector selection, or cgroup test fixtures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-container-resources
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-node, load healthcheck-container-resources when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/node/llms.txt).
+
+## Prompts
+
+```text
+Inspect Node processes and container limits. Use @nexload-sdk/healthcheck-node and healthcheck-container-resources. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-node integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference, functions, and compatibility matrix for Healthcheck Node.
@@ -271,7 +316,7 @@ Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TC
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 
@@ -337,3 +382,38 @@ Requires Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Container Recipes](./guides/) for Docker limits, TCP checks, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-node — Optimization
+
+Production choices for @nexload-sdk/healthcheck-node.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
+## Restrict container details
+
+Use private or authenticated endpoints for process metrics and container resources. Reports can include process identifiers and cgroup paths.
+
+## Check deployment platform
+
+Use container limits only where the platform supplies the required cgroup data.
+
+## Keep network probes in readiness
+
+`tcpCheck` and `dnsCheck` default to readiness. Container checks and process and container collectors default to diagnostics.
+
+## Respect the runtime boundary
+
+This adapter uses Node.js APIs and Linux cgroup files. On non-Linux hosts, container detection reports low confidence and the container check is degraded.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md).

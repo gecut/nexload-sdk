@@ -6,7 +6,7 @@ Package managers, module formats, and peer dependencies.
 **Canonical page:** https://gecut.github.io/nexload-sdk/start/installation/
 ## Package managers
 
-Install packages with pnpm, npm, yarn, or Bun. Each package overview provides commands for all four. Install required peers in your application; optional peers are needed only for the integration that uses them.
+Install packages with pnpm, npm, yarn, or Bun. Unreleased packages require a local consumer in the SDK workspace. Install required peers in your application; optional peers are needed only for the integration that uses them.
 
 ## Module formats and peer dependencies
 

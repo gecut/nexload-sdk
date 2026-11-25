@@ -1,3 +1,48 @@
+# healthcheck-bun — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-bun.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/agents/
+## Install matching skills
+
+Use the shared healthcheck skill for check design. There is no dedicated Bun skill.
+
+### healthcheck-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md)
+
+```text
+Use when integrating or changing the runtime-neutral @nexload-sdk/healthcheck manager, scopes, profiles, aggregation, serialization, built-in checks, collectors, retries, timeouts, shutdown lifecycle, or report contracts. Do not use for framework route wiring, exporter formatting, or one custom check in isolation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-core
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-bun, load healthcheck-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/bun/llms.txt).
+
+## Prompts
+
+```text
+Inspect a Bun server. Use @nexload-sdk/healthcheck-bun and healthcheck-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-bun integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference and runtime compatibility matrix for Healthcheck Bun.
@@ -124,7 +169,7 @@ Bun runtime adapter and server metrics health check integration for Bun HTTP ser
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
 **Package:** `@nexload-sdk/healthcheck-bun`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
 
@@ -180,6 +225,110 @@ Requires Bun `>=1.0.0`.
 
 * Explore [Production Guides & Server Recipes](./guides/) for Bun HTTP servers, WebSocket counters, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-bun — Optimization
+
+Production choices for @nexload-sdk/healthcheck-bun.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-bun` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/optimization/
+## Interpret missing memory limits
+
+The Bun adapter reads process memory when available and returns null for container limits. The memory check reports degraded with this adapter.
+
+## Restrict diagnostic routes
+
+Protect endpoints that expose Bun runtime and server metrics.
+
+## Keep runtime metrics in diagnostics
+
+`bunRuntimeInfoCheck` and `bunServerMetricsCheck` default to diagnostics and are noncritical.
+
+## Use the Bun runtime
+
+This adapter is designed for Bun. It does not read Linux cgroups, so missing memory limits are not container limits.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/bun/src/index.ts).
+
+---
+
+# healthcheck — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md)
+
+```text
+Use when integrating or changing the runtime-neutral @nexload-sdk/healthcheck manager, scopes, profiles, aggregation, serialization, built-in checks, collectors, retries, timeouts, shutdown lifecycle, or report contracts. Do not use for framework route wiring, exporter formatting, or one custom check in isolation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-core
+```
+
+### healthcheck-custom-checks
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/custom-checks/SKILL.md)
+
+```text
+Use when implementing or reviewing an individual custom @nexload-sdk/healthcheck check or metric collector, including check-versus-collector choice, AbortSignal propagation, scope criticality, raw metrics, stable errors, timeout and retry safety, side effects, and focused tests. Do not use for manager-only setup or a shipped adapter.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-custom-checks
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck, load healthcheck-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/core/llms.txt).
+
+## Prompts
+
+```text
+Decide when a shop can accept traffic. Use @nexload-sdk/healthcheck and healthcheck-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -1172,7 +1321,7 @@ Runtime-neutral service healthcheck manager for liveness, readiness, startup, an
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
 **Package:** `@nexload-sdk/healthcheck`
 
-**Current released version:** `4.1.0`
+**Workspace version:** `4.1.0`
 
 Runtime-neutral health orchestration and monitoring report foundation for production services.
 
@@ -1279,6 +1428,121 @@ if (report.status === "unhealthy") {
 
 * Explore [Production Guides & Custom Checks](./guides/) for database checks, timeout policies, and status aggregation rules.
 * View the complete [API Reference & Signatures](./api/) for all exported symbols and configuration types.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck — Optimization
+
+Production choices for @nexload-sdk/healthcheck.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/optimization/
+## Reserve liveness for the process
+
+Keep database, cache and remote HTTP checks in readiness when dependency outages should stop traffic without restarting the process.
+
+## Protect diagnostics
+
+Expose a minimal public probe. Restrict detailed reports and metrics to authorized callers.
+
+## Bound probe execution
+
+The manager defaults to a 1,000 ms timeout per check and eight concurrent checks. Tune these limits for the dependencies being probed.
+
+## Profiles do not filter output
+
+Profiles are hints for checks and collectors, not report filters. Use `toHealthJson()` or `stringifyHealthJson()` to control response details.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/core/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/core/SKILL.md).
+
+---
+
+# healthcheck — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck` v4.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The report includes `"status": "unhealthy"`.
+
+[API reference](/nexload-sdk/packages/healthcheck/core/api/).
+
+---
+
+# healthcheck-next — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-next.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-nextjs-routes
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md)
+
+```text
+Use when wiring @nexload-sdk/healthcheck-next into Next.js App Router liveness, readiness, startup, diagnostics, or metrics route modules, including a server-only manager singleton, GET/HEAD behavior, scope and status policy, no-store route constants, response formats, and fail-closed route protection. Do not use for non-Next servers.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-next, load healthcheck-nextjs-routes when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/next/llms.txt).
+
+## Prompts
+
+```text
+Expose health routes in Next.js. Use @nexload-sdk/healthcheck-next and healthcheck-nextjs-routes. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-next integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -1478,7 +1742,7 @@ Production-ready no-store, zero-cache health and readiness route handlers for Ne
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
 **Package:** `@nexload-sdk/healthcheck-next`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Next.js App Router route factories for @nexload-sdk/healthcheck.
 
@@ -1540,6 +1804,86 @@ Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported route creators and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-next — Optimization
+
+Production choices for @nexload-sdk/healthcheck-next.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
+## Trust a controlled proxy
+
+IP and CIDR filtering support IPv4 and require trustProxy. Enable it only when the reverse proxy strips and sets the configured header.
+
+## Choose one authorization scheme
+
+Select bearer token or basic authentication per route. Both use the Authorization header.
+
+## Keep responses uncached
+
+Responses use `cache-control: no-store, max-age=0`. Health route `includeDetails` defaults to `false`; enable details only for protected routes.
+
+## Match the runtime to the manager
+
+The route adapter supports Next.js Node.js and Edge runtimes. Use `runtime = "nodejs"` when the manager uses the Node adapter.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md).
+
+---
+
+# healthcheck-node — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-node.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-container-resources
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md)
+
+```text
+Use when implementing, debugging, or reviewing @nexload-sdk/healthcheck-node container resource detection and policy across Docker, Kubernetes, Dokploy, Linux cgroup v1/v2, memory and swap limits, CPU quota/cpuset, fractional CPU, source/confidence evidence, readiness thresholds, collector selection, or cgroup test fixtures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-container-resources
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-node, load healthcheck-container-resources when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/node/llms.txt).
+
+## Prompts
+
+```text
+Inspect Node processes and container limits. Use @nexload-sdk/healthcheck-node and healthcheck-container-resources. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-node integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -1816,7 +2160,7 @@ Node.js runtime adapter, cgroup v1/v2 container metrics, process metrics, and TC
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/
 **Package:** `@nexload-sdk/healthcheck-node`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Node.js runtime, process, cgroup, TCP, and DNS adapters for @nexload-sdk/healthcheck.
 
@@ -1882,6 +2226,98 @@ Requires Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Container Recipes](./guides/) for Docker limits, TCP checks, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-node — Optimization
+
+Production choices for @nexload-sdk/healthcheck-node.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/optimization/
+## Restrict container details
+
+Use private or authenticated endpoints for process metrics and container resources. Reports can include process identifiers and cgroup paths.
+
+## Check deployment platform
+
+Use container limits only where the platform supplies the required cgroup data.
+
+## Keep network probes in readiness
+
+`tcpCheck` and `dnsCheck` default to readiness. Container checks and process and container collectors default to diagnostics.
+
+## Respect the runtime boundary
+
+This adapter uses Node.js APIs and Linux cgroup files. On non-Linux hosts, container detection reports low confidence and the container check is degraded.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/node/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md).
+
+---
+
+# healthcheck-otel — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-otel.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-monitoring-exporters
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md)
+
+```text
+Use when converting an existing HealthReport with @nexload-sdk/healthcheck-prometheus or @nexload-sdk/healthcheck-otel, including Prometheus/OpenMetrics text, OTel resource attributes and metric records, collector-only export boundaries, prefixes, metric names, HELP descriptions, label allowlists, dropped labels, deterministic output, and cardinality review.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-monitoring-exporters
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-otel, load healthcheck-monitoring-exporters when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/otel/llms.txt).
+
+## Prompts
+
+```text
+Convert a report into OpenTelemetry records. Use @nexload-sdk/healthcheck-otel and healthcheck-monitoring-exporters. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-otel integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2018,7 +2454,7 @@ Export healthcheck reports as OpenTelemetry metrics, log attributes, and span me
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
@@ -2066,6 +2502,109 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & OTel Recipes](./guides/) for span attachment and telemetry conventions.
 * Check the [API Reference & Signatures](./api/) for exporter options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck-otel — Optimization
+
+Production choices for @nexload-sdk/healthcheck-otel.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
+## Bound attribute cardinality
+
+Keep user IDs, request IDs and raw error text out of collector labels. These labels become metric attributes.
+
+## Publish custom values through collectors
+
+Read exported values from report.metrics. Check-local metrics stay in the JSON report.
+
+## Separate mapping from delivery
+
+The package maps an existing report to resource attributes and metric records. It runs in Node.js, Bun, Edge, and browsers.
+
+## Avoid sensitive attributes
+
+Collector labels become metric attributes. Review their values before exposing records to a monitoring backend.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-otel — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The `health.status` metric record has value `0`.
+
+[API reference](/nexload-sdk/packages/healthcheck/otel/api/).
+
+---
+
+# healthcheck-payload — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-payload.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-payload
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/payload/SKILL.md)
+
+```text
+Use when integrating or reviewing @nexload-sdk/healthcheck-payload for Payload CMS dependency readiness, including the deterministic payload.find query contract, small limit and zero depth, optional where filters, expectedMinDocuments and empty-collection semantics, timeout normalization, readiness criticality, failure privacy, and adapter tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-payload
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-payload, load healthcheck-payload when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/payload/llms.txt).
+
+## Prompts
+
+```text
+Check that Payload can read a collection. Use @nexload-sdk/healthcheck-payload and healthcheck-payload. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-payload integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2178,7 +2717,7 @@ Verify Payload CMS database connectivity, collection accessibility, and initiali
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
 **Package:** `@nexload-sdk/healthcheck-payload`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Payload CMS health checks for @nexload-sdk/healthcheck.
 
@@ -2233,6 +2772,98 @@ Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Queries](./guides/) for collection verification, timeout tuning, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for check configuration options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-payload — Optimization
+
+Production choices for @nexload-sdk/healthcheck-payload.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-payload` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/optimization/
+## Bound readiness query cost
+
+Choose a small collection, use depth zero and supply a narrow where clause for frequent polls.
+
+## Interpret probe failures
+
+The Payload query check is critical for readiness and noncritical for diagnostics. A failed query reports PAYLOAD\_QUERY\_FAILED.
+
+## Keep the default query small
+
+The check defaults to `limit: 1`, `depth: 0`, and readiness. Frequent heavy queries can overload the database.
+
+## Decide whether an empty collection is unhealthy
+
+Set `expectedMinDocuments` only when an empty collection represents an operational failure, such as missing required seed configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/payload/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/payload/SKILL.md).
+
+---
+
+# healthcheck-prometheus — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-monitoring-exporters
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md)
+
+```text
+Use when converting an existing HealthReport with @nexload-sdk/healthcheck-prometheus or @nexload-sdk/healthcheck-otel, including Prometheus/OpenMetrics text, OTel resource attributes and metric records, collector-only export boundaries, prefixes, metric names, HELP descriptions, label allowlists, dropped labels, deterministic output, and cardinality review.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-monitoring-exporters
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-prometheus, load healthcheck-monitoring-exporters when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/prometheus/llms.txt).
+
+## Prompts
+
+```text
+Scrape health metrics as text. Use @nexload-sdk/healthcheck-prometheus and healthcheck-monitoring-exporters. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-prometheus integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -2387,7 +3018,7 @@ Serialize healthcheck reports into Prometheus text exposition and OpenMetrics fo
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
 **Package:** `@nexload-sdk/healthcheck-prometheus`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
 
@@ -2437,3 +3068,61 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & Scraping Setup](./guides/) for metric names, label conventions, and scraping routes.
 * Check the [API Reference & Signatures](./api/) for exporter configuration options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck-prometheus — Optimization
+
+Production choices for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/optimization/
+## Use supported labels
+
+Use low-cardinality labels from the exporter allowlist. Unsupported labels are dropped.
+
+## Export collector metrics
+
+Use a metric collector for custom series. Metrics attached to individual checks stay in the JSON report.
+
+## Choose the exposition format
+
+Use `toPrometheusText` for Prometheus text or `toOpenMetricsText` for OpenMetrics text. Both serialize an existing report.
+
+## Review dropped labels
+
+The allowlist also applies to `defaultLabels` and collector labels. Unsupported labels are silently dropped.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-prometheus — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `ok`. The output includes the `nexload_health_status` series.
+
+[API reference](/nexload-sdk/packages/healthcheck/prometheus/api/).

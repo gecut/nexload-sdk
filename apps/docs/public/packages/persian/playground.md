@@ -1,0 +1,29 @@
+# persian — Playground
+
+Try Persian prices, mobile numbers, national codes, cards, Sheba and Jalali dates.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/playground/
+## Try it
+
+Type a value in Persian, Arabic or Latin digits and pick a mode. Every result comes from `@nexload-sdk/persian` running in your browser.
+
+## Modes
+
+| Mode | Input | Functions used |
+| --- | --- | --- |
+| `IRR` / `IRT` | A whole number of rials | `parseMoney`, `formatMoney` from `@nexload-sdk/persian/money` |
+| `mobile` | An Iranian mobile number in any common form | `validateIranMobile`, `toE164Mobile`, `formatIranMobile` from `@nexload-sdk/persian/mobile` |
+| `national-code` | A 10-digit کد ملی | `validateNationalCode` from `@nexload-sdk/persian/identity` |
+| `card` | A 16-digit bank card, separators allowed | `validateCardNumber`, `formatCardNumber`, `detectBankByCard` from `@nexload-sdk/persian/bank` |
+| `sheba` | A Sheba (IBAN) starting with `IR` | `validateSheba`, `formatSheba`, `detectBankBySheba` from `@nexload-sdk/persian/bank` |
+| `jalali` | An ISO date-time with an offset | `formatJalali` from `@nexload-sdk/persian/date`, time zone `Asia/Tehran` |
+
+## Read the result
+
+* Fractional prices are invalid. When a rial amount cannot convert exactly to tomans, the formatter keeps rials: `12501` in `IRT` shows `۱۲٬۵۰۱ ریال`.
+* Invalid identifiers show the SDK's reason code, for example `invalid_checksum`. Use the same codes in your own error messages.
+* Try `۰۹۱۲۳۴۵۶۷۸۹` in `mobile`, `۰۰۸۴۵۷۵۹۴۸` in `national-code` and `IR820540102680020817909002` in `sheba`.
+
+[API reference](/nexload-sdk/packages/persian/api/).

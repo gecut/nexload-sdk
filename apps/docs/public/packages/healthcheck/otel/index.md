@@ -7,7 +7,7 @@ Export healthcheck reports as OpenTelemetry metrics, log attributes, and span me
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
@@ -55,3 +55,11 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & OTel Recipes](./guides/) for span attachment and telemetry conventions.
 * Check the [API Reference & Signatures](./api/) for exporter options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)

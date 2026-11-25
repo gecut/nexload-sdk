@@ -1,0 +1,25 @@
+---
+title: "healthcheck — Playground"
+description: "Inspect a local readiness report."
+sidebar:
+  label: "Playground"
+  order: 6
+package: healthcheck
+topic: playground
+---
+
+import HealthReport from "../../../../../components/playgrounds/HealthReport.astro";
+
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+<HealthReport label="Inventory status" sample="ok" mode="JSON" />
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The report includes `"status": "unhealthy"`.
+
+[API reference](/nexload-sdk/packages/healthcheck/core/api/).

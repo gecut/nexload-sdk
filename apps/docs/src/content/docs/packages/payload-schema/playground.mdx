@@ -1,0 +1,25 @@
+---
+title: "payload-schema — Playground"
+description: "Validate product input."
+sidebar:
+  label: "Playground"
+  order: 6
+package: payload-schema
+topic: playground
+---
+
+import SchemaField from "../../../../components/playgrounds/SchemaField.astro";
+
+## Try it
+
+Choose the title or SKU definition and edit the sample value.
+
+<SchemaField label="Product field value" sample=" tea " mode="Title" />
+
+## Read the result
+
+Title trims whitespace and requires three characters. SKU trims, uppercases and requires two. The output shows the parsed value or validation issues.
+
+Choose SKU and enter ` ab `. The canonical output is `"AB"`.
+
+[API reference](/nexload-sdk/packages/payload-schema/api/).

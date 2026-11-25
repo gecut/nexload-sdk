@@ -11,4 +11,4 @@ const health = createHealthManager({
 });
 
 const report = await health.run("readiness");
-console.log(stringifyHealthJson(report));
+export const json = stringifyHealthJson(report);

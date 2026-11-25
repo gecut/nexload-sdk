@@ -1,3 +1,60 @@
+# healthcheck-prometheus — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-monitoring-exporters
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md)
+
+```text
+Use when converting an existing HealthReport with @nexload-sdk/healthcheck-prometheus or @nexload-sdk/healthcheck-otel, including Prometheus/OpenMetrics text, OTel resource attributes and metric records, collector-only export boundaries, prefixes, metric names, HELP descriptions, label allowlists, dropped labels, deterministic output, and cardinality review.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-monitoring-exporters
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-prometheus, load healthcheck-monitoring-exporters when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/prometheus/llms.txt).
+
+## Prompts
+
+```text
+Scrape health metrics as text. Use @nexload-sdk/healthcheck-prometheus and healthcheck-monitoring-exporters. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-prometheus integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference and compatibility matrix for Healthcheck Prometheus.
@@ -149,7 +206,7 @@ Serialize healthcheck reports into Prometheus text exposition and OpenMetrics fo
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
 **Package:** `@nexload-sdk/healthcheck-prometheus`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
 
@@ -199,3 +256,61 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & Scraping Setup](./guides/) for metric names, label conventions, and scraping routes.
 * Check the [API Reference & Signatures](./api/) for exporter configuration options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck-prometheus — Optimization
+
+Production choices for @nexload-sdk/healthcheck-prometheus.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/optimization/
+## Use supported labels
+
+Use low-cardinality labels from the exporter allowlist. Unsupported labels are dropped.
+
+## Export collector metrics
+
+Use a metric collector for custom series. Metrics attached to individual checks stay in the JSON report.
+
+## Choose the exposition format
+
+Use `toPrometheusText` for Prometheus text or `toOpenMetricsText` for OpenMetrics text. Both serialize an existing report.
+
+## Review dropped labels
+
+The allowlist also applies to `defaultLabels` and collector labels. Unsupported labels are silently dropped.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/prometheus/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-prometheus — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-prometheus` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `ok`. The output includes the `nexload_health_status` series.
+
+[API reference](/nexload-sdk/packages/healthcheck/prometheus/api/).

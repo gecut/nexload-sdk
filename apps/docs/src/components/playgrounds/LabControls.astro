@@ -1,0 +1,23 @@
+---
+interface Props { label: string; sample: string; mode: string; modes: string[] }
+const { label, sample, mode, modes } = Astro.props;
+---
+<fieldset>
+  <legend>Try a sample</legend>
+  <label>{label}<input value={sample} maxlength="120" dir="auto" autocomplete="off" /></label>
+  <label>Output mode
+    <select>{modes.map(item => <option value={item} selected={item === mode}>{item}</option>)}</select>
+  </label>
+  <output aria-live="polite" aria-atomic="true" dir="auto"></output>
+  <a hidden>Share these settings</a>
+  <p data-nojs>Enable JavaScript to change the sample and see the result.</p>
+  <noscript></noscript>
+</fieldset>
+
+<style>
+  fieldset, label { display: grid; gap: 0.5rem; min-inline-size: 0; }
+  fieldset { padding: 1rem; }
+  input, select, output { max-inline-size: 100%; min-inline-size: 0; font: inherit; }
+  output { white-space: pre-wrap; overflow-wrap: anywhere; unicode-bidi: plaintext; }
+  a[hidden], [data-nojs][hidden] { display: none; }
+</style>

@@ -1,3 +1,48 @@
+# payload-preset — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-preset.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-preset, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-preset/llms.txt).
+
+## Prompts
+
+```text
+Configure a Persian Payload admin. Use @nexload-sdk/payload-preset and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-preset integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public preset exports and runtime constraints.
@@ -144,18 +189,18 @@ Compose Payload configuration with Nexload defaults.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
 **Package:** `@nexload-sdk/payload-preset`
 
-**Current released version:** `0.0.0`
+**Workspace version:** `0.0.0` (unreleased)
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
-**Upcoming release:** this page documents `@nexload-sdk/payload-preset` 1.0.0, which ships with the next Changesets release and is not on npm yet.
-
 ## Installation
 
+This package is unreleased. From a consumer in this SDK workspace:
+
 ```bash
-pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
+pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
 ```
 
 ## Quick Start
@@ -173,3 +218,38 @@ export default buildConfig({
 ```
 
 Configure the logger before `buildConfig()`. Define collections explicitly, including the auth collection. See [guides](./guides/) and the [API reference](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-preset — Optimization
+
+Production choices for @nexload-sdk/payload-preset.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
+## Initialize logging first
+
+Call configureLogger() before buildConfig(). Supply a destination when Payload should use the configured output stream.
+
+## Choose plugin ownership
+
+Disable a preset option when the project registers the corresponding plugin itself.
+
+## Keep read auditing deliberate
+
+Audit read logging is off by default. The preset changes top-level configuration and does not mutate collection field definitions.
+
+## Run in Payload configuration
+
+This ESM-only package targets Node.js and Payload configuration. After forced logger reconfiguration, rebuild the Payload configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md).

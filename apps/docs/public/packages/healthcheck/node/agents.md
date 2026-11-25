@@ -1,0 +1,42 @@
+# healthcheck-node — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-node.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-node` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/node/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-container-resources
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/container-resources/SKILL.md)
+
+```text
+Use when implementing, debugging, or reviewing @nexload-sdk/healthcheck-node container resource detection and policy across Docker, Kubernetes, Dokploy, Linux cgroup v1/v2, memory and swap limits, CPU quota/cpuset, fractional CPU, source/confidence evidence, readiness thresholds, collector selection, or cgroup test fixtures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-container-resources
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-node, load healthcheck-container-resources when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/node/llms.txt).
+
+## Prompts
+
+```text
+Inspect Node processes and container limits. Use @nexload-sdk/healthcheck-node and healthcheck-container-resources. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-node integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```

@@ -76,7 +76,7 @@ test("generated machine docs preserve package and install information", () => {
       new RegExp(entry.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
     );
   }
-  assert.match(full, /pnpm add @nexload-sdk\/persian/);
+  assert.match(full, /pnpm add '@nexload-sdk\/persian@workspace:\*'/);
   assert.match(full, /pnpm add @nexload-sdk\/healthcheck/);
   assert.match(full, /pnpm add @nexload-sdk\/payload-schema payload zod/);
   assert.match(

@@ -93,6 +93,13 @@ export const apiPackages = [
         exportPath: "@nexload-sdk/payload-fields/money",
         entry: "../../packages/payload-fields/src/money/index.ts",
       },
+      { exportPath: "@nexload-sdk/payload-fields/admin/formatted-cell", entry: "../../packages/payload-fields/src/admin/formatted-cell.tsx" },
+      { exportPath: "@nexload-sdk/payload-fields/admin/jalali-date-cell", entry: "../../packages/payload-fields/src/admin/jalali-date-cell.tsx" },
+      { exportPath: "@nexload-sdk/payload-fields/admin/jalali-date-field", entry: "../../packages/payload-fields/src/admin/jalali-date-field.tsx" },
+      { exportPath: "@nexload-sdk/payload-fields/admin/money-cell", entry: "../../packages/payload-fields/src/admin/money-cell.tsx" },
+      { exportPath: "@nexload-sdk/payload-fields/admin/money-field", entry: "../../packages/payload-fields/src/admin/money-field.tsx" },
+      { exportPath: "@nexload-sdk/payload-fields/admin/slug-field", entry: "../../packages/payload-fields/src/admin/slug-field.tsx" },
+      { exportPath: "@nexload-sdk/payload-fields/admin/validated-text-field", entry: "../../packages/payload-fields/src/admin/validated-text-field.tsx" },
       {
         exportPath: "@nexload-sdk/payload-fields/schema",
         entry: "../../packages/payload-fields/src/schema/index.ts",

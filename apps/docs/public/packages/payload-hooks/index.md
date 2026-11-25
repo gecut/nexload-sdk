@@ -7,7 +7,7 @@ Audit Payload collection operations with structured log events.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
 **Package:** `@nexload-sdk/payload-hooks`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Effortless, type-safe logging for Payload CMS collection operations.
 
@@ -32,3 +32,9 @@ const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read"
 ```
 
 Reads are off by default; auth is on for auth collections. See [guides](./guides/) for event names, options, and transaction caveats. Payload `>=3.85.0 <4.0.0` is a peer dependency; the hooks run in Node.js Payload configuration.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

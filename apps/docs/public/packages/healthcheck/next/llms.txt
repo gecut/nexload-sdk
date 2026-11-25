@@ -1,3 +1,60 @@
+# healthcheck-next — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-next.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-nextjs-routes
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md)
+
+```text
+Use when wiring @nexload-sdk/healthcheck-next into Next.js App Router liveness, readiness, startup, diagnostics, or metrics route modules, including a server-only manager singleton, GET/HEAD behavior, scope and status policy, no-store route constants, response formats, and fail-closed route protection. Do not use for non-Next servers.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-nextjs-routes
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-next, load healthcheck-nextjs-routes when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/next/llms.txt).
+
+## Prompts
+
+```text
+Expose health routes in Next.js. Use @nexload-sdk/healthcheck-next and healthcheck-nextjs-routes. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-next integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference and compatibility matrix for Healthcheck Next.js.
@@ -194,7 +251,7 @@ Production-ready no-store, zero-cache health and readiness route handlers for Ne
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/
 **Package:** `@nexload-sdk/healthcheck-next`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Next.js App Router route factories for @nexload-sdk/healthcheck.
 
@@ -256,3 +313,38 @@ Requires Next.js `>=14.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Route Recipes](./guides/) for liveness vs readiness routes, proxy authorization, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported route creators and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# healthcheck-next — Optimization
+
+Production choices for @nexload-sdk/healthcheck-next.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-next` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/next/optimization/
+## Trust a controlled proxy
+
+IP and CIDR filtering support IPv4 and require trustProxy. Enable it only when the reverse proxy strips and sets the configured header.
+
+## Choose one authorization scheme
+
+Select bearer token or basic authentication per route. Both use the Authorization header.
+
+## Keep responses uncached
+
+Responses use `cache-control: no-store, max-age=0`. Health route `includeDetails` defaults to `false`; enable details only for protected routes.
+
+## Match the runtime to the manager
+
+The route adapter supports Next.js Node.js and Edge runtimes. Use `runtime = "nodejs"` when the manager uses the Node adapter.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/next/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/nextjs-routes/SKILL.md).

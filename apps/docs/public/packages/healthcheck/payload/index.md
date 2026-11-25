@@ -7,7 +7,7 @@ Verify Payload CMS database connectivity, collection accessibility, and initiali
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/payload/
 **Package:** `@nexload-sdk/healthcheck-payload`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Payload CMS health checks for @nexload-sdk/healthcheck.
 
@@ -62,3 +62,9 @@ Requires Payload CMS `>=3.85.0 <4.0.0` and Node.js `>=20.9.0`.
 
 * Explore [Production Guides & Queries](./guides/) for collection verification, timeout tuning, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for check configuration options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

@@ -1,3 +1,72 @@
+# payload-editor — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-editor.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-editor-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md)
+
+```text
+Use when integrating, changing, or reviewing the @nexload-sdk/payload-editor public interface, semantic feature definitions, merge and error contracts, Payload version compatibility, ESM packaging, or package-wide validation. Use the preset or extensions sibling when that is the primary task.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-core
+```
+
+### payload-editor-presets
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/presets/SKILL.md)
+
+```text
+Use when selecting, defining, reviewing, or changing @nexload-sdk/payload-editor built-in or custom presets, including feature membership, heading policy, relational depth defaults, override merge behavior, immutability, and SemVer impact.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-presets
+```
+
+### payload-editor-extensions
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/extensions/SKILL.md)
+
+```text
+Use when adding, replacing, diagnosing, or reviewing native Payload Lexical feature providers through @nexload-sdk/payload-editor extendFeatures, including Blocks, duplicate keys, provider order, dependencies, server/client serialization, and project ownership.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-editor-extensions
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-editor, load payload-editor-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-editor/llms.txt).
+
+## Prompts
+
+```text
+Configure a Lexical article editor. Use @nexload-sdk/payload-editor and payload-editor-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-editor integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference, editor functions, and compatibility matrix for Payload Editor.
@@ -405,7 +474,7 @@ Deterministic semantic configuration, presets, and feature sets for Payload CMS'
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
 **Package:** `@nexload-sdk/payload-editor`
 
-**Current released version:** `1.1.0`
+**Workspace version:** `1.1.0`
 
 Semantic, deterministic Payload Lexical editor configuration.
 
@@ -493,6 +562,122 @@ In `createEditor({ features: { ... } })`:
 
 * Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all supported features and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-editor — Optimization
+
+Production choices for @nexload-sdk/payload-editor.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-editor` v1.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/optimization/
+## Replace managed features explicitly
+
+Disable a managed feature before adding its native replacement. Duplicate keys across features and extendFeatures fail during configuration.
+
+## Keep relational depth bounded
+
+Relational preset features default to a maximum depth of one. Account for this when choosing link, upload or relationship features.
+
+## Keep Payload versions aligned
+
+Use matching versions of `payload` and all `@payloadcms/*` packages. The supported Payload and Lexical peer range is `>=3.68.5 <4`.
+
+## Configure on the server
+
+The package is ESM-only and intended for Node.js Payload configuration. Add a native Payload Block via `extendFeatures` when block-level code highlighting is needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-editor/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-editor/core/SKILL.md).
+
+---
+
+# payload-fields — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-fields.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-fields-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md)
+
+```text
+Use when integrating or reviewing the overall @nexload-sdk/payload-fields factory architecture, including options-object compatibility, protected field names/types/components, safe overrides, hook composition, Payload Import Map subpaths, server versus Admin client boundaries, plugin registration decisions, major-version migration, or package-wide validation. Use a specialized sibling for one slug, Jalali, or money contract.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-core
+```
+
+### payload-fields-slug
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/slug/SKILL.md)
+
+```text
+Use when adding, debugging, migrating, or reviewing @nexload-sdk/payload-fields managed slugs, including the slug/lock tuple and spread usage, Unicode/Persian normalization, lock and localization synchronization, nested source paths, regeneration on source changes, source clearing and manual edits, protected Admin wiring, or registered server-side generator authentication, access, input validation, and final normalization.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-slug
+```
+
+### payload-fields-jalali-date
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/jalali-date/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields Jalali date behavior, including native ISO persistence, Persian presentation, display timezone boundaries, dayOnly/dayAndTime/timeOnly/monthOnly picker modes, canonical local noon, Jalali month normalization, null/clear behavior, virtual Jalali timestamps, Admin UI limitations, or date-focused tests.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-jalali-date
+```
+
+### payload-fields-money
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/money/SKILL.md)
+
+```text
+Use when adding, migrating, debugging, or reviewing @nexload-sdk/payload-fields money behavior, including integer minor-unit persistence and APIs, explicit major-unit parsing, IRR/IRT or custom currency fraction digits, Persian/Arabic numeric input, safe integers and precision, negative policy, min/max bounds, display formatting, consumer validation order, Admin behavior, or money data migration.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-fields-money
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-fields, load payload-fields-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-fields/llms.txt).
+
+## Prompts
+
+```text
+Edit Jalali dates, slugs and prices in Payload Admin. Use @nexload-sdk/payload-fields and payload-fields-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-fields integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -761,6 +946,18 @@ Public function exported by @nexload-sdk/payload-fields.
 
 ## Constants
 
+### `FormattedCell`
+
+```ts
+FormattedCell({ kind, ...props }: DefaultCellComponentProps & { kind: ValidatedTextKind; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/formatted-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/formatted-cell.tsx#L12)
+
 ### `IRR`
 
 ```ts
@@ -785,6 +982,54 @@ Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/money/index.ts#L36)
 
+### `JalaliDateCell`
+
+```ts
+JalaliDateCell({ display, ...props }: DefaultCellComponentProps<DateFieldClient, JalaliDateValue> & { display?: JalaliDateDisplayOptions; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/jalali-date-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-cell.tsx#L9)
+
+### `JalaliDateFieldComponent`
+
+```ts
+JalaliDateFieldComponent({ field, path: providedPath, appearance, display, timeZone, readOnly, }: DateFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/jalali-date-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-field.tsx#L61)
+
+### `MoneyCell`
+
+```ts
+MoneyCell({ currency, display, displayCurrency, ...props }: DefaultCellComponentProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/money-cell`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-cell.tsx#L12)
+
+### `MoneyFieldComponent`
+
+```ts
+MoneyFieldComponent({ field, path, currency, display, displayCurrency, readOnly }: NumberFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/money-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-field.tsx#L13)
+
 ### `PAYLOAD_FIELDS_PLUGIN_ORDER`
 
 ```ts
@@ -796,6 +1041,30 @@ PAYLOAD_FIELDS_PLUGIN_ORDER: 900
 Public constant exported by @nexload-sdk/payload-fields.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L130)
+
+### `SlugFieldComponent`
+
+```ts
+SlugFieldComponent({ field, path, source, lockName, generator, readOnly, }: TextFieldClientProps & Props) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/slug-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/slug-field.tsx#L14)
+
+### `ValidatedTextFieldComponent`
+
+```ts
+ValidatedTextFieldComponent({ field, path, readOnly, kind, }: TextFieldClientProps & { kind: ValidatedTextKind; }) => JSX.Element
+```
+
+**Exported from:** `@nexload-sdk/payload-fields/admin/validated-text-field`
+
+Public constant exported by @nexload-sdk/payload-fields.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/validated-text-field.tsx#L10)
 
 ### `formatSlug`
 
@@ -1557,7 +1826,7 @@ Semantic Payload field factories for Unicode slugs, Jalali dates, integer money,
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
 **Package:** `@nexload-sdk/payload-fields`
 
-**Current released version:** `3.1.0`
+**Workspace version:** `3.1.0`
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 
@@ -1712,6 +1981,98 @@ export default buildConfig({
 
 The field factories use [Persian utilities](/nexload-sdk/packages/persian/) for shared normalization and validation.
 
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-fields — Optimization
+
+Production choices for @nexload-sdk/payload-fields.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-fields` v3.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/optimization/
+## Normalize strings before field hooks
+
+Install payloadFieldsPlugin() when REST or Local API callers send money values as strings. It normalizes Persian digits and separators before Payload parses number fields.
+
+## Send integers from numeric clients
+
+Pass minor-unit integers when the client already owns numeric conversion.
+
+## Handle nested slug uniqueness
+
+Automatic collision suffixes apply only to top-level slugs. For slugs inside arrays, groups, or named tabs, use `unique: false` to avoid relying on suffixing.
+
+## Order field plugins deliberately
+
+The plugin sees collections and globals present when it runs. Place plugins adding money fields before it, respecting its order of 900.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-fields/core/SKILL.md).
+
+---
+
+# payload-hooks — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-hooks.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/agents/
+## Install matching skills
+
+Use the preset skill for its audit-plugin integration and collection design for Payload boundaries. There is no dedicated hooks skill.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+### payload-collection-design
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload/collection-design/SKILL.md)
+
+```text
+Design, name, review, and refactor Payload CMS collections and PostgreSQL-backed data relationships. Use whenever choosing embedded fields versus Globals or collections, modeling cardinality and ownership, defining junction collections, naming resources and fields, selecting indexes and constraints, setting deletion behavior, preserving historical snapshots, or auditing a Payload schema for data-model correctness.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-collection-design
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-hooks, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-hooks/llms.txt).
+
+## Prompts
+
+```text
+Audit writes to an explicit collection. Use @nexload-sdk/payload-hooks and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-hooks integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
 ---
 
 # API Reference & Compatibility
@@ -1859,7 +2220,7 @@ Audit Payload collection operations with structured log events.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
 **Package:** `@nexload-sdk/payload-hooks`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Effortless, type-safe logging for Payload CMS collection operations.
 
@@ -1884,6 +2245,110 @@ const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read"
 ```
 
 Reads are off by default; auth is on for auth collections. See [guides](./guides/) for event names, options, and transaction caveats. Payload `>=3.85.0 <4.0.0` is a peer dependency; the hooks run in Node.js Payload configuration.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-hooks — Optimization
+
+Production choices for @nexload-sdk/payload-hooks.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/optimization/
+## Declare the auth collection
+
+Declare an auth collection in the config to include it in auditing. Payload creates its implicit users collection after plugins run.
+
+## Interpret write events in context
+
+Write events from afterChange and afterDelete run before the database transaction commits.
+
+## Avoid read auditing by default
+
+Read auditing is off by default. When enabled, `find` logs once per request with a count, while `findByID` logs the document ID.
+
+## Treat audit output as logs
+
+The plugin does not persist database audit records. Authentication auditing covers successful logins and password resets, not failed logins.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/index.ts).
+
+---
+
+# payload-operations — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-operations.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-operations-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md)
+
+```text
+Use for defining, reviewing, or diagnosing @nexload-sdk/payload-operations contracts, operation trees, Zod codec boundaries, Date handling via z.codec, declared errors, safe results, type inference, public subpaths, and package-wide compatibility. Use the client or server sibling when transport or Payload endpoints are the primary concern.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-core
+```
+
+### payload-operations-client
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/client/SKILL.md)
+
+```text
+Use for implementing, integrating, reviewing, or diagnosing the @nexload-sdk/payload-operations clients: createOperationsClient from ./client (pure RPC client), createCMSClient from ./cms (PayloadSDK integration), operation calls, base URL and path handling, request headers, transport plugins, timeoutPlugin from ./plugins/timeout, response decoding via z.decodeAsync, and browser-safe client packaging.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-client
+```
+
+### payload-operations-server
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/server/SKILL.md)
+
+```text
+Use for implementing, integrating, reviewing, or diagnosing @nexload-sdk/payload-operations on Payload: createPayloadEndpoints, complete handler trees, required access.default, request body limits via maxBodyBytes, request parsing, CORS and OPTIONS, declared errors, output encoding via z.encodeAsync, request-scoped Local API use, and server-safe failures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-server
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-operations, load payload-operations-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-operations/llms.txt).
+
+## Prompts
+
+```text
+Call a typed CMS operation. Use @nexload-sdk/payload-operations and payload-operations-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-operations integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -3385,7 +3850,7 @@ Type-safe custom application operations for Payload CMS with shared Zod contract
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
 **Package:** `@nexload-sdk/payload-operations`
 
-**Current released version:** `1.0.0`
+**Workspace version:** `1.0.0`
 
 Typed custom operations for Payload CMS with the native Payload REST SDK.
 
@@ -3627,6 +4092,86 @@ export async function submitOrder() {
 * Explore [Production Guides & Recipes](./guides/) for multi-resource trees, plugins, transactions, and Next.js Server Actions.
 * View the complete [API Reference & Signatures](./api/) for all exported types and functions.
 
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-operations — Optimization
+
+Production choices for @nexload-sdk/payload-operations.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/optimization/
+## Keep outputs encodable
+
+Use a codec or overwrite for output and declared error data that need conversion. A one-way transform cannot be encoded by the server.
+
+## Preserve access control
+
+Pass overrideAccess: false and req when a handler calls a Payload Local API on behalf of the caller.
+
+## Bound request bodies
+
+Requests over 1 MiB return `413 PAYLOAD_TOO_LARGE` by default. Set `maxBodyBytes` when the operation needs a larger body.
+
+## Separate server and universal imports
+
+The `./server` subpath requires Node.js 20.9 or newer. The root, contract, errors, client, CMS, and timeout plugin subpaths are universal.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-operations/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md).
+
+---
+
+# payload-preset — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-preset.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-preset, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-preset/llms.txt).
+
+## Prompts
+
+```text
+Configure a Persian Payload admin. Use @nexload-sdk/payload-preset and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-preset integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
 ---
 
 # API Reference & Compatibility
@@ -3775,18 +4320,18 @@ Compose Payload configuration with Nexload defaults.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
 **Package:** `@nexload-sdk/payload-preset`
 
-**Current released version:** `0.0.0`
+**Workspace version:** `0.0.0` (unreleased)
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
-**Upcoming release:** this page documents `@nexload-sdk/payload-preset` 1.0.0, which ships with the next Changesets release and is not on npm yet.
-
 ## Installation
 
+This package is unreleased. From a consumer in this SDK workspace:
+
 ```bash
-pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
+pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
 ```
 
 ## Quick Start
@@ -3804,6 +4349,98 @@ export default buildConfig({
 ```
 
 Configure the logger before `buildConfig()`. Define collections explicitly, including the auth collection. See [guides](./guides/) and the [API reference](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-preset — Optimization
+
+Production choices for @nexload-sdk/payload-preset.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-preset` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/optimization/
+## Initialize logging first
+
+Call configureLogger() before buildConfig(). Supply a destination when Payload should use the configured output stream.
+
+## Choose plugin ownership
+
+Disable a preset option when the project registers the corresponding plugin itself.
+
+## Keep read auditing deliberate
+
+Audit read logging is off by default. The preset changes top-level configuration and does not mutate collection field definitions.
+
+## Run in Payload configuration
+
+This ESM-only package targets Node.js and Payload configuration. After forced logger reconfiguration, rebuild the Payload configuration.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-preset/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md).
+
+---
+
+# payload-schema — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-schema.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/agents/
+## Install matching skills
+
+Use payload-schema-use in consumer projects. Install payload-schema-develop only when maintaining the SDK package.
+
+### payload-schema-use
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md)
+
+```text
+Use for consumer-side work with @nexload-sdk/payload-schema: defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, compiling fields via payloadFields from @nexload-sdk/payload-schema/payload, integrating compiled fields into collections, handling null semantics and Date objects, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-use
+```
+
+### payload-schema-develop
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/develop/SKILL.md)
+
+```text
+Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seeds and compilation under /payload, canonical beforeValidate adapter, null semantics, Date normalization, blocks containers, cloning, structured errors, public type inference, package fixtures, packed distribution, browser-safe root verification, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-develop
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-schema, load payload-schema-use when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-schema/llms.txt).
+
+## Prompts
+
+```text
+Share product validation between a form and Payload. Use @nexload-sdk/payload-schema and payload-schema-use. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-schema integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
 
 ---
 
@@ -5239,7 +5876,7 @@ Define canonical field validation and normalization once, then reuse it across P
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Current released version:** `2.0.0`
+**Workspace version:** `2.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 
@@ -5395,3 +6032,61 @@ export const createArticleSchema = articleEntity.schema(({ pick }) =>
 
 * Explore [Production Recipes & Modeling Guides](./guides/) for the full 15-field catalog, polymorphic relationships, static vs dynamic defaults, error diagnostics, and the 3.0 migration guide.
 * View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# payload-schema — Optimization
+
+Production choices for @nexload-sdk/payload-schema.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/optimization/
+## Choose optionality for projections
+
+A plain pick(keys) makes all picked keys required. Set the optional option when the projection should respect optional fields.
+
+## Preserve block metadata
+
+Reserve id, blockName and blockType in block definitions. Reusing those names throws INVALID\_FIELD\_CONFIGURATION.
+
+## Keep server code out of client bundles
+
+Use the universal root entry for shared schemas. Import the `./payload` compiler only in Node.js Payload configuration.
+
+## Choose codec-safe transformations
+
+Custom schema transforms are not codec-safe for `z.encode`. Use `.refine()` or `.overwrite()` when schemas serve as operation outputs.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-schema/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md).
+
+---
+
+# payload-schema — Playground
+
+Validate product input.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/playground/
+## Try it
+
+Choose the title or SKU definition and edit the sample value.
+
+## Read the result
+
+Title trims whitespace and requires three characters. SKU trims, uppercases and requires two. The output shows the parsed value or validation issues.
+
+Choose SKU and enter `ab`. The canonical output is `"AB"`.
+
+[API reference](/nexload-sdk/packages/payload-schema/api/).

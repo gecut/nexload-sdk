@@ -1,0 +1,54 @@
+# payload-schema — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-schema.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-schema` v2.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/agents/
+## Install matching skills
+
+Use payload-schema-use in consumer projects. Install payload-schema-develop only when maintaining the SDK package.
+
+### payload-schema-use
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/use/SKILL.md)
+
+```text
+Use for consumer-side work with @nexload-sdk/payload-schema: defining entities, choosing built-in factories versus field.native, deriving canonical input schemas, compiling fields via payloadFields from @nexload-sdk/payload-schema/payload, integrating compiled fields into collections, handling null semantics and Date objects, or diagnosing normalization and schema-availability failures. Do not use for package internals or generic Payload work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-use
+```
+
+### payload-schema-develop
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-schema/develop/SKILL.md)
+
+```text
+Use for internal development or review of @nexload-sdk/payload-schema itself: factories, private field seeds and compilation under /payload, canonical beforeValidate adapter, null semantics, Date normalization, blocks containers, cloning, structured errors, public type inference, package fixtures, packed distribution, browser-safe root verification, compatibility evidence, or release-impact analysis. Do not use for consumer entity migration or generic Payload/Zod work.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-schema-develop
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-schema, load payload-schema-use when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-schema/llms.txt).
+
+## Prompts
+
+```text
+Share product validation between a form and Payload. Use @nexload-sdk/payload-schema and payload-schema-use. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-schema integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```

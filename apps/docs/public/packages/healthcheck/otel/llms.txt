@@ -1,3 +1,60 @@
+# healthcheck-otel — Agent usage
+
+Configure a coding agent for @nexload-sdk/healthcheck-otel.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### healthcheck-monitoring-exporters
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md)
+
+```text
+Use when converting an existing HealthReport with @nexload-sdk/healthcheck-prometheus or @nexload-sdk/healthcheck-otel, including Prometheus/OpenMetrics text, OTel resource attributes and metric records, collector-only export boundaries, prefixes, metric names, HELP descriptions, label allowlists, dropped labels, deterministic output, and cardinality review.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-monitoring-exporters
+```
+
+### healthcheck-diagnostics-security
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/diagnostics-security/SKILL.md)
+
+```text
+Use when deciding or reviewing public versus private health exposure, diagnostics details, metrics access, JSON redaction, error and stack suppression, bearer or Basic authentication, IPv4/CIDR allowlists, trusted proxy headers, no-store policy, or sensitive and high-cardinality health data. Compose with the route or exporter skill that owns implementation.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill healthcheck-diagnostics-security
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/healthcheck-otel, load healthcheck-monitoring-exporters when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/healthcheck/otel/llms.txt).
+
+## Prompts
+
+```text
+Convert a report into OpenTelemetry records. Use @nexload-sdk/healthcheck-otel and healthcheck-monitoring-exporters. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/healthcheck-otel integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public API symbol reference and compatibility matrix for Healthcheck OpenTelemetry.
@@ -131,7 +188,7 @@ Export healthcheck reports as OpenTelemetry metrics, log attributes, and span me
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/
 **Package:** `@nexload-sdk/healthcheck-otel`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 OpenTelemetry-friendly transforms for @nexload-sdk/healthcheck reports.
 
@@ -179,3 +236,61 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & OTel Recipes](./guides/) for span attachment and telemetry conventions.
 * Check the [API Reference & Signatures](./api/) for exporter options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)
+
+---
+
+# healthcheck-otel — Optimization
+
+Production choices for @nexload-sdk/healthcheck-otel.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/optimization/
+## Bound attribute cardinality
+
+Keep user IDs, request IDs and raw error text out of collector labels. These labels become metric attributes.
+
+## Publish custom values through collectors
+
+Read exported values from report.metrics. Check-local metrics stay in the JSON report.
+
+## Separate mapping from delivery
+
+The package maps an existing report to resource attributes and metric records. It runs in Node.js, Bun, Edge, and browsers.
+
+## Avoid sensitive attributes
+
+Collector labels become metric attributes. Review their values before exposing records to a monitoring backend.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/healthcheck/otel/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/healthcheck/monitoring-exporters/SKILL.md).
+
+---
+
+# healthcheck-otel — Playground
+
+Inspect a local readiness report.
+
+**Topic:** playground
+**Package:** `@nexload-sdk/healthcheck-otel` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/otel/playground/
+## Try it
+
+Type ok, degraded or unhealthy to change a critical inventory check. Switch between the report and three export formats.
+
+## Read the result
+
+The local manager runs a readiness check. Prometheus renders metric text, OpenMetrics adds the EOF marker, and OTel returns metric records. No network service receives the output.
+
+Enter `unhealthy`. The `health.status` metric record has value `0`.
+
+[API reference](/nexload-sdk/packages/healthcheck/otel/api/).

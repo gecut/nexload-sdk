@@ -1,3 +1,60 @@
+# payload-hooks — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-hooks.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/agents/
+## Install matching skills
+
+Use the preset skill for its audit-plugin integration and collection design for Payload boundaries. There is no dedicated hooks skill.
+
+### payload-preset
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-preset/SKILL.md)
+
+```text
+Use when configuring or reviewing Payload CMS configuration with @nexload-sdk/payload-preset, composing Persian admin defaults, logger bridge, field hooks, or collection audit logging with auditPlugin. Decides between preset and standalone plugins, validates options and defaults, verifies plugin order and non-interference with collection fields, or migrates from deprecated logOperation. Do not use for field schema definitions (use payload-schema) or single field customizations (use payload-fields).
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-preset
+```
+
+### payload-collection-design
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload/collection-design/SKILL.md)
+
+```text
+Design, name, review, and refactor Payload CMS collections and PostgreSQL-backed data relationships. Use whenever choosing embedded fields versus Globals or collections, modeling cardinality and ownership, defining junction collections, naming resources and fields, selecting indexes and constraints, setting deletion behavior, preserving historical snapshots, or auditing a Payload schema for data-model correctness.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-collection-design
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-hooks, load payload-preset when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-hooks/llms.txt).
+
+## Prompts
+
+```text
+Audit writes to an explicit collection. Use @nexload-sdk/payload-hooks and payload-preset. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-hooks integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
 # API Reference & Compatibility
 
 Public audit plugin and legacy hook exports.
@@ -143,7 +200,7 @@ Audit Payload collection operations with structured log events.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/
 **Package:** `@nexload-sdk/payload-hooks`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Effortless, type-safe logging for Payload CMS collection operations.
 
@@ -168,3 +225,38 @@ const plugins = [auditPlugin({ operations: ["create", "update", "delete", "read"
 ```
 
 Reads are off by default; auth is on for auth collections. See [guides](./guides/) for event names, options, and transaction caveats. Payload `>=3.85.0 <4.0.0` is a peer dependency; the hooks run in Node.js Payload configuration.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# payload-hooks — Optimization
+
+Production choices for @nexload-sdk/payload-hooks.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/payload-hooks` v2.1.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-hooks/optimization/
+## Declare the auth collection
+
+Declare an auth collection in the config to include it in auditing. Payload creates its implicit users collection after plugins run.
+
+## Interpret write events in context
+
+Write events from afterChange and afterDelete run before the database transaction commits.
+
+## Avoid read auditing by default
+
+Read auditing is off by default. When enabled, `find` logs once per request with a count, while `findByID` logs the document ID.
+
+## Treat audit output as logs
+
+The plugin does not persist database audit records. Authentication auditing covers successful logins and password resets, not failed logins.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/payload-hooks/src/index.ts).

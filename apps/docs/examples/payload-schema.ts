@@ -4,7 +4,6 @@ import {
   isPayloadSchemaError,
   PayloadSchemaError,
 } from "@nexload-sdk/payload-schema";
-// @ts-ignore -- resolved via package exports at runtime in Node/Payload config
 import { payloadFields } from "@nexload-sdk/payload-schema/payload";
 import { z } from "zod";
 

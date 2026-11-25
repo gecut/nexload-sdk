@@ -7,7 +7,7 @@ Semantic Payload field factories for Unicode slugs, Jalali dates, integer money,
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-fields/
 **Package:** `@nexload-sdk/payload-fields`
 
-**Current released version:** `3.1.0`
+**Workspace version:** `3.1.0`
 
 Production-grade semantic field factories and Admin integrations for Payload CMS.
 
@@ -161,3 +161,9 @@ export default buildConfig({
 * Check the [API Reference & Compatibility](./api/) for complete factory options and signatures.
 
 The field factories use [Persian utilities](/nexload-sdk/packages/persian/) for shared normalization and validation.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

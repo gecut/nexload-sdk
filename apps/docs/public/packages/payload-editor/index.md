@@ -7,7 +7,7 @@ Deterministic semantic configuration, presets, and feature sets for Payload CMS'
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-editor/
 **Package:** `@nexload-sdk/payload-editor`
 
-**Current released version:** `1.1.0`
+**Workspace version:** `1.1.0`
 
 Semantic, deterministic Payload Lexical editor configuration.
 
@@ -95,3 +95,9 @@ In `createEditor({ features: { ... } })`:
 
 * Explore [Production Guides & Presets](./guides/) for custom organization presets, blocks features, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all supported features and options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

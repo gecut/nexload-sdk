@@ -7,7 +7,7 @@ Type-safe custom application operations for Payload CMS with shared Zod contract
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/
 **Package:** `@nexload-sdk/payload-operations`
 
-**Current released version:** `1.0.0`
+**Workspace version:** `1.0.0`
 
 Typed custom operations for Payload CMS with the native Payload REST SDK.
 
@@ -248,3 +248,9 @@ export async function submitOrder() {
 
 * Explore [Production Guides & Recipes](./guides/) for multi-resource trees, plugins, transactions, and Next.js Server Actions.
 * View the complete [API Reference & Signatures](./api/) for all exported types and functions.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

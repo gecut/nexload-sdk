@@ -38,6 +38,8 @@ export const collections: { docs: DocsCollection } = {
             "quick-start",
             "concepts",
             "guides",
+            "optimization",
+            "playground",
             "api",
             "examples",
             "troubleshooting",

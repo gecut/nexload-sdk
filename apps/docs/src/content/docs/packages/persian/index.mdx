@@ -8,7 +8,6 @@ package: persian
 topic: overview
 ---
 
-import InstallTabs from "../../../../components/docs/InstallTabs.astro";
 import PackageHero from "../../../../components/docs/PackageHero.astro";
 import { packageByName } from "../../../../lib/package-catalog";
 
@@ -28,7 +27,11 @@ const date = formatJalali("2024-03-20T12:00:00+03:30");
 
 ## Installation
 
-<InstallTabs packages="@nexload-sdk/persian" />
+This package is unreleased. From a consumer in this SDK workspace:
+
+```bash
+pnpm add '@nexload-sdk/persian@workspace:*'
+```
 
 For the optional `./zod` subpath, install `zod` separately.
 
@@ -49,3 +52,11 @@ The core has no runtime dependencies.
 - Search Persian text and look up provinces.
 
 See [guides](./guides/) and the [API inventory](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)

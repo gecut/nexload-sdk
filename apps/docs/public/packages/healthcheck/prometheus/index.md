@@ -7,7 +7,7 @@ Serialize healthcheck reports into Prometheus text exposition and OpenMetrics fo
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/prometheus/
 **Package:** `@nexload-sdk/healthcheck-prometheus`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Prometheus and OpenMetrics text serializers for @nexload-sdk/healthcheck reports.
 
@@ -57,3 +57,11 @@ Requires Node.js `>=20.9.0` or Bun `>=1.0.0`.
 
 * Explore [Production Guides & Scraping Setup](./guides/) for metric names, label conventions, and scraping routes.
 * Check the [API Reference & Signatures](./api/) for exporter configuration options.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)

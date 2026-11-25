@@ -7,7 +7,7 @@ Runtime-neutral service healthcheck manager for liveness, readiness, startup, an
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/core/
 **Package:** `@nexload-sdk/healthcheck`
 
-**Current released version:** `4.1.0`
+**Workspace version:** `4.1.0`
 
 Runtime-neutral health orchestration and monitoring report foundation for production services.
 
@@ -114,3 +114,11 @@ if (report.status === "unhealthy") {
 
 * Explore [Production Guides & Custom Checks](./guides/) for database checks, timeout policies, and status aggregation rules.
 * View the complete [API Reference & Signatures](./api/) for all exported symbols and configuration types.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)

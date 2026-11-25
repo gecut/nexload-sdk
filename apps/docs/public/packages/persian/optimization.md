@@ -1,0 +1,26 @@
+# persian — Optimization
+
+Production choices for @nexload-sdk/persian.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/persian` v0.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/persian/optimization/
+## Keep currency units explicit
+
+Use integer amounts and specify IRR or IRT. `parseMoney` rejects decimal strings and unsafe integers.
+
+## Check the calendar boundary
+
+Supported Jalali years run from 1 to 3176. Conversion functions can throw a RangeError outside this range.
+
+## Plan money conversion rounding
+
+When a display-unit conversion is not divisible, `formatMoney` keeps the source unit unless a rounding mode is supplied. `convertMoney` throws without rounding.
+
+## Provide timezone data
+
+Timezone conversion in `./date` and `./relative` requires host `Intl` timezone data. The package supports Node.js, Bun, Edge, and browsers.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/packages/persian/src/index.ts). · [Matching skill](https://github.com/gecut/nexload-sdk/blob/main/skills/persian/SKILL.md).

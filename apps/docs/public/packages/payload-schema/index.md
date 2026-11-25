@@ -7,7 +7,7 @@ Define canonical field validation and normalization once, then reuse it across P
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-schema/
 **Package:** `@nexload-sdk/payload-schema`
 
-**Current released version:** `2.0.0`
+**Workspace version:** `2.0.0`
 
 Canonical Payload field definitions with reusable Zod schemas.
 
@@ -163,3 +163,11 @@ export const createArticleSchema = articleEntity.schema(({ pick }) =>
 
 * Explore [Production Recipes & Modeling Guides](./guides/) for the full 15-field catalog, polymorphic relationships, static vs dynamic defaults, error diagnostics, and the 3.0 migration guide.
 * View the complete [API Reference & Field Catalog](./api/) for all factory options and signatures.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+[Playground](./playground/)

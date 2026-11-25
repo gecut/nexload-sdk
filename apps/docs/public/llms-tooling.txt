@@ -1,3 +1,91 @@
+# eslint-config — Agent usage
+
+Configure a coding agent for @nexload-sdk/eslint-config.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/agents/
+## Install matching skills
+
+These are shared engineering skills.
+
+### nexload-code
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/code/SKILL.md)
+
+```text
+Use when internal TypeScript behavior, refactoring, or repository-wide file naming is the primary task in Nexload: scope discipline, readable functions and modules, type or trust-boundary safety, lifecycle ownership, abstraction value, dependency restraint, internal imports, or honest verification. Route package API compatibility to nexload-package and framework or specialist policy to the owning sibling skill.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-code
+```
+
+### nexload-package
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/package/SKILL.md)
+
+```text
+Use when the primary task changes or evaluates the shipped contract of a publishable Nexload TypeScript package: ownership, public exports and subpaths, entrypoint runtime isolation, core/adapter direction where shared policy exists, metadata, dependencies or peers, packed artifacts, package-scoped compatibility, or README/API alignment. Do not use for internal-only code, React behavior, visual styling, repository-wide runtime standards, or release execution.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-package
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/eslint-config, load nexload-code when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/eslint-config/llms.txt).
+
+## Prompts
+
+```text
+Configure ESLint for the project runtime. Use @nexload-sdk/eslint-config and nexload-code. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/eslint-config integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
+# eslint-config — Configuration reference
+
+Exported configuration entries for @nexload-sdk/eslint-config.
+
+**Topic:** api
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/api/
+## Public entries
+
+* `.`
+* `./base`
+* `./base.js`
+* `./node`
+* `./node.js`
+* `./react`
+* `./react.js`
+* `./nextjs`
+* `./nextjs.js`
+* `./payload`
+* `./payload.js`
+* `./*`
+* `./*.js`
+
+## Usage
+
+Use the default nexloadConfig factory or compose named presets for base, node, react, nextjs and payload. The .js aliases resolve through the package export map.
+
+[Package manifest](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/package.json).
+
+---
+
 # Configuration Guides & Recipes
 
 Type-aware linting with projectService, customizing factory rules, and migrating from legacy .eslintrc.
@@ -125,7 +213,7 @@ Strict, zero-compromise ESLint 9 Flat Config enforcing clean architecture, deter
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/
 **Package:** `@nexload-sdk/eslint-config`
 
-**Current released version:** `9.39.2`
+**Workspace version:** `9.39.2`
 
 Shared authoritative ESLint configurations for the Nexload SDK monorepo
 
@@ -209,6 +297,121 @@ pnpm add -D @nexload-sdk/eslint-config eslint@^9.0.0 typescript
 ```
 
 Peer requirements: `eslint >= 9.0.0`, `typescript >= 5.0.0`.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# eslint-config — Optimization
+
+Production choices for @nexload-sdk/eslint-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/eslint-config` v9.39.2
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/eslint-config/optimization/
+## Choose the runtime preset
+
+Use nexloadConfig with the options for the project runtime. Compose exported presets when explicit ordering is needed.
+
+## Keep type-aware linting enabled
+
+Use the shared base rules for type-aware checks and inline type imports.
+
+## Use project service for typed rules
+
+The base configuration uses TypeScript project service for type-aware linting. Ensure the project has a suitable TypeScript configuration.
+
+## Compose overrides after the preset
+
+Pass custom rules or ignores as additional arguments to `nexloadConfig`, or compose the exported preset arrays in the order needed.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/eslint-config/src/index.ts).
+
+---
+
+# typescript-config — Agent usage
+
+Configure a coding agent for @nexload-sdk/typescript-config.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/agents/
+## Install matching skills
+
+These are shared engineering skills.
+
+### nexload-code
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/code/SKILL.md)
+
+```text
+Use when internal TypeScript behavior, refactoring, or repository-wide file naming is the primary task in Nexload: scope discipline, readable functions and modules, type or trust-boundary safety, lifecycle ownership, abstraction value, dependency restraint, internal imports, or honest verification. Route package API compatibility to nexload-package and framework or specialist policy to the owning sibling skill.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-code
+```
+
+### nexload-package
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/nexload/package/SKILL.md)
+
+```text
+Use when the primary task changes or evaluates the shipped contract of a publishable Nexload TypeScript package: ownership, public exports and subpaths, entrypoint runtime isolation, core/adapter direction where shared policy exists, metadata, dependencies or peers, packed artifacts, package-scoped compatibility, or README/API alignment. Do not use for internal-only code, React behavior, visual styling, repository-wide runtime standards, or release execution.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill nexload-package
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/typescript-config, load nexload-code when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/typescript-config/llms.txt).
+
+## Prompts
+
+```text
+Choose a TypeScript compiler preset. Use @nexload-sdk/typescript-config and nexload-code. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/typescript-config integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
+
+---
+
+# typescript-config — Configuration reference
+
+Exported configuration entries for @nexload-sdk/typescript-config.
+
+**Topic:** api
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/api/
+## Public entries
+
+* `./base.json`
+* `./node.json`
+* `./react.json`
+* `./next.json`
+* `./vite.json`
+
+## Usage
+
+Set extends to the package name followed by a preset subpath, for example @nexload-sdk/typescript-config/next.json. Set include and output paths in the consuming project.
+
+[Package manifest](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/package.json).
 
 ---
 
@@ -297,7 +500,7 @@ Strict, modern TypeScript configurations for Node.js, React, Next.js, and Vite a
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/
 **Package:** `@nexload-sdk/typescript-config`
 
-**Current released version:** `5.9.3`
+**Workspace version:** `5.9.3`
 
 Shared TypeScript configurations for the Nexload SDK monorepo
 
@@ -358,3 +561,38 @@ pnpm add -D @nexload-sdk/typescript-config typescript@^5.9.0
 ```
 
 Peer requirement: `typescript >= 5.0.0`.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)
+
+---
+
+# typescript-config — Optimization
+
+Production choices for @nexload-sdk/typescript-config.
+
+**Topic:** optimization
+**Package:** `@nexload-sdk/typescript-config` v5.9.3
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/typescript-config/optimization/
+## Extend the runtime preset
+
+Extend node.json for a backend package, react.json for a React library or next.json for a Next.js app.
+
+## Retain checked indexed access
+
+Inherit strict and noUncheckedIndexedAccess from base.json when customizing project includes and output paths.
+
+## Choose emit behavior
+
+The React preset emits declarations only. The Next.js and Vite presets set `noEmit`, so use the preset suited to the build pipeline.
+
+## Include the intended sources
+
+Set `include` and output paths for the consuming project. The Node preset defaults to `src/**/*.ts` and excludes `dist` and `node_modules`.
+
+## Sources
+
+[Package guidance](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/README.md) · [Implementation](https://github.com/gecut/nexload-sdk/blob/main/tools/typescript-config/base.json).

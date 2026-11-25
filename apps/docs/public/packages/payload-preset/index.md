@@ -7,18 +7,18 @@ Compose Payload configuration with Nexload defaults.
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-preset/
 **Package:** `@nexload-sdk/payload-preset`
 
-**Current released version:** `0.0.0`
+**Workspace version:** `0.0.0` (unreleased)
 
-[npm](https://www.npmjs.com/package/@nexload-sdk/payload-preset) · [Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
+[Source](https://github.com/gecut/nexload-sdk/tree/main/packages/payload-preset)
 
 `nexloadPreset()` composes Persian admin defaults, the SDK logger bridge, field hooks, and collection audit logging. It is ESM only and runs in Node.js Payload configuration.
 
-**Upcoming release:** this page documents `@nexload-sdk/payload-preset` 1.0.0, which ships with the next Changesets release and is not on npm yet.
-
 ## Installation
 
+This package is unreleased. From a consumer in this SDK workspace:
+
 ```bash
-pnpm add @nexload-sdk/payload-preset @nexload-sdk/logger payload @payloadcms/translations
+pnpm add '@nexload-sdk/payload-preset@workspace:*' '@nexload-sdk/logger@workspace:*' payload @payloadcms/translations
 ```
 
 ## Quick Start
@@ -36,3 +36,9 @@ export default buildConfig({
 ```
 
 Configure the logger before `buildConfig()`. Define collections explicitly, including the auth collection. See [guides](./guides/) and the [API reference](./api/).
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

@@ -7,7 +7,7 @@ Bun runtime adapter and server metrics health check integration for Bun HTTP ser
 **Canonical page:** https://gecut.github.io/nexload-sdk/packages/healthcheck/bun/
 **Package:** `@nexload-sdk/healthcheck-bun`
 
-**Current released version:** `2.1.0`
+**Workspace version:** `2.1.0`
 
 Bun runtime adapter and Bun server metrics for @nexload-sdk/healthcheck.
 
@@ -63,3 +63,9 @@ Requires Bun `>=1.0.0`.
 
 * Explore [Production Guides & Server Recipes](./guides/) for Bun HTTP servers, WebSocket counters, and troubleshooting.
 * Check the [API Reference & Signatures](./api/) for all exported checks and adapters.
+
+## Next steps
+
+[Optimization](./optimization/)
+
+[Agent usage](./agents/)

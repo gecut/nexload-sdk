@@ -2698,6 +2698,18 @@
     "sourcePath": "packages/payload-fields",
     "symbols": [
       {
+        "name": "FormattedCell",
+        "category": "constants",
+        "signature": "FormattedCell({ kind, ...props }: DefaultCellComponentProps & { kind: ValidatedTextKind; }) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/formatted-cell.tsx",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/formatted-cell.tsx#L12",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/formatted-cell"
+        ]
+      },
+      {
         "name": "IRR",
         "category": "constants",
         "signature": "IRR: Readonly<MoneyCurrencyDefinition>",
@@ -2724,6 +2736,54 @@
         ]
       },
       {
+        "name": "JalaliDateCell",
+        "category": "constants",
+        "signature": "JalaliDateCell({ display, ...props }: DefaultCellComponentProps<DateFieldClient, JalaliDateValue> & { display?: JalaliDateDisplayOptions; }) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/jalali-date-cell.tsx",
+        "line": 9,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-cell.tsx#L9",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/jalali-date-cell"
+        ]
+      },
+      {
+        "name": "JalaliDateFieldComponent",
+        "category": "constants",
+        "signature": "JalaliDateFieldComponent({ field, path: providedPath, appearance, display, timeZone, readOnly, }: DateFieldClientProps & Props) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/jalali-date-field.tsx",
+        "line": 61,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/jalali-date-field.tsx#L61",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/jalali-date-field"
+        ]
+      },
+      {
+        "name": "MoneyCell",
+        "category": "constants",
+        "signature": "MoneyCell({ currency, display, displayCurrency, ...props }: DefaultCellComponentProps & Props) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/money-cell.tsx",
+        "line": 12,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-cell.tsx#L12",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/money-cell"
+        ]
+      },
+      {
+        "name": "MoneyFieldComponent",
+        "category": "constants",
+        "signature": "MoneyFieldComponent({ field, path, currency, display, displayCurrency, readOnly }: NumberFieldClientProps & Props) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/money-field.tsx",
+        "line": 13,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/money-field.tsx#L13",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/money-field"
+        ]
+      },
+      {
         "name": "PAYLOAD_FIELDS_PLUGIN_ORDER",
         "category": "constants",
         "signature": "PAYLOAD_FIELDS_PLUGIN_ORDER: 900",
@@ -2733,6 +2793,30 @@
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/plugin.ts#L130",
         "exportPaths": [
           "@nexload-sdk/payload-fields"
+        ]
+      },
+      {
+        "name": "SlugFieldComponent",
+        "category": "constants",
+        "signature": "SlugFieldComponent({ field, path, source, lockName, generator, readOnly, }: TextFieldClientProps & Props) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/slug-field.tsx",
+        "line": 14,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/slug-field.tsx#L14",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/slug-field"
+        ]
+      },
+      {
+        "name": "ValidatedTextFieldComponent",
+        "category": "constants",
+        "signature": "ValidatedTextFieldComponent({ field, path, readOnly, kind, }: TextFieldClientProps & { kind: ValidatedTextKind; }) => JSX.Element",
+        "description": "Public constant exported by @nexload-sdk/payload-fields.",
+        "source": "packages/payload-fields/src/admin/validated-text-field.tsx",
+        "line": 10,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/payload-fields/src/admin/validated-text-field.tsx#L10",
+        "exportPaths": [
+          "@nexload-sdk/payload-fields/admin/validated-text-field"
         ]
       },
       {

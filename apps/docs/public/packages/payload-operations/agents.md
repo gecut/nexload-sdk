@@ -1,0 +1,66 @@
+# payload-operations — Agent usage
+
+Configure a coding agent for @nexload-sdk/payload-operations.
+
+**Topic:** agents
+**Package:** `@nexload-sdk/payload-operations` v1.0.0
+**Canonical page:** https://gecut.github.io/nexload-sdk/packages/payload-operations/agents/
+## Install matching skills
+
+Install the skills whose triggers match the task.
+
+### payload-operations-core
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/core/SKILL.md)
+
+```text
+Use for defining, reviewing, or diagnosing @nexload-sdk/payload-operations contracts, operation trees, Zod codec boundaries, Date handling via z.codec, declared errors, safe results, type inference, public subpaths, and package-wide compatibility. Use the client or server sibling when transport or Payload endpoints are the primary concern.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-core
+```
+
+### payload-operations-client
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/client/SKILL.md)
+
+```text
+Use for implementing, integrating, reviewing, or diagnosing the @nexload-sdk/payload-operations clients: createOperationsClient from ./client (pure RPC client), createCMSClient from ./cms (PayloadSDK integration), operation calls, base URL and path handling, request headers, transport plugins, timeoutPlugin from ./plugins/timeout, response decoding via z.decodeAsync, and browser-safe client packaging.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-client
+```
+
+### payload-operations-server
+
+[Trigger](https://github.com/gecut/nexload-sdk/blob/main/skills/payload-operations/server/SKILL.md)
+
+```text
+Use for implementing, integrating, reviewing, or diagnosing @nexload-sdk/payload-operations on Payload: createPayloadEndpoints, complete handler trees, required access.default, request body limits via maxBodyBytes, request parsing, CORS and OPTIONS, declared errors, output encoding via z.encodeAsync, request-scoped Local API use, and server-safe failures.
+```
+
+```bash
+npx skills add gecut/nexload-sdk --skill payload-operations-server
+```
+
+## Project AGENTS.md
+
+```markdown
+For @nexload-sdk/payload-operations, load payload-operations-core when its trigger matches. Read the package bundle and check public exports against the installed version before editing.
+```
+
+## Package context
+
+[Scoped Markdown bundle](/nexload-sdk/packages/payload-operations/llms.txt).
+
+## Prompts
+
+```text
+Call a typed CMS operation. Use @nexload-sdk/payload-operations and payload-operations-core. Inspect the installed version and show a minimal typed example for my project.
+```
+
+```text
+Review my @nexload-sdk/payload-operations integration against the optimization page. Identify the relevant source for each finding and one test for the highest-risk behavior.
+```
