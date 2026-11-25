@@ -1,5 +1,19 @@
 # @nexload-sdk/payload-hooks
 
+## 3.0.0
+
+### Major Changes
+
+- 33a918a: Add auditPlugin and deprecate logOperation. Payload is now a peer dependency requiring >=3.85.0 <4.0.0.
+
+### Patch Changes
+
+- 0bc8bcd: Update the logger dependency for v5.
+- Updated dependencies [47587b0]
+- Updated dependencies [2ca2919]
+- Updated dependencies [0bc8bcd]
+  - @nexload-sdk/logger@5.0.0
+
 ## 2.1.0
 
 ### Minor Changes

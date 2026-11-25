@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/payload-fields",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Production-grade semantic field factories and Admin integrations for Payload CMS.",
   "keywords": [
     "payload",
@@ -98,7 +98,7 @@
     "@nexload-sdk/persian": "workspace:^"
   },
   "peerDependencies": {
-    "@nexload-sdk/payload-schema": ">=2.0.0 <4.0.0",
+    "@nexload-sdk/payload-schema": ">=3.0.0",
     "@payloadcms/ui": ">=3.85.0 <4.0.0",
     "payload": ">=3.85.0 <4.0.0",
     "react": "^19.0.1 || ^19.1.2 || ^19.2.1",

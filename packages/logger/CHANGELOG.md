@@ -1,5 +1,22 @@
 # @nexload-sdk/logger
 
+## 5.0.0
+
+### Major Changes
+
+- 0bc8bcd: ### Migration
+  - Log levels in output are now lowercase. `LOG_LEVEL` values are lowercase; uppercase values remain accepted.
+  - `NexloadLogger`, renderers, and the `log-test` subpath have been removed.
+  - Configure logging once with `configureLogger`.
+
+### Minor Changes
+
+- 47587b0: Add `getPayloadLoggerConfig()` to share SDK logging options and an explicit destination with Payload's own pino logger.
+
+### Patch Changes
+
+- 2ca2919: Export the `PayloadLoggerConfig` type returned by `getPayloadLoggerConfig()`.
+
 ## 4.1.0
 
 ### Minor Changes

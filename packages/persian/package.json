@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/persian",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Zero-dependency Persian and Iranian utilities: digits, text, mobile, national code, bank, money, Jalali dates.",
   "keywords": [
     "persian",

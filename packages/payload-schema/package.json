@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/payload-schema",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Canonical Payload field definitions with reusable Zod schemas.",
   "keywords": [
     "payload",

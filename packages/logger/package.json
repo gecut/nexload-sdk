@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/logger",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "Configure-once structured logger for Node, Edge and browser, built on pino, with safe defaults.",
   "keywords": [
     "logger",

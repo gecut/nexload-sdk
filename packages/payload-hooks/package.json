@@ -1,6 +1,6 @@
 {
   "name": "@nexload-sdk/payload-hooks",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "private": false,
   "description": "Effortless, type-safe logging for Payload CMS collection operations.",
   "keywords": [
