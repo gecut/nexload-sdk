@@ -29,7 +29,7 @@ configureLogger({ service: 'shop-api', release: process.env.RELEASE });
 
 `configureLogger` returns a lazy proxy that normalizes `Error` first arguments, as do the shared proxy and their children. A second call returns the existing proxy and emits a warning with `event: "logger.reconfigure.ignored"`. Set `force: true` to replace the configuration. Before configuration, the lazy logger uses environment defaults; children follow later configuration, including forced replacements.
 
-For Payload on Node.js, call `configureLogger()` before `buildConfig()`, then pass `getPayloadLoggerConfig()` as `config.logger`. Payload creates its own pino logger with the SDK's redaction, serializers, request context, base fields, timestamps, level, and explicit destination. Without an explicit destination, Payload writes JSON to its default stream. The bridge maps the SDK's `success` threshold to `warn`, the next standard pino level. Rebuild Payload's configuration to apply a forced SDK reconfiguration.
+For Payload on Node.js, call `configureLogger()` before `buildConfig()`, then pass `getPayloadLoggerConfig()` as `config.logger`. Payload creates its own pino logger with the SDK's redaction, serializers, request context, base fields, timestamps, level, and explicit destination. Without an explicit destination, Payload writes JSON to its default stream. The bridge maps the SDK's `success` threshold to `warn`, the next standard pino level. Rebuild Payload's configuration to apply a forced SDK reconfiguration. The return type is exported as `PayloadLoggerConfig`.
 
 ```ts
 import { configureLogger, getPayloadLoggerConfig } from '@nexload-sdk/logger';

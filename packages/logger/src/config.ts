@@ -13,7 +13,7 @@ import { serializeError } from "./serialize-error";
 
 type PinoLogger = pino.Logger<"success">;
 
-type PayloadLoggerConfig = {
+export type PayloadLoggerConfig = {
   options: ReturnType<typeof buildPinoOptions>;
   destination?: LoggerOptions["destination"];
 };
