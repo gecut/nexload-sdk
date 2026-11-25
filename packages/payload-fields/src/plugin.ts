@@ -223,7 +223,18 @@ export function payloadFieldsPlugin (options: PayloadFieldsPluginOptions = {}): 
             );
 
             return Response.json({ slug: formatSlug(result), });
-          } catch {
+          } catch (err) {
+            // This endpoint handles the failure by responding 500, so it logs it once here.
+            req.payload.logger.error(
+              {
+                err,
+                event: "payload_fields.slug.generation_failed",
+                generator: input.generator,
+                outcome: "failure",
+              },
+              "Slug generation failed"
+            );
+
             return failure(
               "PAYLOAD_FIELDS_GENERATION_FAILED", t(req.i18n?.language, "slug.failed"), 500
             );

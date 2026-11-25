@@ -128,3 +128,30 @@ test("rejects invalid and inherited slug generator input", async () => {
   });
   assert.equal(inherited.status, 404);
 });
+
+test("logs a failed slug generator once and responds 500", async () => {
+  const entries = [];
+  const plugin = payloadFieldsPlugin({
+    slugGenerators: {
+      broken: async () => {
+        throw new Error("provider down");
+      },
+    },
+  });
+  const endpoint = plugin({}).endpoints?.at(-1);
+
+  const response = await endpoint.handler({
+    user: { role: "editor" },
+    json: async () => ({ generator: "broken", sourceValue: "محصول" }),
+    payload: { logger: { error: (entry, message) => entries.push({ entry, message }) } },
+  });
+
+  assert.equal(response.status, 500);
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].message, "Slug generation failed");
+  assert.equal(entries[0].entry.event, "payload_fields.slug.generation_failed");
+  assert.equal(entries[0].entry.generator, "broken");
+  assert.equal(entries[0].entry.outcome, "failure");
+  assert.equal(entries[0].entry.err.message, "provider down");
+  assert.equal("sourceValue" in entries[0].entry, false);
+});
