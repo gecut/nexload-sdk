@@ -1,35 +1,87 @@
 # @nexload-sdk/healthcheck
 
-Runtime-neutral health orchestration and monitoring reports for production services.
+**Runtime-neutral health orchestration, timeout-safe check execution, and monitoring reports for production services.**
 
-[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/) ·
-[API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/)
+[Documentation](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/) · [API reference](https://gecut.github.io/nexload-sdk/packages/healthcheck/core/api/)
 
-## What it is
+[![npm version](https://img.shields.io/npm/v/@nexload-sdk/healthcheck)](https://www.npmjs.com/package/@nexload-sdk/healthcheck)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Module: ESM + CJS](https://img.shields.io/badge/module-ESM%20%2B%20CJS-green.svg)
+![Runtime: Node | Bun | Edge | Browser](https://img.shields.io/badge/runtime-Node%20%7C%20Bun%20%7C%20Edge%20%7C%20Browser-lightgrey.svg)
 
-`@nexload-sdk/healthcheck` runs checks and collectors safely, then returns a stable JSON report for liveness, readiness, startup, diagnostics, and monitoring exporters.
+> [!IMPORTANT]
+> A new major release is pending across the healthcheck family in `.changeset/healthcheck-major.md`: `@nexload-sdk/healthcheck` now re-exports `core/types` with `export type *`, so those types can only be used in type positions. Use `import type` (required under `verbatimModuleSyntax`). No runtime behavior changed.
 
-It provides:
+## Table of contents
 
-- timeout and cancellation for every check
-- thrown-error isolation
-- critical/non-critical status aggregation
-- raw machine-readable metrics
-- redaction helpers
-- framework-neutral report serialization
-- plugin authoring helpers
+- [Overview](#overview)
+- [Philosophy](#philosophy)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Usage](#usage)
+- [API](#api)
+- [Configuration](#configuration)
+- [Runtime and compatibility](#runtime-and-compatibility)
+- [Caveats](#caveats)
+- [Migration](#migration)
+- [Related packages](#related-packages)
+- [License](#license)
 
-## What it is not
+## Overview
 
-- It does not start an HTTP server.
-- It does not import Next.js, Payload, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation`.
-- It does not make database/cache/HTTP failures fail liveness by default.
-- It does not expose diagnostics safely unless your route protects them.
+`@nexload-sdk/healthcheck` runs health checks and metric collectors with per-check timeouts, `AbortSignal` cancellation, and thrown-error isolation, producing a deterministic `HealthReport` for Kubernetes probes, diagnostics, and monitoring exporters. It solves tightly coupled health endpoints, uncaught probe exceptions crashing reports, and dependency failures accidentally triggering process restarts. It is for service authors across Node.js, Bun, Next.js, and Edge runtimes.
+
+What it is not:
+
+- Does not start an HTTP server or register framework routes.
+- Does not import Next.js, Payload, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation`.
+- Does not make database, cache, or HTTP failures fail liveness by default.
+- Does not protect diagnostics routes; route protection belongs to your HTTP layer or `@nexload-sdk/healthcheck-next`.
+
+## Philosophy
+
+When modifying this package:
+
+1. Keep the root package runtime-neutral and lightweight.
+2. Do not import Payload, Next.js, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation` from root.
+3. `HealthManager.run()` must not reject because one check failed.
+4. Every check receives an `AbortSignal`.
+5. Every check result includes `observedAt` and `durationMs`.
+6. Metrics should be raw numbers, booleans, strings, or null.
+7. Dependency checks affect readiness, not liveness, by default.
+8. Diagnostics must be protected.
+9. Container limits must prefer cgroup v2/v1 over host OS values.
+10. Prometheus labels must stay low-cardinality.
+
+Built-in defaults avoid heavy diagnostics and high-cardinality metric labels.
+
+- **Runtime-neutral core:** Zero external dependencies; runtime-specific probes live in separate adapter packages (`-node`, `-bun`, `-payload`).
+- **Checks vs. collectors:** Checks determine aggregate health status (`ok`, `degraded`, `unhealthy`); collectors gather quantitative telemetry without altering status.
+- **Fault isolation:** A thrown or timed-out check never rejects `health.run()`; every check receives an `AbortSignal` and records `observedAt` and `durationMs`.
+- **Safe by default:** Public JSON (`toHealthJson`, `stringifyHealthJson`) suppresses error messages, causes, and details unless explicitly enabled.
+
+```mermaid
+flowchart TB
+  M["createHealthManager()"] --> C["Checks (liveness / readiness / startup / diagnostics)"]
+  M --> MC["Metric Collectors"]
+  C --> R["HealthReport"]
+  MC --> R
+  R --> J["stringifyHealthJson()"]
+  R --> P["@nexload-sdk/healthcheck-prometheus"]
+  R --> O["@nexload-sdk/healthcheck-otel"]
+  R --> N["@nexload-sdk/healthcheck-next"]
+```
 
 ## Install
 
 ```bash
 pnpm add @nexload-sdk/healthcheck
+# or
+npm install @nexload-sdk/healthcheck
+# or
+yarn add @nexload-sdk/healthcheck
+# or
+bun add @nexload-sdk/healthcheck
 ```
 
 Common integrations:
@@ -40,6 +92,12 @@ pnpm add @nexload-sdk/healthcheck-next
 pnpm add @nexload-sdk/healthcheck-prometheus
 pnpm add @nexload-sdk/healthcheck-payload payload
 ```
+
+`payload` is an optional peer dependency of `@nexload-sdk/healthcheck-payload`; the root package does not depend on it.
+
+| Package | Range | Required / Optional |
+| --- | --- | --- |
+| *(none)* | — | No peer dependencies |
 
 ## Quick start
 
@@ -67,22 +125,12 @@ const report = await health.run("readiness");
 console.log(report.status);
 ```
 
-## Core concepts
+## Usage
 
-Scopes:
+### Node.js setup
 
-| Scope | Purpose | Dependency failures |
-|---|---|---|
-| `liveness` | Process should keep running. | No, not by default. |
-| `readiness` | Service can receive traffic. | Yes. |
-| `startup` | Startup has completed. | Yes. |
-| `diagnostics` | Protected operational detail. | Usually non-critical. |
-
-Checks affect health status. Collectors add monitoring data without changing status unless you explicitly model them as checks.
-
-Default HTTP mapping is `ok -> 200`, `degraded -> 200`, `unhealthy -> 503`.
-
-## Node.js setup
+<details>
+<summary>Show example</summary>
 
 ```ts
 import { createHealthManager, memoryCheck, shutdownCheck } from "@nexload-sdk/healthcheck";
@@ -108,7 +156,12 @@ export const health = createHealthManager({
 });
 ```
 
-## Bun setup
+</details>
+
+### Bun setup
+
+<details>
+<summary>Show example</summary>
 
 ```ts
 import { createHealthManager, shutdownCheck } from "@nexload-sdk/healthcheck";
@@ -126,7 +179,12 @@ export const health = createHealthManager({
 });
 ```
 
-## Next.js App Router setup
+</details>
+
+### Next.js App Router setup
+
+<details>
+<summary>Show example</summary>
 
 Install:
 
@@ -173,9 +231,13 @@ export const { GET, HEAD } = createNextHealthRoute(health, {
 });
 ```
 
-Diagnostics should be protected:
+Create a protected diagnostics route (configure the proxy to strip and set the trusted forwarding header):
 
 ```ts
+import { createNextHealthRoute } from "@nexload-sdk/healthcheck-next";
+import { health } from "@/lib/health";
+
+export const runtime = "nodejs";
 export const { GET, HEAD } = createNextHealthRoute(health, {
   scope: "diagnostics",
   format: "json",
@@ -188,37 +250,18 @@ export const { GET, HEAD } = createNextHealthRoute(health, {
 });
 ```
 
-## Docker and container resource detection
+</details>
 
-`@nexload-sdk/healthcheck-node` reads cgroup v2 and v1 files before using Node or OS fallbacks.
+### Docker and container resource detection
 
-It reports:
+[healthcheck-node](../node/README.md) reads cgroup v2/v1 limits; its Node runtime memory adapter falls back to process and OS values when needed. `os.totalmem()` can describe the host rather than the container. Snapshots include memory current and limit bytes, usage ratio, CPU quota, cpuset CPUs, effective CPU count, cgroup version, source, and confidence.
 
-- memory current bytes
-- memory limit bytes
-- memory usage ratio
-- CPU quota CPUs
-- cpuset CPUs
-- effective CPU count
-- cgroup version
-- source and confidence
+### Monitoring exporters
 
-This matters because `os.totalmem()` can describe the host, not the container.
+<details>
+<summary>Show example</summary>
 
-## Kubernetes probes
-
-Recommended mapping:
-
-```txt
-/livez       -> health.run("liveness")
-/readyz      -> health.run("readiness")
-/startupz    -> health.run("startup")
-/diagnostics -> health.run("diagnostics") with protection
-```
-
-Do not put database, cache, or external HTTP checks in liveness unless you intentionally want those failures to restart the process.
-
-## Monitoring exporters
+Run `const report = await health.run("diagnostics")` with your configured manager before using these serializers.
 
 JSON:
 
@@ -258,9 +301,48 @@ OpenTelemetry-friendly transforms:
 
 ```ts
 import { toOtelMetricRecords, toOtelResourceAttributes } from "@nexload-sdk/healthcheck-otel";
+
+const records = toOtelMetricRecords(report);
+const attributes = toOtelResourceAttributes(report);
 ```
 
-## Custom checks
+</details>
+
+### Payload integration
+
+<details>
+<summary>Show example</summary>
+
+```ts
+import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+import { getPayload } from "payload";
+import config from "@payload-config";
+
+const payload = await getPayload({ config });
+
+const check = payloadHealthCheck(payload, {
+  collection: "users",
+  limit: 1,
+  depth: 0,
+});
+```
+
+Use a small deterministic collection. Payload is an optional peer dependency of the Payload package only.
+
+</details>
+
+### Scopes and Kubernetes probes
+
+| Scope | Purpose | Dependency failures | Recommended route |
+| --- | --- | --- | --- |
+| `liveness` | Process should keep running | No, not by default | `/livez` |
+| `readiness` | Service can receive traffic | Yes | `/readyz` |
+| `startup` | Startup has completed | Yes | `/startupz` |
+| `diagnostics` | Protected operational detail | Usually non-critical | `/diagnostics` (protected) |
+
+Default HTTP status mapping (`DEFAULT_HTTP_STATUS_POLICY`): `ok -> 200`, `degraded -> 200`, `unhealthy -> 503`. Use `STRICT_READINESS_HTTP_STATUS_POLICY` to map `degraded -> 503`.
+
+### Custom checks and collectors
 
 ```ts
 import { defineHealthCheck } from "@nexload-sdk/healthcheck";
@@ -283,75 +365,103 @@ const licenseCheck = defineHealthCheck({
 });
 ```
 
-## Security and redaction
-
-Public probe routes should return minimal data. Diagnostics and metrics can expose runtime versions, process metrics, dependency names, and failure details. Protect them with authentication, private networking, IP allowlists, or reverse-proxy rules.
-
-Never expose:
-
-- environment variables
-- secrets
-- authorization headers
-- cookies
-- database URLs
-- connection strings
-- raw stack traces in public responses
-
-## Payload integration
+### HTTP dependency checks and JSON serialization
 
 ```ts
-import { payloadHealthCheck } from "@nexload-sdk/healthcheck-payload";
+import { httpCheck, stringifyHealthJson } from "@nexload-sdk/healthcheck";
 
-const check = payloadHealthCheck(payload, {
-  collection: "users",
-  limit: 1,
-  depth: 0,
+const upstream = httpCheck("catalog-api", "https://catalog.internal/healthz", {
+  timeoutMs: 1500,
 });
+
+// Public-safe JSON output:
+const body = stringifyHealthJson(report, { includeDetails: false, redact: true });
 ```
 
-Use a small deterministic collection. Payload is an optional peer dependency of the Payload package only.
+### Troubleshooting error codes
 
-## Performance model
+- `CHECK_TIMEOUT`: The check exceeded its timeout or ignored cancellation.
+- `CHECK_THROWN`: The check threw; the report stayed valid.
+- `HEALTHCHECK_DEPENDENCY_UNAVAILABLE`: An HTTP dependency could not be reached.
+- `HEALTHCHECK_ROUTE_UNAUTHORIZED`: A protected route rejected the request.
+- `HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE`: Container resource data could not be read.
 
-The manager runs checks with a configurable concurrency limit, applies timeout/cancellation, and prevents a thrown check from rejecting the whole report. Built-in defaults avoid heavy diagnostics and avoid high-cardinality metric labels.
+## API
 
-Set `defaults.unhealthyOnTimeout: false` only when a timed-out check should degrade the report instead of making it unhealthy. The default is `true`.
+### Root entry (`@nexload-sdk/healthcheck`)
 
-Profiles are context hints passed to checks and collectors. They do not filter a report automatically. Use `toHealthJson()` or `stringifyHealthJson()` to control response details and redaction.
+| Export | Kind | Summary |
+| --- | --- | --- |
+| `createHealthManager` | `function` | Creates a `HealthManager` instance |
+| `defineHealthCheck` | `function` | Typed helper for defining checks |
+| `defineMetricCollector` | `function` | Typed helper for defining collectors |
+| `runtimeInfoCheck`, `shutdownCheck`, `startupCheck`, `timerLagCheck`, `memoryCheck`, `httpCheck` | `function` | Built-in runtime-neutral health checks |
+| `runtimeMetricsCollector` | `function` | Built-in runtime metrics collector |
+| `summarizeChecks`, `aggregateStatus` | `function` | Status aggregation and summary helpers |
+| `statusToHttpStatus`, `DEFAULT_HTTP_STATUS_POLICY`, `STRICT_READINESS_HTTP_STATUS_POLICY` | `function` / `const` | HTTP status mapping |
+| `toHealthJson`, `stringifyHealthJson` | `function` | Redacted JSON serialization |
+| `genericRuntimeAdapter`, `autoRuntimeAdapter` | `function` | Runtime adapters |
+| `createAbortSignal`, `sleep` | `function` | Timeout and cancellation utilities |
+| `HEALTH_ERROR_CODES` / `HealthErrorCode` | `const` / `type` | Standard error code constants and union |
+| `HealthManager`, `HealthReport`, `HealthScope`, `HealthStatus`, `RuntimeAdapter`, etc. | `type` | TypeScript types (`export type *`) |
 
-Public JSON suppresses error and cause messages by default. Enable `redaction.includeErrorMessage` only after access control has made the response private.
+## Configuration
 
-## Migration from previous versions
+`createHealthManager(options)` accepts:
 
-Breaking changes:
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `service` | `ServiceIdentity` | Required | Service `{ name, version?, environment?, instanceId? }` |
+| `runtime` | `RuntimeAdapter \| "auto"` | `"auto"` | Runtime adapter or `"auto"` detection |
+| `environment` | `EnvironmentIdentity` | `undefined` | Optional deployment environment metadata |
+| `defaults.timeoutMs` | `number` | `1000` | Default per-check timeout in milliseconds |
+| `defaults.concurrency` | `number` | `8` | Maximum concurrent checks |
+| `defaults.unhealthyOnTimeout` | `boolean` | `true` | Set `false` to mark timed-out checks `degraded` instead of `unhealthy` |
+| `defaults.includeStack` | `boolean` | `false` | Include error stack traces in raw results |
+| `defaults.profile` | `HealthDataProfile` | `"summary"` | Default context profile |
+| `profiles` | Per-scope `HealthDataProfile` | `undefined` | Context hints for checks and collectors |
+| `redaction` | Redaction options | `undefined` | Deprecated and ignored by the manager; pass `redaction` to `toHealthJson` or `stringifyHealthJson` instead |
+| `checks` | `readonly HealthCheckDefinition[]` | `[]` | Initial checks to register |
+| `collectors` | `readonly MetricCollectorDefinition[]` | `[]` | Initial collectors to register |
+
+## Runtime and compatibility
+
+- **Module format:** Dual ESM (`import`) and CJS (`require`).
+- **Runtimes:** Node.js, Bun, Edge, and browsers.
+
+## Caveats
+
+> [!CAUTION]
+> Never put database, cache, or external HTTP checks in `liveness` unless you intentionally want transient dependency failures to restart the process.
+
+> [!WARNING]
+> Public probe routes should return minimal data. Diagnostics and metrics can expose runtime versions, process metrics, dependency names, and failure details; protect them with authentication, private networking, IP allowlists, or reverse-proxy rules. Public JSON suppresses error messages and causes by default. Only enable `redaction.includeErrorMessage` or `includeDetails: true` on authenticated or private-network routes, and never expose environment variables, secrets, cookies, authorization headers, database URLs, connection strings, or raw stack traces.
+
+> [!NOTE]
+> `profiles` are context hints passed to checks and collectors; they do not filter report output automatically. Use `toHealthJson()` or `stringifyHealthJson()` to control response details.
+
+## Migration
+
+### Major release notes
 
 - `HealthCheckType` is replaced by `HealthScope`.
 - Class-based checks are replaced by `defineHealthCheck()` factories.
 - `HealthManager` construction is replaced by `createHealthManager()`.
-- `NetworkHealthCheck` is replaced by `httpCheck()` plus Node `tcpCheck()` and `dnsCheck()`.
+- `NetworkHealthCheck` is replaced by `httpCheck()` plus `@nexload-sdk/healthcheck-node` `tcpCheck()` and `dnsCheck()`.
 - Payload integration moved to `@nexload-sdk/healthcheck-payload`.
+- Core types are re-exported with `export type *` (type positions only; use `import type`, required under `verbatimModuleSyntax`).
 - Root no longer depends on `payload`, `ping`, `systeminformation`, logger, or env packages.
-- Metrics are raw numbers/booleans/null where possible.
+- Metrics use raw numbers, booleans, or null where possible.
 
-## Troubleshooting
+## Related packages
 
-- `CHECK_TIMEOUT`: the check exceeded its timeout or ignored cancellation.
-- `CHECK_THROWN`: the check threw; the report stayed valid.
-- `HEALTHCHECK_DEPENDENCY_UNAVAILABLE`: an HTTP dependency could not be reached.
-- `HEALTHCHECK_ROUTE_UNAUTHORIZED`: a protected route rejected the request.
-- `HEALTHCHECK_CONTAINER_LIMIT_UNAVAILABLE`: container resource data could not be read.
+- [healthcheck-node](../node/README.md) — Node.js runtime, cgroup, TCP, and DNS probes
+- [healthcheck-bun](../bun/README.md) — Bun runtime adapter and server metrics
+- [healthcheck-next](../next/README.md) — Next.js App Router route handlers
+- [healthcheck-prometheus](../prometheus/README.md) — Prometheus / OpenMetrics text serializer
+- [healthcheck-otel](../otel/README.md) — OpenTelemetry resource and metric mappers
+- [healthcheck-payload](../payload/README.md) — Payload CMS readiness check
 
-## LLM-friendly contract summary
+## License
 
-When modifying this package:
-
-1. Keep the root package runtime-neutral and lightweight.
-2. Do not import Payload, Next.js, Prometheus, OpenTelemetry, Bun, `ping`, or `systeminformation` from root.
-3. `HealthManager.run()` must not reject because one check failed.
-4. Every check receives an `AbortSignal`.
-5. Every check result includes `observedAt` and `durationMs`.
-6. Metrics should be raw numbers, booleans, strings, or null.
-7. Dependency checks affect readiness, not liveness, by default.
-8. Diagnostics must be protected.
-9. Container limits must prefer cgroup v2/v1 over host OS values.
-10. Prometheus labels must stay low-cardinality.
+MIT

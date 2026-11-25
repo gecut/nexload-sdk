@@ -1,141 +1,270 @@
 # @nexload-sdk/logger
 
-Configure-once structured logging for Node.js, Bun, Edge and browsers, built on pino.
+**Configure-once structured logging for Node.js, Bun, Edge, and browsers, built on Pino.**
+
+[![npm version](https://img.shields.io/npm/v/@nexload-sdk/logger)](https://www.npmjs.com/package/@nexload-sdk/logger)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Module: ESM + CJS](https://img.shields.io/badge/module-ESM%20%2B%20CJS-green.svg)
+![Runtime: Node | Bun | Edge | Browser](https://img.shields.io/badge/runtime-Node%20%7C%20Bun%20%7C%20Edge%20%7C%20Browser-lightgrey.svg)
+
+> [!IMPORTANT]
+> Version 5.0.0 is pending in `.changeset/`: log levels in structured output are lowercase (`LOG_LEVEL` accepts uppercase), `NexloadLogger`, custom renderers, and `./log-test` are removed, and `getPayloadLoggerConfig()` (with `PayloadLoggerConfig`) is added to bridge SDK options into Payload's logger.
+
+## Table of contents
+
+- [Overview](#overview)
+- [Philosophy](#philosophy)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Usage](#usage)
+- [API](#api)
+- [Configuration](#configuration)
+- [Runtime and compatibility](#runtime-and-compatibility)
+- [Caveats](#caveats)
+- [Migration](#migration)
+- [Related packages](#related-packages)
+- [License](#license)
+
+## Overview
+
+`@nexload-sdk/logger` provides a single configure-once structured logger built on `pino` for server and client runtimes. It solves duplicated logger setup, inconsistent redaction, and broken `Error` serialization across Next.js, Node.js, Bun, and Payload CMS services. It is for application and package authors who want safe defaults, request-scoped context on Node/Bun, and isolated test capture.
+
+What it is not:
+
+- Not a log shipping agent or external transport collector (no Datadog, Loki, or OpenTelemetry transport built in).
+- Not a distributed tracing SDK; it only propagates an `x-trace-id` header and AsyncLocalStorage bindings.
+- Not an arbitrary-depth object scrubber; default redaction stops one level below the top-level log object.
+
+## Philosophy
+
+- **Configure once at startup:** A lazy proxy lets modules import `logger` at load time while binding to the runtime configuration set once by `configureLogger()`.
+- **Safe defaults by default:** Sensitive keys (`password`, `token`, `secret`, `apiKey`, `authorization`, `cookie`, `otp`, `phone`, `mobile`, `merchant`), `Error` serialization, and ISO timestamps are enabled without boilerplate.
+- **Identifiers over payloads:** Context propagation and child bindings carry `requestId`, `traceId`, and entity IDs rather than full request bodies or credentials.
+- **Explicit runtime boundaries:** Conditional exports route `browser`, `edge-light`, and `worker` to a browser-safe build while keeping Node `AsyncLocalStorage` isolated on the server.
 
 ## Install
 
 ```bash
 pnpm add @nexload-sdk/logger
+# or
+npm install @nexload-sdk/logger
+# or
+yarn add @nexload-sdk/logger
+# or
+bun add @nexload-sdk/logger
 ```
 
-## Configure once
+This package has no required or optional peer dependencies (`pino` is a direct dependency).
 
-Configure each runtime at startup. For Next.js, use `instrumentation.ts`:
+| Package | Range | Required / Optional |
+| --- | --- | --- |
+| *(none)* | — | No peer dependencies |
+
+## Quick start
+
+Configure logging once at your service entry point, then import the `logger` proxy anywhere:
+
+```ts
+import { configureLogger, logger } from "@nexload-sdk/logger";
+
+configureLogger({ service: "shop-api", release: process.env.RELEASE });
+
+const log = logger.child({ module: "orders" });
+log.info({ event: "order.lifecycle.created", orderId: "123" }, "Order created");
+```
+
+## Usage
+
+Before configuration, the lazy logger uses environment defaults; children follow later configuration, including forced replacements. The `SERVICE_NAME` / `"unknown"` fallback applies to the unconfigured lazy logger and `createTestLogger`. Base output includes `service`, optional release, instance and environment, `pid`, and ISO `time`.
+
+### Next.js instrumentation
+
+Register the logger in `instrumentation.ts` before handling requests:
 
 ```ts
 export async function register() {
-  const { configureLogger } = await import('@nexload-sdk/logger');
-  configureLogger({ service: 'shop-web', release: process.env.RELEASE });
+  const { configureLogger } = await import("@nexload-sdk/logger");
+  configureLogger({ service: "shop-web", release: process.env.RELEASE });
 }
 ```
 
-For a Node.js or Bun service entry point:
+### Payload CMS logger bridge
+
+Call `configureLogger()` before `buildConfig()`, then pass `getPayloadLoggerConfig()` to `config.logger`:
 
 ```ts
-import { configureLogger } from '@nexload-sdk/logger';
+import { configureLogger, getPayloadLoggerConfig } from "@nexload-sdk/logger";
+import { buildConfig } from "payload";
 
-configureLogger({ service: 'shop-api', release: process.env.RELEASE });
-```
+configureLogger({ service: "cms" });
 
-`configureLogger` returns a lazy proxy that normalizes `Error` first arguments, as do the shared proxy and their children. A second call returns the existing proxy and emits a warning with `event: "logger.reconfigure.ignored"`. Set `force: true` to replace the configuration. Before configuration, the lazy logger uses environment defaults; children follow later configuration, including forced replacements.
-
-For Payload on Node.js, call `configureLogger()` before `buildConfig()`, then pass `getPayloadLoggerConfig()` as `config.logger`. Payload creates its own pino logger with the SDK's redaction, serializers, request context, base fields, timestamps, level, and explicit destination. Without an explicit destination, Payload writes JSON to its default stream. The bridge maps the SDK's `success` threshold to `warn`, the next standard pino level. Rebuild Payload's configuration to apply a forced SDK reconfiguration. The return type is exported as `PayloadLoggerConfig`.
-
-```ts
-import { configureLogger, getPayloadLoggerConfig } from '@nexload-sdk/logger';
-import { buildConfig } from 'payload';
-
-configureLogger({ service: 'cms' });
-export default buildConfig({ logger: getPayloadLoggerConfig() });
-```
-
-Options include `level`, `release`, `instance`, `environment`, `redact`, `pretty`, `destination`, `base`, and `force`. Base output includes `service`, optional release, instance and environment, `pid`, and ISO `time`.
-
-## Logging anywhere
-
-```ts
-import logger from '@nexload-sdk/logger';
-
-const log = logger.child({ module: 'orders' });
-log.info({ event: 'order.lifecycle.created', orderId: '123' }, 'Order created');
-```
-
-The named `logger` export is the same proxy. Level methods accept an object, an `Error`, or a message string, followed by an optional message. Use `isLevelEnabled(level)` to check filtering.
-
-## Levels
-
-| Level | Value | Use |
-| --- | ---: | --- |
-| trace | 10 | Very verbose diagnostics |
-| debug | 20 | Diagnostics |
-| info | 30 | Lifecycle and request summaries |
-| success | 35 | Business milestones |
-| warn | 40 | Handled degradation or retry |
-| error | 50 | Unexpected failure needing attention |
-| fatal | 60 | Process cannot continue |
-
-Structured output level labels are lowercase; the Node pretty stream displays them in uppercase. The default is `LOG_LEVEL`, otherwise `info` in production and `debug` elsewhere; uppercase `LOG_LEVEL` values are accepted.
-
-## Redaction
-
-By default, `password`, `token`, `secret`, `apiKey`, `authorization`, `cookie`, `otp`, `phone`, `mobile`, and `merchant` are redacted at the top level and one level below it. The defaults also cover `req.headers.authorization`, `req.headers.cookie`, `headers.authorization`, `headers.cookie`, `body`, and `req.body`. The default censor is `[REDACTED]`. `DEFAULT_REDACT_PATHS` exposes the list.
-
-```ts
-configureLogger({
-  service: 'shop-api',
-  redact: { paths: ['customer.nationalCode'] },
+export default buildConfig({
+  logger: getPayloadLoggerConfig(),
 });
 ```
 
-Paths extend the defaults; `replaceDefaults: true` replaces them, and `censor` changes the replacement string. There is no recursive wildcard: a secret two levels deep, such as `user.profile.phone`, is **not** redacted by the default key patterns. Add an explicit path and avoid logging sensitive data in the first place.
+Payload creates its own Pino logger using the SDK's redaction, error serializer, request context mixin, base fields, ISO timestamps, level, and explicit `destination`.
 
-## Errors
+### Log levels
+
+| Level | Value | Use |
+| --- | ---: | --- |
+| `trace` | 10 | Very verbose diagnostics |
+| `debug` | 20 | Diagnostics |
+| `info` | 30 | Lifecycle and request summaries |
+| `success` | 35 | Business milestones |
+| `warn` | 40 | Handled degradation or retry |
+| `error` | 50 | Unexpected failure needing attention |
+| `fatal` | 60 | Process cannot continue |
+
+Structured JSON uses lowercase level labels; the Node pretty stream displays them in uppercase.
+
+Level methods accept an object, an `Error`, or a string message, followed by an optional message. Use `isLevelEnabled(level)` to guard expensive log construction.
+
+### Redaction
+
+By default, `DEFAULT_REDACT_PATHS` redacts `password`, `token`, `secret`, `apiKey`, `authorization`, `cookie`, `otp`, `phone`, `mobile`, and `merchant` at the top level and one level below it, plus `req.headers.authorization`, `req.headers.cookie`, `headers.authorization`, `headers.cookie`, `body`, and `req.body`, using `[REDACTED]` as the censor.
 
 ```ts
+import { configureLogger } from "@nexload-sdk/logger";
+
+configureLogger({
+  service: "shop-api",
+  redact: { paths: ["customer.nationalCode"] },
+});
+```
+
+Set `replaceDefaults: true` to replace `DEFAULT_REDACT_PATHS`, or `censor` to change the replacement string.
+
+### Error serialization
+
+Pass an `Error` under `err` or as the first argument:
+
+```ts
+import { logger } from "@nexload-sdk/logger";
+
 try {
   await performOperation();
 } catch (err) {
-  logger.error({ err, event: 'order.operation.failed' }, 'Operation failed');
+  logger.error({ err, event: "order.operation.failed" }, "Operation failed");
 }
-// An Error as the first argument is also normalized under `err`:
-logger.error(new Error('Operation failed'));
+
+logger.error(new Error("Operation failed"));
 ```
 
-The `err` serializer includes type, a message capped at 500 characters, a code matching `/^[A-Z][A-Z0-9_]{1,99}$/`, and up to two nested causes (three error records including the root). Non-Error values become a type and string message. Stack traces appear only outside production.
+The `err` serializer records the error type, a message capped at 500 characters, a `code` matching `/^[A-Z][A-Z0-9_]{1,99}$/`, and up to two nested causes (three error records total). Stack traces appear only outside production. Non-`Error` values become `{ type, message }`, using `typeof` and the string value capped at 500 characters.
 
-## Request context and trace
+### Request context and trace IDs
 
-In Node.js, context is preserved across asynchronous calls; nested contexts merge with inner values taking precedence. `resolveTraceId` accepts `Headers` or a string record, reuses valid `x-trace-id` values, and otherwise generates a UUID. `TRACE_HEADER` names the header.
+On Node.js and Bun, `withLogContext` preserves bindings across async calls; nested calls merge with inner bindings taking precedence:
 
 ```ts
-import { logger, resolveTraceId, traceHeaders, withLogContext } from '@nexload-sdk/logger';
+import {
+  logger,
+  resolveTraceId,
+  traceHeaders,
+  withLogContext,
+} from "@nexload-sdk/logger";
 
 export async function GET(req: Request) {
   const traceId = resolveTraceId(req.headers);
   return withLogContext({ requestId: traceId, traceId }, async () => {
-    logger.info({ event: 'request.lifecycle.started' }, 'Request started');
-    return fetch('https://example.com/api', { headers: traceHeaders() });
+    logger.info({ event: "request.lifecycle.started" }, "Request started");
+    return fetch("https://example.com/api", { headers: traceHeaders() });
   });
 }
 ```
 
-`getLogContext()` returns the current bindings; `traceHeaders()` returns the trace header when a trace ID is present, otherwise an empty object.
+### Testing with `@nexload-sdk/logger/testing`
 
-## Edge and browser
-
-The `browser`, `edge-light`, and `worker` export conditions select the browser entry; `import` and `require` select the Node entry. The `testing` subpath has Node import and require entries. The browser and Edge entry has the same public API but `withLogContext` is pass-through and `getLogContext()` returns an empty object. Pass identifiers explicitly where context propagation is required. Browser output uses pino browser records; `pretty` and `destination` do not select the server output stream there.
-
-## Testing
+Use `createTestLogger` to capture parsed JSON log entries in isolation from the global logger:
 
 ```ts
-import { createTestLogger } from '@nexload-sdk/logger/testing';
+import { createTestLogger } from "@nexload-sdk/logger/testing";
 
-const { logger, entries, clear } = createTestLogger({ service: 'test' });
-logger.info({ orderId: '123' }, 'Created');
-console.log(entries[0]);
+const { logger, entries, clear } = createTestLogger({ service: "test" });
+logger.info({ orderId: "123" }, "Created");
+// entries[0] -> { level: "info", service: "test", orderId: "123", msg: "Created", ... }
 clear();
 ```
 
-The test logger is isolated from global configuration and captures parsed entries.
+## API
 
-## Migration from v4
+### Root entry (`@nexload-sdk/logger`)
 
-- Replace `NexloadLogger` and `createGlobalLogger` with `configureLogger` and the `logger` proxy; use object bindings with `child`.
-- Replace the removed `@nexload-sdk/logger/log-test` helper with `@nexload-sdk/logger/testing` and `createTestLogger`.
-- Custom renderer APIs are removed. Configure `pretty` or `destination` instead.
-- Output level labels are lowercase. `LOG_LEVEL` accepts uppercase values during migration.
-- Review redaction paths and error handling: log errors under `err` or pass an `Error` first.
+| Export | Kind | Summary |
+| --- | --- | --- |
+| `logger` | `const` | Lazy `Logger` proxy (also exported as `default`) |
+| `configureLogger` | `function` | Configures the global logger once and returns the proxy |
+| `getPayloadLoggerConfig` | `function` | Returns `PayloadLoggerConfig` for Payload's `config.logger` |
+| `withLogContext` | `function` | Runs a callback with `AsyncLocalStorage` bindings (pass-through on Edge/browser) |
+| `getLogContext` | `function` | Returns current context bindings (`{}` on Edge/browser) |
+| `DEFAULT_REDACT_PATHS` | `const` | Default Pino redaction paths |
+| `TRACE_HEADER` | `const` | Trace header name (`"x-trace-id"`) |
+| `resolveTraceId` | `function` | Reuses a valid `x-trace-id` (8–64 characters of `[A-Za-z0-9-]`) from `Headers` or a string record; otherwise generates a UUID |
+| `traceHeaders` | `function` | Returns `{ "x-trace-id": traceId }` when active, otherwise `{}` |
+| `PayloadLoggerConfig` | `type` | Return shape of `getPayloadLoggerConfig()` |
+| `Logger` | `type` | Logger interface (`trace`..`fatal`, `child`, `isLevelEnabled`) |
+| `LoggerOptions` | `type` | Configuration options accepted by `configureLogger` |
+| `LogLevel` | `type` | Union of supported level names |
+| `LogBindings` | `type` | Record of structured context bindings |
+| `LogEntry` | `type` | Parsed JSON log record shape |
 
-## Runtime constraints
+### Testing subpath (`@nexload-sdk/logger/testing`)
 
-Node.js and Bun support request context; Edge and browser do not. On Node, pretty output defaults to enabled outside production and JSON lines in production; an explicit `destination` takes precedence. `SERVICE_NAME` (default `unknown`), `LOG_LEVEL`, and `RELEASE` provide environment fallbacks; `NODE_ENV` controls production defaults.
+| Export | Kind | Summary |
+| --- | --- | --- |
+| `createTestLogger` | `function` | Creates an isolated `{ logger, entries, clear }` test harness |
+
+## Configuration
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `service` | `string` | Required | Service name included in `base` fields |
+| `level` | `LogLevel` | `LOG_LEVEL`, else `"info"` (prod) / `"debug"` | Minimum log threshold |
+| `release` | `string` | `process.env.RELEASE` | Optional release identifier |
+| `instance` | `string` | `undefined` | Optional instance identifier |
+| `environment` | `string` | `undefined` | Optional environment label |
+| `redact` | `{ paths?: string[]; replaceDefaults?: boolean; censor?: string }` | `DEFAULT_REDACT_PATHS`, `"[REDACTED]"` | Redaction paths and replacement censor |
+| `pretty` | `boolean` | `NODE_ENV !== "production"` | Enables pretty output on Node when no `destination` is set |
+| `destination` | `{ write(line: string): void }` | `undefined` | Custom output stream; overrides `pretty` |
+| `base` | `Record<string, string \| number \| boolean>` | `undefined` | Extra base fields merged into every record |
+| `force` | `boolean` | `false` | Replaces an existing configuration when `true` |
+
+## Runtime and compatibility
+
+- **Module format:** Dual ESM (`import`) and CJS (`require`) via conditional `exports`.
+- **Node.js and Bun:** Full support, including `AsyncLocalStorage` request context, pretty stream, and `destination`.
+- **Edge and Browser:** Selected automatically via `browser`, `edge-light`, and `worker` export conditions. Uses Pino browser object output; `pretty` and `destination` do not configure a server stream, `withLogContext` is pass-through, and `getLogContext()` returns `{}`.
+- **Testing subpath (`./testing`):** Node ESM and CJS only.
+- **Environment fallbacks:** Reads `SERVICE_NAME`, `LOG_LEVEL` (case-insensitive), `RELEASE`, and `NODE_ENV`.
+
+## Caveats
+
+> [!WARNING]
+> Default redaction only matches keys at the top level and one level deep. A nested key two levels deep, such as `user.profile.phone`, is **not** redacted unless you add an explicit path.
+
+> [!WARNING]
+> Calling `configureLogger()` a second time without `force: true` logs a warning (`event: "logger.reconfigure.ignored"`) and returns the existing proxy. With `getPayloadLoggerConfig()`, you must rebuild Payload's config to pick up a forced reconfiguration.
+
+> [!NOTE]
+> `getPayloadLoggerConfig()` maps the SDK's `success` threshold (`35`) to `warn` (`40`)—the next standard Pino level—because Payload's logger uses standard Pino levels. Without an explicit `destination`, Payload writes JSON to its default stream.
+
+## Migration
+
+### From v4 to v5
+
+- Replace `NexloadLogger` and `createGlobalLogger` with `configureLogger` and the `logger` proxy; pass object bindings to `child()`.
+- Replace the removed `@nexload-sdk/logger/log-test` subpath with `createTestLogger` from `@nexload-sdk/logger/testing`.
+- Remove custom renderer APIs; use `pretty` or `destination` instead.
+- Expect lowercase level labels in structured JSON output (`LOG_LEVEL` still accepts uppercase values).
+- Pass errors under `err` or as the first argument to log methods.
+
+## Related packages
+
+- [payload-hooks](../payload-hooks/README.md) — Payload collection audit logging built on `@nexload-sdk/logger`
+- [payload-preset](../payload-preset/README.md) — Composed Payload preset that bridges `@nexload-sdk/logger` into `config.logger`
+
+## License
+
+MIT

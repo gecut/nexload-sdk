@@ -1,24 +1,67 @@
 # @nexload-sdk/payload-schema
 
-Define intrinsic field validation and normalization once, then reuse it as ordinary Payload fields and ordinary Zod schemas.
+**Define Payload CMS field validation and normalization once, then compile to Payload fields and Zod 4 schemas.**
 
-[Documentation](https://gecut.github.io/nexload-sdk/packages/payload-schema/) ·
-[API reference](https://gecut.github.io/nexload-sdk/packages/payload-schema/api/)
+[Documentation](https://gecut.github.io/nexload-sdk/packages/payload-schema/) · [API reference](https://gecut.github.io/nexload-sdk/packages/payload-schema/api/)
+
+[![npm version](https://img.shields.io/npm/v/@nexload-sdk/payload-schema)](https://www.npmjs.com/package/@nexload-sdk/payload-schema)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Module: ESM](https://img.shields.io/badge/module-ESM-green.svg)
+![Runtime: Node | Edge | Browser | Payload 3](https://img.shields.io/badge/runtime-Node%20%7C%20Edge%20%7C%20Browser%20%7C%20Payload%203-lightgrey.svg)
+
+> [!IMPORTANT]
+> Version 3.0.0 is pending in `.changeset/payload-schema-3.md`: `entity.payload.*` moves to `payloadFields(entity).*` from `@nexload-sdk/payload-schema/payload`, Zod `>=4.1.0 <5.0.0` is required, `field.blocks()` and `pick(..., { optional: "auto" })` are added, and built-in normalizations use `.overwrite()` for `z.encode` safety.
+
+## Table of contents
+
+- [Overview](#overview)
+- [Philosophy](#philosophy)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Usage](#usage)
+- [API](#api)
+- [Configuration](#configuration)
+- [Runtime and compatibility](#runtime-and-compatibility)
+- [Caveats](#caveats)
+- [Migration](#migration)
+- [Related packages](#related-packages)
+- [License](#license)
+
+## Overview
+
+`@nexload-sdk/payload-schema` is a single-source-of-truth schema layer for Payload 3 and Zod 4. You define an entity's intrinsic fields once with `defineEntity` and `field` in the browser-safe root entry, derive Zod schemas for forms and APIs via `entity.schema()`, and compile Payload collection fields with `beforeValidate` hooks via `@nexload-sdk/payload-schema/payload` on the server. It is for full-stack TypeScript teams who want forms, RPC contracts, and CMS persistence to share identical validation rules.
+
+What it is not:
+
+- Not a collection or access-control builder; collections, hooks, and persistence types stay in Payload.
+- Not a CRUD DTO generator or populated-relationship modeler.
+- Not an inline Admin UI `validate` generator; server enforcement runs in `beforeValidate`.
+
+## Philosophy
+
+- **Single source of truth:** Intrinsic validation and normalization live in one `defineEntity` definition instead of drifting between frontend Zod schemas and Payload fields.
+- **Browser-safe root, Node-only compiler:** Separating `@nexload-sdk/payload-schema` from `@nexload-sdk/payload-schema/payload` keeps Payload server code out of client bundles.
+- **Codec-safe normalizations:** Built-in normalizations (`trim`, `lowercase`, `uppercase`, `slug`, `date`) use `.overwrite()` so derived schemas work with `z.encode`.
+- **Payload types remain authoritative:** The package compiles fields and Zod schemas without replacing `payload-types.ts`.
 
 ## Install
 
 ```bash
 pnpm add @nexload-sdk/payload-schema payload zod
+# or
+npm install @nexload-sdk/payload-schema payload zod
+# or
+yarn add @nexload-sdk/payload-schema payload zod
+# or
+bun add @nexload-sdk/payload-schema payload zod
 ```
 
-Requires Node `>=20.9.0` (for `/payload`), Payload `>=3.85.0 <4`, and Zod `>=4.1.0 <5`. The package is ESM-only (root entry is browser-safe; `/payload` is Node/Payload-config only).
+| Package | Range | Required / Optional |
+| --- | --- | --- |
+| `payload` | `>=3.85.0 <4.0.0` | Required |
+| `zod` | `>=4.1.0 <5.0.0` | Required |
 
-## Entry Points
-
-- **`@nexload-sdk/payload-schema` (root):** Pure and browser-safe. Contains `defineEntity`, `field`, `defaultIdSchema`, `PayloadSchemaError`, `isPayloadSchemaError`, and definition types (`BlocksFieldOptions`, `BlockDefinitionOptions`, etc.). An entity exposes `name`, `idSchema`, `fields`, `schema()`, and `inspect()`.
-- **`@nexload-sdk/payload-schema/payload`:** Node and Payload config only. Exports `payloadFields(entity)`, which compiles entities into Payload fields carrying `beforeValidate` hooks that throw Payload's `ValidationError`. Rejects non-entities with `PayloadSchemaError` (`code: "INVALID_ENTITY"`).
-
-## Quick Start
+## Quick start
 
 ```ts
 import { defineEntity, field } from "@nexload-sdk/payload-schema";
@@ -30,48 +73,26 @@ export const productEntity = defineEntity({
     title: field.text({ required: true, trim: true }),
     slug: field.slug({ required: true }),
     inventory: field.number({ integer: true, safe: true, defaultValue: 0 }),
-    sections: field.blocks({
-      blocks: {
-        hero: {
-          fields: {
-            headline: field.text({ required: true }),
-          },
-        },
-      },
-      minRows: 1,
-    }),
   },
 });
 
-// Payload Collection configuration (Node-only)
+// Node / Payload config only:
 export const Products = {
   slug: "products",
   fields: payloadFields(productEntity).all(),
 };
-```
 
-`payloadFields(entity)` provides:
-- `.all()`: compiles all entity fields into fresh Payload field definitions.
-- `.field(key)`: compiles a single named field.
-- `.pick(keys)`: compiles a subset of fields.
-
-Each call returns fresh Payload config containers. Canonical normalization also runs for writes through Payload Admin and the Local API.
-
-## Derive Schemas
-
-```ts
-// Using optional: "auto" makes non-required fields optional automatically
+// Browser or server Zod schema:
 export const createProductSchema = productEntity.schema(({ pick }) =>
-  pick(["title", "slug", "inventory", "sections"], {
-    optional: "auto",
-  }),
+  pick(["title", "slug", "inventory"], { optional: "auto" }),
 );
 ```
 
-- With `{ optional: "auto" }`, keys are optional in the derived schema if and only if `required: true` was not set on the field definition.
-- An explicit `required` array (`required: ["inventory"]`) still takes precedence over `optional`.
+## Usage
 
-`entity.schema` can return any Zod schema, not only objects or picks:
+### Deriving Zod schemas
+
+`entity.schema(({ pick, fields, z }) => ...)` can return any Zod schema:
 
 ```ts
 export const titleLengthSchema = productEntity.schema(({ fields }) =>
@@ -79,11 +100,15 @@ export const titleLengthSchema = productEntity.schema(({ fields }) =>
 );
 ```
 
-## Blocks Fields
+With `{ optional: "auto" }`, `pick()` marks fields without `required: true` as optional; an explicit `required` array still takes precedence.
 
-`field.blocks()` defines discriminated block containers:
+### Blocks, groups, and arrays
+
+`field.blocks()` defines discriminated block containers with per-block schemas and child validation hooks:
 
 ```ts
+import { field } from "@nexload-sdk/payload-schema";
+
 const content = field.blocks({
   blocks: {
     hero: {
@@ -104,38 +129,14 @@ const content = field.blocks({
 });
 ```
 
-The canonical schema parses an array of rows discriminated by `blockType`, accepting Payload-managed `id` (`string`) and `blockName` (`string | null`). Each child field retains its own canonical validation hook.
+Block rows form an array discriminated by `blockType`; they also accept Payload-managed `id` (string) and `blockName` (string or null).
 
-Child fields inside a block cannot be named `id`, `blockName`, or `blockType` (these are reserved Payload block properties; configuring them throws `PayloadSchemaError` with code `INVALID_FIELD_CONFIGURATION` at definition time).
+Inside `field.group`, `field.array`, and `field.blocks`, non-required child fields are automatically `nullable().optional()` in the canonical schema so stored documents with `null` or omitted optional keys parse cleanly. Required children remain required and non-nullable.
 
-## Composite Children Optionality
-
-Inside `field.group`, `field.array`, and `field.blocks`, child fields not declared `required: true` are automatically optional and nullable in the canonical schema (`key?: T | null`, wrapped via `child.schema.nullable().optional()`). Stored Payload documents returning `null` for empty fields or omitting optional child keys parse cleanly without requiring explicit `nullable: true` on every child. Required children (`required: true`) remain required and non-nullable.
-
-## Migrating to 3.0
-
-- **Composite child optionality & nullability:** Inside `group`, `array`, and `blocks`, non-required children are optional and nullable (`child.schema.nullable().optional()`), allowing stored documents with `null` or omitted optional child values to parse cleanly.
-- **Reserved block child names:** Child fields in `field.blocks()` cannot be named `id`, `blockName`, or `blockType`; configuring them throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
-- **Payload compilation subpath:** `entity.payload.*` is replaced with `payloadFields(entity).*` imported from `@nexload-sdk/payload-schema/payload`.
-- **Zod 4.1+ requirement:** Zod floor is `>=4.1.0` for codec support (`z.encode`/`z.decode`).
-- **Null pass-through:** Canonical hooks pass `null` through for all fields; Payload validates required presence.
-- **Date acceptance:** Runtime date hook accepts valid `Date` objects and normalizes them to ISO strings.
-- **Codec safety:** Built-in normalizations use `.overwrite()`.
-
-## Null Semantics & Date Handling
-
-- **Null pass-through:** Payload stores empty fields as `null`. Canonical `beforeValidate` hooks pass `null` through unchanged for all fields, exactly like `undefined`. Required fields then fail Payload's own required check ("This field is required.") rather than raising a Zod type error.
-- **Date acceptance:** In `field.date()`, the runtime Payload hook accepts JavaScript `Date` instances and converts valid dates to ISO strings before canonical validation. The derived and canonical schemas remain strict ISO strings.
-
-## Codec Safety
-
-Built-in field normalizations (`trim`, `lowercase`, `uppercase`, `slug`, `date`) use Zod `.overwrite()` rather than unidirectional `.transform()`. This ensures derived schemas can be encoded with `z.encode` (for example, as typed outputs in `@nexload-sdk/payload-operations`).
-
-Custom transformations supplied via `options.schema(...)` are not codec-safe and will fail during `z.encode`.
-
-## Native Escape Hatch
+### Native escape hatch
 
 ```ts
+import { field } from "@nexload-sdk/payload-schema";
 import { z } from "zod";
 
 const location = field.native({
@@ -144,24 +145,72 @@ const location = field.native({
 });
 ```
 
-A native data field without a schema still compiles for Payload but is unavailable to canonical schema derivation. Layout fields remain directly in collection configuration.
+A native data field without a schema compiles for Payload but cannot be used in canonical schema derivation. Keep layout fields directly in collection configuration.
 
-## Defaults
+### Compiling subsets in Payload
 
-- `defaultValue` accepts a static value, validates it during `defineEntity`, and passes the canonical result to Payload.
-- `dynamicDefaultValue` accepts a native Payload function and is forwarded opaquely.
-- Neither option adds Zod `.default()` behavior to derived schemas.
-- Providing both is invalid.
-- Direct assignment to `payload.defaultValue` is reserved.
+`payloadFields(entity)` exposes `.all()`, `.field(key)`, and `.pick(keys)`, each returning fresh Payload field containers.
 
-## Known Limitations
+The compiler rejects non-entities with `PayloadSchemaError` (`INVALID_ENTITY`). Hooks throw Payload `ValidationError` and normalize Payload Admin and Local API writes.
 
-- **No inline Admin validation:** Validation is enforced via `beforeValidate` hooks; inline Admin `validate` functions are not generated.
-- **Custom `options.schema` transforms not codec-safe:** User transforms in `options.schema(...)` cannot be inverted by `z.encode`. Keep them to `.refine()` or `.overwrite()` if schemas will be used in operation outputs.
-- **Default `pick` behavior:** Calling `pick(keys)` without `{ optional: ... }` makes every picked key required in the derived schema by default. Use `{ optional: "auto" }` to respect field-level optionality.
+## API
 
-## Non-Goals
+### Root entry (`@nexload-sdk/payload-schema`)
 
-The package does not create collections, infer CRUD schemas, model populated relationship documents, generate persistence types, own access control or hooks, provide a rich-text editor, or implement business workflows.
+| Export | Kind | Summary |
+| --- | --- | --- |
+| `defineEntity` | `function` | Creates an entity definition with `name`, `idSchema`, `fields`, `schema()`, and `inspect()` |
+| `field` | `const` | Frozen factory object: `text`, `textarea`, `slug`, `number`, `money`, `boolean`, `date`, `select`, `relationship`, `upload`, `group`, `array`, `blocks`, `richText`, `native` |
+| `defaultIdSchema` | `const` | Default ID schema used for relationships |
+| `PayloadSchemaError` | `class` | Structured error with `code`, `phase`, and `data` |
+| `isPayloadSchemaError` | `function` | Type guard for `PayloadSchemaError` |
+| `EntityDefinition`, `*FieldOptions`, `PayloadSchemaError*` | `type` | Entity, field option, and error types |
 
-Payload-generated types remain authoritative for stored documents. See the [documentation](https://gecut.github.io/nexload-sdk/packages/payload-schema/) for architecture, field catalogs, and guides.
+### Payload subpath (`@nexload-sdk/payload-schema/payload`)
+
+| Export | Kind | Summary |
+| --- | --- | --- |
+| `payloadFields` | `function` | Compiles an `EntityDefinition` into Payload fields with `beforeValidate` hooks (Node-only) |
+| `EntityPayloadFacade` | `type` | Return interface (`all()`, `field(key)`, `pick(keys)`) |
+
+## Configuration
+
+Field factories accept options including `required`, `nullable`, `defaultValue`, `dynamicDefaultValue`, and `payload` (extra Payload field properties). `text`, `textarea`, `slug`, `number`, `money`, `boolean`, and `date` accept a `schema: (schema) => schema` customizer. `select`, `relationship`, `upload`, and composite fields (`group`, `array`, `blocks`) do not take `schema`. `richText` requires a Zod `schema`; `native` takes an optional Zod `schema` and has no `required` or `nullable` option. `defaultValue` validates at `defineEntity` time; neither `defaultValue` nor `dynamicDefaultValue` adds Zod `.default()` to derived schemas, and providing both is invalid. The canonical `defaultValue` result is passed to Payload; `dynamicDefaultValue` is forwarded opaquely as a native Payload function. Direct `payload.defaultValue` is reserved.
+
+## Runtime and compatibility
+
+- **Module format:** ESM-only (`type: "module"`).
+- **Root entry:** Universal (Browser, Edge, Bun, Node.js).
+- **Payload subpath (`./payload`):** Node.js `>=20.9.0` / Payload config only.
+- **Peers:** `payload >=3.85.0 <4.0.0`, `zod >=4.1.0 <5.0.0`.
+
+## Caveats
+
+> [!WARNING]
+> Calling `pick(keys)` without an `optional` option makes every picked key required in the derived schema by default.
+
+> [!WARNING]
+> Child fields inside `field.blocks()` cannot be named `id`, `blockName`, or `blockType`; configuring them throws `PayloadSchemaError` (`INVALID_FIELD_CONFIGURATION`) at definition time.
+
+> [!NOTE]
+> Canonical `beforeValidate` hooks pass `null` and `undefined` through unchanged so Payload's required check handles missing required fields. Required fields then fail with Payload's "This field is required." message instead of a Zod type error. Custom transforms inside `options.schema(...)` are not codec-safe for `z.encode`; use `.refine()` or `.overwrite()` when schemas are used in `@nexload-sdk/payload-operations` outputs.
+
+## Migration
+
+### From 2.x to 3.0
+
+- Replace `entity.payload.*` with `payloadFields(entity).*` imported from `@nexload-sdk/payload-schema/payload`.
+- Upgrade `zod` to `>=4.1.0 <5.0.0`.
+- Review `group`, `array`, and `blocks` schemas: non-required children are now `nullable().optional()`.
+- Rename any block child fields named `id`, `blockName`, or `blockType`.
+- The runtime `field.date()` hook accepts valid `Date` instances and normalizes them to ISO 8601 strings. Derived and canonical schemas remain strict ISO strings and reject `Date` objects. `null` passes through hooks unchanged.
+
+## Related packages
+
+- [payload-fields](../payload-fields/README.md) — Exposes `./schema` (`schemaFields`) built on `field.native()`
+- [payload-operations](../payload-operations/README.md) — Uses codec-safe Zod schemas for typed RPC contracts
+- [payload-editor](../payload-editor/README.md) — Lexical editor presets for `field.richText()`
+
+## License
+
+MIT
