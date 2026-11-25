@@ -1,0 +1,55 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/mm25zamanian/.local/bin/enola hook post-tool",
+            "source": "enola",
+            "timeout": 60,
+            "type": "command"
+          }
+        ],
+        "matcher": "mcp__enola__.*|mcp__plugin_enola_.*"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/mm25zamanian/.local/bin/enola hook pre-tool",
+            "source": "enola",
+            "timeout": 60,
+            "type": "command"
+          }
+        ],
+        "matcher": "Grep|Glob|Bash"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/mm25zamanian/.local/bin/enola hook session-start --agent=claude",
+            "source": "enola",
+            "timeout": 60,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/mm25zamanian/.local/bin/enola hook stop",
+            "source": "enola",
+            "timeout": 60,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    ".opencode/enola.md"
+  ],
+  "mcp": {
+    "enola": {
+      "command": [
+        "/Users/mm25zamanian/.local/bin/enola"
+      ],
+      "enabled": true,
+      "type": "local"
+    }
+  }
+}

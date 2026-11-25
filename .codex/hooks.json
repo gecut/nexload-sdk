@@ -1,0 +1,31 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "async": false,
+            "command": "/Users/mm25zamanian/.local/bin/enola hook session-start",
+            "source": "enola",
+            "timeoutSec": 60,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "async": false,
+            "command": "/Users/mm25zamanian/.local/bin/enola hook stop",
+            "source": "enola",
+            "timeoutSec": 60,
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}
