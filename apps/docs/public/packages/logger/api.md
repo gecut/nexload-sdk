@@ -129,7 +129,7 @@ logger: Logger
 
 Public constant exported by @nexload-sdk/logger.
 
-[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts#L17)
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts#L18)
 
 ## Interfaces
 
@@ -228,6 +228,21 @@ type LogLevel =
 Public type exported by @nexload-sdk/logger.
 
 [Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L1)
+
+### `PayloadLoggerConfig`
+
+```ts
+type PayloadLoggerConfig = {
+  options: ReturnType<typeof buildPinoOptions>;
+  destination?: LoggerOptions["destination"];
+};
+```
+
+**Exported from:** `@nexload-sdk/logger`
+
+Public type exported by @nexload-sdk/logger.
+
+[Source](https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L16)
 
 ***
 

@@ -34,8 +34,8 @@
         "signature": "logger: Logger",
         "description": "Public constant exported by @nexload-sdk/logger.",
         "source": "packages/logger/src/index.ts",
-        "line": 17,
-        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts#L17",
+        "line": 18,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/index.ts#L18",
         "exportPaths": [
           "@nexload-sdk/logger"
         ]
@@ -180,6 +180,18 @@
         "source": "packages/logger/src/types.ts",
         "line": 1,
         "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/types.ts#L1",
+        "exportPaths": [
+          "@nexload-sdk/logger"
+        ]
+      },
+      {
+        "name": "PayloadLoggerConfig",
+        "category": "types",
+        "signature": "type PayloadLoggerConfig = {\n  options: ReturnType<typeof buildPinoOptions>;\n  destination?: LoggerOptions[\"destination\"];\n};",
+        "description": "Public type exported by @nexload-sdk/logger.",
+        "source": "packages/logger/src/config.ts",
+        "line": 16,
+        "sourceUrl": "https://github.com/gecut/nexload-sdk/blob/main/packages/logger/src/config.ts#L16",
         "exportPaths": [
           "@nexload-sdk/logger"
         ]
