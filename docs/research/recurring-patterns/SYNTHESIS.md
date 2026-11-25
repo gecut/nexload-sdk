@@ -52,7 +52,7 @@ have the strongest evidence, and share #9 (outbox). #3 OTP and #4 Persian utils 
 - Payment spec draft (parked; still env-based, needs the client-editable global config + installment gateways):
   `docs/superpowers/specs/2026-11-22-payment-module-design.md`
 - SMS spec draft (parked): `docs/superpowers/specs/2026-11-22-sms-module-design.md`
-- Payload preset design (approved approach C) and plan (ready to execute; Step 0 done, decisions D1–D9 in the plan):
+- Payload preset design (approved approach C, revision 2 on 2026-11-24) and plan (ready to execute after Step 0; decisions D1–D15 in the plan):
   `docs/superpowers/specs/2026-11-23-payload-preset-design.md`, `docs/superpowers/plans/2026-11-23-payload-preset.md`
 - Current focus: `@nexload-sdk/logger` as the base package.
 
