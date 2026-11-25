@@ -58,6 +58,24 @@ jobs:
       - name: Test payload-operations SQLite integration
         run: pnpm -C packages/payload-operations test:sqlite
 
+      - name: Test logger
+        run: pnpm -C packages/logger test
+
+      - name: Test payload-hooks
+        run: pnpm -C packages/payload-hooks test
+
+      - name: Test payload-fields
+        run: pnpm -C packages/payload-fields test
+
+      - name: Test payload-fields SQLite integration
+        run: pnpm -C packages/payload-fields test:sqlite
+
+      - name: Test payload-preset
+        run: pnpm -C packages/payload-preset test
+
+      - name: Test payload-preset SQLite integration
+        run: pnpm -C packages/payload-preset test:sqlite
+
   postgres:
     runs-on: ubuntu-latest
     services:
